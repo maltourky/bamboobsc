@@ -4,7 +4,6 @@
 
 <h2>bambooBSC is an opensource Balanced Scorecard (BSC) Business Intelligence</h2>
 <br/>
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/billchen198318/bamboobsc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 <br/>
 Features:<br/>
 1. BSC's Vision, Perspectives, Objectives of strategy, Key Performance Indicators (KPIs). and Maintain measure-data.<br/>
