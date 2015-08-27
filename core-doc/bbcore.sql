@@ -514,7 +514,7 @@ CREATE TABLE `bb_strategy_map` (
 
 LOCK TABLES `bb_strategy_map` WRITE;
 /*!40000 ALTER TABLE `bb_strategy_map` DISABLE KEYS */;
-INSERT INTO `bb_strategy_map` VALUES ('9d8ba8da-84ea-4605-90a9-63daaa24ed7d','VIS20141114001','tester','2014-12-22 19:40:10',NULL,NULL);
+INSERT INTO `bb_strategy_map` VALUES ('015a46f1-c57a-499a-8cab-41ed72ed6bc3','VIS20141114001','admin','2015-08-27 20:46:19',NULL,NULL);
 /*!40000 ALTER TABLE `bb_strategy_map` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -546,7 +546,7 @@ CREATE TABLE `bb_strategy_map_conns` (
 
 LOCK TABLES `bb_strategy_map_conns` WRITE;
 /*!40000 ALTER TABLE `bb_strategy_map_conns` DISABLE KEYS */;
-INSERT INTO `bb_strategy_map_conns` VALUES ('2362ed05-2599-4af7-9d5b-e6a2dbf81c18','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_23','OBJ20141117001','OBJ20141127001','tester','2014-12-22 19:40:10',NULL,NULL),('29c149af-9320-4da3-90e4-7696d67567a2','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_11','OBJ20141127002','OBJ20141117001','tester','2014-12-22 19:40:10',NULL,NULL),('322fbf80-c41f-41a7-87e9-0589ad51d88c','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_29','OBJ20141127004','OBJ20141127003','tester','2014-12-22 19:40:11',NULL,NULL),('407aabd4-db35-4ab2-9eb4-2e3c983070c2','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_5','OBJ20141127002','OBJ20141127001','tester','2014-12-22 19:40:10',NULL,NULL),('c2be3d62-ed6c-416f-b71b-664298f3e73a','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_17','OBJ20141127003','OBJ20141127002','tester','2014-12-22 19:40:10',NULL,NULL),('ed659e3a-f1a5-4c40-a577-0cd35c60ac5b','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','con_35','OBJ20141127001','OBJ20141117001','tester','2014-12-22 19:40:11',NULL,NULL);
+INSERT INTO `bb_strategy_map_conns` VALUES ('163f3553-360c-4c21-86de-cb90f810d2aa','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_35','OBJ20141127001','OBJ20141117001','admin','2015-08-27 20:46:19',NULL,NULL),('2e6f7520-7151-4f0c-ab7f-ee20d6be7bc3','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_23','OBJ20141127002','OBJ20141127001','admin','2015-08-27 20:46:19',NULL,NULL),('4fa1cc74-c4ac-49f5-b1ab-7102985721a1','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_5','OBJ20141117001','OBJ20141127001','admin','2015-08-27 20:46:19',NULL,NULL),('d87dbf21-957b-401d-b03b-3808519bc9c0','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_17','OBJ20141127004','OBJ20141127003','admin','2015-08-27 20:46:19',NULL,NULL),('e9818284-e823-438c-92a4-118fd1f97908','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_29','OBJ20141127003','OBJ20141127002','admin','2015-08-27 20:46:19',NULL,NULL),('f1f0e0d4-1e85-439b-9ccd-1306cd1bd40b','015a46f1-c57a-499a-8cab-41ed72ed6bc3','con_11','OBJ20141127002','OBJ20141117001','admin','2015-08-27 20:46:19',NULL,NULL);
 /*!40000 ALTER TABLE `bb_strategy_map_conns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -579,7 +579,7 @@ CREATE TABLE `bb_strategy_map_nodes` (
 
 LOCK TABLES `bb_strategy_map_nodes` WRITE;
 /*!40000 ALTER TABLE `bb_strategy_map_nodes` DISABLE KEYS */;
-INSERT INTO `bb_strategy_map_nodes` VALUES ('0d2c2df7-bf62-498c-9a64-eb38050d2437','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','OBJ20141117001','Enhance turnover',13,10,'tester','2014-12-22 19:40:11',NULL,NULL),('2ccaac06-09db-4ed1-b43d-a8dd37c47ea9','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','OBJ20141127004','Capacity building objectives',146,318,'tester','2014-12-22 19:40:11',NULL,NULL),('94134af5-1f93-41dc-a45b-549f7542d5a1','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','OBJ20141127002','Increase customer',146,128,'tester','2014-12-22 19:40:11',NULL,NULL),('b33f7983-ac24-46fa-842d-b87ac872b33e','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','OBJ20141127003','Upgrade organization',146,221,'tester','2014-12-22 19:40:11',NULL,NULL),('f5de2d18-e7e1-4ba4-b63b-2c5dea3345b6','9d8ba8da-84ea-4605-90a9-63daaa24ed7d','OBJ20141127001','Investment',311,13,'tester','2014-12-22 19:40:11',NULL,NULL);
+INSERT INTO `bb_strategy_map_nodes` VALUES ('38a63e93-4f20-4885-b9f7-cb8f0ba4290a','015a46f1-c57a-499a-8cab-41ed72ed6bc3','OBJ20141117001','Enhance turnover',13,10,'admin','2015-08-27 20:46:19',NULL,NULL),('6c47dea9-1040-4111-9588-d0286ff34a8c','015a46f1-c57a-499a-8cab-41ed72ed6bc3','OBJ20141127003','Upgrade organization',146,221,'admin','2015-08-27 20:46:19',NULL,NULL),('b4ff1a80-c8ef-45cc-b853-d553cf0f32f5','015a46f1-c57a-499a-8cab-41ed72ed6bc3','OBJ20141127004','Capacity building objectives',146,318,'admin','2015-08-27 20:46:19',NULL,NULL),('c6d3fbe7-ec1e-43c3-a77b-bbfd4c674837','015a46f1-c57a-499a-8cab-41ed72ed6bc3','OBJ20141127002','Increase customer',146,128,'admin','2015-08-27 20:46:19',NULL,NULL),('ff41c60b-c313-4990-b254-aa2aed1cc362','015a46f1-c57a-499a-8cab-41ed72ed6bc3','OBJ20141127001','Investment',311,13,'admin','2015-08-27 20:46:19',NULL,NULL);
 /*!40000 ALTER TABLE `bb_strategy_map_nodes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1345,7 +1345,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861439213617699',1439213820966,7500);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861440680976845',1440681128813,7500);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1449,7 +1449,7 @@ CREATE TABLE `qrtz_triggers` (
 
 LOCK TABLES `qrtz_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1439213880000,1439213820000,0,'WAITING','CRON',1439213617000,0,NULL,0,'');
+INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1440681180000,1440681120000,0,'WAITING','CRON',1440680976000,0,NULL,0,'');
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2317,7 +2317,7 @@ CREATE TABLE `tb_sys_msg_notice` (
 
 LOCK TABLES `tb_sys_msg_notice` WRITE;
 /*!40000 ALTER TABLE `tb_sys_msg_notice` DISABLE KEYS */;
-INSERT INTO `tb_sys_msg_notice` VALUES ('3a60e27e-2efb-479f-bb48-8bdb30d7d76a','MSG001','PUBMSG0001','Welcome!','bambooBSC is an opensource Balanced Scorecard (BSC)\n\nproject contact: \nchen.xin.nien@gmail.com\n\nproject site:\nhttp://sourceforge.net/projects/bamboobsc/\n','20141001-20501231','0001-2359','Y','*','admin','2014-01-01 00:00:01','admin','2014-10-21 12:22:11');
+INSERT INTO `tb_sys_msg_notice` VALUES ('3a60e27e-2efb-479f-bb48-8bdb30d7d76a','MSG001','PUBMSG0001','Welcome!','bambooBSC - opensource Balanced Scorecard (BSC) Business Intelligence \n\nproject contact: \nchen.xin.nien@gmail.com\n\nproject site:\nhttps://github.com/billchen198318/bamboobsc\n','20141001-20501231','0001-2359','Y','*','admin','2014-01-01 00:00:01','admin','2015-08-27 20:58:35');
 /*!40000 ALTER TABLE `tb_sys_msg_notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2697,4 +2697,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-10 21:38:31
+-- Dump completed on 2015-08-27 21:13:10

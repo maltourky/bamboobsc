@@ -1,3 +1,9 @@
+2015-09-01
+-----------------------------------------------------------
+1. Update BSC-strategy-map used jsPlumb-LIB to new version.
+2. Some modifications
+
+
 2015-08-10
 -----------------------------------------------------------
 1. Add "Max" field for KPI / KPI-Report / Personal-Report / Department-Report.
