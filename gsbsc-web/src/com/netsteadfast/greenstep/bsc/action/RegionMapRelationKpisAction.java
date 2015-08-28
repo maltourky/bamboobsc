@@ -179,8 +179,8 @@ public class RegionMapRelationKpisAction extends BaseJsonAction {
 							names, 
 							values, 
 							colors,
-							440,
-							320,
+							480,
+							280,
 							false)
 			);			
 			this.pieUploadOids.add(
@@ -189,8 +189,8 @@ public class RegionMapRelationKpisAction extends BaseJsonAction {
 							names, 
 							values, 
 							colors, 
-							440, 
-							320)
+							480, 
+							280)
 			);
 		}
 	}

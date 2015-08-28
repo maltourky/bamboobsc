@@ -124,8 +124,10 @@ function BSC_PROG001D0006Q_map_initialize() {
 								for ( var nx in kData.barUploadOids ) {
 									infoWinContent += '<table border="0" width="100%">';
 									infoWinContent += '<tr>';
-									infoWinContent += '<td width="50%" align="center"><img src="${basePath}/bsc.commonBarChartAction.action?oid=' + kData.barUploadOids[nx] + '" border="0" /></td>';
-									infoWinContent += '<td width="50%" align="center"><img src="${basePath}/bsc.commonPieChartAction.action?oid=' + kData.pieUploadOids[nx] + '" border="0" /></td>';
+									infoWinContent += '<td width="100%" align="center"><img src="${basePath}/bsc.commonBarChartAction.action?oid=' + kData.barUploadOids[nx] + '" border="0" /></td>';
+									infoWinContent += '</tr>';
+									infoWinContent += '<tr>';
+									infoWinContent += '<td width="100%" align="center"><img src="${basePath}/bsc.commonPieChartAction.action?oid=' + kData.pieUploadOids[nx] + '" border="0" /></td>';
 									infoWinContent += '</tr>';
 									infoWinContent += '</table>';
 								}
