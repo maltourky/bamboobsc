@@ -298,7 +298,7 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" cellpadding="0" cellspacing="0" >
 		<tr valign="top">
-			<td width="75%" height="100%">
+			<td width="80%" height="100%">
 			
 				<div dojoType="dijit.layout.BorderContainer" style="height:900px">
 					<div dojoType="dijit.layout.ContentPane" region="center" style="overflow:hidden">
@@ -307,7 +307,7 @@ function ${programId}_page_message() {
 				</div>    						
 				
 			</td>			
-			<td width="25%" height="100%">
+			<td width="20%" height="100%">
 				
 				<table border="0" width="100%" cellpadding="1" cellspacing="1" >
 					<tr>
