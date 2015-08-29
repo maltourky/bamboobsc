@@ -1,7 +1,8 @@
 2015-09-01
 -----------------------------------------------------------
 1. Update BSC-strategy-map used jsPlumb-LIB to new version.
-2. Some modifications
+2. Add lost password command line tools.
+3. Some modifications
 
 
 2015-08-10
