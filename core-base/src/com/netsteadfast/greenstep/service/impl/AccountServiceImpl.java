@@ -134,7 +134,7 @@ public class AccountServiceImpl extends BaseService<AccountVO, TbAccount, String
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST));
 		}
 		String newPasswordStr = SimpleUtils.createRandomString(5); 
-		entity.setPassword( SimpleUtils.toMD5Hex( SimpleUtils.toB64(newPasswordStr) ) );
+		entity.setPassword( this.tranPassword(newPasswordStr) );
 		this.update(entity);
 		return newPasswordStr;
 	}		
