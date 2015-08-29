@@ -21,12 +21,14 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -35,12 +37,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.netsteadfast.greenstep.base.Constants;
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.dao.IAccountDAO;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.service.IAccountService;
+import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 
 @Service("core.service.AccountService")
@@ -107,5 +112,31 @@ public class AccountServiceImpl extends BaseService<AccountVO, TbAccount, String
 		}
 		return dataMap;
 	}
+
+	@Override
+	public String tranPassword(String password) throws Exception {
+		return SimpleUtils.toMD5Hex( SimpleUtils.toB64(password) );
+	}
+	
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
+	@Override
+	public String generateNewPassword(String account) throws ServiceException, Exception {		
+		if (StringUtils.isBlank(account)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		TbAccount entity = new TbAccount();
+		entity.setAccount(account);
+		entity = this.findByEntityUK(entity);
+		if (entity==null || StringUtils.isBlank(entity.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST));
+		}
+		String newPasswordStr = SimpleUtils.createRandomString(5); 
+		entity.setPassword( SimpleUtils.toMD5Hex( SimpleUtils.toB64(newPasswordStr) ) );
+		this.update(entity);
+		return newPasswordStr;
+	}		
 
 }

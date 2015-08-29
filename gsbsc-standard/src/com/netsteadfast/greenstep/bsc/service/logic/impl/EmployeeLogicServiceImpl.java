@@ -67,7 +67,6 @@ import com.netsteadfast.greenstep.service.ISysCalendarNoteService;
 import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysMsgNoticeService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
-import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.EmployeeOrgaVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
@@ -248,16 +247,12 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		}
 		return role;
 	}
-
-	private String tranPassword(String password) {
-		return SimpleUtils.toMD5Hex( SimpleUtils.toB64(password) );
-	}
 	
-	private AccountVO tranAccount(EmployeeVO employee) {
+	private AccountVO tranAccount(EmployeeVO employee) throws Exception {
 		AccountVO account = new AccountVO();
 		account.setAccount(employee.getAccount());
 		account.setOnJob(YesNo.YES);
-		account.setPassword( this.tranPassword(employee.getPassword()) );		
+		account.setPassword( this.accountService.tranPassword(employee.getPassword()) );		
 		return account;
 	}
 
@@ -345,10 +340,10 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 			throw new ServiceException( mResult.getSystemMessage().getValue() );
 		}
 		account = mResult.getValue();
-		if (!account.getPassword().equals( this.tranPassword(employee.getPassword()) ) ) {
+		if (!account.getPassword().equals( this.accountService.tranPassword(employee.getPassword()) ) ) {
 			throw new ServiceException("The current password(old password) is incorrect!");
 		}		
-		account.setPassword( this.tranPassword(newPassword) );		
+		account.setPassword( this.accountService.tranPassword(newPassword) );		
 		return accountService.updateObject(account);
 	}
 

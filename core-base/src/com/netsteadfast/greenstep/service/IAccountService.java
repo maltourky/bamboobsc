@@ -44,4 +44,8 @@ public interface IAccountService<T extends java.io.Serializable, E extends java.
 	 */
 	public Map<String, String> findForAllMap(boolean pleaseSelect) throws ServiceException, Exception; 
 	
+	public String tranPassword(String password) throws Exception;
+	
+	public String generateNewPassword(String account) throws ServiceException, Exception;
+	
 }
