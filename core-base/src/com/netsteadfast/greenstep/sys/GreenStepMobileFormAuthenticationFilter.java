@@ -46,7 +46,6 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.service.IAccountService;
-import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 
 /**
@@ -94,9 +93,15 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 		//boolean rememberMe = StringUtils.defaultString(isRememberMe(request));
 		boolean rememberMe = false;
 		String host = StringUtils.defaultString(getHost(request));
+		char pwd[] = null;
+		try {
+			pwd = this.accountService.tranPassword(password).toCharArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return new GreenStepBaseUsernamePasswordToken(
 				username, 
-				SimpleUtils.toMD5Hex(SimpleUtils.toB64(password)).toCharArray(), 
+				pwd, 
 				rememberMe, 
 				host, 
 				captcha);

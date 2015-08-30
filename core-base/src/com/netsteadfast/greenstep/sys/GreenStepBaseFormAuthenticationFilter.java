@@ -97,9 +97,15 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 		//boolean rememberMe = StringUtils.defaultString(isRememberMe(request));
 		boolean rememberMe = false;
 		String host = StringUtils.defaultString(getHost(request));
+		char pwd[] = null;
+		try {
+			pwd = this.accountService.tranPassword(password).toCharArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return new GreenStepBaseUsernamePasswordToken(
 				username, 
-				SimpleUtils.toMD5Hex(SimpleUtils.toB64(password)).toCharArray(), 
+				pwd, 
 				rememberMe, 
 				host, 
 				captcha);
