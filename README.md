@@ -9,7 +9,7 @@ Features:<br/>
 1. BSC's Vision, Perspectives, Objectives of strategy, Key Performance Indicators (KPIs). and Maintain measure-data.<br/>
 2. KPI report, Personal and organization BSC report. can custom workspace's layout<br/>
 3. Strategy Map, and BSC SWOT.<br/>
-4. Can custom SQL query results show as Charts ( PIE, BAR, LINE, AREA ) on QCHARTS-WEB.<br/>
+4. Can custom SQL-Client query results show as Charts ( PIE, BAR, LINE, AREA ) on QCHARTS-WEB.<br/>
 5. Provides a simple OLAP query.<br/>
 6. Provides sourcecard query for a mobile-device browser.
 <br/><br/>
@@ -58,7 +58,7 @@ bambooBSC is released under version 2.0 of the Apache Version 2.0
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc-guide.pdf">bamboobsc-guide.pdf</a>
 <br/><br/>
 <h2>Download:</h2>
-https://github.com/billchen198318/bamboobsc/releases/download/v0.5-20150810/bamboobsc-05-20150810.7z
+https://github.com/billchen198318/bamboobsc/releases/download/v0.5-20150901/bamboobsc-05-20150901.7z
 <br/><br/>
 contact: chen.xin.nien@gmail.com
 <br/><br/>
@@ -113,7 +113,7 @@ and save my.cnf
 ###3. Get bambooBSC environment file
 ```
 # cd /home/pi
-# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.5-20150810/bamboobsc-05-20150810.7z
+# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.5-20150901/bamboobsc-05-20150901.7z
 ```
 
 ###4. Install P7ZIP
@@ -123,7 +123,7 @@ and save my.cnf
 
 ###5. Extract the archive
 ```
-# p7zip -d bamboobsc-05-20150810.7z
+# p7zip -d bamboobsc-05-20150901.7z
 ```
 
 ###6. Import bbcore.sql to MySQL
@@ -138,13 +138,13 @@ mysql> exit;<br/>
 ```
 
 ###7. Config applicationContext-dataSource.properties
-config A ( CORE system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.63/webapps/<b>core-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
+config A ( CORE system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.64/webapps/<b>core-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
 <br/>
-config B (Balanced Scorecard system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.63/webapps/<b>gsbsc-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
+config B (Balanced Scorecard system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.64/webapps/<b>gsbsc-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
 <br/>
-config C (Simple OLAP system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.63/webapps/<b>qcharts-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
+config C (Simple OLAP system ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.64/webapps/<b>qcharts-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
 <br/>
-config D (Mobile web ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.63/webapps/<b>gsbsc-mobile-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
+config D (Mobile web ).<br/> /home/pi/bamboobsc-05/apache-tomcat-7.0.64/webapps/<b>gsbsc-mobile-web</b>/WEB-INF/classes/applicationContext/conf/applicationContext-dataSource.properties<br/>
 <br/>
 settings <b>dataSource.user</b> and <b>dataSource.password</b> <br/>
 dataSource.user is MySQL account<br/>
@@ -164,7 +164,7 @@ dataSource.password=password
 
 ###9. Run bambooBSC 0.5
 ```
-# cd /home/pi/bamboobsc-05/apache-tomcat-7.0.63/bin
+# cd /home/pi/bamboobsc-05/apache-tomcat-7.0.64/bin
 # chmod a+x catalina.sh
 # chmod a+x shutdown.sh
 # chmod a+x startup.sh
@@ -248,4 +248,20 @@ settings Text file encoding to UTF-8<br/>
 
    no found Java Problem, Environment Setup Complete<br/>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/012.png"></img>
+
+
+
+###Install on Amazon EC2 Failed to get local InetAddress for VMID
+
+cannot connect to MySQL database
+
+Solutions:
+special thanks <a href="https://plus.google.com/u/0/112723956548660763829?prsrc=4">Andre Luiz F. Faleiro | eKaizen</a>
+
+Andre Luiz F. Faleiro | eKaizen:
+It was in Amazon EC2 that need to be configured to recognize localhost instead of the EC2-name-ip that is created when se server is setup.
+
+This page below helped me.
+
+http://stackoverflow.com/questions/603351/can-we-set-easy-to-remember-hostnames-for-ec2-instances
 
