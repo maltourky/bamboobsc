@@ -184,6 +184,22 @@ example (if raspberry pi 2 IP-Address is 192.168.1.100) :<br/>
 the log file on /tmp/
 
 <br/>
+
+###Install on Amazon EC2 Failed to get local InetAddress for VMID
+
+cannot connect to MySQL database
+
+Solutions:
+special thanks <a href="https://plus.google.com/u/0/112723956548660763829?prsrc=4">Andre Luiz F. Faleiro | eKaizen</a>
+
+Andre Luiz F. Faleiro | eKaizen:
+It was in Amazon EC2 that need to be configured to recognize localhost instead of the EC2-name-ip that is created when se server is setup.
+
+This page below helped me.
+
+http://stackoverflow.com/questions/603351/can-we-set-easy-to-remember-hostnames-for-ec2-instances
+
+<br/>
 <br/>
 
 ###Build development environments
@@ -248,20 +264,3 @@ settings Text file encoding to UTF-8<br/>
 
    no found Java Problem, Environment Setup Complete<br/>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/012.png"></img>
-
-
-
-###Install on Amazon EC2 Failed to get local InetAddress for VMID
-
-cannot connect to MySQL database
-
-Solutions:
-special thanks <a href="https://plus.google.com/u/0/112723956548660763829?prsrc=4">Andre Luiz F. Faleiro | eKaizen</a>
-
-Andre Luiz F. Faleiro | eKaizen:
-It was in Amazon EC2 that need to be configured to recognize localhost instead of the EC2-name-ip that is created when se server is setup.
-
-This page below helped me.
-
-http://stackoverflow.com/questions/603351/can-we-set-easy-to-remember-hostnames-for-ec2-instances
-
