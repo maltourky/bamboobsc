@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </tr>
   <tr>
     <td width="48" bgcolor="#E9D8D8">&nbsp;</td>
-    <td bgcolor="#E9D8D8"><strong>content:</strong> <a href="mailto:<s:property value="errorContent"/>"><s:property value="errorContent"/></a> </td>
+    <td bgcolor="#E9D8D8"><strong>contact:</strong> <a href="mailto:<s:property value="errorContent"/>"><s:property value="errorContent"/></a> </td>
   </tr>
 </table>
 
