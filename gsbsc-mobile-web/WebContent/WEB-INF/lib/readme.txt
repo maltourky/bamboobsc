@@ -300,7 +300,7 @@ commons-javaflow-20060411.jar
 iText-2.1.7.js2.jar
 text-pdfa-5.5.0.jar 	(remove)
 itextpdf-5.5.0.jar		(remove)
-jdt-compiler-3.1.1.jar  (remove) conflict with Drools , core-3.3.0-v_771.jar Replace
+jdt-compiler-3.1.1.jar  (remove) conflict with Drools , org.eclipse.jdt.core_3.10.2.v20150120-1634.jar Replace
 commons-digester-2.1.jar
 groovy-all-2.0.1.jar	(remove)
 fireflysung.jar (FONT TrueType)
@@ -349,26 +349,66 @@ http://www.lingala.net/zip4j/
 zip4j_1.3.2.jar
 
 
-Drools
+jBPM & Drools
 -------------------------
-antlr-runtime-3.5.jar
-core-3.3.0-v_771.jar
-drools-compiler-6.1.0.Final.jar
-drools-core-6.1.0.Final.jar
-drools-decisiontables-6.1.0.Final.jar
-drools-jsr94-6.1.0.Final.jar
-drools-persistence-jpa-6.1.0.Final.jar
-drools-templates-6.1.0.Final.jar
-drools-verifier-6.1.0.Final.jar
-kie-api-6.1.0.Final.jar
-kie-ci-6.1.0.Final.jar
-kie-internal-6.1.0.Final.jar
-mvel2-2.2.1.Final.jar
-xstream-1.4.7.jar
+antlr-runtime.jar
+drools-compiler-6.2.0.Final.jar
+drools-compiler.jar
+drools-core-6.2.0.Final.jar
+drools-core.jar
+drools-decisiontables-6.2.0.Final.jar
+drools-jsr94-6.2.0.Final.jar
+drools-persistence-jpa-6.2.0.Final.jar
+drools-pmml-6.2.0.Final.jar
+drools-reteoo-6.2.0.Final.jar
+drools-rhq-plugin-6.2.0.Final.jar
+drools-scorecards-6.2.0.Final.jar
+drools-templates-6.2.0.Final.jar
+drools-verifier-6.2.0.Final.jar
+jbpm-audit-6.2.0.Final.jar
+jbpm-audit.jar
+jbpm-bpmn2-6.2.0.Final.jar
+jbpm-bpmn2.jar
+jbpm-executor-6.2.0.Final.jar
+jbpm-flow-6.2.0.Final.jar
+jbpm-flow-builder-6.2.0.Final.jar
+jbpm-flow-builder.jar
+jbpm-flow.jar
+jbpm-human-task-audit-6.2.0.Final.jar
+jbpm-human-task-core-6.2.0.Final.jar
+jbpm-human-task-jpa-6.2.0.Final.jar
+jbpm-human-task-workitems-6.2.0.Final.jar
+jbpm-kie-services-6.2.0.Final.jar
+jbpm-persistence-jpa-6.2.0.Final.jar
+jbpm-runtime-manager-6.2.0.Final.jar
+jbpm-services-api-6.2.0.Final.jar
+jbpm-services-ejb-api-6.2.0.Final.jar
+jbpm-services-ejb-client-6.2.0.Final.jar
+jbpm-services-ejb-impl-6.2.0.Final.jar
+jbpm-services-ejb-timer-6.2.0.Final.jar
+jbpm-shared-services-6.2.0.Final.jar
+jbpm-test-6.2.0.Final.jar
+jbpm-workitems-6.2.0.Final.jar
+kie-api-6.2.0.Final.jar
+kie-api.jar
+kie-aries-blueprint-6.2.0.Final.jar
+kie-ci-6.2.0.Final.jar
+kie-ci-osgi-6.2.0.Final.jar
+kie-internal-6.2.0.Final.jar
+kie-internal.jar
+kie-maven-plugin-6.2.0.Final.jar
+kie-remote-client-6.2.0.Final.jar
+kie-remote-common-6.2.0.Final.jar
+kie-remote-jaxb-6.2.0.Final.jar
+kie-spring-6.2.0.Final.jar
+knowledge-api-6.2.0.Final.jar
+mvel2.jar
+org.eclipse.jdt.core_3.10.2.v20150120-1634.jar
 
 
 for xstream
 -------------------------
+xstream-1.4.7.jar
 xmlpull-1.1.3.1.jar
 xpp3-1.1.3.3.jar
 
