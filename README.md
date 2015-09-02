@@ -9,8 +9,8 @@ Features:<br/>
 1. BSC's Vision, Perspectives, Objectives of strategy, Key Performance Indicators (KPIs). and Maintain measure-data.<br/>
 2. KPI report, Personal and organization BSC report. can custom workspace's layout<br/>
 3. Strategy Map, and BSC SWOT.<br/>
-4. Provides SQL client query results show as Chart ( PIE, BAR, LINE, AREA ).
-5. Provides a simple OLAP client query.
+4. Provides SQL client query results show as Chart ( PIE, BAR, LINE, AREA ).<br/>
+5. Provides a simple OLAP client query.<br/>
 6. Provides Sourcecard query for mobile-device browser.
 <br/><br/>
 
