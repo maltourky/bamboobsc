@@ -406,11 +406,10 @@ mvel2.jar
 org.eclipse.jdt.core_3.10.2.v20150120-1634.jar
 
 
-for xstream
+xstream
 -------------------------
-xstream-1.4.7.jar
-xmlpull-1.1.3.1.jar
-xpp3-1.1.3.3.jar
+xstream.jar
+xpp3_min.jar
 
 
 OLAP4J with mondrian
