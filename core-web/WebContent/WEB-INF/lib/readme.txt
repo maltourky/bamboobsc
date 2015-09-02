@@ -404,6 +404,10 @@ kie-spring-6.2.0.Final.jar
 knowledge-api-6.2.0.Final.jar
 mvel2.jar
 org.eclipse.jdt.core_3.10.2.v20150120-1634.jar
+btm-2.1.4.jar
+btm-tomcat55-lifecycle-2.1.4.jar
+protobuf-java-2.5.0.jar
+h2-1.3.168.jar
 
 
 xstream
