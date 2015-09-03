@@ -70,9 +70,9 @@ http://www.beanshell.org/
 bsh-2.1.8.jar
 
 
-MYBATIS(iBATIS)
+MYBATIS(iBATIS)  *** Must be compatible with the version of Activiti ***
 -------------------------
-mybatis-3.3.0.jar
+mybatis-3.2.5.jar
 mybatis-spring-1.2.3.jar
 
 
