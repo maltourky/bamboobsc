@@ -30,12 +30,12 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.gsweb.components.util.ComponentResourceUtils;
 import org.gsweb.components.util.UIComponent;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opensymphony.xwork2.ActionContext;
 
 public class Select implements UIComponent {

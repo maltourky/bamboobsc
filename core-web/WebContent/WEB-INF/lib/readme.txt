@@ -347,10 +347,11 @@ ziplet-2.0.1-async.jar
 
 
 jackson
-http://mvnrepository.com/artifact/org.codehaus.jackson
+https://github.com/FasterXML
 -------------------------
-jackson-core-asl-1.9.13.jar
-jackson-mapper-asl-1.9.13.jar
+jackson-core-2.6.1.jar
+jackson-databind-2.6.1.jar
+jackson-annotations-2.6.1.jar
 
 
 Apache Shiro

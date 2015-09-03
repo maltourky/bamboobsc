@@ -29,8 +29,8 @@ import java.util.Map;
 import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ContextBase;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;

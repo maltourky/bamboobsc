@@ -33,10 +33,10 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.gsweb.components.util.ComponentResourceUtils;
 import org.gsweb.components.util.UIComponent;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.opensymphony.xwork2.ActionContext;
