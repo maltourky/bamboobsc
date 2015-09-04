@@ -3,7 +3,9 @@ package com.netsteadfast.greenstep.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
@@ -42,31 +44,44 @@ public class TestBPMN001 {
 	@Test
 	public void startProcess() throws Exception {
 		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("prog_id", "CORE_0001");
+		paramMap.put("user_account", "tester");
+		paramMap.put("description", "hello~~~");
+		paramMap.put("role", "BSC_STANDARD");
+		
+		String processId = "myProcess:1:10004";
+		
 		RuntimeService runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
-		ProcessInstance process = runtimeService.startProcessInstanceById("myProcess:1:4");
+		ProcessInstance process = runtimeService.startProcessInstanceById(processId, paramMap);
 		System.out.println("DeploymentId: " + process.getDeploymentId() );
 		System.out.println("ActivityId: " + process.getActivityId() );
 		System.out.println("Name: " + process.getName() );
 		System.out.println("ProcessDefinitionId: " + process.getProcessDefinitionId());
 		System.out.println("ProcessDefinitionKey: " + process.getProcessDefinitionKey());
 		System.out.println("ProcessDefinitionName: " + process.getProcessDefinitionName());
+		System.out.println("BusinessKey: " + process.getBusinessKey());
 		
 	}
 	
 	@Test
 	public void deleteProcess() throws Exception {
 		
+		String deploymentId = "10001";
+		
 		RepositoryService repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
-		repositoryService.deleteDeployment("1");
-		//repositoryService.deleteDeployment("1", true); no need it
+		repositoryService.deleteDeployment(deploymentId);
+		//repositoryService.deleteDeployment(processId, true); no need it
 		
 	}
 	
 	@Test
 	public void queryTask() throws Exception {
 		
+		String assignee = "張三";
+		
 		TaskService taskService = (TaskService) AppContext.getBean("taskService");
-		List<Task> tasks = taskService.createTaskQuery().taskAssignee("張三").list();
+		List<Task> tasks = taskService.createTaskQuery().taskAssignee( assignee ).list();
 		if (tasks == null || tasks.size()<1 ) {
 			System.out.println("no task.");
 			return;
@@ -113,7 +128,7 @@ public class TestBPMN001 {
 	@Test
 	public void queryFlowImage() throws Exception {
 		
-		String deploymentId = "1";
+		String deploymentId = "10001";
 		RepositoryService repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 		List<String> names = repositoryService.getDeploymentResourceNames(deploymentId);
 		for (String name : names) {
@@ -128,6 +143,9 @@ public class TestBPMN001 {
 	
 	@Test
 	public void completeTask() throws Exception {
+		
+		//String assignee = "張三";
+		String assignee = "王經理";
 				
 		TaskService taskService = (TaskService) AppContext.getBean("taskService");
 		List<Task> tasks = taskService.createTaskQuery().list();
@@ -136,7 +154,7 @@ public class TestBPMN001 {
 			return;
 		}
 		for (Task task : tasks) {
-			taskService.setAssignee(task.getId(), "張三");
+			taskService.setAssignee(task.getId(), assignee);
 			taskService.complete(task.getId());
 			this.printTask(task);
 		}
