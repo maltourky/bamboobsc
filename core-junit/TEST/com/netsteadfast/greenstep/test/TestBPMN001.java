@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
@@ -51,9 +52,10 @@ public class TestBPMN001 {
 		paramMap.put("role", "BSC_STANDARD");
 		
 		String processId = "myProcess:1:10004";
+		String bKey = UUID.randomUUID().toString();
 		
 		RuntimeService runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
-		ProcessInstance process = runtimeService.startProcessInstanceById(processId, paramMap);
+		ProcessInstance process = runtimeService.startProcessInstanceById(processId, bKey, paramMap);		
 		System.out.println("DeploymentId: " + process.getDeploymentId() );
 		System.out.println("ActivityId: " + process.getActivityId() );
 		System.out.println("Name: " + process.getName() );
