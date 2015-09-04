@@ -884,43 +884,13 @@ INSERT INTO `bb_aggregation_method` VALUES ('23eeecb4-6a6c-4d06-92fb-5d702ab53b0
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_defree_faceback_item`
+-- Table structure for table `bb_degree_feedback_assign`
 --
 
-DROP TABLE IF EXISTS `bb_defree_faceback_item`;
+DROP TABLE IF EXISTS `bb_degree_feedback_assign`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_defree_faceback_item` (
-  `OID` char(36) NOT NULL,
-  `PROJECT_OID` char(36) NOT NULL,
-  `NAME` varchar(100) NOT NULL,
-  `DESCRIPTION` varchar(500) DEFAULT NULL,
-  `CUSERID` varchar(24) NOT NULL,
-  `CDATE` datetime NOT NULL,
-  `UUSERID` varchar(24) DEFAULT NULL,
-  `UDATE` datetime DEFAULT NULL,
-  PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`PROJECT_OID`,`NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bb_defree_faceback_item`
---
-
-LOCK TABLES `bb_defree_faceback_item` WRITE;
-/*!40000 ALTER TABLE `bb_defree_faceback_item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_defree_faceback_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bb_degree_faceback_assign`
---
-
-DROP TABLE IF EXISTS `bb_degree_faceback_assign`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_degree_faceback_assign` (
+CREATE TABLE `bb_degree_feedback_assign` (
   `OID` char(36) NOT NULL,
   `PROJECT_OID` char(36) NOT NULL,
   `OWNER_ID` varchar(10) NOT NULL,
@@ -937,22 +907,52 @@ CREATE TABLE `bb_degree_faceback_assign` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bb_degree_faceback_assign`
+-- Dumping data for table `bb_degree_feedback_assign`
 --
 
-LOCK TABLES `bb_degree_faceback_assign` WRITE;
-/*!40000 ALTER TABLE `bb_degree_faceback_assign` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_degree_faceback_assign` ENABLE KEYS */;
+LOCK TABLES `bb_degree_feedback_assign` WRITE;
+/*!40000 ALTER TABLE `bb_degree_feedback_assign` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_degree_feedback_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_degree_faceback_level`
+-- Table structure for table `bb_degree_feedback_item`
 --
 
-DROP TABLE IF EXISTS `bb_degree_faceback_level`;
+DROP TABLE IF EXISTS `bb_degree_feedback_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_degree_faceback_level` (
+CREATE TABLE `bb_degree_feedback_item` (
+  `OID` char(36) NOT NULL,
+  `PROJECT_OID` char(36) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `DESCRIPTION` varchar(500) DEFAULT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PROJECT_OID`,`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_degree_feedback_item`
+--
+
+LOCK TABLES `bb_degree_feedback_item` WRITE;
+/*!40000 ALTER TABLE `bb_degree_feedback_item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_degree_feedback_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_degree_feedback_level`
+--
+
+DROP TABLE IF EXISTS `bb_degree_feedback_level`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_degree_feedback_level` (
   `OID` char(36) NOT NULL,
   `PROJECT_OID` char(36) NOT NULL,
   `NAME` varchar(100) NOT NULL,
@@ -967,22 +967,22 @@ CREATE TABLE `bb_degree_faceback_level` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bb_degree_faceback_level`
+-- Dumping data for table `bb_degree_feedback_level`
 --
 
-LOCK TABLES `bb_degree_faceback_level` WRITE;
-/*!40000 ALTER TABLE `bb_degree_faceback_level` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_degree_faceback_level` ENABLE KEYS */;
+LOCK TABLES `bb_degree_feedback_level` WRITE;
+/*!40000 ALTER TABLE `bb_degree_feedback_level` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_degree_feedback_level` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_degree_faceback_project`
+-- Table structure for table `bb_degree_feedback_project`
 --
 
-DROP TABLE IF EXISTS `bb_degree_faceback_project`;
+DROP TABLE IF EXISTS `bb_degree_feedback_project`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_degree_faceback_project` (
+CREATE TABLE `bb_degree_feedback_project` (
   `OID` char(36) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `YEAR` varchar(4) NOT NULL,
@@ -997,22 +997,22 @@ CREATE TABLE `bb_degree_faceback_project` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bb_degree_faceback_project`
+-- Dumping data for table `bb_degree_feedback_project`
 --
 
-LOCK TABLES `bb_degree_faceback_project` WRITE;
-/*!40000 ALTER TABLE `bb_degree_faceback_project` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_degree_faceback_project` ENABLE KEYS */;
+LOCK TABLES `bb_degree_feedback_project` WRITE;
+/*!40000 ALTER TABLE `bb_degree_feedback_project` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_degree_feedback_project` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_degree_faceback_score`
+-- Table structure for table `bb_degree_feedback_score`
 --
 
-DROP TABLE IF EXISTS `bb_degree_faceback_score`;
+DROP TABLE IF EXISTS `bb_degree_feedback_score`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_degree_faceback_score` (
+CREATE TABLE `bb_degree_feedback_score` (
   `OID` char(36) NOT NULL,
   `PROJECT_OID` char(36) NOT NULL,
   `ITEM_OID` char(36) NOT NULL,
@@ -1029,12 +1029,12 @@ CREATE TABLE `bb_degree_faceback_score` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bb_degree_faceback_score`
+-- Dumping data for table `bb_degree_feedback_score`
 --
 
-LOCK TABLES `bb_degree_faceback_score` WRITE;
-/*!40000 ALTER TABLE `bb_degree_faceback_score` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_degree_faceback_score` ENABLE KEYS */;
+LOCK TABLES `bb_degree_feedback_score` WRITE;
+/*!40000 ALTER TABLE `bb_degree_feedback_score` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_degree_feedback_score` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3684,4 +3684,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-04 13:07:38
+-- Dump completed on 2015-09-04 16:42:52

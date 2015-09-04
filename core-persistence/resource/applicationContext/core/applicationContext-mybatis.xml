@@ -88,11 +88,11 @@
                 <value>classpath*:mappers/BbWorkspaceLabel.xml</value>                
                 <value>classpath*:mappers/BbAggregationMethod.xml</value>                
                 <value>classpath*:mappers/BbReportRoleView.xml</value>                
-                <value>classpath*:mappers/BbDegreeFacebackProject.xml</value>                
-                <value>classpath*:mappers/BbDegreeFacebackLevel.xml</value>                
-                <value>classpath*:mappers/BbDegreeFacebackAssign.xml</value>                
-                <value>classpath*:mappers/BbDegreeFacebackScore.xml</value>
-                <value>classpath*:mappers/BbDegreeFacebackItem.xml</value>
+                <value>classpath*:mappers/BbDegreeFeedbackProject.xml</value>                
+                <value>classpath*:mappers/BbDegreeFeedbackLevel.xml</value>                
+                <value>classpath*:mappers/BbDegreeFeedbackAssign.xml</value>                
+                <value>classpath*:mappers/BbDegreeFeedbackScore.xml</value>
+                <value>classpath*:mappers/BbDegreeFeedbackItem.xml</value>
                 <value>classpath*:mappers/QcDataSourceDriver.xml</value>
                 <value>classpath*:mappers/QcDataSourceConf.xml</value>
                 <value>classpath*:mappers/QcDataQuery.xml</value>
