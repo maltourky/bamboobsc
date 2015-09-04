@@ -84,6 +84,11 @@
 				<value>classpath*:dozer/dozerBeanMapping-olapMdx.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-aggregationMethod.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-reportRoleView.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-degreeFacebackProject.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-degreeFacebackLevel.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-degreeFacebackAssign.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-degreeFacebackItem.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-degreeFacebackScore.xml</value>
 			</list> 
 		</property> 
 	</bean>
