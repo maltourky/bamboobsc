@@ -24,6 +24,7 @@
 	<include file="struts/struts-bsc-workspaceSettings.xml" />
 	<include file="struts/struts-bsc-aggregationMethod.xml" />
 	<include file="struts/struts-bsc-reportRoleView.xml" />
-	<include file="struts/struts-bsc-dashboard.xml" />	
+	<include file="struts/struts-bsc-dashboard.xml" />
+	<include file="struts/struts-bsc-degreeFeedbackProject.xml" />	
 	
 </struts>
