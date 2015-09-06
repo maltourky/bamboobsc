@@ -31,8 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function BSC_PROG005D0001Q_GridFieldStructure() {
 	return [
 			{ name: "*", field: "oid", formatter: BSC_PROG005D0001Q_GridButtonClick, width: "20%" },  
-			{ name: "Name", field: "perId", width: "50%" },
-			{ name: "Year", field: "name", width: "30%" }
+			{ name: "Name", field: "name", width: "50%" },
+			{ name: "Year", field: "year", width: "30%" }
 		];
 }
 
@@ -45,8 +45,7 @@ function BSC_PROG005D0001Q_GridButtonClick(itemOid) {
 }
 
 function BSC_PROG005D0001Q_clear() {
-	dijit.byId('BSC_PROG005D0001Q_visionOid').set('value', _gscore_please_select_id);
-	dijit.byId('BSC_PROG005D0001Q_perId').set('value', '');
+	dijit.byId('BSC_PROG005D0001Q_year').set('value', '');
 	dijit.byId('BSC_PROG005D0001Q_name').set('value', '');
 	clearQuery_${programId}_grid();
 }
@@ -65,7 +64,7 @@ function BSC_PROG005D0001Q_confirmDelete(oid) {
 					return;
 				}	
 				xhrSendParameter(
-						'${basePath}/bsc.perspectiveDeleteAction.action', 
+						'${basePath}/bsc.degreeFeedbackProjectDeleteAction.action', 
 						{ 'fields.oid' : oid }, 
 						'json', 
 						_gscore_dojo_ajax_timeout,
@@ -117,9 +116,19 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="25px" width="10%"  align="right">Name:</td>
-    		<td height="25px" width="40%"  align="left"></td>
+    		<td height="25px" width="40%"  align="left">
+    			<gs:textBox name="BSC_PROG005D0001Q_name" id="BSC_PROG005D0001Q_name" value="" width="200" maxlength="100"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001Q_name'">
+					Input name.
+				</div>	    			
+    		</td>
     		<td height="25px" width="10%"  align="right">Year:</td>
     		<td height="25px" width="40%"  align="left">	
+				<input id="BSC_PROG005D0001Q_year" name="BSC_PROG005D0001Q_year" data-dojo-type="dojox.form.YearTextBox" 
+					maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001Q_year'">
+					Select year.
+				</div>								    		    			
     		</td>
     	</tr>	
     	<tr>
@@ -127,11 +136,12 @@ function ${programId}_page_message() {
     			<gs:button name="BSC_PROG005D0001Q_query" id="BSC_PROG005D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"
-    				xhrUrl="${basePath}/bsc.perspectiveManagementGridQueryAction.action"
+    				xhrUrl="${basePath}/bsc.degreeFeedbackProjectManagementGridQueryAction.action"
     				parameterType="postData"
     				xhrParameter=" 
     					{ 
-
+							'searchValue.parameter.name'		: dijit.byId('BSC_PROG005D0001Q_name').get('value'),
+							'searchValue.parameter.year'		: dijit.byId('BSC_PROG005D0001Q_year').get('value'),
     						'pageOf.size'						: getGridQueryPageOfSize_${programId}_grid(),
     						'pageOf.select'						: getGridQueryPageOfSelect_${programId}_grid(),
     						'pageOf.showRow'					: getGridQueryPageOfShowRow_${programId}_grid()

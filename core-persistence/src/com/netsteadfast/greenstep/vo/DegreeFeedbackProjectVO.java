@@ -43,6 +43,13 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 		this.description = description;
 	}
 
+	public DegreeFeedbackProjectVO(String oid, String name, String year) {
+		super();
+		this.oid = oid;
+		this.name = name;
+		this.year = year;
+	}
+
 	public DegreeFeedbackProjectVO(String oid, String name) {
 		super();
 		this.oid = oid;

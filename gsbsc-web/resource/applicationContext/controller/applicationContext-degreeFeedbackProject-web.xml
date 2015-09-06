@@ -12,5 +12,7 @@
     
     <bean id="bsc.web.controller.DegreeFeedbackProjectManagementAction" 
     	class="com.netsteadfast.greenstep.bsc.action.DegreeFeedbackProjectManagementAction" scope="prototype" />
-    	    	    	    	    	    	    
+    <bean id="bsc.web.controller.DegreeFeedbackProjectManagementGridQueryAction" 
+    	class="com.netsteadfast.greenstep.bsc.action.DegreeFeedbackProjectManagementGridQueryAction" scope="prototype" />
+    	    	    	    	    	    	    	    
 </beans>
