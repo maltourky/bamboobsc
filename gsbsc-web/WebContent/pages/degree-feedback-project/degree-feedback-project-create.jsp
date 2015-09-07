@@ -266,7 +266,11 @@ function ${programId}_page_message() {
     					{     						
     						'fields.name'			: dijit.byId('BSC_PROG005D0001A_name').get('value'),
     						'fields.year'			: dijit.byId('BSC_PROG005D0001A_year').get('value'),
-    						'fields.description'	: dijit.byId('BSC_PROG005D0001A_description').get('value')
+    						'fields.description'	: dijit.byId('BSC_PROG005D0001A_description').get('value'),
+    						'fields.ownerAppendOid'	: dojo.byId('BSC_PROG005D0001A_owner').value,
+    						'fields.raterAppendOid'	: dojo.byId('BSC_PROG005D0001A_rater').value,
+    						'fields.levelData'		: JSON.stringify( { BSC_PROG005D0001A_levelData } ),
+    						'fields.itemData'		: JSON.stringify( { BSC_PROG005D0001A_itemData } )
     					} 
     				"
     				errorFn=""
