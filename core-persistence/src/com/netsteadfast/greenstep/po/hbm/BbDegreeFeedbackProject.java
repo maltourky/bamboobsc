@@ -24,6 +24,7 @@ public class BbDegreeFeedbackProject extends BaseEntity<String> implements java.
 	private String oid;
 	private String name;
 	private String year;
+	private String publishFlag;
 	private String description;
 	private String cuserid;
 	private Date cdate;
@@ -59,6 +60,15 @@ public class BbDegreeFeedbackProject extends BaseEntity<String> implements java.
 	
 	public void setYear(String year) {
 		this.year = year;
+	}
+	
+	@Column(name="PUBLISH_FLAG")
+	public String getPublishFlag() {
+		return publishFlag;
+	}
+	
+	public void setPublishFlag(String publishFlag) {
+		this.publishFlag = publishFlag;
 	}
 	
 	@Column(name="DESCRIPTION")

@@ -30,9 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function BSC_PROG005D0001Q_GridFieldStructure() {
 	return [
-			{ name: "*", field: "oid", formatter: BSC_PROG005D0001Q_GridButtonClick, width: "20%" },  
+			{ name: "*", field: "oid", formatter: BSC_PROG005D0001Q_GridButtonClick, width: "20%" },  			
+			{ name: "Year", field: "year", width: "20%" },
 			{ name: "Name", field: "name", width: "50%" },
-			{ name: "Year", field: "year", width: "30%" }
+			{ name: "Publish", field: "publishFlag", width: "10%" }			
 		];
 }
 

@@ -7,7 +7,8 @@
 	<resultMap type="com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject" id="baseResultMap">
 		<id column="OID" property="oid"/>				
 		<result column="NAME" property="name"/>
-		<result column="YEAR" property="year"/>
+		<result column="YEAR" property="year"/>		
+		<result column="PUBLISH_FLAG" property="publishFlag"/>		
 		<result column="DESCRIPTION" property="description"/>		
 		<result column="CUSERID" property="cuserid"/>
 		<result column="CDATE" property="cdate"/>
@@ -25,7 +26,10 @@
 		</if>
 		<if test="year != null">
 			AND YEAR = #{year}
-		</if>																					
+		</if>					
+		<if test="publishFlag != null">
+			AND PUBLISH_FLAG = #{publishFlag}
+		</if>																							
 	</select>
 	
 	<select id="selectByValue" resultMap="baseResultMap" >
@@ -38,7 +42,10 @@
 		</if>
 		<if test="year != null">
 			AND YEAR = #{year}
-		</if>							
+		</if>	
+		<if test="publishFlag != null">
+			AND PUBLISH_FLAG = #{publishFlag}
+		</if>									
 	</select>	
 	
 </mapper>

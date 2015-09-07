@@ -20,6 +20,10 @@
 			<b>year</b>
 		</field>	
 		<field>
+			<a>publishFlag</a>
+			<b>publishFlag</b>
+		</field>	
+		<field>
 			<a>description</a>
 			<b>description</b>
 		</field>																
@@ -40,6 +44,10 @@
 			<a>year</a>
 			<b>year</b>
 		</field>	
+		<field>
+			<a>publishFlag</a>
+			<b>publishFlag</b>
+		</field>			
 		<field>
 			<a>description</a>
 			<b>description</b>

@@ -88,7 +88,7 @@ public class DegreeFeedbackProjectManagementGridQueryAction extends BaseQueryGri
 			return;
 		}		
 		this.items = super.transformSearchGridList2JsonDataMapList(
-				searchList, new String[]{"oid", "year", "name"});			
+				searchList, new String[]{"oid", "year", "name", "publishFlag"});			
 	}
 	
 	/**

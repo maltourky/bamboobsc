@@ -28,6 +28,7 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 	private String oid;
 	private String name;
 	private String year;
+	private String publishFlag;
 	private String description;
 	
 	public DegreeFeedbackProjectVO() {
@@ -35,19 +36,21 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 	}		
 	
 	public DegreeFeedbackProjectVO(String oid, String name, String year,
-			String description) {
+			String publishFlag, String description) {
 		super();
 		this.oid = oid;
 		this.name = name;
 		this.year = year;
+		this.publishFlag = publishFlag;
 		this.description = description;
 	}
 
-	public DegreeFeedbackProjectVO(String oid, String name, String year) {
+	public DegreeFeedbackProjectVO(String oid, String name, String year, String publishFlag) {
 		super();
 		this.oid = oid;
 		this.name = name;
 		this.year = year;
+		this.publishFlag = publishFlag;
 	}
 
 	public DegreeFeedbackProjectVO(String oid, String name) {
@@ -79,6 +82,14 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 
 	public void setYear(String year) {
 		this.year = year;
+	}
+
+	public String getPublishFlag() {
+		return publishFlag;
+	}
+
+	public void setPublishFlag(String publishFlag) {
+		this.publishFlag = publishFlag;
 	}
 
 	public String getDescription() {

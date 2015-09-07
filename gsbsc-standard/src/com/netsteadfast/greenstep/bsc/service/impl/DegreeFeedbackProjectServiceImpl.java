@@ -107,7 +107,7 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
 			hqlSb.append("  count(*) ");
 		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO(m.oid, m.name, m.year) ");
+			hqlSb.append("	new com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO(m.oid, m.name, m.year, m.publishFlag) ");
 		}
 		hqlSb.append("FROM BbDegreeFeedbackProject m WHERE 1=1 ");		
 		if (params.get("year")!=null) {
