@@ -173,10 +173,22 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 			}			
 			SysLoginLogSupport.log( account.getAccount() );	 // only core-system need log tb_sys_login_log
 		} else { // gsbsc-web, qcharts-web
+			
+			/*
+			 * 2015-09-07 rem
+			 * 
 			String sysCurrentId = request.getParameter( Constants.SYS_CURRENT_ID );
 			if (!StringUtils.isBlank(sysCurrentId)) {
 				UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
 			}
+			*/
+			// 2015-09-07 add
+			Map<String, String> dataMap = UserCurrentCookie.getCurrentData(request);
+			String sysCurrentId = dataMap.get("currentId");
+			if (!StringUtils.isBlank(sysCurrentId)) {
+				UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
+			}
+			
 		}
 	}
 	

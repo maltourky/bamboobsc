@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.sys;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
@@ -44,6 +45,7 @@ import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
+import com.netsteadfast.greenstep.base.sys.UserCurrentCookie;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.vo.AccountVO;
@@ -160,10 +162,22 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 		if (StringUtils.isBlank(httpSessionId)) {
 			httpSessionId = "NULL";
 		}
+		
+		/*
+		 * 2015-09-07 rem
+		 * 
 		String sysCurrentId = request.getParameter( Constants.SYS_CURRENT_ID );
 		if (!StringUtils.isBlank(sysCurrentId)) {
 			UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
 		}
+		*/
+		// 2015-09-07 add
+		Map<String, String> dataMap = UserCurrentCookie.getCurrentData(request);
+		String sysCurrentId = dataMap.get("currentId");
+		if (!StringUtils.isBlank(sysCurrentId)) {
+			UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
+		}		
+		
 	}
 	
 	private AccountVO queryUser(String account) throws Exception {
