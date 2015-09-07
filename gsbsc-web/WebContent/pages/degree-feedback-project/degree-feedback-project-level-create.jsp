@@ -28,20 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 
-var BSC_PROG005D0001A_S00_fieldsId = new Object();
-BSC_PROG005D0001A_S00_fieldsId['name'] 			= 'BSC_PROG005D0001A_S00_name';
-BSC_PROG005D0001A_S00_fieldsId['value'] 		= 'BSC_PROG005D0001A_S00_value';
-
-function BSC_PROG005D0001A_S00_saveSuccess(data) { // data 是 json 資料
-	setFieldsBackgroundDefault(BSC_PROG005D0001A_S00_fieldsId);
-	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
-	if ('Y' != data.success) {						
-		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG005D0001A_S00_fieldsId);		
-		return;
-	}	
-	BSC_PROG005D0001A_S00_clear();
-}
-
 function BSC_PROG005D0001A_S00_add() {
 	var size = BSC_PROG005D0001A_levelData.length;	
 	if ( size >= ${maxLevelSize} ) {
@@ -153,7 +139,7 @@ function ${programId}_page_message() {
 				</div>       			
     		</td>  
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b>Value</b>:
+    			<font color='RED'>*</font><b>Score Value</b>:
     			<br/>    			
     			<input id="BSC_PROG005D0001A_S00_value" name="BSC_PROG005D0001A_S00_value" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0" data-dojo-props="smallDelta:1, constraints:{min:-999,max:999, pattern: '+000;-0' }" />

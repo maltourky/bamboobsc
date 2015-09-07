@@ -95,7 +95,8 @@ function BSC_PROG005D0001A_clearRater() {
 	dojo.byId('BSC_PROG005D0001A_raterName').innerHTML = '';		
 }
 
-var BSC_PROG005D0001A_levelData = [];
+var BSC_PROG005D0001A_levelData = []; // 評分等級資料要用
+var BSC_PROG005D0001A_itemData = []; // 項目資料要用
 
 
 //------------------------------------------------------------------------------
@@ -129,7 +130,7 @@ function ${programId}_page_message() {
 	<input type="hidden" name="BSC_PROG005D0001A_owner" id="BSC_PROG005D0001A_owner" value="" />
 	<input type="hidden" name="BSC_PROG005D0001A_rater" id="BSC_PROG005D0001A_rater" value="" />
 	
-	<table border="0" width="100%" height="450px" cellpadding="1" cellspacing="0" >	
+	<table border="0" width="100%" height="500px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b>Name</b>:
@@ -230,7 +231,30 @@ function ${programId}_page_message() {
 						}
 					"></button>						   			
     		</td>    
-    	</tr>    	    	    	   	  	    		 	  	    	    	      	    	    	    	   	  	    		 	  	    	
+    	</tr>    	    	
+
+		<tr>
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><b>Item settings</b>:
+    			&nbsp;&nbsp;
+				<button name="BSC_PROG005D0001A_itemSettings" id="BSC_PROG005D0001A_itemSettings" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:false,
+						iconClass:'dijitIconFolderOpen',
+						onClick:function(){ 
+							BSC_PROG005D0001A_S01_DlgShow(' ');
+						}
+					"></button>
+				<button name="BSC_PROG005D0001A_itemSettingsClear" id="BSC_PROG005D0001A_itemSettingsClear" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:false,
+						iconClass:'dijitIconClear',
+						onClick:function(){ 
+							BSC_PROG005D0001A_itemData = [];
+						}
+					"></button>						   			
+    		</td>    
+    	</tr>    	   	  	    		 	  	    	    	      	    	    	    	   	  	    		 	  	    	
     	<tr>
     		<td height="50px" width="100%"  align="left">
     			<gs:button name="BSC_PROG005D0001A_save" id="BSC_PROG005D0001A_save" onClick="BSC_PROG005D0001A_save();"

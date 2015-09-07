@@ -21,7 +21,12 @@
 			<result name="input">/pages/degree-feedback-project/degree-feedback-project-level-create.jsp</result>		
 			<result name="success">/pages/degree-feedback-project/degree-feedback-project-level-create.jsp</result>
 		</action>				
-														   	
+	
+		<action name="bsc.degreeFeedbackItemCreateAction" class="bsc.web.controller.DegreeFeedbackProjectManagementAction" method="createItem">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-item-create.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-item-create.jsp</result>
+		</action>	
+													   	
 	</package>
 	
 	<package name="bsc-degreeFeedbackProject-json" extends="bsc-default,json-default" namespace="/" >			

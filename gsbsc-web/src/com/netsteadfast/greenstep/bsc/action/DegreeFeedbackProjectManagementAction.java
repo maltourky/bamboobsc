@@ -103,6 +103,27 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 		}
 		return SUCCESS;				
 	}
+	
+	/**
+	 * bsc.degreeFeedbackItemCreateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S01")
+	public String createItem() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;				
+	}	
 
 	@Override
 	public String getProgramName() {
@@ -123,6 +144,10 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	
 	public String getMaxLevelSize() {
 		return String.valueOf(BscConstants.MAX_DEGREE_FEEDBACK_LEVEL_SIZE);
+	}
+	
+	public String getMaxItemSize() {
+		return String.valueOf(BscConstants.MAX_DEGREE_FEEDBACK_ITEM_SIZE);
 	}
 
 }
