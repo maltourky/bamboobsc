@@ -11,6 +11,16 @@
 			<result name="input">/pages/degree-feedback-project/degree-feedback-project-management.jsp</result>		
 			<result name="success">/pages/degree-feedback-project/degree-feedback-project-management.jsp</result>
 		</action>	
+		
+		<action name="bsc.degreeFeedbackProjectCreateAction" class="bsc.web.controller.DegreeFeedbackProjectManagementAction" method="create">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-create.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-create.jsp</result>
+		</action>			
+		
+		<action name="bsc.degreeFeedbackLevelCreateAction" class="bsc.web.controller.DegreeFeedbackProjectManagementAction" method="createLevel">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-level-create.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-level-create.jsp</result>
+		</action>				
 														   	
 	</package>
 	

@@ -19,20 +19,20 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.bsc.service;
+package com.netsteadfast.greenstep.bsc.service.logic;
+
+import java.util.List;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
-import com.netsteadfast.greenstep.base.service.IBaseService;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 
-public interface IMeasureDataService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
+public interface IDegreeFeedbackLogicService {
 	
-	public static String MAPPER_ID_PO2VO="measureData.po2vo";
-	public static String MAPPER_ID_VO2PO="measureData.vo2po";
-	
-	public int deleteForKpiId(String kpiId) throws ServiceException, Exception;
-	
-	public int deleteForEmpId(String empId) throws ServiceException, Exception;
-	
-	public int deleteForOrgId(String orgId) throws ServiceException, Exception;
+	public DefaultResult<DegreeFeedbackProjectVO> createProject(DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items,
+			List<DegreeFeedbackLevelVO> level, List<DegreeFeedbackAssignVO> assign) throws ServiceException, Exception;
 	
 }

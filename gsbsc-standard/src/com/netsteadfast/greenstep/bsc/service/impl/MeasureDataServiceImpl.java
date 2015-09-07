@@ -94,4 +94,28 @@ public class MeasureDataServiceImpl extends BaseService<MeasureDataVO, BbMeasure
 		return this.measureDataDAO.deleteForKpiId(kpiId);
 	}
 
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public int deleteForEmpId(String empId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(empId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		return this.measureDataDAO.deleteForEmpId(empId);
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public int deleteForOrgId(String orgId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(orgId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		return this.measureDataDAO.deleteForOrgId(orgId);
+	}
+
 }

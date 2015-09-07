@@ -28,4 +28,8 @@ public interface IMeasureDataDAO<T extends java.io.Serializable, PK extends java
 	
 	public int deleteForKpiId(String kpiId) throws Exception;
 	
+	public int deleteForEmpId(String empId) throws Exception;
+	
+	public int deleteForOrgId(String orgId) throws Exception;
+	
 }

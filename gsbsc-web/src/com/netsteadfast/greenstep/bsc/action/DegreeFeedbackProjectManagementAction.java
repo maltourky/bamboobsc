@@ -63,6 +63,45 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 		}
 		return SUCCESS;		
 	}	
+	
+	/**
+	 * bsc.degreeFeedbackProjectCreateAction.action
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A")
+	public String create() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;				
+	}		
+	
+	/**
+	 * bsc.degreeFeedbackLevelCreateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S00")
+	public String createLevel() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;				
+	}
 
 	@Override
 	public String getProgramName() {

@@ -40,5 +40,15 @@ public class MeasureDataDAOImpl extends BaseDAO<BbMeasureData, String> implement
 	public int deleteForKpiId(String kpiId) throws Exception {
 		return this.getCurrentSession().createQuery("delete BbMeasureData WHERE kpiId = :kpiId ").setString("kpiId", kpiId).executeUpdate();
 	}
+
+	@Override
+	public int deleteForEmpId(String empId) throws Exception {		
+		return this.getCurrentSession().createQuery("delete BbMeasureData WHERE empId = :empId ").setString("empId", empId).executeUpdate();
+	}
+
+	@Override
+	public int deleteForOrgId(String orgId) throws Exception {
+		return this.getCurrentSession().createQuery("delete BbMeasureData WHERE orgId = :orgId ").setString("orgId", orgId).executeUpdate();
+	}
 	
 }

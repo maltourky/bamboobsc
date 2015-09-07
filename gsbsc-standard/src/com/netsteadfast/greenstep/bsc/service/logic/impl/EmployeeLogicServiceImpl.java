@@ -46,13 +46,19 @@ import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackAssignService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.bsc.service.IKpiEmplService;
+import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.logic.IEmployeeLogicService;
+import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackAssign;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
+import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
+import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
@@ -68,8 +74,11 @@ import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysMsgNoticeService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
 import com.netsteadfast.greenstep.vo.AccountVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.EmployeeOrgaVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.KpiEmplVO;
+import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
@@ -95,6 +104,9 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 	private ISysMsgNoticeService<SysMsgNoticeVO, TbSysMsgNotice, String> sysMsgNoticeService;
 	private ISysCalendarNoteService<SysCalendarNoteVO, TbSysCalendarNote, String> sysCalendarNoteService;
 	private IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService;
+	private IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService;
+	private IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService;
+	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	
 	public EmployeeLogicServiceImpl() {
 		super();
@@ -217,6 +229,42 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 	public void setReportRoleViewService(
 			IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService) {
 		this.reportRoleViewService = reportRoleViewService;
+	}
+
+	public IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> getKpiEmplService() {
+		return kpiEmplService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.KpiEmplService")
+	@Required		
+	public void setKpiEmplService(
+			IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService) {
+		this.kpiEmplService = kpiEmplService;
+	}
+
+	public IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> getDegreeFeedbackAssignService() {
+		return degreeFeedbackAssignService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.DegreeFeedbackAssignService")
+	@Required		
+	public void setDegreeFeedbackAssignService(
+			IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService) {
+		this.degreeFeedbackAssignService = degreeFeedbackAssignService;
+	}
+
+	public IMeasureDataService<MeasureDataVO, BbMeasureData, String> getMeasureDataService() {
+		return measureDataService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.MeasureDataService")
+	@Required		
+	public void setMeasureDataService(
+			IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService) {
+		this.measureDataService = measureDataService;
 	}
 
 	private boolean isAdministrator(String account) {
@@ -397,6 +445,9 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 			this.reportRoleViewService.delete(reportRoleView);
 		}
 		
+		// delete from BB_MEASURE_DATA where EMP_ID = :empId
+		this.measureDataService.deleteForEmpId( employee.getEmpId() );
+		
 		this.accountService.deleteByPKng(account.getOid());
 		return employeeService.deleteObject(employee);
 	}
@@ -420,7 +471,26 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		if (this.sysCalendarNoteService.countByParams(params) > 0 ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
-				
+		
+		// bb_kpi_empl
+		params.clear();
+		params.put("empId", employee.getEmpId());
+		if (this.kpiEmplService.countByParams(params) > 0) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		
+		// bb_degree_feedback_assign
+		params.clear();
+		params.put("ownerId", employee.getEmpId());
+		if (this.degreeFeedbackAssignService.countByParams(params) > 0) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		params.clear();
+		params.put("raterId", employee.getEmpId());
+		if (this.degreeFeedbackAssignService.countByParams(params) > 0) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		
 	}
 	
 	private void createEmployeeOrganization(EmployeeVO employee, List<String> organizationOid) throws ServiceException, Exception {

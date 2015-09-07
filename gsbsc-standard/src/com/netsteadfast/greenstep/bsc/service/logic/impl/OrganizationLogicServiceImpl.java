@@ -53,6 +53,7 @@ import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
+import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationParService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
@@ -60,6 +61,7 @@ import com.netsteadfast.greenstep.bsc.service.ISwotService;
 import com.netsteadfast.greenstep.bsc.service.logic.IOrganizationLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
+import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbOrganizationPar;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
@@ -67,6 +69,7 @@ import com.netsteadfast.greenstep.po.hbm.BbSwot;
 import com.netsteadfast.greenstep.util.IconUtils;
 import com.netsteadfast.greenstep.vo.EmployeeOrgaVO;
 import com.netsteadfast.greenstep.vo.KpiOrgaVO;
+import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.OrganizationParVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
@@ -85,6 +88,7 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 	private IKpiOrgaService<KpiOrgaVO, BbKpiOrga, String> kpiOrgaService;
 	private ISwotService<SwotVO, BbSwot, String> swotService;
 	private IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService;
+	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	
 	public OrganizationLogicServiceImpl() {
 		super();
@@ -160,7 +164,19 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 			IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService) {
 		this.reportRoleViewService = reportRoleViewService;
 	}	
+	
+	public IMeasureDataService<MeasureDataVO, BbMeasureData, String> getMeasureDataService() {
+		return measureDataService;
+	}
 
+	@Autowired
+	@Resource(name="bsc.service.MeasureDataService")
+	@Required		
+	public void setMeasureDataService(
+			IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService) {
+		this.measureDataService = measureDataService;
+	}
+	
 	private void handlerLongitudeAndLatitude(OrganizationVO organization) {
 		if ( !NumberUtils.isNumber(organization.getLat()) ) {
 			organization.setLat( (String)Constants.getSettingsMap().get("googleMap.defaultLat") );
@@ -251,6 +267,9 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 			BbReportRoleView reportRoleView = reportRoleViews.get( i );
 			this.reportRoleViewService.delete(reportRoleView);
 		}		
+		
+		// delete from BB_MEASURE_DATA where ORG_ID = :orgId
+		this.measureDataService.deleteForOrgId( oldResult.getValue().getOrgId() );
 		
 		return this.organizationService.deleteObject(organization);
 	}	
