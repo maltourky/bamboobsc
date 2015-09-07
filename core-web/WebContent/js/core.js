@@ -65,7 +65,16 @@ dojo.declare("GS.CORE", null ,{
     },
     roundFloat : function(num, pos) {
     	return ( Math.round( num * Math.pow(10,pos) ) / Math.pow(10,pos) ).toFixed(pos);
-    } 
+    },
+    isNormalInteger : function(str) {
+    	return /^\+?(0|[1-9]\d*)$/.test(str);
+    },
+    isBlank : function(str) {
+    	return (!str || /^\s*$/.test(str));
+    },
+    isEmpty : function(str) {
+    	return (!str || 0 === str.length);
+    }    
     
 });
 

@@ -139,4 +139,9 @@ public class BscConstants {
 	 */
 	public static final String SWOT_TEXT_INPUT_ID_SEPARATE = ":";
 	
+	/**
+	 * 360 最多的評分等級 如: 1 - Very Bad , 2 - Bad , 3 - Normal , 4 - Good , 5 - Very Good , 6 - Extreme
+	 */
+	public static final int MAX_DEGREE_FEEDBACK_LEVEL_SIZE = 6;
+	
 }

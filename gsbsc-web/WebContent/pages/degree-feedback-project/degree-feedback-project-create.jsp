@@ -95,6 +95,8 @@ function BSC_PROG005D0001A_clearRater() {
 	dojo.byId('BSC_PROG005D0001A_raterName').innerHTML = '';		
 }
 
+var BSC_PROG005D0001A_levelData = [];
+
 
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
@@ -224,7 +226,7 @@ function ${programId}_page_message() {
 						showLabel:false,
 						iconClass:'dijitIconClear',
 						onClick:function(){ 
-							
+							BSC_PROG005D0001A_levelData = [];
 						}
 					"></button>						   			
     		</td>    

@@ -43,13 +43,75 @@ function BSC_PROG005D0001A_S00_saveSuccess(data) { // data 是 json 資料
 }
 
 function BSC_PROG005D0001A_S00_add() {
-	
+	var size = BSC_PROG005D0001A_levelData.length;	
+	if ( size >= ${maxLevelSize} ) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Cannot over items : ' + '${maxLevelSize}', function(){}, 'Y');
+		return;
+	}
+	var nameStr = dijit.byId('BSC_PROG005D0001A_S00_name').get('value');
+	var valueStr = dijit.byId('BSC_PROG005D0001A_S00_value').get('value');
+	if ( !viewPage.isNormalInteger(valueStr) ) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Value only integer!', function(){}, 'N');
+		return;
+	}
+	if ( viewPage.isBlank(nameStr) || viewPage.isEmpty(nameStr) ) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input name!', function(){}, 'N');
+		return;
+	}	
+	for (var n=0; n<size; n++) {
+		if ( BSC_PROG005D0001A_levelData[n].name == nameStr ) {
+			n = size;
+			alertDialog(_getApplicationProgramNameById('${programId}'), 'Name is found!', function(){}, 'N');
+			return;
+		}
+		if ( BSC_PROG005D0001A_levelData[n].value == valueStr ) {
+			n = size;
+			alertDialog(_getApplicationProgramNameById('${programId}'), 'Value is found!', function(){}, 'N');
+			return;			
+		}
+	}		
+	BSC_PROG005D0001A_levelData.push( {name: nameStr , value: valueStr} );
+	BSC_PROG005D0001A_S00_showDataTable();
+}
+
+function BSC_PROG005D0001A_S00_removeField( name ) {
+	var size = BSC_PROG005D0001A_levelData.length;
+	for (var n=0; n<size; n++) {
+		var dataItem = BSC_PROG005D0001A_levelData[n];
+		if ( dataItem.name == name ) {
+			BSC_PROG005D0001A_levelData.splice( n , 1 );
+			n = size;
+		}
+	}
+	BSC_PROG005D0001A_S00_showDataTable();
 }
 
 function BSC_PROG005D0001A_S00_clear() {
 	setFieldsBackgroundDefault(BSC_PROG005D0001A_S00_fieldsId);		
 	dijit.byId('BSC_PROG005D0001A_S00_name').set("value", "");
 	dijit.byId('BSC_PROG005D0001A_S00_value').set("value", "");
+}
+
+function BSC_PROG005D0001A_S00_showDataTable() {
+	var size = BSC_PROG005D0001A_levelData.length;
+	var txtContent = '';
+	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
+	txtContent += '<tr>';
+	txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
+	txtContent += '<td width="50%" align="left" bgcolor="#f5f5f5"><b>Name</b></td>';
+	txtContent += '<td width="30%" align="left" bgcolor="#f5f5f5"><b>Value</b></td>';
+	txtContent += '</tr>';
+	for (var n=0; n<size; n++) {
+		var dataItem = BSC_PROG005D0001A_levelData[n];
+		txtContent += '<tr>';
+		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG005D0001A_S00_removeField(\'' + dataItem.name + '\');" /> ';
+		txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
+		txtContent += '<td width="50%" align="left" bgcolor="#ffffff">' + dataItem.name + '</td>';
+		txtContent += '<td width="30%" align="left" bgcolor="#ffffff">' + dataItem.value + '</td>';
+		txtContent += '</tr>';		
+	}
+	txtContent += '</table>';
+	dojo.byId( 'BSC_PROG005D0001A_S00_dataTable' ).innerHTML = txtContent;
 }
 
 //------------------------------------------------------------------------------
@@ -110,6 +172,8 @@ function ${programId}_page_message() {
     	    	
     </table>
     
+    <div id="BSC_PROG005D0001A_S00_dataTable"></div>
+    
 <br/>
 <br/>
 <br/>
@@ -130,7 +194,8 @@ function ${programId}_page_message() {
 <br/>
 <br/>
 <br/>
-    
+
+<script type="text/javascript">BSC_PROG005D0001A_S00_showDataTable();</script>   
 <script type="text/javascript">${programId}_page_message();</script>
 </body>
 </html>

@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.bsc.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.action.IBaseAdditionalSupportAction;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -118,6 +119,10 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	@Override
 	public String getProgramId() {
 		return super.getActionMethodProgramId();
+	}
+	
+	public String getMaxLevelSize() {
+		return String.valueOf(BscConstants.MAX_DEGREE_FEEDBACK_LEVEL_SIZE);
 	}
 
 }
