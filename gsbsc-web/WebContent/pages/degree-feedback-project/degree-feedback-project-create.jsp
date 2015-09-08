@@ -83,6 +83,8 @@ function BSC_PROG005D0001A_clear() {
 	dijit.byId('BSC_PROG005D0001A_description').set("value", "");	
 	BSC_PROG005D0001A_clearOwner();
 	BSC_PROG005D0001A_clearRater();
+	BSC_PROG005D0001A_levelData = []; 
+	BSC_PROG005D0001A_itemData = []; 
 }
 
 function BSC_PROG005D0001A_clearOwner() {
@@ -267,10 +269,10 @@ function ${programId}_page_message() {
     						'fields.name'			: dijit.byId('BSC_PROG005D0001A_name').get('value'),
     						'fields.year'			: dijit.byId('BSC_PROG005D0001A_year').get('value'),
     						'fields.description'	: dijit.byId('BSC_PROG005D0001A_description').get('value'),
-    						'fields.ownerAppendOid'	: dojo.byId('BSC_PROG005D0001A_owner').value,
-    						'fields.raterAppendOid'	: dojo.byId('BSC_PROG005D0001A_rater').value,
-    						'fields.levelData'		: JSON.stringify( { BSC_PROG005D0001A_levelData } ),
-    						'fields.itemData'		: JSON.stringify( { BSC_PROG005D0001A_itemData } )
+    						'fields.ownerOids'		: dojo.byId('BSC_PROG005D0001A_owner').value,
+    						'fields.raterOids'		: dojo.byId('BSC_PROG005D0001A_rater').value,
+    						'fields.levelData'		: JSON.stringify( { 'data' : BSC_PROG005D0001A_levelData } ),
+    						'fields.itemData'		: JSON.stringify( { 'data' : BSC_PROG005D0001A_itemData } )
     					} 
     				"
     				errorFn=""

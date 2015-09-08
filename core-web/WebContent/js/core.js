@@ -74,7 +74,16 @@ dojo.declare("GS.CORE", null ,{
     },
     isEmpty : function(str) {
     	return (!str || 0 === str.length);
-    }    
+    },
+    escape1 : function(str) {
+    	return str.replace(/&/g, "＆")
+    		.replace(/</g, "〈")
+    		.replace(/>/g, "〉")
+    		.replace(/"/g, "”")
+    		.replace(/'/g, "’")
+    		.replace(/\//g, "╱")
+    		.replace(/\\/g, "╲");
+    }
     
 });
 

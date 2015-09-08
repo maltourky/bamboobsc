@@ -21,24 +21,41 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
+import com.netsteadfast.greenstep.base.exception.AuthorityException;
+import com.netsteadfast.greenstep.base.exception.ControllerException;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
+import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
+import com.netsteadfast.greenstep.util.SimpleUtils;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.DegreeFeedbackProjectSaveOrUpdateAction")
 @Scope
 public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	private static final long serialVersionUID = -6776416857096672930L;
+	protected Logger logger=Logger.getLogger(DegreeFeedbackProjectSaveOrUpdateAction.class);
 	private IDegreeFeedbackLogicService degreeFeedbackLogicService;
 	private String message = "";
 	private String success = IS_NO;
@@ -58,7 +75,133 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 			IDegreeFeedbackLogicService degreeFeedbackLogicService) {
 		this.degreeFeedbackLogicService = degreeFeedbackLogicService;
 	}
+	
+	@SuppressWarnings("unchecked")
+	private void checkFields() throws ControllerException {
+		try {
+			super.checkFields(
+					new String[]{
+							"name",
+							"year",
+					}, 
+					new String[]{
+							"Name is required!<BR/>",
+							"Year is required!<BR/>"
+					}, 
+					new Class[]{
+							NotBlankFieldCheckUtils.class,
+							NotBlankFieldCheckUtils.class,
+					},
+					this.getFieldsId() );			
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		}		
+		if (!SimpleUtils.isDate(this.getFields().get("year")+"/01/01")) {
+			this.fieldsId.add("year");
+			throw new ControllerException( "Year format error!<BR/>" );
+		}
+		if (super.defaultString(this.getFields().get("ownerOids")).trim().length()<1) {
+			throw new ControllerException( "Please setting owner!<BR/>" );
+		}
+		if (super.defaultString(this.getFields().get("raterOids")).trim().length()<1) {
+			throw new ControllerException( "Please setting rater!<BR/>" );
+		}	
+		Map<String, List<Map<String, Object>>> levelData = null;
+		Map<String, List<Map<String, Object>>> itemData = null;
+		try {
+			levelData = this.fillJsonData( this.getFields().get("levelData") );
+			itemData = this.fillJsonData( this.getFields().get("itemData") );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (levelData == null || levelData.get("data") == null || levelData.get("data").size() < 1 ) {
+			throw new ControllerException( "Please setting level!<BR/>" );
+		}
+		if (itemData == null || itemData.get("data") == null || itemData.get("data").size() < 1 ) {
+			throw new ControllerException( "Please setting item!<BR/>" );
+		}		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Map<String, List<Map<String, Object>>> fillJsonData(String dataStr) throws Exception {		
+		return (Map<String, List<Map<String, Object>>>)new ObjectMapper().readValue( dataStr, LinkedHashMap.class );
+	}
+	
+	private List<DegreeFeedbackItemVO> fillItems() throws Exception {
+		List<DegreeFeedbackItemVO> items = new ArrayList<DegreeFeedbackItemVO>();
+		Map<String, List<Map<String, Object>>> dataMap = this.fillJsonData( this.getFields().get("itemData") );
+		List<Map<String, Object>> nodes = dataMap.get( "data" );
+		for (Map<String, Object> node : nodes) {
+			DegreeFeedbackItemVO obj = new DegreeFeedbackItemVO();
+			obj.setName( String.valueOf(node.get("name")) );
+			obj.setDescription( String.valueOf(node.get("description")) );	
+			items.add( obj );
+		}
+		return items;
+	}
+	
+	private List<DegreeFeedbackLevelVO> fillLevels() throws Exception {
+		List<DegreeFeedbackLevelVO> levels = new ArrayList<DegreeFeedbackLevelVO>();
+		Map<String, List<Map<String, Object>>> dataMap = this.fillJsonData( this.getFields().get("levelData") );
+		List<Map<String, Object>> nodes = dataMap.get( "data" );
+		for (Map<String, Object> node : nodes) {
+			DegreeFeedbackLevelVO obj = new DegreeFeedbackLevelVO();
+			obj.setName( String.valueOf(node.get("name")) );
+			obj.setValue( NumberUtils.toInt(String.valueOf(node.get("value")), 1) );
+			levels.add( obj );
+		}
+		return levels;
+	}
 
+	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		this.transformFields2ValueObject(project, new String[]{"name", "year", "description"});
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.createProject(
+				project, 
+				this.fillItems(), 
+				this.fillLevels(), 
+				this.transformAppendIds2List(this.getFields().get("ownerOids")), 
+				this.transformAppendIds2List(this.getFields().get("raterOids")));		
+		if (result.getValue()!=null) {
+			this.success = IS_YES;
+		}
+		this.message = result.getSystemMessage().getValue();
+	}
+	
+	/**
+	 * bsc.degreeFeedbackProjectSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A")
+	public String doSave() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.save();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
+	
 	@JSON
 	@Override
 	public String getLogin() {

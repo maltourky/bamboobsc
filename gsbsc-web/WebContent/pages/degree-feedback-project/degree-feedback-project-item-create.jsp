@@ -39,6 +39,7 @@ function BSC_PROG005D0001A_S01_add() {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input name!', function(){}, 'N');
 		return;
 	}	
+	nameStr = viewPage.escape1(nameStr);
 	for (var n=0; n<size; n++) {
 		if ( BSC_PROG005D0001A_itemData[n].name == nameStr ) {
 			n = size;
@@ -130,7 +131,16 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="center" >
     			<gs:button name="BSC_PROG005D0001A_S01_add" id="BSC_PROG005D0001A_S01_add" onClick="BSC_PROG005D0001A_S01_add();"
     				label="Add" 
-    				iconClass="dijitIconSave"></gs:button>    			  		
+    				iconClass="dijitIconSave"></gs:button>   
+				<button name="BSC_PROG005D0001A_S01_clear" id="BSC_PROG005D0001A_S01_clear" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconClear',
+						onClick:function(){ 
+							BSC_PROG005D0001A_itemData = [];
+							BSC_PROG005D0001A_S01_showDataTable();
+						}
+					">Clear</button>						  		
     		</td>
     	</tr> 
     	    	
