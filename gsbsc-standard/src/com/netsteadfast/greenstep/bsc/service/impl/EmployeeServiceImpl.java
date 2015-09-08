@@ -196,4 +196,20 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 		return this.employeeDAO.findForAppendEmployeeOidsByReportRoleViewEmpl(roleId);
 	}
 
+	@Override
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(String projectOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(projectOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		return this.employeeDAO.findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(projectOid);
+	}
+
+	@Override
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectRater(String projectOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(projectOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}			
+		return this.employeeDAO.findForAppendEmployeeOidsByDegreeFeedbackProjectRater(projectOid);
+	}
+
 }

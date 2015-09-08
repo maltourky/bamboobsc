@@ -75,5 +75,23 @@ public class EmployeeDAOImpl extends BaseDAO<BbEmployee, String> implements IEmp
 				.setString("type", ReportRoleViewTypes.IS_EMPLOYEE)
 				.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(String projectOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbEmployee m WHERE m.empId IN ( SELECT DISTINCT b.ownerId FROM BbDegreeFeedbackAssign b WHERE b.projectOid = :projectOid ) ")
+				.setString("projectOid", projectOid)
+				.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectRater(String projectOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbEmployee m WHERE m.empId IN ( SELECT DISTINCT b.raterId FROM BbDegreeFeedbackAssign b WHERE b.projectOid = :projectOid ) ")
+				.setString("projectOid", projectOid)
+				.list();
+	}
 	
 }

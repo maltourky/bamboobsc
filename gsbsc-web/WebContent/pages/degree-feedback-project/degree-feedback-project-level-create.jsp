@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 function BSC_PROG005D0001A_S00_add() {
-	var size = BSC_PROG005D0001A_levelData.length;	
+	var size = ${fields.oid}.length;	
 	if ( size >= ${maxLevelSize} ) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Cannot over items : ' + '${maxLevelSize}', function(){}, 'Y');
 		return;
@@ -46,27 +46,27 @@ function BSC_PROG005D0001A_S00_add() {
 	}	
 	nameStr = viewPage.escape1(nameStr);
 	for (var n=0; n<size; n++) {
-		if ( BSC_PROG005D0001A_levelData[n].name == nameStr ) {
+		if ( ${fields.oid}[n].name == nameStr ) {
 			n = size;
 			alertDialog(_getApplicationProgramNameById('${programId}'), 'Name is found!', function(){}, 'N');
 			return;
 		}
-		if ( BSC_PROG005D0001A_levelData[n].value == valueStr ) {
+		if ( ${fields.oid}[n].value == valueStr ) {
 			n = size;
 			alertDialog(_getApplicationProgramNameById('${programId}'), 'Value is found!', function(){}, 'N');
 			return;			
 		}
 	}		
-	BSC_PROG005D0001A_levelData.push( {name: nameStr , value: valueStr} );
+	${fields.oid}.push( {name: nameStr , value: valueStr} );
 	BSC_PROG005D0001A_S00_showDataTable();
 }
 
 function BSC_PROG005D0001A_S00_removeField( name ) {
-	var size = BSC_PROG005D0001A_levelData.length;
+	var size = ${fields.oid}.length;
 	for (var n=0; n<size; n++) {
-		var dataItem = BSC_PROG005D0001A_levelData[n];
+		var dataItem = ${fields.oid}[n];
 		if ( dataItem.name == name ) {
-			BSC_PROG005D0001A_levelData.splice( n , 1 );
+			${fields.oid}.splice( n , 1 );
 			n = size;
 		}
 	}
@@ -80,7 +80,7 @@ function BSC_PROG005D0001A_S00_clear() {
 }
 
 function BSC_PROG005D0001A_S00_showDataTable() {
-	var size = BSC_PROG005D0001A_levelData.length;
+	var size = ${fields.oid}.length;
 	var txtContent = '';
 	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
 	txtContent += '<tr>';
@@ -89,7 +89,7 @@ function BSC_PROG005D0001A_S00_showDataTable() {
 	txtContent += '<td width="30%" align="left" bgcolor="#f5f5f5"><b>Value</b></td>';
 	txtContent += '</tr>';
 	for (var n=0; n<size; n++) {
-		var dataItem = BSC_PROG005D0001A_levelData[n];
+		var dataItem = ${fields.oid}[n];
 		txtContent += '<tr>';
 		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG005D0001A_S00_removeField(\'' + dataItem.name + '\');" /> ';
 		txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
@@ -159,7 +159,7 @@ function ${programId}_page_message() {
 						showLabel:true,
 						iconClass:'dijitIconClear',
 						onClick:function(){ 
-							BSC_PROG005D0001A_levelData = [];
+							${fields.oid} = [];
 							BSC_PROG005D0001A_S00_showDataTable();
 						}
 					">Clear</button>    						  		

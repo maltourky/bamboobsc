@@ -34,4 +34,9 @@ public interface IDegreeFeedbackLogicService {
 	public DefaultResult<DegreeFeedbackProjectVO> createProject(DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items,
 			List<DegreeFeedbackLevelVO> levels, List<String> ownerEmplOids, List<String> raterEmplOids) throws ServiceException, Exception;
 	
+	public DefaultResult<Boolean> deleteProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception;
+	
+	public DefaultResult<DegreeFeedbackProjectVO> updateProject(DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items,
+			List<DegreeFeedbackLevelVO> levels, List<String> ownerEmplOids, List<String> raterEmplOids) throws ServiceException, Exception;
+	
 }

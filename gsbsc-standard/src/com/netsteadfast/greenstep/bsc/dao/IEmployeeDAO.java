@@ -36,4 +36,8 @@ public interface IEmployeeDAO<T extends java.io.Serializable, PK extends java.io
 	
 	public List<String> findForAppendEmployeeOidsByReportRoleViewEmpl(String roleId) throws Exception;
 	
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(String projectOid) throws Exception;
+	
+	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectRater(String projectOid) throws Exception;
+	
 }

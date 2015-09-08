@@ -184,6 +184,69 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		return result;
 	}
 	
+	@ServiceMethodAuthority(type={ServiceMethodType.DELETE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
+	@Override
+	public DefaultResult<Boolean> deleteProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		if (null == project || super.isBlank(project.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		DefaultResult<DegreeFeedbackProjectVO> oldResult = this.degreeFeedbackProjectService.findObjectByOid(project);
+		if (oldResult.getValue()==null) {
+			throw new ServiceException(oldResult.getSystemMessage().getValue());
+		}
+		project = oldResult.getValue();
+		this.deleteLevels(project);
+		this.deleteItems(project);
+		this.deleteAssign(project);
+		this.deleteScore(project);
+		return this.degreeFeedbackProjectService.deleteObject(project);
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )	
+	@Override
+	public DefaultResult<DegreeFeedbackProjectVO> updateProject(
+			DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items, 
+			List<DegreeFeedbackLevelVO> levels, List<String> ownerEmplOids, List<String> raterEmplOids) throws ServiceException, Exception {
+		if (project == null || levels == null || levels.size()<1 || items == null || items.size()<1 
+				|| ownerEmplOids == null || ownerEmplOids.size()<1 || raterEmplOids == null || raterEmplOids.size()<1
+				|| super.isBlank(project.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		if (levels.size()>BscConstants.MAX_DEGREE_FEEDBACK_LEVEL_SIZE || items.size()>BscConstants.MAX_DEGREE_FEEDBACK_ITEM_SIZE) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_INCORRECT));
+		}
+		DefaultResult<DegreeFeedbackProjectVO> oldResult = this.degreeFeedbackProjectService.findObjectByOid(project);
+		if (oldResult.getValue()==null) {
+			throw new ServiceException( oldResult.getSystemMessage().getValue() );
+		}		
+		if (YesNo.YES.equals(oldResult.getValue().getPublishFlag())) {
+			throw new ServiceException( "Cannot update/modify publish project!" );
+		}
+		super.setStringValueMaxLength(project, "description", MAX_DESCRIPTION_OR_MEMO_LENGTH);
+		project.setPublishFlag( oldResult.getValue().getPublishFlag() );
+		this.deleteLevels(project);
+		this.deleteItems(project);
+		this.deleteAssign(project);
+		this.deleteScore(project); // 原則上還能修改的project不會有分數資料, 因為還沒發佈
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackProjectService.updateObject(project);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		project = result.getValue();
+		this.createLevels(project, levels);
+		this.createItems(project, items);
+		this.createAssign(project, ownerEmplOids, raterEmplOids);
+		return result;
+	}	
+	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {
 		for (DegreeFeedbackLevelVO level : levels) {
 			if ( super.isBlank(level.getName()) ) {
@@ -238,6 +301,42 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		}
 		tmpBag.put(oid, result.getValue());
 		return result.getValue();
+	}
+	
+	private void deleteLevels(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		List<BbDegreeFeedbackLevel> levels = this.degreeFeedbackLevelService.findListByParams(paramMap);
+		for (BbDegreeFeedbackLevel level : levels) {
+			this.degreeFeedbackLevelService.delete(level);
+		}
+	}
+	
+	private void deleteItems(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		List<BbDegreeFeedbackItem> items = this.degreeFeedbackItemService.findListByParams(paramMap);
+		for (BbDegreeFeedbackItem item : items) {
+			this.degreeFeedbackItemService.delete(item);
+		}
+	}
+	
+	private void deleteAssign(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		List<BbDegreeFeedbackAssign> assigns = this.degreeFeedbackAssignService.findListByParams(paramMap);
+		for (BbDegreeFeedbackAssign assign : assigns) {
+			this.degreeFeedbackAssignService.delete(assign);
+		}
+	}
+	
+	private void deleteScore(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		List<BbDegreeFeedbackScore> scores = this.degreeFeedbackScoreService.findListByParams(paramMap);
+		for (BbDegreeFeedbackScore score : scores) {
+			this.degreeFeedbackScoreService.delete(score);
+		}		
 	}
 
 }

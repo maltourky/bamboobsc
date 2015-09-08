@@ -52,14 +52,14 @@ function BSC_PROG005D0001Q_clear() {
 }
 
 function BSC_PROG005D0001Q_edit(oid) {
-	BSC_PROG002D0002E_TabShow(oid);
+	BSC_PROG005D0001E_TabShow(oid);
 }
 
 function BSC_PROG005D0001Q_confirmDelete(oid) {
 	confirmDialog(
 			"${programId}_managementDialogId000", 
 			_getApplicationProgramNameById('${programId}'), 
-			"${action.getText('BSC_PROG005D0001Q_confirmDelete')}", 
+			"delete?", 
 			function(success) {
 				if (!success) {
 					return;

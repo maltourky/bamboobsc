@@ -221,7 +221,7 @@ function ${programId}_page_message() {
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
 						onClick:function(){ 
-							BSC_PROG005D0001A_S00_DlgShow(' ');
+							BSC_PROG005D0001A_S00_DlgShow('BSC_PROG005D0001A_levelData');
 						}
 					"></button>
 				<button name="BSC_PROG005D0001A_levelSettingsClear" id="BSC_PROG005D0001A_levelSettingsClear" data-dojo-type="dijit.form.Button"
@@ -244,7 +244,7 @@ function ${programId}_page_message() {
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
 						onClick:function(){ 
-							BSC_PROG005D0001A_S01_DlgShow(' ');
+							BSC_PROG005D0001A_S01_DlgShow('BSC_PROG005D0001A_itemData');
 						}
 					"></button>
 				<button name="BSC_PROG005D0001A_itemSettingsClear" id="BSC_PROG005D0001A_itemSettingsClear" data-dojo-type="dijit.form.Button"

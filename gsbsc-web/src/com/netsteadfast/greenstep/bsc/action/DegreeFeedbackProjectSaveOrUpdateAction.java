@@ -173,6 +173,31 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.message = result.getSystemMessage().getValue();
 	}
 	
+	private void delete() throws ControllerException, AuthorityException, ServiceException, Exception {
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		this.transformFields2ValueObject(project, new String[]{"oid"});
+		DefaultResult<Boolean> result = this.degreeFeedbackLogicService.deleteProject(project);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()!=null && result.getValue()) {
+			this.success = IS_YES;
+		}		
+	}
+	
+	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		this.transformFields2ValueObject(project, new String[]{"oid", "name", "year", "description"});
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.updateProject(
+				project, 
+				this.fillItems(), 
+				this.fillLevels(), 
+				this.transformAppendIds2List(this.getFields().get("ownerOids")), 
+				this.transformAppendIds2List(this.getFields().get("raterOids")));		
+		if (result.getValue()!=null) {
+			this.success = IS_YES;
+		}
+		this.message = result.getSystemMessage().getValue();		
+	}
+	
 	/**
 	 * bsc.degreeFeedbackProjectSaveAction.action
 	 * 
@@ -187,6 +212,64 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 				return SUCCESS;
 			}
 			this.save();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
+	
+	/**
+	 * bsc.degreeFeedbackProjectDeleteAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001Q")
+	public String doDelete() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.delete();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}			
+	
+	/**
+	 * bsc.degreeFeedbackProjecUpdateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001E")
+	public String doUpdate() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.update();
 		} catch (ControllerException ce) {
 			this.message=ce.getMessage().toString();
 		} catch (AuthorityException ae) {
