@@ -29,14 +29,14 @@ public class TestBPMN001 {
 	@Test
 	public void deployment() throws Exception {	
 		
-		InputStream inputStreamBpmn = new FileInputStream( "/home/git/bamboobsc/core-doc/TestProcess001.bpmn" );
-		InputStream inputStreamPng = new FileInputStream( "/home/git/bamboobsc/core-doc/TestProcess001.png" );		
+		InputStream inputStreamBpmn = new FileInputStream( "/home/git/bamboobsc/core-doc/DFProjectPublishProcess.bpmn" );
+		InputStream inputStreamPng = new FileInputStream( "/home/git/bamboobsc/core-doc/DFProjectPublishProcess.png" );		
 		RepositoryService repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 		Deployment deployment = repositoryService
 				.createDeployment()
-				.name("流程測試001")
-				.addInputStream("TestProcess001.bpmn", inputStreamBpmn)
-				.addInputStream("TestProcess001.png", inputStreamPng)				
+				.name("DFProjectPublishProcess-flow")
+				.addInputStream("DFProjectPublishProcess.bpmn", inputStreamBpmn)
+				.addInputStream("DFProjectPublishProcess.png", inputStreamPng)				
 				.deploy();
 		System.out.println("ID: " + deployment.getId() + " , Name: " + deployment.getName());
 		
@@ -46,16 +46,12 @@ public class TestBPMN001 {
 	public void startProcess() throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("prog_id", "CORE_0001");
-		paramMap.put("user_account", "tester");
-		paramMap.put("description", "hello~~~");
-		paramMap.put("role", "BSC_STANDARD");
+		paramMap.put("confirmPublish", "N");
 		
-		String processId = "myProcess:1:10004";
-		String bKey = UUID.randomUUID().toString();
+		String processId = "Employee360DegreeFeedbackProjectPublishProcess";
 		
 		RuntimeService runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
-		ProcessInstance process = runtimeService.startProcessInstanceById(processId, bKey, paramMap);		
+		ProcessInstance process = runtimeService.startProcessInstanceByKey(processId, paramMap);
 		System.out.println("DeploymentId: " + process.getDeploymentId() );
 		System.out.println("ActivityId: " + process.getActivityId() );
 		System.out.println("Name: " + process.getName() );
@@ -100,7 +96,7 @@ public class TestBPMN001 {
 		RepositoryService repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
 		List<ProcessDefinition> processDefs = processDefinitionQuery
-			.processDefinitionKey("myProcess")
+			.processDefinitionKey("Employee360DegreeFeedbackProjectPublishProcess")
 			.orderByProcessDefinitionVersion()
 			.desc()
 			.list();
@@ -146,8 +142,8 @@ public class TestBPMN001 {
 	@Test
 	public void completeTask() throws Exception {
 		
-		//String assignee = "張三";
-		String assignee = "王經理";
+		String assignee = "張三";
+		//String assignee = "王經理";
 				
 		TaskService taskService = (TaskService) AppContext.getBean("taskService");
 		List<Task> tasks = taskService.createTaskQuery().list();
@@ -166,7 +162,9 @@ public class TestBPMN001 {
 	private void printTask(Task task) throws Exception {
 		System.out.println("ID: " + task.getId() + " , Name: " + task.getName() 
 				+ " , FORM_KEY: " + task.getFormKey() 
-				+ " , Assignee: " + task.getAssignee());
+				+ " , Assignee: " + task.getAssignee()
+				+ " , ProcessInstanceId: " + task.getProcessInstanceId() 
+				+ " , ProcessInstanceId: " + task.getProcessInstanceId());
 	}
 	
 
