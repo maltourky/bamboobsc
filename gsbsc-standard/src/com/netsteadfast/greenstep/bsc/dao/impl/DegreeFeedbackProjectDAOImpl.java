@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +36,16 @@ public class DegreeFeedbackProjectDAOImpl extends BaseDAO<BbDegreeFeedbackProjec
 	
 	public DegreeFeedbackProjectDAOImpl() {
 		super();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BbDegreeFeedbackProject> findByPublishFlag(String publishFlag, String raterId) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("FROM BbDegreeFeedbackProject m WHERE m.publishFlag = :publishFlag AND m.projectOid IN ( SELECT DISTINCT b.projectOid FROM BbDegreeFeedbackAssign b WHERE b.raterId = :raterId ) ORDER BY m.year DESC, m.name ASC")
+				.setString("publishFlag", publishFlag)				
+				.setMaxResults(100)
+				.list();
 	}
 	
 }

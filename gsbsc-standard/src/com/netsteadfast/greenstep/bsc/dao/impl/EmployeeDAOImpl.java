@@ -93,5 +93,13 @@ public class EmployeeDAOImpl extends BaseDAO<BbEmployee, String> implements IEmp
 				.setString("projectOid", projectOid)
 				.list();
 	}
+
+	@Override
+	public BbEmployee findByAccountOid(String accountOid) throws Exception {
+		return (BbEmployee) this.getCurrentSession()
+				.createQuery("FROM BbEmployee WHERE account IN ( SELECT b.account FROM TbAccount b WHERE b.oid = :oid ) ")
+				.setString("oid", accountOid)
+				.uniqueResult();
+	}
 	
 }

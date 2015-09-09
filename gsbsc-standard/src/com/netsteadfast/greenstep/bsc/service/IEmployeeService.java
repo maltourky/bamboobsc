@@ -54,4 +54,8 @@ public interface IEmployeeService<T extends java.io.Serializable, E extends java
 	
 	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectRater(String projectOid) throws ServiceException, Exception;
 	
+	public BbEmployee findByAccountId(String accountId) throws Exception;
+	
+	public BbEmployee findByAccountOid(String accountOid) throws Exception;
+	
 }

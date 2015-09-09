@@ -212,4 +212,29 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 		return this.employeeDAO.findForAppendEmployeeOidsByDegreeFeedbackProjectRater(projectOid);
 	}
 
+	@Override
+	public BbEmployee findByAccountId(String accountId) throws Exception {
+		if (StringUtils.isBlank(accountId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("account", accountId);
+		List<BbEmployee> searchList = this.findListByParams(paramMap);
+		if (searchList==null || searchList.size()<1) {
+			return null;
+		}
+		if (searchList.size()!=1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}		
+		return searchList.get(0);
+	}
+
+	@Override
+	public BbEmployee findByAccountOid(String accountOid) throws Exception {
+		if (StringUtils.isBlank(accountOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return this.employeeDAO.findByAccountOid(accountOid);
+	}
+
 }

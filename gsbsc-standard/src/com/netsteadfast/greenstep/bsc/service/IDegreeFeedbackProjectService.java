@@ -24,10 +24,12 @@ package com.netsteadfast.greenstep.bsc.service;
 import java.util.List;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.PageOf;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.service.IBaseService;
+import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 
 public interface IDegreeFeedbackProjectService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
@@ -36,5 +38,9 @@ public interface IDegreeFeedbackProjectService<T extends java.io.Serializable, E
 	public static String MAPPER_ID_VO2PO="degreeFeedbackProject.vo2po";
 	
 	public QueryResult<List<DegreeFeedbackProjectVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception;
+	
+	public DefaultResult<List<BbDegreeFeedbackProject>> findByPublishFlag(String publishFlag, String raterId) throws Exception;
+	
+	public DefaultResult<List<DegreeFeedbackProjectVO>> findByPublishFlag2ValueObject(String publishFlag, String raterId) throws Exception;
 	
 }

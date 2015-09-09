@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,10 +41,13 @@ import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.PageOf;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.base.model.SearchValue;
+import com.netsteadfast.greenstep.base.model.SystemMessage;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.bsc.dao.IDegreeFeedbackProjectDAO;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
@@ -139,6 +143,43 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 				limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
+		return result;
+	}
+
+	@Override
+	public DefaultResult<List<BbDegreeFeedbackProject>> findByPublishFlag(String publishFlag, String raterId) throws Exception {
+		if (StringUtils.isBlank(raterId) || StringUtils.isBlank(publishFlag)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		if (!YesNo.YES.equals(publishFlag) && !YesNo.NO.equals(publishFlag)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_INCORRECT));
+		}
+		DefaultResult<List<BbDegreeFeedbackProject>> result = new DefaultResult<List<BbDegreeFeedbackProject>>();
+		List<BbDegreeFeedbackProject> list = this.degreeFeedbackProjectDAO.findByPublishFlag(publishFlag, raterId);
+		if (null != list && list.size()>0) {
+			result.setValue(list);
+		} else {
+			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA)) );
+		}
+		return result;
+	}
+
+	@Override
+	public DefaultResult<List<DegreeFeedbackProjectVO>> findByPublishFlag2ValueObject(String publishFlag, String raterId) throws Exception {
+		DefaultResult<List<BbDegreeFeedbackProject>> queryResult = this.findByPublishFlag(publishFlag, raterId);
+		DefaultResult<List<DegreeFeedbackProjectVO>> result = new DefaultResult<List<DegreeFeedbackProjectVO>>();
+		if (queryResult.getValue()==null) {
+			result.setSystemMessage( queryResult.getSystemMessage() );
+			return result;
+		}
+		List<DegreeFeedbackProjectVO> datas = new ArrayList<DegreeFeedbackProjectVO>(); 
+		List<BbDegreeFeedbackProject> queryList = queryResult.getValue();
+		for (BbDegreeFeedbackProject entity : queryList) {
+			DegreeFeedbackProjectVO obj = new DegreeFeedbackProjectVO();
+			this.doMapper(entity, obj, this.getMapperIdPo2Vo());
+			datas.add( obj );
+		}
+		result.setValue(datas);
 		return result;
 	}
 

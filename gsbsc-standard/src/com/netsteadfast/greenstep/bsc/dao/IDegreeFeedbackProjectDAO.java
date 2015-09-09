@@ -21,9 +21,13 @@
  */
 package com.netsteadfast.greenstep.bsc.dao;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 
 public interface IDegreeFeedbackProjectDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbDegreeFeedbackProject, String> {
+	
+	public List<T> findByPublishFlag(String publishFlag, String raterId) throws Exception;
 	
 }
