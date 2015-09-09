@@ -63,9 +63,31 @@ function ${programId}_page_message() {
 		</tr>		
 		<tr>
 			<td align="left" bgcolor="#ffffff">
-				Owner:</b>
+				<b>Owner:</b>
 				&nbsp;
-				<gs:select name="BSC_PROG005D0003Q_owner" dataSource="ownerMap" id="" value="fields.employeeOid"></gs:select>				
+				<gs:select name="BSC_PROG005D0003Q_owner" dataSource="ownerMap" id="BSC_PROG005D0003Q_owner" value="fields.employeeOid"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0003Q_owner'">
+    				Select project's owner.
+				</div> 
+				
+				<button name="BSC_PROG005D0003Q_btnSave" id="BSC_PROG005D0003Q_btnSave" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSave',
+						onClick:function(){ 
+							
+						}
+					">Save</button>		
+					
+				<button name="BSC_PROG005D0003Q_btnClear" id="BSC_PROG005D0003Q_btnClear" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconClear',
+						onClick:function(){ 
+							
+						}
+					">Clear</button>									
+												
 			</td>
 		</tr>
 	</table>		
@@ -75,7 +97,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" bgcolor="#d8d8d8">
 	
 	<s:if test="items!=null">
-	<s:iterator value="items" status="st1">
+	<s:iterator value="items" status="st1" >
 		<tr>
 				
 			<td width="200px" align="left" bgcolor="#FAFAFA"><b><s:property value="name"/></b></td>
@@ -84,9 +106,14 @@ function ${programId}_page_message() {
 			<s:iterator value="levels" status="st2">
 			
 			<td align="left" bgcolor="#ffffff">
-			
-			<input type="radio" name="<s:property value="project.oid"/>:<s:property value="items[%{#st1.index}].oid"/>" id="<s:property value="project.oid"/>:<s:property value="items[%{#st1.index}].oid"/>:<s:property value="levels[%{#st2.index}].oid"/>" value="<s:property value="value"/>"/> 
-			<label for="<s:property value="project.oid"/>:<s:property value="items[%{#st1.index}].oid"/>:<s:property value="levels[%{#st2.index}].oid"/>"><s:property value="name"/></label>
+			<input type="radio" data-dojo-type="dijit/form/RadioButton" 
+				name="BSC_PROG005D0003Q_RADIO_<s:property value="project.oid"/>:<s:property value="items[#st1.index].oid"/>" 
+				id="BSC_PROG005D0003Q_RADIO_ID_<s:property value="project.oid"/>:<s:property value="items[#st1.index].oid"/>:<s:property value="levels[#st2.index].oid"/>" value="<s:property value="value"/>"
+				
+				<s:if test=" 0 == #st2.index "> checked </s:if>
+				
+				/> 
+			<label for="BSC_PROG005D0003Q_RADIO_ID_<s:property value="project.oid"/>:<s:property value="items[#st1.index].oid"/>:<s:property value="levels[#st2.index].oid"/>"><s:property value="name"/></label>
 			    		
 			</td>
 			
@@ -99,6 +126,47 @@ function ${programId}_page_message() {
 	</s:if>
 		
 	</table>
+	
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+<br/>
+<br/>
+<br/>
+<br/>
 			
 <script type="text/javascript">${programId}_page_message();</script>	
 </body>
