@@ -36,6 +36,11 @@
 			<result name="input">/pages/degree-feedback-project/degree-feedback-project-list.jsp</result>		
 			<result name="success">/pages/degree-feedback-project/degree-feedback-project-list.jsp</result>
 		</action>			
+		
+		<action name="bsc.degreeFeedbackProjectEnterScoreAction" class="bsc.web.controller.DegreeFeedbackProjectListAction" method="enterScore">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-enterscore.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-enterscore.jsp</result>
+		</action>		
 													   	
 	</package>
 	

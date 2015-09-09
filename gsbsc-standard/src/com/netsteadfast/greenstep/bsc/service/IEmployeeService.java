@@ -58,4 +58,6 @@ public interface IEmployeeService<T extends java.io.Serializable, E extends java
 	
 	public BbEmployee findByAccountOid(String accountOid) throws Exception;
 	
+	public Map<String, String> findForMapByDegreeFeedbackProjectOwner(boolean pleaseSelect, String projectOid) throws ServiceException, Exception;
+	
 }

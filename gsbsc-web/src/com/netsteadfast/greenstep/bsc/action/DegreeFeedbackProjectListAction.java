@@ -22,7 +22,9 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -41,11 +43,17 @@ import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.YesNo;
+import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackItemService;
+import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackLevelService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackProjectService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackItem;
+import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 
@@ -55,8 +63,14 @@ import com.netsteadfast.greenstep.vo.EmployeeVO;
 public class DegreeFeedbackProjectListAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -7624043175140468696L;
 	private IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> degreeFeedbackProjectService;
+	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
+	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;	
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	private List<DegreeFeedbackProjectVO> projects = new ArrayList<DegreeFeedbackProjectVO>();
+	private DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+	private Map<String, String> ownerMap = this.providedSelectZeroDataMap(true);
+	private List<BbDegreeFeedbackItem> items = new ArrayList<BbDegreeFeedbackItem>();
+	private List<BbDegreeFeedbackLevel> levels = new ArrayList<BbDegreeFeedbackLevel>();
 	
 	public DegreeFeedbackProjectListAction() {
 		super();
@@ -74,6 +88,30 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		this.degreeFeedbackProjectService = degreeFeedbackProjectService;
 	}
 	
+	public IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> getDegreeFeedbackItemService() {
+		return degreeFeedbackItemService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.DegreeFeedbackItemService")		
+	public void setDegreeFeedbackItemService(
+			IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService) {
+		this.degreeFeedbackItemService = degreeFeedbackItemService;
+	}
+
+	public IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> getDegreeFeedbackLevelService() {
+		return degreeFeedbackLevelService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.DegreeFeedbackLevelService")			
+	public void setDegreeFeedbackLevelService(
+			IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService) {
+		this.degreeFeedbackLevelService = degreeFeedbackLevelService;
+	}	
+	
 	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
 		return employeeService;
 	}
@@ -86,7 +124,16 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		this.employeeService = employeeService;
 	}	
 	
-	private void initData() throws ServiceException, Exception {		
+	private void initData(String type) throws ServiceException, Exception {
+		if ( "list".equals(type) ) {
+			this.loadDataForList();					
+		}
+		if ( "enterScore".equals(type) ) {
+			this.loadDataForEnterScore();
+		}
+	}
+	
+	private void loadDataForList() throws ServiceException, Exception {
 		BbEmployee employee = this.employeeService.findByAccountId( this.getAccountId() );
 		if (null == employee) {
 			throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS) );
@@ -95,7 +142,23 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 				.findByPublishFlag2ValueObject(YesNo.YES, employee.getEmpId());
 		if ( result.getValue() != null ) {
 			this.projects = result.getValue();
+		}		
+	}
+	
+	private void loadDataForEnterScore() throws ServiceException, Exception {
+		this.transformFields2ValueObject(this.project, new String[]{"oid"});
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackProjectService.findObjectByOid(this.project);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
 		}
+		this.project = result.getValue();
+		this.ownerMap = this.employeeService.findForMapByDegreeFeedbackProjectOwner(true, this.project.getOid());	
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", this.project.getOid());
+		this.items = this.degreeFeedbackItemService.findListByParams(paramMap);
+		Map<String, String> orderParam = new HashMap<String, String>();
+		orderParam.put("value", "asc");
+		this.levels = this.degreeFeedbackLevelService.findListByParams(paramMap, null, orderParam);
 	}
 	
 	/**
@@ -104,7 +167,7 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 	@ControllerMethodAuthority(programId="BSC_PROG005D0002Q")
 	public String execute() throws Exception {
 		try {
-			this.initData();
+			this.initData("list");
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
 		} catch (ServiceException e) {
@@ -115,6 +178,26 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		}
 		return SUCCESS;		
 	}	
+	
+	/**
+	 * bsc.degreeFeedbackProjectEnterScoreAction.action
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG005D0003Q")
+	public String enterScore() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData("enterScore");
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;			
+	}
 	
 	@Override
 	public String getProgramName() {
@@ -139,6 +222,38 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 
 	public void setProjects(List<DegreeFeedbackProjectVO> projects) {
 		this.projects = projects;
+	}
+
+	public DegreeFeedbackProjectVO getProject() {
+		return project;
+	}
+
+	public void setProject(DegreeFeedbackProjectVO project) {
+		this.project = project;
+	}
+
+	public Map<String, String> getOwnerMap() {
+		return ownerMap;
+	}
+
+	public void setOwnerMap(Map<String, String> ownerMap) {
+		this.ownerMap = ownerMap;
+	}
+
+	public List<BbDegreeFeedbackItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<BbDegreeFeedbackItem> items) {
+		this.items = items;
+	}
+
+	public List<BbDegreeFeedbackLevel> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(List<BbDegreeFeedbackLevel> levels) {
+		this.levels = levels;
 	}
 
 }

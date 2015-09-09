@@ -237,4 +237,19 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 		return this.employeeDAO.findByAccountOid(accountOid);
 	}
 
+	@Override
+	public Map<String, String> findForMapByDegreeFeedbackProjectOwner(boolean pleaseSelect, String projectOid) throws ServiceException, Exception {
+		Map<String, String> dataMap = this.providedSelectZeroDataMap(pleaseSelect);
+		List<String> oids = this.findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(projectOid);		
+		for (String oid : oids ) {
+			BbEmployee employee = this.findByPKng(oid);
+			if (null == employee || StringUtils.isBlank(employee.getOid()) ) {
+				logger.warn( "Lost bb_employee data OID: " + oid );
+				continue;
+			}
+			dataMap.put( employee.getOid(), employee.getEmpId() + " - " + employee.getFullName() );
+		}		
+		return dataMap;
+	}
+
 }
