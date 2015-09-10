@@ -64,7 +64,7 @@ function ${programId}_page_message() {
 			<td align="center" width="10%" bgcolor="#f5f5f5"><b>Year</b></td>
 			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Name</b></td>
 			<td align="left" width="35%" bgcolor="#f5f5f5"><b>Description</b></td>
-			<td align="center" width="15%" bgcolor="#f5f5f5">#</td>
+			<td align="center" width="15%" bgcolor="#f5f5f5"><b>#</b></td>
 		</tr>
 		<s:if test=" null != projects && projects.size != 0 ">
 		<s:iterator value="projects" status="st">
@@ -89,7 +89,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0004Q_DlgShow('${oid}');
 						}
-					">Report</button>										
+					">View</button>										
 			</td>
 		</tr>		
 		

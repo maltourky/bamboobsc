@@ -42,7 +42,7 @@ public class DegreeFeedbackScoreDAOImpl extends BaseDAO<BbDegreeFeedbackScore, S
 	@Override
 	public List<BbDegreeFeedbackScore> findForListByProjectAndOwner(String projectOid, String ownerId) throws Exception {
 		return this.getCurrentSession()
-				.createQuery("FROM BbDegreeFeedbackScore WHERE projectOid = :projectOid AND assignOid IN ( SELECT b.oid FROM BbDegreeFeedbackAssign WHERE b.projectOid = :projectOid AND b.ownerId = :ownerId )")
+				.createQuery("FROM BbDegreeFeedbackScore WHERE projectOid = :projectOid AND assignOid IN ( SELECT b.oid FROM BbDegreeFeedbackAssign b WHERE b.projectOid = :projectOid AND b.ownerId = :ownerId )")
 				.setString("projectOid", projectOid)
 				.setString("ownerId", ownerId)
 				.list();

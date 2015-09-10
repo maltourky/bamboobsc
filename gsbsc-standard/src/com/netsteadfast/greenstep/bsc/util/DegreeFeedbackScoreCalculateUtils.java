@@ -141,7 +141,8 @@ public class DegreeFeedbackScoreCalculateUtils {
 		List<DegreeFeedbackLevelVO> newLevels = new LinkedList<DegreeFeedbackLevelVO>();
 		for (BbDegreeFeedbackLevel level : levels) {
 			DegreeFeedbackLevelVO obj = new DegreeFeedbackLevelVO();
-			degreeFeedbackLevelService.copyProperties(level, obj);			
+			degreeFeedbackLevelService.copyProperties(level, obj);	
+			newLevels.add( obj );
 		}
 		return newLevels;
 	}	
