@@ -28,6 +28,7 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
+import com.netsteadfast.greenstep.vo.DegreeFeedbackScoreVO;
 
 public interface IDegreeFeedbackLogicService {
 	
@@ -38,5 +39,8 @@ public interface IDegreeFeedbackLogicService {
 	
 	public DefaultResult<DegreeFeedbackProjectVO> updateProject(DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items,
 			List<DegreeFeedbackLevelVO> levels, List<String> ownerEmplOids, List<String> raterEmplOids) throws ServiceException, Exception;
+	
+	public DefaultResult<DegreeFeedbackProjectVO> updateScore(String projectOid, String ownerEmployeeOid, String raterEmployeeOid,
+			List<DegreeFeedbackScoreVO> scores) throws ServiceException, Exception;
 	
 }

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.15, for FreeBSD10.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.19, for Win32 (x86)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
--- Server version	5.6.15
+-- Server version	5.6.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -901,7 +901,7 @@ CREATE TABLE `bb_degree_feedback_assign` (
   `UUSERID` varchar(24) DEFAULT NULL,
   `UDATE` datetime DEFAULT NULL,
   PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`OWNER_ID`,`RATER_ID`),
+  UNIQUE KEY `UK_1` (`OWNER_ID`,`RATER_ID`,`PROJECT_OID`),
   KEY `IDX_1` (`PROJECT_OID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3689,4 +3689,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-09 21:46:57
+-- Dump completed on 2015-09-10  9:23:28

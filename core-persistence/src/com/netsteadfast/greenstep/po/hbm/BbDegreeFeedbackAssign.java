@@ -16,7 +16,7 @@ import com.netsteadfast.greenstep.base.model.EntityUK;
 @Table(
 		name="bb_degree_feedback_assign", 
 		uniqueConstraints = { 
-				@UniqueConstraint( columnNames = {"OWNER_ID", "RATER_ID"} ) 
+				@UniqueConstraint( columnNames = {"PROJECT_OID", "OWNER_ID", "RATER_ID"} ) 
 		} 
 )
 public class BbDegreeFeedbackAssign extends BaseEntity<String> implements java.io.Serializable {
@@ -43,6 +43,7 @@ public class BbDegreeFeedbackAssign extends BaseEntity<String> implements java.i
 		this.oid = oid;
 	}			
 
+	@EntityUK(name="projectOid")
 	@Column(name="PROJECT_OID")
 	public String getProjectOid() {
 		return projectOid;

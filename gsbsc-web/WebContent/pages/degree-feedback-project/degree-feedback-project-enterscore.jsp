@@ -49,12 +49,14 @@ function BSC_PROG005D0003Q_update() {
 		var value = dojo.query('input[type=radio][name=' + name + ']:checked')[0].value;
 		datas.push({
 			"name"	: name,
-			"value"	: value
+			"value"	: value,
+			"memo"	: ' ' // 暫時不需要用
 		});
 	}
 	xhrSendParameter(
 			'${basePath}/bsc.degreeFeedbackProjectScoreUpdateAction.action', 
 			{ 
+				'fields.projectOid'	:	'${fields.oid}',
 				'fields.owner'		:	dijit.byId('BSC_PROG005D0003Q_owner').get('value'),
 				'fields.scoreData'	:	JSON.stringify( { 'data' : datas } ) 
 			}, 

@@ -43,6 +43,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
+import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackAssignService;
@@ -247,6 +248,59 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		return result;
 	}	
 	
+	@ServiceMethodAuthority(type={ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public DefaultResult<DegreeFeedbackProjectVO> updateScore(
+			String projectOid, String ownerEmployeeOid, String raterEmployeeOid, 
+			List<DegreeFeedbackScoreVO> scores) throws ServiceException, Exception {
+		if (super.isBlank(projectOid) || super.isNoSelectId(ownerEmployeeOid) || super.isBlank(raterEmployeeOid) 
+				|| null == scores || scores.size()<1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		project.setOid( projectOid );
+		DefaultResult<DegreeFeedbackProjectVO> projectResult = this.degreeFeedbackProjectService.findObjectByOid(project);
+		if (projectResult.getValue() == null) {
+			throw new ServiceException(projectResult.getSystemMessage().getValue());
+		}
+		project = projectResult.getValue();
+		DefaultResult<DegreeFeedbackProjectVO> result = new DefaultResult<DegreeFeedbackProjectVO>();
+		BbEmployee rater = this.employeeService.findByAccountOid( raterEmployeeOid );
+		if (null == rater || super.isBlank(rater.getOid())) {
+			throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS) );
+		}
+		BbEmployee owner = this.employeeService.findByPKng( ownerEmployeeOid );
+		if (null == owner || super.isBlank(owner.getOid())) {
+			throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST) );
+		}
+		
+		DegreeFeedbackAssignVO assign = this.findAssign(projectOid, rater.getEmpId(), owner.getEmpId());
+		this.deleteScoreWithAssign(project, assign);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		for (DegreeFeedbackScoreVO score : scores) {
+			paramMap.put("oid", score.getItemOid());
+			if (this.degreeFeedbackItemService.countByParams(paramMap)!=1) {
+				throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST) );
+			}
+			score.setAssignOid( assign.getOid() );
+			super.setStringValueMaxLength(score, "memo", MAX_DESCRIPTION_OR_MEMO_LENGTH);
+			DefaultResult<DegreeFeedbackScoreVO> insertResult = this.degreeFeedbackScoreService.saveObject(score);
+			if (insertResult.getValue()==null) {
+				throw new ServiceException(insertResult.getSystemMessage().getValue());
+			}
+			result.setSystemMessage( insertResult.getSystemMessage() );			
+		}
+		paramMap.clear();
+		paramMap = null;
+		result.setValue(project);
+		result.setSystemMessage( new SystemMessage( SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS) ) );		
+		return result;
+	}	
+	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {
 		for (DegreeFeedbackLevelVO level : levels) {
 			if ( super.isBlank(level.getName()) ) {
@@ -337,6 +391,30 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		for (BbDegreeFeedbackScore score : scores) {
 			this.degreeFeedbackScoreService.delete(score);
 		}		
+	}
+	
+	private void deleteScoreWithAssign(DegreeFeedbackProjectVO project, 
+			DegreeFeedbackAssignVO assign) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		paramMap.put("assignOid", assign.getOid());
+		List<BbDegreeFeedbackScore> scores = this.degreeFeedbackScoreService.findListByParams(paramMap);
+		for (BbDegreeFeedbackScore score : scores) {
+			this.degreeFeedbackScoreService.delete(score);
+		}		
+	}	
+	
+	private DegreeFeedbackAssignVO findAssign(String projectOid, 
+			String raterId, String ownerId) throws ServiceException, Exception {
+		DegreeFeedbackAssignVO assing = new DegreeFeedbackAssignVO();
+		assing.setProjectOid(projectOid);
+		assing.setOwnerId(ownerId);
+		assing.setRaterId(raterId);
+		DefaultResult<DegreeFeedbackAssignVO> result = this.degreeFeedbackAssignService.findByUK(assing);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		return result.getValue();
 	}
 
 }
