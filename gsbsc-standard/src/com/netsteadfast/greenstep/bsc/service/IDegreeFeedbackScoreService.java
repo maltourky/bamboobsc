@@ -21,11 +21,16 @@
  */
 package com.netsteadfast.greenstep.bsc.service;
 
+import java.util.List;
+
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.service.IBaseService;
 
 public interface IDegreeFeedbackScoreService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
 	public static String MAPPER_ID_PO2VO="degreeFeedbackScore.po2vo";
 	public static String MAPPER_ID_VO2PO="degreeFeedbackScore.vo2po";
+	
+	public DefaultResult<List<E>> findResultsByProjectAndOwner(String projectOid, String ownerId) throws Exception;
 	
 }

@@ -21,8 +21,11 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -31,7 +34,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.bsc.dao.IDegreeFeedbackScoreDAO;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
@@ -74,6 +82,21 @@ public class DegreeFeedbackScoreServiceImpl extends BaseService<DegreeFeedbackSc
 	@Override
 	public String getMapperIdVo2Po() {
 		return MAPPER_ID_VO2PO;
+	}
+
+	@Override
+	public DefaultResult<List<BbDegreeFeedbackScore>> findResultsByProjectAndOwner(String projectOid, String ownerId) throws Exception {
+		if (StringUtils.isBlank(projectOid) || StringUtils.isBlank(ownerId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		List<BbDegreeFeedbackScore> searchList = this.degreeFeedbackScoreDAO.findForListByProjectAndOwner(projectOid, ownerId);
+		DefaultResult<List<BbDegreeFeedbackScore>> result = new DefaultResult<List<BbDegreeFeedbackScore>>();
+		if (null!=searchList && searchList.size()>0) {
+			result.setValue(searchList);
+		} else {
+			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA)) );
+		}
+		return result;
 	}
 
 }

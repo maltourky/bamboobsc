@@ -21,9 +21,13 @@
  */
 package com.netsteadfast.greenstep.bsc.dao;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
 
 public interface IDegreeFeedbackScoreDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbDegreeFeedbackScore, String> {
+	
+	public List<T> findForListByProjectAndOwner(String projectOid, String ownerId) throws Exception;
 	
 }

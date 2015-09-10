@@ -24,6 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <style type="text/css">
 
+.btnPdfIcon {
+  	background-image: url(./icons/application-pdf.png);
+  	background-repeat: no-repeat;
+  	width: 16px;
+  	height: 16px;
+  	text-align: center;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -63,8 +71,8 @@ function ${programId}_page_message() {
 		<tr>
 			<td align="center" width="10%" bgcolor="#f5f5f5"><b>Year</b></td>
 			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Name</b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Description</b></td>
-			<td align="center" width="10%" bgcolor="#f5f5f5">#</td>
+			<td align="left" width="35%" bgcolor="#f5f5f5"><b>Description</b></td>
+			<td align="center" width="15%" bgcolor="#f5f5f5">#</td>
 		</tr>
 		<s:if test=" null != projects && projects.size != 0 ">
 		<s:iterator value="projects" status="st">
@@ -72,8 +80,8 @@ function ${programId}_page_message() {
 		<tr>
 			<td align="center" width="10%" bgcolor="#ffffff"><s:property value="year"/></td>
 			<td align="left" width="40%" bgcolor="#ffffff"><s:property value="name"/></td>
-			<td align="left" width="40%" bgcolor="#ffffff"><s:property value="description"/></td>
-			<td align="center" width="10%" bgcolor="#ffffff">
+			<td align="left" width="35%" bgcolor="#ffffff"><s:property value="description"/></td>
+			<td align="center" width="15%" bgcolor="#ffffff">
 				<button name="BSC_PROG005D0002Q_score_${oid}" id="BSC_PROG005D0002Q_score_${oid}" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
@@ -81,7 +89,15 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_DlgShow('${oid}');
 						}
-					">Score</button>					
+					">Score</button>
+				<button name="BSC_PROG005D0002Q_report_${oid}" id="BSC_PROG005D0002Q_report_${oid}" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'btnPdfIcon',
+						onClick:function(){ 
+							
+						}
+					">Report</button>										
 			</td>
 		</tr>		
 		
