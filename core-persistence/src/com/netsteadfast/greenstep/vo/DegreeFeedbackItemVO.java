@@ -30,6 +30,10 @@ public class DegreeFeedbackItemVO extends BaseValueObj implements java.io.Serial
 	private String name;
 	private String description;
 	
+	// 計算得分用
+	private float avgScore;
+	private int sumScore;
+	
 	public DegreeFeedbackItemVO() {
 		
 	}
@@ -81,6 +85,22 @@ public class DegreeFeedbackItemVO extends BaseValueObj implements java.io.Serial
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public float getAvgScore() {
+		return avgScore;
+	}
+
+	public void setAvgScore(float avgScore) {
+		this.avgScore = avgScore;
+	}
+
+	public int getSumScore() {
+		return sumScore;
+	}
+
+	public void setSumScore(int sumScore) {
+		this.sumScore = sumScore;
 	}
 
 }

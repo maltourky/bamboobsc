@@ -41,8 +41,14 @@
 		<action name="bsc.degreeFeedbackProjectEnterScoreAction" class="bsc.web.controller.DegreeFeedbackProjectListAction" method="enterScore">
 			<result name="input">/pages/degree-feedback-project/degree-feedback-project-enterscore.jsp</result>		
 			<result name="success">/pages/degree-feedback-project/degree-feedback-project-enterscore.jsp</result>
-		</action>		
-													   	
+		</action>
+		
+		<!-- report -->		
+		<action name="bsc.degreeFeedbackProjectEnterReportAction" class="bsc.web.controller.DegreeFeedbackProjectListAction" method="enterReport">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-report.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-report.jsp</result>
+		</action>
+															   	
 	</package>
 	
 	<package name="bsc-degreeFeedbackProject-json" extends="bsc-default,json-default" namespace="/" >			

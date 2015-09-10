@@ -199,6 +199,26 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		return forward;			
 	}
 	
+	/**
+	 * bsc.degreeFeedbackProjectEnterReportAction.action
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG005D0004Q")	
+	public String enterReport() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData("enterScore");
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;			
+	}
+	
 	@Override
 	public String getProgramName() {
 		try {

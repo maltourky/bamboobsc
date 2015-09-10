@@ -21,6 +21,9 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
 public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Serializable {
@@ -30,6 +33,11 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 	private String year;
 	private String publishFlag;
 	private String description;
+	
+	// 報表要用
+	private List<DegreeFeedbackItemVO> items = new ArrayList<DegreeFeedbackItemVO>();
+	private List<DegreeFeedbackLevelVO> levels = new ArrayList<DegreeFeedbackLevelVO>();
+	private EmployeeVO employee = new EmployeeVO();
 	
 	public DegreeFeedbackProjectVO() {
 		
@@ -98,6 +106,30 @@ public class DegreeFeedbackProjectVO extends BaseValueObj implements java.io.Ser
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<DegreeFeedbackItemVO> getItems() {
+		return items;
+	}
+
+	public void setItems(List<DegreeFeedbackItemVO> items) {
+		this.items = items;
+	}
+
+	public List<DegreeFeedbackLevelVO> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(List<DegreeFeedbackLevelVO> levels) {
+		this.levels = levels;
+	}
+
+	public EmployeeVO getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeVO employee) {
+		this.employee = employee;
 	}			
 
 }
