@@ -57,7 +57,7 @@ function BSC_PROG005D0003Q_update() {
 			'${basePath}/bsc.degreeFeedbackProjectScoreUpdateAction.action', 
 			{ 
 				'fields.projectOid'	:	'${fields.oid}',
-				'fields.owner'		:	dijit.byId('BSC_PROG005D0003Q_owner').get('value'),
+				'fields.ownerOid'	:	dijit.byId('BSC_PROG005D0003Q_owner').get('value'),
 				'fields.scoreData'	:	JSON.stringify( { 'data' : datas } ) 
 			}, 
 			'json', 
@@ -71,6 +71,71 @@ function BSC_PROG005D0003Q_update() {
 				alert(error);
 			}
 	);	
+}
+
+function BSC_PROG005D0003Q_ownerChange() {
+	if ( _gscore_please_select_id == dijit.byId('BSC_PROG005D0003Q_owner').get('value') ) {
+		BSC_PROG005D0003Q_clear();
+		return;
+	}
+	xhrSendParameter(
+			'${basePath}/bsc.degreeFeedbackProjectScoreFetchAction.action', 
+			{ 
+				'fields.projectOid'	:	'${fields.oid}',
+				'fields.ownerOid'	:	dijit.byId('BSC_PROG005D0003Q_owner').get('value') 
+			}, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				if ( 'Y' != data.success ) {
+					return;
+				}
+				BSC_PROG005D0003Q_radioButtonPutValue( data.projectScores, data.projectLevels, data.minLevelOid );
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);	
+}
+function BSC_PROG005D0003Q_radioButtonPutValue(scores, levels, minLevelOid) {
+	if (levels == null || levels.length<1) {
+		return;
+	}
+	var queryRadioIds = dojo.query('[id^="BSC_PROG005D0003Q_RADIO_ID:"]');
+	for (var i=0; queryRadioIds!=null && i<queryRadioIds.length; i++) {
+		var rbId = queryRadioIds[i].id;
+		if (dijit.byId(rbId)==null) {
+			continue;
+		}
+		var tmp = rbId.split(":");
+		if (tmp.length!=4) {
+			continue;
+		}
+		if ( tmp[3] == minLevelOid ) { // 最後一個是 level 的 oid
+			dijit.byId(rbId).set('checked', true);
+		} else {
+			dijit.byId(rbId).set('checked', false);
+		}
+	}	
+	
+	if (null == scores || scores.length<1) {
+		return;
+	} 
+	for (var i=0; i<scores.length; i++) {
+		var data = scores[i];
+		var levelId = '';
+		for (var p=0; p<levels.length; p++) {
+			if (levels[p].value == data.score) {
+				levelId = levels[p].oid;
+			}
+		}		
+		var rbId = 'BSC_PROG005D0003Q_RADIO_ID:' + data.projectOid + ':' + data.itemOid + ':' + levelId;
+		if ( dijit.byId(rbId)!=null ) {
+			dijit.byId(rbId).set('checked', true);
+		} 
+	}
 }
 
 function BSC_PROG005D0003Q_clear() {
@@ -113,7 +178,7 @@ function ${programId}_page_message() {
 			<td align="left" bgcolor="#ffffff">
 				<b>Owner:</b>
 				&nbsp;
-				<gs:select name="BSC_PROG005D0003Q_owner" dataSource="ownerMap" id="BSC_PROG005D0003Q_owner" value="fields.employeeOid"></gs:select>
+				<gs:select name="BSC_PROG005D0003Q_owner" dataSource="ownerMap" id="BSC_PROG005D0003Q_owner" value="fields.employeeOid" onChange="BSC_PROG005D0003Q_ownerChange();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0003Q_owner'">
     				Select project's owner.
 				</div> 

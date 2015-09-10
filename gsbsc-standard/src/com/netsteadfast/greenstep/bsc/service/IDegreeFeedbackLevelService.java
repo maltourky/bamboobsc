@@ -21,11 +21,14 @@
  */
 package com.netsteadfast.greenstep.bsc.service;
 
+import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.service.IBaseService;
 
 public interface IDegreeFeedbackLevelService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
 	public static String MAPPER_ID_PO2VO="degreeFeedbackLevel.po2vo";
 	public static String MAPPER_ID_VO2PO="degreeFeedbackLevel.vo2po";
+	
+	public E findForMinByProject(String projectOid) throws ServiceException, Exception;
 	
 }

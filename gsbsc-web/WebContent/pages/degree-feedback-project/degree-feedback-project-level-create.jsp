@@ -44,6 +44,10 @@ function BSC_PROG005D0001A_S00_add() {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input name!', function(){}, 'N');
 		return;
 	}	
+	if (parseInt(valueStr,10)<1) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Value only integer!', function(){}, 'N');
+		return;		
+	}
 	nameStr = viewPage.escape1(nameStr);
 	for (var n=0; n<size; n++) {
 		if ( ${fields.oid}[n].name == nameStr ) {

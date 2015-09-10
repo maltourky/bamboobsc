@@ -21,9 +21,13 @@
  */
 package com.netsteadfast.greenstep.bsc.dao;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 
 public interface IDegreeFeedbackLevelDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbDegreeFeedbackLevel, String> {
+	
+	public List<T> findForMinByProject(String projectOid) throws Exception;
 	
 }

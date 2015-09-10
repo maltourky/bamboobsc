@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +36,16 @@ public class DegreeFeedbackLevelDAOImpl extends BaseDAO<BbDegreeFeedbackLevel, S
 	
 	public DegreeFeedbackLevelDAOImpl() {
 		super();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BbDegreeFeedbackLevel> findForMinByProject(String projectOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("FROM BbDegreeFeedbackLevel WHERE projectOid = :projectOid ORDER BY value ASC")
+				.setString("projectOid", projectOid)
+				.setMaxResults(1)				
+				.list();
 	}
 	
 }
