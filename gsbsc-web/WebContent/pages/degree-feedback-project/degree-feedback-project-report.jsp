@@ -24,6 +24,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <style type="text/css">
 
+.btnPieIcon {
+  	background-image: url(./icons/chart-pie.png);
+  	background-repeat: no-repeat;
+  	width: 16px;
+  	height: 16px;
+  	text-align: center;
+}
+
+.btnBarIcon {
+  	background-image: url(./icons/chart-graph-2d-1.png);
+  	background-repeat: no-repeat;
+  	width: 16px;
+  	height: 16px;
+  	text-align: center;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -35,7 +51,7 @@ function BSC_PROG005D0004Q_ownerChange() {
 	}	
 }
 
-function BSC_PROG005D0004Q_query() {
+function BSC_PROG005D0004Q_query(type) {
 	xhrSendParameter(
 			'${basePath}/bsc.degreeFeedbackProjectQueryScoreAction.action', 
 			{ 
@@ -51,7 +67,11 @@ function BSC_PROG005D0004Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				BSC_PROG005D0004Q_bar(data.project);
+				if ('bar' == type) {
+					BSC_PROG005D0004Q_bar(data.project);
+				} else {
+					BSC_PROG005D0004Q_pie(data.project);
+				}				
 			}, 
 			function(error) {
 				alert(error);
@@ -66,7 +86,7 @@ function BSC_PROG005D0004Q_bar(project) {
 	var seriesCategories = [];
 	var seriesData = [];
 	var avgScores = [];
-	var levelText = '';
+	var levelText = BSC_PROG005D0004Q_getLevelTitle(project.levels);
 	for (var i=0; i<project.items.length; i++) {
 		var item = project.items[i];
 		avgScores.push( item.avgScore );
@@ -76,13 +96,6 @@ function BSC_PROG005D0004Q_bar(project) {
 		"name"	:	'Avg Score',
 		"data"	:	avgScores
 	});
-	for (var i=0; i<project.levels.length; i++) {
-		var level = project.levels[i];
-		levelText += level.value + '-' + level.name;
-		if ( (i+1)<project.levels.length ) {
-			levelText += ', ';
-		}
-	}
 	
     $('#BSC_PROG005D0004Q_charts').highcharts({
         chart: {
@@ -137,6 +150,58 @@ function BSC_PROG005D0004Q_bar(project) {
         series: seriesData
 	});		
 }
+function BSC_PROG005D0004Q_pie(project) {
+	if (project == null || project.items == null || project.items.length<1) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'No score data!', function(){}, 'Y');
+		return;
+	}	
+	var levelText = BSC_PROG005D0004Q_getLevelTitle(project.levels);
+	var pieData = [];
+	for (var i=0; i<project.items.length; i++) {
+		var item = project.items[i];
+		pieData.push( [item.name, item.avgScore] );		
+	}
+	
+	$(function () {
+	    $('#BSC_PROG005D0004Q_charts').highcharts({
+	        chart: {
+	            type: 'pie',
+	            options3d: {
+	                enabled: true,
+	                alpha: 45
+	            }
+	        },
+	        title: {
+	            text: project.year + ' - ' + project.name + ' / ' + project.employee.empId + ' - ' + project.employee.fullName
+	        },
+	        subtitle: {
+	            text: levelText
+	        },
+	        plotOptions: {
+	            pie: {
+	                innerSize: 100,
+	                depth: 45
+	            }
+	        },
+	        series: [{
+	            name: 'Avg Score',
+	            data: pieData
+	        }]
+	    });
+	});	
+}
+
+function BSC_PROG005D0004Q_getLevelTitle(levels) {
+	var levelText = '';
+	for (var i=0; i<levels.length; i++) {
+		var level = levels[i];
+		levelText += level.value + '-' + level.name;
+		if ( (i+1)<levels.length ) {
+			levelText += ', ';
+		}
+	}	
+	return levelText;
+}
 
 function BSC_PROG005D0004Q_clear() {
 	${programId}_DlgShow('${fields.oid}');
@@ -183,15 +248,24 @@ function ${programId}_page_message() {
     				Select project's owner.
 				</div> 
 				
-				<button name="BSC_PROG005D0004Q_btnQuery" id="BSC_PROG005D0004Q_btnQuery" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0004Q_btnQueryBar" id="BSC_PROG005D0004Q_btnQueryBar" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,
-						iconClass:'dijitIconSearch',
+						iconClass:'btnBarIcon',
 						onClick:function(){ 
-							BSC_PROG005D0004Q_query();
+							BSC_PROG005D0004Q_query('bar');
 						}
-					">Query</button>
+					">Query as Bar chart</button>
 					
+				<button name="BSC_PROG005D0004Q_btnQueryPie" id="BSC_PROG005D0004Q_btnQueryPie" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:false,
+						iconClass:'btnPieIcon',
+						onClick:function(){ 
+							BSC_PROG005D0004Q_query('pie');
+						}
+					">Query as Pie chart</button>
+										
 				<button name="BSC_PROG005D0004Q_btnClear" id="BSC_PROG005D0004Q_btnClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,
