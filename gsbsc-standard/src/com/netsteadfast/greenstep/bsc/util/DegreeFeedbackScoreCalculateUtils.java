@@ -129,8 +129,8 @@ public class DegreeFeedbackScoreCalculateUtils {
 					sumScore += scoreData.getScore();
 				}
 			}
-			if (sumScore>0 && assignMap.size()>0) { // 得分 = 總計/評分者
-				avgScore = sumScore / assignMap.size();
+			if (sumScore>0 && assignMap.size()>0) { // 得分 = 總計/評分者				
+				avgScore = Float.valueOf( sumScore ) / Float.valueOf( assignMap.size() );
 			}
 			item.setSumScore(sumScore);			
 			item.setAvgScore(avgScore);

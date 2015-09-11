@@ -147,6 +147,6 @@ public class BscConstants {
 	/**
 	 * 360 最多的評分相目數量
 	 */
-	public static final int MAX_DEGREE_FEEDBACK_ITEM_SIZE = 15;
+	public static final int MAX_DEGREE_FEEDBACK_ITEM_SIZE = 10;
 	
 }
