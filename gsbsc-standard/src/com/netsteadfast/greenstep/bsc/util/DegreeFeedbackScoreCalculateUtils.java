@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.bsc.util;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,10 +117,10 @@ public class DegreeFeedbackScoreCalculateUtils {
 	
 	private static void setItemScoreCalculate(DegreeFeedbackProjectVO project, 
 			List<DegreeFeedbackItemVO> items, List<BbDegreeFeedbackScore> scores) throws ServiceException, Exception {
-		Map<String, String> assignMap = new HashMap<String, String>(); // 拿來放真的有評分的評分者數量
+		List<String> assigns = new ArrayList<String>(); // 拿來放真的有評分的評分者數量
 		for (BbDegreeFeedbackScore scoreData : scores) {
-			if (assignMap.get(scoreData.getAssignOid()) == null) {
-				assignMap.put(scoreData.getAssignOid(), scoreData.getAssignOid());
+			if (!assigns.contains(scoreData.getAssignOid())) {
+				assigns.add( scoreData.getAssignOid() );
 			}
 		}
 		for (DegreeFeedbackItemVO item : items) {
@@ -129,12 +131,16 @@ public class DegreeFeedbackScoreCalculateUtils {
 					sumScore += scoreData.getScore();
 				}
 			}
-			if (sumScore>0 && assignMap.size()>0) { // 得分 = 總計/評分者				
-				avgScore = Float.valueOf( sumScore ) / Float.valueOf( assignMap.size() );
+			if (sumScore>0 && assigns.size()>0) { // 得分 = 總計/評分者				
+				avgScore = Float.valueOf( sumScore ) / Float.valueOf( assigns.size() );
+				BigDecimal bd = new BigDecimal(avgScore);
+				avgScore = bd.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 			}
 			item.setSumScore(sumScore);			
 			item.setAvgScore(avgScore);
 		}
+		assigns.clear();
+		assigns = null;
 	}
 	
 	private static List<DegreeFeedbackLevelVO> wrapLevels(List<BbDegreeFeedbackLevel> levels) throws Exception {
