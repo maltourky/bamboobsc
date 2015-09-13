@@ -16,6 +16,11 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirmPublish == "Y" }]]></conditionExpression>
     </sequenceFlow>
     <dataObject id="confirmPublish" name="confirmPublish" itemSubjectRef="xsd:string"></dataObject>
+    <dataObject id="projectOid" name="projectOid" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <activiti:value></activiti:value>
+      </extensionElements>
+    </dataObject>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Employee360DegreeFeedbackProjectPublishProcess">
     <bpmndi:BPMNPlane bpmnElement="Employee360DegreeFeedbackProjectPublishProcess" id="BPMNPlane_Employee360DegreeFeedbackProjectPublishProcess">
