@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.19, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.15, for FreeBSD10.0 (amd64)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
--- Server version	5.6.19
+-- Server version	5.6.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -2674,6 +2674,37 @@ INSERT INTO `tb_sys_bean_help_expr_map` VALUES ('049196f6-665c-4e46-9051-e334fb9
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_sys_bpmn_resource`
+--
+
+DROP TABLE IF EXISTS `tb_sys_bpmn_resource`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_sys_bpmn_resource` (
+  `OID` char(36) NOT NULL,
+  `ID` varchar(100) NOT NULL,
+  `NAME` varchar(255) NOT NULL,
+  `CONTENT` mediumblob,
+  `DESCRIPTION` varchar(500) DEFAULT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `ID` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_sys_bpmn_resource`
+--
+
+LOCK TABLES `tb_sys_bpmn_resource` WRITE;
+/*!40000 ALTER TABLE `tb_sys_bpmn_resource` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_sys_bpmn_resource` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_sys_calendar_note`
 --
 
@@ -3690,4 +3721,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-11 10:43:26
+-- Dump completed on 2015-09-13 15:29:17
