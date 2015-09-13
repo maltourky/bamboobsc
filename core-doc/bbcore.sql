@@ -2683,6 +2683,7 @@ DROP TABLE IF EXISTS `tb_sys_bpmn_resource`;
 CREATE TABLE `tb_sys_bpmn_resource` (
   `OID` char(36) NOT NULL,
   `ID` varchar(100) NOT NULL,
+  `DEPLOYMENT_ID` varchar(64) DEFAULT NULL,
   `NAME` varchar(255) NOT NULL,
   `CONTENT` mediumblob,
   `DESCRIPTION` varchar(500) DEFAULT NULL,
@@ -3721,4 +3722,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-13 15:29:17
+-- Dump completed on 2015-09-13 17:52:39

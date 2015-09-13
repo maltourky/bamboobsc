@@ -23,6 +23,7 @@ public class TbSysBpmnResource extends BaseEntity<String> implements java.io.Ser
 	private static final long serialVersionUID = -3273551962173293095L;
 	private String oid;	
 	private String id;
+	private String deploymentId;
 	private String name;
 	private byte[] content;
 	private String description;
@@ -51,6 +52,15 @@ public class TbSysBpmnResource extends BaseEntity<String> implements java.io.Ser
 	
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	@Column(name="DEPLOYMENT_ID")
+	public String getDeploymentId() {
+		return deploymentId;
+	}
+	
+	public void setDeploymentId(String deploymentId) {
+		this.deploymentId = deploymentId;
 	}
 	
 	@Column(name="NAME")

@@ -27,6 +27,7 @@ public class SysBpmnResourceVO extends BaseValueObj implements java.io.Serializa
 	private static final long serialVersionUID = 4077554004791666977L;
 	private String oid;	
 	private String id;
+	private String deploymentId;
 	private String name;
 	private byte[] content;
 	private String description;
@@ -34,26 +35,28 @@ public class SysBpmnResourceVO extends BaseValueObj implements java.io.Serializa
 	public SysBpmnResourceVO() {
 		
 	}
-
-	public SysBpmnResourceVO(String oid, String id, String name,
-			String description) {
+	
+	public SysBpmnResourceVO(String oid, String id, String deploymentId,
+			String name, String description) {
 		super();
 		this.oid = oid;
 		this.id = id;
+		this.deploymentId = deploymentId;
 		this.name = name;
 		this.description = description;
 	}
-
-	public SysBpmnResourceVO(String oid, String id, String name,
-			byte[] content, String description) {
+	
+	public SysBpmnResourceVO(String oid, String id, String deploymentId,
+			String name, byte[] content, String description) {
 		super();
 		this.oid = oid;
 		this.id = id;
+		this.deploymentId = deploymentId;
 		this.name = name;
 		this.content = content;
 		this.description = description;
 	}
-
+	
 	@Override
 	public String getOid() {
 		return this.oid;
@@ -69,6 +72,14 @@ public class SysBpmnResourceVO extends BaseValueObj implements java.io.Serializa
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getDeploymentId() {
+		return deploymentId;
+	}
+
+	public void setDeploymentId(String deploymentId) {
+		this.deploymentId = deploymentId;
 	}
 
 	public String getName() {

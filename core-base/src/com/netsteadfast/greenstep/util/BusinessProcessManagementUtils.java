@@ -63,7 +63,7 @@ public class BusinessProcessManagementUtils {
 		repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 	}
 	
-	public String deployment(String resourceId) throws ServiceException, Exception {
+	public static String deployment(String resourceId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(resourceId)) {
 			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
 		}
@@ -72,7 +72,7 @@ public class BusinessProcessManagementUtils {
 		return deployment(sysBpmnResource);
 	}
 	
-	public String deployment(SysBpmnResourceVO sysBpmnResource) throws ServiceException, Exception {
+	public static String deployment(SysBpmnResourceVO sysBpmnResource) throws ServiceException, Exception {
 		DefaultResult<SysBpmnResourceVO> result = sysBpmnResourceService.findByUK(sysBpmnResource);
 		if (result.getValue()==null) {
 			throw new ServiceException(result.getSystemMessage().getValue());
@@ -84,9 +84,32 @@ public class BusinessProcessManagementUtils {
 				.addZipInputStream( zip )
 				.deploy();
 		zip.close();
-		zip = null;
+		zip = null;		
+		result.getValue().setDeploymentId(deployment.getId());
+		sysBpmnResourceService.updateObject(result.getValue());		
 		logger.info("deployment Id: " + deployment.getId() + " , name: " + deployment.getName());
 		return deployment.getId();
+	}
+	
+	public static void deleteDeployment(String resourceId, boolean force) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}
+		SysBpmnResourceVO sysBpmnResource = new SysBpmnResourceVO();
+		sysBpmnResource.setId(resourceId);
+		deleteDeployment(sysBpmnResource, force);
+	}
+	
+	public static void deleteDeployment(SysBpmnResourceVO sysBpmnResource, boolean force) throws ServiceException, Exception {
+		DefaultResult<SysBpmnResourceVO> result = sysBpmnResourceService.findByUK(sysBpmnResource);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		if (StringUtils.isBlank(result.getValue().getDeploymentId())) {
+			throw new Exception( "No deployment!" );
+		}
+		logger.warn( "delete deployment Id:" + result.getValue().getDeploymentId() + " , force: " + force );
+		repositoryService.deleteDeployment(result.getValue().getDeploymentId(), force);
 	}
 	
 	public static String getResourceProcessId(File activitiBpmnFile) throws Exception {

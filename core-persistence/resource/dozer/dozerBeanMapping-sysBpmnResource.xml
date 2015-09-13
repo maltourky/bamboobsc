@@ -14,7 +14,11 @@
 		<field>
 			<a>id</a>
 			<b>id</b>
-		</field>			
+		</field>
+		<field>
+			<a>deploymentId</a>
+			<b>deploymentId</b>
+		</field>				
 		<field>
 			<a>name</a>
 			<b>name</b>
@@ -39,7 +43,11 @@
 		<field>
 			<a>id</a>
 			<b>id</b>
-		</field>			
+		</field>	
+		<field>
+			<a>deploymentId</a>
+			<b>deploymentId</b>
+		</field>				
 		<field>
 			<a>name</a>
 			<b>name</b>

@@ -6,7 +6,8 @@
 
 	<resultMap type="com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource" id="baseResultMap">
 		<id column="OID" property="oid"/>	
-		<result column="ID" property="id"/>				
+		<result column="ID" property="id"/>			
+		<result column="DEPLOYMENT_ID" property="deploymentId"/>
 		<result column="NAME" property="name"/>
 		<result column="CONTENT" property="content"/>
 		<result column="DESCRIPTION" property="description"/>				
