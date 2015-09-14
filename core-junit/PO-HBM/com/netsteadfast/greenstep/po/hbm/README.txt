@@ -1,1 +1,0 @@
-the package PO class for Junit-test
