@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.util;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipInputStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -32,7 +33,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import net.lingala.zip4j.core.ZipFile;
 
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -57,11 +60,35 @@ public class BusinessProcessManagementUtils {
 	private static final String _SUB_NAME = ".bpmn";
 	private static ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
 	private static RepositoryService repositoryService;
+	private static RuntimeService runtimeService;
 	
 	static {
 		sysBpmnResourceService = (ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String>)
 				AppContext.getBean("core.service.SysBpmnResourceService");
 		repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
+		runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
+	}
+	
+	public static String startProcess(String resourceId, Map<String, Object> paramMap) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}
+		SysBpmnResourceVO sysBpmnResource = new SysBpmnResourceVO();
+		sysBpmnResource.setId(resourceId);
+		return startProcess(sysBpmnResource, paramMap);
+	}
+	
+	public static String startProcess(SysBpmnResourceVO sysBpmnResource, Map<String, Object> paramMap) throws ServiceException, Exception {
+		String processDefinitionId = "";
+		ProcessInstance process = null;
+		if (paramMap!=null) {
+			process = runtimeService.startProcessInstanceByKey(sysBpmnResource.getId(), paramMap);
+		} else {
+			process = runtimeService.startProcessInstanceByKey(sysBpmnResource.getId());
+		}
+		processDefinitionId = process.getProcessDefinitionId();
+		logger.info( "start Process definitionId: " + processDefinitionId );		
+		return processDefinitionId;
 	}
 	
 	public static String deployment(String resourceId) throws ServiceException, Exception {

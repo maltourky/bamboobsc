@@ -59,6 +59,7 @@ import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
+import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
@@ -182,6 +183,16 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		this.createLevels(project, levels);
 		this.createItems(project, items);
 		this.createAssign(project, ownerEmplOids, raterEmplOids);
+		
+		/**
+		 * TODO: 目前為測試 for TEST!!!
+		 */
+		// -------------------------------------------------------------------
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", project.getOid());
+		BusinessProcessManagementUtils.startProcess("DFProjectPublishProcess", paramMap);
+		// -------------------------------------------------------------------
+		
 		return result;
 	}
 	
