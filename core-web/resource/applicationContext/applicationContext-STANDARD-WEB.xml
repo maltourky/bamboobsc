@@ -35,7 +35,8 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-settings-web.xml" />    
     <import resource="classpath*:applicationContext/controller/applicationContext-sysFormTemplate-web.xml" />        
     <import resource="classpath*:applicationContext/controller/applicationContext-sysForm-web.xml" />    
-    <import resource="classpath*:applicationContext/controller/applicationContext-sysFormMethod-web.xml" />
+    <import resource="classpath*:applicationContext/controller/applicationContext-sysFormMethod-web.xml" />    
+    <import resource="classpath*:applicationContext/controller/applicationContext-sysBpmnResource-web.xml" />
     <import resource="classpath*:applicationContext/controller/applicationContext-test-web.xml" />              
             
 </beans>

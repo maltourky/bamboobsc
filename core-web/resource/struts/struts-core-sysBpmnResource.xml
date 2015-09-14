@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+    
+<struts>
+	
+	<package name="core-sysBpmnResource" extends="core-default" namespace="/" >		
+		
+		<action name="core.systemBpmnResourceManagementAction" class="core.web.controller.SystemBpmnResourceManagementAction">
+			<result name="input">/pages/sys-bpmn-res/sys-bpmn-res-management.jsp</result>		
+			<result name="success">/pages/sys-bpmn-res/sys-bpmn-res-management.jsp</result>
+		</action>
+				   	
+	</package>
+	
+	<package name="core-sysBpmnResource-json" extends="core-default,json-default" namespace="/" >	
+		
+		<default-interceptor-ref name="greenStepDefaultCustomStack" />
+		
+		<action name="core.systemBpmnResourceManagementGridQueryAction" class="core.web.controller.SystemBpmnResourceGridQueryManagementAction" >
+			<result type="json">
+  				<param name="contentType">text/html</param>
+  				<param name="noCache">true</param>
+			</result>
+		</action>		
+				
+	</package>
+			
+</struts>
