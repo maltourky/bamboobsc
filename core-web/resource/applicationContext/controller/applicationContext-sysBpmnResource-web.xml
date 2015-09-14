@@ -12,5 +12,6 @@
     
     <bean id="core.web.controller.SystemBpmnResourceManagementAction" class="com.netsteadfast.greenstep.action.SystemBpmnResourceManagementAction" scope="prototype" />
     <bean id="core.web.controller.SystemBpmnResourceGridQueryManagementAction" class="com.netsteadfast.greenstep.action.SystemBpmnResourceGridQueryManagementAction" scope="prototype" />
+    <bean id="core.web.controller.SystemBpmnResourceSaveOrUpdateAction" class="com.netsteadfast.greenstep.action.SystemBpmnResourceSaveOrUpdateAction" scope="prototype" />
     
 </beans>

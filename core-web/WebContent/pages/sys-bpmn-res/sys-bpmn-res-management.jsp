@@ -129,7 +129,7 @@ function ${programId}_page_message() {
     				parameterType="postData"
     				xhrParameter=" 
     					{ 
-    						'searchValue.parameter.sysId'	: dijit.byId('CORE_PROG003D0004Q_id').get('value'), 
+    						'searchValue.parameter.id'		: dijit.byId('CORE_PROG003D0004Q_id').get('value'), 
     						'searchValue.parameter.name'	: dijit.byId('CORE_PROG003D0004Q_name').get('value'),
     						'pageOf.size'					: getGridQueryPageOfSize_${programId}_grid(),
     						'pageOf.select'					: getGridQueryPageOfSelect_${programId}_grid(),

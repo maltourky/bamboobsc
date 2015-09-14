@@ -93,7 +93,7 @@ public class SysBpmnResourceServiceImpl extends BaseService<SysBpmnResourceVO, T
 		String id = searchValue.getParameter().get("id");
 		String name = searchValue.getParameter().get("name");		
 		if (!StringUtils.isBlank(id)) {
-			params.put("id", name);
+			params.put("id", id);
 		}
 		if (!StringUtils.isBlank(name)) {
 			params.put("name", "%"+name+"%");
