@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -78,16 +79,24 @@ public class BusinessProcessManagementUtils {
 			throw new ServiceException(result.getSystemMessage().getValue());
 		}
 		ZipInputStream zip = new ZipInputStream( new ByteArrayInputStream(result.getValue().getContent()) );
-		Deployment deployment = repositoryService
-				.createDeployment()
-				.name( result.getValue().getName() )
-				.addZipInputStream( zip )
-				.deploy();
-		zip.close();
-		zip = null;		
-		result.getValue().setDeploymentId(deployment.getId());
-		sysBpmnResourceService.updateObject(result.getValue());		
-		logger.info("deployment Id: " + deployment.getId() + " , name: " + deployment.getName());
+		Deployment deployment = null;
+		try {
+			deployment = repositoryService
+					.createDeployment()
+					.name( result.getValue().getName() )
+					.addZipInputStream( zip )
+					.deploy();	
+			result.getValue().setDeploymentId(deployment.getId());
+			sysBpmnResourceService.updateObject(result.getValue());		
+			logger.info("deployment Id: " + deployment.getId() + " , name: " + deployment.getName());			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error( e.getMessage().toString() );
+			throw e;
+		} finally {
+			zip.close();
+			zip = null;				
+		}		
 		return deployment.getId();
 	}
 	
@@ -110,6 +119,11 @@ public class BusinessProcessManagementUtils {
 		}
 		logger.warn( "delete deployment Id:" + result.getValue().getDeploymentId() + " , force: " + force );
 		repositoryService.deleteDeployment(result.getValue().getDeploymentId(), force);
+		List<String> names = repositoryService.getDeploymentResourceNames( result.getValue().getDeploymentId() );
+		if (names==null || names.size()<1) {			
+			result.getValue().setDeploymentId(null);
+			sysBpmnResourceService.updateObject(result.getValue());
+		}
 	}
 	
 	public static String getResourceProcessId(File activitiBpmnFile) throws Exception {
