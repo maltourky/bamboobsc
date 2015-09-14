@@ -21,6 +21,10 @@
  */
 package com.netsteadfast.greenstep.action;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -30,20 +34,47 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @ControllerAuthority(check=true)
 @Controller("core.web.controller.SystemBpmnResourceManagementAction")
 @Scope
 public class SystemBpmnResourceManagementAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -8874018162071109964L;
+	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
+	private SysBpmnResourceVO bpmnResource = new SysBpmnResourceVO();
 	
 	public SystemBpmnResourceManagementAction() {
 		super();
 	}
 	
+	public ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> getSysBpmnResourceService() {
+		return sysBpmnResourceService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysBpmnResourceService")		
+	@Required
+	public void setSysBpmnResourceService(
+			ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService) {
+		this.sysBpmnResourceService = sysBpmnResourceService;
+	}	
+	
 	private void initData() throws ServiceException, Exception {
 		
+	}
+	
+	private void loadResourceData() throws ServiceException, Exception {
+		this.transformFields2ValueObject(this.bpmnResource, new String[]{"oid"});
+		DefaultResult<SysBpmnResourceVO> result = this.sysBpmnResourceService.findObjectByOid(bpmnResource);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		this.bpmnResource = result.getValue();
 	}
 	
 	/**
@@ -86,6 +117,30 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 			this.setPageMessage(e.getMessage().toString());
 		}
 		return SUCCESS;		
+	}
+	
+	/**
+	 * core.systemBpmnResourceEditAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004E")	
+	public String edit() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData();
+			this.loadResourceData();
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;		
 	}	
 
 	@Override
@@ -103,6 +158,14 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	@Override
 	public String getProgramId() {
 		return super.getActionMethodProgramId();
+	}
+
+	public SysBpmnResourceVO getBpmnResource() {
+		return bpmnResource;
+	}
+
+	public void setBpmnResource(SysBpmnResourceVO bpmnResource) {
+		this.bpmnResource = bpmnResource;
 	}
 
 }

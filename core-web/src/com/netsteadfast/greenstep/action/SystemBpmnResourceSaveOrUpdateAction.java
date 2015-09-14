@@ -33,6 +33,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.action.utils.NotBlankFieldCheckUtils;
+import com.netsteadfast.greenstep.base.Constants;
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -40,6 +42,8 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
@@ -56,6 +60,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
 	private String message = "";
 	private String success = IS_NO;
+	private String uploadOid = ""; // 下載用
 	
 	public SystemBpmnResourceSaveOrUpdateAction() {
 		super();
@@ -137,6 +142,112 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}
 	
+	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
+		String uploadOid = this.getFields().get("uploadOid");
+		if (!StringUtils.isBlank(uploadOid) ) { // 有更新上傳檔案
+			this.selfTestUploadResourceData();
+		}
+		SysBpmnResourceVO resource = new SysBpmnResourceVO();
+		resource.setOid( this.getFields().get("oid") );
+		DefaultResult<SysBpmnResourceVO> oldResult = this.sysBpmnResourceService.findObjectByOid(resource);
+		if (oldResult.getValue()==null) {
+			throw new ServiceException( oldResult.getSystemMessage().getValue() );
+		}
+		resource = oldResult.getValue();
+		String beforeId = resource.getId();
+		byte[] beforeContent = resource.getContent();
+		resource.setContent( null );
+		sysBpmnResourceService.updateObject(resource); // 先清除原本的byte資料, 要不然每次update 資料越來越大
+		if (!StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
+			this.fillContent(resource);
+		} else {
+			resource.setContent(beforeContent);
+		}
+		this.fillResource(resource);
+		resource.setId(beforeId);
+		DefaultResult<SysBpmnResourceVO> result = this.sysBpmnResourceService.updateObject(resource);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()!=null) {
+			String oldDeploymentIdId = result.getValue().getDeploymentId();
+			if (!StringUtils.isBlank(oldDeploymentIdId) && !StringUtils.isBlank(uploadOid)) { // 更新上傳部屬
+				BusinessProcessManagementUtils.deleteDeployment(result.getValue(), false);				
+				this.deployment(true);
+			}			
+			this.success = IS_YES;
+		}		
+	}
+	
+	private void delete() throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysBpmnResourceVO resource = new SysBpmnResourceVO();
+		resource.setOid( this.getFields().get("oid") );
+		DefaultResult<SysBpmnResourceVO> result = this.sysBpmnResourceService.findObjectByOid(resource);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		resource = result.getValue();
+		sysBpmnResourceService.hibernateSessionClear();
+		if (!StringUtils.isBlank(resource.getDeploymentId())) {
+			BusinessProcessManagementUtils.deleteDeployment(resource, false);
+			result = this.sysBpmnResourceService.findObjectByOid(resource);
+			if (result.getValue()==null) {
+				throw new ServiceException( result.getSystemMessage().getValue() );
+			}
+			resource = result.getValue();
+			sysBpmnResourceService.hibernateSessionClear();
+			if (!StringUtils.isBlank(resource.getDeploymentId())) {
+				this.message = "Cannot delete deployment!";
+				return;
+			}			
+		}				
+		DefaultResult<Boolean> delResult = sysBpmnResourceService.deleteObject(resource);
+		this.message = delResult.getSystemMessage().getValue();
+		if (delResult.getValue()!=null && delResult.getValue()) {
+			this.success = IS_YES;
+		}		
+	}
+	
+	private void deployment(boolean overDeployment) throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysBpmnResourceVO resource = new SysBpmnResourceVO();
+		resource.setOid( this.getFields().get("oid") );
+		DefaultResult<SysBpmnResourceVO> result = this.sysBpmnResourceService.findObjectByOid(resource);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		resource = result.getValue();
+		sysBpmnResourceService.hibernateSessionClear();
+		if (!overDeployment && !StringUtils.isBlank(resource.getDeploymentId())) {
+			this.message = "Already deployment!";
+			return;
+		}
+		String id = BusinessProcessManagementUtils.deployment(resource);		
+		if (!StringUtils.isBlank(id)) {
+			this.message = "Deployment success!";
+			this.success = IS_YES;
+		} else {
+			this.message = "Deployment fail!";
+		}
+	}
+	
+	private void export() throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysBpmnResourceVO resource = new SysBpmnResourceVO();
+		resource.setOid( this.getFields().get("oid") );
+		DefaultResult<SysBpmnResourceVO> result = this.sysBpmnResourceService.findObjectByOid(resource);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		resource = result.getValue();
+		sysBpmnResourceService.hibernateSessionClear();
+		this.uploadOid = UploadSupportUtils.create(
+				Constants.getSystem(), 
+				UploadTypes.IS_TEMP, 
+				false, 
+				resource.getContent(), 
+				resource.getId()+".zip");
+		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.INSERT_SUCCESS);
+		this.success = IS_YES;
+	}
+	
 	/**
 	 * core.systemBpmnResourceSaveAction.action
 	 * 
@@ -166,6 +277,122 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		return SUCCESS;		
 	}	
 
+	/**
+	 * core.systemBpmnResourceUpdateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004E")
+	public String doUpdate() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.update();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}		
+	
+	/**
+	 * core.systemBpmnResourceDeleteAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q")
+	public String doDelete() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.delete();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
+	
+	/**
+	 * core.systemBpmnResourceDeploymentAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q")
+	public String doDeployment() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.deployment(false);
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;				
+	}
+	
+	/**
+	 * core.systemBpmnResourceExportAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q")
+	public String doExport() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.export();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;				
+	}	
+	
 	@JSON
 	@Override
 	public String getLogin() {
@@ -194,6 +421,15 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	@Override
 	public List<String> getFieldsId() {
 		return this.fieldsId;
+	}
+
+	@JSON
+	public String getUploadOid() {
+		return uploadOid;
+	}
+
+	public void setUploadOid(String uploadOid) {
+		this.uploadOid = uploadOid;
 	}
 
 }
