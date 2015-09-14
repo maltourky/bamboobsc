@@ -9,14 +9,15 @@
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="usertask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirmPublish != "Y" }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm != "Y" }]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="endevent1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirmPublish == "Y" }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm == "Y" }]]></conditionExpression>
     </sequenceFlow>
-    <dataObject id="confirmPublish" name="confirmPublish" itemSubjectRef="xsd:string"></dataObject>
+    <dataObject id="confirm" name="confirm" itemSubjectRef="xsd:string"></dataObject>
     <dataObject id="projectOid" name="projectOid" itemSubjectRef="xsd:string"></dataObject>
+    <dataObject id="reason" name="reason" itemSubjectRef="xsd:string"></dataObject>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_DFProjectPublishProcess">
     <bpmndi:BPMNPlane bpmnElement="DFProjectPublishProcess" id="BPMNPlane_DFProjectPublishProcess">

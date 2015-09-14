@@ -27,8 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 
 <script type="text/javascript">
-
-
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -47,55 +45,60 @@ function ${programId}_page_message() {
 	<gs:toolBar
 		id="${programId}" 
 		cancelEnable="Y" 
-		cancelJsMethod="${programId}_TabClose();" 
+		cancelJsMethod="${programId}_DlgHide();" 
 		createNewEnable="N"
 		createNewJsMethod=""		 
 		saveEnabel="N" 
 		saveJsMethod=""
 		refreshEnable="Y" 		 
-		refreshJsMethod="${programId}_TabRefresh();" 		
+		refreshJsMethod="${programId}_DlgShow('${fields.oid}');" 		
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
 	<table border="0" width="100%" bgcolor="#d8d8d8">
 		<tr>
-			<td align="center" width="10%" bgcolor="#f5f5f5"><b>Year</b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Name</b></td>
-			<td align="left" width="35%" bgcolor="#f5f5f5"><b>Description</b></td>
-			<td align="center" width="15%" bgcolor="#f5f5f5"><b>#</b></td>
+			<td align="left" width="15%" bgcolor="#f5f5f5"><b>Id</b></td>
+			<td align="left" width="15%" bgcolor="#f5f5f5"><b>Name</b></td>
+			<td align="left" width="15%" bgcolor="#f5f5f5"><b>Assignee</b></td>
+			<td align="left" width="30%" bgcolor="#f5f5f5"><b>Reason</b></td>
+			<td align="center" width="25%" bgcolor="#f5f5f5"><b>#</b></td>
 		</tr>
-		<s:if test=" null != projects && projects.size != 0 ">
-		<s:iterator value="projects" status="st">
+		<s:if test="null != tasks">
+		<s:iterator value="tasks" status="st">
 		
 		<tr>
-			<td align="center" width="10%" bgcolor="#ffffff"><s:property value="year"/></td>
-			<td align="left" width="40%" bgcolor="#ffffff"><s:property value="name"/></td>
-			<td align="left" width="35%" bgcolor="#ffffff"><s:property value="description"/></td>
-			<td align="center" width="15%" bgcolor="#ffffff">
-				<button name="BSC_PROG005D0002Q_score_${oid}" id="BSC_PROG005D0002Q_score_${oid}" data-dojo-type="dijit.form.Button"
-					data-dojo-props="
-						showLabel:true,
-						iconClass:'dijitIconSave',
-						onClick:function(){ 
-							BSC_PROG005D0003Q_DlgShow('${oid}');
-						}
-					">Score</button>
-				<button name="BSC_PROG005D0002Q_report_${oid}" id="BSC_PROG005D0002Q_report_${oid}" data-dojo-type="dijit.form.Button"
-					data-dojo-props="
-						showLabel:true,
-						iconClass:'dijitIconSearch',
-						onClick:function(){ 
-							BSC_PROG005D0004Q_DlgShow('${oid}');
-						}
-					">View</button>										
-			</td>
-		</tr>		
-		
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="id"/></td>
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="name"/></td>
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="assignee"/></td>
+			<td align="left" width="30%" bgcolor="#ffffff"><s:property value="taskReason[#st.index]"/></td>
+			<td align="center" width="25%" bgcolor="#ffffff">&nbsp;</td>
+		</tr>			
 		</s:iterator>
 		</s:if>
-	</table>
+		
+	</table>		
 	
-<script type="text/javascript">${programId}_page_message();</script>	
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>    
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>	
+	
+<script type="text/javascript">${programId}_page_message();</script>
 </body>
 </html>
-	

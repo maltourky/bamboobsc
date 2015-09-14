@@ -34,8 +34,12 @@ import net.lingala.zip4j.core.ZipFile;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -61,12 +65,71 @@ public class BusinessProcessManagementUtils {
 	private static ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
 	private static RepositoryService repositoryService;
 	private static RuntimeService runtimeService;
+	private static TaskService taskService;
 	
 	static {
 		sysBpmnResourceService = (ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String>)
 				AppContext.getBean("core.service.SysBpmnResourceService");
 		repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 		runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
+		taskService = (TaskService) AppContext.getBean("taskService");
+	}
+	
+	private static SysBpmnResourceVO loadResource(String resourceId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}
+		SysBpmnResourceVO sysBpmnResource = new SysBpmnResourceVO();
+		sysBpmnResource.setId(resourceId);		
+		DefaultResult<SysBpmnResourceVO> result = sysBpmnResourceService.findByUK(sysBpmnResource);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		return result.getValue();
+	}
+	
+	public static Map<String, Object> getTaskVariables(Task task) throws Exception {
+		return taskService.getVariables(task.getId());
+	}
+	
+	public static List<Task> queryTask(String resourceId) throws ServiceException, Exception {
+		return queryTask( loadResource(resourceId) );
+	}
+	
+	public static List<Task> queryTask(SysBpmnResourceVO sysBpmnResource) throws ServiceException, Exception {
+		return taskService.createTaskQuery().deploymentId( sysBpmnResource.getDeploymentId() ).list();
+	}
+	
+	public static List<ProcessDefinition> queryProcessDefinition(String resourceId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}
+		SysBpmnResourceVO sysBpmnResource = new SysBpmnResourceVO();
+		sysBpmnResource.setId(resourceId);		
+		return queryProcessDefinition(sysBpmnResource);
+	}
+	
+	public static List<ProcessDefinition> queryProcessDefinition(SysBpmnResourceVO sysBpmnResource) throws ServiceException, Exception {
+		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+		return processDefinitionQuery
+				.processDefinitionKey( sysBpmnResource.getId() )
+				.orderByProcessDefinitionVersion()
+				.desc()
+				.list();
+	}
+	
+	public static List<ProcessInstance> queryProcessInstance(String resourceId) throws ServiceException, Exception {
+		return queryProcessInstance( loadResource(resourceId) );
+	}
+	
+	public static List<ProcessInstance> queryProcessInstance(SysBpmnResourceVO sysBpmnResource) throws ServiceException, Exception {
+		if (StringUtils.isBlank(sysBpmnResource.getDeploymentId())) {
+			throw new Exception( "No deploymentId!" );
+		}
+		return runtimeService
+				.createProcessInstanceQuery()
+				.deploymentId( sysBpmnResource.getDeploymentId() )
+				.list();
 	}
 	
 	public static String startProcess(String resourceId, Map<String, Object> paramMap) throws ServiceException, Exception {

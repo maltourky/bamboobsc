@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -47,11 +48,13 @@ import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackItemService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackLevelService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackProjectService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackAssign;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackItem;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
+import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
@@ -64,6 +67,7 @@ import com.netsteadfast.greenstep.vo.EmployeeVO;
 @Scope
 public class DegreeFeedbackProjectManagementAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -4337083382053186479L;
+	private IDegreeFeedbackLogicService degreeFeedbackLogicService;
 	private IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> degreeFeedbackProjectService;
 	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
 	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;
@@ -72,10 +76,24 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	private DegreeFeedbackProjectVO degreeFeedbackProject = new DegreeFeedbackProjectVO();
 	private List<BbDegreeFeedbackItem> degreeFeedbackItems = new ArrayList<BbDegreeFeedbackItem>();
 	private List<BbDegreeFeedbackLevel> degreeFeedbackLevels = new ArrayList<BbDegreeFeedbackLevel>();
+	private List<Task> tasks = new ArrayList<Task>();
+	private List<String> taskReason = new ArrayList<String>();
 	
 	public DegreeFeedbackProjectManagementAction() {
 		super();
 	}
+	
+	public IDegreeFeedbackLogicService getDegreeFeedbackLogicService() {
+		return degreeFeedbackLogicService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.logic.DegreeFeedbackLogicService")		
+	public void setDegreeFeedbackLogicService(
+			IDegreeFeedbackLogicService degreeFeedbackLogicService) {
+		this.degreeFeedbackLogicService = degreeFeedbackLogicService;
+	}	
 	
 	public IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> getDegreeFeedbackProjectService() {
 		return degreeFeedbackProjectService;
@@ -171,6 +189,20 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 			sb.append(str).append(Constants.ID_DELIMITER);
 		}
 		return sb.toString();
+	}
+	
+	private void loadTasks() throws ServiceException, Exception {
+		this.tasks = this.degreeFeedbackLogicService.queryTaskByVariableProjectOid(
+				this.degreeFeedbackProject.getOid());
+		for (int i=0; i<this.tasks.size(); i++) {			
+			Map<String, Object> variables = BusinessProcessManagementUtils
+					.getTaskVariables(tasks.get(i));
+			if (variables!=null && variables.get("reason")!=null) {
+				this.taskReason.add( String.valueOf(variables.get("reason")) );
+			} else {
+				this.taskReason.add("");
+			}
+		}
 	}
 	
 	/**
@@ -271,6 +303,31 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 		}
 		return SUCCESS;				
 	}	
+	
+	/**
+	 * bsc.degreeFeedbackProjectProcessFlowAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S02")	
+	public String processFlow() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData();
+			this.loadProjectData();
+			this.loadTasks();
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;				
+	}
 
 	@Override
 	public String getProgramName() {
@@ -319,6 +376,22 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 
 	public void setDegreeFeedbackLevels(List<BbDegreeFeedbackLevel> degreeFeedbackLevels) {
 		this.degreeFeedbackLevels = degreeFeedbackLevels;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<String> getTaskReason() {
+		return taskReason;
+	}
+
+	public void setTaskReason(List<String> taskReason) {
+		this.taskReason = taskReason;
 	}
 
 }

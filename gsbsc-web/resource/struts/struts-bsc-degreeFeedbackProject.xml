@@ -48,6 +48,12 @@
 			<result name="input">/pages/degree-feedback-project/degree-feedback-project-report.jsp</result>		
 			<result name="success">/pages/degree-feedback-project/degree-feedback-project-report.jsp</result>
 		</action>
+		
+		<!-- process flow -->
+		<action name="bsc.degreeFeedbackProjectProcessFlowAction" class="bsc.web.controller.DegreeFeedbackProjectManagementAction" method="processFlow">
+			<result name="input">/pages/degree-feedback-project/degree-feedback-project-flow.jsp</result>		
+			<result name="success">/pages/degree-feedback-project/degree-feedback-project-flow.jsp</result>
+		</action>		
 															   	
 	</package>
 	

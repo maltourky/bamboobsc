@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.activiti.engine.task.Task;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -73,6 +74,7 @@ import com.netsteadfast.greenstep.vo.EmployeeVO;
 public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements IDegreeFeedbackLogicService {
 	protected Logger logger=Logger.getLogger(DegreeFeedbackLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_OR_MEMO_LENGTH = 500;
+	private static final String PROCESS_RESOURCE_ID = "DFProjectPublishProcess";
 	private IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> degreeFeedbackProjectService;
 	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
 	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;
@@ -184,14 +186,11 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		this.createItems(project, items);
 		this.createAssign(project, ownerEmplOids, raterEmplOids);
 		
-		/**
-		 * TODO: 目前為測試 for TEST!!!
-		 */
-		// -------------------------------------------------------------------
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("projectOid", project.getOid());
-		BusinessProcessManagementUtils.startProcess("DFProjectPublishProcess", paramMap);
-		// -------------------------------------------------------------------
+		paramMap.put("confirm", YesNo.YES);
+		paramMap.put("reason", "start apply.");
+		BusinessProcessManagementUtils.startProcess(PROCESS_RESOURCE_ID, paramMap);
 		
 		return result;
 	}
@@ -310,6 +309,28 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		result.setValue(project);
 		result.setSystemMessage( new SystemMessage( SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS) ) );		
 		return result;
+	}		
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Override
+	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception {
+		List<Task> tasks = BusinessProcessManagementUtils.queryTask(PROCESS_RESOURCE_ID);
+		if (null == tasks || tasks.size()<1) {
+			return tasks;
+		}
+		for (int i=0; i<tasks.size(); i++) {
+			Task task = tasks.get(i);
+			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);			
+			if (variables==null || variables.get("projectOid")==null) {
+				tasks.remove(i);
+				continue;
+			}
+			if (!projectOid.equals(variables.get("projectOid"))) {
+				tasks.remove(i);
+				continue;				
+			}
+		}
+		return tasks;
 	}	
 	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {
