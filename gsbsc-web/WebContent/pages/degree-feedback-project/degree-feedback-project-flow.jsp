@@ -71,7 +71,21 @@ function ${programId}_page_message() {
 			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="name"/></td>
 			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="assignee"/></td>
 			<td align="left" width="30%" bgcolor="#ffffff"><s:property value="taskReason[#st.index]"/></td>
-			<td align="center" width="25%" bgcolor="#ffffff">&nbsp;</td>
+			<td align="center" width="25%" bgcolor="#ffffff">
+				
+				<button name="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${id}" id="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${id}" data-dojo-type="dijit.form.Button"
+					
+					<s:if test=" \"Y\" != allowAssignee[#st.index] "> disabled="disabled" </s:if>
+					
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSave',
+						onClick:function(){ 
+							alert('${id}');
+						}
+					">Confirm</button>
+					
+			</td>
 		</tr>			
 		</s:iterator>
 		</s:if>

@@ -60,6 +60,8 @@ import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
+import com.netsteadfast.greenstep.po.hbm.TbUserRole;
+import com.netsteadfast.greenstep.service.IUserRoleService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
@@ -67,6 +69,7 @@ import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackScoreVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.UserRoleVO;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.DegreeFeedbackLogicService")
@@ -81,6 +84,7 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 	private IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService;
 	private IDegreeFeedbackScoreService<DegreeFeedbackScoreVO, BbDegreeFeedbackScore, String> degreeFeedbackScoreService;
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
+	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
 	
 	public DegreeFeedbackLogicServiceImpl() {
 		super();
@@ -156,6 +160,18 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 	public void setEmployeeService(
 			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
 		this.employeeService = employeeService;
+	}
+
+	public IUserRoleService<UserRoleVO, TbUserRole, String> getUserRoleService() {
+		return userRoleService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.UserRoleService")
+	@Required		
+	public void setUserRoleService(
+			IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService) {
+		this.userRoleService = userRoleService;
 	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
@@ -331,6 +347,29 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 			}
 		}
 		return tasks;
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Override
+	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception {
+		if (super.isBlank(taskAssignee)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("account", super.getAccountId());
+		List<TbUserRole> roles = this.userRoleService.findListByParams(paramMap);		
+		if (roles==null || roles.size()<1) {
+			return false;
+		}
+		boolean allow = false;
+		for (int i=0; i<roles.size() && !allow; i++) {
+			if ( BusinessProcessManagementUtils
+					.isRoleAssignee(PROCESS_RESOURCE_ID, roles.get(i).getRole(), taskAssignee) ) {
+				allow = true;
+				i = roles.size();
+			}
+		}		
+		return allow;
 	}	
 	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {

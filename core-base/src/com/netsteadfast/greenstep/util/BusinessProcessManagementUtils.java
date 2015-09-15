@@ -55,7 +55,10 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
+import com.netsteadfast.greenstep.service.ISysBpmnResourceRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @SuppressWarnings("unchecked")
@@ -63,6 +66,7 @@ public class BusinessProcessManagementUtils {
 	protected static Logger logger=Logger.getLogger(BusinessProcessManagementUtils.class); 
 	private static final String _SUB_NAME = ".bpmn";
 	private static ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
+	private static ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService;
 	private static RepositoryService repositoryService;
 	private static RuntimeService runtimeService;
 	private static TaskService taskService;
@@ -70,6 +74,8 @@ public class BusinessProcessManagementUtils {
 	static {
 		sysBpmnResourceService = (ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String>)
 				AppContext.getBean("core.service.SysBpmnResourceService");
+		sysBpmnResourceRoleService = (ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String>)
+				AppContext.getBean("core.service.SysBpmnResourceRoleService");
 		repositoryService = (RepositoryService) AppContext.getBean("repositoryService");
 		runtimeService = (RuntimeService) AppContext.getBean("runtimeService");
 		taskService = (TaskService) AppContext.getBean("taskService");
@@ -86,6 +92,31 @@ public class BusinessProcessManagementUtils {
 			throw new ServiceException( result.getSystemMessage().getValue() );
 		}
 		return result.getValue();
+	}
+	
+	public static boolean isRoleAssignee(String resourceId, String roleId, String assignee) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId) || StringUtils.isBlank(roleId) || StringUtils.isBlank(assignee)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}		
+		TbSysBpmnResourceRole resourceRole = new TbSysBpmnResourceRole();
+		resourceRole.setId(resourceId);
+		resourceRole.setRole(roleId);
+		resourceRole.setAssignee(assignee);
+		if (sysBpmnResourceRoleService.countByEntityUK(resourceRole)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static void completeTask(String taskId, Map<String, Object> paramMap) throws Exception {
+		if (StringUtils.isBlank(taskId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}		
+		if (null!=paramMap) {
+			taskService.complete(taskId);
+		} else {
+			taskService.complete(taskId, paramMap);
+		}
 	}
 	
 	public static Map<String, Object> getTaskVariables(Task task) throws Exception {

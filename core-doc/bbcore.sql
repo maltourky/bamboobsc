@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.15, for FreeBSD10.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.19, for Win32 (x86)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
--- Server version	5.6.15
+-- Server version	5.6.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -2719,6 +2719,39 @@ INSERT INTO `tb_sys_bpmn_resource` VALUES ('f987f3c2-370e-4691-a7c8-f8c100dead85
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_sys_bpmn_resource_role`
+--
+
+DROP TABLE IF EXISTS `tb_sys_bpmn_resource_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_sys_bpmn_resource_role` (
+  `OID` char(36) NOT NULL,
+  `ID` varchar(100) NOT NULL,
+  `ROLE` varchar(50) NOT NULL,
+  `ASSIGNEE` varchar(100) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`ID`,`ROLE`,`ASSIGNEE`),
+  KEY `IDX_1` (`ID`),
+  KEY `IDX_2` (`ROLE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_sys_bpmn_resource_role`
+--
+
+LOCK TABLES `tb_sys_bpmn_resource_role` WRITE;
+/*!40000 ALTER TABLE `tb_sys_bpmn_resource_role` DISABLE KEYS */;
+INSERT INTO `tb_sys_bpmn_resource_role` VALUES ('038ad1ad-5786-4b11-abb6-6f1a0da9aea9','DFProjectPublishProcess','admin','apply','admin','2015-09-15 09:20:03',NULL,NULL),('2814ae9c-9f36-46dd-86e0-9cb95f80d414','DFProjectPublishProcess','HR_MANAGE','hr_manager','admin','2015-09-15 09:29:42',NULL,NULL),('51326ab0-b58f-4293-b60c-3efc8615520f','DFProjectPublishProcess','HR_MANAGE','apply','admin','2015-09-15 09:28:42',NULL,NULL),('666d046b-c8f1-4597-b663-a577b89af3fd','DFProjectPublishProcess','admin','hr_manager','admin','2015-09-15 09:20:31',NULL,NULL),('6c59cc78-0850-4652-b8cf-2386abd4e2f9','DFProjectPublishProcess','BSC_STANDARD','apply','admin','2015-09-15 09:27:32',NULL,NULL),('88f544e0-72c2-4944-afac-8efee85b7249','DFProjectPublishProcess','*','apply','admin','2015-09-15 09:20:57',NULL,NULL),('caa6be03-7509-4493-bd89-dcd7a3826a3f','DFProjectPublishProcess','*','hr_manager','admin','2015-09-15 09:21:24',NULL,NULL),('d7ff5153-6185-4dcb-8e30-71279e589f2f','DFProjectPublishProcess','VIEW_ONLY_CLASS01','apply','admin','2015-09-15 09:28:12',NULL,NULL);
+/*!40000 ALTER TABLE `tb_sys_bpmn_resource_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_sys_calendar_note`
 --
 
@@ -3735,4 +3768,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-14 22:07:33
+-- Dump completed on 2015-09-15  9:30:12

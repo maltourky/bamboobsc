@@ -62,7 +62,8 @@
                 <value>classpath*:mappers/TbSysFtpTranSegm.xml</value>                
                 <value>classpath*:mappers/TbSysUploadTran.xml</value>                
                 <value>classpath*:mappers/TbSysUploadTranSegm.xml</value>                
-                <value>classpath*:mappers/TbSysBpmnResource.xml</value>
+                <value>classpath*:mappers/TbSysBpmnResource.xml</value>                
+                <value>classpath*:mappers/TbSysBpmnResourceRole.xml</value>
                 <value>classpath*:mappers/BbOrganization.xml</value>
                 <value>classpath*:mappers/BbOrganizationPar.xml</value>
                 <value>classpath*:mappers/BbEmployee.xml</value>

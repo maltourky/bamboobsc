@@ -47,4 +47,6 @@ public interface IDegreeFeedbackLogicService {
 	
 	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception;
 	
+	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception;
+	
 }

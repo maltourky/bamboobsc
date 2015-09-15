@@ -43,6 +43,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackAssignService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackItemService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackLevelService;
@@ -78,6 +79,7 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	private List<BbDegreeFeedbackLevel> degreeFeedbackLevels = new ArrayList<BbDegreeFeedbackLevel>();
 	private List<Task> tasks = new ArrayList<Task>();
 	private List<String> taskReason = new ArrayList<String>();
+	private List<String> allowAssignee = new ArrayList<String>();
 	
 	public DegreeFeedbackProjectManagementAction() {
 		super();
@@ -194,9 +196,15 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	private void loadTasks() throws ServiceException, Exception {
 		this.tasks = this.degreeFeedbackLogicService.queryTaskByVariableProjectOid(
 				this.degreeFeedbackProject.getOid());
-		for (int i=0; i<this.tasks.size(); i++) {			
+		for (int i=0; i<this.tasks.size(); i++) {	
+			Task task = tasks.get(i);
+			if (this.degreeFeedbackLogicService.isAllowTaskAssignee(task.getAssignee())) {
+				this.allowAssignee.add(YesNo.YES);
+			} else {
+				this.allowAssignee.add(YesNo.NO);
+			}
 			Map<String, Object> variables = BusinessProcessManagementUtils
-					.getTaskVariables(tasks.get(i));
+					.getTaskVariables(task);
 			if (variables!=null && variables.get("reason")!=null) {
 				this.taskReason.add( String.valueOf(variables.get("reason")) );
 			} else {
@@ -392,6 +400,14 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 
 	public void setTaskReason(List<String> taskReason) {
 		this.taskReason = taskReason;
+	}
+
+	public List<String> getAllowAssignee() {
+		return allowAssignee;
+	}
+
+	public void setAllowAssignee(List<String> allowAssignee) {
+		this.allowAssignee = allowAssignee;
 	}
 
 }
