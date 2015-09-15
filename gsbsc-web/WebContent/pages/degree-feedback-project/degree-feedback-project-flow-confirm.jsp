@@ -72,14 +72,9 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" bgcolor="#ffffff">
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Confirm</b>:
+    			<font color='RED'>*</font><b>Approve</b>:
     			<br/>
-    			<s:if test=" \"Y\" == choiceYesNo ">
-    			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" value="Y"></gs:select>
-    			</s:if>
-    			<s:else>
-    			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" readonly="Y" value="Y"></gs:select>
-    			</s:else>    			
+    			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" value="Y"></gs:select>  			
     		</td>   
 		</tr>
 		<tr>

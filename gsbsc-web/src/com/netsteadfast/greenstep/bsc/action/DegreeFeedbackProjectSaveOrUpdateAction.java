@@ -48,6 +48,7 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
+import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
@@ -62,6 +63,7 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	private IDegreeFeedbackLogicService degreeFeedbackLogicService;
 	private String message = "";
 	private String success = IS_NO;
+	private String uploadOid = ""; // 圖檔資料的oid
 	
 	public DegreeFeedbackProjectSaveOrUpdateAction() {
 		super();
@@ -327,6 +329,41 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		return SUCCESS;			
 	}
 	
+	/**
+	 * bsc.degreeFeedbackProjectLoadTaskDiagramAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */		
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S02")
+	public String doLoadTaskDiagram() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.uploadOid = BusinessProcessManagementUtils.getTaskDiagramById2Upload(
+					"DFProjectPublishProcess", 
+					this.getFields().get("taskId"));
+			if (!StringUtils.isBlank(this.uploadOid)) {
+				this.message = SysMessageUtil.get(GreenStepSysMsgConstants.INSERT_SUCCESS);
+				this.success = IS_YES;
+			}
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;	
+	}
+	
 	@JSON
 	@Override
 	public String getLogin() {
@@ -355,6 +392,15 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	@Override
 	public List<String> getFieldsId() {
 		return this.fieldsId;
+	}
+
+	@JSON
+	public String getUploadOid() {
+		return uploadOid;
+	}
+
+	public void setUploadOid(String uploadOid) {
+		this.uploadOid = uploadOid;
 	}
 
 }

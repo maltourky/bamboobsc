@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -32,6 +33,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.lingala.zip4j.core.ZipFile;
 
+import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -40,8 +42,11 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.pdfbox.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -54,6 +59,7 @@ import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceRoleService;
@@ -92,6 +98,51 @@ public class BusinessProcessManagementUtils {
 			throw new ServiceException( result.getSystemMessage().getValue() );
 		}
 		return result.getValue();
+	}
+	
+	public static String getTaskDiagramById2Upload(String resourceId, String taskId) throws Exception {
+		byte[] data = getTaskDiagramById(resourceId, taskId);
+		if (null == data) {
+			return "";
+		}
+		return UploadSupportUtils.create(
+				Constants.getSystem(), 
+				UploadTypes.IS_TEMP, 
+				false, 
+				data, 
+				SimpleUtils.getUUIDStr() + ".png");
+	}
+	
+	public static byte[] getTaskDiagramById(String resourceId, String taskId) throws Exception {
+		SysBpmnResourceVO resouce = loadResource(resourceId);
+		Task task = getTaskById(taskId);
+		if (null == task) {
+			return null;
+		}
+		ProcessDefinitionQuery pdQuery = repositoryService
+				.createProcessDefinitionQuery()
+				.processDefinitionKey(resourceId);
+		List<ProcessDefinition> pdList = pdQuery.deploymentId( resouce.getDeploymentId() ).list();
+		byte data[] = null;
+		ProcessDiagramGenerator processDiagramGenerator = new DefaultProcessDiagramGenerator();
+		for (ProcessDefinition pd : pdList) {
+			List<ProcessInstance> piList = runtimeService.createProcessInstanceQuery()
+					.processDefinitionId( pd.getId() )
+					.list();
+			for (ProcessInstance pi : piList) {
+				if (pi.getProcessDefinitionId().equals(task.getProcessDefinitionId())) {
+					BpmnModel model = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
+					InputStream is = processDiagramGenerator.generateDiagram(
+							model, 
+							"png", 
+							runtimeService.getActiveActivityIds(pi.getId()));
+					data = IOUtils.toByteArray(is);
+					is.close();
+					is = null;
+				}
+			}
+		}
+		return data;
 	}
 	
 	public static boolean isRoleAssignee(String resourceId, String roleId, String assignee) throws ServiceException, Exception {

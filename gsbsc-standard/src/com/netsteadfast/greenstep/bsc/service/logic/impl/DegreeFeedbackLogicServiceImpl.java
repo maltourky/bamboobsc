@@ -405,8 +405,10 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		}
 		
 		// 流程跑完了, 更新專案flag , 讓專案發佈
-		project.setPublishFlag( YesNo.YES );
-		this.degreeFeedbackProjectService.updateObject(project);
+		if (YesNo.YES.equals(confirm)) {
+			project.setPublishFlag( YesNo.YES );
+			this.degreeFeedbackProjectService.updateObject(project);			
+		}
 		
 	}	
 	

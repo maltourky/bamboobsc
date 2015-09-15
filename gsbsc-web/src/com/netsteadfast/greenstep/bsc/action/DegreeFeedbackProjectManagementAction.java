@@ -81,7 +81,6 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	private List<Task> tasks = new ArrayList<Task>();
 	private List<String> taskReason = new ArrayList<String>();
 	private List<String> allowAssignee = new ArrayList<String>();
-	private String choiceYesNo = YesNo.NO; // 控制能選擇同意 "是" 或 "否" 使用的變數
 	
 	public DegreeFeedbackProjectManagementAction() {
 		super();
@@ -369,10 +368,6 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 			}
 			this.getFields().put("projectOid", projectOid);
 			this.getFields().put("taskId", taskId);			
-			Task task = BusinessProcessManagementUtils.getTaskById(taskId);
-			if ( !"apply".equals(task.getAssignee()) ) {
-				this.choiceYesNo = YesNo.YES;
-			}
 			forward = SUCCESS;
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
@@ -456,14 +451,6 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 
 	public void setAllowAssignee(List<String> allowAssignee) {
 		this.allowAssignee = allowAssignee;
-	}
-
-	public String getChoiceYesNo() {
-		return choiceYesNo;
-	}
-
-	public void setChoiceYesNo(String choiceYesNo) {
-		this.choiceYesNo = choiceYesNo;
 	}
 
 }

@@ -27,6 +27,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 
 <script type="text/javascript">
+
+
+function BSC_PROG005D0001A_S02_loadDiagram(taskId) {
+	xhrSendParameter(
+			'${basePath}/bsc.degreeFeedbackProjectLoadTaskDiagramAction.action', 
+			{ 'fields.taskId' : taskId }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+				if ( 'Y' == data.success ) {
+					openCommonLoadUpload( 'view', data.uploadOid, { } );
+				}
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);
+}
+
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -83,7 +105,17 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_S03_DlgShow('${fields.oid};${id}');
 						}
-					">Confirm</button>
+					">Approve</button>
+				
+				<button name="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" id="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" data-dojo-type="dijit.form.Button"
+					
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSearch',
+						onClick:function(){ 
+							BSC_PROG005D0001A_S02_loadDiagram('${id}');
+						}
+					">Diagram</button>				
 					
 			</td>
 		</tr>			
