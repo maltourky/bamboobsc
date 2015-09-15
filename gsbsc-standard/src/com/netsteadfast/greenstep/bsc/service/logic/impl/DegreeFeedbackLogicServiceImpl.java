@@ -77,6 +77,7 @@ import com.netsteadfast.greenstep.vo.UserRoleVO;
 public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements IDegreeFeedbackLogicService {
 	protected Logger logger=Logger.getLogger(DegreeFeedbackLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_OR_MEMO_LENGTH = 500;
+	private static final int MAX_REASON_LENGTH = 50;
 	private static final String PROCESS_RESOURCE_ID = "DFProjectPublishProcess";
 	private IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> degreeFeedbackProjectService;
 	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
@@ -392,7 +393,7 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("projectOid", projectOid);
 		paramMap.put("confirm", confirm);
-		paramMap.put("reason", reason);
+		paramMap.put("reason", ( super.defaultString( reason ).length()>MAX_REASON_LENGTH ? reason.substring(0, MAX_REASON_LENGTH) : reason ) );
 		BusinessProcessManagementUtils.completeTask(taskId, paramMap);	
 		List<Task> tasks = this.queryTaskByVariableProjectOid(projectOid);
 		if (null != tasks && tasks.size()>0) { 
