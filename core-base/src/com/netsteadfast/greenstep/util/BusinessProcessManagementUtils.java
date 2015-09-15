@@ -108,6 +108,14 @@ public class BusinessProcessManagementUtils {
 		return false;
 	}
 	
+	public static void deleteTaskById(String taskId) throws Exception {
+		if (StringUtils.isBlank(taskId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}		
+		logger.warn( "Delete task Id: " + taskId );		
+		taskService.deleteTask(taskId);
+	}
+	
 	public static void completeTask(String taskId, Map<String, Object> paramMap) throws Exception {
 		if (StringUtils.isBlank(taskId)) {
 			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );

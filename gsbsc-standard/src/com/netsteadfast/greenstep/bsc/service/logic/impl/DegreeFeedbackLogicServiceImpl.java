@@ -227,10 +227,14 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 			throw new ServiceException(oldResult.getSystemMessage().getValue());
 		}
 		project = oldResult.getValue();
+		List<Task> tasks = this.queryTaskByVariableProjectOid( project.getOid() );
+		if (tasks!=null && tasks.size()>0) {
+			throw new ServiceException( "Audit running, project cannot delete." );
+		}
 		this.deleteLevels(project);
 		this.deleteItems(project);
 		this.deleteAssign(project);
-		this.deleteScore(project);
+		this.deleteScore(project);		
 		return this.degreeFeedbackProjectService.deleteObject(project);
 	}	
 	
