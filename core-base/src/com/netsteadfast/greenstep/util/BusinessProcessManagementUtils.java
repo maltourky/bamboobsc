@@ -113,9 +113,9 @@ public class BusinessProcessManagementUtils {
 			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
 		}		
 		if (null!=paramMap) {
-			taskService.complete(taskId);
-		} else {
 			taskService.complete(taskId, paramMap);
+		} else {
+			taskService.complete(taskId);
 		}
 	}
 	
