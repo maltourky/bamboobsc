@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
@@ -36,6 +37,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -43,6 +45,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
 import com.netsteadfast.greenstep.util.SimpleUtils;
@@ -198,6 +201,16 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.message = result.getSystemMessage().getValue();		
 	}
 	
+	private void confirmProcessFlowTask() throws ControllerException, AuthorityException, ServiceException, Exception {
+		String projectOid = StringUtils.defaultString( this.getFields().get("projectOid") );
+		String taskId = StringUtils.defaultString( this.getFields().get("taskId") );
+		String reason = StringUtils.defaultString( this.getFields().get("reason") );
+		String confirm = StringUtils.defaultString( this.getFields().get("confirm") );
+		this.degreeFeedbackLogicService.confirmTask(projectOid, taskId, reason, confirm);
+		this.success = IS_YES;
+		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);
+	}
+	
 	/**
 	 * bsc.degreeFeedbackProjectSaveAction.action
 	 * 
@@ -284,6 +297,35 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}	
+	
+	/**
+	 * bsc.degreeFeedbackProjectConfirmProcessFlowSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S03")
+	public String doConfirmProcessFlowTask() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.confirmProcessFlowTask();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;			
+	}
 	
 	@JSON
 	@Override

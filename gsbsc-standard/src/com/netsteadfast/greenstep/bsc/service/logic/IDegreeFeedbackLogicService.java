@@ -49,4 +49,6 @@ public interface IDegreeFeedbackLogicService {
 	
 	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception;
 	
+	public void confirmTask(String projectOid, String taskId, String reason, String confirm) throws ServiceException, Exception;
+	
 }

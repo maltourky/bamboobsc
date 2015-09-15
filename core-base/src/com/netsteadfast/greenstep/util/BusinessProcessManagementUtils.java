@@ -119,6 +119,13 @@ public class BusinessProcessManagementUtils {
 		}
 	}
 	
+	public static Task getTaskById(String taskId) throws Exception {
+		if (StringUtils.isBlank(taskId)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}		
+		return taskService.createTaskQuery().taskId(taskId).singleResult();
+	}
+	
 	public static Map<String, Object> getTaskVariables(Task task) throws Exception {
 		return taskService.getVariables(task.getId());
 	}

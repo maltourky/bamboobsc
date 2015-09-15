@@ -81,7 +81,7 @@ function ${programId}_page_message() {
 						showLabel:true,
 						iconClass:'dijitIconSave',
 						onClick:function(){ 
-							alert('${id}');
+							BSC_PROG005D0001A_S03_DlgShow('${fields.oid};${id}');
 						}
 					">Confirm</button>
 					

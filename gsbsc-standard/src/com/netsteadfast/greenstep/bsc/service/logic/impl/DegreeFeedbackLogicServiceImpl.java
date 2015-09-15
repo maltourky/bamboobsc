@@ -372,6 +372,39 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		return allow;
 	}	
 	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public void confirmTask(String projectOid, String taskId, String reason, String confirm) throws ServiceException, Exception {
+		if (super.isBlank(projectOid) || super.isBlank(taskId) || super.isBlank(confirm)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		project.setOid(projectOid);
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackProjectService.findObjectByOid(project);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().toString());
+		}
+		project = result.getValue();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", projectOid);
+		paramMap.put("confirm", confirm);
+		paramMap.put("reason", reason);
+		BusinessProcessManagementUtils.completeTask(taskId, paramMap);	
+		List<Task> tasks = this.queryTaskByVariableProjectOid(projectOid);
+		if (null != tasks && tasks.size()>0) { 
+			return;
+		}
+		
+		// 流程跑完了, 更新專案flag , 讓專案發佈
+		project.setPublishFlag( YesNo.YES );
+		this.degreeFeedbackProjectService.updateObject(project);
+		
+	}	
+	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {
 		for (DegreeFeedbackLevelVO level : levels) {
 			if ( super.isBlank(level.getName()) ) {

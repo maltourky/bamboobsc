@@ -29,6 +29,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.activiti.engine.task.Task;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -80,6 +81,7 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	private List<Task> tasks = new ArrayList<Task>();
 	private List<String> taskReason = new ArrayList<String>();
 	private List<String> allowAssignee = new ArrayList<String>();
+	private String choiceYesNo = YesNo.NO; // 控制能選擇同意 "是" 或 "否" 使用的變數
 	
 	public DegreeFeedbackProjectManagementAction() {
 		super();
@@ -336,6 +338,52 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 		}
 		return forward;				
 	}
+	
+	/**
+	 * bsc.degreeFeedbackProjectConfirmProcessFlowAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001A_S03")
+	public String confirmProcessFlow() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {			
+			String paramStr = super.getFields().get("oid");
+			/*
+			List<String> paramList = super.transformAppendIds2List(paramStr);
+			if (paramList==null || paramList.size()!=2) {
+				return forward;
+			}
+			String projectOid = paramList.get(0);
+			String taskId = paramList.get(1);			
+			*/
+			String tmp[] = paramStr.split(Constants.ID_DELIMITER);
+			if (tmp==null || tmp.length!=2) {
+				return forward;
+			}
+			String projectOid = tmp[0];
+			String taskId = tmp[1];
+			if (StringUtils.isBlank(projectOid) || StringUtils.isBlank(taskId)) {
+				return forward;
+			}
+			this.getFields().put("projectOid", projectOid);
+			this.getFields().put("taskId", taskId);			
+			Task task = BusinessProcessManagementUtils.getTaskById(taskId);
+			if ( !"apply".equals(task.getAssignee()) ) {
+				this.choiceYesNo = YesNo.YES;
+			}
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;			
+	}
 
 	@Override
 	public String getProgramName() {
@@ -408,6 +456,14 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 
 	public void setAllowAssignee(List<String> allowAssignee) {
 		this.allowAssignee = allowAssignee;
+	}
+
+	public String getChoiceYesNo() {
+		return choiceYesNo;
+	}
+
+	public void setChoiceYesNo(String choiceYesNo) {
+		this.choiceYesNo = choiceYesNo;
 	}
 
 }
