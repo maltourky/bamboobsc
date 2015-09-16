@@ -163,7 +163,7 @@ dataSource.password=password
 # mkdir gsbsc gsbsc/upload gsbsc/jasperreport
 ```
 
-###9. Run bambooBSC 0.5
+###9. Run bambooBSC
 ```
 # cd /home/pi/bamboobsc-05/apache-tomcat-7.0.64/bin
 # chmod a+x catalina.sh
