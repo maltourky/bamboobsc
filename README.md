@@ -14,38 +14,13 @@ Features:<br/>
 6. Provides Sourcecard query for mobile-device browser.
 <br/><br/>
 
-<font size='2' color="#7E7E7E">
-<b>Create a scorecard project demo:</b></font>
-<BR/>
-<a href="http://www.youtube.com/watch?v=A27wnMTtfOc">
-<img src="http://img.youtube.com/vi/A27wnMTtfOc/0.jpg" alt="Create a scorecard project demo."/>
-</a>
-<BR/>
-<BR/>
-
-<BR/>
-<font size='2' color="#7E7E7E"><b>Mobile version web demo:</b></font>
-<BR/>
-<a href="http://www.youtube.com/watch?v=56ocMktSRIs">
-<img src="http://img.youtube.com/vi/56ocMktSRIs/0.jpg" alt="Mobile version web demo."/>
-</a>
-
-<BR/>
-<font size='2' color="#7E7E7E"><b>install step on ms-windows video:</b></font>
-<BR/>
-<a href="http://www.youtube.com/watch?v=pM3q9udreDo">
-<img src="http://img.youtube.com/vi/pM3q9udreDo/0.jpg" alt="Mobile version web demo."/>
-</a>
-<BR/>
-<BR/>
-
 <h2>Demo web: ( The web run on Raspberry pi 2 )</h2>
 http://124.218.68.215:8888/core-web/login.action<br/>
 account: tester<br/>
 password: tester<br/>
 <br/><br/>
 
-<h2>bambooBSC 0.5 architecture</h2>
+<h2>bambooBSC architecture</h2>
 <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc_05_web_arch.png"/><br/>
 <br/><br/>
 <h2>License</h2>
@@ -65,13 +40,39 @@ contact: chen.xin.nien@gmail.com
 
 <h2>Screenshot</h2>
 <br/>
-<br/>1.
-<img src="http://a.fsdn.com/con/app/proj/bamboobsc/screenshots/E_fix01.png"/><br/>
-<br/>2.
-<img src="http://a.fsdn.com/con/app/proj/bamboobsc/screenshots/A_fix.png"/><br/>
-<br/>3.
+<br/>1 Region view.
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/REGION_MAP_VIEW.png"/><br/>
+<br/>2 Workspace.
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/WORKSPACE.png"/><br/>
+<br/>3 KPIs dashboard.
 <br/>
-<img src="http://a.fsdn.com/con/app/proj/bamboobsc/screenshots/Screenshot_2015-06-29-14-07-32.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/KPI-DAS.png"/><br/>
+<br/>4 Employee/Personal BSC report.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/EMPLOYEE-REPORT.png"/><br/>
+<br/>5 Department BSC report.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DEPARTMENT-REPORT.png"/><br/>
+<br/>6 Employee Degree feedback score view.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DF_PROJECT_SCORE_VIEW.png"/><br/>
+<br/>7 KPI BSC report.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/KPI-REPORT.png"/><br/>
+<br/>8 OLAP Client report.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/OLAP-CLIENT.png"/><br/>
+<br/>9 Mobile version KPIs view.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/MOBILE_KPI_VIEW.png"/><br/>
+<br/>10 BSC strategy-map.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/BSC-STRATEGY-MAP.png"/><br/>
+<br/>11 SQL-Client query result as chart.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/SQL-CLIENT-QUERY.png"/><br/>
+
+
 
 <br/>
 <br/>
