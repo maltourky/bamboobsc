@@ -53,7 +53,7 @@ contact: chen.xin.nien@gmail.com
 <br/>5 Department BSC report.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DEPARTMENT-REPORT.png"/><br/>
-<br/>6 Employee Degree feedback score view.
+<br/>6 Employee 360 Degree feedback score view.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DF_PROJECT_SCORE_VIEW.png"/><br/>
 <br/>7 KPI BSC report.
