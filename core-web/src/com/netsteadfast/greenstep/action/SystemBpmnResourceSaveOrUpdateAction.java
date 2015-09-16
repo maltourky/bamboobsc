@@ -248,6 +248,26 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		this.success = IS_YES;
 	}
 	
+	private void exportDiagram() throws ControllerException, AuthorityException, ServiceException, Exception {
+		String type = this.getFields().get("type");
+		String objectId = this.getFields().get("objectId");
+		String resourceId = this.getFields().get("resourceId");
+		if ("processDefinition".equals(type)) {
+			this.uploadOid = BusinessProcessManagementUtils
+					.getProcessDefinitionDiagramById2Upload(objectId);
+		} else if ("processInstance".equals(type)) {
+			this.uploadOid = BusinessProcessManagementUtils
+					.getProcessInstanceDiagramById2Upload(objectId);
+		} else { // task
+			this.uploadOid = BusinessProcessManagementUtils
+					.getTaskDiagramById2Upload(resourceId, objectId);
+		}
+		if (!StringUtils.isBlank(this.uploadOid)) {
+			this.message = SysMessageUtil.get(GreenStepSysMsgConstants.INSERT_SUCCESS);
+			this.success = IS_YES;
+		}
+	}
+	
 	/**
 	 * core.systemBpmnResourceSaveAction.action
 	 * 
@@ -392,6 +412,35 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;				
 	}	
+	
+	/**
+	 * core.systemBpmnResourceExportDiagramAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q_S00")	
+	public String doExportDiagram() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.exportDiagram();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}
 	
 	@JSON
 	@Override

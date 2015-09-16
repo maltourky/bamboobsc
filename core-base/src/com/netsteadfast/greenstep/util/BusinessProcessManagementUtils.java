@@ -37,6 +37,7 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -136,14 +137,11 @@ public class BusinessProcessManagementUtils {
 			return null;
 		}
 		byte data[] = null;
-		List<ProcessInstance> piList = runtimeService.createProcessInstanceQuery()
-				.processDefinitionId( pd.getId() )
-				.list();
-		for (ProcessInstance pi : piList) {
-			if (pi.getProcessDefinitionVersion() == pd.getVersion()) {
-				data = getDiagramByte(pi);
-			}
-		}		
+		ProcessDefinitionEntity pde = (ProcessDefinitionEntity)pd;
+		InputStream is = repositoryService.getResourceAsStream(pde.getDeploymentId(), pde.getDiagramResourceName());
+		data = IOUtils.toByteArray(is);
+		is.close();
+		is = null;
 		return data;
 	}	
 	
@@ -199,7 +197,7 @@ public class BusinessProcessManagementUtils {
 					.processDefinitionId( pd.getId() )
 					.list();
 			for (ProcessInstance pi : piList) {
-				if (pi.getProcessDefinitionId().equals(task.getProcessDefinitionId())) {
+				if (pi.getProcessInstanceId().equals(task.getProcessInstanceId())) {					
 					data = getDiagramByte(pi);
 				}
 			}

@@ -30,9 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function CORE_PROG003D0004Q_GridFieldStructure() {
 	return [
-			{ name: "*", field: "oid", formatter: CORE_PROG003D0004Q_GridButtonClick, width: "15%" },  
+			{ name: "*", field: "oid", formatter: CORE_PROG003D0004Q_GridButtonClick, width: "20%" },  
 			{ name: "Id", field: "id", width: "20%" },
-			{ name: "Deployment Id", field: "deploymentId", width: "15%" },
+			{ name: "Deployment Id", field: "deploymentId", width: "10%" },
 			{ name: "Name", field: "name", width: "25%" },
 			{ name: "Description", field: "description", width: "25%" }						
 		];
@@ -42,6 +42,8 @@ function CORE_PROG003D0004Q_GridButtonClick(itemOid) {
 	var rd="";
 	rd += "<img src=\"" + _getSystemIconUrl('PROPERTIES') + "\" border=\"0\" alt=\"edit\" onclick=\"CORE_PROG003D0004Q_edit('" + itemOid + "');\" />";
 	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	rd += "<img src=\"" + _getSystemIconUrl('DIAGRAM') + "\" border=\"0\" alt=\"edit\" onclick=\"CORE_PROG003D0004Q_processList('" + itemOid + "');\" />";
+	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";	
 	rd += "<img src=\"" + _getSystemIconUrl('SYSTEM') + "\" border=\"0\" alt=\"delete\" onclick=\"CORE_PROG003D0004Q_confirmDeployment('" + itemOid + "');\" />";	
 	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";			
 	rd += "<img src=\"" + _getSystemIconUrl('EXPORT') + "\" border=\"0\" alt=\"export\" onclick=\"CORE_PROG003D0004Q_downloadFile('" + itemOid + "');\" />";
@@ -58,6 +60,10 @@ function CORE_PROG003D0004Q_clear() {
 
 function CORE_PROG003D0004Q_edit(oid) {
 	CORE_PROG003D0004E_TabShow(oid);
+}
+
+function CORE_PROG003D0004Q_processList(oid) {
+	CORE_PROG003D0004Q_S00_TabShow(oid);
 }
 
 function CORE_PROG003D0004Q_confirmDeployment(oid) {

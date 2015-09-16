@@ -21,8 +21,14 @@
  */
 package com.netsteadfast.greenstep.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -37,6 +43,7 @@ import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
+import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
@@ -47,6 +54,9 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	private static final long serialVersionUID = -8874018162071109964L;
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
 	private SysBpmnResourceVO bpmnResource = new SysBpmnResourceVO();
+	private List<ProcessDefinition> processDefinitions = new ArrayList<ProcessDefinition>();
+	private List<ProcessInstance> processInstances = new ArrayList<ProcessInstance>();
+	private List<Task> tasks = new ArrayList<Task>();
 	
 	public SystemBpmnResourceManagementAction() {
 		super();
@@ -75,6 +85,12 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 			throw new ServiceException(result.getSystemMessage().getValue());
 		}
 		this.bpmnResource = result.getValue();
+	}
+	
+	private void queryProcess() throws Exception {
+		this.processDefinitions = BusinessProcessManagementUtils.queryProcessDefinition(this.bpmnResource);
+		this.processInstances = BusinessProcessManagementUtils.queryProcessInstance(this.bpmnResource);
+		this.tasks = BusinessProcessManagementUtils.queryTask(this.bpmnResource);
 	}
 	
 	/**
@@ -142,6 +158,31 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 		}
 		return forward;		
 	}	
+	
+	/**
+	 * core.systemBpmnResourceProcessListAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q_S00")
+	public String processList() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData();
+			this.loadResourceData();
+			this.queryProcess();
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;			
+	}
 
 	@Override
 	public String getProgramName() {
@@ -166,6 +207,30 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 
 	public void setBpmnResource(SysBpmnResourceVO bpmnResource) {
 		this.bpmnResource = bpmnResource;
+	}
+
+	public List<ProcessDefinition> getProcessDefinitions() {
+		return processDefinitions;
+	}
+
+	public void setProcessDefinitions(List<ProcessDefinition> processDefinitions) {
+		this.processDefinitions = processDefinitions;
+	}
+
+	public List<ProcessInstance> getProcessInstances() {
+		return processInstances;
+	}
+
+	public void setProcessInstances(List<ProcessInstance> processInstances) {
+		this.processInstances = processInstances;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 }
