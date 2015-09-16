@@ -20,9 +20,9 @@
  * 
  */
 dojo.declare("GS.CORE", null ,{
-    ver: '0.5',
+    ver: '0.6.00',
     name: 'bambooCORE',
-    full_name: 'bambooCORE (an opensource software)',
+    full_name: 'bambooCORE - opensource Balanced Scorecard (BSC) Business Intelligence',
     /*
         constructor: function(ver, name, full_name) {
             this.ver = ver;

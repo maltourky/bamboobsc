@@ -1,3 +1,9 @@
+0.6.00
+-----------------------------------------------------------
+1. Add 360 Employee degree feedback project.
+2. Some modifications
+
+
 2015-09-01
 -----------------------------------------------------------
 1. Update BSC-strategy-map used jsPlumb-LIB to new version.
