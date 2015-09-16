@@ -100,6 +100,76 @@ public class BusinessProcessManagementUtils {
 		return result.getValue();
 	}
 	
+	private static byte[] getDiagramByte(ProcessInstance pi) throws Exception {
+		byte[] data = null;
+		ProcessDiagramGenerator processDiagramGenerator = new DefaultProcessDiagramGenerator();
+		BpmnModel model = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
+		InputStream is = processDiagramGenerator.generateDiagram(
+				model, 
+				"png", 
+				runtimeService.getActiveActivityIds(pi.getId()));
+		data = IOUtils.toByteArray(is);
+		is.close();
+		is = null;	
+		return data;
+	}
+	
+	public static String getProcessDefinitionDiagramById2Upload(String processDefinitionId) throws Exception {
+		byte[] data = getProcessDefinitionDiagramById(processDefinitionId);
+		if (null == data) {
+			return "";
+		}
+		return UploadSupportUtils.create(
+				Constants.getSystem(), 
+				UploadTypes.IS_TEMP, 
+				false, 
+				data, 
+				SimpleUtils.getUUIDStr() + ".png");			
+	}
+	
+	public static byte[] getProcessDefinitionDiagramById(String processDefinitionId) throws Exception {
+		ProcessDefinition pd = repositoryService
+				.createProcessDefinitionQuery()
+				.processDefinitionId( processDefinitionId )
+				.singleResult();
+		if (pd == null) {
+			return null;
+		}
+		byte data[] = null;
+		List<ProcessInstance> piList = runtimeService.createProcessInstanceQuery()
+				.processDefinitionId( pd.getId() )
+				.list();
+		for (ProcessInstance pi : piList) {
+			if (pi.getProcessDefinitionVersion() == pd.getVersion()) {
+				data = getDiagramByte(pi);
+			}
+		}		
+		return data;
+	}	
+	
+	public static String getProcessInstanceDiagramById2Upload(String processInstanceId) throws Exception {
+		byte[] data = getProcessInstanceDiagramById(processInstanceId);
+		if (null == data) {
+			return "";
+		}
+		return UploadSupportUtils.create(
+				Constants.getSystem(), 
+				UploadTypes.IS_TEMP, 
+				false, 
+				data, 
+				SimpleUtils.getUUIDStr() + ".png");		
+	}
+	
+	public static byte[] getProcessInstanceDiagramById(String processInstanceId) throws Exception {
+		ProcessInstance pi = runtimeService.createProcessInstanceQuery()
+				.processInstanceId(processInstanceId)
+				.singleResult();
+		if (pi == null) {
+			return null;
+		}		
+		return getDiagramByte(pi);
+	}
+	
 	public static String getTaskDiagramById2Upload(String resourceId, String taskId) throws Exception {
 		byte[] data = getTaskDiagramById(resourceId, taskId);
 		if (null == data) {
@@ -124,21 +194,13 @@ public class BusinessProcessManagementUtils {
 				.processDefinitionKey(resourceId);
 		List<ProcessDefinition> pdList = pdQuery.deploymentId( resouce.getDeploymentId() ).list();
 		byte data[] = null;
-		ProcessDiagramGenerator processDiagramGenerator = new DefaultProcessDiagramGenerator();
 		for (ProcessDefinition pd : pdList) {
 			List<ProcessInstance> piList = runtimeService.createProcessInstanceQuery()
 					.processDefinitionId( pd.getId() )
 					.list();
 			for (ProcessInstance pi : piList) {
 				if (pi.getProcessDefinitionId().equals(task.getProcessDefinitionId())) {
-					BpmnModel model = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
-					InputStream is = processDiagramGenerator.generateDiagram(
-							model, 
-							"png", 
-							runtimeService.getActiveActivityIds(pi.getId()));
-					data = IOUtils.toByteArray(is);
-					is.close();
-					is = null;
+					data = getDiagramByte(pi);
 				}
 			}
 		}

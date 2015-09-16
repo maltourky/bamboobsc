@@ -174,6 +174,14 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 			IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService) {
 		this.userRoleService = userRoleService;
 	}
+	
+	private Map<String, Object> getProcessFlowParam(String projectOid, String confirm, String reason) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("projectOid", projectOid);
+		paramMap.put("confirm", confirm);
+		paramMap.put("reason", ( super.defaultString( reason ).length()>MAX_REASON_LENGTH ? reason.substring(0, MAX_REASON_LENGTH) : reason ) );
+		return paramMap;
+	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
 	@Transactional(
@@ -203,11 +211,9 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		this.createItems(project, items);
 		this.createAssign(project, ownerEmplOids, raterEmplOids);
 		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("projectOid", project.getOid());
-		paramMap.put("confirm", YesNo.YES);
-		paramMap.put("reason", "start apply.");
-		BusinessProcessManagementUtils.startProcess(PROCESS_RESOURCE_ID, paramMap);
+		BusinessProcessManagementUtils.startProcess(
+				PROCESS_RESOURCE_ID, 
+				this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply."));
 		
 		return result;
 	}
@@ -394,11 +400,9 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 			throw new ServiceException(result.getSystemMessage().toString());
 		}
 		project = result.getValue();
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("projectOid", projectOid);
-		paramMap.put("confirm", confirm);
-		paramMap.put("reason", ( super.defaultString( reason ).length()>MAX_REASON_LENGTH ? reason.substring(0, MAX_REASON_LENGTH) : reason ) );
-		BusinessProcessManagementUtils.completeTask(taskId, paramMap);	
+		BusinessProcessManagementUtils.completeTask(
+				taskId, 
+				this.getProcessFlowParam(projectOid, confirm, reason));	
 		List<Task> tasks = this.queryTaskByVariableProjectOid(projectOid);
 		if (null != tasks && tasks.size()>0) { 
 			return;
