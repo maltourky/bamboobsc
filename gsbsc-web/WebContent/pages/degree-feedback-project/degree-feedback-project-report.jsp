@@ -80,7 +80,7 @@ function BSC_PROG005D0004Q_query(type) {
 }
 function BSC_PROG005D0004Q_bar(project) {
 	if (project == null || project.items == null || project.items.length<1) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'No score data!', function(){}, 'Y');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('BSC_PROG005D0004Q_msg_01')"/>', function(){}, 'Y');
 		return;
 	}
 	var seriesCategories = [];
@@ -152,7 +152,7 @@ function BSC_PROG005D0004Q_bar(project) {
 }
 function BSC_PROG005D0004Q_pie(project) {
 	if (project == null || project.items == null || project.items.length<1) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'No score data!', function(){}, 'Y');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('BSC_PROG005D0004Q_msg_01')"/>', function(){}, 'Y');
 		return;
 	}	
 	var levelText = BSC_PROG005D0004Q_getLevelTitle(project.levels);
@@ -241,7 +241,7 @@ function ${programId}_page_message() {
 		</tr>		
 		<tr>
 			<td align="left" bgcolor="#ffffff">
-				<b>Owner:</b>
+				<b><s:property value="getText('BSC_PROG005D0004Q_owner')"/>:</b>
 				&nbsp;
 				<gs:select name="BSC_PROG005D0004Q_owner" dataSource="ownerMap" id="BSC_PROG005D0004Q_owner" value="fields.employeeOid" onChange="BSC_PROG005D0004Q_ownerChange();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0004Q_owner'">
@@ -255,7 +255,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0004Q_query('bar');
 						}
-					">Query as Bar chart</button>
+					"><s:property value="getText('BSC_PROG005D0004Q_btnQueryBar')"/></button>
 					
 				<button name="BSC_PROG005D0004Q_btnQueryPie" id="BSC_PROG005D0004Q_btnQueryPie" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -264,7 +264,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0004Q_query('pie');
 						}
-					">Query as Pie chart</button>
+					"><s:property value="getText('BSC_PROG005D0004Q_btnQueryPie')"/></button>
 										
 				<button name="BSC_PROG005D0004Q_btnClear" id="BSC_PROG005D0004Q_btnClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -273,7 +273,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0004Q_clear();
 						}
-					">Clear</button>									
+					"><s:property value="getText('BSC_PROG005D0004Q_btnClear')"/></button>									
 												
 			</td>
 		</tr>

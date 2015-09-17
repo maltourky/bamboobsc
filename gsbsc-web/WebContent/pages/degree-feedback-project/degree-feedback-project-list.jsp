@@ -59,10 +59,10 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" bgcolor="#d8d8d8">
 		<tr>
-			<td align="center" width="10%" bgcolor="#f5f5f5"><b>Year</b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Name</b></td>
-			<td align="left" width="35%" bgcolor="#f5f5f5"><b>Description</b></td>
-			<td align="center" width="15%" bgcolor="#f5f5f5"><b>#</b></td>
+			<td align="center" width="10%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_01')"/></b></td>
+			<td align="left" width="40%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_02')"/></b></td>
+			<td align="left" width="35%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_03')"/></b></td>
+			<td align="center" width="15%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_04')"/></b></td>
 		</tr>
 		<s:if test=" null != projects && projects.size != 0 ">
 		<s:iterator value="projects" status="st">
@@ -72,22 +72,22 @@ function ${programId}_page_message() {
 			<td align="left" width="40%" bgcolor="#ffffff"><s:property value="name"/></td>
 			<td align="left" width="35%" bgcolor="#ffffff"><s:property value="description"/></td>
 			<td align="center" width="15%" bgcolor="#ffffff">
-				<button name="BSC_PROG005D0002Q_score_${oid}" id="BSC_PROG005D0002Q_score_${oid}" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0002Q_btnScore_${oid}" id="BSC_PROG005D0002Q_btnScore_${oid}" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconSave',
 						onClick:function(){ 
 							BSC_PROG005D0003Q_DlgShow('${oid}');
 						}
-					">Score</button>
-				<button name="BSC_PROG005D0002Q_report_${oid}" id="BSC_PROG005D0002Q_report_${oid}" data-dojo-type="dijit.form.Button"
+					"><s:property value="getText('BSC_PROG005D0002Q_btnScore')"/></button>
+				<button name="BSC_PROG005D0002Q_btnReport_${oid}" id="BSC_PROG005D0002Q_btnReport_${oid}" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconSearch',
 						onClick:function(){ 
 							BSC_PROG005D0004Q_DlgShow('${oid}');
 						}
-					">View</button>										
+					"><s:property value="getText('BSC_PROG005D0002Q_btnReport')"/></button>										
 			</td>
 		</tr>		
 		

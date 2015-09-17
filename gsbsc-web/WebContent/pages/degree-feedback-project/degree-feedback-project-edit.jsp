@@ -145,7 +145,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="500px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Name (read only)</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_name')"/></b>:
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001E_name" id="BSC_PROG005D0001E_name" value="degreeFeedbackProject.name" width="200" maxlength="100" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001E_name'">
@@ -155,7 +155,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Year</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_year')"/></b>:
     			<br/>
 				<input id="BSC_PROG005D0001E_year" name="BSC_PROG005D0001E_year" data-dojo-type="dojox.form.YearTextBox" 
 					maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' value="${degreeFeedbackProject.year}"/>
@@ -166,7 +166,7 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b>Description</b>:
+		    	<b><s:property value="getText('BSC_PROG005D0001E_description')"/></b>:
 		    	<br/>
 		    	<textarea id="BSC_PROG005D0001E_description" name="BSC_PROG005D0001E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"><s:property value="degreeFeedbackProject.description"/></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001E_description'">
@@ -176,7 +176,7 @@ function ${programId}_page_message() {
 		</tr>      	  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Owner</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_emplSelect_1')"/></b>:
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_emplSelect_1" id="BSC_PROG005D0001E_emplSelect_1" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -200,7 +200,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Rater</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_emplSelect_2')"/></b>:
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_emplSelect_2" id="BSC_PROG005D0001E_emplSelect_2" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -224,7 +224,7 @@ function ${programId}_page_message() {
     	</tr>     			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Level settings</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_levelSettings')"/></b>:
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_levelSettings" id="BSC_PROG005D0001E_levelSettings" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -247,7 +247,7 @@ function ${programId}_page_message() {
 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Item settings</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_itemSettings')"/></b>:
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_itemSettings" id="BSC_PROG005D0001E_itemSettings" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -289,10 +289,10 @@ function ${programId}_page_message() {
     				errorFn=""
     				loadFn="BSC_PROG005D0001E_updateSuccess(data);" 
     				programId="${programId}"
-    				label="Save" 
+    				label="${action.getText('BSC_PROG005D0001E_update')}" 
     				iconClass="dijitIconSave"></gs:button>    			
     			<gs:button name="BSC_PROG005D0001E_clear" id="BSC_PROG005D0001E_clear" onClick="BSC_PROG005D0001E_clear();" 
-    				label="Clear" 
+    				label="${action.getText('BSC_PROG005D0001E_clear')}" 
     				iconClass="dijitIconClear"></gs:button>       		
     		</td>
     	</tr>     	 	  	    	

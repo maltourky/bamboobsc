@@ -31,33 +31,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 function BSC_PROG005D0001A_S00_add() {
 	var size = ${fields.oid}.length;	
 	if ( size >= ${maxLevelSize} ) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'Cannot over items : ' + '${maxLevelSize}', function(){}, 'Y');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_01')"/> : ' + '${maxLevelSize}', function(){}, 'Y');
 		return;
 	}
 	var nameStr = dijit.byId('BSC_PROG005D0001A_S00_name').get('value');
 	var valueStr = dijit.byId('BSC_PROG005D0001A_S00_value').get('value');
 	if ( !viewPage.isNormalInteger(valueStr) ) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'Value only integer!', function(){}, 'N');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_02')"/>', function(){}, 'N');
 		return;
 	}
 	if ( viewPage.isBlank(nameStr) || viewPage.isEmpty(nameStr) ) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input name!', function(){}, 'N');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_03')"/>', function(){}, 'N');
 		return;
 	}	
 	if (parseInt(valueStr,10)<1) {
-		alertDialog(_getApplicationProgramNameById('${programId}'), 'Value only integer!', function(){}, 'N');
+		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_02')"/>', function(){}, 'N');
 		return;		
 	}
 	nameStr = viewPage.escape1(nameStr);
 	for (var n=0; n<size; n++) {
 		if ( ${fields.oid}[n].name == nameStr ) {
 			n = size;
-			alertDialog(_getApplicationProgramNameById('${programId}'), 'Name is found!', function(){}, 'N');
+			alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_04')"/>', function(){}, 'N');
 			return;
 		}
 		if ( ${fields.oid}[n].value == valueStr ) {
 			n = size;
-			alertDialog(_getApplicationProgramNameById('${programId}'), 'Value is found!', function(){}, 'N');
+			alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG005D0001A_S00_add_05')"/>', function(){}, 'N');
 			return;			
 		}
 	}		
@@ -77,10 +77,11 @@ function BSC_PROG005D0001A_S00_removeField( name ) {
 	BSC_PROG005D0001A_S00_showDataTable();
 }
 
-function BSC_PROG005D0001A_S00_clear() {
-	setFieldsBackgroundDefault(BSC_PROG005D0001A_S00_fieldsId);		
+function BSC_PROG005D0001A_S00_clear() {	
 	dijit.byId('BSC_PROG005D0001A_S00_name').set("value", "");
 	dijit.byId('BSC_PROG005D0001A_S00_value').set("value", "");
+	${fields.oid} = [];
+	BSC_PROG005D0001A_S00_showDataTable();	
 }
 
 function BSC_PROG005D0001A_S00_showDataTable() {
@@ -89,8 +90,8 @@ function BSC_PROG005D0001A_S00_showDataTable() {
 	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
 	txtContent += '<tr>';
 	txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
-	txtContent += '<td width="50%" align="left" bgcolor="#f5f5f5"><b>Name</b></td>';
-	txtContent += '<td width="30%" align="left" bgcolor="#f5f5f5"><b>Value</b></td>';
+	txtContent += '<td width="50%" align="left" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0001A_S00_name')"/></b></td>';
+	txtContent += '<td width="30%" align="left" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0001A_S00_value')"/></b></td>';
 	txtContent += '</tr>';
 	for (var n=0; n<size; n++) {
 		var dataItem = ${fields.oid}[n];
@@ -136,7 +137,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b>Name</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S00_name')"/></b>:
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001A_S00_name" id="BSC_PROG005D0001A_S00_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_S00_name'">
@@ -144,7 +145,7 @@ function ${programId}_page_message() {
 				</div>       			
     		</td>  
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b>Score Value</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S00_value')"/></b>:
     			<br/>    			
     			<input id="BSC_PROG005D0001A_S00_value" name="BSC_PROG005D0001A_S00_value" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0" data-dojo-props="smallDelta:1, constraints:{min:-999,max:999, pattern: '+000;-0' }" />
@@ -156,17 +157,16 @@ function ${programId}_page_message() {
     	<tr>
     		<td height="50px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG005D0001A_S00_add" id="BSC_PROG005D0001A_S00_add" onClick="BSC_PROG005D0001A_S00_add();"
-    				label="Add" 
+    				label="${action.getText('BSC_PROG005D0001A_S00_add')}" 
     				iconClass="dijitIconSave"></gs:button>    	
 				<button name="BSC_PROG005D0001A_S00_clear" id="BSC_PROG005D0001A_S00_clear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconClear',
 						onClick:function(){ 
-							${fields.oid} = [];
-							BSC_PROG005D0001A_S00_showDataTable();
+							BSC_PROG005D0001A_S00_clear();
 						}
-					">Clear</button>    						  		
+					"><s:property value="getText('BSC_PROG005D0001A_S00_clear')"/></button>    						  		
     		</td>
     	</tr> 
     	    	

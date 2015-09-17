@@ -72,7 +72,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" bgcolor="#ffffff">
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Approve</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S03_confirm')"/></b>:
     			<br/>
     			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" value="Y"></gs:select>  			
     		</td>   
@@ -102,10 +102,10 @@ function ${programId}_page_message() {
     				errorFn=""
     				loadFn="BSC_PROG005D0001A_S03_saveSuccess(data);" 
     				programId="${programId}"
-    				label="Save" 
+    				label="${action.getText('BSC_PROG005D0001A_S03_save')}" 
     				iconClass="dijitIconSave"></gs:button>    			
     			<gs:button name="BSC_PROG005D0001A_S03_clear" id="BSC_PROG005D0001A_S03_clear" onClick="BSC_PROG005D0001A_S03_clear();" 
-    				label="Clear" 
+    				label="${action.getText('BSC_PROG005D0001A_S03_clear')}" 
     				iconClass="dijitIconClear"></gs:button>       		
     		</td>
     	</tr> 		  		

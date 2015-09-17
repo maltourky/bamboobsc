@@ -89,8 +89,8 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 							"year",
 					}, 
 					new String[]{
-							"Name is required!<BR/>",
-							"Year is required!<BR/>"
+							this.getText("MESSAGE.BSC_PROG005D0001A_name") + "<BR/>",
+							this.getText("MESSAGE.BSC_PROG005D0001A_year") + "<BR/>"
 					}, 
 					new Class[]{
 							NotBlankFieldCheckUtils.class,
@@ -106,13 +106,13 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		}		
 		if (!SimpleUtils.isDate(this.getFields().get("year")+"/01/01")) {
 			this.fieldsId.add("year");
-			throw new ControllerException( "Year format error!<BR/>" );
+			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg1") + "<BR/>" );
 		}
 		if (super.defaultString(this.getFields().get("ownerOids")).trim().length()<1) {
-			throw new ControllerException( "Please setting owner!<BR/>" );
+			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg2") + "<BR/>" );
 		}
 		if (super.defaultString(this.getFields().get("raterOids")).trim().length()<1) {
-			throw new ControllerException( "Please setting rater!<BR/>" );
+			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg3") + "<BR/>" );
 		}	
 		Map<String, List<Map<String, Object>>> levelData = null;
 		Map<String, List<Map<String, Object>>> itemData = null;
@@ -123,10 +123,10 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 			e.printStackTrace();
 		}
 		if (levelData == null || levelData.get("data") == null || levelData.get("data").size() < 1 ) {
-			throw new ControllerException( "Please setting level!<BR/>" );
+			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg4") + "<BR/>" );
 		}
 		if (itemData == null || itemData.get("data") == null || itemData.get("data").size() < 1 ) {
-			throw new ControllerException( "Please setting item!<BR/>" );
+			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg5") + "<BR/>" );
 		}		
 	}
 	
@@ -188,6 +188,7 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	}
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
 		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
 		this.transformFields2ValueObject(project, new String[]{"oid", "name", "year", "description"});
 		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.updateProject(

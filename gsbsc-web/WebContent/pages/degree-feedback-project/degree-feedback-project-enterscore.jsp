@@ -176,7 +176,7 @@ function ${programId}_page_message() {
 		</tr>		
 		<tr>
 			<td align="left" bgcolor="#ffffff">
-				<b>Owner:</b>
+				<b><s:property value="getText('BSC_PROG005D0003Q_owner')"/>:</b>
 				&nbsp;
 				<gs:select name="BSC_PROG005D0003Q_owner" dataSource="ownerMap" id="BSC_PROG005D0003Q_owner" value="fields.employeeOid" onChange="BSC_PROG005D0003Q_ownerChange();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0003Q_owner'">
@@ -190,7 +190,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_update();
 						}
-					">Save</button>		
+					"><s:property value="getText('BSC_PROG005D0003Q_btnSave')"/></button>		
 					
 				<button name="BSC_PROG005D0003Q_btnClear" id="BSC_PROG005D0003Q_btnClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -199,7 +199,7 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_clear();
 						}
-					">Clear</button>									
+					"><s:property value="getText('BSC_PROG005D0003Q_btnClear')"/></button>									
 												
 			</td>
 		</tr>

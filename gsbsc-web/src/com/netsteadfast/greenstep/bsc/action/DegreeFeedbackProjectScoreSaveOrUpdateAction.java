@@ -154,7 +154,7 @@ public class DegreeFeedbackProjectScoreSaveOrUpdateAction extends BaseJsonAction
 					}, 
 					new String[]{
 							"Data error no project, please close the page!<BR/>",
-							"Please select owner!<BR/>"
+							this.getText("MESSAGE.BSC_PROG005D0003Q_ownerOid") + "<BR/>"
 					}, 
 					new Class[]{
 							NotBlankFieldCheckUtils.class,
