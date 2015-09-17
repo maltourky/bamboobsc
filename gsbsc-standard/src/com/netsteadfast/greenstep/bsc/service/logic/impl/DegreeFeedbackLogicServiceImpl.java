@@ -69,6 +69,7 @@ import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackScoreVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 import com.netsteadfast.greenstep.vo.UserRoleVO;
 
 @ServiceAuthority(check=true)
@@ -78,7 +79,6 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 	protected Logger logger=Logger.getLogger(DegreeFeedbackLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_OR_MEMO_LENGTH = 500;
 	private static final int MAX_REASON_LENGTH = 50;
-	private static final String PROCESS_RESOURCE_ID = "DFProjectPublishProcess";
 	private IDegreeFeedbackProjectService<DegreeFeedbackProjectVO, BbDegreeFeedbackProject, String> degreeFeedbackProjectService;
 	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
 	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;
@@ -175,6 +175,31 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		this.userRoleService = userRoleService;
 	}
 	
+	@Override
+	public String getBusinessProcessManagementResourceId() {
+		return "DFProjectPublishProcess";
+	}
+
+	@Override
+	public SysBpmnResourceVO getBusinessProcessManagementResourceObject(String resourceId) throws ServiceException, Exception {		
+		return BusinessProcessManagementUtils.loadResource(getBusinessProcessManagementResourceId());
+	}
+
+	@Override
+	public String startProcess(Map<String, Object> paramMap) throws Exception {		
+		return BusinessProcessManagementUtils.startProcess(this.getBusinessProcessManagementResourceId(), paramMap);		
+	}
+	
+	@Override
+	public void completeTask(String taskId, Map<String, Object> paramMap) throws Exception {
+		BusinessProcessManagementUtils.completeTask(taskId, paramMap);
+	}
+
+	@Override
+	public List<Task> queryTask() throws Exception {
+		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
+	}	
+	
 	private Map<String, Object> getProcessFlowParam(String projectOid, String confirm, String reason) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("projectOid", projectOid);
@@ -209,12 +234,8 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		project = result.getValue();
 		this.createLevels(project, levels);
 		this.createItems(project, items);
-		this.createAssign(project, ownerEmplOids, raterEmplOids);
-		
-		BusinessProcessManagementUtils.startProcess(
-				PROCESS_RESOURCE_ID, 
-				this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply."));
-		
+		this.createAssign(project, ownerEmplOids, raterEmplOids);		
+		this.startProcess(this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply."));		
 		return result;
 	}
 	
@@ -341,7 +362,7 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
 	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception {
-		List<Task> tasks = BusinessProcessManagementUtils.queryTask(PROCESS_RESOURCE_ID);
+		List<Task> tasks = this.queryTask();
 		if (null == tasks || tasks.size()<1) {
 			return tasks;
 		}
@@ -375,7 +396,7 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		boolean allow = false;
 		for (int i=0; i<roles.size() && !allow; i++) {
 			if ( BusinessProcessManagementUtils
-					.isRoleAssignee(PROCESS_RESOURCE_ID, roles.get(i).getRole(), taskAssignee) ) {
+					.isRoleAssignee(this.getBusinessProcessManagementResourceId(), roles.get(i).getRole(), taskAssignee) ) {
 				allow = true;
 				i = roles.size();
 			}
@@ -399,10 +420,8 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		if (result.getValue()==null) {
 			throw new ServiceException(result.getSystemMessage().toString());
 		}
-		project = result.getValue();
-		BusinessProcessManagementUtils.completeTask(
-				taskId, 
-				this.getProcessFlowParam(projectOid, confirm, reason));	
+		project = result.getValue();		
+		this.completeTask(taskId, this.getProcessFlowParam(projectOid, confirm, reason));
 		List<Task> tasks = this.queryTaskByVariableProjectOid(projectOid);
 		if (null != tasks && tasks.size()>0) { 
 			return;
@@ -414,6 +433,19 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 			this.degreeFeedbackProjectService.updateObject(project);			
 		}
 		
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.SELECT})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public String getTaskDiagram(String taskId) throws ServiceException, Exception {
+		if (super.isBlank(taskId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return BusinessProcessManagementUtils.getTaskDiagramById2Upload(this.getBusinessProcessManagementResourceId(), taskId);
 	}	
 	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {

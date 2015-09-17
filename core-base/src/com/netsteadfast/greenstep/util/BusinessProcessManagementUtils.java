@@ -88,7 +88,7 @@ public class BusinessProcessManagementUtils {
 		taskService = (TaskService) AppContext.getBean("taskService");
 	}
 	
-	private static SysBpmnResourceVO loadResource(String resourceId) throws ServiceException, Exception {
+	public static SysBpmnResourceVO loadResource(String resourceId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(resourceId)) {
 			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
 		}

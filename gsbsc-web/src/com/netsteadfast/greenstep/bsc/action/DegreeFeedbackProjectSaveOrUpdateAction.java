@@ -48,7 +48,6 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
-import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
@@ -342,9 +341,8 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 				this.message = this.getNoAllowMessage();
 				return SUCCESS;
 			}
-			this.uploadOid = BusinessProcessManagementUtils.getTaskDiagramById2Upload(
-					"DFProjectPublishProcess", 
-					this.getFields().get("taskId"));
+			this.uploadOid = this.degreeFeedbackLogicService
+					.getTaskDiagram( this.getFields().get("taskId") );
 			if (!StringUtils.isBlank(this.uploadOid)) {
 				this.message = SysMessageUtil.get(GreenStepSysMsgConstants.INSERT_SUCCESS);
 				this.success = IS_YES;
