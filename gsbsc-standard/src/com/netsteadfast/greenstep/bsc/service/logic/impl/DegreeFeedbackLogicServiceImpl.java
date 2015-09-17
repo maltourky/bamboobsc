@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.service.logic.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -362,20 +363,21 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
 	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception {
-		List<Task> tasks = this.queryTask();
-		if (null == tasks || tasks.size()<1) {
+		if (super.isBlank(projectOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		List<Task> tasks = new ArrayList<Task>();
+		List<Task> queryTasks = this.queryTask();
+		if (null == queryTasks || queryTasks.size()<1) {
 			return tasks;
 		}
-		for (int i=0; i<tasks.size(); i++) {
-			Task task = tasks.get(i);
-			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);			
-			if (variables==null || variables.get("projectOid")==null) {
-				tasks.remove(i);
+		for (Task task : queryTasks) {
+			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);
+			if (variables==null || super.isBlank( (String)variables.get("projectOid") ) ) {
 				continue;
 			}
-			if (!projectOid.equals(variables.get("projectOid"))) {
-				tasks.remove(i);
-				continue;				
+			if (projectOid.equals(variables.get("projectOid"))) {
+				tasks.add( task );
 			}
 		}
 		return tasks;
