@@ -128,7 +128,7 @@ public class CommonMeterChartAction extends BaseSupportAction {
 		scale1.setExtent( -260D ); // -300D 
 		scale1.setTickRadius(0.88D);
 		scale1.setTickLabelOffset(0.14999999999999999D); 
-		scale1.setTickLabelFont(new Font("Dialog", 0, 14)); 
+		scale1.setTickLabelFont(new Font("", Font.TRUETYPE_FONT, 14)); 
 		plot.addScale(0, scale1);
 		
 		StandardDialRange standarddialrange0 = new StandardDialRange( lowerBound, (upperBound*0.6), Color.red);
