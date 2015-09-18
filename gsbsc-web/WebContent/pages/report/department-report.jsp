@@ -124,7 +124,20 @@ function BSC_PROG003D0003Q_generateExport(docType) {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				openCommonLoadUpload( 'download', data.uploadOid, { } );				
+				if ( 'PDF' == docType ) {
+					openCommonLoadUpload(
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	1024,
+								"height"	:	768
+							} 
+					);					
+				} else {
+					openCommonLoadUpload( 'download', data.uploadOid, { } );
+				}				
 			}, 
 			function(error) {
 				alert(error);

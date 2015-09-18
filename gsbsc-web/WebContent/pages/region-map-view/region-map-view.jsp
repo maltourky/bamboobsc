@@ -164,10 +164,27 @@ function BSC_PROG001D0006Q_map_initialize() {
 }
 
 function BSC_PROG001D0006Q_openNew(orgId) {	
+	/*
 	window.open(			
 			"<%=basePath%>/bsc.regionMapViewGetInfowindowContent.action?fields.orgId=" + orgId + "&fields.year=" + dijit.byId("BSC_PROG001D0006Q_yearHorizontalSlider").get("value"),		
 			"KPI-Report",
             "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800");	
+	*/
+	
+	var url = "<%=basePath%>/bsc.regionMapViewGetInfowindowContent.action?fields.orgId=" + orgId + "&fields.year=" + dijit.byId("BSC_PROG001D0006Q_yearHorizontalSlider").get("value");
+	
+	openCommonLoadUpload(
+			'view', 
+			'no_need', 
+			{ 
+				"isDialog" 	: 	"Y",
+				"title"		:	_getApplicationProgramNameById('${programId}'),
+				"width"		:	1440,
+				"height"	:	768,
+				"url"		:	url
+			} 
+	);	
+	
 }
 
 function BSC_PROG001D0006Q_showOrganizationInfo(organization) {

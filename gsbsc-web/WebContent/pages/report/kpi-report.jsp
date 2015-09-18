@@ -257,7 +257,20 @@ function BSC_PROG003D0001Q_generateExport(docType) {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				openCommonLoadUpload( 'download', data.uploadOid, { } );
+				if ( 'PDF' == docType ) {
+					openCommonLoadUpload(
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	1024,
+								"height"	:	768
+							} 
+					);					
+				} else {
+					openCommonLoadUpload( 'download', data.uploadOid, { } );
+				}
 			}, 
 			function(error) {
 				alert(error);
@@ -316,28 +329,54 @@ function BSC_PROG003D0001Q_getOpenWindowUrl(nextType, id) {
 }
 
 function BSC_PROG003D0001Q_openPerspective(id) {
+	/*
 	window.open(			
 			BSC_PROG003D0001Q_getOpenWindowUrl('PER', id),		
 			"KPI-Report",
-            "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800"); 
+            "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800");
+	*/
+	BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getOpenWindowUrl('PER', id) );
 }
 function BSC_PROG003D0001Q_openObjective(id) {
+	/*
 	window.open(			
 			BSC_PROG003D0001Q_getOpenWindowUrl('OBJ', id),		
 			"KPI-Report",
             "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800");
+	*/
+	BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getOpenWindowUrl('OBJ', id) );
 }
 function BSC_PROG003D0001Q_openKPI(id) {
+	/*
 	window.open(			
 			BSC_PROG003D0001Q_getOpenWindowUrl('KPI', id),		
 			"KPI-Report",
             "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800");
+	*/
+	BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getOpenWindowUrl('KPI', id) );
 }
 function BSC_PROG003D0001Q_openNew() {
+	/*
 	window.open(			
 			BSC_PROG003D0001Q_getOpenWindowUrl('', ''),		
 			"KPI-Report",
             "resizable=yes,scrollbars=yes,status=yes,width=1280,height=800");	
+	*/
+	BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getOpenWindowUrl('', '') );
+}
+
+function BSC_PROG003D0001Q_openClickShowReportInDialog(url) {
+	openCommonLoadUpload(
+			'view', 
+			'no_need', 
+			{ 
+				"isDialog" 	: 	"Y",
+				"title"		:	_getApplicationProgramNameById('${programId}'),
+				"width"		:	1440,
+				"height"	:	768,
+				"url"		:	url
+			} 
+	);	
 }
 
 //------------------------------------------------------------------------------

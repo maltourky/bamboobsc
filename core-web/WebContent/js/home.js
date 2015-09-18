@@ -420,6 +420,9 @@ function openCommonLoadUpload( type, uploadOid, paramData ) {
 			title = 'bambooBSC';
 		}
 		var url = "./core.commonLoadUploadFileAction.action?type=view&oid=" + uploadOid;
+		if (null != paramData["url"] && '' != paramData["url"]) {
+			url = paramData["url"];
+		}
 		if ( "Y" != isDialog ) {
 			window.open(
 					urld,
