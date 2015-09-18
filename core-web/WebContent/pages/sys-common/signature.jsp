@@ -60,7 +60,7 @@ function CORE_PROGCOMM0003Q_preview() {
 		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.CORE_PROGCOMM0003Q_preview')" escapeJavaScript="true"/>', function(){}, 'Y');	
 		return;
 	}
-	openCommonLoadUpload( 'view', uploadOid, { 'isDialog' : 'Y', 'title' : 'Signature preview', 'width' : 500, 'height' : 250 } );	
+	openCommonLoadUpload( 'view', uploadOid, { 'isDialog' : 'Y', 'title' : 'Signature preview', 'width' : 500, 'height' : 300 } );	
 }
 
 function ${programId}_page_message() {

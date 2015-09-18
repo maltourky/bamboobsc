@@ -405,11 +405,14 @@ function openCommonLoadUpload( type, uploadOid, paramData ) {
 		            "resizable=yes,scrollbars=yes,status=yes,width=" + width + ",height=" + height ); 			
 		} else {			
 			url += '&isIframeMode=Y'; // 有用iframe 時 url 加上 isIframeMode 參數  , 這樣 session 清除時, 頁面不是導向login-page, 而是導向警告error-page 
+			var bodyStr = '';
+			bodyStr += '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td align="left" valign="middle" bgcolor="#F5F5F5"><img src="./images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">View content</font></b><br/><hr color="#3794E5" size="2"></td></tr></table>';
+			bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="0" width="100%" height="' + height + '"></iframe></td></tr></table>';
 			var viewDialog = new dojox.widget.DialogSimple({
-				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View dialog for : ' + title,
+				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View content - ' + title,
 				executeScripts	:	true,
 				style			: 	'width: ' + width + 'px; height: ' + height + 'px;',
-				content			: 	'<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="0" width="100%" height="' + height + '"></iframe></td></tr></table>'
+				content			: 	bodyStr
 			});
 			viewDialog.startup();
 			viewDialog.show();				
