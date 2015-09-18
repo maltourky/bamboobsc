@@ -40,7 +40,16 @@ function BSC_PROG005D0001A_S02_loadDiagram(taskId) {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ( 'Y' == data.success ) {
-					openCommonLoadUpload( 'view', data.uploadOid, { } );
+					openCommonLoadUpload(
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	800,
+								"height"	:	600
+							} 
+					);
 				}
 			}, 
 			function(error) {

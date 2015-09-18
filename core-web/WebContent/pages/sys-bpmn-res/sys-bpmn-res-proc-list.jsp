@@ -44,7 +44,16 @@ function CORE_PROG003D0004Q_S00_loadDiagram(type, objId) {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ( 'Y' == data.success ) {
-					openCommonLoadUpload( 'view', data.uploadOid, { } );
+					openCommonLoadUpload( 
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	800,
+								"height"	:	600
+							}  
+					);
 				}
 			}, 
 			function(error) {

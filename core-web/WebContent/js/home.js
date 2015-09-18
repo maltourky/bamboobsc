@@ -389,11 +389,31 @@ function openCommonCodeEditorWindow( uploadOid, valueFieldId, okFn, lang ) {
  */
 function openCommonLoadUpload( type, uploadOid, paramData ) {
 	var downloadIFrameId = '_gs_downloadIFrame';
-	if ( 'view' == type ) {		
-		window.open(
-				"./core.commonLoadUploadFileAction.action?type=view&oid=" + uploadOid,
-				paramData["title"],
-	            "resizable=yes,scrollbars=yes,status=yes,width=" + paramData["width"] + ",height=" + paramData["height"] ); 
+	if ( 'view' == type ) {
+		var isDialog = paramData["isDialog"];
+		var width = paramData["width"];
+		var height = paramData["height"];
+		var title = paramData["title"];
+		if (null == title || '' == title) {
+			title = 'bambooBSC';
+		}
+		var url = "./core.commonLoadUploadFileAction.action?type=view&oid=" + uploadOid;
+		if ( "Y" != isDialog ) {
+			window.open(
+					urld,
+					title,
+		            "resizable=yes,scrollbars=yes,status=yes,width=" + width + ",height=" + height ); 			
+		} else {			
+			url += '&isIframeMode=Y'; // 有用iframe 時 url 加上 isIframeMode 參數  , 這樣 session 清除時, 頁面不是導向login-page, 而是導向警告error-page 
+			var viewDialog = new dojox.widget.DialogSimple({
+				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View dialog for : ' + title,
+				executeScripts	:	true,
+				style			: 	'width: ' + width + 'px; hight: ' + height + 'px;',
+				content			: 	'<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="0" width="100%" height="' + height + '"></iframe></td></tr></table>'
+			});
+			viewDialog.startup();
+			viewDialog.show();				
+		}
 	} else { // download	
 		// 用  window.location在FireFox或Chrome會產生殘影
 		// window.location = "./core.commonLoadUploadFileAction.action?type=download&oid=" + uploadOid;		
