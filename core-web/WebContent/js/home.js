@@ -361,7 +361,29 @@ function openCommonJasperReportLoadWindow( title, jreportId, format, paramData )
 	for (var key in paramData) {
 		url += "&" + key + "=" + paramData[key];
 	}
-	window.open(url, title, "resizable=yes,scrollbars=yes,status=yes");		
+	// 2015-09-18 rem
+	//window.open(url, title, "resizable=yes,scrollbars=yes,status=yes");
+	
+	// 2015-09-18 add
+	var width = 1024;
+	var height = 768;
+	var iconUrl = _getSystemIconUrl('APPLICATION_PDF');
+	if ( 'PDF' != format ) {
+		iconUrl = _getSystemIconUrl('EXCEL');
+	}
+	url += '&isIframeMode=Y'; // 有用iframe 時 url 加上 isIframeMode 參數  , 這樣 session 清除時, 頁面不是導向login-page, 而是導向警告error-page 
+	var bodyStr = '';
+	bodyStr += '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td align="left" valign="middle" bgcolor="#F5F5F5"><img src="./images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">View report</font></b><br/><hr color="#3794E5" size="2"></td></tr></table>';
+	bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="1" width="100%" height="' + height + '"></iframe></td></tr></table>';
+	var viewDialog = new dojox.widget.DialogSimple({
+		title			: 	'<img src="' + iconUrl + '" border="0" />' + '&nbsp;View report - ' + title,
+		executeScripts	:	true,
+		style			: 	'width: ' + width + 'px; height: ' + height + 'px;',
+		content			: 	bodyStr
+	});
+	viewDialog.startup();
+	viewDialog.show();	
+	
 }
 
 /**
@@ -377,7 +399,7 @@ function openCommonCodeEditorWindow( uploadOid, valueFieldId, okFn, lang ) {
 	if ( null != uploadOid && '' != uploadOid ) {
 		url += '&oid=' + uploadOid;
 	}
-	window.open(url, 'Common code editor', "resizable=yes,scrollbars=yes,status=yes");
+	window.open(url, 'Expression editor', "resizable=yes,scrollbars=yes,status=yes");
 }
 
 /**
@@ -407,7 +429,7 @@ function openCommonLoadUpload( type, uploadOid, paramData ) {
 			url += '&isIframeMode=Y'; // 有用iframe 時 url 加上 isIframeMode 參數  , 這樣 session 清除時, 頁面不是導向login-page, 而是導向警告error-page 
 			var bodyStr = '';
 			bodyStr += '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td align="left" valign="middle" bgcolor="#F5F5F5"><img src="./images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">View content</font></b><br/><hr color="#3794E5" size="2"></td></tr></table>';
-			bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="0" width="100%" height="' + height + '"></iframe></td></tr></table>';
+			bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="1" width="100%" height="' + height + '"></iframe></td></tr></table>';
 			var viewDialog = new dojox.widget.DialogSimple({
 				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View content - ' + title,
 				executeScripts	:	true,
