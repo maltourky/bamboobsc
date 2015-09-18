@@ -408,7 +408,7 @@ function openCommonLoadUpload( type, uploadOid, paramData ) {
 			var viewDialog = new dojox.widget.DialogSimple({
 				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View dialog for : ' + title,
 				executeScripts	:	true,
-				style			: 	'width: ' + width + 'px; hight: ' + height + 'px;',
+				style			: 	'width: ' + width + 'px; height: ' + height + 'px;',
 				content			: 	'<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="0" width="100%" height="' + height + '"></iframe></td></tr></table>'
 			});
 			viewDialog.startup();
