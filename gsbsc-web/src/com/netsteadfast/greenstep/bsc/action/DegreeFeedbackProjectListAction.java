@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -47,6 +48,7 @@ import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackItemService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackLevelService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackProjectService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.bsc.service.logic.IReportRoleViewLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackItem;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
@@ -66,6 +68,7 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 	private IDegreeFeedbackItemService<DegreeFeedbackItemVO, BbDegreeFeedbackItem, String> degreeFeedbackItemService;
 	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;	
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
+	private IReportRoleViewLogicService reportRoleViewLogicService;
 	private List<DegreeFeedbackProjectVO> projects = new ArrayList<DegreeFeedbackProjectVO>();
 	private DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
 	private Map<String, String> ownerMap = this.providedSelectZeroDataMap(true);
@@ -119,17 +122,30 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 	@Autowired
 	@Required
 	@Resource(name="bsc.service.EmployeeService")		
-	public void setEmployeeService(
-			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
+	public void setEmployeeService(IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
 		this.employeeService = employeeService;
 	}	
+	
+	public IReportRoleViewLogicService getReportRoleViewLogicService() {
+		return reportRoleViewLogicService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.logic.ReportRoleViewLogicService")		
+	public void setReportRoleViewLogicService(IReportRoleViewLogicService reportRoleViewLogicService) {
+		this.reportRoleViewLogicService = reportRoleViewLogicService;
+	}		
 	
 	private void initData(String type) throws ServiceException, Exception {
 		if ( "list".equals(type) ) {
 			this.loadDataForList();					
 		}
 		if ( "enterScore".equals(type) ) {
-			this.loadDataForEnterScore();
+			this.loadDataForEnterScore(false);
+		}
+		if ( "viewScore".equals(type) ) {
+			this.loadDataForEnterScore(true);
 		}
 	}
 	
@@ -145,14 +161,19 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		}		
 	}
 	
-	private void loadDataForEnterScore() throws ServiceException, Exception {
+	private void loadDataForEnterScore(boolean roleViewEmployeeLimit) throws ServiceException, Exception {
 		this.transformFields2ValueObject(this.project, new String[]{"oid"});
 		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackProjectService.findObjectByOid(this.project);
 		if (result.getValue()==null) {
 			throw new ServiceException( result.getSystemMessage().getValue() );
 		}
-		this.project = result.getValue();		
-		this.ownerMap = this.employeeService.findForMapByDegreeFeedbackProjectOwner(true, this.project.getOid());
+		this.project = result.getValue();
+		if (!roleViewEmployeeLimit) {
+			this.ownerMap = this.employeeService.findForMapByDegreeFeedbackProjectOwner(
+					true, this.project.getOid());
+		} else {
+			this.loadDropListEmployeeMapForScoreView();
+		}		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("projectOid", this.project.getOid());
 		this.items = this.degreeFeedbackItemService.findListByParams(paramMap);
@@ -160,6 +181,27 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 		orderParam.put("value", "asc");
 		this.levels = this.degreeFeedbackLevelService.findListByParams(paramMap, null, orderParam);
 	}
+	
+	private void loadDropListEmployeeMapForScoreView() throws ServiceException, Exception {
+		this.ownerMap = this.employeeService.findForMapByDegreeFeedbackProjectOwner(true, this.project.getOid());
+		if ( YesNo.YES.equals(super.getIsSuperRole()) ) {
+			return;
+		}
+		// 非系統管理員權限, 且如果有設定 bb_report_role_view資料後, 只能看設定的員工.
+		Map<String, String> roleLimitViewEmployees = this.reportRoleViewLogicService.findForEmployeeMap(
+				false, super.getAccountId());
+		if (null == roleLimitViewEmployees || roleLimitViewEmployees.size()<1) {
+			return;
+		}
+		Map<String, String> roleViewAllowMixProjectOwnerEmployeeMap = this.providedSelectZeroDataMap( true );
+		for (Map.Entry<String, String> item : roleLimitViewEmployees.entrySet()) {
+			if ( !StringUtils.isBlank( this.ownerMap.get(item.getKey()) ) ) {
+				roleViewAllowMixProjectOwnerEmployeeMap.put(item.getKey(), item.getValue());
+			}
+		}
+		this.ownerMap.clear();
+		this.ownerMap.putAll( roleViewAllowMixProjectOwnerEmployeeMap );
+	}	
 	
 	/**
 	 * bsc.degreeFeedbackProjectListAction.action
@@ -206,7 +248,7 @@ public class DegreeFeedbackProjectListAction extends BaseSupportAction implement
 	public String enterReport() throws Exception {
 		String forward = RESULT_SEARCH_NO_DATA;
 		try {
-			this.initData("enterScore");
+			this.initData("viewScore");
 			forward = SUCCESS;
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
