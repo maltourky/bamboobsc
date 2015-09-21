@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var BSC_PROG005D0001E_fieldsId = new Object();
-//BSC_PROG005D0001E_fieldsId['name'] 			= 'BSC_PROG005D0001E_name';
+BSC_PROG005D0001E_fieldsId['name'] 			= 'BSC_PROG005D0001E_name';
 BSC_PROG005D0001E_fieldsId['year'] 			= 'BSC_PROG005D0001E_year';
 BSC_PROG005D0001E_fieldsId['description']	= 'BSC_PROG005D0001E_description';
 
@@ -76,7 +76,8 @@ function BSC_PROG005D0001E_reloadEmployeeAppendName(keyFieldId, nameFieldId) {
 }
 
 function BSC_PROG005D0001E_clear() {
-	setFieldsBackgroundDefault(BSC_PROG005D0001E_fieldsId);		
+	setFieldsBackgroundDefault(BSC_PROG005D0001E_fieldsId);
+	dijit.byId('BSC_PROG005D0001E_name').set("value", "");
 	dijit.byId('BSC_PROG005D0001E_year').set("value", "");
 	dijit.byId('BSC_PROG005D0001E_description').set("value", "");	
 	BSC_PROG005D0001E_clearOwner();
@@ -147,9 +148,9 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_name')"/></b>:
     			<br/>
-    			<gs:textBox name="BSC_PROG005D0001E_name" id="BSC_PROG005D0001E_name" value="degreeFeedbackProject.name" width="200" maxlength="100" readonly="Y"></gs:textBox>
+    			<gs:textBox name="BSC_PROG005D0001E_name" id="BSC_PROG005D0001E_name" value="degreeFeedbackProject.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001E_name'">
-    				Input name (read only) .
+    				Input name.
 				</div>       			
     		</td>    		
     	</tr>  	

@@ -290,6 +290,12 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		if (YesNo.YES.equals(oldResult.getValue().getPublishFlag())) {
 			throw new ServiceException( "Cannot update/modify publish project!" );
 		}
+		DefaultResult<DegreeFeedbackProjectVO> ukResult = this.degreeFeedbackProjectService.findByUK(project);
+		if (ukResult.getValue()!=null) {
+			if ( !ukResult.getValue().getOid().equals(project.getOid()) ) { // 有相同的名稱UK資料存在了
+				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_IS_EXIST));
+			}
+		}		
 		super.setStringValueMaxLength(project, "description", MAX_DESCRIPTION_OR_MEMO_LENGTH);
 		project.setPublishFlag( oldResult.getValue().getPublishFlag() );
 		this.deleteLevels(project);
