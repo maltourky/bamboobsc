@@ -365,7 +365,7 @@ function openCommonJasperReportLoadWindow( title, jreportId, format, paramData )
 	//window.open(url, title, "resizable=yes,scrollbars=yes,status=yes");
 	
 	// 2015-09-18 add
-	var width = 1024;
+	var width = 1280;
 	var height = 768;
 	var iconUrl = _getSystemIconUrl('APPLICATION_PDF');
 	if ( 'PDF' != format ) {

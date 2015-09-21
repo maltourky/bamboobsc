@@ -131,7 +131,7 @@ function BSC_PROG003D0002Q_generateExport(docType) {
 							{ 
 								"isDialog" 	: 	"Y",
 								"title"		:	_getApplicationProgramNameById('${programId}'),
-								"width"		:	1024,
+								"width"		:	1280,
 								"height"	:	768
 							} 
 					);					
