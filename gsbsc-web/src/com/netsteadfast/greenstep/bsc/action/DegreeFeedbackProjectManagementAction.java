@@ -172,8 +172,14 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 		this.degreeFeedbackProject = result.getValue();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("projectOid", this.degreeFeedbackProject.getOid());
-		this.degreeFeedbackItems = this.degreeFeedbackItemService.findListByParams(paramMap);
-		this.degreeFeedbackLevels = this.degreeFeedbackLevelService.findListByParams(paramMap);		
+		Map<String, String> orderByMap = new HashMap<String, String>();
+		orderByMap.put("name", "asc");
+		this.degreeFeedbackItems = this.degreeFeedbackItemService.findListByParams(
+				paramMap, null, orderByMap);
+		orderByMap.clear();
+		orderByMap.put("value", "asc");
+		this.degreeFeedbackLevels = this.degreeFeedbackLevelService.findListByParams(
+				paramMap, null, orderByMap);		
 		List<String> appendOwnerEmplOids = this.employeeService
 				.findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(this.degreeFeedbackProject.getOid());
 		List<String> appendRaterEmplOids = this.employeeService
