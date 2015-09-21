@@ -317,18 +317,16 @@ jstl-api-1.2.jar
 
 JasperReports
 -------------------------
-jasperreports-6.1.0.jar
-jasperreports-fonts-6.1.0.jar
+jasperreports-6.1.1.jar
+jasperreports-fonts-6.1.1.jar
+jasperreports-javaflow-6.1.1.jar
 jasperreports-chart-themes-5.6.0.jar
 jasperreports-core-renderer.jar
 jasperreports-htmlcomponent-5.0.1.jar
 commons-javaflow-20060411.jar
-iText-2.1.7.js2.jar
-text-pdfa-5.5.0.jar 	(remove)
-itextpdf-5.5.0.jar		(remove)
+itext-2.1.7.js3.jar
 jdt-compiler-3.1.1.jar
 commons-digester-2.1.jar
-groovy-all-2.0.1.jar	(remove)
 fireflysung.jar (FONT TrueType)
 
 
