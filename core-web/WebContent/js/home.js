@@ -376,7 +376,7 @@ function openCommonJasperReportLoadWindow( title, jreportId, format, paramData )
 	bodyStr += '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td align="left" valign="middle" bgcolor="#F5F5F5"><img src="./images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">View report</font></b><br/><hr color="#3794E5" size="2"></td></tr></table>';
 	bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="1" width="100%" height="' + height + '"></iframe></td></tr></table>';
 	var viewDialog = new dojox.widget.DialogSimple({
-		title			: 	'<img src="' + iconUrl + '" border="0" />' + '&nbsp;View report - ' + title,
+		title			: 	'<img src="' + iconUrl + '" border="0" />' + '&nbsp;View report | ' + title,
 		executeScripts	:	true,
 		style			: 	'width: ' + width + 'px; height: ' + height + 'px;',
 		content			: 	bodyStr
@@ -434,7 +434,7 @@ function openCommonLoadUpload( type, uploadOid, paramData ) {
 			bodyStr += '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr valign="top"><td align="left" valign="middle" bgcolor="#F5F5F5"><img src="./images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">View content</font></b><br/><hr color="#3794E5" size="2"></td></tr></table>';
 			bodyStr += '<table width="100%" bgcolor="#ffffff" border="0"><tr><td align="center"><iframe src="' + url + '" align="left" frameborder="1" width="100%" height="' + height + '"></iframe></td></tr></table>';
 			var viewDialog = new dojox.widget.DialogSimple({
-				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View content - ' + title,
+				title			: 	'<img src="' + _getSystemIconUrl('GWENVIEW') + '" border="0" />' + '&nbsp;View content | ' + title,
 				executeScripts	:	true,
 				style			: 	'width: ' + width + 'px; height: ' + height + 'px;',
 				content			: 	bodyStr
