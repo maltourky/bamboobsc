@@ -41,37 +41,39 @@ contact: chen.xin.nien@gmail.com
 <h2>Screenshot</h2>
 <br/>
 <br/>1 Region view.
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/REGION_MAP_VIEW.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/REGION_MAP_VIEW.png"/><br/>
 <br/>2 Workspace.
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/WORKSPACE.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/WORKSPACE.png"/><br/>
 <br/>3 KPIs dashboard.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/KPI-DAS.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/KPI-DAS.png"/><br/>
 <br/>4 Employee/Personal BSC report.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/EMPLOYEE-REPORT.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/EMPLOYEE-REPORT.png"/><br/>
 <br/>5 Department BSC report.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DEPARTMENT-REPORT.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/DEPARTMENT-REPORT.png"/><br/>
 <br/>6 Employee 360 Degree feedback score view.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/DF_PROJECT_SCORE_VIEW.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/DF_PROJECT_SCORE_VIEW.png"/><br/>
 <br/>7 KPI BSC report.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/KPI-REPORT.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/KPI-REPORT.png"/><br/>
 <br/>8 OLAP Client report.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/OLAP-CLIENT.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/OLAP-CLIENT.png"/><br/>
 <br/>9 Mobile version KPIs view.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/MOBILE_KPI_VIEW.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/MOBILE_KPI_VIEW.png"/><br/>
 <br/>10 BSC strategy-map.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/BSC-STRATEGY-MAP.png"/><br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/BSC-STRATEGY-MAP.png"/><br/>
 <br/>11 SQL-Client query result as chart.
 <br/>
-<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/446d1db092e4a9e7a2ec5403047cd94864efdc60/core-doc/bamboobsc-pic/SQL-CLIENT-QUERY.png"/><br/>
-
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/SQL-CLIENT-QUERY.png"/><br/>
+<br/>12 Support the development of integration processes flow.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/BPMN_PROCESS_LIST.png"/><br/>
 
 
 <br/>
