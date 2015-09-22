@@ -88,7 +88,7 @@ body, html {
 			&nbsp;&nbsp;
 			<input type="button" name="okBtn" id="okBtn" value="${action.getText('CORE_PROGCOMM0004Q_okBtn')}" class="flat lighter" onClick="setCbFieldValue();">
 			&nbsp;&nbsp;
-			<input type="button" name="clBtn" id="clBtn" value="${action.getText('CORE_PROGCOMM0004Q_clBtn')}" class="flat lighter" onClick="window.close();">		
+			<input type="button" name="clBtn" id="clBtn" value="${action.getText('CORE_PROGCOMM0004Q_clBtn')}" class="flat lighter" onClick="parent.CORE_PROGCOMM0004Q_DlgHide();">
 		</td>
 	</tr>
 </table>
@@ -120,19 +120,19 @@ function clear() {
 }
 
 function setCbFieldValue() {
-	if ( window.opener.document.getElementById("${valueFieldId}") == null ) {
+	
+	if ( parent.document.getElementById("${valueFieldId}") == null ) {	
 		alert('ERROR: lost value field!');
 		return;
 	}
-	window.opener.document.getElementById("${valueFieldId}").value = getValue();
-	window.close();
+	
+	parent.document.getElementById("${valueFieldId}").value = getValue();
+	
 	<s:if test=" null != okFn && \"\" != okFn && \" \" != okFn ">
-	if ( eval("typeof " + window.opener.${okFn} + "=='function'") ) {
-		window.opener.${okFn};
-	} else {
-		alert('ERROR: ok button event function is no found!');
-	}
+	parent.${okFn};
 	</s:if>	
+	
+	
 }
 
 </script>

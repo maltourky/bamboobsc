@@ -89,6 +89,7 @@ public class ConfigJsAction extends BaseSupportAction {
 		sb.append("var _gscore_common_signature_dialog_action='core.commonSignatureAction.action';\n");
 		sb.append("var _gscore_common_signature_dialog_id='CORE_PROGCOMM0003Q_Dlg';\n");
 		sb.append("var _gscore_common_jasperreport_load_action='core.commonJasperReportAction.action';\n");
+		sb.append("var _gscore_common_codeeditor_dialog_id='CORE_PROGCOMM0004Q_Dlg';\n");
 		this.putImagePreload(sb);
 		this.inputStream=new ByteArrayInputStream(sb.toString().getBytes());
 	}

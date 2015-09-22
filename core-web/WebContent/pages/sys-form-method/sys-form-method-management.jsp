@@ -100,6 +100,9 @@ function CORE_PROG001D0014Q_updateExpression(oid) {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				getQueryGrid_${programId}_grid();
+				if ( 'Y' == data.success ) {
+					CORE_PROGCOMM0004Q_DlgHide();
+				}	
 			}, 
 			function(error) {
 				alert(error);
