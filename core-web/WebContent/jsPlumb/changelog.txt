@@ -1,3 +1,24 @@
+* 1.7.10
+
+    - Small update to getOffset to make it return the correct value if the input element was the container itself.
+    - Small update to animation to fix incorrect falsey check.
+    - Documented the `on` method of a `jsPlumbInstance` in the API docs.
+    - `on` and `off` event registration methods now return the current jsPlumb instance
+
+* 1.7.9
+
+    No more jQuery flavour. Vanilla jsPlumb is the only jsPlumb, and as such, has been renamed to simply `jsPlumb-1.7.9.js`.
+
+    This is also the first version of jsPlumb to be published to npm.
+
+    NEW FUNCTIONALITY
+
+    - Addition of getManagedElements method. Returns a map of all the elements the instance of jsPlumb is currently managing.
+
+    ISSUES
+
+    - 421 - svg gradient elements not cleaned up properly
+
 * 1.7.8
 
     ISSUES

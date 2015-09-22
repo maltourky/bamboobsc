@@ -195,12 +195,12 @@ function ${programId}_page_message() {
         </div>
     </div>    	
         	
-        <div id="main">
+        <div id="jtk-demo-main">
 
 		
 
            <!-- demo -->            
-			<div class="canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas">
+			<div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas">
 			
 				<s:iterator value="divItems" status="st" >
 					<s:property escapeHtml="false" escapeJavaScript="false" />
@@ -223,7 +223,7 @@ function ${programId}_page_message() {
         <!-- geometry functions -->
         <script src="<%=mainSysBasePath%>/jsPlumb/lib/biltong-0.2.js"></script>
         <!-- drag -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/katavorio-0.7.js"></script>
+        <script src="<%=mainSysBasePath%>/jsPlumb/lib/katavorio-0.8.js"></script>
         <!-- jsplumb util -->
         <script src="<%=mainSysBasePath%>/jsPlumb/src/util.js"></script>
         <script src="<%=mainSysBasePath%>/jsPlumb/src/browser-util.js"></script>
@@ -427,7 +427,7 @@ jsPlumb.ready(function () {
     
     $("#export").click(function (e) {
     	
-		html2canvas( $('#main'), {
+		html2canvas( $('#jtk-demo-main'), {
 			onrendered: function(canvas) {
 		        var a = document.createElement('a');
 		        a.download = 'strategy-map.png';
