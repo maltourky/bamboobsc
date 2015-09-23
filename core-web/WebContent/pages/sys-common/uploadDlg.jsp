@@ -24,6 +24,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <style type="text/css">
 
+input[type=file] { 
+	width: 500px; 
+	height: 40px; 
+	border: 2px dotted #FFAD1C; 
+}
+
 </style>
 
 <script type="text/javascript">
@@ -53,7 +59,10 @@ function ${programId}_page_message() {
 	<input type="hidden" name="type" id="CORE_PROGCOMM0002Q_type" value="${type}"/>
 	<input type="hidden" name="system" id="CORE_PROGCOMM0002Q_system" value="${system}"/>
 	<input type="hidden" name="isFile" id="CORE_PROGCOMM0002Q_isFile" value="${isFile}"/>
-	<input type="file" name="upload" id="upload" />
+	<div>
+		<div><b>Drag file to color Box.</b></div>
+		<input type="file" name="upload" id="upload" draggable="true" width="500px" height="40px" title="Drag file there." onchange="CORE_PROGCOMM0002Q_uploadDataEvent();"/>
+	</div>
 	<br/>
 	<input type="button" id="CORE_PROGCOMM0002Q_btnUpload" label="Upload file" value="Upload file" 
 		data-dojo-props=" iconClass:'dijitIconSave', showLabel:false "
