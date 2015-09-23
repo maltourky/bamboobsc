@@ -24,7 +24,9 @@ package com.netsteadfast.greenstep.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.greenstep.base.dao.BaseDAO;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.dao.ISysUploadDAO;
+import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 
 @Repository("core.dao.SysUploadDAO")
@@ -32,6 +34,16 @@ public class SysUploadDAOImpl extends BaseDAO<TbSysUpload, String> implements IS
 	
 	public SysUploadDAOImpl() {
 		super();
+	}
+
+	@Override
+	public int deleteTmpContent(String system) throws Exception {		
+		return this.getCurrentSession()
+				.createQuery("DELETE TbSysUpload WHERE system = :system AND type = :type AND isFile = :isFile ")
+				.setString("system", system)
+				.setString("type", UploadTypes.IS_TEMP)
+				.setString("isFile", YesNo.NO)				
+				.executeUpdate();
 	}
 	
 }

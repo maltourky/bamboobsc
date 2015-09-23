@@ -21,11 +21,14 @@
  */
 package com.netsteadfast.greenstep.service;
 
+import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.service.IBaseService;
 
 public interface ISysUploadService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
 	public static String MAPPER_ID_PO2VO="sysUpload.po2vo";
 	public static String MAPPER_ID_VO2PO="sysUpload.vo2po";
+	
+	public int deleteTmpContent(String system) throws ServiceException, Exception;
 	
 }

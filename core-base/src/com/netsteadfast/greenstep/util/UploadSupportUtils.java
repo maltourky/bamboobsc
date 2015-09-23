@@ -144,17 +144,14 @@ public class UploadSupportUtils {
 	
 	public static void cleanTempUpload() throws ServiceException, Exception {
 		logger.info("clean upload temp begin...");
+		sysUploadService.deleteTmpContent(Constants.getSystem());
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("type", UploadTypes.IS_TEMP);		
-		List<TbSysUpload> searchList = sysUploadService.findListByParams(params);
-		if (searchList==null || searchList.size()<1) {
-			return;
-		}
-		for (TbSysUpload entity : searchList) {
-			if (!YesNo.YES.equals(entity.getIsFile())) {
-				sysUploadService.delete(entity);
-				continue;
-			}
+		params.put("system", Constants.getSystem());
+		params.put("type", UploadTypes.IS_TEMP);
+		params.put("isFile", YesNo.YES);		
+		List<TbSysUpload> searchList = sysUploadService.findListByParams(params);		
+		for (int i=0; searchList!=null && i<searchList.size(); i++) {
+			TbSysUpload entity = searchList.get(i);
 			String dir = getUploadFileDir(entity.getSystem(), entity.getSubDir(), entity.getType());
 			String fileFullPath = dir + "/" + entity.getFileName();
 			File file = new File(fileFullPath);
@@ -169,7 +166,7 @@ public class UploadSupportUtils {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}		
 		logger.info("end...");
 	}
 	

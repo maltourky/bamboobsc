@@ -26,4 +26,6 @@ import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 
 public interface ISysUploadDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<TbSysUpload, String> {
 	
+	public int deleteTmpContent(String system) throws Exception;
+	
 }

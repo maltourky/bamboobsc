@@ -21,8 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -30,7 +33,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.dao.ISysUploadDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
@@ -72,6 +78,18 @@ public class SysUploadServiceImpl extends BaseService<SysUploadVO, TbSysUpload, 
 	@Override
 	public String getMapperIdVo2Po() {
 		return MAPPER_ID_VO2PO;
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )	
+	@Override
+	public int deleteTmpContent(String system) throws ServiceException, Exception {
+		if (StringUtils.isBlank(system)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return this.sysUploadDAO.deleteTmpContent(system);
 	}
 
 }
