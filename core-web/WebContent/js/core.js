@@ -30,6 +30,7 @@ dojo.declare("GS.CORE", null ,{
 	        this.full_name = full_name;
         },
     */
+    pleaseWaitDlgId: 'pleaseWaitDlg',
     getVer : function() {
         return this.ver;
     },
@@ -38,6 +39,9 @@ dojo.declare("GS.CORE", null ,{
     },
     getFullName : function() {
         return this.full_name;
+    },
+    getPleaseWaitDlgId : function() {
+    	return this.pleaseWaitDlgId;
     },
     generateGuid : function() { // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
     	return (this.generateRandomStr()+this.generateRandomStr()+"-"+this.generateRandomStr()+"-"+this.generateRandomStr()+"-"+this.generateRandomStr()+"-"+this.generateRandomStr()+this.generateRandomStr()+this.generateRandomStr()); 
@@ -106,6 +110,19 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     setAlertDlgContext : function(txtContext) {
     	this._alertDlgContent=txtContext;
     },
+    loadingDlgShow : function() {
+    	dijit.byId( this.getPleaseWaitDlgId() ).show();
+    },
+    loadingDlgHide : function() {
+    	dijit.byId( this.getPleaseWaitDlgId() ).hide();
+    },
+    showPleaseWait : function() {
+    	dojo.style(dijit.byId( this.getPleaseWaitDlgId() ).closeButtonNode,"display","none");
+    	dijit.byId( this.getPleaseWaitDlgId() ).show();    	
+    },
+    hidePleaseWait : function() {
+    	dijit.byId( this.getPleaseWaitDlgId() ).hide();
+    },    
     addOrUpdateContentPane : function(tabContainerId, childTabId, tabTitle, tabHref, tabClosable, tabPreventCache, iframeMode) {
     	if (dijit.byId(childTabId)!=null) {
     		var childTabPane = dijit.byId(childTabId);
@@ -275,7 +292,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     },
     xhrSendForm : function(_urlAction, _formId, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction, _showPleaseWait) { 
     	if (_showPleaseWait) {
-    		showPleaseWait();
+    		this.showPleaseWait();
     	}
         var xhrArgs={
         		url			: 	_urlAction, // this.getBasePath() + _urlAction
@@ -287,7 +304,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
         		load: function(data) {
         			if (_showPleaseWait) {
         				setTimeout(function(){
-        					hidePleaseWait();
+        					this.hidePleaseWait();
         				}, 350);        				
         			}
         			if (data==null || (typeof data=='undefined') ) {
@@ -307,7 +324,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
         		error: function(error) {
         			if (_showPleaseWait) {
         				setTimeout(function(){
-        					hidePleaseWait();
+        					this.hidePleaseWait();
         				}, 350);        				
         			}      			
         			_errFunction(error);
@@ -317,7 +334,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     },
     xhrSendParameter : function(_urlAction, _parameter, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction, _showPleaseWait) {
     	if (_showPleaseWait) {
-    		showPleaseWait();
+    		this.showPleaseWait();
     	}    	
         var xhrArgs={
         		url			: 	_urlAction, // this.getBasePath() + _urlAction
@@ -329,7 +346,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
         		load: function(data) {	
         			if (_showPleaseWait) {
         				setTimeout(function(){
-        					hidePleaseWait();
+        					this.hidePleaseWait();
         				}, 350);        				
         			}     			
         			if (data==null || (typeof data=='undefined') ) {
@@ -349,7 +366,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
         		error: function(error) {
         			if (_showPleaseWait) {
         				setTimeout(function(){
-        					hidePleaseWait();
+        					this.hidePleaseWait();
         				}, 350);        				
         			}    			
         			_errFunction(error);

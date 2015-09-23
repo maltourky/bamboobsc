@@ -161,19 +161,18 @@ function confirmDialog(dialogId, title, question, callbackFn, e) {
 // please wait dlg
 //-----------------------------------------------------------------------------------------------------
 function loadingDlgShow() {
-	dijit.byId("pleaseWaitDlg").show();
+	viewPage.loadingDlgShow();
 }
 
 function loadingDlgHide() {
-	dijit.byId("pleaseWaitDlg").hide();
+	viewPage.loadingDlgHide();
 }
 
 function showPleaseWait() {
-	dojo.style(dijit.byId("pleaseWaitDlg").closeButtonNode,"display","none");
-	dijit.byId("pleaseWaitDlg").show();
+	viewPage.showPleaseWait();
 }
 function hidePleaseWait() {
-	dijit.byId("pleaseWaitDlg").hide();
+	viewPage.hidePleaseWait();
 }
 
 function getGuid() {
@@ -300,6 +299,7 @@ function openCommonUploadDialog(system, type, isFile, uploadOidField, callJsFunc
 */
 function doUpload(formId, uploadId, callbackFn, errFn) {	
 	dojo.byId(uploadId).value = '';
+	showPleaseWait();
 	dojo.io.iframe.send({
 		url: './core.commonUploadFileAction.action',
 		form: formId,
@@ -309,6 +309,9 @@ function doUpload(formId, uploadId, callbackFn, errFn) {
 		sync: _gscore_dojo_ajax_sync,		
 		preventCache: true,
 		load: function(response, ioArgs) {
+			setTimeout(function(){
+				hidePleaseWait();
+			}, 350);			
 			alertDialog("Upload", response.message, function(){}, response.success);
 			if (response.uploadOid!=null && typeof(response.uploadOid) != 'undefined' && '' != response.uploadOid ) {
 				dojo.byId(uploadId).value = response.uploadOid;
@@ -322,6 +325,9 @@ function doUpload(formId, uploadId, callbackFn, errFn) {
 			}
 		},
 		error: function(response, ioArgs) {
+			setTimeout(function(){
+				hidePleaseWait();
+			}, 350);			
 			alert(response);
 			if (null!=errFn && eval("typeof " + errFn + "=='function'") ) {
 				errFn();
