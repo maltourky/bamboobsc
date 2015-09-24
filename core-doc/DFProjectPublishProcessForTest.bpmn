@@ -21,7 +21,9 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm != "Y" }]]></conditionExpression>
     </sequenceFlow>
     <userTask id="usertask3" name="Section Chief Approval" activiti:assignee="chief"></userTask>
-    <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="usertask1" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm == "Y" }]]></conditionExpression>
+    </sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow9" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow10" sourceRef="exclusivegateway2" targetRef="usertask2">

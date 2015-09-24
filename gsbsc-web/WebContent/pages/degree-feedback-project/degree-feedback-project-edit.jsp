@@ -42,6 +42,15 @@ function BSC_PROG005D0001E_updateSuccess(data) {
 	}	
 }
 
+function BSC_PROG005D0001E_reApplySuccess(data) {
+	setFieldsBackgroundDefault(BSC_PROG005D0001E_fieldsId);
+	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
+	if ('Y' != data.success) {						
+		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG005D0001E_fieldsId);		
+		return;
+	}	
+}
+
 function BSC_PROG005D0001E_reloadOwnerName() {
 	BSC_PROG005D0001E_reloadEmployeeAppendName( 'BSC_PROG005D0001E_owner', 'BSC_PROG005D0001E_ownerName' );
 }
@@ -294,7 +303,22 @@ function ${programId}_page_message() {
     				iconClass="dijitIconSave"></gs:button>    			
     			<gs:button name="BSC_PROG005D0001E_clear" id="BSC_PROG005D0001E_clear" onClick="BSC_PROG005D0001E_clear();" 
     				label="${action.getText('BSC_PROG005D0001E_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>       		
+    				iconClass="dijitIconClear"></gs:button>   
+    			<gs:button name="BSC_PROG005D0001E_reApply" id="BSC_PROG005D0001E_reApply" onClick="BSC_PROG005D0001E_reApply();"
+    				handleAs="json"
+    				sync="N"
+    				xhrUrl="${basePath}/bsc.degreeFeedbackProjectReApplyAction.action"
+    				parameterType="postData"
+    				xhrParameter=" 
+    					{     						
+    						'fields.oid'			: '${degreeFeedbackProject.oid}'
+    					} 
+    				"
+    				errorFn=""
+    				loadFn="BSC_PROG005D0001E_reApplySuccess(data);" 
+    				programId="${programId}"
+    				label="Re apply" 
+    				iconClass="dijitIconApplication"></gs:button>    				    		
     		</td>
     	</tr>     	 	  	    	
 	</table>	

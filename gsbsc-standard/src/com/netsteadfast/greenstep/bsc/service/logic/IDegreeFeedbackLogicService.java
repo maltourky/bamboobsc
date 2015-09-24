@@ -55,4 +55,6 @@ public interface IDegreeFeedbackLogicService extends IBusinessProcessManagementR
 	
 	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
 	
+	public DefaultResult<DegreeFeedbackProjectVO> reApplyProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception;
+	
 }

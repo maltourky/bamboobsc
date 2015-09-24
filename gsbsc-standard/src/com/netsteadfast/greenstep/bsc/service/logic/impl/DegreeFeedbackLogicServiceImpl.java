@@ -456,6 +456,33 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		return BusinessProcessManagementUtils.getTaskDiagramById2Upload(this.getBusinessProcessManagementResourceId(), taskId);
 	}	
 	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public DefaultResult<DegreeFeedbackProjectVO> reApplyProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+		if (null == project || super.isBlank(project.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackProjectService.findObjectByOid(project);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		project = result.getValue();
+		if (YesNo.YES.equals(project.getPublishFlag())) {
+			throw new ServiceException( "Cannot re-apply, because project is publish!" );
+		}
+		List<Task> tasks = this.queryTaskByVariableProjectOid(project.getOid());
+		if (null!=tasks && tasks.size()>0) {
+			throw new ServiceException( "Cannot re-apply, because project is audit processing!" );
+		}
+		this.startProcess( this.getProcessFlowParam(project.getOid(), YesNo.YES, "start re-apply. " + project.getName()) );
+		result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS)) );		
+		return result;
+	}	
+	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {
 		for (DegreeFeedbackLevelVO level : levels) {
 			if ( super.isBlank(level.getName()) ) {
@@ -571,5 +598,5 @@ public class DegreeFeedbackLogicServiceImpl extends BaseLogicService implements 
 		}
 		return result.getValue();
 	}
-
+	
 }

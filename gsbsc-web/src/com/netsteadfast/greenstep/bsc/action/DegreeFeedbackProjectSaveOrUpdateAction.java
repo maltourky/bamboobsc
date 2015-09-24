@@ -213,6 +213,16 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);
 	}
 	
+	private void reApplyProject() throws ControllerException, AuthorityException, ServiceException, Exception {
+		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
+		this.transformFields2ValueObject(project, new String[]{"oid"});
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.reApplyProject(project);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()!=null) {
+			this.success = IS_YES;
+		}
+	}
+	
 	/**
 	 * bsc.degreeFeedbackProjectSaveAction.action
 	 * 
@@ -362,6 +372,35 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;	
 	}
+	
+	/**
+	 * bsc.degreeFeedbackProjectReApplyAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG005D0001E")
+	public String doReApplyProject() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.reApplyProject();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;			
+	}	
 	
 	@JSON
 	@Override
