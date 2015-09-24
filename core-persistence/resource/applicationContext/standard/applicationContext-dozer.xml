@@ -31,7 +31,8 @@
 				<value>classpath*:dozer/dozerBeanMapping-sysTemplate.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysTemplateParam.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-sysMsgNoticeConfig.xml</value>
-				<value>classpath*:dozer/dozerBeanMapping-sysWsConfig.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-sysWsConfig.xml</value>			
+				<value>classpath*:dozer/dozerBeanMapping-sysWsService.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-sysExpression.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysBeanHelp.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysBeanHelpExpr.xml</value>				

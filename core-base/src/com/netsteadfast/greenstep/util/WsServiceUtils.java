@@ -31,8 +31,42 @@ import javax.xml.ws.BindingProvider;
 import org.apache.commons.lang3.StringUtils;
 
 import com.netsteadfast.greenstep.base.AppContext;
+import com.netsteadfast.greenstep.base.Constants;
+import com.netsteadfast.greenstep.base.SysMessageUtil;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.po.hbm.TbSysWsService;
+import com.netsteadfast.greenstep.service.ISysWsServiceService;
+import com.netsteadfast.greenstep.vo.SysWsServiceVO;
 
+@SuppressWarnings("unchecked")
 public class WsServiceUtils {
+	private static ISysWsServiceService<SysWsServiceVO, TbSysWsService, String> sysWsServiceService;
+	
+	static {
+		sysWsServiceService = (ISysWsServiceService<SysWsServiceVO, TbSysWsService, String>)
+				AppContext.getBean("core.service.SysWsServiceService");
+	}
+	
+	public static Object getServiceByResource(String id) throws ServiceException, Exception {
+		return getServiceByResource(Constants.getSystem(), id);
+	}
+	
+	public static Object getServiceByResource(String system, String id) throws ServiceException, Exception {
+		if (StringUtils.isBlank(system) || StringUtils.isBlank(id)) {
+			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+		}
+		SysWsServiceVO wsService = new SysWsServiceVO();
+		wsService.setSystem(system);
+		wsService.setId(id);
+		DefaultResult<SysWsServiceVO> result = sysWsServiceService.findByUK(wsService);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		wsService = result.getValue();
+		return getService(wsService.getBeanId(), wsService.getWsdlAddress());
+	}
 	
 	public static Object getService(String wsClientBeanId, String wsdlAddress) throws Exception {
 		if (StringUtils.isBlank(wsClientBeanId)) {

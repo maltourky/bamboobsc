@@ -26,7 +26,8 @@
     <import resource="classpath*:applicationContext/standard/applicationContext-sysTemplate.xml" />    
     <import resource="classpath*:applicationContext/standard/applicationContext-sysTemplateParam.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysMsgNoticeConfig.xml" />    
-    <import resource="classpath*:applicationContext/standard/applicationContext-sysWsConfig.xml" />
+    <import resource="classpath*:applicationContext/standard/applicationContext-sysWsConfig.xml" />    
+    <import resource="classpath*:applicationContext/standard/applicationContext-sysWsService.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysExpression.xml" />    
     <import resource="classpath*:applicationContext/standard/applicationContext-sysBeanHelp.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysBeanHelpExpr.xml" />
