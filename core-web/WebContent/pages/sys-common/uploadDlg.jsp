@@ -26,10 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 input[type=file] { 
 	width: 500px; 
-	height: 40px; 
+	height: 60px; 
 	border: 2px dotted #FFAD1C; 
+	background: #FFEFD0;
 }
-
+    
 </style>
 
 <script type="text/javascript">
@@ -59,11 +60,10 @@ function ${programId}_page_message() {
 	<input type="hidden" name="type" id="CORE_PROGCOMM0002Q_type" value="${type}"/>
 	<input type="hidden" name="system" id="CORE_PROGCOMM0002Q_system" value="${system}"/>
 	<input type="hidden" name="isFile" id="CORE_PROGCOMM0002Q_isFile" value="${isFile}"/>
-	<div>
-		<div><b>Drag file to color Box.</b></div>
-		<input type="file" name="upload" id="upload" draggable="true" width="500px" height="40px" title="Drag file there." onchange="CORE_PROGCOMM0002Q_uploadDataEvent();"/>
-	</div>
-	<br/>
+	<div>		
+		<label id="upload-label" for="upload"><img border="0" alt="help-icon" src="./icons/help-about.png"/>&nbsp;<font size='2'><b>Drag file to color Box.</b></font></label>
+		<input type="file" name="upload" id="upload" draggable="true" width="500px" height="60px" title="Drag file there." onchange="CORE_PROGCOMM0002Q_uploadDataEvent();"/>				
+	</div>	
 	<input type="button" id="CORE_PROGCOMM0002Q_btnUpload" label="Upload file" value="Upload file" 
 		data-dojo-props=" iconClass:'dijitIconSave', showLabel:false "
 		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_uploadDataEvent();" />
