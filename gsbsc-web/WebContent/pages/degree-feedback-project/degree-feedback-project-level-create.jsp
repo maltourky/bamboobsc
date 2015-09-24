@@ -82,10 +82,12 @@ function BSC_PROG005D0001A_S00_clear() {
 	dijit.byId('BSC_PROG005D0001A_S00_value').set("value", "");
 	${fields.oid} = [];
 	BSC_PROG005D0001A_S00_showDataTable();	
+	dojo.byId( '${fields.oid}' ).innerHTML = '';
 }
 
 function BSC_PROG005D0001A_S00_showDataTable() {
 	var size = ${fields.oid}.length;
+	var labelStr = '';
 	var txtContent = '';
 	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
 	txtContent += '<tr>';
@@ -101,9 +103,11 @@ function BSC_PROG005D0001A_S00_showDataTable() {
 		txtContent += '<td width="50%" align="left" bgcolor="#ffffff">' + dataItem.name + '</td>';
 		txtContent += '<td width="30%" align="left" bgcolor="#ffffff">' + dataItem.value + '</td>';
 		txtContent += '</tr>';		
+		labelStr += dataItem.name + ';';
 	}
 	txtContent += '</table>';
 	dojo.byId( 'BSC_PROG005D0001A_S00_dataTable' ).innerHTML = txtContent;
+	dojo.byId( '${fields.oid}' ).innerHTML = labelStr;
 }
 
 //------------------------------------------------------------------------------

@@ -458,5 +458,27 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 	public void setAllowAssignee(List<String> allowAssignee) {
 		this.allowAssignee = allowAssignee;
 	}
+	
+	public String getItemsLabel() {
+		if (this.degreeFeedbackItems==null || this.degreeFeedbackItems.size()<1) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (BbDegreeFeedbackItem item : this.degreeFeedbackItems) {
+			sb.append(item.getName()).append(Constants.ID_DELIMITER);
+		}
+		return sb.toString();
+	}
+	
+	public String getLevelsLabel() {
+		if (this.degreeFeedbackLevels==null || this.degreeFeedbackLevels.size()<1) {
+			return "";
+		}
+		StringBuilder sb = new StringBuilder();
+		for (BbDegreeFeedbackLevel level : this.degreeFeedbackLevels) {
+			sb.append(level.getName()).append(Constants.ID_DELIMITER);
+		}
+		return sb.toString();
+	}
 
 }

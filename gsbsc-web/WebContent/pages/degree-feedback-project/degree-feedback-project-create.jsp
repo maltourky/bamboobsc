@@ -85,6 +85,8 @@ function BSC_PROG005D0001A_clear() {
 	BSC_PROG005D0001A_clearRater();
 	BSC_PROG005D0001A_levelData = []; 
 	BSC_PROG005D0001A_itemData = []; 
+	dojo.byId('BSC_PROG005D0001A_levelData').innerHTML = '';
+	dojo.byId('BSC_PROG005D0001A_itemData').innerHTML = '';	
 }
 
 function BSC_PROG005D0001A_clearOwner() {
@@ -230,8 +232,11 @@ function ${programId}_page_message() {
 						iconClass:'dijitIconClear',
 						onClick:function(){ 
 							BSC_PROG005D0001A_levelData = [];
+							dojo.byId('BSC_PROG005D0001A_levelData').innerHTML = '';
 						}
-					"></button>						   			
+					"></button>					
+				<br/>
+				<span id="BSC_PROG005D0001A_levelData"></span>		   			
     		</td>    
     	</tr>    	    	
 
@@ -253,8 +258,11 @@ function ${programId}_page_message() {
 						iconClass:'dijitIconClear',
 						onClick:function(){ 
 							BSC_PROG005D0001A_itemData = [];
+							dojo.byId('BSC_PROG005D0001A_itemData').innerHTML = '';
 						}
-					"></button>						   			
+					"></button>
+				<br/>
+				<span id="BSC_PROG005D0001A_itemData"></span>							   			
     		</td>    
     	</tr>    	   	  	    		 	  	    	    	      	    	    	    	   	  	    		 	  	    	
     	<tr>
