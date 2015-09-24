@@ -42,6 +42,7 @@ import com.netsteadfast.greenstep.vo.SysWsServiceVO;
 
 @SuppressWarnings("unchecked")
 public class WsServiceUtils {
+	private static final int TIMEOUT = 10000; // 10-sec
 	private static ISysWsServiceService<SysWsServiceVO, TbSysWsService, String> sysWsServiceService;
 	
 	static {
@@ -92,6 +93,8 @@ public class WsServiceUtils {
 		try {
 			URL url = new URL(wsdlAddress);
 			URLConnection connection = url.openConnection();
+			connection.setConnectTimeout(TIMEOUT);
+			connection.setReadTimeout(TIMEOUT);
 			if (connection.getContent()!=null) {
 				status = true;
 			}			
