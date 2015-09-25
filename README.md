@@ -78,6 +78,10 @@ contact: chen.xin.nien@gmail.com
 
 <br/>
 <br/>
+###Install on Windows
+install step video: https://www.youtube.com/watch?v=pM3q9udreDo
+<br/>
+<br/>
 
 ###Install on Linux
 <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/IMGP4139.JPG"></img>
