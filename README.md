@@ -79,7 +79,7 @@ contact: chen.xin.nien@gmail.com
 <br/>
 <br/>
 
-###run on Raspberry pi 2
+###Install on Linux
 <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/IMGP4139.JPG"></img>
 ###1. must first install the MySQL and JDK8
 ```
@@ -180,7 +180,7 @@ add JAVA_OPTS="-Xmx700M -client -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 
 
 Wait a few minutes ( the test results, will start more than 10 minutes' clock ), <br/> 
 Use <b>google Chrome</b> or <b>Firefox</b> browser (<b>no support IE</b>) input url ( <b>[IP-Address]:[Port]/core-web/index.action</b> )
-example (if raspberry pi 2 IP-Address is 192.168.1.100) :<br/>
+example (if server IP-Address is 192.168.1.100) :<br/>
 192.168.1.100:8080/core-web/index.action
 <br/>
 
