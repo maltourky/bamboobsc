@@ -273,7 +273,7 @@ activiti-diagram-rest-5.18.0.jar
 activiti-engine-5.18.0.jar
 activiti-explorer-5.18.0.jar
 activiti-image-generator-5.18.0.jar
-activiti-jmx-5.18.0.jar
+activiti-jmx-5.18.0.jar				(remove, not currently needed)
 activiti-json-converter-5.18.0.jar
 activiti-ldap-5.18.0.jar
 activiti-modeler-5.18.0.jar
