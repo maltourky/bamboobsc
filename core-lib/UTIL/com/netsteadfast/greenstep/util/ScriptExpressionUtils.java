@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.control.CompilerConfiguration;
+import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
 
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
@@ -34,10 +35,41 @@ import bsh.Interpreter;
 
 public class ScriptExpressionUtils {
 	private static CompilerConfiguration groovyCompilerConfig = new CompilerConfiguration();
+	private static ThreadLocal<Interpreter> bshInterpreterTL = new ThreadLocal<Interpreter>();
+	private static ThreadLocal<GroovyShell> groovyShellTL = new ThreadLocal<GroovyShell>();
 	
 	static {
 		groovyCompilerConfig.getOptimizationOptions().put("indy", true);
 		groovyCompilerConfig.getOptimizationOptions().put("int", false);		
+	}
+	
+	public static Interpreter buildBshInterpreter(boolean clean) {
+		Interpreter bshInterpreter = null;
+		if ((bshInterpreter=bshInterpreterTL.get()) == null) {
+			bshInterpreter = new Interpreter();
+			bshInterpreterTL.set(bshInterpreter);
+		}
+		if (clean && bshInterpreter.getNameSpace()!=null) {
+			bshInterpreter.getNameSpace().clear();
+		}
+		return bshInterpreter;
+	}
+	
+	public static GroovyShell buildGroovyShell() {
+		GroovyShell groovyShell = null;
+		if ((groovyShell=groovyShellTL.get()) == null) {
+			groovyShell = new GroovyShell(groovyCompilerConfig);
+			groovyShellTL.set(groovyShell);
+		}	
+		return groovyShell;
+	}
+	
+	public static PythonInterpreter buildPythonInterpreter(PyObject dist, boolean cleanup) {
+		PythonInterpreter pyInterpreter = PythonInterpreter.threadLocalStateInterpreter(dist);
+		if (cleanup) {
+			pyInterpreter.cleanup();
+		}
+		return pyInterpreter;
 	}
 	
 	/**
@@ -84,7 +116,8 @@ public class ScriptExpressionUtils {
 	}
 	
 	private static void executeBsh(String scriptExpression, Map<String, Object> results, Map<String, Object> parameters) throws Exception {
-		Interpreter bshInterpreter = new Interpreter();
+		//Interpreter bshInterpreter = new Interpreter();
+		Interpreter bshInterpreter = buildBshInterpreter(true);
 		if (parameters!=null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 				bshInterpreter.set(entry.getKey(), entry.getValue());
@@ -99,7 +132,8 @@ public class ScriptExpressionUtils {
 	}
 	
 	private static void executeGroovy(String scriptExpression, Map<String, Object> results, Map<String, Object> parameters) throws Exception {	
-		GroovyShell groovyShell = new GroovyShell(groovyCompilerConfig);		
+		//GroovyShell groovyShell = new GroovyShell(groovyCompilerConfig);		
+		GroovyShell groovyShell = buildGroovyShell();
 		if (parameters!=null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 				groovyShell.setProperty(entry.getKey(), entry.getValue());
@@ -114,7 +148,8 @@ public class ScriptExpressionUtils {
 	}
 	
 	private static void executeJython(String scriptExpression, Map<String, Object> results, Map<String, Object> parameters) throws Exception {
-		PythonInterpreter pyInterpreter = new PythonInterpreter();
+		//PythonInterpreter pyInterpreter = new PythonInterpreter();
+		PythonInterpreter pyInterpreter = buildPythonInterpreter(null, true);
 		if (parameters!=null) {
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 				pyInterpreter.set(entry.getKey(), entry.getValue());
