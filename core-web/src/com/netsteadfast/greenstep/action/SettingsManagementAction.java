@@ -21,10 +21,6 @@
  */
 package com.netsteadfast.greenstep.action;
 
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -34,58 +30,26 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
-import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.util.SystemFormUtils;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
+import com.netsteadfast.greenstep.util.SystemSettingConfigureUtils;
 
 @ControllerAuthority(check=true)
 @Controller("core.web.controller.SettingsManagementAction")
 @Scope
 public class SettingsManagementAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -7925145860675328170L;
-	private ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
 	
 	public SettingsManagementAction() {
 		super();
 	}
-	
-	public ISysCodeService<SysCodeVO, TbSysCode, String> getSysCodeService() {
-		return sysCodeService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.SysCodeService")	
-	@Required
-	public void setSysCodeService(
-			ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService) {
-		this.sysCodeService = sysCodeService;
-	}
 
 	private void initData() throws ServiceException, Exception {		
-		SysCodeVO sysCode = new SysCodeVO();
-		sysCode.setType("CNF");
-		sysCode.setCode("CNF_CONF001");
-		DefaultResult<SysCodeVO> result = sysCodeService.findByUK(sysCode);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		sysCode = result.getValue();
-		this.getFields().put("mailFrom", this.defaultString(sysCode.getParam1()).trim() );
-		
-		sysCode = new SysCodeVO();
-		sysCode.setType("CNF");
-		sysCode.setCode("CNF_CONF002");
-		result = sysCodeService.findByUK(sysCode);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		sysCode = result.getValue();
-		this.getFields().put("mailEnable", this.defaultString(sysCode.getParam1()).trim() );
+		this.getFields().put("mailFrom", SystemSettingConfigureUtils.getMailDefaultFromValue().trim() );
+		this.getFields().put("mailEnable", SystemSettingConfigureUtils.getMailEnableValue().trim() );
 		this.getFields().put("sysTemplateReWrite", (SystemFormUtils.getEnableTemplateFileReWriteAlways() ? YesNo.YES : YesNo.NO) );
+		this.getFields().put("leftAccordionContainerEnable", SystemSettingConfigureUtils.getLeftAccordionContainerEnableValue().trim() );
 	}
 	
 	/**

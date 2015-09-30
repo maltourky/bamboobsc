@@ -30,6 +30,7 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.model.MenuResultObj;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.util.SystemSettingConfigureUtils;
 
 @ControllerAuthority(check=false)
 @Controller("core.web.controller.IndexAction")
@@ -83,5 +84,9 @@ public class IndexAction extends BaseSupportAction {
 	public void setDialogData(String dialogData) {
 		this.dialogData = dialogData;
 	}
-
+	
+	public String getLeftAccordionContainerEnable() {
+		return SystemSettingConfigureUtils.getLeftAccordionContainerEnableValue();
+	}
+	
 }

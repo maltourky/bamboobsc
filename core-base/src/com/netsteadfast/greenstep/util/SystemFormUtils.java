@@ -40,15 +40,12 @@ import com.netsteadfast.greenstep.base.model.PageOf;
 import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.model.FormResultType;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
 import com.netsteadfast.greenstep.po.hbm.TbSysForm;
 import com.netsteadfast.greenstep.po.hbm.TbSysFormMethod;
 import com.netsteadfast.greenstep.po.hbm.TbSysFormTemplate;
-import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysFormMethodService;
 import com.netsteadfast.greenstep.service.ISysFormService;
 import com.netsteadfast.greenstep.service.ISysFormTemplateService;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
 import com.netsteadfast.greenstep.vo.SysFormMethodVO;
 import com.netsteadfast.greenstep.vo.SysFormTemplateVO;
 import com.netsteadfast.greenstep.vo.SysFormVO;
@@ -57,11 +54,9 @@ import com.netsteadfast.greenstep.vo.SysFormVO;
 public class SystemFormUtils {
 	protected static Logger logger=Logger.getLogger(SystemFormUtils.class);
 	private static final String FORM_PAGE_PATH = "pages/sys-form-pages/";
-	private static final String ENABLE_TEMPLATE_FILE_REWRITE_SYS_CODE = "CNF_CONF004";
 	private static ISysFormMethodService<SysFormMethodVO, TbSysFormMethod, String> sysFormMethodService;
 	private static ISysFormService<SysFormVO, TbSysForm, String> sysFormService;
 	private static ISysFormTemplateService<SysFormTemplateVO, TbSysFormTemplate, String> sysFormTemplateService;
-	private static ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
 	
 	public SystemFormUtils() {
 		super();
@@ -74,8 +69,6 @@ public class SystemFormUtils {
 				AppContext.getBean("core.service.SysFormService");
 		sysFormTemplateService = (ISysFormTemplateService<SysFormTemplateVO, TbSysFormTemplate, String>)
 				AppContext.getBean("core.service.SysFormTemplateService");
-		sysCodeService = (ISysCodeService<SysCodeVO, TbSysCode, String>)
-				AppContext.getBean("core.service.SysCodeService");
 	}
 	
 	public static SysFormMethodVO findFormMethod(String formId, String methodName) throws ServiceException, Exception {
@@ -114,16 +107,8 @@ public class SystemFormUtils {
 	}	
 	
 	public static boolean getEnableTemplateFileReWriteAlways() {
-		TbSysCode sysCode = new TbSysCode();
-		sysCode.setCode( ENABLE_TEMPLATE_FILE_REWRITE_SYS_CODE );
-		try {
-			sysCode = sysCodeService.findByEntityUK(sysCode);
-			if ( YesNo.YES.equals(sysCode.getParam1()) ) {
-				logger.info("Template file re-write always is enable.");				
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (YesNo.YES.equals(SystemSettingConfigureUtils.getSysFormTemplateFileRewriteValue())) {
+			return true;
 		}
 		return false;
 	}

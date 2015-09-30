@@ -32,63 +32,29 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
-import com.netsteadfast.greenstep.base.exception.ServiceException;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
-import com.netsteadfast.greenstep.service.ISysCodeService;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
 
-@SuppressWarnings("unchecked")
 public class MailClientUtils {
-	private static final String CODE_TYPE = "CNF";
-	private static final String DEFAULT_FROM_MAIL_CODE = "CNF_CONF001";
-	private static final String ENABLE_CODE = "CNF_CONF002";
 	private static JavaMailSender mailSender;
-	private static ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
-	private static ThreadLocal<SysCodeVO> formCode = new ThreadLocal<SysCodeVO>();
-	private static ThreadLocal<SysCodeVO> enableCode = new ThreadLocal<SysCodeVO>();
+	private static ThreadLocal<String> formTL = new ThreadLocal<String>();
+	private static ThreadLocal<String> enableTL = new ThreadLocal<String>();
 	
 	static {
 		mailSender = (JavaMailSender)AppContext.getBean("mailSender");
-		sysCodeService = (ISysCodeService<SysCodeVO, TbSysCode, String>)AppContext.getBean("core.service.SysCodeService");
-	}
-	
-	public static SysCodeVO getCode(String code) {
-		SysCodeVO sysCode = new SysCodeVO();
-		sysCode.setType(CODE_TYPE);
-		sysCode.setCode(code);
-		try {
-			DefaultResult<SysCodeVO> result = sysCodeService.findByUK(sysCode);
-			if (result.getValue()!=null) {
-				sysCode = result.getValue();
-			}
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sysCode;
 	}
 	
 	public static String getDefaultFrom() {
-		if (formCode.get()==null) {
-			formCode.set( getCode(DEFAULT_FROM_MAIL_CODE) );			
-		}
-		if (formCode.get()==null || StringUtils.isBlank(formCode.get().getParam1()) ) {
-			return "";
-		}
-		return StringUtils.defaultString( formCode.get().getParam1() ).trim();
+		if (formTL.get()==null) {
+			formTL.set( SystemSettingConfigureUtils.getMailDefaultFromValue() );			
+		}		
+		return StringUtils.defaultString(formTL.get());
 	}
 	
 	public static boolean getEnable() {
-		if (enableCode.get()==null) {
-			enableCode.set( getCode(ENABLE_CODE) );			
-		}
-		if (enableCode.get()==null || StringUtils.isBlank(enableCode.get().getParam1()) ) {
-			return false;
-		}
-		return StringUtils.defaultString( enableCode.get().getParam1() ).trim().equals(YesNo.YES);		
+		if (enableTL.get()==null) {
+			enableTL.set( SystemSettingConfigureUtils.getMailEnableValue() );			
+		}		
+		return StringUtils.defaultString( enableTL.get() ).trim().equals(YesNo.YES);		
 	}	
 	
 	public static void send(

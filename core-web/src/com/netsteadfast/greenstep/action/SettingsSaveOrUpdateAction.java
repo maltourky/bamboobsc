@@ -23,11 +23,8 @@ package com.netsteadfast.greenstep.action;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -40,12 +37,9 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
-import com.netsteadfast.greenstep.service.ISysCodeService;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
+import com.netsteadfast.greenstep.util.SystemSettingConfigureUtils;
 
 @ControllerAuthority(check=true)
 @Controller("core.web.controller.SettingsSaveOrUpdateAction")
@@ -53,24 +47,11 @@ import com.netsteadfast.greenstep.vo.SysCodeVO;
 public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 	private static final long serialVersionUID = 7340763400093706218L;
 	protected Logger logger=Logger.getLogger(SettingsSaveOrUpdateAction.class);
-	private ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
 	private String message = "";
 	private String success = IS_NO;
 	
 	public SettingsSaveOrUpdateAction() {
 		super();
-	}
-	
-	@JSON(serialize=false)
-	public ISysCodeService<SysCodeVO, TbSysCode, String> getSysCodeService() {
-		return sysCodeService;
-	}
-	
-	@Autowired
-	@Resource(name="core.service.SysCodeService")			
-	public void setSysCodeService(
-			ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService) {
-		this.sysCodeService = sysCodeService;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -99,41 +80,27 @@ public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}		
 	
-	private boolean updateCode(String code, String value) throws ServiceException, Exception {
-		SysCodeVO sysCode = new SysCodeVO();
-		sysCode.setType("CNF");
-		sysCode.setCode(code);
-		DefaultResult<SysCodeVO> result = this.sysCodeService.findByUK(sysCode);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		sysCode = result.getValue();
-		sysCode.setParam1( value );
-		result = this.sysCodeService.updateObject(sysCode);	
-		this.message = result.getSystemMessage().getValue();
-		if ( result.getValue()!=null ) {
-			return true;
-		}
-		return false;
-	}
-	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		String mailFrom = this.getFields().get("mailFrom");
 		String mailEnable = YesNo.YES;
 		String sysTemplateReWrite = YesNo.YES;
+		String leftAccordionContainerEnable = YesNo.YES;
 		if ( "false".equals(this.getFields().get("mailEnable")) ) {
 			mailEnable = YesNo.NO;
 		}
 		if ( "false".equals(this.getFields().get("sysTemplateReWrite")) ) {
 			sysTemplateReWrite = YesNo.NO;
 		}
-		if ( this.updateCode("CNF_CONF001", mailFrom) && this.updateCode("CNF_CONF002", mailEnable) 
-				&& this.updateCode("CNF_CONF004", sysTemplateReWrite) ) {
-			this.success = IS_YES;
-		} else {
-			this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_FAIL);
+		if ( "false".equals(this.getFields().get("leftAccordionContainerEnable")) ) {
+			leftAccordionContainerEnable = YesNo.NO;
 		}
+		SystemSettingConfigureUtils.updateMailDefaultFromValue(mailFrom);
+		SystemSettingConfigureUtils.updateMailEnableValue(mailEnable);
+		SystemSettingConfigureUtils.updateSysFormTemplateFileRewriteValue(sysTemplateReWrite);
+		SystemSettingConfigureUtils.updateLeftAccordionContainerEnableValue(leftAccordionContainerEnable);		
+		this.success = IS_YES;
+		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);		
 	}
 	
 	/**

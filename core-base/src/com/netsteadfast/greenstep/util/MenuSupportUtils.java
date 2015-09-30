@@ -44,16 +44,13 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.model.MenuItemType;
 import com.netsteadfast.greenstep.model.MenuResultObj;
 import com.netsteadfast.greenstep.po.hbm.TbSys;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
 import com.netsteadfast.greenstep.po.hbm.TbSysMenu;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
 import com.netsteadfast.greenstep.po.hbm.TbSysTwitter;
-import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysMenuService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.ISysTwitterService;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
 import com.netsteadfast.greenstep.vo.SysMenuVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 import com.netsteadfast.greenstep.vo.SysTwitterVO;
@@ -73,7 +70,6 @@ public class MenuSupportUtils {
 	private static ISysMenuService<SysMenuVO, TbSysMenu, String> sysMenuService;
 	private static ISysProgService<SysProgVO, TbSysProg, String> sysProgService;
 	private static ISysTwitterService<SysTwitterVO, TbSysTwitter, String> sysTwitterService;
-	private static ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
 	
 	static {		
 		sysService = (ISysService<SysVO, TbSys, String>)AppContext.getBean("core.service.SysService");		
@@ -81,7 +77,6 @@ public class MenuSupportUtils {
 		sysProgService = (ISysProgService<SysProgVO, TbSysProg, String>)AppContext.getBean("core.service.SysProgService");
 		sysTwitterService = (ISysTwitterService<SysTwitterVO, TbSysTwitter, String>)
 				AppContext.getBean("core.service.SysTwitterService");
-		sysCodeService = (ISysCodeService<SysCodeVO, TbSysCode, String>)AppContext.getBean("core.service.SysCodeService");
 	}
 	
 	public MenuSupportUtils() {
@@ -583,17 +578,8 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static String getFirstLoadJavascript() throws ServiceException, Exception {
-		
-		SysCodeVO sysCode = new SysCodeVO();
-		sysCode.setType("CNF");
-		sysCode.setCode("CNF_CONF003");
-		DefaultResult<SysCodeVO> result = sysCodeService.findByUK(sysCode);
-		if (result.getValue()==null) {
-			return "";
-		}
-		sysCode = result.getValue();
-		return StringUtils.defaultString( sysCode.getParam1() );
+	public static String getFirstLoadJavascript() throws ServiceException, Exception {		
+		return SystemSettingConfigureUtils.getFirstLoadJavascriptValue();
 	}
 
 }

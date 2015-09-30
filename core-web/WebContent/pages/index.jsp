@@ -96,7 +96,11 @@ dojo.addOnLoad(function(){
 			duration:1000,
 			onEnd: function(n){
 				n.style.display = "none";
+				
+				<s:if test=" \"Y\" == leftAccordionContainerEnable ">
 				loadMenuTree();
+				</s:if>
+				
 				<%=MenuSupportUtils.getFirstLoadJavascript()%>
 			}
 		}).play();
@@ -104,6 +108,8 @@ dojo.addOnLoad(function(){
 	//dojox.io.xhrPlugins.addCrossSiteXhr("http://localhost:8080/");
 	//dojox.io.xhrPlugins.addCrossSiteXhr("http://localhost:8088/");
 });
+
+<s:if test=" \"Y\" == leftAccordionContainerEnable ">
 
 function loadMenuTree() {
 	
@@ -149,6 +155,8 @@ function loadMenuTree() {
     
 }
 
+</s:if>
+
 var viewPage = new GS.ViewPage('<%=basePath%>');
 
 </script>
@@ -161,7 +169,12 @@ var viewPage = new GS.ViewPage('<%=basePath%>');
 <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false" id="borderContainer">
 	
 	<jsp:include page="top.jsp"></jsp:include>
-    <jsp:include page="left.jsp"></jsp:include>
+	
+	<s:if test=" \"Y\" == leftAccordionContainerEnable ">
+	
+	<jsp:include page="left.jsp"></jsp:include>
+	
+	</s:if>	
      	
     <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true" id="${dojoMainTabContainer}" >
     </div>
