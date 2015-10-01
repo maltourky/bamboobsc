@@ -30,6 +30,7 @@ import org.python.util.PythonInterpreter;
 
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
 
+import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import bsh.Interpreter;
 
@@ -55,13 +56,16 @@ public class ScriptExpressionUtils {
 		return bshInterpreter;
 	}
 	
-	public static GroovyShell buildGroovyShell() {
-		GroovyShell groovyShell = null;
-		if ((groovyShell=groovyShellTL.get()) == null) {
-			groovyShell = new GroovyShell(groovyCompilerConfig);
-			groovyShellTL.set(groovyShell);
-		}	
-		return groovyShell;
+	public static GroovyShell buildGroovyShell(boolean fromThreadLocal) {
+		if (fromThreadLocal) {
+			GroovyShell groovyShell = null;
+			if ((groovyShell=groovyShellTL.get()) == null) {
+				groovyShell = new GroovyShell(groovyCompilerConfig);
+				groovyShellTL.set(groovyShell);
+			}	
+			return groovyShell;			
+		}		
+		return new GroovyShell(groovyCompilerConfig);
 	}
 	
 	public static PythonInterpreter buildPythonInterpreter(PyObject dist, boolean cleanup) {
@@ -133,16 +137,19 @@ public class ScriptExpressionUtils {
 	
 	private static void executeGroovy(String scriptExpression, Map<String, Object> results, Map<String, Object> parameters) throws Exception {	
 		//GroovyShell groovyShell = new GroovyShell(groovyCompilerConfig);		
-		GroovyShell groovyShell = buildGroovyShell();
-		if (parameters!=null) {
+		GroovyShell groovyShell = buildGroovyShell(false);
+		Binding binding = groovyShell.getContext();		
+		if (parameters!=null) {			
 			for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-				groovyShell.setProperty(entry.getKey(), entry.getValue());
+				//groovyShell.setProperty(entry.getKey(), entry.getValue());
+				binding.setVariable(entry.getKey(), entry.getValue());				
 			}
 		}		
 		groovyShell.evaluate(scriptExpression);
 		if (results!=null) {
 			for (Map.Entry<String, Object> entry : results.entrySet()) {
-				entry.setValue( groovyShell.getVariable(entry.getKey()) );
+				//entry.setValue( groovyShell.getVariable(entry.getKey()) );
+				entry.setValue( binding.getVariable(entry.getKey()) );
 			}
 		}
 	}
