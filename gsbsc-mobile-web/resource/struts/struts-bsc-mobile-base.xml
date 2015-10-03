@@ -24,6 +24,7 @@
             <interceptor name="jasperReportCloseConnHelperInterceptor" class="greenstep.web.interceptor.JasperReportCloseConnHelperInterceptor" />            
             <interceptor name="userAgentRejectInterceptor" class="greenstep.web.interceptor.UserAgentRejectInterceptor" />
             <interceptor name="localeLangInterceptor" class="greenstep.web.interceptor.LocaleLangInterceptor" />
+            <interceptor name="queryParamInspectInterceptor" class="greenstep.web.interceptor.QueryParamInspectInterceptor" />
             <interceptor-stack name="greenStepProvideCustomStack"><!-- no check login session & authority-->
             	<interceptor-ref name="noCacheIntercepto"></interceptor-ref>
             	<interceptor-ref name="actionInfoIntercepto"></interceptor-ref>  
@@ -42,7 +43,8 @@
             	<interceptor-ref name="actionInfoIntercepto"></interceptor-ref>
             	<interceptor-ref name="userLoginMobileInterceptor"></interceptor-ref>                       	
             	<interceptor-ref name="localeLangInterceptor"></interceptor-ref>
-            	<interceptor-ref name="controllerAuthorityCheckIntercepto"></interceptor-ref>             	            	  	           	                   
+            	<interceptor-ref name="controllerAuthorityCheckIntercepto"></interceptor-ref>
+            	<interceptor-ref name="queryParamInspectInterceptor"></interceptor-ref>             	            	  	           	                   
                 <interceptor-ref name="defaultStack"></interceptor-ref>                                            
             </interceptor-stack>  
             <interceptor-stack name="greenStepJasperReportCustomStack">

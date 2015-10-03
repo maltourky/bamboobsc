@@ -21,5 +21,6 @@
     <bean id="greenstep.web.interceptor.UserAgentRejectInterceptor" class="com.netsteadfast.greenstep.base.interceptor.UserAgentRejectInterceptor" scope="prototype" />
     <bean id="greenstep.web.interceptor.LocaleLangInterceptor" class="com.netsteadfast.greenstep.base.interceptor.LocaleLangInterceptor" scope="prototype" />
     <bean id="greenstep.web.interceptor.UserLoginMobileInterceptor" class="com.netsteadfast.greenstep.base.interceptor.UserLoginMobileInterceptor" scope="prototype" />
+    <bean id="greenstep.web.interceptor.QueryParamInspectInterceptor" class="com.netsteadfast.greenstep.base.interceptor.QueryParamInspectInterceptor" scope="prototype" />
     
 </beans>

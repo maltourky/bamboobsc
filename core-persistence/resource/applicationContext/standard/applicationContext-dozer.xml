@@ -52,7 +52,8 @@
 				<value>classpath*:dozer/dozerBeanMapping-sysUploadTranSegm.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-sysUploadTran.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysBpmnResource.xml</value>				
-				<value>classpath*:dozer/dozerBeanMapping-sysBpmnResourceRole.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-sysBpmnResourceRole.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-sysQfieldLog.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-organization.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-organizationPar.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-employee.xml</value>

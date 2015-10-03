@@ -44,6 +44,7 @@
     <import resource="classpath*:applicationContext/applicationContext-STANDARD-BEANS.xml" />
     <import resource="classpath*:applicationContext/applicationContext-STANDARD-EXT-BEANS.xml" />
     <import resource="classpath*:applicationContext/applicationContext-AspectComponent.xml" />
+    <import resource="classpath*:applicationContext/applicationContext-QueryParamInspect.xml" />
     
                 
     <!-- another lib -->
