@@ -228,16 +228,6 @@ cxf-services-ws-discovery-api-3.1.2.jar (REMOVE 不需要)
 cxf-services-ws-discovery-service-3.1.2.jar (REMOVE 不需要)
 cxf-services-wsn-api-3.1.2.jar
 cxf-services-wsn-core-3.1.2.jar
-cxf-tools-common-3.1.2.jar
-cxf-tools-corba-3.1.2.jar
-cxf-tools-java2ws-3.1.2.jar
-cxf-tools-misctools-3.1.2.jar
-cxf-tools-validator-3.1.2.jar
-cxf-tools-wadlto-jaxrs-3.1.2.jar
-cxf-tools-wsdlto-core-3.1.2.jar
-cxf-tools-wsdlto-databinding-jaxb-3.1.2.jar
-cxf-tools-wsdlto-frontend-javascript-3.1.2.jar
-cxf-tools-wsdlto-frontend-jaxws-3.1.2.jar
 cxf-xjc-boolean-3.0.4.jar
 cxf-xjc-bug671-3.0.4.jar
 cxf-xjc-dv-3.0.4.jar
@@ -257,6 +247,19 @@ xml-resolver-1.2.jar
 xmlbeans-2.6.0.jar
 xmlschema-core-2.2.1.jar
 xmlsec-2.0.5.jar
+
+
+Apache Camel
+-------------------------
+camel-core-2.15.3.jar
+camel-cxf-2.15.3.jar
+camel-cxf-transport-2.15.3.jar
+camel-ftp-2.15.3.jar
+camel-groovy-2.15.3.jar
+camel-jms-2.15.3.jar
+camel-spring-2.15.3.jar
+camel-ssh-2.15.3.jar
+camel-stream-2.15.3.jar
 
 
 Activiti

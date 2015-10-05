@@ -19,4 +19,6 @@
     	因為 gsbsc-standard 有了 applicationContext-STANDARD-EXPAND-BEANS.xml 所以 gsbsc-web 就不需要放 applicationContext-STANDARD-EXPAND-BEANS.xml 了
     -->
     
+    <import resource="classpath*:applicationContext/applicationContext-STANDARD-ESB.xml" />
+    
 </beans>    
