@@ -115,12 +115,14 @@ public class ServiceAuthorityCheckAspect {
 	}
 	
 	private boolean isServiceMethodAuthority(String serviceId, Annotation[] annotations, Subject subject) {
-		if (annotations==null || annotations.length<1) {
-			return false;
+		if (annotations==null || annotations.length<1) { // 沒有 @ServiceMethodAuthority 不要檢查權限
+			return true;
 		}
 		boolean status = false;
+		boolean foundServiceMethodAuthority = false;
 		for (Annotation anno : annotations) {
 			if (anno instanceof ServiceMethodAuthority) {
+				foundServiceMethodAuthority = true;
 				ServiceMethodType[] types = ((ServiceMethodAuthority)anno).type();
 				for (int i=0; types!=null && !status && i<types.length; i++) {
 					ServiceMethodType type = types[i];
@@ -131,6 +133,9 @@ public class ServiceAuthorityCheckAspect {
 					}
 				}
 			}
+		}
+		if (!foundServiceMethodAuthority) { // 沒有 @ServiceMethodAuthority 不要檢查權限 
+			return true;
 		}
 		return status;
 	}

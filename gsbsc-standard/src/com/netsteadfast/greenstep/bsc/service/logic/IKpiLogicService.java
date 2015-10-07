@@ -37,4 +37,15 @@ public interface IKpiLogicService {
 	
 	public DefaultResult<Boolean> delete(KpiVO kpi) throws ServiceException, Exception;
 	
+	/**
+	 * for TEST
+	 * 這是測試 WS REST 用的  metod , 暴露 KPIs 主檔資料
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public String findKpis() throws ServiceException, Exception;
+	
 }

@@ -3744,7 +3744,7 @@ CREATE TABLE `tb_sys_ws_config` (
 
 LOCK TABLES `tb_sys_ws_config` WRITE;
 /*!40000 ALTER TABLE `tb_sys_ws_config` DISABLE KEYS */;
-INSERT INTO `tb_sys_ws_config` VALUES ('17175451-80ed-4a9d-a490-6ae5857becb4','WS-CORE002','CORE','REST','core.webservice.HelloService','','example sample for REST!','admin','2014-10-22 19:55:03',NULL,NULL),('6d8ece45-b11a-45fb-9671-e2fbc84c3aa2','WS-CORE003','CORE','SOAP','core.webservice.SendMailService','/sendmail','send mail webService.','admin','2015-05-02 18:35:44','admin','2015-05-02 18:35:58'),('b4da1c48-4b6e-40cf-8232-aa23611b3cf7','WS-CORE001','CORE','SOAP','core.webservice.HelloService','/hello','example sample for SOAP!','admin','2014-10-22 19:54:31',NULL,NULL);
+INSERT INTO `tb_sys_ws_config` VALUES ('17175451-80ed-4a9d-a490-6ae5857becb4','WS-CORE002','CORE','REST','core.webservice.HelloService','','example sample for REST!','admin','2014-10-22 19:55:03',NULL,NULL),('6d8ece45-b11a-45fb-9671-e2fbc84c3aa2','WS-CORE003','CORE','SOAP','core.webservice.SendMailService','/sendmail','send mail webService.','admin','2015-05-02 18:35:44','admin','2015-05-02 18:35:58'),('b4da1c48-4b6e-40cf-8232-aa23611b3cf7','WS-CORE001','CORE','SOAP','core.webservice.HelloService','/hello','example sample for SOAP!','admin','2014-10-22 19:54:31',NULL,NULL),('6af7d1d2-24f9-4231-86b2-4d57e6617f80','WS-BSC001','BSC','REST','bsc.service.logic.KpiLogicService','','for TEST!','admin','2015-10-07 10:15:25',NULL,NULL);
 /*!40000 ALTER TABLE `tb_sys_ws_config` ENABLE KEYS */;
 UNLOCK TABLES;
 

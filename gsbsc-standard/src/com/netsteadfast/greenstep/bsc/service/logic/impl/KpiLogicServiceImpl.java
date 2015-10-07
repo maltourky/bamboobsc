@@ -22,11 +22,18 @@
 package com.netsteadfast.greenstep.bsc.service.logic.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,9 +76,13 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.thoughtworks.xstream.XStream;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.KpiLogicService")
+@WebService
+@Path("/")
+@Produces("application/xml")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicService {
 	protected Logger logger=Logger.getLogger(KpiLogicServiceImpl.class);
@@ -344,6 +355,39 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			kpiEmpl.setEmpId(employee.getEmpId());
 			this.kpiEmplService.saveObject(kpiEmpl);
 		}		
+	}
+	
+	/**
+	 * for TEST
+	 * 這是測試 WS REST 用的  metod , 暴露 KPIs 主檔資料
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	@WebMethod
+	@GET
+	@Path("/kpis/")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Override
+	public String findKpis() throws ServiceException, Exception {
+		List<KpiVO> kpis = null;
+		try {
+			kpis = this.kpiService.findListVOByParams( null );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (null == kpis) {
+				kpis = new ArrayList<KpiVO>();
+			}
+		}
+		XStream xstream = new XStream();
+		//xstream.registerConverter( new DateConverter() );
+		xstream.setMode(XStream.NO_REFERENCES);		
+		xstream.alias("KPIS-RESULT", List.class);
+		xstream.alias("KPI", KpiVO.class);
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kpis);
 	}
 
 }
