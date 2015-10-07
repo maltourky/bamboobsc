@@ -35,4 +35,8 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-dashboard-web.xml" />    
     <import resource="classpath*:applicationContext/controller/applicationContext-degreeFeedbackProject-web.xml" />
     
+    
+    <!-- apache camel -->
+    <import resource="classpath*:applicationContext/applicationContext-STANDARD-ESB.xml" />
+    
 </beans>

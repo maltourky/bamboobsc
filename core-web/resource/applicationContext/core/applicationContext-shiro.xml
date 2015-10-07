@@ -99,7 +99,8 @@
          		/services/**=anon         
          		/images/**=anon
          		/css/**=anon
-         		/js/**=anon         
+         		/js/**=anon
+         		/camel/**=anon         
          		
          		
 			</value> 

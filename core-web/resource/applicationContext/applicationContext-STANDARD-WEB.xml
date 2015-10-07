@@ -38,5 +38,9 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-sysFormMethod-web.xml" />    
     <import resource="classpath*:applicationContext/controller/applicationContext-sysBpmnResource-web.xml" />
     <import resource="classpath*:applicationContext/controller/applicationContext-test-web.xml" />              
+    
+    
+    <!-- apache camel -->
+    <import resource="classpath*:applicationContext/applicationContext-STANDARD-ESB.xml" />
             
 </beans>

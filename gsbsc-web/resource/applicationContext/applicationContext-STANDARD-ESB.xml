@@ -12,10 +12,8 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
     http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
     
-    <!-- 
-    <camel:camelContext id="esb.CORE-SystemCamelContext">
-    	<camel:package>com.netsteadfast.greenstep.esb.router</camel:package>
+    <camel:camelContext id="esb.BSC-SystemCamelContext">
+    	<camel:package>com.netsteadfast.greenstep.bsc.esb.router</camel:package>
     </camel:camelContext>    
-    -->
     
 </beans>

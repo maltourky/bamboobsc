@@ -129,6 +129,7 @@ xmlbeans-2.6.0.jar (remove for Apache CXF xmlbeans-2.6.0.jar )
 stax-api-1.0.1.jar
 
 
+Apache - common
 -------------------------
 commons-codec-1.9.jar
 commons-email-1.2.jar
@@ -144,6 +145,7 @@ commons-net-3.0.1.jar
 commons-collections-3.2.1.jar
 commons-digester3-3.2.jar
 commons-chain-1.2.jar
+commons-httpclient-3.1.jar
 
 
 JAF & JavaMail
@@ -260,6 +262,8 @@ camel-jms-2.15.3.jar
 camel-spring-2.15.3.jar
 camel-ssh-2.15.3.jar
 camel-stream-2.15.3.jar
+camel-http-2.15.3.jar
+camel-servlet-2.15.3.jar
 
 
 Activiti

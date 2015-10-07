@@ -22,4 +22,8 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-analyticsCatalog-web.xml" />
     <import resource="classpath*:applicationContext/controller/applicationContext-analytics-web.xml" />    
     
+    
+    <!-- apache camel -->
+    <import resource="classpath*:applicationContext/applicationContext-STANDARD-ESB.xml" />
+        
 </beans>
