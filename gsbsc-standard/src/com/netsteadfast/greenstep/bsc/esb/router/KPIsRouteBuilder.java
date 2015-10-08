@@ -36,6 +36,9 @@ import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
  * 
  * http://127.0.0.1:8080/gsbsc-web/camel/kpis
  * 
+ * http://127.0.0.1:8080/gsbsc-web/camel/kpis?format=json
+ * http://127.0.0.1:8080/gsbsc-web/camel/kpis?format=xml
+ * 
  */
 public class KPIsRouteBuilder extends RouteBuilder {
 	
