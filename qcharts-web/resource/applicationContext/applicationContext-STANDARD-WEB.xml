@@ -23,6 +23,9 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-analytics-web.xml" />    
     
     
+    <!-- Apache CXF WEB Service BEANS -->
+    <import resource="classpath*:applicationContext/applicationContext-STANDARD-CXF.xml" />
+        
     <!-- apache camel -->
     <import resource="classpath*:applicationContext/applicationContext-STANDARD-ESB.xml" />
         

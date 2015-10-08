@@ -54,10 +54,7 @@
     <!-- WEB -->
     <import resource="classpath*:applicationContext/applicationContext-STANDARD-WEB.xml" />
     
-    
-    <!-- Apache CXF WEB Service BEANS -->
-    <import resource="classpath*:applicationContext/applicationContext-STANDARD-CXF.xml" />
-      
+          
     <!-- JMS MQ -->  
     <import resource="classpath*:applicationContext/applicationContext-STANDARD-JMS.xml" />
     
