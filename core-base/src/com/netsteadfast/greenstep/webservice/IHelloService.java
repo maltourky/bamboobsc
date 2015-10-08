@@ -21,12 +21,16 @@
  */
 package com.netsteadfast.greenstep.webservice;
 
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
 /**
  * this is for demo sample!
  *
  */
+@WebService
 public interface IHelloService {
 	
-	public String play(String message) throws Exception;
+	public String play(@WebParam(name="message")String message) throws Exception;
 	
 }

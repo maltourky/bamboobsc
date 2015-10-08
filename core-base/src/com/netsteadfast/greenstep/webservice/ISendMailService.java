@@ -21,9 +21,19 @@
  */
 package com.netsteadfast.greenstep.webservice;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+@WebService
 public interface ISendMailService {
 	
-	public String sendSimple(String authenticate, 
-			String from, String to, String subject, String text) throws Exception;
+	@WebMethod
+	public String sendSimple(
+			@WebParam(name="authenticate") String authenticate, 
+			@WebParam(name="from") String from, 
+			@WebParam(name="to") String to,
+			@WebParam(name="subject") String subject, 
+			@WebParam(name="text") String text) throws Exception;
 	
 }
