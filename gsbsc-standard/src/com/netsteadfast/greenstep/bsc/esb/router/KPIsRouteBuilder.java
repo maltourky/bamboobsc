@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.bsc.esb.router;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.commons.lang3.StringUtils;
 
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
@@ -45,9 +46,11 @@ public class KPIsRouteBuilder extends RouteBuilder {
 
 			@Override
 			public void process(Exchange exchange) throws Exception {
+				String format = StringUtils.defaultString(exchange.getIn().getHeader("format", String.class))
+						.trim().toLowerCase();							
 				IKpiLogicService kpiLogicService = 
 						(IKpiLogicService)AppContext.getBean( "bsc.service.logic.KpiLogicService" );
-				exchange.getOut().setBody( kpiLogicService.findKpis() );
+				exchange.getOut().setBody( kpiLogicService.findKpis(format) );
 			}
 			
 		})		

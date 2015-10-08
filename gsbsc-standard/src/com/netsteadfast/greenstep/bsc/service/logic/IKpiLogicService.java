@@ -40,12 +40,20 @@ public interface IKpiLogicService {
 	/**
 	 * for TEST
 	 * 這是測試 WS REST 用的  metod , 暴露 KPIs 主檔資料
-	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
 	 * 
+	 * rest address: http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
+	 * 
+	 * json:
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/json
+	 * 
+	 * xml:
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/xml
+	 * 
+	 * @param format			example:	xml / json
 	 * @return
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public String findKpis() throws ServiceException, Exception;
+	public String findKpis(String format) throws ServiceException, Exception;
 	
 }

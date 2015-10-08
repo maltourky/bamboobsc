@@ -29,11 +29,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
@@ -82,7 +84,7 @@ import com.thoughtworks.xstream.XStream;
 @Service("bsc.service.logic.KpiLogicService")
 @WebService
 @Path("/")
-@Produces("application/xml")
+@Produces("application/json")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicService {
 	protected Logger logger=Logger.getLogger(KpiLogicServiceImpl.class);
@@ -360,18 +362,25 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 	/**
 	 * for TEST
 	 * 這是測試 WS REST 用的  metod , 暴露 KPIs 主檔資料
-	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
 	 * 
+	 * rest address: http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/
+	 * 
+	 * json:
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/json
+	 * 
+	 * xml:
+	 * http://127.0.0.1:8080/gsbsc-web/services/jaxrs/kpis/xml
+	 * 
+	 * @param format			example:	xml / json
 	 * @return
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
 	@WebMethod
 	@GET
-	@Path("/kpis/")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/kpis/{format}")
 	@Override
-	public String findKpis() throws ServiceException, Exception {
+	public String findKpis(@WebParam(name="format") @PathParam("format") String format) throws ServiceException, Exception {				
 		List<KpiVO> kpis = null;
 		try {
 			kpis = this.kpiService.findListVOByParams( null );
@@ -382,10 +391,16 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 				kpis = new ArrayList<KpiVO>();
 			}
 		}
+		if ("json".equals(format)) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("KPIS", kpis);
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString( paramMap );
+		}		
 		XStream xstream = new XStream();
 		//xstream.registerConverter( new DateConverter() );
 		xstream.setMode(XStream.NO_REFERENCES);		
-		xstream.alias("KPIS-RESULT", List.class);
+		xstream.alias("KPIS", List.class);
 		xstream.alias("KPI", KpiVO.class);
 		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kpis);
 	}
