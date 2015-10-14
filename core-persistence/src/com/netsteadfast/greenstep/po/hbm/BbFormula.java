@@ -25,6 +25,7 @@ public class BbFormula extends BaseEntity<String> implements java.io.Serializabl
 	private String forId;
 	private String name;
 	private String type;
+	private String trendsFlag;
 	private String returnMode;
 	private String returnVar;
 	private String expression;
@@ -72,6 +73,15 @@ public class BbFormula extends BaseEntity<String> implements java.io.Serializabl
 	
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	@Column(name="TRENDS_FLAG")
+	public String getTrendsFlag() {
+		return trendsFlag;
+	}
+	
+	public void setTrendsFlag(String trendsFlag) {
+		this.trendsFlag = trendsFlag;
 	}
 	
 	@Column(name="RETURN_MODE")

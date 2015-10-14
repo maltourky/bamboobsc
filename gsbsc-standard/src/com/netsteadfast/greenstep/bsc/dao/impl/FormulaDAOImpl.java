@@ -43,7 +43,7 @@ public class FormulaDAOImpl extends BaseDAO<BbFormula, String> implements IFormu
 	@Override
 	public List<FormulaVO> findForSimple() throws Exception {
 		return this.getCurrentSession()
-				.createQuery("SELECT new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type) FROM BbFormula m ORDER BY m.forId ASC")
+				.createQuery("SELECT new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.trendsFlag) FROM BbFormula m ORDER BY m.forId ASC")
 				.list();			
 	}
 	

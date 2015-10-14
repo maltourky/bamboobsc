@@ -40,6 +40,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.IdFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
@@ -82,6 +83,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 							"forId",
 							"name",
 							"type",
+							"trendsFlag",
 							"returnMode",
 							"expression"
 					}, 
@@ -89,12 +91,14 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG001D0003A_forId") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_name") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>",
+							"Please select trends flag!<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>"
 					}, 
 					new Class[]{
 							IdFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class
@@ -123,7 +127,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		this.testFormula();
 		FormulaVO formula = new FormulaVO();
 		this.transformFields2ValueObject(formula, 
-				new String[]{"forId", "name", "type", "returnMode", "returnVar", "expression", "description"});
+				new String[]{"forId", "name", "type", "trendsFlag", "returnMode", "returnVar", "expression", "description"});
 		DefaultResult<FormulaVO> result = this.formulaLogicService.create(formula);
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
@@ -136,7 +140,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		this.testFormula();
 		FormulaVO formula = new FormulaVO();
 		this.transformFields2ValueObject(formula, 
-				new String[]{"oid", "forId", "name", "type", "returnMode", "returnVar", "expression", "description"});
+				new String[]{"oid", "forId", "name", "type", "trendsFlag", "returnMode", "returnVar", "expression", "description"});
 		DefaultResult<FormulaVO> result = this.formulaLogicService.update(formula);
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
@@ -159,6 +163,10 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 			this.getFieldsId().add("type");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>");
 		}
+		if (this.isNoSelectId(this.getFields().get("trendsFlag"))) {
+			this.getFieldsId().add("trendsFlag");
+			throw new ControllerException("Please select trends flag!<BR/>");
+		}
 		if (this.isNoSelectId(this.getFields().get("returnMode")) ) {
 			this.getFieldsId().add("returnMode");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>");
@@ -174,14 +182,25 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		}
 		String actual = this.getFields().get("actual");
 		String target = this.getFields().get("target");
+		String cv = this.getFields().get("cv");
+		String pv = this.getFields().get("pv");
 		if (!NumberUtils.isNumber(actual)) {
 			actual = "60.0";
 		}
 		if (!NumberUtils.isNumber(target)) {
 			target = "100.0";
 		}		
+		if (!NumberUtils.isNumber(cv)) {
+			cv = "70.0";
+		}
+		if (!NumberUtils.isNumber(pv)) {
+			pv = "55.0";
+		}
 		FormulaVO formula = new FormulaVO();
-		this.transformFields2ValueObject(formula, new String[]{"type", "returnMode", "returnVar", "expression"});		
+		this.transformFields2ValueObject(formula, new String[]{"type", "trendsFlag", "returnMode", "returnVar", "expression"});		
+		if (YesNo.YES.equals(formula.getTrendsFlag())) {
+			return BscFormulaUtils.parseKPIPeroidScoreChangeValue(formula, Float.parseFloat(cv), Float.parseFloat(pv));
+		}
 		BscMeasureData data = new BscMeasureData();
 		data.setActual( Float.parseFloat(actual) );
 		data.setTarget( Float.parseFloat(target) );

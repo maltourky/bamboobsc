@@ -1115,6 +1115,7 @@ CREATE TABLE `bb_formula` (
   `FOR_ID` varchar(14) NOT NULL,
   `NAME` varchar(100) NOT NULL,
   `TYPE` varchar(10) NOT NULL,
+  `TRENDS_FLAG` varchar(1) NOT NULL DEFAULT 'N',
   `RETURN_MODE` varchar(1) NOT NULL DEFAULT 'D',
   `RETURN_VAR` varchar(50) NOT NULL,
   `EXPRESSION` varchar(8000) NOT NULL,
@@ -1125,7 +1126,8 @@ CREATE TABLE `bb_formula` (
   `UDATE` datetime DEFAULT NULL,
   PRIMARY KEY (`OID`),
   UNIQUE KEY `UK_1` (`FOR_ID`),
-  KEY `IDX_1` (`NAME`)
+  KEY `IDX_1` (`NAME`),
+  KEY `IDX_2` (`TRENDS_FLAG`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1135,7 +1137,7 @@ CREATE TABLE `bb_formula` (
 
 LOCK TABLES `bb_formula` WRITE;
 /*!40000 ALTER TABLE `bb_formula` DISABLE KEYS */;
-INSERT INTO `bb_formula` VALUES ('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 actual ÷ target','BSH','C','ans','if (actual == 0 ) {\n   ans = 0;\n   return;\n}\nif (target == 0) {\n   ans = actual;\n   return;\n}\nans = Math.max( actual ÷ target ,  0 ) × 100','for actual ÷ target !','admin','2014-11-19 11:39:03','admin','2014-11-20 11:46:17'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
+INSERT INTO `bb_formula` VALUES ('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','N','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 actual ÷ target','BSH','N','C','ans','if (actual == 0 ) {\n   ans = 0;\n   return;\n}\nif (target == 0) {\n   ans = actual;\n   return;\n}\nans = Math.max( actual ÷ target ,  0 ) × 100','for actual ÷ target !','admin','2014-11-19 11:39:03','admin','2014-11-20 11:46:17'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','N','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
 /*!40000 ALTER TABLE `bb_formula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3744,7 +3746,7 @@ CREATE TABLE `tb_sys_ws_config` (
 
 LOCK TABLES `tb_sys_ws_config` WRITE;
 /*!40000 ALTER TABLE `tb_sys_ws_config` DISABLE KEYS */;
-INSERT INTO `tb_sys_ws_config` VALUES ('17175451-80ed-4a9d-a490-6ae5857becb4','WS-CORE002','CORE','REST','core.webservice.HelloService','','example sample for REST!','admin','2014-10-22 19:55:03',NULL,NULL),('6d8ece45-b11a-45fb-9671-e2fbc84c3aa2','WS-CORE003','CORE','SOAP','core.webservice.SendMailService','/sendmail','send mail webService.','admin','2015-05-02 18:35:44','admin','2015-05-02 18:35:58'),('b4da1c48-4b6e-40cf-8232-aa23611b3cf7','WS-CORE001','CORE','SOAP','core.webservice.HelloService','/hello','example sample for SOAP!','admin','2014-10-22 19:54:31',NULL,NULL),('6af7d1d2-24f9-4231-86b2-4d57e6617f80','WS-BSC001','BSC','REST','bsc.service.logic.KpiLogicService','','for TEST!','admin','2015-10-07 10:15:25',NULL,NULL),('5f7589df-9dd8-45d5-a276-db24a5c6641c','WS-BSC002','BSC','SOAP','bsc.webservice.KpiWebService','/kpis','for TEST!','admin','2015-10-08 10:05:15',NULL,NULL);
+INSERT INTO `tb_sys_ws_config` VALUES ('17175451-80ed-4a9d-a490-6ae5857becb4','WS-CORE002','CORE','REST','core.webservice.HelloService','','example sample for REST!','admin','2014-10-22 19:55:03',NULL,NULL),('5f7589df-9dd8-45d5-a276-db24a5c6641c','WS-BSC002','BSC','SOAP','bsc.webservice.KpiWebService','/kpis','for TEST!','admin','2015-10-08 10:05:15',NULL,NULL),('6af7d1d2-24f9-4231-86b2-4d57e6617f80','WS-BSC001','BSC','REST','bsc.service.logic.KpiLogicService','','for TEST!','admin','2015-10-07 10:15:25',NULL,NULL),('6d8ece45-b11a-45fb-9671-e2fbc84c3aa2','WS-CORE003','CORE','SOAP','core.webservice.SendMailService','/sendmail','send mail webService.','admin','2015-05-02 18:35:44','admin','2015-05-02 18:35:58'),('b4da1c48-4b6e-40cf-8232-aa23611b3cf7','WS-CORE001','CORE','SOAP','core.webservice.HelloService','/hello','example sample for SOAP!','admin','2014-10-22 19:54:31',NULL,NULL);
 /*!40000 ALTER TABLE `tb_sys_ws_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3820,4 +3822,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-03 16:02:26
+-- Dump completed on 2015-10-14 20:33:34

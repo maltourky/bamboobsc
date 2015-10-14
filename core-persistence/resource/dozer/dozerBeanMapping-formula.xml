@@ -24,6 +24,10 @@
 			<b>type</b>
 		</field>
 		<field>
+			<a>trendsFlag</a>
+			<b>trendsFlag</b>
+		</field>		
+		<field>
 			<a>returnMode</a>
 			<b>returnMode</b>
 		</field>	
@@ -60,6 +64,10 @@
 			<a>type</a>
 			<b>type</b>
 		</field>
+		<field>
+			<a>trendsFlag</a>
+			<b>trendsFlag</b>
+		</field>		
 		<field>
 			<a>returnMode</a>
 			<b>returnMode</b>

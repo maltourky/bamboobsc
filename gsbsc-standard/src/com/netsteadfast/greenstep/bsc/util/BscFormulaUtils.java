@@ -26,7 +26,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureData;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureVariable;
 import com.netsteadfast.greenstep.bsc.model.FormulaMode;
@@ -35,6 +37,18 @@ import com.netsteadfast.greenstep.vo.FormulaVO;
 
 public class BscFormulaUtils {
 	private static final String DEFAULT_RETURN_MODE_VAR = "ans_" + System.currentTimeMillis();
+	public static final String TRENDS_CURRENT_PEROID_SCORE_VAR = "cv";
+	public static final String TRENDS_PREVIOUS_PEROID_SCORE_VAR = "pv";
+	
+	public static Map<String, String> getTrendsFlagMap(boolean select) {
+		Map<String, String> dataMap = new HashMap<String, String>();
+		if (select) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		dataMap.put(YesNo.YES, YesNo.YES);
+		dataMap.put(YesNo.NO, YesNo.NO);
+		return dataMap;
+	}
 	
 	public static Map<String, Object> getParameter(BscMeasureData data) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
@@ -76,6 +90,26 @@ public class BscFormulaUtils {
 		} else {
 			resultObj = results.get(DEFAULT_RETURN_MODE_VAR);
 		}
+		return resultObj;
+	}
+	
+	public static Object parseKPIPeroidScoreChangeValue(FormulaVO formula, float currentPeroidScore, 
+			float previousPeroidScore) throws Exception {
+		if (formula == null || StringUtils.isBlank(formula.getType()) || StringUtils.isBlank(formula.getTrendsFlag()) 
+				|| StringUtils.isBlank(formula.getExpression()) ) {
+			throw new java.lang.IllegalArgumentException("formula data cannot blank!");
+		}
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put(TRENDS_CURRENT_PEROID_SCORE_VAR, currentPeroidScore);
+		parameter.put(TRENDS_PREVIOUS_PEROID_SCORE_VAR, previousPeroidScore);
+		Object resultObj = null;
+		Map<String, Object> results = parse(formula.getType(), formula.getReturnMode(), formula.getReturnVar(), 
+				formula.getExpression(), parameter );
+		if (FormulaMode.MODE_CUSTOM.equals(formula.getReturnMode())) {
+			resultObj = results.get(formula.getReturnVar());
+		} else {
+			resultObj = results.get(DEFAULT_RETURN_MODE_VAR);
+		}		
 		return resultObj;
 	}
 	

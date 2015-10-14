@@ -109,7 +109,7 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
 			hqlSb.append("  count(*) ");
 		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.returnMode, m.returnVar, m.expression, m.description) ");
+			hqlSb.append("	new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.trendsFlag, m.returnMode, m.returnVar, m.expression, m.description) ");
 		}
 		hqlSb.append("FROM BbFormula m WHERE 1=1 ");		
 		if (params.get("forId")!=null) {

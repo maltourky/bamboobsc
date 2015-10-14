@@ -29,6 +29,7 @@ public class FormulaVO extends BaseValueObj implements java.io.Serializable {
 	private String forId;
 	private String name;
 	private String type;
+	private String trendsFlag;
 	private String returnMode;
 	private String returnVar;
 	private String expression;
@@ -38,23 +39,25 @@ public class FormulaVO extends BaseValueObj implements java.io.Serializable {
 		
 	}
 	
-	public FormulaVO(String oid, String forId, String name, String type,
+	public FormulaVO(String oid, String forId, String name, String type, String trendsFlag,
 			String returnMode, String returnVar, String expression, String description) {
 		this.oid = oid;
 		this.forId = forId;
 		this.name = name;
 		this.type = type;
+		this.trendsFlag = trendsFlag;
 		this.returnMode = returnMode;
 		this.returnVar = returnVar;
 		this.expression = expression;
 		this.description = description;
 	}	
 	
-	public FormulaVO(String oid, String forId, String name, String type) {
+	public FormulaVO(String oid, String forId, String name, String type, String trendsFlag) {
 		this.oid = oid;
 		this.forId = forId;
 		this.name = name;
 		this.type = type;
+		this.trendsFlag = trendsFlag;
 	}
 	
 	@Override
@@ -88,6 +91,14 @@ public class FormulaVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTrendsFlag() {
+		return trendsFlag;
+	}
+
+	public void setTrendsFlag(String trendsFlag) {
+		this.trendsFlag = trendsFlag;
 	}
 
 	public String getReturnMode() {

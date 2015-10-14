@@ -32,6 +32,7 @@ var BSC_PROG001D0003E_fieldsId = new Object();
 BSC_PROG001D0003E_fieldsId['forId'] 		= 'BSC_PROG001D0003E_forId';
 BSC_PROG001D0003E_fieldsId['name'] 			= 'BSC_PROG001D0003E_name';
 BSC_PROG001D0003E_fieldsId['type'] 			= 'BSC_PROG001D0003E_type';
+BSC_PROG001D0003E_fieldsId['trendsFlag'] 	= 'BSC_PROG001D0003E_trendsFlag';
 BSC_PROG001D0003E_fieldsId['returnMode'] 	= 'BSC_PROG001D0003E_returnMode';
 BSC_PROG001D0003E_fieldsId['returnVar'] 	= 'BSC_PROG001D0003E_returnVar';
 BSC_PROG001D0003E_fieldsId['expression'] 	= 'BSC_PROG001D0003E_expression';
@@ -51,6 +52,7 @@ function BSC_PROG001D0003E_clear() {
 	//dijit.byId('BSC_PROG001D0003E_forId').set("value", "");
 	dijit.byId('BSC_PROG001D0003E_name').set("value", "");
 	dijit.byId('BSC_PROG001D0003E_type').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG001D0003E_trendsFlag').set("value", _gscore_please_select_id);
 	dijit.byId('BSC_PROG001D0003E_returnMode').set("value", _gscore_please_select_id);
 	dijit.byId('BSC_PROG001D0003E_returnVar').set("value", "");		
 	dijit.byId('BSC_PROG001D0003E_expression').set("value", "");
@@ -99,7 +101,7 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" height="600px" cellpadding="1" cellspacing="0" >	
+	<table border="0" width="100%" height="700px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_forId')"/></b> <s:property value="getText('BSC_PROG001D0003E_readOnly')"/>:
@@ -129,7 +131,17 @@ function ${programId}_page_message() {
 		    		Select langauge type. ( recommend groovy )
 				</div>     			
     		</td>
-    	</tr>		    	
+    	</tr>
+		<tr>
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><b>Trends</b>:
+    			<br/>
+    			<gs:select name="BSC_PROG001D0003E_trendsFlag" dataSource="trendsFlagMap" id="BSC_PROG001D0003E_trendsFlag" value="formula.trendsFlag"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_trendsFlag'">
+		    		Y is for KPI Trends, N is for KPI.
+				</div>       			
+    		</td>
+    	</tr>    			    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_returnMode')"/></b>:
@@ -161,7 +173,13 @@ function ${programId}_page_message() {
 		    		&nbsp;&nbsp;( actual / target ) × 100 + 1<BR/>
 		    		<BR/>
 		    		&nbsp;&nbsp;Actual(actual) : the variable is measured data actual field.<BR/>
-		    		&nbsp;&nbsp;Target(target) : the variable is measured data target field.
+		    		&nbsp;&nbsp;Target(target) : the variable is measured data target field.<BR/>
+		    		<BR/>
+		    		Input expression for KPI Current peroid score V.S KPI Previous peroid score change.<BR/>
+		    		Example:<BR/>
+		    		( cv / pv - 1 ) × 100<BR/>
+		    		&nbsp;&nbsp;KPI Current peroid score(cv)<BR/>
+		    		&nbsp;&nbsp;KPI Previous peroid score(pv)<BR/> 		    		
 				</div> 
 						    	
 			  		<table border="0" cellpadding="0" cellspacing="0" >
@@ -188,8 +206,8 @@ function ${programId}_page_message() {
 		  							<div data-dojo-type="dijit/TooltipDialog">
 		  								<table border="0" cellpadding="0" cellspacing="0" >
 		  									<tr>
-		  										<td width="20%" align="right"><label for="name"><s:property value="getText('BSC_PROG001D0003E_actual')"/>:</label></td>
-		  										<td width="80%" align="left">
+		  										<td width="70%" align="right"><label for="name"><s:property value="getText('BSC_PROG001D0003E_actual')"/>:</label></td>
+		  										<td width="30%" align="left">
 													<input id="BSC_PROG001D0003E_actual" type="text"
 													    data-dojo-type="dijit/form/NumberTextBox"
 													    name= "elevation"
@@ -200,8 +218,8 @@ function ${programId}_page_message() {
 		  										</td>
 		  									</tr>
 		  									<tr>
-		  										<td width="20%" align="right"><label for="hobby"><s:property value="getText('BSC_PROG001D0003E_target')"/>:</label></td>
-		  										<td width="80%" align="left">
+		  										<td width="70%" align="right"><label for="hobby"><s:property value="getText('BSC_PROG001D0003E_target')"/>:</label></td>
+		  										<td width="30%" align="left">
 													<input id="BSC_PROG001D0003E_target" type="text"
 													    data-dojo-type="dijit/form/NumberTextBox"
 													    name= "elevation"
@@ -210,13 +228,61 @@ function ${programId}_page_message() {
 													    data-dojo-props="constraints:{min:-9999,max:9999,places:0},
 													    invalidMessage:'Invalid elevation.'" />			  										
 		  										</td>
-		  									</tr>											  									
+		  									</tr>
+		  									
+		  									
+		  									<tr>
+		  										<td width="70%" align="right"><label>KPI Current Peroid Score:</label></td>
+		  										<td width="30%" align="left">
+													<input id="BSC_PROG001D0003E_cv" type="text"
+													    data-dojo-type="dijit/form/NumberTextBox"
+													    name= "elevation"
+													    required="true"
+													    value="70"
+													    data-dojo-props="constraints:{min:-9999,max:9999,places:0},
+													    invalidMessage:'Invalid elevation.'" />			  										
+		  										</td>
+		  									</tr>	
+		  									<tr>
+		  										<td width="70%" align="right"><label>KPI Previous Peroid Score:</label></td>
+		  										<td width="30%" align="left">
+													<input id="BSC_PROG001D0003E_pv" type="text"
+													    data-dojo-type="dijit/form/NumberTextBox"
+													    name= "elevation"
+													    required="true"
+													    value="55"
+													    data-dojo-props="constraints:{min:-9999,max:9999,places:0},
+													    invalidMessage:'Invalid elevation.'" />			  										
+		  										</td>
+		  									</tr>	
+		  											  									
+		  																				  									
 		  								</table>
 		  							</div>
 								</div>									
 																													  				
 			  				</td>
 			  			</tr>
+			  			<tr>
+			  				<td colspan="6">			  			
+								<button id="BSC_PROG001D0003E_btnCalCurrentPeroidScore" data-dojo-type="dijit.form.Button"
+									data-dojo-props="
+										iconClass:'',
+										showLabel:true,
+										onClick:function(){ 
+											BSC_PROG001D0003E_putValue('BSC_PROG001D0003E_expression', 'cv');
+										}
+									">KPI Current peroid score(cv)</button>
+								<button id="BSC_PROG001D0003E_btnCalPreviousPeroidScore" data-dojo-type="dijit.form.Button"
+									data-dojo-props="
+										iconClass:'',
+										showLabel:true,
+										onClick:function(){ 
+											BSC_PROG001D0003E_putValue('BSC_PROG001D0003E_expression', 'pv');
+										}
+									">KPI Previous peroid score(pv)</button>												  				
+			  				</td>
+			  			</tr>			  			
 			  			<tr>
 			  				<td width="17%">
 								<button id="BSC_PROG001D0003E_btnCal7" data-dojo-type="dijit.form.Button"
@@ -267,11 +333,14 @@ function ${programId}_page_message() {
 				    				xhrParameter=" 
 				    					{  
 				    						'fields.type'			: dijit.byId('BSC_PROG001D0003E_type').get('value'),
+				    						'fields.trendsFlag'		: dijit.byId('BSC_PROG001D0003E_trendsFlag').get('value'),
 				    						'fields.returnMode'		: dijit.byId('BSC_PROG001D0003E_returnMode').get('value'),
 				    						'fields.returnVar'		: dijit.byId('BSC_PROG001D0003E_returnVar').get('value'),    						 
 				    						'fields.expression'		: dijit.byId('BSC_PROG001D0003E_expression').get('value'),
 				    						'fields.actual'			: dijit.byId('BSC_PROG001D0003E_actual').get('value'),
-				    						'fields.target'			: dijit.byId('BSC_PROG001D0003E_target').get('value')
+				    						'fields.target'			: dijit.byId('BSC_PROG001D0003E_target').get('value'),
+				    						'fields.cv'				: dijit.byId('BSC_PROG001D0003E_cv').get('value'),
+				    						'fields.pv'				: dijit.byId('BSC_PROG001D0003E_pv').get('value')				    						
 				    					} 
 				    				"
 				    				errorFn=""

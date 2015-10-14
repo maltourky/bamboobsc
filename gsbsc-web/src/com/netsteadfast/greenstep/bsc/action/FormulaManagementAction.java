@@ -40,6 +40,7 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
 import com.netsteadfast.greenstep.bsc.model.FormulaMode;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
+import com.netsteadfast.greenstep.bsc.util.BscFormulaUtils;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.FormulaVO;
@@ -52,6 +53,7 @@ public class FormulaManagementAction extends BaseSupportAction implements IBaseA
 	private IFormulaService<FormulaVO, BbFormula, String> formulaService; 
 	private Map<String, String> typeMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> modeMap = this.providedSelectZeroDataMap(true);
+	private Map<String, String> trendsFlagMap = this.providedSelectZeroDataMap(true);
 	private FormulaVO formula = new FormulaVO();
 	
 	public FormulaManagementAction() {
@@ -73,6 +75,7 @@ public class FormulaManagementAction extends BaseSupportAction implements IBaseA
 	private void initData() throws ServiceException, Exception {
 		this.typeMap = ScriptTypeCode.getTypeMap(true);
 		this.modeMap = FormulaMode.getReturnModeMap(true);
+		this.trendsFlagMap = BscFormulaUtils.getTrendsFlagMap(true);
 	}
 	
 	private void loadFormulaData() throws ServiceException, Exception {
@@ -164,6 +167,10 @@ public class FormulaManagementAction extends BaseSupportAction implements IBaseA
 
 	public Map<String, String> getModeMap() {
 		return modeMap;
+	}
+
+	public Map<String, String> getTrendsFlagMap() {
+		return trendsFlagMap;
 	}
 
 	public FormulaVO getFormula() {
