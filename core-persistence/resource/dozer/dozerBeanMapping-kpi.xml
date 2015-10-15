@@ -34,7 +34,15 @@
 		<field>
 			<a>unit</a>
 			<b>unit</b>
+		</field>		
+		<field>
+			<a>forId</a>
+			<b>forId</b>
 		</field>
+		<field>
+			<a>trendsForId</a>
+			<b>trendsForId</b>
+		</field>				
 		<field>
 			<a>max</a>
 			<b>max</b>
@@ -108,6 +116,14 @@
 			<a>unit</a>
 			<b>unit</b>
 		</field>	
+		<field>
+			<a>forId</a>
+			<b>forId</b>
+		</field>
+		<field>
+			<a>trendsForId</a>
+			<b>trendsForId</b>
+		</field>		
 		<field>
 			<a>max</a>
 			<b>max</b>

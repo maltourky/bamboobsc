@@ -197,24 +197,28 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		this.measureDataService = measureDataService;
 	}
 	
-	private void handlerDataForCreateOrUpdate(KpiVO kpi, 
-			String objectiveOid, String formulaOid, String aggrOid) throws ServiceException, Exception {
-		ObjectiveVO objective = new ObjectiveVO();
-		objective.setOid(objectiveOid);
-		DefaultResult<ObjectiveVO> objResult = this.objectiveService.findObjectByOid(objective);
-		if (objResult.getValue()==null) {
-			throw new ServiceException( objResult.getSystemMessage().getValue() );
-		}
-		objective = objResult.getValue();
+	private FormulaVO fetchFormulaByOid(String formulaOid) throws ServiceException, Exception {
 		FormulaVO formula = new FormulaVO();
 		formula.setOid(formulaOid);
 		DefaultResult<FormulaVO> forResult = this.formulaService.findObjectByOid(formula);
 		if (forResult.getValue()==null) {
 			throw new ServiceException( forResult.getSystemMessage().getValue() );
 		}
-		formula = forResult.getValue();
+		return forResult.getValue();		
+	}
+	
+	private void handlerDataForCreateOrUpdate(KpiVO kpi, 
+			String objectiveOid, String formulaOid, String aggrOid, String trendsFormulaOid) throws ServiceException, Exception {
+		ObjectiveVO objective = new ObjectiveVO();
+		objective.setOid(objectiveOid);
+		DefaultResult<ObjectiveVO> objResult = this.objectiveService.findObjectByOid(objective);
+		if (objResult.getValue()==null) {
+			throw new ServiceException( objResult.getSystemMessage().getValue() );
+		}
+		objective = objResult.getValue();			
 		kpi.setObjId( objective.getObjId() );
-		kpi.setForId( formula.getForId() );
+		kpi.setForId( this.fetchFormulaByOid(formulaOid).getForId() );
+		kpi.setTrendsForId( this.fetchFormulaByOid(trendsFormulaOid).getForId() );
 		kpi.setCal( AggregationMethodUtils.findSimpleByOid(aggrOid).getAggrId() );
 	}
 
@@ -225,12 +229,13 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
 	@Override
 	public DefaultResult<KpiVO> create(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids) throws ServiceException, Exception {
-		if (null == kpi || super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) || super.isNoSelectId(aggrOid)) {
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception {
+		if (null == kpi || super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) 
+				|| super.isNoSelectId(aggrOid) || super.isNoSelectId(trendsFormulaOid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		this.setStringValueMaxLength(kpi, "description", MAX_DESCRIPTION_LENGTH);
-		this.handlerDataForCreateOrUpdate(kpi, objectiveOid, formulaOid, aggrOid);
+		this.handlerDataForCreateOrUpdate(kpi, objectiveOid, formulaOid, aggrOid, trendsFormulaOid);
 		DefaultResult<KpiVO> result = this.kpiService.saveObject(kpi);
 		if (result.getValue()==null) {
 			throw new ServiceException( result.getSystemMessage().getValue() );
@@ -247,9 +252,9 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
 	@Override
 	public DefaultResult<KpiVO> update(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids) throws ServiceException, Exception {
-		if (null == kpi || super.isBlank(kpi.getOid()) 
-				|| super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) || super.isNoSelectId(aggrOid)) {
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception {
+		if (null == kpi || super.isBlank(kpi.getOid()) || super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) 
+				|| super.isNoSelectId(aggrOid) || super.isNoSelectId(trendsFormulaOid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}		
 		DefaultResult<KpiVO> oldResult = this.kpiService.findObjectByOid(kpi);
@@ -257,7 +262,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			throw new ServiceException(oldResult.getSystemMessage().getValue());
 		}
 		this.setStringValueMaxLength(kpi, "description", MAX_DESCRIPTION_LENGTH);
-		this.handlerDataForCreateOrUpdate(kpi, objectiveOid, formulaOid, aggrOid);
+		this.handlerDataForCreateOrUpdate(kpi, objectiveOid, formulaOid, aggrOid, trendsFormulaOid);
 		kpi.setId( oldResult.getValue().getId() );		
 		DefaultResult<KpiVO> result = this.kpiService.updateObject(kpi);
 		if (result.getValue()==null) {

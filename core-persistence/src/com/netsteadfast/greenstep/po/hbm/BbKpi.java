@@ -30,6 +30,7 @@ public class BbKpi extends BaseEntity<String> implements java.io.Serializable {
 	private BigDecimal weight;
 	private String unit;
 	private String forId;
+	private String trendsForId;
 	private float max;
 	private float target;
 	private float min;
@@ -119,6 +120,15 @@ public class BbKpi extends BaseEntity<String> implements java.io.Serializable {
 	
 	public void setForId(String forId) {
 		this.forId = forId;
+	}
+	
+	@Column(name="TRENDS_FOR_ID")
+	public String getTrendsForId() {
+		return trendsForId;
+	}
+	
+	public void setTrendsForId(String trendsForId) {
+		this.trendsForId = trendsForId;
 	}
 	
 	@Column(name="MAX")

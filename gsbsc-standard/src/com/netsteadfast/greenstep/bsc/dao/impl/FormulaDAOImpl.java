@@ -41,9 +41,10 @@ public class FormulaDAOImpl extends BaseDAO<BbFormula, String> implements IFormu
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<FormulaVO> findForSimple() throws Exception {
+	public List<FormulaVO> findForSimple(String trendsFlag) throws Exception {
 		return this.getCurrentSession()
-				.createQuery("SELECT new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.trendsFlag) FROM BbFormula m ORDER BY m.forId ASC")
+				.createQuery("SELECT new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.trendsFlag) FROM BbFormula m WHERE trendsFlag = :trendsFlag ORDER BY m.forId ASC")
+				.setString("trendsFlag", trendsFlag)
 				.list();			
 	}
 	

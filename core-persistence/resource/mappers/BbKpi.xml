@@ -12,6 +12,7 @@
 		<result column="DESCRIPTION" property="description"/>
 		<result column="WEIGHT" property="weight"/>
 		<result column="FOR_ID" property="forId"/>		
+		<result column="TRENDS_FOR_ID" property="trendsForId"/>				
 		<result column="UNIT" property="unit"/>
 		<result column="MAX" property="max"/>
 		<result column="TARGET" property="target"/>

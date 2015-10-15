@@ -30,10 +30,10 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 public interface IKpiLogicService {
 	
 	public DefaultResult<KpiVO> create(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids) throws ServiceException, Exception;
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception;
 	
 	public DefaultResult<KpiVO> update(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids) throws ServiceException, Exception;
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception;
 	
 	public DefaultResult<Boolean> delete(KpiVO kpi) throws ServiceException, Exception;
 	

@@ -46,6 +46,7 @@ import com.netsteadfast.greenstep.base.model.PageOf;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.bsc.dao.IFormulaDAO;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
@@ -144,9 +145,9 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 	}
 
 	@Override
-	public DefaultResult<List<FormulaVO>> findForSimple() throws ServiceException, Exception {
+	public DefaultResult<List<FormulaVO>> findForSimple(boolean trendsFlag) throws ServiceException, Exception {
 		DefaultResult<List<FormulaVO>> result = new DefaultResult<List<FormulaVO>>();
-		List<FormulaVO> searchList = this.formulaDAO.findForSimple();
+		List<FormulaVO> searchList = this.formulaDAO.findForSimple( (trendsFlag ? YesNo.YES : YesNo.NO) );
 		if (searchList!=null && searchList.size() > 0) {
 			result.setValue(searchList);
 		} else {
@@ -156,9 +157,9 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 	}
 
 	@Override
-	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception {
+	public Map<String, String> findForMap(boolean pleaseSelect, boolean trendsFlag) throws ServiceException, Exception {
 		Map<String, String> dataMap = this.providedSelectZeroDataMap(pleaseSelect);
-		List<FormulaVO> searchList = this.formulaDAO.findForSimple();
+		List<FormulaVO> searchList = this.formulaDAO.findForSimple( (trendsFlag ? YesNo.YES : YesNo.NO) );
 		for (int i=0; searchList!=null && i < searchList.size(); i++) {
 			FormulaVO formula = searchList.get(i);
 			dataMap.put(formula.getOid(), formula.getName());

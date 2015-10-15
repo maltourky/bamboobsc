@@ -35,6 +35,7 @@ BSC_PROG002D0004E_fieldsId['objectiveOid'] 		= 'BSC_PROG002D0004E_objectiveOid';
 BSC_PROG002D0004E_fieldsId['id'] 				= 'BSC_PROG002D0004E_id';
 BSC_PROG002D0004E_fieldsId['name'] 				= 'BSC_PROG002D0004E_name';
 BSC_PROG002D0004E_fieldsId['formulaOid'] 		= 'BSC_PROG002D0004E_formulaOid';
+BSC_PROG002D0004E_fieldsId['trendsFormulaOid'] 	= 'BSC_PROG002D0004E_trendsFormulaOid';
 BSC_PROG002D0004E_fieldsId['weight'] 			= 'BSC_PROG002D0004E_weight';
 BSC_PROG002D0004E_fieldsId['max'] 				= 'BSC_PROG002D0004E_max';
 BSC_PROG002D0004E_fieldsId['target'] 			= 'BSC_PROG002D0004E_target';
@@ -62,6 +63,7 @@ function BSC_PROG002D0004E_clear() {
 	//dijit.byId('BSC_PROG002D0004E_id').set("value", "");		
 	dijit.byId('BSC_PROG002D0004E_name').set("value", "");		
 	dijit.byId('BSC_PROG002D0004E_formulaOid').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG002D0004E_trendsFormulaOid').set("value", _gscore_please_select_id);
 	dijit.byId('BSC_PROG002D0004E_weight').set("value", "+000.00");
 	dijit.byId('BSC_PROG002D0004E_max').set("value", "+000.00");
 	dijit.byId('BSC_PROG002D0004E_target').set("value", "+000.00");
@@ -350,7 +352,7 @@ function ${programId}_page_message() {
     		</td>	    		    		
     	</tr>		    	
 		<tr>
-    		<td height="50px" width="100%"  align="left" colspan="2">
+    		<td height="50px" width="50%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_dataType')"/></b>:
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_dataType" dataSource="dataTypeMap" id="BSC_PROG002D0004E_dataType" value="kpi.dataType"></gs:select>
@@ -365,6 +367,14 @@ function ${programId}_page_message() {
     				&nbsp;&nbsp;KPI item measure data for 'All' and 'Department/Organization' and 'Personal/Employee'.<BR/>
 				</div>     			
     		</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font color='RED'>*</font><b>Trends formula</b>:
+    			<br/>
+    			<gs:select name="BSC_PROG002D0004E_trendsFormulaOid" dataSource="trendsFormulaMap" id="BSC_PROG002D0004E_trendsFormulaOid" value="fields.trendsFormulaOid"></gs:select>
+    			<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_trendsFormulaOid'">
+    				Select KPI Trends formula.
+    			</div>
+    		</td>     		
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
@@ -460,6 +470,7 @@ function ${programId}_page_message() {
     						'fields.id'					: dijit.byId('BSC_PROG002D0004E_id').get('value'),
     						'fields.name'				: dijit.byId('BSC_PROG002D0004E_name').get('value'),   						
     						'fields.formulaOid'			: dijit.byId('BSC_PROG002D0004E_formulaOid').get('value'),
+    						'fields.trendsFormulaOid'	: dijit.byId('BSC_PROG002D0004E_trendsFormulaOid').get('value'),
     						'fields.weight'				: dijit.byId('BSC_PROG002D0004E_weight').get('value'),
     						'fields.max'				: dijit.byId('BSC_PROG002D0004E_max').get('value'),
     						'fields.target'				: dijit.byId('BSC_PROG002D0004E_target').get('value'),    						 

@@ -559,6 +559,7 @@ function ${programId}_page_message() {
     						'fields.forId'			: dijit.byId('BSC_PROG001D0003A_forId').get('value'),
     						'fields.name'			: dijit.byId('BSC_PROG001D0003A_name').get('value'),  
     						'fields.type'			: dijit.byId('BSC_PROG001D0003A_type').get('value'),
+    						'fields.trendsFlag'		: dijit.byId('BSC_PROG001D0003A_trendsFlag').get('value'),
     						'fields.returnMode'		: dijit.byId('BSC_PROG001D0003A_returnMode').get('value'),
     						'fields.returnVar'		: dijit.byId('BSC_PROG001D0003A_returnVar').get('value'),    						 
     						'fields.expression'		: dijit.byId('BSC_PROG001D0003A_expression').get('value'),

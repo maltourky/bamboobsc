@@ -41,12 +41,10 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.model.BscKpiCode;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
-import com.netsteadfast.greenstep.bsc.service.IFormulaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
-import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
@@ -71,7 +69,7 @@ public class MeasureDataCalendarUtils {
 		{ BscMeasureDataFrequency.FREQUENCY_YEAR,			"META-INF/resource/measure-data-calendar-year.ftl"		}
 	};
 	private static IKpiService<KpiVO, BbKpi, String> kpiService;
-	private static IFormulaService<FormulaVO, BbFormula, String> formulaService;
+	// private static IFormulaService<FormulaVO, BbFormula, String> formulaService;
 	private static IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	private static IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private static IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
@@ -79,7 +77,7 @@ public class MeasureDataCalendarUtils {
 	
 	static {
 		kpiService = (IKpiService<KpiVO, BbKpi, String>)AppContext.getBean("bsc.service.KpiService");
-		formulaService = (IFormulaService<FormulaVO, BbFormula, String>)AppContext.getBean("bsc.service.FormulaService");
+		// formulaService = (IFormulaService<FormulaVO, BbFormula, String>)AppContext.getBean("bsc.service.FormulaService");
 		measureDataService = (IMeasureDataService<MeasureDataVO, BbMeasureData, String>)
 				AppContext.getBean("bsc.service.MeasureDataService");
 		organizationService = (IOrganizationService<OrganizationVO, BbOrganization, String>)
@@ -110,6 +108,7 @@ public class MeasureDataCalendarUtils {
 		return kpi;
 	}
 	
+	/*
 	private static FormulaVO findFormula(String forId) throws ServiceException, Exception {
 		FormulaVO formula = new FormulaVO();
 		formula.setForId(forId);
@@ -120,6 +119,7 @@ public class MeasureDataCalendarUtils {
 		formula = result.getValue();
 		return formula;
 	}
+	*/
 	
 	private static EmployeeVO findEmployee(String empOid) throws ServiceException, Exception {
 		EmployeeVO employee = new EmployeeVO();
@@ -317,7 +317,8 @@ public class MeasureDataCalendarUtils {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		KpiVO kpi = findKpi(kpiOid);
-		FormulaVO formula = findFormula(kpi.getForId());			
+		//FormulaVO formula = findFormula(kpi.getForId());
+		FormulaVO formula = BscFormulaUtils.getFormulaById(kpi.getForId());
 		Map<String, Object> parameter = getParameter(
 				kpi, formula, date, frequency, dataFor, orgaOid, emplOid);
 		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) ) {

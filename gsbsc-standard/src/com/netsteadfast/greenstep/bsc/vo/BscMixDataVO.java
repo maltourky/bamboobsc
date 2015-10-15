@@ -71,10 +71,17 @@ public class BscMixDataVO implements java.io.Serializable {
 	private String aggrType;
 	private String aggrExpression1;
 	private String aggrExpression2;
+	private String trendsForOid;
+	private String trendsForId;
+	private String trendsForName;
+	private String trendsForType;
+	private String trendsForReturnMode;
+	private String trendsForReturnVar;
+	private String trendsForExpression;	
 	
 	public BscMixDataVO() {
 		
-	}
+	}		
 
 	public BscMixDataVO(String kpiOid, String kpiId, String kpiName,
 			String kpiDescription, BigDecimal kpiWeight, String kpiUnit,
@@ -89,7 +96,10 @@ public class BscMixDataVO implements java.io.Serializable {
 			String forOid, String forId, String forName, String forType,
 			String forReturnMode, String forReturnVar, String forExpression,
 			String aggrOid, String aggrId, String aggrName, String aggrType,
-			String aggrExpression1, String aggrExpression2) {
+			String aggrExpression1, String aggrExpression2,
+			String trendsForOid, String trendsForId, String trendsForName,
+			String trendsForType, String trendsForReturnMode,
+			String trendsForReturnVar, String trendsForExpression) {
 		super();
 		this.kpiOid = kpiOid;
 		this.kpiId = kpiId;
@@ -137,8 +147,15 @@ public class BscMixDataVO implements java.io.Serializable {
 		this.aggrType = aggrType;
 		this.aggrExpression1 = aggrExpression1;
 		this.aggrExpression2 = aggrExpression2;
+		this.trendsForOid = trendsForOid;
+		this.trendsForId = trendsForId;
+		this.trendsForName = trendsForName;
+		this.trendsForType = trendsForType;
+		this.trendsForReturnMode = trendsForReturnMode;
+		this.trendsForReturnVar = trendsForReturnVar;
+		this.trendsForExpression = trendsForExpression;
 	}
-
+	
 	public String getKpiOid() {
 		return kpiOid;
 	}
@@ -505,6 +522,62 @@ public class BscMixDataVO implements java.io.Serializable {
 
 	public void setAggrExpression2(String aggrExpression2) {
 		this.aggrExpression2 = aggrExpression2;
+	}
+
+	public String getTrendsForOid() {
+		return trendsForOid;
+	}
+
+	public void setTrendsForOid(String trendsForOid) {
+		this.trendsForOid = trendsForOid;
+	}
+
+	public String getTrendsForId() {
+		return trendsForId;
+	}
+
+	public void setTrendsForId(String trendsForId) {
+		this.trendsForId = trendsForId;
+	}
+
+	public String getTrendsForName() {
+		return trendsForName;
+	}
+
+	public void setTrendsForName(String trendsForName) {
+		this.trendsForName = trendsForName;
+	}
+
+	public String getTrendsForType() {
+		return trendsForType;
+	}
+
+	public void setTrendsForType(String trendsForType) {
+		this.trendsForType = trendsForType;
+	}
+
+	public String getTrendsForReturnMode() {
+		return trendsForReturnMode;
+	}
+
+	public void setTrendsForReturnMode(String trendsForReturnMode) {
+		this.trendsForReturnMode = trendsForReturnMode;
+	}
+
+	public String getTrendsForReturnVar() {
+		return trendsForReturnVar;
+	}
+
+	public void setTrendsForReturnVar(String trendsForReturnVar) {
+		this.trendsForReturnVar = trendsForReturnVar;
+	}
+
+	public String getTrendsForExpression() {
+		return trendsForExpression;
+	}
+
+	public void setTrendsForExpression(String trendsForExpression) {
+		this.trendsForExpression = trendsForExpression;
 	}
 	
 }

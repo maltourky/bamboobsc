@@ -35,6 +35,7 @@ BSC_PROG002D0004A_fieldsId['objectiveOid'] 		= 'BSC_PROG002D0004A_objectiveOid';
 BSC_PROG002D0004A_fieldsId['id'] 				= 'BSC_PROG002D0004A_id';
 BSC_PROG002D0004A_fieldsId['name'] 				= 'BSC_PROG002D0004A_name';
 BSC_PROG002D0004A_fieldsId['formulaOid'] 		= 'BSC_PROG002D0004A_formulaOid';
+BSC_PROG002D0004A_fieldsId['trendsFormulaOid'] 	= 'BSC_PROG002D0004A_trendsFormulaOid';
 BSC_PROG002D0004A_fieldsId['weight'] 			= 'BSC_PROG002D0004A_weight';
 BSC_PROG002D0004A_fieldsId['max'] 				= 'BSC_PROG002D0004A_max';
 BSC_PROG002D0004A_fieldsId['target'] 			= 'BSC_PROG002D0004A_target';
@@ -62,7 +63,8 @@ function BSC_PROG002D0004A_clear() {
 	//dijit.byId('BSC_PROG002D0004A_perspectiveOid').set("value", _gscore_please_select_id); // vision下拉會觸發perspective下拉更新項目
 	dijit.byId('BSC_PROG002D0004A_id').set("value", "");		
 	dijit.byId('BSC_PROG002D0004A_name').set("value", "");		
-	dijit.byId('BSC_PROG002D0004A_formulaOid').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG002D0004A_formulaOid').set("value", _gscore_please_select_id);	
+	dijit.byId('BSC_PROG002D0004A_trendsFormulaOid').set("value", _gscore_please_select_id);	
 	dijit.byId('BSC_PROG002D0004A_weight').set("value", "+000.00");
 	dijit.byId('BSC_PROG002D0004A_max').set("value", "+000.00");
 	dijit.byId('BSC_PROG002D0004A_target').set("value", "+000.00");
@@ -351,7 +353,7 @@ function ${programId}_page_message() {
     		</td>       		 		
     	</tr>      	    	
 		<tr>
-    		<td height="50px" width="100%"  align="left" colspan="2">
+    		<td height="50px" width="50%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004A_dataType')"/></b>:
     			<br/>
     			<gs:select name="BSC_PROG002D0004A_dataType" dataSource="dataTypeMap" id="BSC_PROG002D0004A_dataType"></gs:select>
@@ -365,7 +367,15 @@ function ${programId}_page_message() {
     				&nbsp;Both:<BR/>
     				&nbsp;&nbsp;KPI item measure data for 'All' and 'Department/Organization' and 'Personal/Employee'.<BR/>
 				</div>     			
-    		</td>    		
+    		</td>  
+    		<td height="50px" width="50%"  align="left">
+    			<font color='RED'>*</font><b>Trends formula</b>:
+    			<br/>
+    			<gs:select name="BSC_PROG002D0004A_trendsFormulaOid" dataSource="trendsFormulaMap" id="BSC_PROG002D0004A_trendsFormulaOid"></gs:select>
+    			<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_trendsFormulaOid'">
+    				Select KPI Trends formula.
+    			</div>
+    		</td>  		
     	</tr>    	    	    	    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
@@ -460,6 +470,7 @@ function ${programId}_page_message() {
     						'fields.id'					: dijit.byId('BSC_PROG002D0004A_id').get('value'),
     						'fields.name'				: dijit.byId('BSC_PROG002D0004A_name').get('value'),   						
     						'fields.formulaOid'			: dijit.byId('BSC_PROG002D0004A_formulaOid').get('value'),
+    						'fields.trendsFormulaOid'	: dijit.byId('BSC_PROG002D0004A_trendsFormulaOid').get('value'),
     						'fields.weight'				: dijit.byId('BSC_PROG002D0004A_weight').get('value'),
     						'fields.max'				: dijit.byId('BSC_PROG002D0004A_max').get('value'),
     						'fields.target'				: dijit.byId('BSC_PROG002D0004A_target').get('value'),    						 

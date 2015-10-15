@@ -49,6 +49,7 @@ import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IPerspectiveService;
 import com.netsteadfast.greenstep.bsc.service.IVisionService;
 import com.netsteadfast.greenstep.bsc.util.AggregationMethodUtils;
+import com.netsteadfast.greenstep.bsc.util.BscFormulaUtils;
 import com.netsteadfast.greenstep.po.hbm.BbAggregationMethod;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
@@ -89,6 +90,7 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private Map<String, String> compareTypeMap = BscKpiCode.getCompareTypeMap(true);
 	private Map<String, String> dataTypeMap = BscKpiCode.getDataTypeMap(true);
 	private Map<String, String> formulaMap = this.providedSelectZeroDataMap(true);
+	private Map<String, String> trendsFormulaMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> quasiRangeMap = BscKpiCode.getQuasiRangeMap();
 	private KpiVO kpi = new KpiVO();
 	
@@ -193,7 +195,8 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 
 	private void initData() throws ServiceException, Exception {
 		this.visionMap = this.visionService.findForMap(true);
-		this.formulaMap = this.formulaService.findForMap(true);
+		this.formulaMap = this.formulaService.findForMap(true, false);
+		this.trendsFormulaMap = this.formulaService.findForMap(true, true);
 		this.calculationMap = this.aggregationMethodService.findForMap(true);
 	}
 	
@@ -261,18 +264,27 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		}
 		vision = visResult.getValue();
 		
-		FormulaVO formula = new FormulaVO();
-		formula.setForId( this.kpi.getForId() );
-		DefaultResult<FormulaVO> forResult = this.formulaService.findByUK(formula);
-		if (forResult.getValue()==null) {
-			throw new ServiceException( forResult.getSystemMessage().getValue() );
-		}
-		formula = forResult.getValue();
+//		FormulaVO formula = new FormulaVO();
+//		formula.setForId( this.kpi.getForId() );
+//		DefaultResult<FormulaVO> forResult = this.formulaService.findByUK(formula);
+//		if (forResult.getValue()==null) {
+//			throw new ServiceException( forResult.getSystemMessage().getValue() );
+//		}
+//		formula = forResult.getValue();
+//		
+//		FormulaVO trendsFormula = new FormulaVO();
+//		trendsFormula.setForId( this.kpi.getTrendsForId() );
+//		DefaultResult<FormulaVO> trendsForResult = this.formulaService.findByUK(trendsFormula);
+//		if (trendsForResult.getValue()==null) {
+//			throw new ServiceException( trendsForResult.getSystemMessage().getValue() );
+//		}
+//		trendsFormula = trendsForResult.getValue();		
 		
 		this.getFields().put("visionOid", vision.getOid());
 		this.getFields().put("perspectiveOid", perspective.getOid());
 		this.getFields().put("objectiveOid", objective.getOid());
-		this.getFields().put("formulaOid", formula.getOid());
+		this.getFields().put("formulaOid", BscFormulaUtils.getFormulaById(this.kpi.getForId()).getOid() );
+		this.getFields().put("trendsFormulaOid", BscFormulaUtils.getFormulaById(this.kpi.getTrendsForId()).getOid() );
 		this.getFields().put("aggrMethodOid", AggregationMethodUtils.findSimpleById(this.kpi.getCal()).getOid() );
 		
 		this.perspectiveMap = this.perspectiveService.findForMapByVisionOid(vision.getOid(), true);
@@ -389,6 +401,14 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 
 	public Map<String, String> getFormulaMap() {
 		return formulaMap;
+	}
+
+	public Map<String, String> getTrendsFormulaMap() {
+		return trendsFormulaMap;
+	}
+
+	public void setTrendsFormulaMap(Map<String, String> trendsFormulaMap) {
+		this.trendsFormulaMap = trendsFormulaMap;
 	}
 
 	public Map<String, String> getQuasiRangeMap() {

@@ -55,13 +55,14 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 			hql.append("	p.oid, p.perId, p.name, p.weight, p.description, p.target, p.min,  ");		
 			hql.append("	v.oid, v.visId, v.title,  ");
 			hql.append("	f.oid, f.forId, f.name, f.type, f.returnMode, f.returnVar, f.expression, ");
-			hql.append("	aggr.oid, aggr.aggrId, aggr.name, aggr.type, aggr.expression1, aggr.expression2 ");
+			hql.append("	aggr.oid, aggr.aggrId, aggr.name, aggr.type, aggr.expression1, aggr.expression2, ");
+			hql.append("	f2.oid, f2.forId, f2.name, f2.type, f2.returnMode, f2.returnVar, f2.expression ");
 			hql.append(") ");			
 		} else {
 			hql.append("SELECT count(*) ");
 		}
-		hql.append("FROM BbKpi k, BbObjective o, BbPerspective p, BbVision v, BbFormula f, BbAggregationMethod aggr ");
-		hql.append("WHERE k.objId = o.objId AND o.perId = p.perId AND p.visId = v.visId AND k.forId = f.forId AND k.cal = aggr.aggrId ");
+		hql.append("FROM BbKpi k, BbObjective o, BbPerspective p, BbVision v, BbAggregationMethod aggr, BbFormula f, BbFormula f2 ");				
+		hql.append("WHERE k.objId = o.objId AND o.perId = p.perId AND p.visId = v.visId AND k.forId = f.forId AND k.cal = aggr.aggrId AND k.trendsForId = f2.forId ");
 		if (!StringUtils.isBlank(visionOid)) {
 			hql.append("AND v.oid = :visionOid ");
 		}
@@ -117,12 +118,16 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 	 * v.OID, v.VIS_ID, v.TITLE, 
 	 * f.OID, f.FOR_ID, f.NAME, f.TYPE, f.RETURN_MODE, f.RETURN_VAR, f.EXPRESSION,
 	 * aggr.OID, aggr.AGGR_ID, aggr.AGGR_NAME, aggr.TYPE, aggr.EXPRESSION1, aggr.EXPRESSION2
-	 * from bb_kpi k, bb_objective o, bb_perspective p, bb_vision v, bb_formula f, bb_aggregation_method aggr
+	 * from bb_kpi k, bb_objective o, bb_perspective p, bb_vision v, 
+	 * bb_aggregation_method aggr, 
+	 * bb_formula f,
+	 * bb_formula f2
 	 * where k.OBJ_ID = o.OBJ_ID
 	 * and o.PER_ID = p.PER_ID
 	 * and p.VIS_ID = v.VIS_ID
 	 * and k.FOR_ID = f.FOR_ID
 	 * and k.CAL = aggr.AGGR_ID
+	 * and k.TRENDS_FOR_ID = f2.FOR_ID
 	 * ORDER BY v.VIS_ID, p.PER_ID, o.OBJ_ID, k.ID ASC
 	 * ;
 	 * 

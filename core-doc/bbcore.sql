@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.15, for FreeBSD10.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.19, for Win32 (x86)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
--- Server version	5.6.15
+-- Server version	5.6.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1137,7 +1137,7 @@ CREATE TABLE `bb_formula` (
 
 LOCK TABLES `bb_formula` WRITE;
 /*!40000 ALTER TABLE `bb_formula` DISABLE KEYS */;
-INSERT INTO `bb_formula` VALUES ('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','N','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 actual ÷ target','BSH','N','C','ans','if (actual == 0 ) {\n   ans = 0;\n   return;\n}\nif (target == 0) {\n   ans = actual;\n   return;\n}\nans = Math.max( actual ÷ target ,  0 ) × 100','for actual ÷ target !','admin','2014-11-19 11:39:03','admin','2014-11-20 11:46:17'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','N','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
+INSERT INTO `bb_formula` VALUES ('b58b87cc-e938-4538-9617-4656788492cb','F777','KPI trends change(%)','BSH','Y','D','','( cv ÷ pv - 1 ) × 100.0','for KPI peroid current/previous score change(%)','admin','2015-10-15 16:09:02',NULL,NULL),('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','N','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 actual ÷ target','BSH','N','C','ans','if (actual == 0 ) {\n   ans = 0;\n   return;\n}\nif (target == 0) {\n   ans = actual;\n   return;\n}\nans = Math.max( actual ÷ target ,  0 ) × 100','for actual ÷ target !','admin','2014-11-19 11:39:03','admin','2014-11-20 11:46:17'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','N','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
 /*!40000 ALTER TABLE `bb_formula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1157,6 +1157,7 @@ CREATE TABLE `bb_kpi` (
   `WEIGHT` decimal(5,2) NOT NULL,
   `UNIT` varchar(20) NOT NULL,
   `FOR_ID` varchar(14) NOT NULL,
+  `TRENDS_FOR_ID` varchar(14) NOT NULL,
   `MAX` float NOT NULL,
   `TARGET` float NOT NULL,
   `MIN` float NOT NULL,
@@ -1173,9 +1174,10 @@ CREATE TABLE `bb_kpi` (
   `UDATE` datetime DEFAULT NULL,
   PRIMARY KEY (`OID`),
   UNIQUE KEY `UK_1` (`ID`),
-  KEY `IDX_1` (`OBJ_ID`,`NAME`,`FOR_ID`,`CAL`),
   KEY `IDX_2` (`FOR_ID`),
-  KEY `IDX_3` (`CAL`)
+  KEY `IDX_3` (`CAL`),
+  KEY `IDX_1` (`OBJ_ID`,`NAME`,`FOR_ID`,`CAL`,`TRENDS_FOR_ID`),
+  KEY `IDX_4` (`TRENDS_FOR_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1185,7 +1187,7 @@ CREATE TABLE `bb_kpi` (
 
 LOCK TABLES `bb_kpi` WRITE;
 /*!40000 ALTER TABLE `bb_kpi` DISABLE KEYS */;
-INSERT INTO `bb_kpi` VALUES ('0775e107-756b-4934-848c-6e4b1235af3b','KPI0003','OBJ20141127001','Investment projects in developing countries','',50.00,'%','F001',150,100,50,'1','1','AVG_001','3','Y','Y',0,'admin','2014-11-27 09:12:15','admin','2015-03-12 13:38:05'),('71b4417c-6c8c-4ef6-b8d4-fbb4d56863bb','KPI0006','OBJ20141127004','Education and Training','',100.00,'number of times','F002',150,70,30,'3','1','MAX_001','2','Y','Y',5,'admin','2014-11-27 09:43:20','admin','2015-03-12 13:35:47'),('9aa1c537-402f-4ccc-8d77-f472f98a3192','KPI0001','OBJ20141117001','Sales','aa bb',100.00,'%','F001',200,50,10,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-23 17:14:39','admin','2015-08-06 10:06:28'),('b4ebcdd0-1944-432e-8bb2-85df54f854d8','KPI0002','OBJ20141127001','Stock market investment fund','',50.00,'%','F001',150,100,50,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-27 09:09:32','admin','2014-12-14 15:18:15'),('b888607c-6d52-4163-82ac-a1ae03c9cba6','KPI0004','OBJ20141127002','Expanding Asia-Pacific market','',100.00,'%','F001',150,100,60,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-27 09:21:36','admin','2015-03-12 13:39:02'),('c12b2c99-4b28-4ce9-94bc-314161b9b7e7','KPI0005','OBJ20141127003','Loss stronghold transformation','',100.00,'Point','F002',150,100,50,'2','1','MIN_001','1','Y','Y',0,'admin','2014-11-27 09:30:48','admin','2015-03-12 13:35:30');
+INSERT INTO `bb_kpi` VALUES ('0775e107-756b-4934-848c-6e4b1235af3b','KPI0003','OBJ20141127001','Investment projects in developing countries','',50.00,'%','F001','F777',150,100,50,'1','1','AVG_001','3','Y','Y',0,'admin','2014-11-27 09:12:15','admin','2015-10-15 17:04:37'),('71b4417c-6c8c-4ef6-b8d4-fbb4d56863bb','KPI0006','OBJ20141127004','Education and Training','',100.00,'number of times','F002','F777',150,70,30,'3','1','MAX_001','2','Y','Y',5,'admin','2014-11-27 09:43:20','admin','2015-10-15 17:05:08'),('9aa1c537-402f-4ccc-8d77-f472f98a3192','KPI0001','OBJ20141117001','Sales','aa bb',100.00,'%','F001','F777',200,50,10,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-23 17:14:39','admin','2015-10-15 17:04:13'),('b4ebcdd0-1944-432e-8bb2-85df54f854d8','KPI0002','OBJ20141127001','Stock market investment fund','',50.00,'%','F001','F777',150,100,50,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-27 09:09:32','admin','2015-10-15 17:04:26'),('b888607c-6d52-4163-82ac-a1ae03c9cba6','KPI0004','OBJ20141127002','Expanding Asia-Pacific market','',100.00,'%','F001','F777',150,100,60,'1','1','AVG_001','1','Y','Y',0,'admin','2014-11-27 09:21:36','admin','2015-10-15 17:04:49'),('c12b2c99-4b28-4ce9-94bc-314161b9b7e7','KPI0005','OBJ20141127003','Loss stronghold transformation','',190.00,'Point','F002','F777',150,100,50,'2','1','MIN_001','1','Y','Y',0,'admin','2014-11-27 09:30:48','admin','2015-10-15 17:05:17');
 /*!40000 ALTER TABLE `bb_kpi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1215,7 +1217,7 @@ CREATE TABLE `bb_kpi_empl` (
 
 LOCK TABLES `bb_kpi_empl` WRITE;
 /*!40000 ALTER TABLE `bb_kpi_empl` DISABLE KEYS */;
-INSERT INTO `bb_kpi_empl` VALUES ('02de21a0-e4ca-4567-8a63-3577a385d176','KPI0001','0001','admin','2015-08-06 10:06:28',NULL,NULL),('27c64855-c5ba-4065-8b38-5ff44c6bf481','KPI0003','0002','admin','2015-03-12 13:38:05',NULL,NULL),('2c3aae7f-0db6-4059-a755-bffd4f8a7eb9','KPI0006','0001','admin','2015-03-12 13:35:47',NULL,NULL),('49840f0a-eab6-46c2-abe4-f2cd6c2ed5f3','KPI0003','0001','admin','2015-03-12 13:38:05',NULL,NULL),('744bf146-d596-4f32-8825-c3fc2e26fb82','KPI0002','0002','admin','2014-12-14 15:18:15',NULL,NULL),('ad72aa48-d458-43aa-bb51-70cd642d6f8a','KPI0002','0001','admin','2014-12-14 15:18:15',NULL,NULL),('cf99a8af-b2d4-4d7f-a12c-a281634a18fd','KPI0006','0002','admin','2015-03-12 13:35:47',NULL,NULL),('d122dfbe-a54e-491c-b7d6-10a2aeb7d297','KPI0001','0002','admin','2015-08-06 10:06:28',NULL,NULL);
+INSERT INTO `bb_kpi_empl` VALUES ('333005f7-c266-46c3-9d07-9ad63654b016','KPI0001','0001','admin','2015-10-15 17:04:13',NULL,NULL),('3567814d-6fc9-425b-89f3-6a3228539b75','KPI0006','0002','admin','2015-10-15 17:05:08',NULL,NULL),('391b51cd-88e2-45aa-9925-2261d9a0b32b','KPI0003','0002','admin','2015-10-15 17:04:37',NULL,NULL),('789cdbac-9998-42ce-8d3e-9c123dc31f85','KPI0001','0002','admin','2015-10-15 17:04:13',NULL,NULL),('9ed9c504-ed54-4b3b-9954-b73085bb70c2','KPI0003','0001','admin','2015-10-15 17:04:37',NULL,NULL),('a2b9486b-5b3c-4d89-9e06-e76d78adb96c','KPI0002','0002','admin','2015-10-15 17:04:26',NULL,NULL),('d7a51753-bf6d-4e65-b8b0-c573fbf88f27','KPI0002','0001','admin','2015-10-15 17:04:26',NULL,NULL),('f114e93e-e7d1-4f6e-83c2-9b601ff0bb38','KPI0006','0001','admin','2015-10-15 17:05:08',NULL,NULL);
 /*!40000 ALTER TABLE `bb_kpi_empl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1245,7 +1247,7 @@ CREATE TABLE `bb_kpi_orga` (
 
 LOCK TABLES `bb_kpi_orga` WRITE;
 /*!40000 ALTER TABLE `bb_kpi_orga` DISABLE KEYS */;
-INSERT INTO `bb_kpi_orga` VALUES ('035f940b-2da9-4cac-bd90-88b96aaf7375','KPI0004','0002','admin','2015-03-12 13:39:02',NULL,NULL),('5bf8e230-ee06-43ab-a6d9-e42fb75ea814','KPI0005','0001','admin','2015-03-12 13:35:31',NULL,NULL),('9bfbe378-6cc4-46b4-bbc9-343dcff2453d','KPI0001','0001','admin','2015-08-06 10:06:28',NULL,NULL),('be02aadf-2fd7-4cfb-a2f6-2ac09d2c953a','KPI0003','0001','admin','2015-03-12 13:38:05',NULL,NULL),('cd706b32-9cca-40f7-97c3-2f6cc1d3a6d2','KPI0005','0002','admin','2015-03-12 13:35:30',NULL,NULL),('db5935d2-85cd-4518-8feb-d97b55fefae5','KPI0002','0001','admin','2014-12-14 15:18:15',NULL,NULL),('ef822c5e-22e4-4174-a9c0-4a94d00ebfee','KPI0001','0002','admin','2015-08-06 10:06:28',NULL,NULL);
+INSERT INTO `bb_kpi_orga` VALUES ('0350c4b3-2348-49e6-806a-ee3805f9b41c','KPI0004','0002','admin','2015-10-15 17:04:49',NULL,NULL),('1aa8c81e-2cb0-4280-983b-eb6cc9cf258b','KPI0001','0001','admin','2015-10-15 17:04:13',NULL,NULL),('2596e3bf-4a32-45de-9692-47f52e835a3b','KPI0005','0002','admin','2015-10-15 17:05:17',NULL,NULL),('5f5baf31-6044-4e2d-a452-61ae299b0ba8','KPI0002','0001','admin','2015-10-15 17:04:26',NULL,NULL),('71af03de-a8e4-4eee-8b59-8aaca9bc2b93','KPI0005','0001','admin','2015-10-15 17:05:17',NULL,NULL),('73049d55-0855-4097-b413-7e202befb968','KPI0003','0001','admin','2015-10-15 17:04:37',NULL,NULL),('e62b41ce-61f5-4a65-a18e-861231a2df1b','KPI0001','0002','admin','2015-10-15 17:04:13',NULL,NULL);
 /*!40000 ALTER TABLE `bb_kpi_orga` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2234,6 +2236,7 @@ CREATE TABLE `qrtz_fired_triggers` (
 
 LOCK TABLES `qrtz_fired_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_fired_triggers` DISABLE KEYS */;
+INSERT INTO `qrtz_fired_triggers` VALUES ('scheduler','4753PC14448996765591444899676505','core.job.SendMailHelperJobCronTrigger','DEFAULT','4753PC1444899676559',1444899960000,0,'ACQUIRED',NULL,NULL,'0','0');
 /*!40000 ALTER TABLE `qrtz_fired_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2338,7 +2341,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861442498824903',1442499967121,7500);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','4753PC1444899676559',1444899948583,7500);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2442,7 +2445,7 @@ CREATE TABLE `qrtz_triggers` (
 
 LOCK TABLES `qrtz_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1442500020000,1442499960000,0,'WAITING','CRON',1442498824000,0,NULL,0,'');
+INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1444899960000,1444899900000,0,'ACQUIRED','CRON',1444899676000,0,NULL,0,'');
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3822,4 +3825,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-14 20:33:34
+-- Dump completed on 2015-10-15 17:07:55

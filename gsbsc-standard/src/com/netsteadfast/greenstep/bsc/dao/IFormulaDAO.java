@@ -29,6 +29,6 @@ import com.netsteadfast.greenstep.vo.FormulaVO;
 
 public interface IFormulaDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbFormula, String> {
 	
-	public List<FormulaVO> findForSimple() throws Exception;
+	public List<FormulaVO> findForSimple(String trendsFlag) throws Exception;
 	
 }

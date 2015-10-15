@@ -103,6 +103,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							"id",
 							"name",
 							"formulaOid",
+							"trendsFormulaOid",
 							"weight",
 							"max",
 							"target",
@@ -120,6 +121,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG002D0004A_id") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_name") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_formulaOid") + "<BR/>",
+							"Please select KPI-Trends formula!<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_weight") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_max") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_target") + "<BR/>",
@@ -136,6 +138,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							SelectItemFieldCheckUtils.class,
 							IdFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							BscNumberFieldCheckUtils.class,
 							BscNumberFieldCheckUtils.class,
@@ -222,7 +225,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				this.getFields().get("formulaOid"), 
 				this.getFields().get("cal"),
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
-				this.transformAppendIds2List(this.getFields().get("emplOids"))); 
+				this.transformAppendIds2List(this.getFields().get("emplOids")),
+				this.getFields().get("trendsFormulaOid")); 
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;
@@ -249,7 +253,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				this.getFields().get("formulaOid"), 
 				this.getFields().get("cal"),
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
-				this.transformAppendIds2List(this.getFields().get("emplOids"))); 
+				this.transformAppendIds2List(this.getFields().get("emplOids")),
+				this.getFields().get("trendsFormulaOid")); 
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;

@@ -26,12 +26,17 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureData;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureVariable;
 import com.netsteadfast.greenstep.bsc.model.FormulaMode;
+import com.netsteadfast.greenstep.bsc.service.IFormulaService;
+import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.util.ScriptExpressionUtils;
 import com.netsteadfast.greenstep.vo.FormulaVO;
 
@@ -39,6 +44,20 @@ public class BscFormulaUtils {
 	private static final String DEFAULT_RETURN_MODE_VAR = "ans_" + System.currentTimeMillis();
 	public static final String TRENDS_CURRENT_PEROID_SCORE_VAR = "cv";
 	public static final String TRENDS_PREVIOUS_PEROID_SCORE_VAR = "pv";
+	
+	@SuppressWarnings("unchecked")
+	public static FormulaVO getFormulaById(String forId) throws ServiceException, Exception {
+		IFormulaService<FormulaVO, BbFormula, String> formulaService = (IFormulaService<FormulaVO, BbFormula, String>)
+				AppContext.getBean("bsc.service.FormulaService");
+		FormulaVO formula = new FormulaVO();
+		formula.setForId( forId );
+		DefaultResult<FormulaVO> forResult = formulaService.findByUK(formula);
+		if (forResult.getValue()==null) {
+			throw new ServiceException( forResult.getSystemMessage().getValue() );
+		}
+		formula = forResult.getValue();
+		return formula;
+	}
 	
 	public static Map<String, String> getTrendsFlagMap(boolean select) {
 		Map<String, String> dataMap = new HashMap<String, String>();

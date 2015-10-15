@@ -67,6 +67,7 @@ import com.netsteadfast.greenstep.bsc.service.logic.IObjectiveLogicService;
 import com.netsteadfast.greenstep.bsc.service.logic.IPerspectiveLogicService;
 import com.netsteadfast.greenstep.bsc.service.logic.IVisionLogicService;
 import com.netsteadfast.greenstep.bsc.util.AggregationMethodUtils;
+import com.netsteadfast.greenstep.bsc.util.BscFormulaUtils;
 import com.netsteadfast.greenstep.po.hbm.BbAggregationMethod;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
@@ -655,6 +656,8 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 				throw new ServiceException( "row: " + row + " strategy-objectives is not found " + objId );
 			}
 			objective = objResult.getValue();
+			
+			/*
 			FormulaVO formula = new FormulaVO();
 			formula.setForId(forId);
 			DefaultResult<FormulaVO> forResult = this.formulaService.findByUK(formula);
@@ -662,6 +665,8 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 				throw new ServiceException( "row: " + row + " formula is not found " + objId );
 			}
 			formula = forResult.getValue();
+			*/
+			FormulaVO formula = BscFormulaUtils.getFormulaById(forId);
 			
 			KpiVO kpi = new KpiVO();
 			kpi.setId(id);

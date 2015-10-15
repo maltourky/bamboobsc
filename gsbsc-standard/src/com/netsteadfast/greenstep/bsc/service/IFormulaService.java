@@ -39,8 +39,8 @@ public interface IFormulaService<T extends java.io.Serializable, E extends java.
 	
 	public QueryResult<List<FormulaVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception;
 	
-	public DefaultResult<List<FormulaVO>> findForSimple() throws ServiceException, Exception;
+	public DefaultResult<List<FormulaVO>> findForSimple(boolean trendsFlag) throws ServiceException, Exception;
 	
-	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception;
+	public Map<String, String> findForMap(boolean pleaseSelect, boolean trendsFlag) throws ServiceException, Exception;
 	
 }
