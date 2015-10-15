@@ -639,6 +639,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String quasiRange = data.get("QUASI_RANGE");
 			String description = data.get("DESCRIPTION");
 			String max = data.get("MAX");
+			String trendsForId = data.get("TRENDS_FOR_ID");
 			String errMsg = this.checkKPIsDataError(
 					row,
 					id, objId, name, weight, target, 
@@ -666,7 +667,6 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			}
 			formula = forResult.getValue();
 			*/
-			FormulaVO formula = BscFormulaUtils.getFormulaById(forId);
 			
 			KpiVO kpi = new KpiVO();
 			kpi.setId(id);
@@ -692,18 +692,20 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 				this.kpiLogicService.update(
 						kpi, 
 						objective.getOid(), 
-						formula.getOid(), 
+						BscFormulaUtils.getFormulaById(forId).getOid(), 
 						AggregationMethodUtils.findSimpleById(cal).getOid(), 
 						organizationOids, 
-						employeeOids);
+						employeeOids,
+						BscFormulaUtils.getFormulaById(trendsForId).getOid());
 			} else { // insert
 				this.kpiLogicService.create(
 						kpi, 
 						objective.getOid(), 
-						formula.getOid(), 
+						BscFormulaUtils.getFormulaById(forId).getOid(), 
 						AggregationMethodUtils.findSimpleById(cal).getOid(), 
 						organizationOids, 
-						employeeOids);
+						employeeOids,
+						BscFormulaUtils.getFormulaById(trendsForId).getOid());
 			}			
 			success = true;
 		}
