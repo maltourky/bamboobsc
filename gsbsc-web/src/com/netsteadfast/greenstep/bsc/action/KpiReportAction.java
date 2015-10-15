@@ -172,6 +172,24 @@ public class KpiReportAction extends BaseSupportAction implements IBaseAdditiona
 		}
 		return SUCCESS;			
 	}
+	
+	/**
+	 * bsc.kpiPeroidTrendsReportAction.action
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG003D0007Q")
+	public String peroidTrends() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;				
+	}	
 
 	@Override
 	public String getProgramName() {

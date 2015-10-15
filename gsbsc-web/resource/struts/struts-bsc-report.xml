@@ -18,6 +18,11 @@
 			<result name="success">/pages/report/kpi-report-opw.jsp</result>
 		</action>			
 		
+		<action name="bsc.kpiPeroidTrendsReportAction" class="bsc.web.controller.KpiReportAction" method="peroidTrends">
+			<result name="input">/pages/report/kpi-peroid-trends-report.jsp</result>		
+			<result name="success">/pages/report/kpi-peroid-trends-report.jsp</result>
+		</action>		
+		
 		<!-- Personal BSC Report -->
 		<action name="bsc.personalReportAction" class="bsc.web.controller.PersonalReportAction">
 			<result name="input">/pages/report/personal-report.jsp</result>		
