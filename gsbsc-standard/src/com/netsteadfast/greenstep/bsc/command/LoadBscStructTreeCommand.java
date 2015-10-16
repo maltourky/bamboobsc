@@ -214,7 +214,16 @@ public class LoadBscStructTreeCommand extends BaseChainCommandSupport implements
 							aggr.setType( mixData.getAggrType() );
 							aggr.setExpression1( mixData.getAggrExpression1() );
 							aggr.setExpression2( mixData.getAggrExpression2() );
-							kpi.setAggregationMethod(aggr);
+							kpi.setAggregationMethod(aggr);							
+							FormulaVO trendsFormula = new FormulaVO();
+							trendsFormula.setOid( mixData.getTrendsForOid() );
+							trendsFormula.setForId( mixData.getTrendsForId() );
+							trendsFormula.setName( mixData.getTrendsForName() );
+							trendsFormula.setType( mixData.getTrendsForType() );
+							trendsFormula.setReturnMode( mixData.getTrendsForReturnMode() );
+							trendsFormula.setReturnVar( mixData.getTrendsForReturnVar() );							
+							trendsFormula.setExpression( mixData.getTrendsForExpression() );							
+							kpi.setTrendsFormula(trendsFormula);							
 							objective.getKpis().add(kpi);
 						}
 					}					

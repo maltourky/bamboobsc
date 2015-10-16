@@ -18,9 +18,9 @@
 			<result name="success">/pages/report/kpi-report-opw.jsp</result>
 		</action>			
 		
-		<action name="bsc.kpiPeroidTrendsReportAction" class="bsc.web.controller.KpiReportAction" method="peroidTrends">
-			<result name="input">/pages/report/kpi-peroid-trends-report.jsp</result>		
-			<result name="success">/pages/report/kpi-peroid-trends-report.jsp</result>
+		<action name="bsc.kpiPeriodTrendsReportAction" class="bsc.web.controller.KpiReportAction" method="periodTrends">
+			<result name="input">/pages/report/kpi-period-trends-report.jsp</result>		
+			<result name="success">/pages/report/kpi-period-trends-report.jsp</result>
 		</action>		
 		
 		<!-- Personal BSC Report -->

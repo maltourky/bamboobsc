@@ -56,6 +56,7 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 	private String objectiveName; // 查詢 query Grid 要用的 , 放 BB_OBJECTIVE.NAME
 	private List<BbMeasureData> measureDatas = new ArrayList<BbMeasureData>(); // 給 StructTreeObj 用的
 	private FormulaVO formula; // 給 StructTreeObj 用的
+	private FormulaVO trendsFormula; // 給 StructTreeObj 用的
 	private AggregationMethodVO aggregationMethod; // 給 StructTreeObj 用的
 	private String fontColor; // 報表要用的
 	private String bgColor; // 報表要用的
@@ -273,6 +274,14 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setFormula(FormulaVO formula) {
 		this.formula = formula;
+	}
+
+	public FormulaVO getTrendsFormula() {
+		return trendsFormula;
+	}
+
+	public void setTrendsFormula(FormulaVO trendsFormula) {
+		this.trendsFormula = trendsFormula;
 	}
 
 	public AggregationMethodVO getAggregationMethod() {

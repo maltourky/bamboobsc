@@ -174,10 +174,10 @@ public class KpiReportAction extends BaseSupportAction implements IBaseAdditiona
 	}
 	
 	/**
-	 * bsc.kpiPeroidTrendsReportAction.action
+	 * bsc.kpiPeriodTrendsReportAction.action
 	 */
 	@ControllerMethodAuthority(programId="BSC_PROG003D0007Q")
-	public String peroidTrends() throws Exception {
+	public String periodTrends() throws Exception {
 		try {
 			this.initData();
 		} catch (ControllerException e) {
