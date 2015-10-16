@@ -24,8 +24,12 @@ package com.netsteadfast.greenstep.bsc.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
+import org.joda.time.DateTime;
+import org.joda.time.Months;
+import org.joda.time.Years;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -35,8 +39,11 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
+import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.PeriodTrendsData;
 import com.netsteadfast.greenstep.bsc.util.PeriodTrendsCalUtils;
+import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.KpiVO;
 
 @ControllerAuthority(check=true)
@@ -53,15 +60,233 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		super();
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void checkFields(String p) throws ControllerException, Exception {
+		try {
+			super.checkFields(
+					new String[]{
+							"visionOid"+p,
+							"frequency"+p,
+					}, 
+					new String[]{
+							"Please select vision!<BR/>",
+							"Please select frequency!<BR/>"
+					}, 
+					new Class[]{
+							SelectItemFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class
+					},
+					this.getFieldsId() );			
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		}	
+		String frequency = this.getFields().get("frequency"+p);
+		String startDate = this.getFields().get("startDate"+p);
+		String endDate = this.getFields().get("endDate"+p);
+		String startYearDate = this.getFields().get("startYearDate"+p);
+		String endYearDate = this.getFields().get("endYearDate"+p);
+		if ( BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
+			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
+				this.getFieldsId().add("startDate"+p);
+				this.getFieldsId().add("endDate"+p);
+				throw new ControllerException("Start-date and end-date is required!<BR/>");				
+			}
+		}
+		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency) ) {
+			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
+				this.getFieldsId().add("startYearDate"+p);
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("Start-year and end-year is required!<BR/>");				
+			}			
+		}		
+		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
+			if ( !SimpleUtils.isDate( startDate ) ) {
+				this.getFieldsId().add("startDate"+p);
+				throw new ControllerException("Start-date format is incorrect!<BR/>");
+			}
+			if ( !SimpleUtils.isDate( endDate ) ) {
+				this.getFieldsId().add("endDate"+p);
+				throw new ControllerException("End-date format is incorrect!<BR/>");			
+			}
+			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
+					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
+				this.getFieldsId().add("startDate"+p);
+				this.getFieldsId().add("endDate"+p);
+				throw new ControllerException("Start-date / end-date incorrect!<BR/>");			
+			}			
+		}
+		if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
+			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
+				this.getFieldsId().add("startYearDate"+p);
+				throw new ControllerException("Start-year format is incorrect!<BR/>");				
+			}
+			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("End-year format is incorrect!<BR/>");						
+			}
+			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
+					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
+				this.getFieldsId().add("startYearDate"+p);
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("Start-year / end-year incorrect!<BR/>");			
+			}					
+		}
+		String dataFor = this.getFields().get("dataFor");
+		if ("organization".equals(dataFor) 
+				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid")) ) {
+			this.getFieldsId().add("measureDataOrganizationOid"+p);
+			throw new ControllerException("Please select measure-data organization!<BR/>");
+		}
+		if ("employee".equals(dataFor)
+				&& this.isNoSelectId(this.getFields().get("measureDataEmployeeOid")) ) {
+			this.getFieldsId().add("measureDataEmployeeOid"+p);
+			throw new ControllerException("Please select measure-data employee!<BR/>");
+		}
+	}		
+	
+	private void setDateValue(String p) throws Exception {
+		/**
+		 * 周與月頻率的要調整區間日期
+		 */
+		String frequency = this.getFields().get("frequency"+p);
+		if (!BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
+				&& !BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
+			return;
+		}
+		String startDate = this.getFields().get("startDate"+p);
+		String endDate = this.getFields().get("endDate"+p);
+		if (BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency)) {
+			int firstDay = Integer.parseInt( startDate.substring(startDate.length()-2, startDate.length()) );
+			int endDay = Integer.parseInt( endDate.substring(endDate.length()-2, endDate.length()) );
+			if (firstDay>=1 && firstDay<8) {
+				firstDay = 1;
+			}
+			if (firstDay>=8 && firstDay<15) {
+				firstDay = 8;
+			}
+			if (firstDay>=15 && firstDay<22) {
+				firstDay = 15;
+			}
+			if (firstDay>=22) { 
+				firstDay = 22;
+			}
+			if (endDay>=1 && endDay<8) {
+				endDay = 7;
+			}
+			if (endDay>=8 && endDay<15) {
+				endDay = 14;
+			}
+			if (endDay>=15 && endDay<22) {
+				endDay = 21;
+			}
+			if (endDay>=22) { 
+				endDay = SimpleUtils.getMaxDayOfMonth( 
+						Integer.parseInt(endDate.substring(0, 4)), 
+						Integer.parseInt(endDate.substring(5, 7)) );
+			}
+			String newStartDate = startDate.substring(0, startDate.length()-2) 
+					+ StringUtils.leftPad(String.valueOf(firstDay), 2, "0");
+			String newEndDate = endDate.substring(0, endDate.length()-2)
+					+ StringUtils.leftPad(String.valueOf(endDay), 2, "0");
+			this.getFields().put("startDate"+p, newStartDate);
+			this.getFields().put("endDate"+p, newEndDate);
+		}
+		if (BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency)) {
+			int endDay = SimpleUtils.getMaxDayOfMonth( Integer.parseInt(endDate.substring(0, 4)), 
+					Integer.parseInt(endDate.substring(5, 7)) );
+			String newStartDate = startDate.substring(0, startDate.length()-2) + "01";
+			String newEndDate = endDate.substring(0, endDate.length()-2) 
+					+ StringUtils.leftPad(String.valueOf(endDay), 2, "0");			
+			this.getFields().put("startDate"+p, newStartDate);
+			this.getFields().put("endDate"+p, newEndDate);			
+		}
+	}
+	
+	private void checkDateRange(String p) throws ControllerException, Exception {
+		String frequency = this.getFields().get("frequency"+p);
+		String startDate = this.defaultString( this.getFields().get("startDate"+p) ).replaceAll("/", "-");
+		String endDate = this.defaultString( this.getFields().get("endDate"+p) ).replaceAll("/", "-");
+		String startYearDate = this.defaultString( this.getFields().get("startYearDate"+p) ).replaceAll("/", "-");
+		String endYearDate = this.defaultString( this.getFields().get("endYearDate"+p) ).replaceAll("/", "-");
+		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
+			DateTime dt1 = new DateTime(startDate);
+			DateTime dt2 = new DateTime(endDate);
+			int betweenMonths = Months.monthsBetween(dt1, dt2).getMonths();
+			if ( betweenMonths >= 12 ) {
+				this.getFieldsId().add("startDate"+p);
+				this.getFieldsId().add("endDate"+p);
+				throw new ControllerException("Date range can not be more than 12 months!<BR/>");	
+			}
+			return;
+		}
+		DateTime dt1 = new DateTime( startYearDate + "-01-01" ); 
+		DateTime dt2 = new DateTime( endYearDate + "-01-01" );		
+		int betweenYears = Years.yearsBetween(dt1, dt2).getYears();
+		if (BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency)) {
+			if ( betweenYears >= 3 ) {
+				this.getFieldsId().add("startYearDate"+p);
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("Date range can not be more than 3 years!<BR/>");				
+			}
+		}
+		if (BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency)) {
+			if ( betweenYears >= 4 ) {
+				this.getFieldsId().add("startYearDate"+p);
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("Date range can not be more than 4 years!<BR/>");				
+			}			
+		}
+		if (BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency)) {
+			if ( betweenYears >= 6 ) {
+				this.getFieldsId().add("startYearDate"+p);
+				this.getFieldsId().add("endYearDate"+p);
+				throw new ControllerException("Date range can not be more than 6 years!<BR/>");				
+			}			
+		}
+	}	
+	
 	private void getContent() throws ControllerException, AuthorityException, ServiceException, Exception {
-		
-		/*
-		periodDatas = PeriodTrendsCalUtils.getKpiScoreChange(
-				visionOid1, startDate1, endDate1, startYearDate1, endYearDate1, frequency1, dataFor1, orgId1, empId1, 
-				measureDataOrganizationOid1, measureDataEmployeeOid1, 
-				visionOid2, startDate2, endDate2, startYearDate2, endYearDate2, frequency2, dataFor2, orgId2, empId2, 
-				measureDataOrganizationOid2, measureDataEmployeeOid2);		
-		*/
+		this.checkFields("1");
+		this.checkFields("2");
+		this.setDateValue("1");
+		this.setDateValue("2");
+		this.checkDateRange("1");
+		this.checkDateRange("2");
+		this.periodDatas = PeriodTrendsCalUtils.getKpiScoreChange(
+				this.getFields().get("visionOid1"), 
+				this.getFields().get("startDate1"), 
+				this.getFields().get("endDate1"), 
+				this.getFields().get("startYearDate1"), 
+				this.getFields().get("endYearDate1"), 
+				this.getFields().get("frequency1"), 
+				this.getFields().get("dataFor1"), 
+				this.getFields().get("orgId1"), 
+				this.getFields().get("empId1"), 
+				this.getFields().get("measureDataOrganizationOid1"), 
+				this.getFields().get("measureDataEmployeeOid1"), 
+				this.getFields().get("visionOid2"), 
+				this.getFields().get("startDate2"), 
+				this.getFields().get("endDate2"), 
+				this.getFields().get("startYearDate2"), 
+				this.getFields().get("endYearDate2"), 
+				this.getFields().get("frequency2"), 
+				this.getFields().get("dataFor2"), 
+				this.getFields().get("orgId2"), 
+				this.getFields().get("empId2"), 
+				this.getFields().get("measureDataOrganizationOid2"), 
+				this.getFields().get("measureDataEmployeeOid2"));
+		this.success = IS_YES;
+		this.message = "success!";
 	}
 	
 	/**

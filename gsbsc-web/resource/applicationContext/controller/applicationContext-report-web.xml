@@ -15,7 +15,9 @@
     	class="com.netsteadfast.greenstep.bsc.action.KpiReportAction" scope="prototype" />
     <bean id="bsc.web.controller.KpiReportContentQueryAction" 
     	class="com.netsteadfast.greenstep.bsc.action.KpiReportContentQueryAction" scope="prototype" />
-   
+    <bean id="bsc.web.controller.KpiPeriodTrendsQueryAction" 
+    	class="com.netsteadfast.greenstep.bsc.action.KpiPeriodTrendsQueryAction" scope="prototype" />
+    	   
    	<!-- Personal BSC Report -->
     <bean id="bsc.web.controller.PersonalReportAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PersonalReportAction" scope="prototype" />   

@@ -89,7 +89,7 @@ function BSC_PROG003D0007Q_query() {
 	BSC_PROG003D0007Q_clearContent();
 	setFieldsBackgroundDefault(BSC_PROG003D0007Q_fieldsId);
 	xhrSendParameter(
-			'${basePath}/bsc.kpiPeroidTrendsQueryAction.action', 
+			'${basePath}/bsc.kpiPeriodTrendsQueryAction.action', 
 			{ 
 				/* ==================== Current period ==================== */
 				'fields.visionOid1' 					: 	dijit.byId("BSC_PROG003D0007Q_visionOid_1").get("value"),
@@ -123,11 +123,11 @@ function BSC_PROG003D0007Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				dojo.byId("BSC_PROG003D0007Q_content").innerHTML = data.body;
-				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate);
-				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate);
-				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate);
-				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate);				
+				dojo.byId("BSC_PROG003D0007Q_content").innerHTML = "test!!!!";
+				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate1);
+				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate1);
+				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate2);
+				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate2);				
 			}, 
 			function(error) {
 				alert(error);

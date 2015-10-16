@@ -157,9 +157,10 @@ public class PeriodTrendsCalUtils {
 				measureDataOrganizationOid1, measureDataEmployeeOid1);
 		Context context2 = getContext(visionOid2, startDate2, endDate2, startYearDate2, endYearDate2, frequency2, dataFor2, orgId2, empId2, 
 				measureDataOrganizationOid2, measureDataEmployeeOid2);
-		SimpleChain chain = new SimpleChain();
-		ChainResultObj resultObj1 = chain.getResultFromResource("performanceScoreChain", context1);
-		ChainResultObj resultObj2 = chain.getResultFromResource("performanceScoreChain", context2);
+		SimpleChain chain1 = new SimpleChain();
+		SimpleChain chain2 = new SimpleChain();
+		ChainResultObj resultObj1 = chain1.getResultFromResource("performanceScoreChain", context1);
+		ChainResultObj resultObj2 = chain2.getResultFromResource("performanceScoreChain", context2);
 		fillKpiPeriodTrends(result, resultObj1, resultObj2);		
 		return result;
 	}

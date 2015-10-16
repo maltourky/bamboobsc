@@ -114,8 +114,7 @@ public class BscFormulaUtils {
 	
 	public static Object parseKPIPeroidScoreChangeValue(FormulaVO formula, float currentPeroidScore, 
 			float previousPeroidScore) throws Exception {
-		if (formula == null || StringUtils.isBlank(formula.getType()) || StringUtils.isBlank(formula.getTrendsFlag()) 
-				|| StringUtils.isBlank(formula.getExpression()) ) {
+		if (formula == null || StringUtils.isBlank(formula.getType()) || StringUtils.isBlank(formula.getExpression()) ) {
 			throw new java.lang.IllegalArgumentException("formula data cannot blank!");
 		}
 		Map<String, Object> parameter = new HashMap<String, Object>();
