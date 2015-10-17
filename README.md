@@ -235,6 +235,8 @@ settings Text file encoding to UTF-8<br/>
    g. qcharts-standard<br/>
    h. qcharts-web<br/>
    i. gsbsc-mobile-web<br/>
+   j. gsbsc-persistence<br/>
+   k. qcharts-persistence<br/>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/004.png"></img>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/006.png"></img>
    
@@ -254,7 +256,7 @@ settings Text file encoding to UTF-8<br/>
    
    
    config <b>gsbsc-standard</b> project "CORE-BASE" user libraries<br/>
-   add External JARs: "core-base.jar" on C:\home\git\bamboobsc-master\core-export-lib\ <br/>
+   add External JARs: "core-base.jar", "gsbsc-persistence.jar" on C:\home\git\bamboobsc-master\core-export-lib\ <br/>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/011.png"></img>
    
 ###5. Clean Java Problems ( if found Java Problem on Markers )
