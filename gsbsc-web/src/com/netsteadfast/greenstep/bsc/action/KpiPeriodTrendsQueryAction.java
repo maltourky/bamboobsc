@@ -52,6 +52,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	private String message = "";
 	private String success = IS_NO;
 	private String body = "";
+	private String uploadOid = "";
 	
 	public KpiPeriodTrendsQueryAction() {
 		super();
@@ -286,6 +287,40 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		this.message = "success!";
 	}
 	
+	private void getExcel() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields("1");
+		this.checkFields("2");
+		this.setDateValue("1");
+		this.setDateValue("2");
+		this.checkDateRange("1");
+		this.checkDateRange("2");
+		this.uploadOid = PeriodTrendsCalUtils.generateKpiPeriodTrendsExcel(
+				this.getFields().get("visionOid1"), 
+				this.getFields().get("startDate1"), 
+				this.getFields().get("endDate1"), 
+				this.getFields().get("startYearDate1"), 
+				this.getFields().get("endYearDate1"), 
+				this.getFields().get("frequency1"), 
+				this.getFields().get("dataFor1"), 
+				this.getFields().get("orgId1"), 
+				this.getFields().get("empId1"), 
+				this.getFields().get("measureDataOrganizationOid1"), 
+				this.getFields().get("measureDataEmployeeOid1"), 
+				this.getFields().get("visionOid2"), 
+				this.getFields().get("startDate2"), 
+				this.getFields().get("endDate2"), 
+				this.getFields().get("startYearDate2"), 
+				this.getFields().get("endYearDate2"), 
+				this.getFields().get("frequency2"), 
+				this.getFields().get("dataFor2"), 
+				this.getFields().get("orgId2"), 
+				this.getFields().get("empId2"), 
+				this.getFields().get("measureDataOrganizationOid2"), 
+				this.getFields().get("measureDataEmployeeOid2"));
+		this.success = IS_YES;
+		this.message = "success!";
+	}
+	
 	/**
 	 * bsc.kpiPeriodTrendsQueryAction.action
 	 * 
@@ -318,7 +353,41 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 			this.success = IS_EXCEPTION;
 		}
 		return SUCCESS;		
-	}			
+	}	
+	
+	/**
+	 * bsc.kpiPeriodTrendsExcelQueryAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG003D0007Q")
+	public String doExcel() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.getExcel();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getMessage()==null) { 
+				this.message=e.toString();
+				this.logger.error(e.toString());
+			} else {
+				this.message=e.getMessage().toString();
+				this.logger.error(e.getMessage());
+			}						
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
 
 	@JSON
 	@Override
@@ -353,6 +422,11 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	@JSON
 	public String getBody() {
 		return body;
+	}
+
+	@JSON
+	public String getUploadOid() {
+		return uploadOid;
 	}	
 
 }

@@ -206,6 +206,39 @@ public class PeriodTrendsCalUtils {
 		);
 	}
 	
+	public static String generateKpiPeriodTrendsExcel(List<PeriodTrendsData<KpiVO>> periodDatas, 
+			String currentPeriodDateRange, String previousPeriodDateRange) throws Exception {
+		Context context = new ContextBase();
+		context.put("periodDatas", periodDatas);
+		context.put("currentPeriodDateRange", currentPeriodDateRange);
+		context.put("previousPeriodDateRange", previousPeriodDateRange);
+		SimpleChain chain = new SimpleChain();
+		ChainResultObj resultObj = chain.getResultFromResource("kpiPeriodTrendsExcelCommandExcelContentChain", context);		
+		if ( !(resultObj.getValue() instanceof String) ) {
+			throw new java.lang.IllegalStateException( "kpiPeriodTrendsExcelCommandExcelContentChain error!" );
+		}
+		return (String)resultObj.getValue();
+	}
+	
+	public static String generateKpiPeriodTrendsExcel(String visionOid1, String startDate1, String endDate1, 
+			String startYearDate1, String endYearDate1, String frequency1, String dataFor1, String orgId1, String empId1,
+			String measureDataOrganizationOid1, String measureDataEmployeeOid1,
+			String visionOid2, String startDate2, String endDate2, 
+			String startYearDate2, String endYearDate2, String frequency2, String dataFor2, String orgId2, String empId2,
+			String measureDataOrganizationOid2, String measureDataEmployeeOid2) throws ServiceException, Exception {
+		String currentPeriodDateRange = getDateRange(frequency1, startYearDate1, endYearDate1, startDate1, endDate1);
+		String previousPeriodDateRange = getDateRange(frequency2, startYearDate2, endYearDate2, startDate2, endDate2);
+		return generateKpiPeriodTrendsExcel(
+				getKpiScoreChange(visionOid1, startDate1, endDate1, startYearDate1, endYearDate1, frequency1, dataFor1, orgId1, empId1, 
+						measureDataOrganizationOid1, measureDataEmployeeOid1, 
+						visionOid2, startDate2, endDate2, startYearDate2, endYearDate2, frequency2, dataFor2, orgId2, empId2, 
+						measureDataOrganizationOid2, measureDataEmployeeOid2
+				),
+				currentPeriodDateRange, 
+				previousPeriodDateRange
+		);
+	}
+	
 	private static String getDateRange(String frequency, String startYearDate, String endYearDate, String startDate, String endDate) {
 		String dateRange = startYearDate + " ~ " + endYearDate;
 		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 

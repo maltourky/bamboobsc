@@ -85,11 +85,17 @@ BSC_PROG003D0007Q_fieldsId['measureDataOrganizationOid2'] 	= 'BSC_PROG003D0007Q_
 BSC_PROG003D0007Q_fieldsId['measureDataEmployeeOid2'] 		= 'BSC_PROG003D0007Q_measureDataEmployeeOid_2';
 
 
-function BSC_PROG003D0007Q_query() {
-	BSC_PROG003D0007Q_clearContent();
+function BSC_PROG003D0007Q_query(format) {
+	var url = '${basePath}/bsc.kpiPeriodTrendsQueryAction.action';
+	if ( 'EXCEL' == format ) {
+		url = '${basePath}/bsc.kpiPeriodTrendsExcelQueryAction.action';
+	}
+	if ( 'HTML' == format ) {
+		BSC_PROG003D0007Q_clearContent();
+	}
 	setFieldsBackgroundDefault(BSC_PROG003D0007Q_fieldsId);
 	xhrSendParameter(
-			'${basePath}/bsc.kpiPeriodTrendsQueryAction.action', 
+			url, 
 			{ 
 				/* ==================== Current period ==================== */
 				'fields.visionOid1' 					: 	dijit.byId("BSC_PROG003D0007Q_visionOid_1").get("value"),
@@ -123,7 +129,11 @@ function BSC_PROG003D0007Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				dojo.byId("BSC_PROG003D0007Q_content").innerHTML = data.body;
+				if ( 'EXCEL' == format ) {
+					openCommonLoadUpload( 'download', data.uploadOid, { } );
+				} else {
+					dojo.byId("BSC_PROG003D0007Q_content").innerHTML = data.body;
+				}
 				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate1);
 				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate1);
 				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate2);
@@ -233,7 +243,7 @@ function ${programId}_page_message() {
 											iconClass:'dijitIconSearch',
 											showLabel:false,
 											onClick:function(){  
-												BSC_PROG003D0007Q_query();
+												BSC_PROG003D0007Q_query('HTML');
 											}"><s:property value="getText('BSC_PROG003D0001Q_btnQuery')"/></button>		
 									            
 									<button id="BSC_PROG003D0007Q_btnXls" data-dojo-type="dijit.form.Button"
@@ -241,7 +251,7 @@ function ${programId}_page_message() {
 											iconClass:'btnExcelIcon',
 											showLabel:false,
 											onClick:function(){
-												BSC_PROG003D0007Q_generateExport('EXCEL');																			  
+												BSC_PROG003D0007Q_query('EXCEL');																  
 											}"><s:property value="getText('BSC_PROG003D0001Q_btnXls')"/></button>																					
 											
 								</td>											

@@ -161,6 +161,10 @@
 	<chain name="kpisDashboardExcelContentChain">
 		<command id="KpisDashboardExcelCommand"				className="com.netsteadfast.greenstep.bsc.command.KpisDashboardExcelCommand"/> 
 	</chain>			
-					
-					
+	
+	<!-- KPIs Period Trends 輸出 Excel 產生用的 chain -->				
+	<chain name="kpiPeriodTrendsExcelCommandExcelContentChain">
+		<command id="KpiPeriodTrendsExcelCommand"				className="com.netsteadfast.greenstep.bsc.command.KpiPeriodTrendsExcelCommand"/> 
+	</chain>
+						
 </catalog>  
