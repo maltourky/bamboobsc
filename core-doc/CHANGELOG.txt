@@ -1,3 +1,10 @@
+0.6.1
+-----------------------------------------------------------
+1. Add new feature 07 - KPI Period Trends (https://github.com/billchen198318/bamboobsc/issues/3)
+2. Some modifications
+3. *** please re-import bbcore.sql to MySQL ***
+
+
 0.6.00
 -----------------------------------------------------------
 1. Add 360 Employee degree feedback project.
