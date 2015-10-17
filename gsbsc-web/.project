@@ -7,6 +7,7 @@
 		<project>core-lib</project>
 		<project>core-base</project>
 		<project>gsbsc-standard</project>
+		<project>gsbsc-persistence</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
