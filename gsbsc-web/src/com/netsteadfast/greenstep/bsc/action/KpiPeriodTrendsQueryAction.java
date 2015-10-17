@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,10 +40,8 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
-import com.netsteadfast.greenstep.bsc.model.PeriodTrendsData;
 import com.netsteadfast.greenstep.bsc.util.PeriodTrendsCalUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
-import com.netsteadfast.greenstep.vo.KpiVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.KpiPeriodTrendsQueryAction")
@@ -54,7 +51,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	protected Logger logger=Logger.getLogger(KpiPeriodTrendsQueryAction.class);
 	private String message = "";
 	private String success = IS_NO;
-	private List<PeriodTrendsData<KpiVO>> periodDatas = new ArrayList<PeriodTrendsData<KpiVO>>();
+	private String body = "";
 	
 	public KpiPeriodTrendsQueryAction() {
 		super();
@@ -262,7 +259,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		this.setDateValue("2");
 		this.checkDateRange("1");
 		this.checkDateRange("2");
-		this.periodDatas = PeriodTrendsCalUtils.getKpiScoreChange(
+		this.body = PeriodTrendsCalUtils.renderKpiPeriodTrendsBody(
 				this.getFields().get("visionOid1"), 
 				this.getFields().get("startDate1"), 
 				this.getFields().get("endDate1"), 
@@ -354,8 +351,8 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	}
 
 	@JSON
-	public List<PeriodTrendsData<KpiVO>> getPeriodDatas() {
-		return periodDatas;
+	public String getBody() {
+		return body;
 	}	
 
 }

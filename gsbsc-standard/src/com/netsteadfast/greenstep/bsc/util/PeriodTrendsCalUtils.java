@@ -22,7 +22,9 @@
 package com.netsteadfast.greenstep.bsc.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ContextBase;
@@ -38,12 +40,14 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ChainResultObj;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.BscStructTreeObj;
 import com.netsteadfast.greenstep.bsc.model.PeriodTrendsData;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
+import com.netsteadfast.greenstep.util.TemplateUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
@@ -53,6 +57,7 @@ import com.netsteadfast.greenstep.vo.VisionVO;
 
 @SuppressWarnings("unchecked")
 public class PeriodTrendsCalUtils {
+	private static final String KPI_PeriodTrendsTemplateResource = "META-INF/resource/kpi-period-trends-report-body.ftl";
 	private static IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private static IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	
@@ -164,5 +169,51 @@ public class PeriodTrendsCalUtils {
 		fillKpiPeriodTrends(result, resultObj1, resultObj2);		
 		return result;
 	}
-
+	
+	public static String renderKpiPeriodTrendsBody(List<PeriodTrendsData<KpiVO>> periodDatas, 
+			String currentPeriodDateRange, String previousPeriodDateRange) throws Exception {
+		if (null == periodDatas || periodDatas.size()<1) {
+			return "";
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("periodDatas", periodDatas);
+		paramMap.put("currentPeriodDateRange", currentPeriodDateRange);
+		paramMap.put("previousPeriodDateRange", previousPeriodDateRange);
+		String content = TemplateUtils.processTemplate(
+				"resourceTemplate", 
+				PeriodTrendsCalUtils.class.getClassLoader(), 
+				KPI_PeriodTrendsTemplateResource, 
+				paramMap);		
+		return content;
+	}
+	
+	public static String renderKpiPeriodTrendsBody(String visionOid1, String startDate1, String endDate1, 
+			String startYearDate1, String endYearDate1, String frequency1, String dataFor1, String orgId1, String empId1,
+			String measureDataOrganizationOid1, String measureDataEmployeeOid1,
+			String visionOid2, String startDate2, String endDate2, 
+			String startYearDate2, String endYearDate2, String frequency2, String dataFor2, String orgId2, String empId2,
+			String measureDataOrganizationOid2, String measureDataEmployeeOid2) throws ServiceException, Exception {
+		String currentPeriodDateRange = getDateRange(frequency1, startYearDate1, endYearDate1, startDate1, endDate1);
+		String previousPeriodDateRange = getDateRange(frequency2, startYearDate2, endYearDate2, startDate2, endDate2);
+		return renderKpiPeriodTrendsBody(
+				getKpiScoreChange(visionOid1, startDate1, endDate1, startYearDate1, endYearDate1, frequency1, dataFor1, orgId1, empId1, 
+						measureDataOrganizationOid1, measureDataEmployeeOid1, 
+						visionOid2, startDate2, endDate2, startYearDate2, endYearDate2, frequency2, dataFor2, orgId2, empId2, 
+						measureDataOrganizationOid2, measureDataEmployeeOid2
+				),
+				currentPeriodDateRange,
+				previousPeriodDateRange
+		);
+	}
+	
+	private static String getDateRange(String frequency, String startYearDate, String endYearDate, String startDate, String endDate) {
+		String dateRange = startYearDate + " ~ " + endYearDate;
+		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
+			dateRange = startDate + " ~ " + endDate;
+		} 
+		return "Frequency(" + BscMeasureDataFrequency.getFrequencyMap(false).get(frequency) + ") " + dateRange;
+	}
+	
 }

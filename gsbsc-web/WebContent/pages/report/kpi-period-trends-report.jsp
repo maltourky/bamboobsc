@@ -123,7 +123,7 @@ function BSC_PROG003D0007Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				dojo.byId("BSC_PROG003D0007Q_content").innerHTML = "test!!!!";
+				dojo.byId("BSC_PROG003D0007Q_content").innerHTML = data.body;
 				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate1);
 				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate1);
 				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate2);
@@ -190,10 +190,6 @@ function BSC_PROG003D0007Q_clearContent() {
 	dojo.byId("BSC_PROG003D0007Q_content").innerHTML = "";
 }
 
-function BSC_PROG003D0007Q_openNew() {
-	
-}
-
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -239,24 +235,6 @@ function ${programId}_page_message() {
 											onClick:function(){  
 												BSC_PROG003D0007Q_query();
 											}"><s:property value="getText('BSC_PROG003D0001Q_btnQuery')"/></button>		
-																
-									<button id="BSC_PROG003D0007Q_btnExportPng" data-dojo-type="dijit.form.Button"
-										data-dojo-props="
-											iconClass:'dijitIconPrint',
-											showLabel:false,
-											onClick:function(){
-											
-												BSC_PROG003D0007Q_openNew();
-																						  
-											}"><s:property value="getText('BSC_PROG003D0001Q_btnExportPng')"/></button>	
-					
-									<button id="BSC_PROG003D0007Q_btnPdf" data-dojo-type="dijit.form.Button"
-										data-dojo-props="
-											iconClass:'btnPdfIcon',
-											showLabel:false,
-											onClick:function(){
-												BSC_PROG003D0007Q_generateExport('PDF');
-											}"><s:property value="getText('BSC_PROG003D0001Q_btnPdf')"/></button>	
 									            
 									<button id="BSC_PROG003D0007Q_btnXls" data-dojo-type="dijit.form.Button"
 										data-dojo-props="
