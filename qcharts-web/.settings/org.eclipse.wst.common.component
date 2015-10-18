@@ -15,6 +15,9 @@
         <dependent-module archiveName="core-persistence.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/core-persistence/core-persistence">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="qcharts-persistence.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/qcharts-persistence/qcharts-persistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="qcharts-web"/>
         <property name="java-output-path" value="/qcharts-web/build/classes"/>
     </wb-module>

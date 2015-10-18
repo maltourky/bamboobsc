@@ -15,6 +15,9 @@
         <dependent-module archiveName="gsbsc-standard.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gsbsc-standard/gsbsc-standard">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="gsbsc-persistence.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gsbsc-persistence/gsbsc-persistence">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="gsbsc-mobile-web"/>
         <property name="java-output-path" value="/gsbsc-mobile-web/build/classes"/>
     </wb-module>
