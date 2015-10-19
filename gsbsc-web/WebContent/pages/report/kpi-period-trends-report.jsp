@@ -203,9 +203,11 @@ function BSC_PROG003D0007Q_clearContent() {
 }
 
 function BSC_PROG003D0007Q_lineChart(data) {
-	
-	var n = 0;
 	dojo.byId("BSC_PROG003D0007Q_chart").innerHTML = "";
+	if ( null == data || data.length < 1 ) {
+		return;
+	}
+	var n = 0;
 	var content = '';
 	content += '<table width="1100px" border="0" cellpadding="1" cellspacing="1" bgcolor="#d8d8d8" >';
 	content += '<tr>';
@@ -237,7 +239,7 @@ function BSC_PROG003D0007Q_lineChart(data) {
 	            x: -20 //center
 	        },
 	        subtitle: {
-	            text: 'Period trends',
+	            text: 'Period trends - (C) is current , (P) is previous',
 	            x: -20
 	        },
 	        xAxis: {
@@ -513,12 +515,12 @@ function ${programId}_page_message() {
 			
 	<table border="0" width="100%" >
 		<tr valign="top">
-			<td width="100%" align="center" >
+			<td width="100%" align="left" >
 				<div id="BSC_PROG003D0007Q_content"></div>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="100%" align="center" >
+			<td width="100%" align="left" >
 				<div id="BSC_PROG003D0007Q_chart"></div>
 			</td>
 		</tr>		
