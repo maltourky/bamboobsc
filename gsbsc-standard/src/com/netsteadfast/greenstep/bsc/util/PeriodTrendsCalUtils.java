@@ -40,6 +40,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ChainResultObj;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.BscStructTreeObj;
 import com.netsteadfast.greenstep.bsc.model.PeriodTrendsData;
@@ -48,6 +49,7 @@ import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.util.TemplateUtils;
+import com.netsteadfast.greenstep.vo.DateRangeScoreVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
@@ -107,7 +109,7 @@ public class PeriodTrendsCalUtils {
 	}
 	
 	private static void fillKpiPeriodTrends(List<PeriodTrendsData<KpiVO>> result, 
-			ChainResultObj result1, ChainResultObj result2) throws ServiceException, Exception {
+			ChainResultObj result1, ChainResultObj result2, boolean sameFrequency) throws ServiceException, Exception {
 				
 		VisionVO visionCV = ( (BscStructTreeObj)result1.getValue() ).getVisions().get(0);
 		VisionVO visionPV = ( (BscStructTreeObj)result2.getValue() ).getVisions().get(0);
@@ -146,9 +148,37 @@ public class PeriodTrendsCalUtils {
 				periodData.setChange( NumberUtils.toFloat(change)  );
 			}
 			
+			if (sameFrequency && periodData.getCurrent().getDateRangeScores().size() 
+					== periodData.getPrevious().getDateRangeScores().size()) {
+				fillKpiPeriodTrendsDateRangeScore(periodData);
+			}
+			
 		}
 		
 	}	
+	
+	private static void fillKpiPeriodTrendsDateRangeScore(PeriodTrendsData<KpiVO> periodData) throws Exception {
+		for (int i=0; i<periodData.getCurrent().getDateRangeScores().size(); i++) {
+			DateRangeScoreVO currentRangeScore = periodData.getCurrent().getDateRangeScores().get(i);
+			DateRangeScoreVO previousRangeScore = periodData.getPrevious().getDateRangeScores().get(i);
+			periodData.getDateRangeLabels().add( currentRangeScore.getDate() + "(C) / " + previousRangeScore.getDate() + "(P)");	
+			float score = 0.0f;
+			Object ans = BscFormulaUtils.parseKPIPeroidScoreChangeValue(
+					periodData.getCurrent().getTrendsFormula(), 
+					currentRangeScore.getScore(), 
+					previousRangeScore.getScore());
+			String change = String.valueOf(ans);
+			if ( NumberUtils.isNumber( String.valueOf(change) ) ) {
+				score = NumberUtils.toFloat(change);
+			}			
+			periodData.getDateRangeScores().add( NumberUtils.toFloat(BscReportSupportUtils.parse2(score)) );
+			periodData.getCurrentDateRangeScores().add( currentRangeScore.getScore() );
+			periodData.getPreviousDateRangeScores().add( previousRangeScore.getScore() );
+		}	
+		if (periodData.getDateRangeLabels().size()>1) {
+			periodData.setCanChart(YesNo.YES);
+		}
+	}
 	
 	public static List<PeriodTrendsData<KpiVO>> getKpiScoreChange(String visionOid1, String startDate1, String endDate1, 
 			String startYearDate1, String endYearDate1, String frequency1, String dataFor1, String orgId1, String empId1,
@@ -166,7 +196,7 @@ public class PeriodTrendsCalUtils {
 		SimpleChain chain2 = new SimpleChain();
 		ChainResultObj resultObj1 = chain1.getResultFromResource("performanceScoreChain", context1);
 		ChainResultObj resultObj2 = chain2.getResultFromResource("performanceScoreChain", context2);
-		fillKpiPeriodTrends(result, resultObj1, resultObj2);		
+		fillKpiPeriodTrends(result, resultObj1, resultObj2, frequency1.equals(frequency2));		
 		return result;
 	}
 	
@@ -239,7 +269,7 @@ public class PeriodTrendsCalUtils {
 		);
 	}
 	
-	private static String getDateRange(String frequency, String startYearDate, String endYearDate, String startDate, String endDate) {
+	public static String getDateRange(String frequency, String startYearDate, String endYearDate, String startDate, String endDate) {
 		String dateRange = startYearDate + " ~ " + endYearDate;
 		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 

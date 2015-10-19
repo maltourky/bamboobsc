@@ -21,13 +21,22 @@
  */
 package com.netsteadfast.greenstep.bsc.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
+import com.netsteadfast.greenstep.base.model.YesNo;
 
 public class PeriodTrendsData<T extends BaseValueObj> implements java.io.Serializable {
 	private static final long serialVersionUID = 342511764380400693L;
 	private T current;
 	private T previous;
 	private float change = 0.0f;
+	private List<String> dateRangeLabels = new LinkedList<String>();
+	private List<Float> dateRangeScores = new LinkedList<Float>();
+	private List<Float> currentDateRangeScores = new LinkedList<Float>();
+	private List<Float> previousDateRangeScores = new LinkedList<Float>();
+	private String canChart = YesNo.NO;
 	
 	public PeriodTrendsData() {
 		
@@ -56,6 +65,36 @@ public class PeriodTrendsData<T extends BaseValueObj> implements java.io.Seriali
 	}
 	public void setChange(float change) {
 		this.change = change;
+	}
+	public List<String> getDateRangeLabels() {
+		return dateRangeLabels;
+	}
+	public void setDateRangeLabels(List<String> dateRangeLabels) {
+		this.dateRangeLabels = dateRangeLabels;
+	}
+	public List<Float> getDateRangeScores() {
+		return dateRangeScores;
+	}
+	public void setDateRangeScores(List<Float> dateRangeScores) {
+		this.dateRangeScores = dateRangeScores;
+	}
+	public List<Float> getCurrentDateRangeScores() {
+		return currentDateRangeScores;
+	}
+	public void setCurrentDateRangeScores(List<Float> currentDateRangeScores) {
+		this.currentDateRangeScores = currentDateRangeScores;
+	}
+	public List<Float> getPreviousDateRangeScores() {
+		return previousDateRangeScores;
+	}
+	public void setPreviousDateRangeScores(List<Float> previousDateRangeScores) {
+		this.previousDateRangeScores = previousDateRangeScores;
+	}
+	public String getCanChart() {
+		return canChart;
+	}
+	public void setCanChart(String canChart) {
+		this.canChart = canChart;
 	}
 	
 }

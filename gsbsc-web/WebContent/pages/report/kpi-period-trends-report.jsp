@@ -137,7 +137,8 @@ function BSC_PROG003D0007Q_query(format) {
 				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate1);
 				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate1);
 				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate2);
-				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate2);				
+				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate2);		
+				BSC_PROG003D0007Q_lineChart( data.periodData );
 			}, 
 			function(error) {
 				alert(error);
@@ -198,6 +199,82 @@ function BSC_PROG003D0007Q_visionOid_1_change() {
 
 function BSC_PROG003D0007Q_clearContent() {
 	dojo.byId("BSC_PROG003D0007Q_content").innerHTML = "";
+	dojo.byId("BSC_PROG003D0007Q_chart").innerHTML = "";
+}
+
+function BSC_PROG003D0007Q_lineChart(data) {
+	
+	var n = 0;
+	dojo.byId("BSC_PROG003D0007Q_chart").innerHTML = "";
+	var content = '';
+	content += '<table width="1100px" border="0" cellpadding="1" cellspacing="1" bgcolor="#d8d8d8" >';
+	content += '<tr>';
+	content += '<td bgcolor="#f5f5f5" align="center" ><font size="4"><b>KPIs period trends</b></font></td>';
+	content += '</tr>';	
+	for (var i=0; i<data.length; i++) {
+		var periodData = data[i];
+		if ( 'Y' != periodData.canChart ) {
+			continue;
+		}		
+		var chartId = "BSC_PROG003D0007Q_chart_" + periodData.current.id;
+		content += '<tr>';
+		content += '<td bgcolor="#ffffff" align="center" ><div id="' + chartId + '" style="min-width: 1024px; height: 450px; max-width: 2048px; margin: 0 auto" ></div></td>';
+		content += '</tr>';					
+	}
+	content += '</table>';
+	dojo.byId("BSC_PROG003D0007Q_chart").innerHTML = content;
+	
+	for (var i=0; i<data.length; i++) {
+		var periodData = data[i];
+		if ( 'Y' != periodData.canChart ) {
+			continue;
+		}						
+		var chartId = "BSC_PROG003D0007Q_chart_" + periodData.current.id;
+		
+	    $('#'+chartId).highcharts({
+	        title: {
+	            text: periodData.current.name,
+	            x: -20 //center
+	        },
+	        subtitle: {
+	            text: 'Period trends',
+	            x: -20
+	        },
+	        xAxis: {
+	            categories: periodData.dateRangeLabels
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Score / Change(%)'
+	            },
+	            plotLines: [{
+	                value: 0,
+	                width: 1,
+	                color: '#808080'
+	            }]
+	        },
+	        tooltip: {
+	            valueSuffix: ' value'
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+	        series: [
+	                 { name : "Change(%)", data : periodData.dateRangeScores },
+	                 { name : "Current", data : periodData.currentDateRangeScores },
+	                 { name : "Previous", data : periodData.previousDateRangeScores }
+			]
+	    });	
+	    n++;
+	}
+	
+	if ( n == 0 ) {
+		dojo.byId("BSC_PROG003D0007Q_chart").innerHTML = "";
+	}
+	
 }
 
 //------------------------------------------------------------------------------
@@ -432,9 +509,20 @@ function ${programId}_page_message() {
 			</td>
 		</tr>
 	</table>
-			
 	
-	<div id="BSC_PROG003D0007Q_content"></div>
+			
+	<table border="0" width="100%" >
+		<tr valign="top">
+			<td width="100%" align="center" >
+				<div id="BSC_PROG003D0007Q_content"></div>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="100%" align="center" >
+				<div id="BSC_PROG003D0007Q_chart"></div>
+			</td>
+		</tr>		
+	</table>			
 	
 	
 <script type="text/javascript">${programId}_page_message();</script>	

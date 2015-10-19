@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +41,10 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
+import com.netsteadfast.greenstep.bsc.model.PeriodTrendsData;
 import com.netsteadfast.greenstep.bsc.util.PeriodTrendsCalUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
+import com.netsteadfast.greenstep.vo.KpiVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.KpiPeriodTrendsQueryAction")
@@ -53,6 +56,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	private String success = IS_NO;
 	private String body = "";
 	private String uploadOid = "";
+	private List<PeriodTrendsData<KpiVO>> periodData = new ArrayList<PeriodTrendsData<KpiVO>>();  
 	
 	public KpiPeriodTrendsQueryAction() {
 		super();
@@ -260,7 +264,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		this.setDateValue("2");
 		this.checkDateRange("1");
 		this.checkDateRange("2");
-		this.body = PeriodTrendsCalUtils.renderKpiPeriodTrendsBody(
+		this.periodData = PeriodTrendsCalUtils.getKpiScoreChange(
 				this.getFields().get("visionOid1"), 
 				this.getFields().get("startDate1"), 
 				this.getFields().get("endDate1"), 
@@ -283,6 +287,14 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 				this.getFields().get("empId2"), 
 				this.getFields().get("measureDataOrganizationOid2"), 
 				this.getFields().get("measureDataEmployeeOid2"));
+		this.body = PeriodTrendsCalUtils.renderKpiPeriodTrendsBody(
+				this.periodData, 
+				PeriodTrendsCalUtils.getDateRange(
+						this.getFields().get("frequency1"), this.getFields().get("startYearDate1"), this.getFields().get("endYearDate1"), 
+						this.getFields().get("startDate1"), this.getFields().get("endDate1")), 
+				PeriodTrendsCalUtils.getDateRange(
+						this.getFields().get("frequency2"), this.getFields().get("startYearDate2"), this.getFields().get("endYearDate2"), 
+						this.getFields().get("startDate2"), this.getFields().get("endDate2")));
 		this.success = IS_YES;
 		this.message = "success!";
 	}
@@ -427,6 +439,11 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	@JSON
 	public String getUploadOid() {
 		return uploadOid;
+	}
+
+	@JSON
+	public List<PeriodTrendsData<KpiVO>> getPeriodData() {
+		return periodData;
 	}	
 
 }
