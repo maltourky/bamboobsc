@@ -20,7 +20,7 @@
  * 
  */
 dojo.declare("GS.CORE", null ,{
-    ver: '0.6.00',
+    ver: '0.6.1',
     name: 'bambooCORE',
     full_name: 'bambooCORE - opensource Balanced Scorecard (BSC) Business Intelligence',
     /*
