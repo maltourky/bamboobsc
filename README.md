@@ -74,7 +74,9 @@ contact: chen.xin.nien@gmail.com
 <br/>12 Support the development of integration processes flow.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/BPMN_PROCESS_LIST.png"/><br/>
-
+<br/>13 KPI period trends / change(%).
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/KPI-PERIOD-TRENDS.png"/><br/>
 
 <br/>
 <br/>
