@@ -121,7 +121,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG002D0004A_id") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_name") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_formulaOid") + "<BR/>",
-							"Please select KPI-Trends formula!<BR/>",
+							this.getText("MESSAGE.BSC_PROG002D0004A_trendsFormulaOid") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_weight") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_max") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_target") + "<BR/>",
