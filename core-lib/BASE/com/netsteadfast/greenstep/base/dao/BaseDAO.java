@@ -21,13 +21,22 @@
  */
 package com.netsteadfast.greenstep.base.dao;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
+import org.apache.cxf.helpers.IOUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
@@ -50,8 +59,13 @@ import com.netsteadfast.greenstep.base.model.CustomeOperational;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
+import com.netsteadfast.greenstep.base.model.dynamichql.DynamicHql;
 import com.netsteadfast.greenstep.util.DataUtils;
 import com.netsteadfast.greenstep.util.GenericsUtils;
+
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 
 public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io.Serializable> implements IBaseDAO<T, PK> {
 	protected Logger logger=Logger.getLogger(BaseDAO.class);
@@ -72,6 +86,8 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	protected Class<T> entityClass;
+	
+	private static Map<String, DynamicHql> dynamicHqlMap = new HashMap<String, DynamicHql>();
 	
 	@SuppressWarnings("unchecked")
 	public BaseDAO() {
@@ -397,6 +413,25 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 	}
 	
 	/**
+	 * 頁面查詢grid資料用 
+	 * 
+	 * map 放入 key為 persisent obj 欄位名稱
+	 * 
+	 */
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult3(
+			String pageQueryName, Map<String, Object> params, int offset, int limit) throws Exception {
+		
+		String selectQueryName = pageQueryName + "-select";
+		String countQueryName = pageQueryName + "-count";
+		return this.findResult2(
+				this.getDynamicHql(selectQueryName, params), 
+				this.getDynamicHql(countQueryName, params), 
+				params, 
+				offset, 
+				limit);		
+	}
+	
+	/**
 	 * for public QueryResult getList... doInHibernate
 	 * @param query		 JPA-Style : from TB_ACCOUNT where account = ?0 
 	 * @param position   JPA-Style : "0", "1" .....
@@ -570,7 +605,6 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 		return status;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public T findByPK(PK pk) throws Exception {
 		return (T)this.getCurrentSession().get(this.entityClass, pk);
 	}
@@ -852,5 +886,51 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 		return false;
 	}
 	*/
+	
+	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception {
+		return this.getDynamicHql(this.getPersisentName()+"-dynamic-hql.xml", queryName, paramMap);
+	}
+	
+	public String getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) throws Exception {
+		
+		DynamicHql dynamicHql = dynamicHqlMap.get(resource);
+		if (dynamicHql == null) {
+			InputStream in = null;
+			try {
+				in = this.getClass().getResourceAsStream( "/dynamichql/" + resource );
+				byte[] xmlBytes = IOUtils.readBytesFromStream(in);
+				JAXBContext jaxbContext = JAXBContext.newInstance( DynamicHql.class );
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				dynamicHql = (DynamicHql) jaxbUnmarshaller.unmarshal( new ByteArrayInputStream(xmlBytes) );
+				dynamicHqlMap.put(resource, dynamicHql);				
+			} catch (IOException e) {
+				throw e;
+			} finally {
+				if (in != null) {
+					in.close();
+				}
+				in = null;
+			}
+		}		
+		if (null == dynamicHql) {
+			throw new Exception( "no dynamic hql config." );
+		}
+		String hql = "";
+		for (int i=0; i<dynamicHql.getQuery().size() && hql.length()<1; i++) {
+			com.netsteadfast.greenstep.base.model.dynamichql.Query queryObj = dynamicHql.getQuery().get(i);
+			if (!queryObj.getName().equals(queryName)) {
+				continue;
+			}			
+			StringTemplateLoader templateLoader = new StringTemplateLoader();
+			templateLoader.putTemplate("dynamic-hql-resource", queryObj.getContent());
+			Configuration cfg = new Configuration( Configuration.VERSION_2_3_21 );
+			cfg.setTemplateLoader(templateLoader);
+			Template template = cfg.getTemplate("dynamic-hql-resource", Constants.BASE_ENCODING);
+			Writer out = new StringWriter();
+			template.process(paramMap, out);			
+			hql = out.toString();
+		}
+		return hql;
+	}
 
 }

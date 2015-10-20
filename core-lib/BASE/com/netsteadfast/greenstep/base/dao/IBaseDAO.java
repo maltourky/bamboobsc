@@ -43,6 +43,8 @@ public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Ser
 			String findHQL, String countHQL, 
 			Map<String, Object> params, 
 			int offset, int limit) throws Exception;
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult3(
+			String pageQueryName, Map<String, Object> params, int offset, int limit) throws Exception;	
 	public T save(T entityObject) throws Exception;
 	public T update(T entityObject) throws Exception;
 	public T persist(T entityObject) throws Exception;
@@ -111,4 +113,8 @@ public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Ser
 	public boolean ibatisUpdate(T valueObj) throws Exception;
 	public boolean ibatisDelete(T valueObj) throws Exception;
 	*/
+	
+	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception;
+	public String getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) throws Exception;	
+	
 }
