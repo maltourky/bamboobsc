@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -86,7 +87,10 @@ public class RolePermissionServiceImpl extends BaseService<RolePermissionVO, TbR
 	
 	private Map<String, Object> getQueryParameters(SearchValue searchValue) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("role", super.defaultString(searchValue.getParameter().get("role")) );
+		String role = searchValue.getParameter().get("role");
+		if (!StringUtils.isBlank(role)) {
+			params.put("role", role);
+		}
 		return params;		
 	}
 
@@ -99,12 +103,16 @@ public class RolePermissionServiceImpl extends BaseService<RolePermissionVO, TbR
 		Map<String, Object> params = this.getQueryParameters(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<RolePermissionVO>> result=this.rolePermissionDAO.findResult2(
 				"SELECT new com.netsteadfast.greenstep.vo.RolePermissionVO(rp.oid, rp.role, rp.permission, rp.permType, rp.description) FROM TbRolePermission rp WHERE rp.role=:role ORDER BY rp.permission ASC ", 
 				"SELECT count(*) FROM TbRolePermission rp WHERE rp.role=:role ", 
 				params, 
 				offset, 
 				limit);
+		*/
+		QueryResult<List<RolePermissionVO>> result=this.rolePermissionDAO.findResult3(
+				"findRolePermissionPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

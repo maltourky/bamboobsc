@@ -95,6 +95,7 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -111,7 +112,8 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 			hqlSb.append("ORDER BY r.role ASC ");
 		}		
 		return hqlSb.toString();
-	}	
+	}
+	*/	
 
 	/**
 	 * SELECT OID, ROLE, DESCRIPTION from TB_ROLE
@@ -132,12 +134,15 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<RoleVO>> result=this.roleDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/		
+		QueryResult<List<RoleVO>> result=this.roleDAO.findResult3("findRolePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

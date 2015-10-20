@@ -105,6 +105,7 @@ public class SysExpressionServiceImpl extends BaseService<SysExpressionVO, TbSys
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -127,7 +128,8 @@ public class SysExpressionServiceImpl extends BaseService<SysExpressionVO, TbSys
 			hqlSb.append("ORDER BY m.exprId ASC");
 		}		
 		return hqlSb.toString();
-	}		
+	}
+	*/		
 	
 	@Override
 	public QueryResult<List<SysExpressionVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -137,12 +139,16 @@ public class SysExpressionServiceImpl extends BaseService<SysExpressionVO, TbSys
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<SysExpressionVO>> result=this.sysExpressionDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/	
+		QueryResult<List<SysExpressionVO>> result=this.sysExpressionDAO.findResult3(
+				"findSysExpressionPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

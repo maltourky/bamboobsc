@@ -12,7 +12,7 @@
 		and sp.name LIKE :name
 		</#if>
 				
-		<#if sysId??>
+		<#if progId??>
 		and sp.progId = :progId
 		</#if>
 			
@@ -31,7 +31,7 @@
 		and sp.name LIKE :name
 		</#if>
 				
-		<#if sysId??>
+		<#if progId??>
 		and sp.progId = :progId
 		</#if>
 	]]>		

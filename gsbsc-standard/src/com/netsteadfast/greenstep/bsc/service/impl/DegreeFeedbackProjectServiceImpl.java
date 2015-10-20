@@ -37,7 +37,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -105,6 +104,7 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -124,7 +124,8 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 			hqlSb.append("ORDER BY m.year, m.name ASC ");
 		}		
 		return hqlSb.toString();
-	}		
+	}
+	*/		
 
 	@Override
 	public QueryResult<List<DegreeFeedbackProjectVO>> findGridResult(
@@ -135,12 +136,16 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<DegreeFeedbackProjectVO>> result=this.degreeFeedbackProjectDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/		
+		QueryResult<List<DegreeFeedbackProjectVO>> result=this.degreeFeedbackProjectDAO.findResult3(
+				"findDegreeFeedbackProjectPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

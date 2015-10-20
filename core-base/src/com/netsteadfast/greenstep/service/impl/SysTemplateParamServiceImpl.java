@@ -27,6 +27,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -34,7 +35,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -88,10 +88,13 @@ public class SysTemplateParamServiceImpl extends BaseService<SysTemplateParamVO,
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
 		Map<String, Object> params=new LinkedHashMap<String, Object>();
 		String templateOid = searchValue.getParameter().get("templateOid");	
-		params.put("templateOid", templateOid);
+		if (!StringUtils.isBlank(templateOid)) {
+			params.put("templateOid", templateOid);
+		}
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -103,7 +106,8 @@ public class SysTemplateParamServiceImpl extends BaseService<SysTemplateParamVO,
 		hqlSb.append("FROM TbSysTemplateParam m WHERE 1=1 ");
 		hqlSb.append("and m.templateId IN ( SELECT t.templateId FROM TbSysTemplate t WHERE t.oid = :templateOid ) ");		
 		return hqlSb.toString();
-	}			
+	}
+	*/			
 	
 	@Override
 	public QueryResult<List<SysTemplateParamVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -113,12 +117,16 @@ public class SysTemplateParamServiceImpl extends BaseService<SysTemplateParamVO,
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<SysTemplateParamVO>> result=this.sysTemplateParamDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/		
+		QueryResult<List<SysTemplateParamVO>> result=this.sysTemplateParamDAO.findResult3(
+				"findSysTemplateParamPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;
