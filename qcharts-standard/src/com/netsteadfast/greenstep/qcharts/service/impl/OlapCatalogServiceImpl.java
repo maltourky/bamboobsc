@@ -36,7 +36,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -101,6 +100,7 @@ public class OlapCatalogServiceImpl extends BaseService<OlapCatalogVO, QcOlapCat
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -120,7 +120,8 @@ public class OlapCatalogServiceImpl extends BaseService<OlapCatalogVO, QcOlapCat
 			hqlSb.append("ORDER BY m.id ASC ");
 		}		
 		return hqlSb.toString();
-	}				
+	}
+	*/				
 
 	@Override
 	public QueryResult<List<OlapCatalogVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -130,12 +131,16 @@ public class OlapCatalogServiceImpl extends BaseService<OlapCatalogVO, QcOlapCat
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<OlapCatalogVO>> result=this.olapCatalogDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/
+		QueryResult<List<OlapCatalogVO>> result=this.olapCatalogDAO.findResult3(
+				"findOlapCatalogPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;
