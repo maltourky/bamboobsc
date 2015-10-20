@@ -21,7 +21,9 @@
  */
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
@@ -30,7 +32,6 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.greenstep.BscConstants;
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.dao.BaseDAO;
 import com.netsteadfast.greenstep.bsc.dao.IKpiDAO;
 import com.netsteadfast.greenstep.bsc.vo.BscMixDataVO;
@@ -44,6 +45,7 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 		super();
 	}
 	
+	/*
 	private String getMixDataHql(String type, String visionOid, String orgId, String empId, String nextType, String nextId) {
 		StringBuilder hql = new StringBuilder();
 		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
@@ -86,6 +88,7 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 		}
 		return hql.toString();
 	}
+	*/
 	
 	private void setQueryMixDataParameter(Query query, String visionOid, String orgId, String empId, String nextType, String nextId) {
 		if (!StringUtils.isBlank(visionOid)) {
@@ -106,6 +109,32 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
 			query.setString("kpiId", nextId);
 		}		
+	}
+	
+	private Map<String, Object> getQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (!StringUtils.isBlank(visionOid)) {
+			paramMap.put("visionOid", visionOid);
+		}		
+		if (!StringUtils.isBlank(orgId)) {
+			paramMap.put("orgId", orgId);
+		}	
+		if (!StringUtils.isBlank(empId)) {
+			paramMap.put("empId", empId);
+		}			
+		if (BscConstants.HEAD_FOR_PER_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("perId", nextId);
+			paramMap.put("nextType", nextType);
+		}
+		if (BscConstants.HEAD_FOR_OBJ_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("objId", nextId);
+			paramMap.put("nextType", nextType);
+		}
+		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("kpiId", nextId);
+			paramMap.put("nextType", nextType);			
+		}	
+		return paramMap;
 	}
 
 	/**
@@ -137,16 +166,24 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BscMixDataVO> findForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws Exception {
+		/*
 		Query query = this.getCurrentSession().createQuery( 
-				this.getMixDataHql(Constants.QUERY_TYPE_OF_SELECT, visionOid, orgId, empId, nextType, nextId) );	
+				this.getMixDataHql(Constants.QUERY_TYPE_OF_SELECT, visionOid, orgId, empId, nextType, nextId) );
+		*/
+		Query query = this.getCurrentSession().createQuery(
+				this.getDynamicHql("findKpiMixData-select", this.getQueryParam(visionOid, orgId, empId, nextType, nextId)) );
 		this.setQueryMixDataParameter(query, visionOid, orgId, empId, nextType, nextId);
 		return query.list();
 	}
 
 	@Override
-	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws Exception {	
+	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws Exception {
+		/*
 		Query query = this.getCurrentSession().createQuery( 
 				this.getMixDataHql(Constants.QUERY_TYPE_OF_COUNT, visionOid, orgId, empId, nextType, nextId) );
+		*/
+		Query query = this.getCurrentSession().createQuery(
+				this.getDynamicHql("findKpiMixData-count", this.getQueryParam(visionOid, orgId, empId, nextType, nextId)) );
 		this.setQueryMixDataParameter(query, visionOid, orgId, empId, nextType, nextId);
 		return DataAccessUtils.intResult( query.list() );
 	}

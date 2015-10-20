@@ -37,7 +37,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.netsteadfast.greenstep.BscConstants;
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -118,6 +117,7 @@ public class ObjectiveServiceImpl extends BaseService<ObjectiveVO, BbObjective, 
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -143,7 +143,8 @@ public class ObjectiveServiceImpl extends BaseService<ObjectiveVO, BbObjective, 
 			hqlSb.append("ORDER BY m.objId ASC ");
 		}		
 		return hqlSb.toString();
-	}			
+	}
+	*/			
 	
 	@Override
 	public QueryResult<List<ObjectiveVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -153,12 +154,16 @@ public class ObjectiveServiceImpl extends BaseService<ObjectiveVO, BbObjective, 
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<ObjectiveVO>> result=this.objectiveDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/
+		QueryResult<List<ObjectiveVO>> result=this.objectiveDAO.findResult3(
+				"findObjectivePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;
