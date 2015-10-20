@@ -135,7 +135,7 @@ function ${programId}_page_message() {
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Trends</b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003A_trendsFlag')"/></b>:
     			<br/>
     			<gs:select name="BSC_PROG001D0003A_trendsFlag" dataSource="trendsFlagMap" id="BSC_PROG001D0003A_trendsFlag" value="N"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003A_trendsFlag'">

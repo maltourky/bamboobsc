@@ -91,7 +91,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG001D0003A_forId") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_name") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>",
-							"Please select trends flag!<BR/>",
+							this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>"
 					}, 
@@ -165,7 +165,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		}
 		if (this.isNoSelectId(this.getFields().get("trendsFlag"))) {
 			this.getFieldsId().add("trendsFlag");
-			throw new ControllerException("Please select trends flag!<BR/>");
+			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>");
 		}
 		if (this.isNoSelectId(this.getFields().get("returnMode")) ) {
 			this.getFieldsId().add("returnMode");
