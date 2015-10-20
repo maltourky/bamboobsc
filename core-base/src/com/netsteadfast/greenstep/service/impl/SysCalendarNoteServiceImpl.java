@@ -100,6 +100,7 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 		return params;
 	}
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -119,7 +120,8 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 			hqlSb.append("ORDER BY m.account ASC, m.calendarId DESC ");
 		}		
 		return hqlSb.toString();
-	}		
+	}
+	*/		
 	
 	@Override
 	public QueryResult<List<SysCalendarNoteVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -129,12 +131,16 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<SysCalendarNoteVO>> result=this.sysCalendarNoteDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/
+		QueryResult<List<SysCalendarNoteVO>> result=this.sysCalendarNoteDAO.findResult3(
+				"findSysCalendarNote", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

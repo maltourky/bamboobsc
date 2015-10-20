@@ -36,7 +36,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -113,6 +112,7 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 		return params;
 	}	
 	
+	/*
 	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
 		StringBuilder hqlSb=new StringBuilder();
 		hqlSb.append("SELECT ");
@@ -132,7 +132,8 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 			hqlSb.append("ORDER BY sp.progId,sp.name ASC ");
 		}		
 		return hqlSb.toString();
-	}	
+	}
+	*/	
 
 	/**
 	 * select OID, PROG_ID, NAME, URL, EDIT_MODE, PROG_SYSTEM, ITEM_TYPE, ICON from tb_sys_prog
@@ -155,12 +156,16 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		/*
 		QueryResult<List<SysProgVO>> result=this.sysProgDAO.findResult2(
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
 				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
 				params, 
 				offset, 
 				limit);
+		*/
+		QueryResult<List<SysProgVO>> result=this.sysProgDAO.findResult3(
+				"findSysProgPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;
