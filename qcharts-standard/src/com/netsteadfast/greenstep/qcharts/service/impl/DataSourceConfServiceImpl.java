@@ -98,30 +98,7 @@ public class DataSourceConfServiceImpl extends BaseService<DataSourceConfVO, QcD
 			params.put("name", "%"+name+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.DataSourceConfVO(m.oid, m.id, m.name, m.driverId, m.jdbcUrl, m.dbAccount, m.dbPassword, m.description) ");
-		}
-		hqlSb.append("FROM QcDataSourceConf m WHERE 1=1 ");		
-		if (params.get("id")!=null) {
-			hqlSb.append(" AND m.id = :id ");			
-		}
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.id ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/			
+	}		
 	
 	@Override
 	public QueryResult<List<DataSourceConfVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -130,16 +107,8 @@ public class DataSourceConfServiceImpl extends BaseService<DataSourceConfVO, QcD
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<DataSourceConfVO>> result=this.dataSourceConfDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<DataSourceConfVO>> result=this.dataSourceConfDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<DataSourceConfVO>> result=this.dataSourceConfDAO.findPageQueryResultByQueryName(
 				"findDataSourceConfPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

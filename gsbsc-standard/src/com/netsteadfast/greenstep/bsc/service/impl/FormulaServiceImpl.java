@@ -101,30 +101,7 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 			params.put("name", "%"+name+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.FormulaVO(m.oid, m.forId, m.name, m.type, m.trendsFlag, m.returnMode, m.returnVar, m.expression, m.description) ");
-		}
-		hqlSb.append("FROM BbFormula m WHERE 1=1 ");		
-		if (params.get("forId")!=null) {
-			hqlSb.append(" AND m.forId = :forId ");
-		}		
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.forId ASC ");
-		}		
-		return hqlSb.toString();
-	}				
-	*/
+	}	
 	
 	@Override
 	public QueryResult<List<FormulaVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -133,16 +110,8 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<FormulaVO>> result=this.formulaDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<FormulaVO>> result=this.formulaDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<FormulaVO>> result=this.formulaDAO.findPageQueryResultByQueryName(
 				"findFormulaPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

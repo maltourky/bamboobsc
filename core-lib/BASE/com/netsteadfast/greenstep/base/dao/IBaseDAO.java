@@ -35,16 +35,12 @@ public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Ser
 	public int count(String hql) throws Exception;
 	public int count(String hql, Object... args) throws Exception;
 	@SuppressWarnings("rawtypes")
-	public List findList(final String hql, final int offset, final int length) throws Exception;
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult(
+	public List findList(final String hql, final int offset, final int length) throws Exception;	
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findPageQueryResult(
 			String findHQL, String countHQL, 
 			Map<String, Object> params, 
 			int offset, int limit) throws Exception;
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult2(
-			String findHQL, String countHQL, 
-			Map<String, Object> params, 
-			int offset, int limit) throws Exception;
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult3(
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findPageQueryResultByQueryName(
 			String pageQueryName, Map<String, Object> params, int offset, int limit) throws Exception;	
 	public T save(T entityObject) throws Exception;
 	public T update(T entityObject) throws Exception;

@@ -94,27 +94,7 @@ public class DataQueryMapperServiceImpl extends BaseService<DataQueryMapperVO, Q
 			params.put("name", "%"+name+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.DataQueryMapperVO(m.oid, m.name, m.description) ");
-		}
-		hqlSb.append("FROM QcDataQueryMapper m WHERE 1=1 ");		
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.name ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/
+	}	
 
 	@Override
 	public QueryResult<List<DataQueryMapperVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -123,16 +103,8 @@ public class DataQueryMapperServiceImpl extends BaseService<DataQueryMapperVO, Q
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<DataQueryMapperVO>> result=this.dataQueryMapperDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<DataQueryMapperVO>> result=this.dataQueryMapperDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<DataQueryMapperVO>> result=this.dataQueryMapperDAO.findPageQueryResultByQueryName(
 				"findDataQueryMapperPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

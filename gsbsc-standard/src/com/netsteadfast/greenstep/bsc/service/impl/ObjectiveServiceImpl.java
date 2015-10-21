@@ -115,36 +115,7 @@ public class ObjectiveServiceImpl extends BaseService<ObjectiveVO, BbObjective, 
 			params.put("name", "%"+name+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.ObjectiveVO(m.oid, m.objId, m.perId, m.name, m.weight, v.title, p.name) ");
-		}
-		hqlSb.append("FROM BbObjective m, BbPerspective p, BbVision v WHERE m.perId = p.perId AND p.visId = v.visId ");		
-		if (params.get("visionOid")!=null) {
-			hqlSb.append(" AND v.oid = :visionOid ");			
-		}
-		if (params.get("perspectiveOid")!=null) {
-			hqlSb.append(" AND p.oid = :perspectiveOid ");			
-		}		
-		if (params.get("objId")!=null) {
-			hqlSb.append(" AND m.objId = :objId ");
-		}		
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.objId ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/			
+	}		
 	
 	@Override
 	public QueryResult<List<ObjectiveVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -153,16 +124,8 @@ public class ObjectiveServiceImpl extends BaseService<ObjectiveVO, BbObjective, 
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<ObjectiveVO>> result=this.objectiveDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<ObjectiveVO>> result=this.objectiveDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<ObjectiveVO>> result=this.objectiveDAO.findPageQueryResultByQueryName(
 				"findObjectivePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

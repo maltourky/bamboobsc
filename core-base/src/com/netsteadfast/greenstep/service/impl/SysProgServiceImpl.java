@@ -110,30 +110,7 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 			params.put("progId", progId);
 		}		
 		return params;
-	}	
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysProgVO(sp.oid, sp.progId, sp.name, sp.url, sp.editMode, sp.progSystem, sp.itemType, sp.icon) ");
-		}
-		hqlSb.append("FROM TbSysProg sp WHERE 1=1 ");
-		if (params.get("name")!=null) {
-			hqlSb.append("  and sp.name LIKE :name ");
-		}		
-		if (params.get("progId")!=null) {
-			hqlSb.append("  and sp.progId = :progId ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY sp.progId,sp.name ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/	
+	}			
 
 	/**
 	 * select OID, PROG_ID, NAME, URL, EDIT_MODE, PROG_SYSTEM, ITEM_TYPE, ICON from tb_sys_prog
@@ -155,16 +132,8 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysProgVO>> result=this.sysProgDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<SysProgVO>> result=this.sysProgDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<SysProgVO>> result=this.sysProgDAO.findPageQueryResultByQueryName(
 				"findSysProgPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

@@ -94,26 +94,6 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 		}		
 		return params;
 	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.RoleVO(r.oid, r.role, r.description) ");
-		}
-		hqlSb.append("FROM TbRole r WHERE 1=1 ");
-		if (params.get("role")!=null) {
-			hqlSb.append("  and r.role = :role ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY r.role ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/	
 
 	/**
 	 * SELECT OID, ROLE, DESCRIPTION from TB_ROLE
@@ -134,15 +114,7 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<RoleVO>> result=this.roleDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/		
-		QueryResult<List<RoleVO>> result=this.roleDAO.findResult3("findRolePageGrid", params, offset, limit);
+		QueryResult<List<RoleVO>> result=this.roleDAO.findPageQueryResultByQueryName("findRolePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

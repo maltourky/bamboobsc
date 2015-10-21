@@ -96,30 +96,7 @@ public class SysCtxBeanServiceImpl extends BaseService<SysCtxBeanVO, TbSysCtxBea
 			params.put("className", className);
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysCtxBeanVO(m.oid, m.system, m.className, m.type, m.description) ");
-		}
-		hqlSb.append("FROM TbSysCtxBean m WHERE 1=1 ");		
-		if (params.get("systemOid")!=null) {
-			hqlSb.append(" AND m.system IN ( SELECT s.sysId FROM TbSys s WHERE s.oid = :systemOid ) ");			
-		}
-		if (params.get("className")!=null) {
-			hqlSb.append(" AND m.className = :className ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.system, m.className ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/		
+	}		
 	
 	@Override
 	public QueryResult<List<SysCtxBeanVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -128,16 +105,8 @@ public class SysCtxBeanServiceImpl extends BaseService<SysCtxBeanVO, TbSysCtxBea
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysCtxBeanVO>> result=this.sysCtxBeanDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/		
-		QueryResult<List<SysCtxBeanVO>> result=this.sysCtxBeanDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;	
+		QueryResult<List<SysCtxBeanVO>> result=this.sysCtxBeanDAO.findPageQueryResultByQueryName(
 				"findSysCtxBeanPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

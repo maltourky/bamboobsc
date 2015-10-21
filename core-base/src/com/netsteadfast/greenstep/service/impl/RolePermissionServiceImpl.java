@@ -103,15 +103,7 @@ public class RolePermissionServiceImpl extends BaseService<RolePermissionVO, TbR
 		Map<String, Object> params = this.getQueryParameters(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<RolePermissionVO>> result=this.rolePermissionDAO.findResult2(
-				"SELECT new com.netsteadfast.greenstep.vo.RolePermissionVO(rp.oid, rp.role, rp.permission, rp.permType, rp.description) FROM TbRolePermission rp WHERE rp.role=:role ORDER BY rp.permission ASC ", 
-				"SELECT count(*) FROM TbRolePermission rp WHERE rp.role=:role ", 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<RolePermissionVO>> result=this.rolePermissionDAO.findResult3(
+		QueryResult<List<RolePermissionVO>> result=this.rolePermissionDAO.findPageQueryResultByQueryName(
 				"findRolePermissionPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

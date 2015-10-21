@@ -271,82 +271,9 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 	 * 
 	 * map 放入 key為 persisent obj 欄位名稱
 	 * 
-	 * @param findHQL
-	 * @param countHQL
-	 * @param params
-	 * @param offset
-	 * @param limit
-	 * @return
-	 * @throws Exception
-	 */	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult(
-			final String findHQL, final String countHQL,
-			final Map<String, Object> params, final int offset, final int limit) throws Exception {
-				
-		QueryResult<List<VO>> result=new QueryResult<List<VO>>();
-		List<VO> list=null;
-		long count=0L;
-		Session hbmSession = this.getCurrentSession();
-		try {
-			int field=0;
-			Query query=hbmSession.createQuery(countHQL);
-			if (params!=null) {
-				for (Map.Entry<String, Object> entry : params.entrySet()) {
-					//this.setQueryParams(query, entry.getKey(), entry.getValue());
-					this.setQueryParams(query, String.valueOf(field), entry.getValue());
-					field++;				
-				}				
-			}
-			field=0;
-			count=((Long)query.uniqueResult()).longValue();	
-			int newOffset=offset;
-			if (count>0) {
-				if (offset>=count) { // 改掉原本頁面上一次查詢的欄位值 , 2014-10-08 offset>count
-					newOffset=(int)(count-Long.valueOf(limit));
-					if (newOffset<0) {
-						newOffset=0;
-					}
-				}				
-				query=hbmSession.createQuery(findHQL);
-				if (params!=null) {
-					for (Map.Entry<String, Object> entry : params.entrySet()) {
-						//this.setQueryParams(query, entry.getKey(), entry.getValue());
-						this.setQueryParams(query, String.valueOf(field), entry.getValue());
-						field++;
-					}								
-				}
-				query.setFirstResult(newOffset); //offset
-				query.setMaxResults(limit);
-				list=(List<VO>)query.list();					
-			}
-			result.setRowCount(count);
-			result.setOffset(offset);
-			result.setLimit(limit);
-			result.setFindHQL(findHQL);
-			result.setCountHQL(countHQL);			
-			if (list!=null && list.size()>0) {
-				result.setValue(list);
-			} else {
-				result.setSystemMessage(
-						new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA)));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			result.setSystemMessage(new SystemMessage(e.getMessage()));
-		}				
-		return result;
-	}
-	
-	/**
-	 * 頁面查詢grid資料用 
-	 * 
-	 * map 放入 key為 persisent obj 欄位名稱
-	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult2(
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findPageQueryResult(
 			String findHQL, String countHQL, 
 			Map<String, Object> params, 
 			int offset, int limit) throws Exception {
@@ -405,12 +332,12 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 	 * map 放入 key為 persisent obj 欄位名稱
 	 * 
 	 */
-	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findResult3(
+	public <RO extends QueryResult<List<VO>>, VO extends java.io.Serializable> QueryResult<List<VO>> findPageQueryResultByQueryName(
 			String pageQueryName, Map<String, Object> params, int offset, int limit) throws Exception {
 		
 		String selectQueryName = pageQueryName + "-select";
 		String countQueryName = pageQueryName + "-count";
-		return this.findResult2(
+		return this.findPageQueryResult(
 				this.getDynamicHql(selectQueryName, params), 
 				this.getDynamicHql(countQueryName, params), 
 				params, 

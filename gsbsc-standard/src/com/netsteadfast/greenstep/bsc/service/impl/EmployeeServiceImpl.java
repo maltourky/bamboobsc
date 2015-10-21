@@ -102,30 +102,7 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 			params.put("fullName", "%"+fullName+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.EmployeeVO(m.oid, m.account, m.empId, m.fullName, m.jobTitle) ");
-		}
-		hqlSb.append("FROM BbEmployee m, TbAccount b WHERE m.account = b.account ");		
-		if (params.get("empId")!=null) {
-			hqlSb.append(" AND m.empId = :empId ");			
-		}
-		if (params.get("fullName")!=null) {
-			hqlSb.append(" AND m.fullName LIKE :fullName ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.empId, m.account ASC ");
-		}		
-		return hqlSb.toString();
-	}		
-	*/
+	}	
 
 	@Override
 	public QueryResult<List<EmployeeVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -134,16 +111,8 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<EmployeeVO>> result=this.employeeDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<EmployeeVO>> result=this.employeeDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<EmployeeVO>> result=this.employeeDAO.findPageQueryResultByQueryName(
 				"findEmployeePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

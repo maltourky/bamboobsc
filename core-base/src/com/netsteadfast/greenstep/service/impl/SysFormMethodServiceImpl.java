@@ -95,26 +95,6 @@ public class SysFormMethodServiceImpl extends BaseService<SysFormMethodVO, TbSys
 		}	
 		return params;
 	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysFormMethodVO(m.oid, m.formId, m.name, m.resultType, m.type, m.description) ");
-		}
-		hqlSb.append("FROM TbSysFormMethod m WHERE 1=1 ");
-		if (params.get("formId")!=null) {
-			hqlSb.append("  and m.formId = :formId ");
-		}		
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.formId, m.name ASC");
-		}		
-		return hqlSb.toString();
-	}	
-	*/		
 
 	@Override
 	public QueryResult<List<SysFormMethodVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -123,16 +103,8 @@ public class SysFormMethodServiceImpl extends BaseService<SysFormMethodVO, TbSys
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysFormMethodVO>> result=this.sysFormMethodDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/		
-		QueryResult<List<SysFormMethodVO>> result=this.sysFormMethodDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;	
+		QueryResult<List<SysFormMethodVO>> result=this.sysFormMethodDAO.findPageQueryResultByQueryName(
 				"findSysFormMethodPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

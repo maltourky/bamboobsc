@@ -98,30 +98,7 @@ public class OlapCatalogServiceImpl extends BaseService<OlapCatalogVO, QcOlapCat
 			params.put("name", "%"+name+"%");
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.OlapCatalogVO(m.oid, m.id, m.name) ");
-		}
-		hqlSb.append("FROM QcOlapCatalog m WHERE 1=1 ");		
-		if (params.get("id")!=null) {
-			hqlSb.append(" AND m.id = :id ");			
-		}
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.id ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/				
+	}	
 
 	@Override
 	public QueryResult<List<OlapCatalogVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -130,16 +107,8 @@ public class OlapCatalogServiceImpl extends BaseService<OlapCatalogVO, QcOlapCat
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<OlapCatalogVO>> result=this.olapCatalogDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<OlapCatalogVO>> result=this.olapCatalogDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<OlapCatalogVO>> result=this.olapCatalogDAO.findPageQueryResultByQueryName(
 				"findOlapCatalogPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

@@ -92,27 +92,7 @@ public class SysJreportParamServiceImpl extends BaseService<SysJreportParamVO, T
 			params.put("sysJreportOid", sysJreportOid);
 		}
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysJreportParamVO(m.oid, m.reportId, m.urlParam, m.rptParam) ");
-		}
-		hqlSb.append("FROM TbSysJreportParam m WHERE 1=1 ");		
-		if (params.get("sysJreportOid")!=null) {
-			hqlSb.append(" AND m.reportId IN ( SELECT r.reportId FROM TbSysJreport r WHERE r.oid = :sysJreportOid ) ");			
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.rptParam ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/		
+	}	
 
 	@Override
 	public QueryResult<List<SysJreportParamVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -121,16 +101,8 @@ public class SysJreportParamServiceImpl extends BaseService<SysJreportParamVO, T
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysJreportParamVO>> result=this.sysJreportParamDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/		
-		QueryResult<List<SysJreportParamVO>> result=this.sysJreportParamDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;				
+		QueryResult<List<SysJreportParamVO>> result=this.sysJreportParamDAO.findPageQueryResultByQueryName(
 				"findSysJreportParamPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

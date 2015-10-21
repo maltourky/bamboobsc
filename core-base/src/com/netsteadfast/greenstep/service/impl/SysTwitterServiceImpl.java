@@ -98,30 +98,7 @@ public class SysTwitterServiceImpl extends BaseService<SysTwitterVO, TbSysTwitte
 			params.put("title", "%"+title+"%");
 		}			
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysTwitterVO(m.oid, m.system, m.title, m.enableFlag) ");
-		}
-		hqlSb.append("FROM TbSysTwitter m WHERE 1=1 ");
-		if (params.get("systemOid")!=null) {
-			hqlSb.append("  and m.system IN ( SELECT b.sysId FROM TbSys b WHERE b.oid = :systemOid ) ");
-		}		
-		if (params.get("title")!=null) {
-			hqlSb.append("  and m.title LIKE :title ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.system ASC");
-		}		
-		return hqlSb.toString();
-	}
-	*/	
+	}	
 
 	@Override
 	public QueryResult<List<SysTwitterVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -130,16 +107,8 @@ public class SysTwitterServiceImpl extends BaseService<SysTwitterVO, TbSysTwitte
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysTwitterVO>> result=this.sysTwitterDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/	
-		QueryResult<List<SysTwitterVO>> result=this.sysTwitterDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<SysTwitterVO>> result=this.sysTwitterDAO.findPageQueryResultByQueryName(
 				"findSysTwitterPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

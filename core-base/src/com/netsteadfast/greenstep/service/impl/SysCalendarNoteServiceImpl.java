@@ -100,29 +100,6 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 		return params;
 	}
 	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysCalendarNoteVO(m.oid, m.account, m.calendarId, m.title, m.date) ");
-		}
-		hqlSb.append("FROM TbSysCalendarNote m WHERE 1=1 ");
-		if (params.get("accountOid")!=null) {
-			hqlSb.append("  AND m.account IN ( SELECT a.account FROM TbAccount a WHERE a.oid = :accountOid ) ");
-		}
-		if (params.get("date")!=null) {
-			hqlSb.append("  AND m.date = :date ");
-		}		
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.account ASC, m.calendarId DESC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/		
-	
 	@Override
 	public QueryResult<List<SysCalendarNoteVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
 		if (searchValue==null || pageOf==null) {
@@ -131,15 +108,7 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysCalendarNoteVO>> result=this.sysCalendarNoteDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<SysCalendarNoteVO>> result=this.sysCalendarNoteDAO.findResult3(
+		QueryResult<List<SysCalendarNoteVO>> result=this.sysCalendarNoteDAO.findPageQueryResultByQueryName(
 				"findSysCalendarNote", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

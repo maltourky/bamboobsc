@@ -97,30 +97,7 @@ public class SysServiceImpl extends BaseService<SysVO, TbSys, String> implements
 			params.put("sysId", sysId);
 		}		
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysVO(ts.oid, ts.sysId, ts.name, ts.host, ts.contextPath, ts.isLocal, ts.icon) ");
-		}
-		hqlSb.append("FROM TbSys ts WHERE 1=1 ");
-		if (params.get("name")!=null) {
-			hqlSb.append("  and ts.name LIKE :name ");
-		}		
-		if (params.get("sysId")!=null) {
-			hqlSb.append("  and ts.sysId = :sysId ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY ts.name ASC ");
-		}		
-		return hqlSb.toString();
-	}
-	*/
+	}	
 	
 	@Override
 	public QueryResult<List<SysVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -130,16 +107,8 @@ public class SysServiceImpl extends BaseService<SysVO, TbSys, String> implements
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysVO>> result=this.sysDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<SysVO>> result=this.sysDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<SysVO>> result=this.sysDAO.findPageQueryResultByQueryName(
 				"findSysPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

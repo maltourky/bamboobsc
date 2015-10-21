@@ -99,29 +99,6 @@ public class SysBpmnResourceServiceImpl extends BaseService<SysBpmnResourceVO, T
 		}			
 		return params;
 	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysBpmnResourceVO(m.oid, m.id, m.deploymentId, m.name, m.description) ");
-		}
-		hqlSb.append("FROM TbSysBpmnResource m WHERE 1=1 ");
-		if (params.get("id")!=null) {
-			hqlSb.append("  and m.id = :id ");
-		}		
-		if (params.get("name")!=null) {
-			hqlSb.append("  and m.name LIKE :name ");
-		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.id ASC");
-		}		
-		return hqlSb.toString();
-	}
-	*/		
 
 	@Override
 	public QueryResult<List<SysBpmnResourceVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -131,15 +108,7 @@ public class SysBpmnResourceServiceImpl extends BaseService<SysBpmnResourceVO, T
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysBpmnResourceVO>> result=this.sysBpmnResourceDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/	
-		QueryResult<List<SysBpmnResourceVO>> result=this.sysBpmnResourceDAO.findResult3(
+		QueryResult<List<SysBpmnResourceVO>> result=this.sysBpmnResourceDAO.findPageQueryResultByQueryName(
 				"findSysBpmnResourcePageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();

@@ -94,27 +94,7 @@ public class SysJreportServiceImpl extends BaseService<SysJreportVO, TbSysJrepor
 			params.put("reportId", reportId);
 		}	
 		return params;
-	}
-	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.SysJreportVO(m.oid, m.reportId, m.file, m.isCompile, m.description) ");
-		}
-		hqlSb.append("FROM TbSysJreport m WHERE 1=1 ");
-		if (params.get("reportId")!=null) {
-			hqlSb.append("  and m.reportId = :reportId ");
-		}		
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.reportId ASC");
-		}		
-		return hqlSb.toString();
-	}
-	*/		
+	}	
 
 	@Override
 	public QueryResult<List<SysJreportVO>> findGridResult(SearchValue searchValue, 
@@ -124,16 +104,8 @@ public class SysJreportServiceImpl extends BaseService<SysJreportVO, TbSysJrepor
 		}
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
-		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<SysJreportVO>> result=this.sysJreportDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
-		QueryResult<List<SysJreportVO>> result=this.sysJreportDAO.findResult3(
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+		QueryResult<List<SysJreportVO>> result=this.sysJreportDAO.findPageQueryResultByQueryName(
 				"findSysJreportPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
