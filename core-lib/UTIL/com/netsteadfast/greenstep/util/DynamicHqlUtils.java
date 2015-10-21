@@ -32,7 +32,9 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.cxf.helpers.IOUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.dynamichql.DynamicHql;
@@ -43,6 +45,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class DynamicHqlUtils {
+	protected static Logger logger = Logger.getLogger(DynamicHqlUtils.class);
 	private final static String TEMPLATE_ID = "dynamic-hql-resource";
 	private static Map<String, DynamicHql> resourceDataMap = new HashMap<String, DynamicHql>();
 	
@@ -51,17 +54,18 @@ public class DynamicHqlUtils {
 		if (dynamicHql == null) {
 			InputStream in = null;
 			try {
-				in = DynamicHqlUtils.class.getResourceAsStream( "/dynamichql/" + resource );
-				byte[] xmlBytes = IOUtils.readBytesFromStream(in);
+				in = DynamicHqlUtils.class.getResourceAsStream( "/dynamichql/" + resource );				
+				byte[] xmlBytes = IOUtils.toByteArray(in);
 				JAXBContext jaxbContext = JAXBContext.newInstance( DynamicHql.class );
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				dynamicHql = (DynamicHql) jaxbUnmarshaller.unmarshal( new ByteArrayInputStream(xmlBytes) );
 				resourceDataMap.put(resource, dynamicHql);				
 			} catch (IOException e) {
+				logger.error( e.getMessage().toString() );				
 				throw e;
 			} finally {
 				if (in != null) {
-					in.close();
+					IOUtils.closeQuietly(in);
 				}
 				in = null;
 			}
@@ -72,6 +76,7 @@ public class DynamicHqlUtils {
 	public static String process(String resource, String queryName, Map<String, Object> paramMap) throws Exception {
 		DynamicHql dynamicHql = loadResource(resource);	
 		if (null == dynamicHql) {
+			logger.error( "no dynamic hql resource." );			
 			throw new Exception( "no dynamic hql resource." );
 		}
 		String hql = "";
@@ -88,6 +93,9 @@ public class DynamicHqlUtils {
 			Writer out = new StringWriter();
 			template.process(paramMap, out);			
 			hql = out.toString();
+		}
+		if (StringUtils.isBlank(hql)) {
+			logger.warn( "hql is blank." );			
 		}
 		return hql;		
 	}

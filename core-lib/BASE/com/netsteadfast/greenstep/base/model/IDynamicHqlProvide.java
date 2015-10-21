@@ -19,19 +19,16 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.bsc.dao;
+package com.netsteadfast.greenstep.base.model;
 
-import java.util.List;
 import java.util.Map;
 
-import com.netsteadfast.greenstep.base.dao.IBaseDAO;
-import com.netsteadfast.greenstep.bsc.vo.BscMixDataVO;
-import com.netsteadfast.greenstep.po.hbm.BbKpi;
+import com.netsteadfast.greenstep.base.model.dynamichql.DynamicHql;
 
-public interface IKpiDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbKpi, String> {
+public interface IDynamicHqlProvide {
 	
-	public List<BscMixDataVO> findForMixData(Map<String, Object> paramMap) throws Exception;
+	public DynamicHql getDynamicHqlResource(String resource) throws Exception;
 	
-	public int countForMixData(Map<String, Object> paramMap) throws Exception;
-	
+	public String getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) throws Exception;
+
 }

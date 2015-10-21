@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -115,37 +117,31 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 		return params;
 	}
 	
-	/*
-	private String getQueryGridHql(String type, Map<String, Object> params) throws Exception {
-		StringBuilder hqlSb=new StringBuilder();
-		hqlSb.append("SELECT ");
-		if (Constants.QUERY_TYPE_OF_COUNT.equals(type)) {
-			hqlSb.append("  count(*) ");
-		} else {
-			hqlSb.append("	new com.netsteadfast.greenstep.vo.KpiVO(m.oid, m.id, m.name, m.description, m.weight, v.title, p.name, o.name) ");
-		}
-		hqlSb.append("FROM BbKpi m, BbObjective o, BbPerspective p, BbVision v WHERE m.objId = o.objId AND o.perId = p.perId AND p.visId = v.visId ");		
-		if (params.get("visionOid")!=null) {
-			hqlSb.append(" AND v.oid = :visionOid ");			
-		}
-		if (params.get("perspectiveOid")!=null) {
-			hqlSb.append(" AND p.oid = :perspectiveOid ");			
+	private Map<String, Object> getMixDataQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (!StringUtils.isBlank(visionOid)) {
+			paramMap.put("visionOid", visionOid);
 		}		
-		if (params.get("objectiveOid")!=null) {
-			hqlSb.append(" AND o.oid = :objectiveOid ");			
-		}				
-		if (params.get("id")!=null) {
-			hqlSb.append(" AND m.id = :id ");
-		}		
-		if (params.get("name")!=null) {
-			hqlSb.append(" AND m.name LIKE :name ");
+		if (!StringUtils.isBlank(orgId)) {
+			paramMap.put("orgId", orgId);
+		}	
+		if (!StringUtils.isBlank(empId)) {
+			paramMap.put("empId", empId);
+		}			
+		if (BscConstants.HEAD_FOR_PER_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("perId", nextId);
+			//paramMap.put("nextType", nextType);
 		}
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hqlSb.append("ORDER BY m.id ASC ");
-		}		
-		return hqlSb.toString();
-	}			
-	*/
+		if (BscConstants.HEAD_FOR_OBJ_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("objId", nextId);
+			//paramMap.put("nextType", nextType);
+		}
+		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
+			paramMap.put("kpiId", nextId);
+			//paramMap.put("nextType", nextType);			
+		}	
+		return paramMap;
+	}	
 
 	@Override
 	public QueryResult<List<KpiVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
@@ -155,14 +151,6 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		/*
-		QueryResult<List<KpiVO>> result=this.kpiDAO.findResult2(
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_SELECT, params), 
-				this.getQueryGridHql(Constants.QUERY_TYPE_OF_COUNT, params), 
-				params, 
-				offset, 
-				limit);
-		*/
 		QueryResult<List<KpiVO>> result=this.kpiDAO.findResult3("findKpiPageGrid", params, offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
@@ -172,7 +160,8 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 	@Override
 	public DefaultResult<List<BscMixDataVO>> findForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception {
 		DefaultResult<List<BscMixDataVO>> result = new DefaultResult<List<BscMixDataVO>>();
-		List<BscMixDataVO> searchList = this.kpiDAO.findForMixData(visionOid, orgId, empId, nextType, nextId);
+		List<BscMixDataVO> searchList = this.kpiDAO.findForMixData(
+				this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId));
 		if (null!=searchList && searchList.size()>0) {
 			result.setValue(searchList);
 		} else {
@@ -183,7 +172,7 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 
 	@Override
 	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception {		
-		return this.kpiDAO.countForMixData(visionOid, orgId, empId, nextType, nextId);
+		return this.kpiDAO.countForMixData(this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId));
 	}
 
 }

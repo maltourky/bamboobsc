@@ -59,6 +59,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
+import com.netsteadfast.greenstep.base.model.dynamichql.DynamicHql;
 import com.netsteadfast.greenstep.util.GenericsUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 
@@ -911,5 +912,19 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 		}
 		return false;
 	}
-
+	
+	// ------------------------------------------------------------------------------------
+	
+	public DynamicHql getDynamicHqlResource(String resource) throws Exception {
+		return this.getBaseDataAccessObject().getDynamicHqlResource(resource);
+	}	
+	
+	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception {
+		return this.getBaseDataAccessObject().getDynamicHql(queryName, paramMap);
+	}
+	
+	public String getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) throws Exception {
+		return this.getBaseDataAccessObject().getDynamicHql(resource, queryName, paramMap);
+	}	
+	
 }

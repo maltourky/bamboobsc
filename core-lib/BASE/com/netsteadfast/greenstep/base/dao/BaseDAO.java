@@ -50,6 +50,7 @@ import com.netsteadfast.greenstep.base.model.CustomeOperational;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
+import com.netsteadfast.greenstep.base.model.dynamichql.DynamicHql;
 import com.netsteadfast.greenstep.util.DataUtils;
 import com.netsteadfast.greenstep.util.DynamicHqlUtils;
 import com.netsteadfast.greenstep.util.GenericsUtils;
@@ -872,6 +873,10 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 		return false;
 	}
 	*/
+	
+	public DynamicHql getDynamicHqlResource(String resource) throws Exception {
+		return DynamicHqlUtils.loadResource(resource);
+	}
 	
 	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception {
 		return this.getDynamicHql(this.getPersisentName()+"-dynamic-hql.xml", queryName, paramMap);

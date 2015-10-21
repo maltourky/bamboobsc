@@ -28,9 +28,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.netsteadfast.greenstep.base.model.CustomeOperational;
+import com.netsteadfast.greenstep.base.model.IDynamicHqlProvide;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 
-public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Serializable> {
+public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IDynamicHqlProvide {
 	public int count(String hql) throws Exception;
 	public int count(String hql, Object... args) throws Exception;
 	@SuppressWarnings("rawtypes")
@@ -115,6 +116,5 @@ public interface IBaseDAO<T extends java.io.Serializable, PK extends java.io.Ser
 	*/
 	
 	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception;
-	public String getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) throws Exception;	
 	
 }

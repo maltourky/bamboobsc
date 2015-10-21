@@ -82,6 +82,8 @@
 		AND k.forId = f.forId 
 		AND k.cal = aggr.aggrId 
 		AND k.trendsForId = f2.forId
+		AND f.trendsFlag = 'N'
+		AND f2.trendsFlag = 'Y'		
 		
 		<#if visionOid??>
 		AND v.oid = :visionOid
@@ -122,6 +124,8 @@
 		AND k.forId = f.forId 
 		AND k.cal = aggr.aggrId 
 		AND k.trendsForId = f2.forId
+		AND f.trendsFlag = 'N'
+		AND f2.trendsFlag = 'Y'
 		
 		<#if visionOid??>
 		AND v.oid = :visionOid

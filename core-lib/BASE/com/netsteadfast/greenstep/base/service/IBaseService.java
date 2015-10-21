@@ -29,6 +29,7 @@ import java.util.Map;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.CustomeOperational;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.IDynamicHqlProvide;
 
 /**
  * 
@@ -38,7 +39,7 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
  * @param <E>	E is PO
  * @param <E>	PK 
  */
-public interface IBaseService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> {
+public interface IBaseService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IDynamicHqlProvide {
 	/*
 	 * // FIXME 改用 Apache Shiro 取代
 	public void setUserLocalAccount(Object account);
@@ -149,4 +150,9 @@ public interface IBaseService<T extends java.io.Serializable, E extends java.io.
 	public boolean ibatisUpdate(E valueObj) throws ServiceException, Exception;
 	public boolean ibatisDelete(E valueObj) throws ServiceException, Exception;
 	*/
+	
+	// ------------------------------------------------------------------------------------
+	
+	public String getDynamicHql(String queryName, Map<String, Object> paramMap) throws Exception;
+	
 }

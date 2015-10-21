@@ -21,17 +21,14 @@
  */
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
-import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.dao.BaseDAO;
 import com.netsteadfast.greenstep.bsc.dao.IKpiDAO;
 import com.netsteadfast.greenstep.bsc.vo.BscMixDataVO;
@@ -45,146 +42,26 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 		super();
 	}
 	
-	/*
-	private String getMixDataHql(String type, String visionOid, String orgId, String empId, String nextType, String nextId) {
-		StringBuilder hql = new StringBuilder();
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hql.append("SELECT new com.netsteadfast.greenstep.bsc.vo.BscMixDataVO(");
-			hql.append("	k.oid, k.id, k.name, k.description, k.weight, k.unit, k.max, k.target, k.min, ");
-			hql.append("	k.management, k.compareType, k.cal, k.dataType, k.orgaMeasureSeparate, k.userMeasureSeparate, ");	
-			hql.append("	k.quasiRange, ");
-			hql.append("	o.oid, o.objId, o.name, o.weight, o.description, o.target, o.min, ");
-			hql.append("	p.oid, p.perId, p.name, p.weight, p.description, p.target, p.min,  ");		
-			hql.append("	v.oid, v.visId, v.title,  ");
-			hql.append("	f.oid, f.forId, f.name, f.type, f.returnMode, f.returnVar, f.expression, ");
-			hql.append("	aggr.oid, aggr.aggrId, aggr.name, aggr.type, aggr.expression1, aggr.expression2, ");
-			hql.append("	f2.oid, f2.forId, f2.name, f2.type, f2.returnMode, f2.returnVar, f2.expression ");
-			hql.append(") ");			
-		} else {
-			hql.append("SELECT count(*) ");
-		}
-		hql.append("FROM BbKpi k, BbObjective o, BbPerspective p, BbVision v, BbAggregationMethod aggr, BbFormula f, BbFormula f2 ");				
-		hql.append("WHERE k.objId = o.objId AND o.perId = p.perId AND p.visId = v.visId AND k.forId = f.forId AND k.cal = aggr.aggrId AND k.trendsForId = f2.forId ");
-		if (!StringUtils.isBlank(visionOid)) {
-			hql.append("AND v.oid = :visionOid ");
-		}
-		if (!StringUtils.isBlank(orgId)) {
-			hql.append("AND k.id IN ( SELECT b.kpiId FROM BbKpiOrga b WHERE b.orgId = :orgId ) ");
-		}
-		if (!StringUtils.isBlank(empId)) {
-			hql.append("AND k.id IN ( SELECT b.kpiId FROM BbKpiEmpl b WHERE b.empId = :empId ) ");
+	private void setQueryMixDataParameter(Query query, Map<String, Object> paramMap) {
+		for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+			if (entry.getValue()!=null && entry.getValue() instanceof String) {
+				query.setString(entry.getKey(), String.valueOf(entry.getValue()));
+			}
 		}		
-		if (BscConstants.HEAD_FOR_PER_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			hql.append("AND p.perId = :perId ");
-		}
-		if (BscConstants.HEAD_FOR_OBJ_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			hql.append("AND o.objId = :objId ");
-		}
-		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			hql.append("AND k.id = :kpiId ");
-		}			
-		if (Constants.QUERY_TYPE_OF_SELECT.equals(type)) {
-			hql.append("ORDER BY v.visId, p.perId, o.objId, k.id ASC ");
-		}
-		return hql.toString();
-	}
-	*/
+	}	
 	
-	private void setQueryMixDataParameter(Query query, String visionOid, String orgId, String empId, String nextType, String nextId) {
-		if (!StringUtils.isBlank(visionOid)) {
-			query.setString("visionOid", visionOid);
-		}		
-		if (!StringUtils.isBlank(orgId)) {
-			query.setString("orgId", orgId);
-		}	
-		if (!StringUtils.isBlank(empId)) {
-			query.setString("empId", empId);
-		}			
-		if (BscConstants.HEAD_FOR_PER_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			query.setString("perId", nextId);
-		}
-		if (BscConstants.HEAD_FOR_OBJ_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			query.setString("objId", nextId);
-		}
-		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			query.setString("kpiId", nextId);
-		}		
-	}
-	
-	private Map<String, Object> getQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId) {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		if (!StringUtils.isBlank(visionOid)) {
-			paramMap.put("visionOid", visionOid);
-		}		
-		if (!StringUtils.isBlank(orgId)) {
-			paramMap.put("orgId", orgId);
-		}	
-		if (!StringUtils.isBlank(empId)) {
-			paramMap.put("empId", empId);
-		}			
-		if (BscConstants.HEAD_FOR_PER_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			paramMap.put("perId", nextId);
-			paramMap.put("nextType", nextType);
-		}
-		if (BscConstants.HEAD_FOR_OBJ_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			paramMap.put("objId", nextId);
-			paramMap.put("nextType", nextType);
-		}
-		if (BscConstants.HEAD_FOR_KPI_ID.equals(nextType) && !StringUtils.isBlank(nextId)) {
-			paramMap.put("kpiId", nextId);
-			paramMap.put("nextType", nextType);			
-		}	
-		return paramMap;
-	}
-
-	/**
-	 * select 
-	 * k.OID, k.ID, k.NAME, k.DESCRIPTION, k.WEIGHT, k.UNIT, k.MAX, k.TARGET, k.MIN,
-	 * k.MANAGEMENT, k.COMPARE_TYPE, k.CAL, k.DATA_TYPE, k.ORGA_MEASURE_SEPARATE, k.USER_MEASURE_SEPARATE,
-	 * k.QUASI_RANGE,
-	 * o.OID, o.OBJ_ID, o.NAME, o.WEIGHT, o.DESCRIPTION, o.TARGET, o.MIN,
-	 * p.OID, p.PER_ID, p.NAME, p.WEIGHT, p.DESCRIPTION, p.TARGET, p.MIN,
-	 * v.OID, v.VIS_ID, v.TITLE, 
-	 * f.OID, f.FOR_ID, f.NAME, f.TYPE, f.RETURN_MODE, f.RETURN_VAR, f.EXPRESSION,
-	 * aggr.OID, aggr.AGGR_ID, aggr.AGGR_NAME, aggr.TYPE, aggr.EXPRESSION1, aggr.EXPRESSION2
-	 * from bb_kpi k, bb_objective o, bb_perspective p, bb_vision v, 
-	 * bb_aggregation_method aggr, 
-	 * bb_formula f,
-	 * bb_formula f2
-	 * where k.OBJ_ID = o.OBJ_ID
-	 * and o.PER_ID = p.PER_ID
-	 * and p.VIS_ID = v.VIS_ID
-	 * and k.FOR_ID = f.FOR_ID
-	 * and k.CAL = aggr.AGGR_ID
-	 * and k.TRENDS_FOR_ID = f2.FOR_ID
-	 * ORDER BY v.VIS_ID, p.PER_ID, o.OBJ_ID, k.ID ASC
-	 * ;
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BscMixDataVO> findForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws Exception {
-		/*
-		Query query = this.getCurrentSession().createQuery( 
-				this.getMixDataHql(Constants.QUERY_TYPE_OF_SELECT, visionOid, orgId, empId, nextType, nextId) );
-		*/
-		Query query = this.getCurrentSession().createQuery(
-				this.getDynamicHql("findKpiMixData-select", this.getQueryParam(visionOid, orgId, empId, nextType, nextId)) );
-		this.setQueryMixDataParameter(query, visionOid, orgId, empId, nextType, nextId);
+	public List<BscMixDataVO> findForMixData(Map<String, Object> paramMap) throws Exception {		
+		Query query = this.getCurrentSession().createQuery(this.getDynamicHql("findKpiMixData-select", paramMap));
+		this.setQueryMixDataParameter(query, paramMap);
 		return query.list();
 	}
 
 	@Override
-	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws Exception {
-		/*
-		Query query = this.getCurrentSession().createQuery( 
-				this.getMixDataHql(Constants.QUERY_TYPE_OF_COUNT, visionOid, orgId, empId, nextType, nextId) );
-		*/
-		Query query = this.getCurrentSession().createQuery(
-				this.getDynamicHql("findKpiMixData-count", this.getQueryParam(visionOid, orgId, empId, nextType, nextId)) );
-		this.setQueryMixDataParameter(query, visionOid, orgId, empId, nextType, nextId);
+	public int countForMixData(Map<String, Object> paramMap) throws Exception {		
+		Query query = this.getCurrentSession().createQuery(this.getDynamicHql("findKpiMixData-count", paramMap));
+		this.setQueryMixDataParameter(query, paramMap);
 		return DataAccessUtils.intResult( query.list() );
 	}
 	
