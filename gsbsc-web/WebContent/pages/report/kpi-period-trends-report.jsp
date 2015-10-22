@@ -133,12 +133,15 @@ function BSC_PROG003D0007Q_query(format) {
 					openCommonLoadUpload( 'download', data.uploadOid, { } );
 				} else {
 					dojo.byId("BSC_PROG003D0007Q_content").innerHTML = data.body;
+					BSC_PROG003D0007Q_lineChart( data.periodData );
+					if ( '' != data.message ) {
+						alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+					}
 				}
 				dijit.byId("BSC_PROG003D0007Q_startDate_1").set("displayedValue", data.startDate1);
 				dijit.byId("BSC_PROG003D0007Q_endDate_1").set("displayedValue", data.endDate1);
 				dijit.byId("BSC_PROG003D0007Q_startDate_2").set("displayedValue", data.startDate2);
-				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate2);		
-				BSC_PROG003D0007Q_lineChart( data.periodData );
+				dijit.byId("BSC_PROG003D0007Q_endDate_2").set("displayedValue", data.endDate2);						
 			}, 
 			function(error) {
 				alert(error);
