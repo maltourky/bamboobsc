@@ -212,7 +212,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     	this.alertDialog(this._alertDlgTitle, this._alertDlgContent, function(){});
     },
     alertDialog : function(txtTitle, txtContent, callbackFn) {
-    	var thisDialog = new dijit.Dialog({ title: '<img src="./icons/help-about.png" border="0">&nbsp;' + txtTitle, content: '<textarea cols="100" rows="10" style="border:dotted 2px #CFECEC;" readonly>' + txtContent.replace(/<br\s*[\/]?>/gi, "\n").replace("/<BR\s*[\/]?>/gi", "\n") + '</textarea><BR/>' }).placeAt(dojo.body());
+    	var thisDialog = new dijit.Dialog({ title: '<img src="./icons/help-about.png" border="0">&nbsp;' + txtTitle, content: '<textarea cols="100" rows="10" style="border:dotted 2px #CFECEC; font-size: 2; color: #151515;" readonly>' + txtContent.replace(/<br\s*[\/]?>/gi, "\n").replace("/<BR\s*[\/]?>/gi", "\n") + '</textarea><BR/>' }).placeAt(dojo.body());
     	var okButton = null;
     	dojo.body().appendChild(thisDialog.domNode);	
     	if (null!=callbackFn && eval("typeof " + callbackFn + "=='function'") ) {		

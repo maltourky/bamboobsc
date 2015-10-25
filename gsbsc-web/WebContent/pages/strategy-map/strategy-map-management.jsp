@@ -164,7 +164,8 @@ path, ._jsPlumb_endpoint { cursor:pointer; }
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
 	if (null!=pageMessage && ''!=pageMessage && ' '!=pageMessage) {
-		alert(pageMessage);
+		//alert(pageMessage);
+		toastr.warning( pageMessage );
 	}	
 }
 //------------------------------------------------------------------------------
