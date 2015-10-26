@@ -15,7 +15,7 @@ Features:<br/>
 <br/><br/>
 
 <h2>Demo web: ( The web run on Raspberry pi 2 )</h2>
-http://124.218.68.215:8888/core-web/login.action<br/>
+http://124.218.24.39:8888/core-web/login.action<br/>
 account: tester<br/>
 password: tester<br/>
 <br/><br/>
