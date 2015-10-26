@@ -67,6 +67,10 @@ dojo.declare("GS.CORE", null ,{
     getStrToBase64 : function(str) {
     	return dojox.encoding.base64.encode(this.getStrToBytes(str));
     },
+    getBase64ToStr : function(str) {
+    	var bytes = dojox.encoding.base64.decode(str);
+    	return String.fromCharCode.apply(null, bytes);
+    },
     roundFloat : function(num, pos) {
     	return ( Math.round( num * Math.pow(10,pos) ) / Math.pow(10,pos) ).toFixed(pos);
     },
@@ -92,9 +96,7 @@ dojo.declare("GS.CORE", null ,{
 });
 
 dojo.declare("GS.ViewPage", GS.CORE, {	
-    basePath: '.',
-    _alertDlgTitle: 'EOF',
-    _alertDlgContent: 'EOF',
+    basePath: '.',    
     constructor: function(basePath) {
         this.basePath = basePath;
     }, 
@@ -103,12 +105,6 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     },
     setBasePath : function(basePath) {
         this.basePath = basePath;
-    },
-    setAlertDlgTitle : function(title) {
-    	this._alertDlgTitle=title;
-    },
-    setAlertDlgContext : function(txtContext) {
-    	this._alertDlgContent=txtContext;
     },
     loadingDlgShow : function() {
     	dijit.byId( this.getPleaseWaitDlgId() ).show();
@@ -190,16 +186,15 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     		return;
     	}
     	
-        this._alertDlgTitle=txtTitle;
-        this._alertDlgContent=txtContent;
-        
     	/*
     	 * message
     	 * warning
     	 * error
     	 * fatal
     	 */
-    	var toasterTxtContent = '<br/><br/><a herf="#" onclick="viewPage.showBeforeAlertDialog();"><img src="./icons/help-about.png" border="0" /><b>Click show info.</b></a> ';
+    	var _t = this.getStrToBase64(txtTitle);    	
+    	var _c = this.getStrToBase64(txtContent);
+    	var toasterTxtContent = '<br/><br/><a herf="#" onclick="viewPage.showBeforeAlertDialog(\'' + _t + '\', \'' + _c + '\');"><img src="./icons/help-about.png" border="0" /><b>Click show info.</b></a> ';
     	
     	toasterTxtContent = '<b><font color="#000000" size="3">' + txtTitle + '</font></b>' + '<br/><hr size="2" color="#373737" /><font color="#373737" size="2">' + txtContent + '</font>' + toasterTxtContent;
     	dijit.byId(toasterId).setContent(toasterTxtContent, attributeType);
@@ -207,12 +202,15 @@ dojo.declare("GS.ViewPage", GS.CORE, {
 		if (null!=callbackFn && eval("typeof " + callbackFn + "=='function'") ) {
 			callbackFn();
 		}    	
-    },
-    showBeforeAlertDialog : function() {
-    	this.alertDialog(this._alertDlgTitle, this._alertDlgContent, function(){});
-    },
+    },    
+    showBeforeAlertDialog : function(encTitle, encContent) {
+    	this.alertDialog(decodeURIComponent(this.getBase64ToStr(encTitle)), decodeURIComponent(this.getBase64ToStr(encContent)), function(){});
+    },    
     alertDialog : function(txtTitle, txtContent, callbackFn) {
-    	var thisDialog = new dijit.Dialog({ title: '<img src="./icons/help-about.png" border="0">&nbsp;' + txtTitle, content: '<textarea cols="100" rows="10" style="border:dotted 2px #CFECEC; font-size: 2; color: #151515;" readonly>' + txtContent.replace(/<br\s*[\/]?>/gi, "\n").replace("/<BR\s*[\/]?>/gi", "\n") + '</textarea><BR/>' }).placeAt(dojo.body());
+    	var thisDialog = new dijit.Dialog({ 
+    		title: '<img src="./icons/help-about.png" border="0">&nbsp;' + txtTitle, 
+    		content: '<textarea cols="100" rows="10" style="border:dotted 2px #CFECEC; font-size: 11pt; color: #151515;" readonly>' + txtContent.replace(/<br\s*[\/]?>/gi, "\n").replace("/<BR\s*[\/]?>/gi", "\n") + '</textarea><BR/>' 
+    	}).placeAt(dojo.body());
     	var okButton = null;
     	dojo.body().appendChild(thisDialog.domNode);	
     	if (null!=callbackFn && eval("typeof " + callbackFn + "=='function'") ) {		
