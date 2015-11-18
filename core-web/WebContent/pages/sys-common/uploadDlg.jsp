@@ -54,7 +54,7 @@ function ${programId}_page_message() {
 </script>
 
 </head>
-<body class="claro" bgcolor="#ffffff">
+<body class="flat" bgcolor="#ffffff">
 
 <form method="post" action="core.commonUploadFileAction.action" name="CORE_PROGCOMM0002Q_form" id="CORE_PROGCOMM0002Q_form" enctype="multipart/form-data" >
 	<input type="hidden" name="type" id="CORE_PROGCOMM0002Q_type" value="${type}"/>

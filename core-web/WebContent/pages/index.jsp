@@ -25,14 +25,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojo/resources/dojo.css">
     <link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/dijit.css">
+    <!--  
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/claro/claro.css">
+	-->
     <link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/dijit_rtl.css">
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/claro/claro_rtl.css">	
+    <!--
+	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/claro/claro_rtl.css">
+	-->	
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/grid/resources/Grid.css">
+	<!--
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/grid/resources/claroGrid.css">
+	-->	
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/widget/Toaster/Toaster.css" />
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/widget/Calendar/Calendar.css" />
+	<!--
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/calendar/themes/claro/Calendar.css" />
+	-->	
+	
+	<!-- Flat -->
+	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/flat/flat.css">
+		
 	
 	<link rel="stylesheet" href="<%=basePath%>/css/core.css" media="screen">
 	
@@ -163,7 +175,7 @@ var viewPage = new GS.ViewPage('<%=basePath%>');
 
 </head>
 
-<body class="claro" bgcolor="#EEEEEE" >
+<body class="flat" bgcolor="#EEEEEE" >
 <div id="loader"><div id="loaderInner" style="direction:ltr;white-space:nowrap;overflow:visible;">Loading ... </div></div>
 
 <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false" id="borderContainer">

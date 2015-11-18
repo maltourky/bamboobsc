@@ -65,7 +65,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="claro" bgcolor="#ffffff" >
+<body class="flat" bgcolor="#ffffff" >
 
 ${content}
 

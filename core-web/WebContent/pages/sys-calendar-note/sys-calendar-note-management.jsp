@@ -100,7 +100,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="claro" bgcolor="#EEEEEE" >
+<body class="flat" bgcolor="#EEEEEE" >
 
 	<gs:toolBar
 		id="${programId}" 

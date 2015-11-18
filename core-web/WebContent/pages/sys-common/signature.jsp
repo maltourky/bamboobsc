@@ -74,7 +74,7 @@ function ${programId}_page_message() {
 </script>
 
 </head>
-<body class="claro" bgcolor="#ffffff">
+<body class="flat" bgcolor="#ffffff">
 
 <!-- CORE_PROGCOMM0003Q -->
 <table border="0">

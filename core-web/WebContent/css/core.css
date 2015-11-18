@@ -109,6 +109,18 @@ ul{
 /** Dojo claro style Override : End **/
 
 
+.flat .dijitLeaf {
+    display: none;
+}
+
+.flat .dijitTreeNodeSelected {
+    font-size: 12px;
+}
+
+.flat .dijitTreeLabel {
+    font-size: 12px;
+}
+
 
 /** toolbar need icon **/
 .myExportIcon {

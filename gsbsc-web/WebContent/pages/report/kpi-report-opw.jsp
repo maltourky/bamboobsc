@@ -98,7 +98,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="claro" bgcolor="#ffffff" >
+<body class="flat" bgcolor="#ffffff" >
 		
 	<div id="BSC_PROG003D0001Q_content">
 		<table border="0">
