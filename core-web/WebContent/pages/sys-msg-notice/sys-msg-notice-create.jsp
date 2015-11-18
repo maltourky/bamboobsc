@@ -143,13 +143,13 @@ function ${programId}_page_message() {
     			<b><s:property value="getText('CORE_PROG001D0006A_time')"/></b>:
     			<br/>
     			<b><s:property value="getText('CORE_PROG001D0006A_timeStart')"/></b>&nbsp;
-    			<s:property value="getText('CORE_PROG001D0006A_time_startHour')"/><gs:select name="CORE_PROG001D0006A_time_startHour" dataSource="hourMap" id="CORE_PROG001D0006A_time_startHour" width="50"></gs:select>
-    			<s:property value="getText('CORE_PROG001D0006A_time_startMinutes')"/><gs:select name="CORE_PROG001D0006A_time_startMinutes" dataSource="minutesMap" id="CORE_PROG001D0006A_time_startMinutes" width="50"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0006A_time_startHour')"/><gs:select name="CORE_PROG001D0006A_time_startHour" dataSource="hourMap" id="CORE_PROG001D0006A_time_startHour" width="60"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0006A_time_startMinutes')"/><gs:select name="CORE_PROG001D0006A_time_startMinutes" dataSource="minutesMap" id="CORE_PROG001D0006A_time_startMinutes" width="60"></gs:select>
     			&nbsp;&nbsp;&nbsp;
     			
     			<b><s:property value="getText('CORE_PROG001D0006A_timeEnd')"/></b>&nbsp;
-    			<s:property value="getText('CORE_PROG001D0006A_time_endHour')"/><gs:select name="CORE_PROG001D0006A_time_endHour" dataSource="hourMap" id="CORE_PROG001D0006A_time_endHour" width="50"></gs:select>
-    			<s:property value="getText('CORE_PROG001D0006A_time_endMinutes')"/><gs:select name="CORE_PROG001D0006A_time_endMinutes" dataSource="minutesMap" id="CORE_PROG001D0006A_time_endMinutes" width="50"></gs:select>    			    			
+    			<s:property value="getText('CORE_PROG001D0006A_time_endHour')"/><gs:select name="CORE_PROG001D0006A_time_endHour" dataSource="hourMap" id="CORE_PROG001D0006A_time_endHour" width="60"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0006A_time_endMinutes')"/><gs:select name="CORE_PROG001D0006A_time_endMinutes" dataSource="minutesMap" id="CORE_PROG001D0006A_time_endMinutes" width="60"></gs:select>    			    			
     		</td>
     		<!-- Time: 下拉-起時 下拉-起分 / 下拉-迄時 下拉-迄分 -->
     	</tr>    

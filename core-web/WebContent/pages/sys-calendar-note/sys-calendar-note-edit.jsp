@@ -139,12 +139,12 @@ function ${programId}_page_message() {
     			<b><s:property value="getText('CORE_PROG001D0004E_time')"/></b>:
     			<br/>
     			<b><s:property value="getText('CORE_PROG001D0004E_time_start')"/></b>&nbsp;
-    			<s:property value="getText('CORE_PROG001D0004E_time_startHour')"/><gs:select name="CORE_PROG001D0004E_time_startHour" dataSource="hourMap" id="CORE_PROG001D0004E_time_startHour" width="50" value="startHour"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0004E_time_startHour')"/><gs:select name="CORE_PROG001D0004E_time_startHour" dataSource="hourMap" id="CORE_PROG001D0004E_time_startHour" width="60" value="startHour"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_time_startHour'">
     				Select start Hour.
 				</div>  
 				    			
-    			<s:property value="getText('CORE_PROG001D0004E_time_startMinutes')"/><gs:select name="CORE_PROG001D0004E_time_startMinutes" dataSource="minutesMap" id="CORE_PROG001D0004E_time_startMinutes" width="50" value="startMinutes"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0004E_time_startMinutes')"/><gs:select name="CORE_PROG001D0004E_time_startMinutes" dataSource="minutesMap" id="CORE_PROG001D0004E_time_startMinutes" width="60" value="startMinutes"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_time_startMinutes'">
     				Select start Minutes.
 				</div>  
@@ -152,12 +152,12 @@ function ${programId}_page_message() {
     			&nbsp;&nbsp;&nbsp;
     			
     			<b><s:property value="getText('CORE_PROG001D0004E_time_end')"/></b>&nbsp;
-    			<s:property value="getText('CORE_PROG001D0004E_time_endHour')"/><gs:select name="CORE_PROG001D0004E_time_endHour" dataSource="hourMap" id="CORE_PROG001D0004E_time_endHour" width="50" value="endHour"></gs:select>
+    			<s:property value="getText('CORE_PROG001D0004E_time_endHour')"/><gs:select name="CORE_PROG001D0004E_time_endHour" dataSource="hourMap" id="CORE_PROG001D0004E_time_endHour" width="60" value="endHour"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_time_endHour'">
     				Select end Hour.
 				</div>   
 				    			
-    			<s:property value="getText('CORE_PROG001D0004E_time_endMinutes')"/><gs:select name="CORE_PROG001D0004E_time_endMinutes" dataSource="minutesMap" id="CORE_PROG001D0004E_time_endMinutes" width="50" value="endMinutes"></gs:select>    			
+    			<s:property value="getText('CORE_PROG001D0004E_time_endMinutes')"/><gs:select name="CORE_PROG001D0004E_time_endMinutes" dataSource="minutesMap" id="CORE_PROG001D0004E_time_endMinutes" width="60" value="endMinutes"></gs:select>    			
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_time_endMinutes'">
     				Select end Minutes.
 				</div> 
