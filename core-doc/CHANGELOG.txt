@@ -1,3 +1,8 @@
+0.6.2
+-----------------------------------------------------------
+1. Only change page themes to flat style.
+
+
 0.6.1
 -----------------------------------------------------------
 1. Add new feature 07 - KPI Period Trends (https://github.com/billchen198318/bamboobsc/issues/3)

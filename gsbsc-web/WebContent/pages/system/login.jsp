@@ -108,7 +108,7 @@ function pageMessage() {
          </tr>        
         <tr> 
           <td width="225" align="center" colspan="2" bgcolor="#FAFAFA">
-          <font color="#7E7E7E" size="2">Please use <b>Chrome</b> or <b>Firefox</b> browser, can not support other browser.</font>
+          <font color="#7E7E7E" size="2">Please use <b>Chrome</b> (recommend) or <b>Firefox</b> browser, can not support other browser.</font>
           </td>
          </tr>         
       </table>
@@ -124,7 +124,7 @@ function pageMessage() {
 	  </td>
     </tr>
     <tr>
-      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.6.1</span> </span></td>
+      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.6.2</span> </span></td>
     </tr>
   </table>
 </s:form>
