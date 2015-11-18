@@ -58,6 +58,7 @@ function ${programId}_page_message() {
 	<jsp:include page="../header.jsp"></jsp:include>
 	
 	<table border="0" width="100%" bgcolor="#d8d8d8">
+		<legend><b>Project</b></legend>
 		<tr>
 			<td align="center" width="10%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_01')"/></b></td>
 			<td align="left" width="40%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_02')"/></b></td>

@@ -276,7 +276,7 @@ function ${programId}_page_message() {
 				</div>      			
     			&nbsp;&nbsp;
     			<b><s:property value="getText('BSC_PROG002D0004A_quasiRange')"/></b>:
-    			<gs:select name="BSC_PROG002D0004A_quasiRange" dataSource="quasiRangeMap" id="BSC_PROG002D0004A_quasiRange" width="60"></gs:select>
+    			<gs:select name="BSC_PROG002D0004A_quasiRange" dataSource="quasiRangeMap" id="BSC_PROG002D0004A_quasiRange" width="70"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_quasiRange'">
     				Select quasi-range %. <BR/>
     				Example: <BR/>

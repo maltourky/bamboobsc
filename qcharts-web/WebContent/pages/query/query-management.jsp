@@ -520,7 +520,7 @@ function ${programId}_page_message() {
 		<tr valign="top">
 			<td width="100%" align="center" height="55%">								
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('QCHARTS_PROG002D0001Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:225px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:235px">
 					
 						<table border="0" width="100%" >
 							<tr valign="top">
