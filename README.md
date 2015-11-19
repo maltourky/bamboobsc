@@ -87,7 +87,6 @@ install step video: https://www.youtube.com/watch?v=pM3q9udreDo
 <br/>
 
 ###Install on Linux
-<img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/IMGP4139.JPG"></img>
 ###1. must first install the MySQL and JDK8
 ```
 # apt-get install mysql-server
