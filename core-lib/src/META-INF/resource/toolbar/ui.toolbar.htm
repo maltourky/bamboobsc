@@ -1,7 +1,7 @@
 <div id="${id}" data-dojo-type="dijit/Toolbar">
 <#if createNewEnable == "Y" >	
 	<div data-dojo-type="dijit/form/Button" id="${id}.new"
-		data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconNewPage', showLabel:false,
+		data-dojo-props="iconClass:'dijitIconFile', showLabel:false,
 			onClick:function(){ 
 				${createNewJsMethod}
 			} 
@@ -39,7 +39,7 @@
 		} 
 		">${refreshName}</div>		
 	<div data-dojo-type="dijit/form/Button" id="${id}.fullscreen"
-		data-dojo-props="iconClass:'myFullScreenIcon', showLabel:false,
+		data-dojo-props="iconClass:'dijitEditorIconFullScreen', showLabel:false,
 		onClick:function(){ 
 			
 			if ( dojo.byId('${id}_ChildTab')!= null && '${experience}' == 'Y' ) {

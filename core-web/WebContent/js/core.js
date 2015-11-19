@@ -272,8 +272,8 @@ dojo.declare("GS.ViewPage", GS.CORE, {
             "class": "dijitDialogPaneActionBar"
         }, confirmDialog.containerNode);			
     	//var questionDiv = dojo.create('div', { innerHTML: question });
-    	var yesButton = new dijit.form.Button({ label: 'Yes', value: 'true', id: 'yes', onClick: callback, iconClass: 'dijitIconApplication' }).placeAt(actionBar);
-    	var noButton = new dijit.form.Button({ label: 'No', value : 'false', id: 'no', onClick: callback, iconClass: 'dijitIconDelete' }).placeAt(actionBar);
+    	var yesButton = new dijit.form.Button({ label: 'Yes', value: 'true', id: 'yes', onClick: callback, iconClass: 'dijitIconConfigure' }).placeAt(actionBar);
+    	var noButton = new dijit.form.Button({ label: 'No', value : 'false', id: 'no', onClick: callback, iconClass: 'dijitEditorIconCancel' }).placeAt(actionBar);
     	//confirmDialog.containerNode.appendChild(questionDiv);
     	//confirmDialog.containerNode.appendChild(yesButton.domNode);
     	//confirmDialog.containerNode.appendChild(noButton.domNode);
