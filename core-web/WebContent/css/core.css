@@ -1,3 +1,71 @@
+/* -- FLAT style -- */
+html, body {
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	
+	border: 0;	
+	overflow: hidden;
+	font-size: 12px !important; 
+	background: white; 
+	color: #333;
+	
+}
+body {
+	font: 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif;
+}
+* {
+  outline: none;
+}
+.textarea {
+	width: 60%;
+}
+.tooltips {
+	font-size: 14px;
+}
+.tooltips span {
+	color: #007ac2;
+	cursor: pointer;
+}
+.dijitSliderH {
+	margin: 40px 0;
+	width: 340px;
+}
+.dijitSliderV {
+	float: left;
+	margin: 0 40px;
+	height: 340px;
+}
+.progressBar {
+	margin: 30px 0;
+	width: 320px;
+}
+.dnd {
+	width: 160px;
+}
+.icon {
+	display: inline-block;
+	margin: 8px;
+	padding: 8px;
+	color: #424242;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.icon:hover {
+	background-color: #9E9E9E;
+	color: #FAFAFA;
+}
+.icon.selected {
+	background-color: #424242;
+	color: #FAFAFA;
+}
+.icon i {
+	font-size: 24px;
+}
+/* -- FLAT style -- */
+
+/*
 body, html {
 	height: 100%;
 	width: 100%;
@@ -8,6 +76,7 @@ body, html {
 	background: white; 
 	color: #333;
 }
+*/
 
 #borderContainer {
 	width: 100%; height: 100%;
@@ -109,6 +178,8 @@ ul{
 /** Dojo claro style Override : End **/
 
 
+
+/* -- FLAT style -- */
 .flat .dijitLeaf {
     display: none;
 }
@@ -120,6 +191,8 @@ ul{
 .flat .dijitTreeLabel {
     font-size: 12px;
 }
+/* -- FLAT style -- */
+
 
 
 /** toolbar need icon **/

@@ -68,7 +68,7 @@ function ${programId}_page_message() {
 		data-dojo-props=" iconClass:'dijitIconSave', showLabel:false "
 		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_uploadDataEvent();" />
 	<input type="button" id="CORE_PROGCOMM0002Q_btnClose" label="Upload close" value="Upload close" 
-		data-dojo-props=" iconClass:'dijitIconDelete', showLabel:false "
+		data-dojo-props=" iconClass:'dijitIconClear', showLabel:false "
 		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_DlgHide();" />		
 </form>	
 
