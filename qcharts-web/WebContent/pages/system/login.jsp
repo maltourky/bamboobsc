@@ -36,6 +36,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 .style3 {color: #084F01}
 .style4 {color: #000000}
+
+
+input {
+    margin: 0px;
+    border: 1px solid #111;
+    background: #F2F2F2;
+}
+
+select {
+    margin: 0px;
+    border: 1px solid #111;
+    background: transparent;
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 -->
 </style>	
 	
@@ -67,12 +89,12 @@ function pageMessage() {
       <td bgcolor="#ffffff"><img src="./images/original.jpg" width="220" height="30" /></td>
     </tr>
     <tr>
-      <td height="260" bgcolor="#ffffff">
+      <td height="480" bgcolor="#ffffff">
 	  <center>
-	  <table id="loginTable" width="270" border="0" cellpadding="2" cellspacing="2">	 
+	  <table id="loginTable" width="320" border="0" cellpadding="2" cellspacing="2">	 
         <tr> 
-          <td width="130" align="right"><span class="style1"><s:property value="getText('LOGIN_language')"/>:</span></td>
-          <td width="135" align="left">
+          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_language')"/>:</span></td>
+          <td width="160" align="left">
           	<select name="lang" id="lang" onchange="redirectLogin(this);">
           	<%
           	String defaultLang = (String)request.getAttribute("lang");
@@ -87,27 +109,27 @@ function pageMessage() {
           </td>
         </tr>  	   
         <tr>
-          <td width="130" align="right"><img src="./kaptcha.jpg?n=<%=System.currentTimeMillis()%>"/></td>
-          <td width="135" align="left"><s:textfield name="captcha" id="captcha" maxLength="12" maxSize="12" theme="simple"/></td>      
+          <td width="160" align="right"><img src="./kaptcha.jpg?n=<%=System.currentTimeMillis()%>"/></td>
+          <td width="160" align="left"><s:textfield name="captcha" id="captcha" maxLength="12" maxSize="12" theme="simple"/></td>      
         </tr>  
         <tr>  
-          <td width="130" align="right"><span class="style1"><s:property value="getText('LOGIN_username')"/>:</span></td>
-          <td width="135" align="left"><s:textfield name="username" id="username" maxLength="12" maxSize="12" theme="simple"/></td>
+          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_username')"/>:</span></td>
+          <td width="160" align="left"><s:textfield name="username" id="username" maxLength="12" maxSize="12" theme="simple"/></td>
         </tr>
         <tr> 
-          <td width="130" align="right"><span class="style1"><s:property value="getText('LOGIN_password')"/>:</span></td>
-          <td width="135" align="left"><s:password name="password" id="password" maxLength="25" maxSize="12" theme="simple"/></td>
+          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_password')"/>:</span></td>
+          <td width="160" align="left"><s:password name="password" id="password" maxLength="25" maxSize="12" theme="simple"/></td>
         </tr>        
         <tr>         
-          <td width="225" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();"/></td>          
+          <td width="320" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();"/></td>          
         </tr>
         <tr> 
-          <td width="225" align="center" colspan="3" bgcolor="#FAFAFA">
+          <td width="320" align="center" colspan="3" bgcolor="#FAFAFA">
           <a href="../gsbsc-mobile-web/index.action"><font color="#7E7E7E" size="3"><b>click to mobile version web.</b></font></a>
           </td>
          </tr>        
         <tr> 
-          <td width="225" align="center" colspan="2" bgcolor="#FAFAFA">
+          <td width="320" align="center" colspan="2" bgcolor="#FAFAFA">
           <font color="#7E7E7E" size="2">Please use <b>Chrome</b> (recommend) or <b>Firefox</b> browser, can not support other browser.</font>
           </td>
          </tr>         
