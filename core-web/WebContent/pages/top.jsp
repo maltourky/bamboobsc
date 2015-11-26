@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 %>
 <div dojoType="dijit.layout.ContentPane" region="top" id="topBar" style=" overflow:hidden; ">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#C5DDF6" > <!-- #CFECEC -->
+	<table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f3f3" >
 		<tr>
 			<td width="70%" align="left">
 			
@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 					</div>					
 				</div>			
-				&nbsp;|&nbsp;
+				&nbsp;&nbsp;
 				<div id="comboButtonHelp" data-dojo-type="dijit.form.ComboButton">
 					<span><s:property value="getText('IndexAction_help')"/></span>
 					<div dojoType="dijit.Menu" id="helpMenu">
@@ -34,18 +34,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>								
 									
-				&nbsp;|&nbsp;
-				<a href="#" title="logout, end session." alt="logout, end session." onClick='confirmDialog("logoutDialogId000", "${action.getText('IndexAction_logoutTitle')}", "${action.getText('IndexAction_logoutMsg')}", logoutEvent, (window.event ? window.event : null) ); return false;'><img src="./images/logout.png" alt="logoOut" border="0" /></a>
+				&nbsp;&nbsp;
+				<a href="#" title="logout, end session." alt="logout, end session." onClick='confirmDialog("logoutDialogId000", "${action.getText('IndexAction_logoutTitle')}", "${action.getText('IndexAction_logoutMsg')}", logoutEvent, (window.event ? window.event : null) ); return false;'><img src="./images/logout.png" alt="logoOut" border="0" style="vertical-align: middle;" /></a>
 				
-				&nbsp;|&nbsp;										
-				<font size='2'>${verMsg}</font>			
+				&nbsp;&nbsp;
+				<font size='2' color="#394045">${verMsg}</font>			
 				
 			</td>
 
 			<td width="30%" align="right">
-					<!--  
-					<img src="./images/original.jpg" alt="logo" />
-					-->
+					
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									
 			</td>
