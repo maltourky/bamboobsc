@@ -84,7 +84,7 @@ body, html {
 
 <table border="0" width="100%">
 	<tr>
-		<td align="left" bgcolor="#58775d">
+		<td align="left" bgcolor="#f1eee5">
 			&nbsp;&nbsp;
 			<input type="button" name="okBtn" id="okBtn" value="${action.getText('CORE_PROGCOMM0004Q_okBtn')}" class="flat lighter" onClick="setCbFieldValue();">
 			&nbsp;&nbsp;

@@ -183,7 +183,7 @@ function ${programId}_page_message() {
         <div class="container">
             <div class="navbar-header">        
         
-        <font color="#ffffff"><s:property value="getText('BSC_PROG002D0007Q_vision')"/>:</font>&nbsp;
+        <font color="#394045"><s:property value="getText('BSC_PROG002D0007Q_vision')"/>:</font>&nbsp;
         <s:select list="visionMap" name="visionOid" id="visionOid" value="visionOid" class="flat lighter"></s:select>
         <input type="button" name="load" id="load" value="${action.getText('BSC_PROG002D0007Q_btnLoad')}" class="flat lighter" >
         <s:if test=" divItems != null && divItems.size != 0 "> 

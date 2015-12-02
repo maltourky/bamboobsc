@@ -61,7 +61,7 @@ ${dialogData}
 			<table border="0" width="100%" cellpadding="0" cellspacing="0">
 				<tr valign="top">
 					<td align="left" valign="middle" bgcolor="#F5F5F5">
-						<img src="<%=basePath%>/images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font color="#000000">Please wait.</font></b>
+						<img src="<%=basePath%>/images/head_logo.jpg" border="0" alt="logo" style="vertical-align:middle;margin-top:0.25em"/><b><font size='2' color='#394045' style="vertical-align:middle;margin-top:0.25em">&nbsp;Process ...</font></b>
 						<br/>
 						<hr color="#3794E5" size="2">
 					</td>
