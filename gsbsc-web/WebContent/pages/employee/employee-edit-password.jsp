@@ -66,6 +66,7 @@ function ${programId}_page_message() {
 
 <body class="flat" bgcolor="#EEEEEE" >
 
+	<!-- 
 	<gs:toolBar
 		id="${programId}" 
 		cancelEnable="Y" 
@@ -77,6 +78,7 @@ function ${programId}_page_message() {
 		refreshEnable="Y" 		 
 		refreshJsMethod="BSC_PROG001D0001E_S00_DlgShow('${employee.oid}');" 		
 		></gs:toolBar>
+	-->	
 	<jsp:include page="../header.jsp"></jsp:include>
 	
 	<input type="hidden" name="BSC_PROG001D0001E_S00_appendOrganizationOid" id="BSC_PROG001D0001E_S00_appendOrganizationOid" value="${appendId}" />
