@@ -55,7 +55,9 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     color: #FFF;
     padding: 2px 20px;
     font-size: 12px;
-    font-family: Palatino;    
+    font-family: Palatino; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;          
 }
 
 .lighter {

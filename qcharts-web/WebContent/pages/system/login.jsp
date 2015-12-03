@@ -42,6 +42,8 @@ input {
     margin: 0px;
     border: 1px solid #111;
     background: #F2F2F2;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;     
 }
 
 select {
@@ -56,6 +58,8 @@ select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;     
 }
 
 -->
