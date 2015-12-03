@@ -76,6 +76,19 @@ function ${programId}_page_message() {
 
 <body class="flat" bgcolor="#EEEEEE" >
 
+	<gs:toolBar
+		id="${programId}" 
+		cancelEnable="Y" 
+		cancelJsMethod="${programId}_TabClose();" 
+		createNewEnable="N"
+		createNewJsMethod=""		 
+		saveEnabel="N" 
+		saveJsMethod=""
+		refreshEnable="Y" 		 
+		refreshJsMethod="${programId}_TabRefresh();" 		
+		></gs:toolBar>
+	<jsp:include page="../header.jsp"></jsp:include>
+
 	<table border="0" width="100%" >
 		<tr valign="top">
 			<td width="100%" align="center" height="35%">
@@ -84,7 +97,7 @@ function ${programId}_page_message() {
 					
 						<table border="0" width="100%" cellspacing="0" >
 							<tr valign="top">
-								<td width="600px" align="left" height="45px" bgcolor="#d7e3ed" >	
+								<td width="65%" align="left" height="50px" bgcolor="#f3f3f3" >	
 									
 									<s:property value="getText('BSC_PROG001D0005Q_workspaceOid')"/>:
 									<gs:select name="BSC_PROG001D0005Q_workspaceOid" dataSource="workspaceMap" id="BSC_PROG001D0005Q_workspaceOid" value="fields.workspaceOid"></gs:select>
@@ -102,7 +115,7 @@ function ${programId}_page_message() {
 						    		&nbsp;		    															
 								
 								</td>
-								<td width="250px" align="left" height="45px" bgcolor="#d7e3ed">
+								<td width="25%" align="left" height="45px" bgcolor="#f3f3f3">
 									
 									<div id="BSC_PROG001D0005Q_yearHorizontalSlider"
 									    style="width:200px;"
@@ -129,7 +142,7 @@ function ${programId}_page_message() {
 									</div>   
 																	
 								</td>
-								<td align="left" height="45px" bgcolor="#d7e3ed">
+								<td align="left" height="10%" bgcolor="#f3f3f3">
 
 									<button id="BSC_PROG001D0005Q_btnQuery" data-dojo-type="dijit.form.Button"
 										data-dojo-props="

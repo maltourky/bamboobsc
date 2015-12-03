@@ -121,9 +121,9 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG001D0001Q_empId')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
-    			<gs:textBox name="BSC_PROG001D0001Q_empId" id="BSC_PROG001D0001Q_empId" value="" width="200" maxlength="10"></gs:textBox>
+    		<td height="25px" width="25%"  align="right"><s:property value="getText('BSC_PROG001D0001Q_empId')"/>:</td>
+    		<td height="25px" width="25%"  align="left">
+    			<gs:textBox name="BSC_PROG001D0001Q_empId" id="BSC_PROG001D0001Q_empId" value="" width="100" maxlength="10"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001Q_empId'">
     				Input employee serial-number.
 				</div>      			
