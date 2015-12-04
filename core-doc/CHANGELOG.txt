@@ -1,6 +1,7 @@
 0.6.2
 -----------------------------------------------------------
-1. Only change page themes to flat style.
+1. Change page themes to flat style.
+2. Add 07 - KPIs trends report(BSC_PROG003D0007Q) for default user role's menu-item. ( 0.6.1 SQL dump forget to add ) 
 
 
 0.6.1
