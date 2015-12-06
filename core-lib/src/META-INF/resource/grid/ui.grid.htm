@@ -1,9 +1,12 @@
 <table id="gridQuery_table${id}" width="${width}" border="0" cellspacing="0" cellpadding="1" style="display:none" style="background-color:#f1eee5;">
   <tr>
-  	<td width="80px" bgcolor="#f1eee5" align="left" >
+  	<td width="80px" bgcolor="#f1eee5" align="center" >
   		<font size="2">${totalName}:&nbsp;<span id="gridQuery_pageOf_rowCount${id}"/></font>  	
   	</td>
-    <td width="130px" bgcolor="#f1eee5" align="left">
+  	<td width="10px" bgcolor="#f1eee5" align="left">&nbsp;</td>        
+    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToFirst${id}();"><img src="./icons/stock_first.png" border="0" 	/></a></td>
+    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToPrev${id}();"><img src="./icons/stock_left.png" border="0" 	/></a></td>
+    <td width="130px" bgcolor="#f1eee5" align="center">
     <input type="hidden" name="pageOf.size" id="gridQuery_pageOf_size${id}" value="1"/>
     	<font size="2">${pageName}</font>
     	<select name="pageOf.select" id="gridQuery_pageOf_select${id}" 
@@ -11,12 +14,9 @@
     			onChange="changeGridQueryPageOfSelect${id}();" >
     			<option value="1">1</option>
     	</select>    
-    </td>
-    <td width="10px" bgcolor="#f1eee5" align="left">&nbsp;</td>
-    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToFirst${id}();"><img src="./icons/stock_first.png" border="0" 	/></a></td>
-    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToPrev${id}();"><img src="./icons/stock_left.png" border="0" 	/></a></td>
-    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToNext${id}();"><img src="./icons/stock_right.png" border="0" 	/></a></td>
-    <td width="20px" bgcolor="#f1eee5" align="left"><a href="javascript:changeGridQueryToLast${id}();"><img src="./icons/stock_last.png" border="0" 	/></a></td>
+    </td>    
+    <td width="20px" bgcolor="#f1eee5" align="right"><a href="javascript:changeGridQueryToNext${id}();"><img src="./icons/stock_right.png" border="0" 	/></a></td>
+    <td width="20px" bgcolor="#f1eee5" align="right"><a href="javascript:changeGridQueryToLast${id}();"><img src="./icons/stock_last.png" border="0" 	/></a></td>
     <td width="10px" bgcolor="#f1eee5" align="left">&nbsp;</td>
     <td width="200px" bgcolor="#f1eee5" align="left">
     	<font size="2">${rowSizeName}</font>
