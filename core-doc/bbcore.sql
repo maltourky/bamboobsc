@@ -2340,7 +2340,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861449208721347',1449209451187,7500);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861449376114920',1449377468140,7500);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2444,7 +2444,7 @@ CREATE TABLE `qrtz_triggers` (
 
 LOCK TABLES `qrtz_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1449209460000,1449209400000,0,'WAITING','CRON',1449208721000,0,NULL,0,'');
+INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1449377520000,1449377460000,0,'WAITING','CRON',1449376114000,0,NULL,0,'');
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3515,7 +3515,7 @@ CREATE TABLE `tb_sys_template` (
 
 LOCK TABLES `tb_sys_template` WRITE;
 /*!40000 ALTER TABLE `tb_sys_template` DISABLE KEYS */;
-INSERT INTO `tb_sys_template` VALUES ('25dba92d-07a5-40ea-946b-a4f149a4b13c','TPLMSG0001','${title}','<table bgcolor=\"#F2F2F2\" border=\"0\" width=\"100%\">\n<tbody><tr>\n<td align=\"center\" bgcolor=\"#E6E6E6\"><font size=\"2\"><b>${date}</b></font>  <font size=\"2\"><b>${time}</b></font></td>\n</tr>\n<tr>\n<td align=\"left\" bgcolor=\"#E6E6E6\"><font size=\"2\"><b>${title}</b></font></td>\n</tr>\n<tr>\n<td align=\"left\"><font size=\"2\">${message}</font></td>\n</tr>\n</tbody></table>\n<hr color=\"#e1eefc\" size=\"2\" width=\"100%\" />','The template for show user\'s calendar note history!','admin','2014-10-17 00:00:00','admin','2014-10-21 17:15:15'),('65686236-3d79-4ce7-9b49-e616f07ae7ba','TPLMSG0002','${title}','<table bgcolor=\"#F2F2F2\" border=\"0\" width=\"100%\">\n<tbody><tr>\n<td align=\"left\" bgcolor=\"#E6E6E6\"><font size=\"2\"><b>${title}</b></font></td>\n</tr>\n<tr>\n<td align=\"left\"><font size=\"2\">${message}</font></td>\n</tr>\n</tbody></table>\n<hr color=\"#e1eefc\" size=\"2\" width=\"100%\" />','The template for notice message!','admin','2014-10-18 19:07:50','admin','2014-10-21 17:15:31');
+INSERT INTO `tb_sys_template` VALUES ('25dba92d-07a5-40ea-946b-a4f149a4b13c','TPLMSG0001','${title}','<table bgcolor=\"#F3F3F3\" border=\"0\" width=\"100%\"><tbody><tr><td align=\"center\" bgcolor=\"#F5F5F5\"><font size=\"2\"><b>${date} ${time}</b></font></td>\n	</tr>\n	<tr>\n		<td align=\"left\" bgcolor=\"#F5F5F5\"><font size=\"2\"><b>${title}</b></font></td>\n	</tr>\n	<tr>\n		<td align=\"left\" bgcolor=\"#ffffff\"><font size=\"2\">${message}</font></td>\n	</tr>\n</tbody></table>\n<hr color=\"#3794E5\" size=\"2\" width=\"98%\" />','The template for show user\'s calendar note history!','admin','2014-10-17 00:00:00','admin','2015-12-06 12:45:47'),('65686236-3d79-4ce7-9b49-e616f07ae7ba','TPLMSG0002','${title}','<table bgcolor=\"#F3F3F3\" border=\"0\" width=\"100%\">\n	<tbody><tr>\n		<td align=\"left\" bgcolor=\"#F5F5F5\"><font size=\"2\"><b>${title}</b></font></td>\n	</tr>\n	<tr>\n		<td align=\"left\" bgcolor=\"#ffffff\"><font size=\"2\">${message}</font></td>\n	</tr>\n</tbody></table>\n<hr color=\"#3794E5\" size=\"2\" width=\"98%\" />','The template for notice message!','admin','2014-10-18 19:07:50','admin','2015-12-06 12:48:45');
 /*!40000 ALTER TABLE `tb_sys_template` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3824,4 +3824,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-04 14:14:51
+-- Dump completed on 2015-12-06 12:51:54
