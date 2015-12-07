@@ -87,7 +87,7 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="800px" >
 		<tr valign="top">
-			<td width="100%" align="left" height="30%" colspan="2">
+			<td width="100%" align="left" height="30%">
 			    <table border="0" width="800px" height="150px">
 					<tr valign="top">
 						<td width="400px" align="left">
@@ -102,45 +102,48 @@ function ${programId}_page_message() {
 			    </table>			
 			</td>
 		</tr>
-		<tr>
-			<td width="20%" align="right" ><s:property value="getText('BSC_PROG004D0001Q_perspectiveTitle')"/>:</td>
-			<td width="80%" align="left" >
+		<tr>			
+			<td width="100%" height="50px" align="left">
+				<b><s:property value="getText('BSC_PROG004D0001Q_perspectiveTitle')"/>:</b>
+				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_perspectiveTitle" id="BSC_PROG004D0001Q_perspectiveTitle" value="fields.perspectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_perspectiveTitle'">
     				Input Report perspectives label text.
 				</div> 				
 			</td>			
 		</tr>
-		<tr>
-			<td width="20%" align="right" ><s:property value="getText('BSC_PROG004D0001Q_objectiveTitle')"/>:</td>
-			<td width="80%" align="left" >
+		<tr>			
+			<td width="100%" height="50px" align="left" >
+				<b><s:property value="getText('BSC_PROG004D0001Q_objectiveTitle')"/>:</b>
+				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_objectiveTitle" id="BSC_PROG004D0001Q_objectiveTitle" value="fields.objectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_objectiveTitle'">
     				Input Report strategy of objectives label text.
 				</div> 				
 			</td>			
 		</tr>	
-		<tr>
-			<td width="20%" align="right" ><s:property value="getText('BSC_PROG004D0001Q_kpiTitle')"/>:</td>
-			<td width="80%" align="left" >
+		<tr>			
+			<td width="100%" height="50px" align="left" >
+				<b><s:property value="getText('BSC_PROG004D0001Q_kpiTitle')"/>:</b>
+				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_kpiTitle" id="BSC_PROG004D0001Q_kpiTitle" value="fields.kpiTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_kpiTitle'">
     				Input Report KPI label text.
 				</div> 					
 			</td>			
 		</tr>	
-		<tr>
-		    <td height="100px" width="20%" align="right"><s:property value="getText('BSC_PROG004D0001Q_classNote')"/>:</td>
-		    <td height="100px" width="80%"  align="left">
+		<tr>		    
+		    <td height="125px" width="100%"  align="left">
+		    	<b><s:property value="getText('BSC_PROG004D0001Q_classNote')"/>:</b>
+		    	<br/>
 		    	<textarea id="BSC_PROG004D0001Q_classNote" name="BSC_PROG004D0001Q_classNote" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${fields.classNote}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_classNote'">
     				Input Personal Report class note text, the maximum allowed 100 characters.
 				</div> 		    		
 		    </td>
 		</tr>     		
-		<tr>
-			<td width="20%" align="right" >&nbsp;</td>
-			<td width="80%" align="left" >
+		<tr>			
+			<td width="100%" align="left" >
 			    <gs:button name="BSC_PROG004D0001Q_save" id="BSC_PROG004D0001Q_save" onClick="BSC_PROG004D0001Q_save();"
 	    			handleAs="json"
 	    			sync="N"
