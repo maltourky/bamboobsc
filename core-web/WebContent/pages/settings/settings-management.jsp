@@ -99,7 +99,7 @@ function ${programId}_page_message() {
     	</tr>       
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b>Left AccordionContainer enable</b>:
+    			<b>Left AccordionContainer (left tree menu) enable</b>:
     			<br/>
     			<input id="CORE_PROG001D0011Q_leftAccordionContainerEnable" name="CORE_PROG001D0011Q_leftAccordionContainerEnable" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == fields.leftAccordionContainerEnable "> checked="checked" </s:if> />
     		</td>    			
