@@ -29,6 +29,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
@@ -102,6 +103,10 @@ public class LoginAction extends BaseSupportAction {
 
 	public void setLang(String lang) {
 		this.lang = lang;
+	}
+	
+	public String getLoginCaptchaCodeEnable() {
+		return super.defaultString( Constants.getLoginCaptchaCodeEnable() ).trim();
 	}
 	
 }

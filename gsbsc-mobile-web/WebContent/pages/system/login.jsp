@@ -67,6 +67,9 @@ function pageMessage() {
           	</select>
           </td>
         </tr>  		  	   
+        
+        <!-- 2015-12-18 add https://github.com/billchen198318/bamboobsc/issues/5 -->
+        <s:if test=" \"Y\" == loginCaptchaCodeEnable ">               
         <tr>
         	<td width="100%" align="center">
         		<img src="./kaptcha.jpg?n=<%=System.currentTimeMillis()%>"/>
@@ -74,6 +77,9 @@ function pageMessage() {
         		<input name="captcha" id="captcha" value="" type="text">
         	</td>      
         </tr>  
+		</s:if>
+		<!-- ##### -->
+		        
         <tr>  
         	<td width="100%" align="center">
         		<label for="username"><s:property value="getText('LOGIN_username')"/>:</label>

@@ -112,6 +112,9 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 	}
 	
 	protected void doCaptchaValidate(HttpServletRequest request, GreenStepBaseUsernamePasswordToken token) {
+		if (!YesNo.YES.equals(Constants.getLoginCaptchaCodeEnable())) { // 2015-12-18 add https://github.com/billchen198318/bamboobsc/issues/5
+			return;
+		}
 		Object sessCaptcha = SecurityUtils.getSubject().getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 		String inputCaptcha = token.getCaptcha();
 		if (!(sessCaptcha instanceof String) || StringUtils.isBlank(inputCaptcha) ) {

@@ -245,4 +245,13 @@ public class Constants {
 		return key;
 	}	
 	
+	/**
+	 * 登入頁面是否需要輸入 CaptchaCode
+	 * @return
+	 */
+	public static String getLoginCaptchaCodeEnable() {
+		getSettingsMap();
+		return (String)appSettingsMap.get("base.loginCaptchaCodeEnable");
+	}
+	
 }

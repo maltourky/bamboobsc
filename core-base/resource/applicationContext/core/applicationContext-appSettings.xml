@@ -32,6 +32,7 @@
 				<entry key="googleMap.language" 						value="${googleMap.language}" />
 				<entry key="googleMap.clientLocationEnable" 			value="${googleMap.clientLocationEnable}" />
 				<entry key="twitter.enable" 							value="${twitter.enable}" />
+				<entry key="base.loginCaptchaCodeEnable" 				value="${base.loginCaptchaCodeEnable}" />
 			</map>
 		</constructor-arg>				
 	</bean>
