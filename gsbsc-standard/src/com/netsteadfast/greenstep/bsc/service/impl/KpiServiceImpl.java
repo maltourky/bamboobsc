@@ -151,7 +151,8 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
 		int limit=Integer.parseInt(pageOf.getShowRow());
 		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
-		QueryResult<List<KpiVO>> result=this.kpiDAO.findPageQueryResultByQueryName("findKpiPageGrid", params, offset, limit);
+		QueryResult<List<KpiVO>> result=this.kpiDAO.findPageQueryResultByQueryName(
+				"findKpiPageGrid", pageOf.setQueryOrderSortParameter(params), offset, limit);
 		pageOf.setCountSize(String.valueOf(result.getRowCount()));
 		pageOf.toCalculateSize();
 		return result;

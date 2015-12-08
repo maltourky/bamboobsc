@@ -601,6 +601,26 @@ function _getSystemIconUrl(iconId) {
 	return icon;
 }
 
+function setPageOfSortAsc(_id) {
+	if (dojo.byId(_id)==null) {
+		return;
+	}
+	dojo.byId(_id).value = "ASC";
+}
+
+function setPageOfSortDesc(_id) {
+	if (dojo.byId(_id)==null) {
+		return;
+	}
+	dojo.byId(_id).value = "DESC";	
+}
+
+function setPageOfOrderBy(_id, queryFieldName) {
+	if (dojo.byId(_id)==null) {
+		return;
+	}
+	dojo.byId(_id).value = queryFieldName;	
+}
 
 /**
  * 取出 google map response 的地址資料

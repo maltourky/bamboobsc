@@ -28,7 +28,7 @@
 		AND m.name LIKE :name
 		</#if>
 		
-		ORDER BY m.id ASC
+		ORDER BY ${orderBy} ${sortType}
 	]]>
 	</query>
 	

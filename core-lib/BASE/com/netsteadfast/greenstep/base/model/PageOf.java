@@ -21,6 +21,12 @@
  */
 package com.netsteadfast.greenstep.base.model;
 
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.netsteadfast.greenstep.base.Constants;
+
 public class PageOf implements java.io.Serializable {
 	private static final long serialVersionUID = -3060749245195776228L;
 	public static final int Rows[]={10, 20, 30};
@@ -76,6 +82,12 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getOrderBy() {
+		if (null == orderBy) {
+			orderBy = "";
+		}
+		orderBy = orderBy.replaceAll(" ", "").replaceAll("\r", "").replaceAll("\t", "")
+				.replaceAll("\n", "").replaceAll(";", "").replaceAll("\"", "")
+				.replaceAll("'", "").replaceAll("-", "");
 		return orderBy;
 	}
 
@@ -84,6 +96,12 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getSortType() {
+		if (!StringUtils.isBlank(sortType)) {
+			sortType = sortType.toUpperCase().trim();
+			if (!"ASC".equals(sortType) && !"DESC".equals(sortType)) {
+				sortType = "ASC";
+			}
+		}
 		return sortType;
 	}
 
@@ -135,6 +153,29 @@ public class PageOf implements java.io.Serializable {
 			out.append("<option value=\"10\"").append(" >").append("10").append("</option>");
 		}
 		return out.toString();
+	}
+	
+	/**
+	 * 把要代入查grid的 hql 的 map 參數加上 order by 條件
+	 * orderBy		如 kpi.id, kpi.name
+	 * sortType		如 ASC 或 DESC
+	 * @param queryParam
+	 */
+	public Map<String, Object> setQueryOrderSortParameter(Map<String, Object> queryParam) {
+		if (queryParam == null) {
+			return queryParam;
+		}
+		if (queryParam.get(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY) == null) {
+			if (!StringUtils.isBlank(this.getOrderBy())) {
+				queryParam.put(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY, this.getOrderBy());
+			}
+		}
+		if (queryParam.get(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE) == null) {
+			if (!StringUtils.isBlank(this.getSortType())) {
+				queryParam.put(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE, this.getSortType());
+			}
+		}
+		return queryParam;
 	}
 	
 }

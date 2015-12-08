@@ -286,6 +286,10 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 			Query query=hbmSession.createQuery(countHQL);
 			if (params!=null) {
 				for (Map.Entry<String, Object> entry : params.entrySet()) {
+					if (entry.getKey().equals(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY) 
+							|| entry.getKey().equals(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE)) {
+						continue;
+					}
 					this.setQueryParams(query, entry.getKey(), entry.getValue());				
 				}				
 			}
@@ -301,6 +305,10 @@ public abstract class BaseDAO<T extends java.io.Serializable, PK extends java.io
 				query=hbmSession.createQuery(findHQL);
 				if (params!=null) {
 					for (Map.Entry<String, Object> entry : params.entrySet()) {
+						if (entry.getKey().equals(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY) 
+								|| entry.getKey().equals(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE)) {
+							continue;
+						}
 						this.setQueryParams(query, entry.getKey(), entry.getValue());
 					}								
 				}

@@ -30,16 +30,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function BSC_PROG002D0004Q_GridFieldStructure() {
 	return [
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_01')}", field: "oid", formatter: BSC_PROG002D0004Q_GridButtonClick, width: "10%" },  
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_01')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortDefaultASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortDefaultDESC();' />", field: "oid", formatter: BSC_PROG002D0004Q_GridButtonClick, width: "10%" },  
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_02')}", field: "visionTitle", width: "10%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_03')}", field: "perspectiveName", width: "15%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_04')}", field: "objectiveName", width: "15%" },
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_05')}", field: "id", width: "10%" },
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_06')}", field: "name", width: "20%" },
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_05')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortIdASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortIdDESC();' />", field: "id", width: "10%" },
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_06')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortNameASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortNameDESC();' />", field: "name", width: "20%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_07')}", field: "weight", width: "5%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_08')}", field: "description", width: "15%" }	
 		];
 }
+
+// ---------------------------------------------------------------------
+// order by & sort type
+// ---------------------------------------------------------------------
+function BSC_PROG002D0004Q_grid_sortDefaultASC() {
+	setPageOfSortAsc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'v.visId, p.perId, o.objId, m.id');
+	getQueryGrid_${programId}_grid();
+}
+
+function BSC_PROG002D0004Q_grid_sortDefaultDESC() {
+	setPageOfSortDesc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'v.visId, p.perId, o.objId, m.id');
+	getQueryGrid_${programId}_grid();
+}
+
+function BSC_PROG002D0004Q_grid_sortIdASC() {
+	setPageOfSortAsc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'm.id');
+	getQueryGrid_${programId}_grid();
+}
+
+function BSC_PROG002D0004Q_grid_sortIdDESC() {
+	setPageOfSortDesc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'm.id');
+	getQueryGrid_${programId}_grid();
+}
+
+function BSC_PROG002D0004Q_grid_sortNameASC() {
+	setPageOfSortAsc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'm.name');
+	getQueryGrid_${programId}_grid();
+}
+
+function BSC_PROG002D0004Q_grid_sortNameDESC() {
+	setPageOfSortDesc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'm.name');
+	getQueryGrid_${programId}_grid();
+}
+//---------------------------------------------------------------------
 
 function BSC_PROG002D0004Q_GridButtonClick(itemOid) {
 	var rd="";
@@ -56,6 +96,10 @@ function BSC_PROG002D0004Q_clear() {
 	dijit.byId('BSC_PROG002D0004Q_id').set('value', '');
 	dijit.byId('BSC_PROG002D0004Q_name').set('value', '');
 	clearQuery_${programId}_grid();
+	
+	setPageOfSortAsc('BSC_PROG002D0004Q_sortType');
+	setPageOfOrderBy('BSC_PROG002D0004Q_orderBy', 'v.visId, p.perId, o.objId, m.id');
+	
 }
 
 function BSC_PROG002D0004Q_edit(oid) {
@@ -202,6 +246,10 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG002D0004Q_uploadCsvOid" id="BSC_PROG002D0004Q_uploadCsvOid" value=""/>
 	
+	<!-- order by & sort type default for query -->
+	<input type="hidden" name="BSC_PROG002D0004Q_sortType" id="BSC_PROG002D0004Q_sortType" value="ASC"/>
+	<input type="hidden" name="BSC_PROG002D0004Q_orderBy" id="BSC_PROG002D0004Q_orderBy" value="v.visId, p.perId, o.objId, m.id"/>
+	
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0004Q_visionOid')"/>:</td>
@@ -262,7 +310,9 @@ function ${programId}_page_message() {
     						'searchValue.parameter.name'			: dijit.byId('BSC_PROG002D0004Q_name').get('value'),
     						'pageOf.size'							: getGridQueryPageOfSize_${programId}_grid(),
     						'pageOf.select'							: getGridQueryPageOfSelect_${programId}_grid(),
-    						'pageOf.showRow'						: getGridQueryPageOfShowRow_${programId}_grid()
+    						'pageOf.showRow'						: getGridQueryPageOfShowRow_${programId}_grid(),
+    						'pageOf.orderBy'						: dojo.byId('BSC_PROG002D0004Q_orderBy').value,
+    						'pageOf.sortType'						: dojo.byId('BSC_PROG002D0004Q_sortType').value
     					} 
     				"
     				errorFn="clearQuery_${programId}_grid();"
@@ -277,7 +327,7 @@ function ${programId}_page_message() {
     	</tr> 	
 	</table>
 	
-	<gs:grid gridFieldStructure="BSC_PROG002D0004Q_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>
+	<gs:grid gridFieldStructure="BSC_PROG002D0004Q_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}" disableOnHeaderCellClick="Y"></gs:grid>
 	
 <script type="text/javascript">${programId}_page_message();</script>	
 </body>

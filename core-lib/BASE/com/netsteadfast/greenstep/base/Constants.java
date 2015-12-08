@@ -131,6 +131,16 @@ public class Constants {
 	 */
 	public static final String _COMMON_LOAD_FORM_ACTION = "commomLoadForm" + _S2_ACTION_EXTENSION;
 	
+	/**
+	 * 保留查詢參數名稱 for PageOf , BaseDAO
+	 */
+	public static final String _RESERVED_PARAM_NAME_QUERY_SORT_TYPE = "sortType";
+	
+	/**
+	 * 保留查詢參數名稱 for PageOf , BaseDAO
+	 */
+	public static final String _RESERVED_PARAM_NAME_QUERY_ORDER_BY = "orderBy";
+	
 	public static String getTmpDir() {
 		return System.getProperty("java.io.tmpdir");
 	}
