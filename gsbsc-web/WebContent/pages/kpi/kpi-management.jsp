@@ -30,12 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 function BSC_PROG002D0004Q_GridFieldStructure() {
 	return [
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_01')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortDefaultASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortDefaultDESC();' />", field: "oid", formatter: BSC_PROG002D0004Q_GridButtonClick, width: "10%" },  
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_01')}&nbsp;<img src='./images/sort-up.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortDefaultASC();' alt='UP' title='sort up(A-Z)' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortDefaultDESC();' alt='DOWN' title='sort down(Z-A)' />", field: "oid", formatter: BSC_PROG002D0004Q_GridButtonClick, width: "10%" },  
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_02')}", field: "visionTitle", width: "10%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_03')}", field: "perspectiveName", width: "15%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_04')}", field: "objectiveName", width: "15%" },
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_05')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortIdASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortIdDESC();' />", field: "id", width: "10%" },
-			{ name: "${action.getText('BSC_PROG002D0004Q_grid_06')}&nbsp;<img src='./images/sort-up.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortNameASC();' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='0' onclick='BSC_PROG002D0004Q_grid_sortNameDESC();' />", field: "name", width: "20%" },
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_05')}&nbsp;<img src='./images/sort-up.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortIdASC();' alt='UP' title='sort up(A-Z)' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortIdDESC();' alt='DOWN' title='sort down(Z-A)' />", field: "id", width: "10%" },
+			{ name: "${action.getText('BSC_PROG002D0004Q_grid_06')}&nbsp;<img src='./images/sort-up.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortNameASC();' alt='UP' title='sort up(A-Z)' />&nbsp;&nbsp;&nbsp;<img src='./images/sort-down.png' border='1' style='border:2px #BDBDBD dashed' onclick='BSC_PROG002D0004Q_grid_sortNameDESC();' alt='DOWN' title='sort down(Z-A)' />", field: "name", width: "20%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_07')}", field: "weight", width: "5%" },
 			{ name: "${action.getText('BSC_PROG002D0004Q_grid_08')}", field: "description", width: "15%" }	
 		];
