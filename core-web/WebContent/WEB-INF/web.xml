@@ -183,7 +183,7 @@
 		-->
 	</filter-mapping>    
     
-    
+    <!--  
  	<filter>
   		<filter-name>CompressingFilter</filter-name>
   		<filter-class>com.github.ziplet.filter.compression.CompressingFilter</filter-class>
@@ -193,7 +193,7 @@
   		<filter-name>CompressingFilter</filter-name>
   		<url-pattern>/*</url-pattern>
  	</filter-mapping>     
- 	
+ 	-->
  	
   	<filter>
   		<filter-name>CharsetFilter</filter-name>

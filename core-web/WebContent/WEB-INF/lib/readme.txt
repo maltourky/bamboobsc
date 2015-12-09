@@ -342,13 +342,6 @@ itext-xtra-5.5.1.jar
 itextpdf-5.5.1.jar
 
 
-ziplet
-https://github.com/ziplet/ziplet
-modify CompressingFilter.java add @WebFilter( asyncSupported = true )
--------------------------
-ziplet-2.0.1-async.jar
-
-
 jackson
 https://github.com/FasterXML
 -------------------------
@@ -475,3 +468,8 @@ http://scannotation.sourceforge.net/		(remove)
 scannotation-1.0.2.jar						(remove)
 
 
+ziplet
+https://github.com/ziplet/ziplet
+modify CompressingFilter.java add @WebFilter( asyncSupported = true )
+-------------------------
+ziplet-2.0.1-async.jar
