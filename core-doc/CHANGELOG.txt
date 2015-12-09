@@ -2,6 +2,7 @@
 -----------------------------------------------------------
 1. Change page themes to flat style.
 2. Add 07 - KPIs trends report(BSC_PROG003D0007Q) for default user role's menu-item. ( 0.6.1 SQL dump forget to add ) 
+3. Support configuration option to disable/enable captcha code on Login page. reference: https://github.com/billchen198318/bamboobsc/issues/5
 
 
 0.6.1
