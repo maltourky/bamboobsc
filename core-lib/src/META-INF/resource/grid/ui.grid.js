@@ -26,6 +26,23 @@ function submitQueryGrid${id}() {
  * 下拉頁次改變
  */
 function changeGridQueryPageOfSelect${id}() {
+	
+	// ----------------------------------------------------------------------------
+	// for select change to textbox
+	// ----------------------------------------------------------------------------
+	if ( !( /^\+?(0|[1-9]\d*)$/.test(dijit.byId('gridQuery_pageOf_select${id}').value) ) ) { // not a page number
+		dijit.byId('gridQuery_pageOf_select${id}').set('value', '1', false);
+	}
+	var page = parseInt(dijit.byId('gridQuery_pageOf_select${id}').value);
+	if ( isNaN(page) || page <= 0 ) { // not a page number
+		dijit.byId('gridQuery_pageOf_select${id}').set('value', '1', false);
+	}
+	if (page>( parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, 10) || 1 ) ) { // 頁面最小要是1
+		page=( parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, 10) || 1 );
+		dijit.byId('gridQuery_pageOf_select${id}').set('value', page+'', false);
+	}
+	// ----------------------------------------------------------------------------
+	
 	submitQueryGrid${id}();
 }
 
@@ -57,7 +74,7 @@ function changeGridQueryToLast${id}() {
  * 到上1頁icon click
  */
 function changeGridQueryToPrev${id}() {
-	var page=parseInt( dijit.byId('gridQuery_pageOf_select${id}').value, _gscore_default_pageRowSize )-1;
+	var page=( parseInt( dijit.byId('gridQuery_pageOf_select${id}').value, 10 ) || 0 )-1;
 	if (page<=0) {
 		page=1;
 	}
@@ -69,9 +86,9 @@ function changeGridQueryToPrev${id}() {
  * 到下1頁icon click
  */
 function changeGridQueryToNext${id}() {
-	var page=parseInt(dijit.byId('gridQuery_pageOf_select${id}').value, _gscore_default_pageRowSize)+1;
-	if (page>parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, _gscore_default_pageRowSize)) {
-		page=parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, _gscore_default_pageRowSize);
+	var page=( parseInt(dijit.byId('gridQuery_pageOf_select${id}').value, 10) || 0 )+1;
+	if (page>( parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, 10) || 1 ) ) { // 頁面最小要是1
+		page=( parseInt(dojo.byId('gridQuery_pageOf_size${id}').value, 10) || 1 );
 	}
 	dijit.byId('gridQuery_pageOf_select${id}').set('value', page+'', false);
 	submitQueryGrid${id}();
@@ -116,10 +133,17 @@ function getGridQueryPageOfShowRow${id}() {
  * 回傳回來的json資料, 將頁次pageOfSize, 總頁數pageOfSize, 顯示資料row筆數pageOfSize 設定到換頁元件中
  */
 function setChangePageComponentValue${id}(postData) {
+	document.getElementById('gridQuery_pageOf_size_show${id}').innerHTML='0';
 	document.getElementById('gridQuery_pageOf_rowCount${id}').innerHTML='';
 	document.getElementById('gridQuery_pageOf_rowCount${id}').innerHTML=postData.pageOfCountSize;
 	dojo.byId('gridQuery_pageOf_size${id}').value=postData.pageOfSize;
 	showGridQueryToolsTable${id}();
+	
+	
+	// ----------------------------------------------------------------------------
+	// for select change to textbox
+	// ----------------------------------------------------------------------------	
+	/*
 	var pageSelect=dijit.byId('gridQuery_pageOf_select${id}');
 	var rowSelect=dijit.byId('gridQuery_pageOf_showRow${id}');
 	pageSelect.removeOption(pageSelect.getOptions());
@@ -130,6 +154,14 @@ function setChangePageComponentValue${id}(postData) {
 		}
 	}
 	rowSelect.set('value', postData.pageOfShowRow, false);
+	*/
+	
+	dijit.byId('gridQuery_pageOf_select${id}').set('value', postData.pageOfSelect+'', false);
+	
+	// ----------------------------------------------------------------------------	
+	
+	
+	document.getElementById('gridQuery_pageOf_size_show${id}').innerHTML=postData.pageOfSize;
 	if (postData.pageOfCountSize==null
 			|| postData.pageOfCountSize=="" 
 			|| postData.pageOfCountSize=="0") {
