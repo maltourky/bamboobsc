@@ -2,7 +2,7 @@
 
 var grid${id}=null;
 var store${id}=null;
-
+var grid${id}_before_select_page = 1; // for select change to textbox
 
 // ============================================================================================
 // json-grid 換頁 Change Page	
@@ -43,7 +43,10 @@ function changeGridQueryPageOfSelect${id}() {
 	}
 	// ----------------------------------------------------------------------------
 	
-	submitQueryGrid${id}();
+	if ( grid${id}_before_select_page != page ) {
+		submitQueryGrid${id}();
+	}	
+	
 }
 
 /**
@@ -100,7 +103,8 @@ function changeGridQueryToNext${id}() {
 function initGridQueryPageOf${id}() {	
 	document.getElementById('gridQuery_pageOf_rowCount${id}').innerHTML='0';
 	dijit.byId('gridQuery_pageOf_select${id}').set('value', '1', false);
-	dijit.byId('gridQuery_pageOf_showRow${id}').set('value', _gscore_default_pageRowSize+'', false); 
+	dijit.byId('gridQuery_pageOf_showRow${id}').set('value', _gscore_default_pageRowSize+'', false);
+	grid${id}_before_select_page = 1; // for select change to textbox
 }
 
 /**
@@ -157,6 +161,8 @@ function setChangePageComponentValue${id}(postData) {
 	*/
 	
 	dijit.byId('gridQuery_pageOf_select${id}').set('value', postData.pageOfSelect+'', false);
+	
+	grid${id}_before_select_page = postData.pageOfSelect;
 	
 	// ----------------------------------------------------------------------------	
 	
