@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.base.model;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.netsteadfast.greenstep.base.Constants;
 
@@ -58,6 +59,9 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getShowRow() {
+		if (NumberUtils.toInt(this.showRow, 0) == 0) {
+			return String.valueOf(Rows[0]);
+		}
 		return showRow;
 	}
 
@@ -74,6 +78,9 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getSelect() {
+		if (NumberUtils.toInt(this.select, 0) == 0) {
+			return "1";
+		}
 		return select;
 	}
 
