@@ -111,8 +111,9 @@ dojo.addOnLoad(function() {
 require(["dojo/ready"], function(ready){
 	ready(function(){
 		if ( (typeof _coreIconsList!='undefined') && _coreIconsList!=null) {
-			dojox.image.preload(_coreIconsList);
+			dojox.image.preload(_coreIconsList);			
 		}				
+		dojox.image.preload( ["./images/sort-up.png", "./images/sort-down.png"] ); // customized grid cell sort button need
 		dojo.addOnUnload(function() {
 			
 		});	
