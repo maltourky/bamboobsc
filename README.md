@@ -15,12 +15,6 @@ Features:<br/>
 6. Provides Sourcecard query for mobile-device browser.
 <br/><br/>
 
-<h2>Demo web: ( The web run on Raspberry pi 2 )</h2>
-http://124.218.24.39:8888/core-web/login.action<br/>
-account: tester<br/>
-password: tester<br/>
-<br/><br/>
-
 <h2>bambooBSC architecture</h2>
 <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc_05_web_arch.png"/><br/>
 <br/><br/>
