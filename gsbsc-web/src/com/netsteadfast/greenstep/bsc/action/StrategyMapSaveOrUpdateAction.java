@@ -75,9 +75,8 @@ public class StrategyMapSaveOrUpdateAction extends BaseJsonAction {
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> fillStrategyMapItems() throws Exception {
 		String mapData = this.getFields().get("mapData");
-		mapData = SimpleUtils.deB64( mapData );		
-		String jsonData = URLDecoder.decode( mapData, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )
-		jsonData = URLDecoder.decode( jsonData, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )		
+		mapData = SimpleUtils.deB64( mapData );	// decode-base64 因為 btoa	
+		String jsonData = URLDecoder.decode( mapData, "utf8" ); // 這邊要 decode 因為 encodeURIComponent
 		Map<String, Object> dataMap = (Map<String, Object>)
 				new ObjectMapper().readValue(jsonData, LinkedHashMap.class);
 		return dataMap;

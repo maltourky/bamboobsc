@@ -108,9 +108,8 @@ public class WorkspaceSettingsSaveOrUpdateAction extends BaseJsonAction {
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		String datas = this.getFields().get("datas");
-		datas = SimpleUtils.deB64( datas );		
-		String jsonDataStr = URLDecoder.decode( datas, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )
-		jsonDataStr = URLDecoder.decode( jsonDataStr, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )
+		datas = SimpleUtils.deB64( datas );	// 這邊要 decode btoa
+		String jsonDataStr = URLDecoder.decode( datas, "utf8" ); // 這邊要 decode 因為 encodeURIComponent
 		Map<String, Object> jsonData = (Map<String, Object>)
 				new ObjectMapper().readValue(jsonDataStr, LinkedHashMap.class);
 		DefaultResult<WorkspaceVO> result = this.workspaceLogicService.create(

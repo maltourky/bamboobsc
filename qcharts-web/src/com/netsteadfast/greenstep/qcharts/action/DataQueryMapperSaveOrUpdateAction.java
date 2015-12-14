@@ -105,9 +105,8 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 
 	private List<Map<String, String>> fillFieldsMapperData() throws Exception {
 		String appendFields = this.getFields().get("appendFields");
-		appendFields = SimpleUtils.deB64( appendFields );		
-		String fieldMapperDataStr = URLDecoder.decode( appendFields, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )
-		fieldMapperDataStr = URLDecoder.decode( fieldMapperDataStr, "utf8" ); // 這邊要 decode 兩次因為 encodeURIComponent( escape( ) )			
+		appendFields = SimpleUtils.deB64( appendFields ); // 這邊要 decode btoa		
+		String fieldMapperDataStr = URLDecoder.decode( appendFields, "utf8" ); // 這邊要 decode 因為 encodeURIComponent( escape( ) )
 		List<Map<String, String>> datas = new ArrayList<Map<String, String>>();
 		String[] mapperTmp = fieldMapperDataStr.split(Constants.ID_DELIMITER);
 		for (int i=0; mapperTmp!=null && i<mapperTmp.length; i++) {

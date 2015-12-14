@@ -400,7 +400,7 @@ jsPlumb.ready(function () {
     	}    	
         e.preventDefault();
         var jsonData = getToJson();
-        var mapData = btoa( encodeURIComponent( escape( jsonData ) ) );
+        var mapData = btoa( encodeURIComponent( jsonData ) );
         $.ajax({
         	type	: "POST",
         	dataType: 'json',

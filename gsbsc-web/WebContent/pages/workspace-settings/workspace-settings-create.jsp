@@ -70,7 +70,7 @@ function BSC_PROG004D0002A_save() {
 				'fields.workspaceName'			:	dijit.byId("BSC_PROG004D0002A_C00_workspaceName").get("value"),
 				'fields.workspaceDescription'	:	dijit.byId("BSC_PROG004D0002A_C00_description").get("value"),
 				'fields.workspaceTemplateOid'	:	dijit.byId("BSC_PROG004D0002A_C01_workspaceTemplateOid").get("value"),
-				'fields.datas'					: 	btoa( encodeURIComponent( escape( JSON.stringify(datas) ) ) )
+				'fields.datas'					: 	btoa( encodeURIComponent( JSON.stringify(datas) ) )
 			}, 
 			'json', 
 			_gscore_dojo_ajax_timeout,

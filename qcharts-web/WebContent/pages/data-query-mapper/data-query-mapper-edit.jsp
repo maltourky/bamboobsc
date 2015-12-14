@@ -59,7 +59,7 @@ function QCHARTS_PROG001D0002E_getAppendFields() {
 	for (var r=1; r<table.rows.length; r++) { // 第一列是Title , 所以 r=1
 		str += table.rows[r].cells[1].innerHTML + ':' + table.rows[r].cells[2].innerHTML + _gscore_delimiter;
 	}		
-	return btoa( encodeURIComponent( escape( str ) ) );
+	return btoa( encodeURIComponent( str ) );
 }
 
 function QCHARTS_PROG001D0002E_addField() {
