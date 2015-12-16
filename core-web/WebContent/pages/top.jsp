@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr>
 			<td width="70%" align="left">
 			
-				<div id="comboButtonMenu" data-dojo-type="dijit.form.ComboButton">
+				<div id="comboButtonMenu" data-dojo-type="dijit.form.ComboButton" data-dojo-props=" iconClass:'dijitIconConfigure' ">
 					<span><s:property value="getText('IndexAction_applicationName')"/></span>				
 					<div dojoType="dijit.Menu" >	
 							
