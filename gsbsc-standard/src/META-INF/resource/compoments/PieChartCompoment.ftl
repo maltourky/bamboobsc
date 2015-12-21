@@ -37,7 +37,7 @@
 					.y(function(d) { return d.value })
 					.showLabels(true).color(d3.scale.myColors().range());
 						
-				chart.pie.pieLabelsOutside(false).labelType("percent");
+				chart.pie.labelsOutside(false).labelType("percent");
 					
 				d3.select("#pieChart svg")
 					.datum(data.perspectivesPieChartValue)

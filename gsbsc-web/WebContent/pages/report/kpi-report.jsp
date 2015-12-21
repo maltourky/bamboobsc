@@ -168,7 +168,7 @@ function BSC_PROG003D0001Q_paintPieCharts(data) {
 			.y(function(d) { return d.value })
 			.showLabels(true).color(d3.scale.myColors().range());
 		
-		chart.pie.pieLabelsOutside(false).labelType("percent");
+		chart.pie.labelsOutside(false).labelType("percent");
 		
 		d3.select("#BSC_PROG003D0001Q_pieChart svg")
 			.datum(data.perspectivesPieChartValue)
@@ -190,7 +190,6 @@ function BSC_PROG003D0001Q_paintBarCharts(data) {
 			.x(function(d) { return d.label })    //Specify the data accessors.
 			.y(function(d) { return d.value })
 			.staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-			.tooltips(false)        //Don't show tooltips
 			.showValues(true)       //...instead, show the bar value right on top of each bar.
 			.color( myColors );
 
