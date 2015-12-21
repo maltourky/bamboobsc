@@ -3,11 +3,11 @@
 
     "use strict";
 
-    var Sniff = {
-        android: navigator.userAgent.toLowerCase().indexOf("android") > -1
-    };
-
-    var matchesSelector = function (el, selector, ctx) {
+    var root = this,
+        Sniff = {
+            android: navigator.userAgent.toLowerCase().indexOf("android") > -1
+        },
+        matchesSelector = function (el, selector, ctx) {
             ctx = ctx || el.parentNode;
             var possibles = ctx.querySelectorAll(selector);
             for (var i = 0; i < possibles.length; i++) {
@@ -18,7 +18,7 @@
             return false;
         },
         _gel = function (el) {
-            return typeof el == "string" ? document.getElementById(el) : el;
+            return (typeof el == "string" || el.constructor === String) ? document.getElementById(el) : el;
         },
         _t = function (e) {
             return e.srcElement || e.target;
@@ -162,11 +162,13 @@
                                     tt.taps++;
                                     var tc = _touchCount(e);
                                     for (var eventId in _tapProfiles) {
-                                        var p = _tapProfiles[eventId];
-                                        if (p.touches === tc && (p.taps === 1 || p.taps === tt.taps)) {
-                                            for (var i = 0; i < tt[eventId].length; i++) {
-                                                if (tt[eventId][i][1] == null || matchesSelector(target, tt[eventId][i][1], obj))
-                                                    tt[eventId][i][0].apply(_t(e), [ e ]);
+                                        if (_tapProfiles.hasOwnProperty(eventId)) {
+                                            var p = _tapProfiles[eventId];
+                                            if (p.touches === tc && (p.taps === 1 || p.taps === tt.taps)) {
+                                                for (var i = 0; i < tt[eventId].length; i++) {
+                                                    if (tt[eventId][i][1] == null || matchesSelector(target, tt[eventId][i][1], obj))
+                                                        tt[eventId][i][0].apply(_t(e), [ e ]);
+                                                }
                                             }
                                         }
                                     }
@@ -195,7 +197,9 @@
         },
         meeHelper = function (type, evt, obj, target) {
             for (var i in obj.__tamee[type]) {
-                obj.__tamee[type][i].apply(target, [ evt ]);
+                if (obj.__tamee[type].hasOwnProperty(i)) {
+                    obj.__tamee[type][i].apply(target, [ evt ]);
+                }
             }
         },
         MouseEnterExitHandler = function () {
@@ -328,8 +332,6 @@
                 }
             });
         },
-        _devNull = function () {
-        },
         _each = function (obj, fn) {
             if (obj == null) return;
             // if a list (or list-like), use it. if a string, get a list
@@ -353,12 +355,12 @@
      * @class Mottle
      * @constructor
      * @param {Object} params Constructor params
-     * @param {Integer} [params.clickThreshold=150] Threshold, in milliseconds beyond which a touchstart followed by a touchend is not considered to be a click.
-     * @param {Integer} [params.dblClickThreshold=350] Threshold, in milliseconds beyond which two successive tap events are not considered to be a click.
+     * @param {Number} [params.clickThreshold=150] Threshold, in milliseconds beyond which a touchstart followed by a touchend is not considered to be a click.
+     * @param {Number} [params.dblClickThreshold=350] Threshold, in milliseconds beyond which two successive tap events are not considered to be a click.
      * @param {Boolean} [params.smartClicks=false] If true, won't fire click events if the mouse has moved between mousedown and mouseup. Note that this functionality
      * requires that Mottle consume the mousedown event, and so may not be viable in all use cases.
      */
-    this.Mottle = function (params) {
+    root.Mottle = function (params) {
         params = params || {};
         var clickThreshold = params.clickThreshold || 150,
             dblClickThreshold = params.dblClickThreshold || 350,
@@ -393,8 +395,11 @@
                 var _el = _gel(this);
                 if (_el.__ta) {
                     for (var evt in _el.__ta) {
-                        for (var h in _el.__ta[evt]) {
-                            _unbind(_el, evt, _el.__ta[evt][h]);
+                        if (_el.__ta.hasOwnProperty(evt)) {
+                            for (var h in _el.__ta[evt]) {
+                                if (_el.__ta[evt].hasOwnProperty(h))
+                                    _unbind(_el, evt, _el.__ta[evt][h]);
+                            }
                         }
                     }
                 }
@@ -529,12 +534,13 @@
     };
 
     /**
-     * Static method to assist in 'consuming' an element: uses `stopPropagation` where available, or sets `e.returnValue=false` where it is not.
+     * Static method to assist in 'consuming' an element: uses `stopPropagation` where available, or sets
+     * `e.returnValue=false` where it is not.
      * @method Mottle.consume
      * @param {Event} e Event to consume
      * @param {Boolean} [doNotPreventDefault=false] If true, does not call `preventDefault()` on the event.
      */
-    Mottle.consume = function (e, doNotPreventDefault) {
+    root.Mottle.consume = function (e, doNotPreventDefault) {
         if (e.stopPropagation)
             e.stopPropagation();
         else
@@ -550,7 +556,7 @@
      * @param {Event} e Event to get page location for.
      * @return {Integer[]} [left, top] for the given event.
      */
-    Mottle.pageLocation = _pageLocation;
+    root.Mottle.pageLocation = _pageLocation;
 
     /**
      * Forces touch events to be turned "on". Useful for testing: even if you don't have a touch device, you can still
@@ -558,7 +564,7 @@
      * @method setForceTouchEvents
      * @param {Boolean} value If true, force touch events to be on.
      */
-    Mottle.setForceTouchEvents = function (value) {
+    root.Mottle.setForceTouchEvents = function (value) {
         isTouchDevice = value;
     };
 
@@ -568,7 +574,7 @@
      * @method setForceMouseEvents
      * @param {Boolean} value If true, force mouse events to be on.
      */
-    Mottle.setForceMouseEvents = function (value) {
+    root.Mottle.setForceMouseEvents = function (value) {
         isMouseDevice = value;
     };
 

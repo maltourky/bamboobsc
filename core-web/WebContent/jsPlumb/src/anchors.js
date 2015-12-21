@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  * 
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  * 
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.  
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  * 
  * This file contains the code for creating and manipulating anchors.
  *
@@ -67,13 +67,11 @@
 
                 for (var sf = 0; sf < axes.length; sf++) {
                     for (var tf = 0; tf < axes.length; tf++) {
-                        if (sf != tf) {
-                            candidates.push({
-                                source: axes[sf],
-                                target: axes[tf],
-                                dist: Biltong.lineLength(midpoints.source[axes[sf]], midpoints.target[axes[tf]])
-                            });
-                        }
+                        candidates.push({
+                            source: axes[sf],
+                            target: axes[tf],
+                            dist: Biltong.lineLength(midpoints.source[axes[sf]], midpoints.target[axes[tf]])
+                        });
                     }
                 }
 
@@ -180,7 +178,7 @@
                                 var c = anchors[i][4], weAreSource = c.endpoints[0].elementId === elementId, weAreTarget = c.endpoints[1].elementId === elementId;
                                 if (weAreSource)
                                     _setAnchorLocation(c.endpoints[0], anchors[i]);
-                                else if (weAreTarget)
+                                if (weAreTarget)
                                     _setAnchorLocation(c.endpoints[1], anchors[i]);
                             }
                         }
@@ -233,31 +231,33 @@
                 }
             })(anchorLists[endpoint.elementId], endpoint.id);
         };
-        this.connectionDetached = function (connInfo) {
+        this.connectionDetached = function (connInfo, doNotRedraw) {
             var connection = connInfo.connection || connInfo,
                 sourceId = connInfo.sourceId,
                 targetId = connInfo.targetId,
                 ep = connection.endpoints,
                 removeConnection = function (otherIndex, otherEndpoint, otherAnchor, elId, c) {
-                    if (otherAnchor != null && otherAnchor.constructor == _jp.FloatingAnchor) {
-                        // no-op
-                    }
-                    else {
-                        _ju.removeWithFunction(connectionsByElementId[elId], function (_c) {
-                            return _c[0].id == c.id;
-                        });
-                    }
+                   _ju.removeWithFunction(connectionsByElementId[elId], function (_c) {
+                        return _c[0].id == c.id;
+                    });
                 };
 
             removeConnection(1, ep[1], ep[1].anchor, sourceId, connection);
             removeConnection(0, ep[0], ep[0].anchor, targetId, connection);
+            if (connection.floatingId) {
+                removeConnection(connection.floatingIndex, connection.floatingEndpoint, connection.floatingEndpoint.anchor, connection.floatingId, connection);
+                removeEndpointFromAnchorLists(connection.floatingEndpoint);
+            }
 
             // remove from anchorLists            
             removeEndpointFromAnchorLists(connection.endpoints[0]);
             removeEndpointFromAnchorLists(connection.endpoints[1]);
 
-            self.redraw(connection.sourceId);
-            self.redraw(connection.targetId);
+            if (!doNotRedraw) {
+                self.redraw(connection.sourceId);
+                if (connection.targetId !== connection.sourceId)
+                    self.redraw(connection.targetId);
+            }
         };
         this.add = function (endpoint, elementId) {
             _ju.addToList(_amEndpoints, elementId, endpoint);
@@ -443,7 +443,7 @@
                 elementId = jsPlumbInstance.getId(element);
 
             if (elementId !== currentId) {
-                var idx = _ju.indexOf(eps, ep);
+                var idx = eps.indexOf(ep);
                 if (idx > -1) {
                     var _ep = eps.splice(idx, 1)[0];
                     self.add(_ep, elementId);
@@ -520,14 +520,8 @@
                             // to put the connector on.  ideally, when drawing, the face should be calculated
                             // by determining which face is closest to the point at which the mouse button
                             // was released.  for now, we're putting it on the top face.
-                            _updateAnchorList(
-                                anchorLists[sourceId],
-                                    -Math.PI / 2,
-                                0,
-                                conn,
-                                false,
-                                targetId,
-                                0, false, "top", sourceId, connectionsToPaint, endpointsToPaint);
+                            _updateAnchorList( anchorLists[sourceId], -Math.PI / 2, 0, conn, false, targetId, 0, false, "top", sourceId, connectionsToPaint, endpointsToPaint);
+                            _updateAnchorList( anchorLists[targetId], -Math.PI / 2, 0, conn, false, sourceId, 1, false, "top", targetId, connectionsToPaint, endpointsToPaint);
                         }
                         else {
                             if (!o) {
@@ -740,6 +734,7 @@
         };
 
         this.getCurrentLocation = function (params) {
+            params = params || {};
             return (this.lastReturnValue == null || (params.timestamp != null && this.timestamp != params.timestamp)) ? this.compute(params) : this.lastReturnValue;
         };
     };

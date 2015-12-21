@@ -1,3 +1,60 @@
+* 2.0.3
+
+### Issues
+
+- 444 - maxConnections not honoured in makeSource
+
+### Backwards Compatibility
+
+- `removeFromPosse` now requires the ID of the Posse, since the new Katavorio version supports multiple Posses
+per element.
+
+### New Functionality
+
+- Upgrade to Katavorio 0.12.0, with support for multiple Posses and active/passive elements in a Posse.
+- `removeFromAllPosses(element)` method added.
+
+
+### Miscellaneous
+
+- Fixed an issue in which overlays on Endpoint types were not being converted to 'full' syntax upon registration. This was
+an internal issue that could manifest in user code occasionally.
+
+- We now ensure drag scope is set on an element when source scope changes, even though the code can derive source scope
+when the user begins to drag. The Toolkit edition makes use of this new update.
+
+
+* 2.0.2
+
+    Fix issues with CSS class documentation.
+
+* 2.0.1
+
+    Bugfix release: connectionDetached event was no longer firing.
+
+* 2.0.0
+
+    BACKWARDS COMPATIBILITY
+
+    - removal of the VML renderer. IE8 no longer supported.
+    - all class names such as `_jsPlumb_connector` renamed to, for example, `jsplumb-connector`.
+    - makeSource and makeTarget require explicit anchor/endpoint parameters: they do not source these things
+      from the jsPlumb Defaults.
+
+    NEW FUNCTIONALITY
+
+    - makeSource now supports multiple registrations per element, keyed by the `connectionType` parameter.  You can
+    configure elements to be connection sources for different connection types, and also when you call `connect` with
+    a `type` parameter that matches a `makeSource` registration, that type will be used.
+    - new connection drag: if the type of connection is known, that type's target endpoint is now used.
+    - addition of support for `dragProxy` to endpoint/makeSource: an endpoint spec defining what the drag endpoint
+    should look like when dragging a new connection. The existence of a `dragProxy` will override any other behaviour
+    (such as the behaviour discussed in the point above)
+    - addition of "posses" - groups of elements that should always be dragged together.
+    - when dragging a new connection, jsPlumb now uses as the source endpoint a true representation of what the endpoint
+    will be if a connection is established. Previous versions just used a static, in-place, endpoint.
+
+
 * 1.7.10
 
     - Small update to getOffset to make it return the correct value if the input element was the container itself.

@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  *
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  *
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  *
  * This file contains code for components that support overlays.
  *
@@ -117,12 +117,14 @@
             // now loop through the full overlays and remove those that we dont want to keep
             for (i in component._jsPlumb.overlays) {
                 if (keep[component._jsPlumb.overlays[i].id] == null)
-                    component.removeOverlay(component._jsPlumb.overlays[i].id);
+                    component.removeOverlay(component._jsPlumb.overlays[i].id, true); // remove overlay but dont clean it up.
+                    // that would remove event listeners etc; overlays are never discarded by the types stuff, they are
+                    // just detached/reattached.
             }
         }
     };
 
-    _ju.extend(_jp.OverlayCapableJsPlumbUIComponent, jsPlumbUIComponent, {
+    _ju.extend(_jp.OverlayCapableJsPlumbUIComponent, root.jsPlumbUIComponent, {
 
         setHover: function (hover, ignoreAttachedElements) {
             if (this._jsPlumb && !this._jsPlumb.instance.isConnectionBeingDragged()) {
@@ -168,10 +170,10 @@
             if (!doNotRepaint)
                 this.repaint();
         },
-        removeOverlay: function (overlayId) {
+        removeOverlay: function (overlayId, dontCleanup) {
             var o = this._jsPlumb.overlays[overlayId];
             if (o) {
-                if (o.cleanup) o.cleanup();
+                if (!dontCleanup && o.cleanup) o.cleanup();
                 delete this._jsPlumb.overlays[overlayId];
                 if (this._jsPlumb.overlayPositions)
                     delete this._jsPlumb.overlayPositions[overlayId];
@@ -243,6 +245,19 @@
         },
         getAbsoluteOverlayPosition: function (overlay) {
             return this._jsPlumb.overlayPositions ? this._jsPlumb.overlayPositions[overlay.id] : null;
+        },
+        _clazzManip:function(action, clazz, dontUpdateOverlays) {
+            if (!dontUpdateOverlays) {
+                for (var i in this._jsPlumb.overlays) {
+                    this._jsPlumb.overlays[i][action + "Class"](clazz);
+                }
+            }
+        },
+        addClass:function(clazz, dontUpdateOverlays) {
+            this._clazzManip("add", clazz, dontUpdateOverlays)
+        },
+        removeClass:function(clazz, dontUpdateOverlays) {
+            this._clazzManip("remove", clazz, dontUpdateOverlays)
         }
     });
 

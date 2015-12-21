@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  *
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  *
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  *
  * This file contains utility functions that run in both browsers and headless.
  *
@@ -41,6 +41,9 @@
         },
         _isf = function (o) {
             return Object.prototype.toString.call(o) === "[object Function]";
+        },
+        _isNamedFunction = function(o) {
+            return _isf(o) && o.name != null && o.name.length > 0;
         },
         _ise = function (o) {
             for (var i in o) {
@@ -177,7 +180,11 @@
             return successValue;
         },
         // take the given model and expand out any parameters.
-        populate: function (model, values) {
+        // 'functionPrefix' is optional, and if present, helps jsplumb figure out what to do if a value is a Function.
+        // if you do not provide it, jsplumb will run the given values through any functions it finds, and use the function's
+        // output as the value in the result. if you do provide the prefix, only functions that are named and have this prefix
+        // will be executed; other functions will be passed as values to the output.
+        populate: function (model, values, functionPrefix) {
             // for a string, see if it has parameter matches, and if so, try to make the substitutions.
             var getValue = function (fromString) {
                     var matches = fromString.match(/(\${.*?})/g);
@@ -196,6 +203,9 @@
                     if (d != null) {
                         if (_iss(d)) {
                             return getValue(d);
+                        }
+                        else if (_isf(d) && (functionPrefix == null || (d.name || "").indexOf(functionPrefix) === 0)) {
+                            return d(values);
                         }
                         else if (_isa(d)) {
                             var r = [];
@@ -223,18 +233,13 @@
                 for (var i = 0; i < a.length; i++) if (f(a[i])) return i;
             return -1;
         },
-        indexOf: function (l, v) {
-            return l.indexOf ? l.indexOf(v) : exports.findWithFunction(l, function (_v) {
-                return _v == v;
-            });
-        },
         removeWithFunction: function (a, f) {
             var idx = exports.findWithFunction(a, f);
             if (idx > -1) a.splice(idx, 1);
             return idx != -1;
         },
         remove: function (l, v) {
-            var idx = exports.indexOf(l, v);
+            var idx = l.indexOf(v);
             if (idx > -1) l.splice(idx, 1);
             return idx != -1;
         },
@@ -447,30 +452,5 @@
             this.cleanupListeners();
         }
     };
-
-    // thanks MDC
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FGlobal_Objects%2FFunction%2Fbind
-    if (!Function.prototype.bind) {
-        Function.prototype.bind = function (oThis) {
-            if (typeof this !== "function") {
-                // closest thing possible to the ECMAScript 5 internal IsCallable function
-                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-            }
-
-            var aArgs = Array.prototype.slice.call(arguments, 1),
-                fToBind = this,
-                fNOP = function () {
-                },
-                fBound = function () {
-                    return fToBind.apply(this instanceof fNOP && oThis ? this : oThis,
-                        aArgs.concat(Array.prototype.slice.call(arguments)));
-                };
-
-            fNOP.prototype = this.prototype;
-            fBound.prototype = new fNOP();
-
-            return fBound;
-        };
-    }
 
 }).call(this);

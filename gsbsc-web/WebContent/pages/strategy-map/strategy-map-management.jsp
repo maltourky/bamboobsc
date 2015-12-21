@@ -36,11 +36,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 	
 	<script type="text/javascript" src="<%=mainSysBasePath%>core.configJsAction.action?ver=${jsVerBuild}"></script>
 	
-	<script src="<%=mainSysBasePath%>/jsPlumb/external/jquery-1.9.0-min.js"></script>
-	<!--  
-	<script src="<%=mainSysBasePath%>/jsPlumb/external/jquery-ui-1.9.2.min.js"></script>	
-	<script src="<%=mainSysBasePath%>/jsPlumb/external/jquery.ui.touch-punch-0.2.2.min.js"></script>	
-	-->
+	<script src="<%=mainSysBasePath%>/jquery/jquery-1.9.0-min.js"></script>
 	
     <script type="text/javascript" src="<%=mainSysBasePath%>/html2canvas/html2canvas.js"></script>
     <script type="text/javascript" src="<%=mainSysBasePath%>/html2canvas/html2canvas.svg.js"></script>	   	
@@ -222,11 +218,11 @@ function ${programId}_page_message() {
         <!-- support lib for bezier stuff -->
         <script src="<%=mainSysBasePath%>/jsPlumb/lib/jsBezier-0.7.js"></script>
         <!-- event adapter -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/mottle-0.6.js"></script>
+        <script src="<%=mainSysBasePath%>/jsPlumb/lib/mottle-0.7.1.js"></script>
         <!-- geometry functions -->
         <script src="<%=mainSysBasePath%>/jsPlumb/lib/biltong-0.2.js"></script>
         <!-- drag -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/katavorio-0.8.js"></script>
+        <script src="<%=mainSysBasePath%>/jsPlumb/lib/katavorio-0.13.0.js"></script>
         <!-- jsplumb util -->
         <script src="<%=mainSysBasePath%>/jsPlumb/src/util.js"></script>
         <script src="<%=mainSysBasePath%>/jsPlumb/src/browser-util.js"></script>
@@ -251,9 +247,6 @@ function ${programId}_page_message() {
         <script src="<%=mainSysBasePath%>/jsPlumb/src/connectors-flowchart.js"></script>
         <!-- SVG renderer -->
         <script src="<%=mainSysBasePath%>/jsPlumb/src/renderers-svg.js"></script>
-
-        <!-- vml renderer -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/renderers-vml.js"></script>
 
         <!-- common adapter -->
         <script src="<%=mainSysBasePath%>/jsPlumb/src/base-library-adapter.js"></script>

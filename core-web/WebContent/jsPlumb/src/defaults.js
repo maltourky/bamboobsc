@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  * 
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  * 
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.  
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  * 
  * This file contains the default Connectors, Endpoint and Overlay definitions.
  *
@@ -266,7 +266,7 @@
             if (this.startAngle < 0) this.startAngle += TWO_PI;
 
             // segment is used by vml     
-            this.segment = _jg.quadrant([this.x1, this.y1], [this.x2, this.y2]);
+            //this.segment = _jg.quadrant([this.x1, this.y1], [this.x2, this.y2]);
 
             // we now have startAngle and endAngle as positive numbers, meaning the
             // absolute difference (|d|) between them is the sweep (s) of this arc, unless the
@@ -445,13 +445,32 @@
             targetGap = _ju.isArray(gap) ? gap[1] : gap,
             userProvidedSegments = null,
             edited = false,
-            paintInfo = null;
+            paintInfo = null,
+            geometry = null,
+            editable = params.editable !== false && jsPlumb.ConnectorEditors != null && jsPlumb.ConnectorEditors[this.type] != null;
 
-        // to be overridden by subclasses.
-        this.getPath = function () {
+        var _setGeometry = this.setGeometry = function(g, internallyComputed) {
+            edited = (!internallyComputed);
+            geometry = g;
         };
-        this.setPath = function (path) {
+        var _getGeometry = this.getGeometry = function() {
+            return geometry;
         };
+
+        this.hasBeenEdited = function() { return edited; };
+        this.isEditing = function() { return this.editor != null && this.editor.isActive(); };
+        this.setEditable = function(e) {
+            // if this connector has an editor already, or
+            // if an editor for this connector's type is available, or
+            // if the child declares an overrideSetEditable and it does not return false, editable is true.
+            if (e && jsPlumb.ConnectorEditors != null && jsPlumb.ConnectorEditors[this.type] != null && (this.overrideSetEditable == null || this.overrideSetEditable())) {
+                editable = e;
+            } else {
+                editable = false;
+            }
+            return editable;
+        };
+        this.isEditable = function() { return editable; };
 
         /**
          * Function: findSegmentForPoint
@@ -635,8 +654,7 @@
         };
 
         this.compute = function (params) {
-            if (!edited)
-                paintInfo = _prepareCompute.call(this, params);
+            paintInfo = _prepareCompute.call(this, params);
 
             _clearSegments();
             this._compute(paintInfo, params);
@@ -656,7 +674,9 @@
             maxStub: Math.max(sourceStub, targetStub),
             sourceGap: sourceGap,
             targetGap: targetGap,
-            maxGap: Math.max(sourceGap, targetGap)
+            maxGap: Math.max(sourceGap, targetGap),
+            setGeometry:_setGeometry,
+            getGeometry:_getGeometry
         };
     };
     _ju.extend(_jp.Connectors.AbstractConnector, AbstractComponent);
@@ -967,6 +987,7 @@
         this.component = params.component;
         this.loc = params.location == null ? 0.5 : params.location;
         this.endpointLoc = params.endpointLocation == null ? [ 0.5, 0.5] : params.endpointLocation;
+        this.visible = params.visible !== false;
     };
     AbstractOverlay.prototype = {
         cleanup: function (force) {
@@ -1045,6 +1066,15 @@
 
         this.computeMaxSize = function () {
             return self.width * 1.5;
+        };
+
+        this.elementCreated = function(p, component) {
+            this.path = p;
+            if (params.events) {
+                for (var i in params.events) {
+                    jsPlumb.on(p, i, params.events[i]);
+                }
+            }
         };
 
         this.draw = function (component, currentConnectionPaintStyle) {
@@ -1257,8 +1287,7 @@
     };
     _ju.extend(AbstractDOMOverlay, [_jp.jsPlumbUIComponent, AbstractOverlay], {
         getDimensions: function () {
-// still support the old way, for now, for IE8. But from 2.0.0 this whole method will be gone. 
-            return _ju.oldIE ? _jp.getSize(this.getElement()) : [1, 1];
+            return [1,1];
         },
         setVisible: function (state) {
             if (this._jsPlumb.div) {

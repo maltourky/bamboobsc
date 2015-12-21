@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  * 
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  * 
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.  
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  * 
  * This file contains the SVG renderers.
  *
@@ -23,7 +23,6 @@
     var root = this, _jp = root.jsPlumb, _ju = root.jsPlumbUtil;
 
     var svgAttributeMap = {
-            "joinstyle": "stroke-linejoin",
             "stroke-linejoin": "stroke-linejoin",
             "stroke-dashoffset": "stroke-dashoffset",
             "stroke-linecap": "stroke-linecap"
@@ -284,12 +283,18 @@
         var self = this,
             _super = SvgComponent.apply(this, [
                 {
-                    cssClass: params._jsPlumb.connectorClass,
+                    cssClass: params._jsPlumb.connectorClass + (this.isEditable() ? " " + params._jsPlumb.editableConnectorClass : ""),
                     originalArgs: arguments,
                     pointerEventsSpec: "none",
                     _jsPlumb: params._jsPlumb
                 }
             ]);
+
+        var _superSetEditable = this.setEditable;
+        this.setEditable = function(e) {
+            var result = _superSetEditable.apply(this, [e]);
+            jsPlumb[result ? "addClass" : "removeClass"](this.canvas, this._jsPlumb.instance.editableConnectorClass);
+        };
 
         _super.renderer.paint = function (style, anchor, extents) {
 
@@ -487,6 +492,9 @@
                         "pointer-events": "all"
                     });
                     params.component.svg.appendChild(this.path);
+                    if (this.elementCreated) {
+                        this.elementCreated(this.path, params.component);
+                    }
 
                     this.canvas = params.component.svg; // for the sake of completeness; this behaves the same as other overlays
                 }

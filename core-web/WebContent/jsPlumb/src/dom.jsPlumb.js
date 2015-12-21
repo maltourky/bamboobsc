@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  * 
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  * 
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.  
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  * 
  * This file contains the 'vanilla' adapter - having no external dependencies other than bundled libs.
  *
@@ -34,7 +34,9 @@
                 unbind: e.off,
                 getSize: jsPlumb.getSize,
                 getPosition: function (el) {
-                    var o = instance.getOffset(el);
+                    // if this is a nested draggable then compute the offset against its own offsetParent, otherwise
+                    // compute against the Container's origin. see also the getUIPosition method below.
+                    var o = instance.getOffset(el, false, el._katavorioDrag ? el.offsetParent : null);
                     return [o.left, o.top];
                 },
                 setPosition: function (el, xy) {
@@ -44,7 +46,7 @@
                 addClass: jsPlumb.addClass,
                 removeClass: jsPlumb.removeClass,
                 intersects: _jg.intersects,
-                indexOf: _ju.indexOf,
+                indexOf: function(l, i) { return l.indexOf(i); },
                 css: {
                     noSelect: instance.dragSelectClass,
                     droppable: "jsplumb-droppable",
@@ -80,7 +82,6 @@
     _jp.extend(root.jsPlumbInstance.prototype, {
 
         animationSupported:true,
-        scopeChange: function (el, elId, endpoints, scope, types) { },
         getElement: function (el) {
             if (el == null) return null;
             // here we pluck the first entry if el was a list of entries.
@@ -120,7 +121,7 @@
                         left: o.left + (linc * (idx + 1)),
                         top: o.top + (tinc * (idx + 1))
                     });
-                    if (options.step != null) options.step();
+                    if (options.step != null) options.step(idx, Math.ceil(steps));
                     idx++;
                     if (idx >= steps) {
                         window.clearInterval(int);
@@ -163,14 +164,20 @@
         getDropEvent: function (args) {
             return args[0].e;
         },
-        getDropScope: function (el) {
-            return el._katavorioDrop && el._katavorioDrop.scopes.join(" ") || "";
-        },
         getUIPosition: function (eventArgs, zoom) {
-            return {
-                left: eventArgs[0].pos[0],
-                top: eventArgs[0].pos[1]
-            };
+            // here the position reported to us by Katavorio is relative to the element's offsetParent. For top
+            // level nodes that is fine, but if we have a nested draggable then its offsetParent is actually
+            // not going to be the jsplumb container; it's going to be some child of that element. In that case
+            // we want to adjust the UI position to account for the offsetParent's position relative to the Container
+            // origin.
+            var el = eventArgs[0].el;
+            var p = { left:eventArgs[0].pos[0], top:eventArgs[0].pos[1] };
+            if (el._katavorioDrag && el.offsetParent !== this.getContainer()) {
+                var oc = this.getOffset(el.offsetParent);
+                p.left += oc.left;
+                p.top += oc.top;
+            }
+            return p;
         },
         setDragFilter: function (el, filter, _exclude) {
             if (el._katavorioDrag) {
@@ -186,9 +193,50 @@
             if (el._katavorioDrag)
                 el._katavorioDrag.k.setDragScope(el, scope);
         },
+        setDropScope:function(el, scope) {
+            if (el._katavorioDrop && el._katavorioDrop.length > 0) {
+                el._katavorioDrop[0].k.setDropScope(el, scope);
+            }
+        },
+        addToPosse:function(el, spec) {
+            var specs = Array.prototype.slice.call(arguments, 1);
+            var dm = _getDragManager(this);
+            jsPlumb.each(el, function(_el) {
+                _el = [ jsPlumb.getElement(_el) ];
+                _el.push.apply(_el, specs );
+                dm.addToPosse.apply(dm, _el);
+            });
+        },
+        setPosse:function(el, spec) {
+            var specs = Array.prototype.slice.call(arguments, 1);
+            var dm = _getDragManager(this);
+            jsPlumb.each(el, function(_el) {
+                _el = [ jsPlumb.getElement(_el) ];
+                _el.push.apply(_el, specs );
+                dm.setPosse.apply(dm, _el);
+            });
+        },
+        removeFromPosse:function(el, posseId) {
+            var specs = Array.prototype.slice.call(arguments, 1);
+            var dm = _getDragManager(this);
+            jsPlumb.each(el, function(_el) {
+                _el = [ jsPlumb.getElement(_el) ];
+                _el.push.apply(_el, specs );
+                dm.removeFromPosse.apply(dm, _el);
+            });
+        },
+        removeFromAllPosses:function(el) {
+            var dm = _getDragManager(this);
+            jsPlumb.each(el, function(_el) { dm.removeFromAllPosses(jsPlumb.getElement(_el)); });
+        },
+        setPosseState:function(el, posseId, state) {
+            var dm = _getDragManager(this);
+            jsPlumb.each(el, function(_el) { dm.setPosseState(jsPlumb.getElement(_el), posseId, state); });
+        },
         dragEvents: {
             'start': 'start', 'stop': 'stop', 'drag': 'drag', 'step': 'step',
-            'over': 'over', 'out': 'out', 'drop': 'drop', 'complete': 'complete'
+            'over': 'over', 'out': 'out', 'drop': 'drop', 'complete': 'complete',
+            'beforeStart':'beforeStart'
         },
         animEvents: {
             'step': "step", 'complete': 'complete'
@@ -206,11 +254,8 @@
         clearDragSelection: function () {
             _getDragManager(this).deselectAll();
         },
-        getOriginalEvent: function (e) {
-            return e;
-        },
-        trigger: function (el, event, originalEvent) {
-            this.getEventManager().trigger(el, event, originalEvent);
+        trigger: function (el, event, originalEvent, payload) {
+            this.getEventManager().trigger(el, event, originalEvent, payload);
         },
         doReset:function() {
             // look for katavorio instances and reset each one if found.

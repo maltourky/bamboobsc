@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  *
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  *
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  *
  * This file contains utility functions that run in browsers only.
  *
@@ -20,10 +20,6 @@
 
    var root = this;
    var exports = root.jsPlumbUtil;
-
-   exports.ieVersion = /MSIE\s([\d.]+)/.test(navigator.userAgent) ? (new Number(RegExp.$1)) : -1;
-
-   exports.oldIE = exports.ieVersion > -1 && exports.ieVersion < 9;
 
    exports.matchesSelector = function(el, selector, ctx) {
        ctx = ctx || el.parentNode;

@@ -1,16 +1,15 @@
 /*
  * jsPlumb
  * 
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.1.0
  * 
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.  
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  * 
  * This file contains the code for Connections.
  *
  * Copyright (c) 2010 - 2015 jsPlumb (hello@jsplumbtoolkit.com)
  * 
- * http://jsplumbtoolkit.com
- * http://jsplumb.org
+ * https://jsplumbtoolkit.com
  * http://github.com/sporritt/jsplumb
  * 
  * Dual licensed under the MIT and GPL2 licenses.
@@ -22,7 +21,6 @@
     var root = this,
         _jp = root.jsPlumb,
         _ju = root.jsPlumbUtil;
-
 
     var makeConnector = function (_jsPlumb, renderMode, connectorName, connectorArgs, forComponent) {
             if (!_jsPlumb.Defaults.DoNotThrowErrors && jsPlumb.Connectors[renderMode][connectorName] == null)
@@ -101,12 +99,26 @@
             this.setHover(false);
         }.bind(this));
 
+        this.editableRequested = params.editable !== false;
+        this.setEditable = function(e) {
+            return this.connector ? this.connector.setEditable(e) : false;
+        };
+        this.isEditable = function() { return this.connector ? this.connector.isEditable() : false; };
+        this.isEditing = function() { return this.connector ? this.connector.isEditing() : false; };
+
 // INITIALISATION CODE
 
         this.makeEndpoint = function (isSource, el, elId, ep) {
             elId = elId || this._jsPlumb.instance.getId(el);
             return this.prepareEndpoint(_jsPlumb, _newEndpoint, this, ep, isSource ? 0 : 1, params, el, elId);
         };
+
+        // if type given, get the endpoint definitions mapping to that type from the jsplumb instance, and use those.
+        // we apply types at the end of this constructor but endpoints are only honoured in a type definition at
+        // create time.
+        if (params.type) {
+            params.endpoints = this._jsPlumb.instance.deriveEndpointAndAnchorSpec(params.type).endpoints;
+        }
 
         var eS = this.makeEndpoint(true, this.source, this.sourceId, params.sourceEndpoint),
             eT = this.makeEndpoint(false, this.target, this.targetId, params.targetEndpoint);
@@ -139,7 +151,7 @@
 
         this.appendToDefaultType({
             detachable: _detachable,
-            rettach: _reattach,
+            reattach: _reattach,
             paintStyle:this.endpoints[0].connectorStyle || this.endpoints[1].connectorStyle || params.paintStyle || _jsPlumb.Defaults.PaintStyle || jsPlumb.Defaults.PaintStyle,
             hoverPaintStyle:this.endpoints[0].connectorHoverStyle || this.endpoints[1].connectorHoverStyle || params.hoverPaintStyle || _jsPlumb.Defaults.HoverPaintStyle || jsPlumb.Defaults.HoverPaintStyle
         });
@@ -216,13 +228,16 @@
 // PAINTING
 
         this.setConnector(this.endpoints[0].connector || this.endpoints[1].connector || params.connector || _jsPlumb.Defaults.Connector || _jp.Defaults.Connector, true);
+        if (params.geometry) {
+            this.connector.setGeometry(params.geometry);
+        }
         var data = params.data == null || !jsPlumbUtil.isObject(params.data) ? {} : params.data;
         this.getData = function() { return data; };
         this.setData = function(d) { data = d || {}; };
         this.mergeData = function(d) { data = jsPlumb.extend(data, d); };
 
         // the very last thing we do is apply types, if there are any.
-        var _types = [ "default",  params.type, this.endpoints[0].connectionType, this.endpoints[1].connectionType ].join(" ");
+        var _types = [ "default", this.endpoints[0].connectionType, this.endpoints[1].connectionType,  params.type ].join(" ");
         if (/[^\s]/.test(_types))
             this.addType(_types, params.data, true);
 
@@ -264,6 +279,7 @@
             if (_anchors != null) {
                 this.endpoints[0].anchor = _anchors[0];
                 this.endpoints[1].anchor = _anchors[1];
+                if (this.endpoints[1].anchor.isDynamic) this._jsPlumb.instance.repaint(this.endpoints[1].elementId);
             }
 
             _jp.OverlayCapableJsPlumbUIComponent.applyType(this, t);
@@ -309,8 +325,10 @@
             this.connector = null;
         },
         updateConnectedClass:function(remove) {
-            _updateConnectedClass(this, this.source, this._jsPlumb.instance, remove);
-            _updateConnectedClass(this, this.target, this._jsPlumb.instance, remove);
+            if (this._jsPlumb) {
+                _updateConnectedClass(this, this.source, this._jsPlumb.instance, remove);
+                _updateConnectedClass(this, this.target, this._jsPlumb.instance, remove);
+            }
         },
         setHover: function (state) {
             if (this.connector && this._jsPlumb && !this._jsPlumb.instance.isConnectionBeingDragged()) {
@@ -323,7 +341,7 @@
             return [ this.endpoints[0].getUuid(), this.endpoints[1].getUuid() ];
         },
         getCost: function () {
-            return this._jsPlumb.cost;
+            return this._jsPlumb ? this._jsPlumb.cost : -Infinity;
         },
         setCost: function (c) {
             this._jsPlumb.cost = c;
@@ -334,12 +352,15 @@
         getConnector: function () {
             return this.connector;
         },
+        getGeometry : function() { return this.connector ? this.connector.getGeometry() : null; },
+        setGeometry : function(g) { if (this.connector) this.connector.setGeometry(g); },
         prepareConnector:function(connectorSpec, typeId) {
             var connectorArgs = {
                     _jsPlumb: this._jsPlumb.instance,
-                    cssClass: this._jsPlumb.params.cssClass,
+                    cssClass: (this._jsPlumb.params.cssClass || "") + (this.isEditable() ? this._jsPlumb.instance.editableConnectorClass : ""),
                     container: this._jsPlumb.params.container,
-                    "pointer-events": this._jsPlumb.params["pointer-events"]
+                    "pointer-events": this._jsPlumb.params["pointer-events"],
+                    editable:this.editableRequested
                 },
                 renderMode = this._jsPlumb.instance.getRenderMode(),
                 connector;

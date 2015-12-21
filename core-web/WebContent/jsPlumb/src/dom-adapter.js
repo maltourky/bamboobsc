@@ -1,9 +1,9 @@
 /*
  * jsPlumb
  *
- * Title:jsPlumb 1.7.10
+ * Title:jsPlumb 2.0.2
  *
- * Provides a way to visually connect elements on an HTML page, using SVG or VML.
+ * Provides a way to visually connect elements on an HTML page, using SVG.
  *
  * This file contains the base functionality for DOM type adapters.
  *
@@ -20,34 +20,7 @@
     var root = this, _ju = root.jsPlumbUtil;
 
     var svgAvailable = !!window.SVGAngle || document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1"),
-        vmlAvailable = function () {
-            if (vmlAvailable.vml === undefined) {
-                var a = document.body.appendChild(document.createElement('div'));
-                a.innerHTML = '<v:shape id="vml_flag1" adj="1" />';
-                var b = a.firstChild;
-                if (b != null && b.style != null) {
-                    b.style.behavior = "url(#default#VML)";
-                    vmlAvailable.vml = b ? typeof b.adj == "object" : true;
-                }
-                else
-                    vmlAvailable.vml = false;
-                a.parentNode.removeChild(a);
-            }
-            return vmlAvailable.vml;
-        },
-    // TODO: remove this once we remove all library adapter versions and have only vanilla jsplumb: this functionality
-    // comes from Mottle.
-        iev = (function () {
-            var rv = -1;
-            if (navigator.appName == 'Microsoft Internet Explorer') {
-                var ua = navigator.userAgent,
-                    re = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-                if (re.exec(ua) != null)
-                    rv = parseFloat(RegExp.$1);
-            }
-            return rv;
-        })(),
-        isIELT9 = iev > -1 && iev < 9,
+
         _genLoc = function (e, prefix) {
             if (e == null) return [ 0, 0 ];
             var ts = _touches(e), t = _getTouch(ts, 0);
@@ -55,12 +28,7 @@
         },
         _pageLocation = function (e) {
             if (e == null) return [ 0, 0 ];
-            if (isIELT9) {
-                return [ e.clientX + document.documentElement.scrollLeft, e.clientY + document.documentElement.scrollTop ];
-            }
-            else {
-                return _genLoc(e, "page");
-            }
+            return _genLoc(e, "page");
         },
         _screenLocation = function (e) {
             return _genLoc(e, "screen");
@@ -303,11 +271,11 @@
             var _oneSet = function (add, classes) {
                 for (var i = 0; i < classes.length; i++) {
                     if (add) {
-                        if (jsPlumbUtil.indexOf(curClasses, classes[i]) == -1)
+                        if (curClasses.indexOf(classes[i]) == -1)
                             curClasses.push(classes[i]);
                     }
                     else {
-                        var idx = jsPlumbUtil.indexOf(curClasses, classes[i]);
+                        var idx = curClasses.indexOf(classes[i]);
                         if (idx != -1)
                             curClasses.splice(idx, 1);
                     }
@@ -376,32 +344,7 @@
             document.body.appendChild(node);
         },
         getRenderModes: function () {
-            return [ "svg", "vml" ];
-        },
-        isRenderModeAvailable: function (m) {
-            return {
-                "svg": svgAvailable,
-                "vml": vmlAvailable()
-            }[m];
-        },
-        trySetRenderMode: function (mode) {
-            var renderMode;
-
-            if (mode) {
-                mode = mode.toLowerCase();
-
-                var svgAvailable = this.isRenderModeAvailable("svg"),
-                    vmlAvailable = this.isRenderModeAvailable("vml");
-
-                // now test we actually have the capability to do this.
-                if (mode === "svg") {
-                    if (svgAvailable) renderMode = "svg";
-                    else if (vmlAvailable) renderMode = "vml";
-                }
-                else if (vmlAvailable) renderMode = "vml";
-            }
-
-            return renderMode;
+            return [ "svg"  ];
         },
         getClass:_getClassName,
         addClass: function (el, clazz) {
@@ -462,9 +405,9 @@
 
             return sel;
         },
-        getOffset:function(el, relativeToRoot) {
+        getOffset:function(el, relativeToRoot, container) {
             el = jsPlumb.getElement(el);
-            var container = this.getContainer();
+            container = container || this.getContainer();
             var out = {
                     left: el.offsetLeft,
                     top: el.offsetTop
