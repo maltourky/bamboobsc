@@ -102,7 +102,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     transition: background-color 0.25s ease-in;
 }
 
-.aLabel._jsPlumb_hover, ._jsPlumb_source_hover, ._jsPlumb_target_hover {
+.aLabel.jsplumb-hover, .jsplumb-source-hover, .jsplumb-target-hover {
     background-color: #1e8151;
     color: white;
 }
@@ -134,7 +134,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     box-shadow: 0px 0px 6px black;
 }
 
-.statemachine-demo ._jsPlumb_endpoint {
+.statemachine-demo .jsplumb-endpoint {
     z-index: 3;
 }
 
@@ -142,7 +142,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     border: 2px solid orange;
 }
 
-path, ._jsPlumb_endpoint { cursor:pointer; }
+path, .jsplumb-endpoint { cursor:pointer; }
 
 
 
