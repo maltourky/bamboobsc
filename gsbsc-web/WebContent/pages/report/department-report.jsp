@@ -302,7 +302,7 @@ function ${programId}_page_message() {
 						    		&nbsp;		    			
 					    																	
 									<s:property value="getText('BSC_PROG003D0003Q_frequency')"/>:
-									<gs:select name="BSC_PROG003D0003Q_frequency" dataSource="frequencyMap" id="BSC_PROG003D0003Q_frequency" value="5" width="140" readonly="Y"></gs:select>
+									<gs:select name="BSC_PROG003D0003Q_frequency" dataSource="frequencyMap" id="BSC_PROG003D0003Q_frequency" value="6" width="140" readonly="Y"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0003Q_frequency'">
 					    				Select frequency.
 									</div> 	
@@ -355,7 +355,8 @@ function ${programId}_page_message() {
 												<gs:select name="BSC_PROG003D0003Q_dateType" 
 													dataSource="{ \"1\":\"${action.getText('BSC_PROG003D0003Q_dateType_1')}\", \"2\":\"${action.getText('BSC_PROG003D0003Q_dateType_2')}\", \"3\":\"${action.getText('BSC_PROG003D0003Q_dateType_3')}\" }" 
 													id="BSC_PROG003D0003Q_dateType"
-													onChange="BSC_PROG003D0003Q_setFrequencyValue();"></gs:select>											
+													onChange="BSC_PROG003D0003Q_setFrequencyValue();"
+													value="3"></gs:select>											
 											</td>
 											<td align="left" height="30px" >
 												&nbsp;
