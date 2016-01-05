@@ -88,7 +88,10 @@ public class PublishingCXFServlet extends CXFServlet {
 		System.out.println(PublishingCXFServlet.class.getName() + " - loadBus...");
 		super.loadBus(servletConfig);		
 		try {
-			SubjectBuilderForBackground.login();
+			
+			// 目前沒有使用了
+			//SubjectBuilderForBackground.login();
+			
 			Bus bus = super.getBus();
 			BusFactory.setDefaultBus(bus);
 			JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();

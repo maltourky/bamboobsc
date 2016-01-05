@@ -29,6 +29,10 @@ import org.apache.shiro.util.Factory;
 
 import com.netsteadfast.greenstep.base.Constants;
 
+/**
+ * 目前沒有使用了
+ */
+@Deprecated
 public class SubjectBuilderForBackground {
 	
 	public static void login() throws Exception {
