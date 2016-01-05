@@ -25,7 +25,6 @@ import javax.servlet.ServletContextEvent;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.ContextInitializedAndDestroyedBean;
-import com.netsteadfast.greenstep.sys.BackgroundProgramUserUtils;
 import com.netsteadfast.greenstep.util.ApplicationSiteUtils;
 
 public class ConfigureAppSiteHostForContextInitialized extends ContextInitializedAndDestroyedBean {
@@ -34,7 +33,6 @@ public class ConfigureAppSiteHostForContextInitialized extends ContextInitialize
 	@Override
 	public void execute(ServletContextEvent event) throws Exception {
 		String logConfFileFullPath = Constants.getUploadDir() + "/" + Constants.getSystem()+".cnf";
-		BackgroundProgramUserUtils.login();
 		ApplicationSiteUtils.configureHost(Constants.getSystem(), logConfFileFullPath);
 	}
 
