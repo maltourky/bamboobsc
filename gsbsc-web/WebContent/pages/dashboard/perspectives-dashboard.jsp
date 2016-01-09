@@ -129,7 +129,7 @@ function BSC_PROG003D0004Q_paintBarCharts(data) {
 			.x(function(d) { return d.label })    //Specify the data accessors.
 			.y(function(d) { return d.value })
 			.staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-			.tooltips(false)        //Don't show tooltips
+			//.tooltips(false)        //Don't show tooltips , 2016-01-09 tooltips no need for nvd3 1.8.1
 			.showValues(true)       //...instead, show the bar value right on top of each bar.
 			.color( myColors );
 
