@@ -51,9 +51,14 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     background: #74B1CD;
 }
 
+body {
+    font-size: 12px;
+    font-family: Palatino;
+}
+
 </style>
 
-<body class="flat" bgcolor="#ffffff" >
+<body bgcolor="#ffffff" >
 
 <center>
 	<div id="info"></div>
@@ -96,8 +101,6 @@ var arc = d3.svg.arc()
 .innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
 .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-var numTmp=Date.now();
-
 var jsonDataUrl='./bsc.kpiReportCoffeeChartJsonDataAction.action';
 
 jsonDataUrl += '?fields.visionOid=${fields.opw_visionOid}';
@@ -109,6 +112,7 @@ jsonDataUrl += '&fields.dataFor=${fields.opw_dataFor}';
 jsonDataUrl += '&fields.measureDataOrganizationOid=${fields.opw_measureDataOrganizationOid}';
 jsonDataUrl += '&fields.measureDataEmployeeOid=${fields.opw_measureDataEmployeeOid}';
 jsonDataUrl += '&fields.frequency=${fields.opw_frequency}';
+jsonDataUrl += '&n=${uuid}';
 
 d3.json(jsonDataUrl, function(error, json) {
 	var nodes = partition.nodes({children: json});
