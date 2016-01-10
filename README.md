@@ -54,6 +54,9 @@ contact: chen.xin.nien@gmail.com
 <br/>7 KPI BSC report.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/KPI-REPORT.png"/><br/>
+<br/>7 KPI BSC report (coffee chart).
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/COFFEE_CHART.png"/><br/>
 <br/>8 OLAP Client report.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/OLAP-CLIENT.png"/><br/>
