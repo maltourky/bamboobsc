@@ -54,6 +54,15 @@
 		<command id="KpiReportPdfCommand" 			className="com.netsteadfast.greenstep.bsc.command.KpiReportPdfCommand"/>
 	</chain>	
 	
+	<!-- KPI報表 coffeeChart json 資料產生內容用的 chain -->
+	<chain name="kpiReportCoffeeChartJsonDataContentChain">
+		<command id="LoadBscMixDataCommand" 				className="com.netsteadfast.greenstep.bsc.command.LoadBscMixDataCommand"/> 
+		<command id="LoadBscStructTreeCommand" 				className="com.netsteadfast.greenstep.bsc.command.LoadBscStructTreeCommand"/>
+		<command id="LoadMeasureDataCommand" 				className="com.netsteadfast.greenstep.bsc.command.LoadMeasureDataCommand"/>
+		<command id="ScoreCalculationCommand" 				className="com.netsteadfast.greenstep.bsc.command.ScoreCalculationCommand"/>
+		<command id="KpiReportCoffeeChartJsonDataCommand"	className="com.netsteadfast.greenstep.bsc.command.KpiReportCoffeeChartJsonDataCommand"/>
+	</chain>	
+	
 	<!-- 個人報表html版產生內容用的 chain -->
 	<chain name="personalReportHtmlContentChain">
 		<command id="LoadBscMixDataCommand" 								className="com.netsteadfast.greenstep.bsc.command.LoadBscMixDataCommand"/> 

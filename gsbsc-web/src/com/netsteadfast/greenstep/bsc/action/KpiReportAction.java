@@ -157,6 +157,7 @@ public class KpiReportAction extends BaseSupportAction implements IBaseAdditiona
 	
 	/**
 	 * bsc.kpiReportOpenWindowAction.action
+	 * bsc.kpiReportCoffeeChartOpenWindowAction.action
 	 */
 	@ControllerMethodAuthority(programId="BSC_PROG003D0001Q")	
 	public String openWindow() throws Exception {

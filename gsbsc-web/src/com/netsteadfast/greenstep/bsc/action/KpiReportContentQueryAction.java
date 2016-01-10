@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -42,6 +44,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.BscConstants;
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.chain.SimpleChain;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
@@ -88,6 +91,8 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 	private List<List<List<Object>>> lineChartValues = new LinkedList<List<List<Object>>>();
 	
 	private List<PerspectiveVO> perspectiveItems = new LinkedList<PerspectiveVO>(); // 給 04 - Perspectives Dashboard 用的
+	
+	private InputStream inputStream;
 	
 	public KpiReportContentQueryAction() {
 		super();
@@ -486,6 +491,21 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 			this.success = IS_YES;
 		}		
 	}	
+	
+	private void getCoffeeChartJsonData() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
+		this.setDateValue();
+		this.checkDateRange();
+		Context context = this.getChainContext();
+		SimpleChain chain = new SimpleChain();
+		ChainResultObj resultObj = chain.getResultFromResource("kpiReportCoffeeChartJsonDataContentChain", context);
+		this.message = resultObj.getMessage();
+		if ( resultObj.getValue() instanceof String ) {
+			this.body = String.valueOf(resultObj.getValue());
+			this.inputStream = new ByteArrayInputStream(this.body.getBytes(Constants.BASE_ENCODING));
+			this.success = IS_YES;
+		}		
+	}		
 
 	/**
 	 * bsc.kpiReportContentQueryAction.action
@@ -589,6 +609,41 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 		return SUCCESS;		
 	}		
 	
+	/**
+	 * 這個action 不是 struts2-json-plugin 輸出
+	 * bsc.kpiReportCoffeeChartJsonDataAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG003D0001Q")
+	public String doCoffeeChartJsonData() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.getCoffeeChartJsonData();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getMessage()==null) { 
+				this.message=e.toString();
+				this.logger.error(e.toString());
+			} else {
+				this.message=e.getMessage().toString();
+				this.logger.error(e.getMessage());
+			}						
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;				
+	}
+	
 	@JSON
 	@Override
 	public String getLogin() {
@@ -673,5 +728,13 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 	public List<PerspectiveVO> getPerspectiveItems() {
 		return perspectiveItems;
 	}
+	
+	@JSON(serialize=false)
+	public InputStream getInputStream() {
+		if (this.inputStream==null) {
+			this.inputStream=new ByteArrayInputStream("[]".getBytes());
+		}		
+		return inputStream;
+	}	
 	
 }

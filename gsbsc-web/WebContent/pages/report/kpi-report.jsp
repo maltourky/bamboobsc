@@ -52,6 +52,14 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
   	text-align: center;
 }
 
+.btnPieIcon {
+  	background-image: url(./icons/chart-pie.png);
+  	background-repeat: no-repeat;
+  	width: 16px;
+  	height: 16px;
+  	text-align: center;
+}
+
 #BSC_PROG003D0001Q_content { 
 	width:100%; 
 	height:100%;
@@ -327,6 +335,20 @@ function BSC_PROG003D0001Q_getOpenWindowUrl(nextType, id) {
 	return url;	
 }
 
+function BSC_PROG003D0001Q_getCoffeeChartOpenWindowUrl() {
+	var url = "<%=basePath%>/bsc.kpiReportCoffeeChartOpenWindowAction.action";
+	url += "?fields.opw_visionOid=" 	+ dijit.byId("BSC_PROG003D0001Q_visionOid").get("value");
+	url += "&fields.opw_startYearDate=" + dijit.byId("BSC_PROG003D0001Q_startYearDate").get('displayedValue');
+	url += "&fields.opw_endYearDate=" 	+ dijit.byId("BSC_PROG003D0001Q_endYearDate").get('displayedValue');
+	url += "&fields.opw_startDate=" 	+ dijit.byId("BSC_PROG003D0001Q_startDate").get('displayedValue');
+	url += "&fields.opw_endDate=" 		+ dijit.byId("BSC_PROG003D0001Q_endDate").get('displayedValue');
+	url += "&fields.opw_dataFor=" 		+ dijit.byId("BSC_PROG003D0001Q_dataFor").get("value");
+	url += "&fields.opw_measureDataOrganizationOid=" 	+ dijit.byId("BSC_PROG003D0001Q_measureDataOrganizationOid").get("value");
+	url += "&fields.opw_measureDataEmployeeOid=" 		+ dijit.byId("BSC_PROG003D0001Q_measureDataEmployeeOid").get("value");
+	url += "&fields.opw_frequency=" 	+ dijit.byId("BSC_PROG003D0001Q_frequency").get("value");
+	return url;	
+}
+
 function BSC_PROG003D0001Q_openPerspective(id) {
 	/*
 	window.open(			
@@ -467,6 +489,14 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG003D0001Q_generateExport('EXCEL');																			  
 											}"><s:property value="getText('BSC_PROG003D0001Q_btnXls')"/></button>	
+									
+									<button id="BSC_PROG003D0001Q_btnCoffeeChart" data-dojo-type="dijit.form.Button"
+										data-dojo-props="
+											iconClass:'btnPieIcon',
+											showLabel:false,
+											onClick:function(){
+												BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getCoffeeChartOpenWindowUrl() );																			  
+											}">Coffee chart</button>										
 											
 									<button id="BSC_PROG003D0001Q_btnSignature" data-dojo-type="dijit.form.Button"
 										data-dojo-props="

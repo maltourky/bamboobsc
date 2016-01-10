@@ -17,6 +17,11 @@
 			<result name="input">/pages/report/kpi-report-opw.jsp</result>		
 			<result name="success">/pages/report/kpi-report-opw.jsp</result>
 		</action>			
+
+		<action name="bsc.kpiReportCoffeeChartOpenWindowAction" class="bsc.web.controller.KpiReportAction" method="openWindow">
+			<result name="input">/pages/report/kpi-coffee-report.jsp</result>		
+			<result name="success">/pages/report/kpi-coffee-report.jsp</result>
+		</action>		
 		
 		<action name="bsc.kpiPeriodTrendsReportAction" class="bsc.web.controller.KpiReportAction" method="periodTrends">
 			<result name="input">/pages/report/kpi-period-trends-report.jsp</result>		
@@ -63,6 +68,13 @@
   				<param name="noCache">true</param>
 			</result>
 		</action>
+		
+		<action name="bsc.kpiReportCoffeeChartJsonDataAction" class="bsc.web.controller.KpiReportContentQueryAction" method="doCoffeeChartJsonData" >
+		    <result name="success" type="stream">
+		        <param name="contentType">text/html</param>
+		        <param name="inputName">inputStream</param>
+		    </result>
+		</action>		
 		
 		
 		<!-- Personal BSC Report -->
