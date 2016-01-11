@@ -52,13 +52,29 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 }
 
 body {
-    font-size: 12px;
-    font-family: Palatino;
+  margin: 0 auto;
+  font: 11px sans-serif;  
+  line-height: 1.5em;
+  color: #333;
+  background: #fefefe;
+  width: 100%;
+  position: relative;
+}
+
+path {
+  stroke: #000;
+  stroke-width: 0.5;
+  cursor: pointer;
+}
+
+text {
+  font: 11px sans-serif;
+  cursor: pointer;
 }
 
 </style>
 
-<body bgcolor="#ffffff" >
+<body>
 
 <center>
 	<div id="info"></div>
