@@ -19,7 +19,8 @@
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-objective.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-kpi.xml" />    
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-kpiEmpl.xml" />
-    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-kpiOrga.xml" />    
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-kpiOrga.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-kpiAttac.xml" />    
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-formula.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-measureData.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-scoreColor.xml" />    
