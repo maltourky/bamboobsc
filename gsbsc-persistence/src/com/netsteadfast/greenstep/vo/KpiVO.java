@@ -67,6 +67,7 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 	private List<DateRangeScoreVO> dateRangeScores = new LinkedList<DateRangeScoreVO>(); // 報表要用的日期區間分數	
 	private List<EmployeeVO> employees = new ArrayList<EmployeeVO>(); // KPI擁有者 , 目前只有KPI報表要用到
 	private List<OrganizationVO> organizations = new ArrayList<OrganizationVO>(); // KPI所屬部門, 目前只有KPI報表要用到
+	private List<KpiAttacVO> attachments = new ArrayList<KpiAttacVO>(); // KPI的上傳文件
 	
 	public KpiVO() {
 		
@@ -362,6 +363,14 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setOrganizations(List<OrganizationVO> organizations) {
 		this.organizations = organizations;
+	}
+
+	public List<KpiAttacVO> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<KpiAttacVO> attachments) {
+		this.attachments = attachments;
 	}	
 
 }

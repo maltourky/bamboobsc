@@ -29,6 +29,7 @@ public class KpiAttacVO extends BaseValueObj implements java.io.Serializable {
 	private String kpiId;	
 	private String uploadOid;
 	private String viewMode;
+	private String showName = ""; // 產KPI報表用的
 	
 	@Override
 	public String getOid() {
@@ -61,6 +62,14 @@ public class KpiAttacVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setViewMode(String viewMode) {
 		this.viewMode = viewMode;
+	}
+
+	public String getShowName() {
+		return showName;
+	}
+
+	public void setShowName(String showName) {
+		this.showName = showName;
 	}
 
 }

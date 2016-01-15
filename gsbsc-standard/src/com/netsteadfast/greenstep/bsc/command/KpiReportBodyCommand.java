@@ -38,18 +38,24 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.BscStructTreeObj;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.bsc.service.IKpiAttacService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.util.BscReportPropertyUtils;
 import com.netsteadfast.greenstep.bsc.util.BscReportSupportUtils;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
+import com.netsteadfast.greenstep.po.hbm.BbKpiAttac;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.util.TemplateUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.KpiAttacVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.PerspectiveVO;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 import com.netsteadfast.greenstep.vo.VisionVO;
 
 public class KpiReportBodyCommand extends BaseChainCommandSupport implements Command {
@@ -60,6 +66,8 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 	private static final String templateResource_NG_KPI = "META-INF/resource/kpi-report-body-ng-KPI.ftl"; // 點選KPI打開OPW後的報表
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
+	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	
 	@SuppressWarnings("unchecked")
 	public KpiReportBodyCommand() {
@@ -68,6 +76,10 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 				AppContext.getBean("bsc.service.OrganizationService");
 		employeeService = (IEmployeeService<EmployeeVO, BbEmployee, String>)
 				AppContext.getBean("bsc.service.EmployeeService");
+		kpiAttacService = (IKpiAttacService<KpiAttacVO, BbKpiAttac, String>)
+				AppContext.getBean("bsc.service.KpiAttacService");
+		sysUploadService = (ISysUploadService<SysUploadVO, TbSysUpload, String>)
+				AppContext.getBean("core.service.SysUploadService");
 	}
 	
 	@Override
@@ -125,6 +137,7 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 	private void setImgIconBaseAndKpiInfo(BscStructTreeObj treeObj) throws ServiceException, Exception {
 		BscReportSupportUtils.loadExpression();
 		List<VisionVO> visions = treeObj.getVisions();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		for (VisionVO vision : visions) {
 			for (PerspectiveVO perspective : vision.getPerspectives()) {
 				perspective.setImgIcon(
@@ -157,7 +170,23 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 										kpi.getManagement(), 
 										kpi.getQuasiRange()) );
 						BscReportSupportUtils.fillKpiEmployees(kpi);
-						BscReportSupportUtils.fillKpiOrganizations(kpi);						
+						BscReportSupportUtils.fillKpiOrganizations(kpi);	
+						
+						// KPI attachment documents
+						paramMap.clear();
+						paramMap.put("kpiId", kpi.getId());
+						List<KpiAttacVO> attacs = kpiAttacService.findListVOByParams(paramMap);
+						for (int i=0; attacs!=null && i<attacs.size(); i++) {
+							KpiAttacVO attac = attacs.get(i);
+							DefaultResult<SysUploadVO> uploadResult = sysUploadService.findForNoByteContent(attac.getUploadOid());
+							if (uploadResult.getValue()!=null) {
+								attac.setShowName( uploadResult.getValue().getShowName() );
+							} else {
+								attac.setShowName( "unknown-" + attac.getUploadOid() );
+							}
+							kpi.getAttachments().add(attac);
+						}
+						
 					}
 				}
 			}

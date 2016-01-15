@@ -316,6 +316,15 @@
 								<td align="left" bgcolor="${kpi.bgColor}" width="100%" colspan="2">
 									<font color="${kpi.fontColor}" >
 									${kpi.description}
+									
+									
+									<#list kpi.attachments as attac >
+									
+									<br/><a href="#" onclick="openCommonLoadUpload( 'download', '${attac.uploadOid}', {}); return false;" style="color:${kpi.fontColor}">${attac.showName}</a>									
+									
+									</#list>		
+												
+									
 									</font>
 								</td>
 							</tr>
