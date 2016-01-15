@@ -79,6 +79,7 @@ function BSC_PROG002D0004E_clear() {
 	dijit.byId('BSC_PROG002D0004E_description').set("value", "");	
 	BSC_PROG002D0004E_clearOrgaAppendId();
 	BSC_PROG002D0004E_clearEmplAppendId();
+	BSC_PROG002D0004E_clearUploadDataTable();
 }
 
 /**
@@ -167,6 +168,75 @@ function BSC_PROG002D0004E_clearEmplAppendId() {
 }
 
 //------------------------------------------------------------------------------
+var BSC_PROG002D0004E_maxUpload = 5;
+var BSC_PROG002D0004E_uploads = [];
+
+function BSC_PROG002D0004E_uploadDocument() {
+	if (BSC_PROG002D0004E_uploads.length >= BSC_PROG002D0004E_maxUpload) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), "Can only upload " + BSC_PROG002D0004E_maxUpload + " files!", function(){}, "Y");
+		return;
+	}
+	openCommonUploadDialog('BSC', 'tmp', 'N', 'BSC_PROG002D0004E_uploadDocumentOid', 'BSC_PROG002D0004E_uploadSuccess', 'BSC_PROG002D0004E_uploadFail');
+}
+function BSC_PROG002D0004E_uploadSuccess() {
+	var docOid = dojo.byId("BSC_PROG002D0004E_uploadDocumentOid").value;	
+	if (docOid!='') {
+		BSC_PROG002D0004E_uploads.push({
+			'oid' 	: docOid,
+			'name' 	: BSC_PROG002D0004E_getUploadShowName(docOid)
+		});
+	}
+	dojo.byId("BSC_PROG002D0004E_uploadDocumentOid").value = "";
+	hideCommonUploadDialog();
+	BSC_PROG002D0004E_showUploadDataTable();
+}
+function BSC_PROG002D0004E_uploadFail() {
+	dojo.byId("BSC_PROG002D0004E_uploadDocumentOid").value = "";
+	hideCommonUploadDialog();
+}
+function BSC_PROG002D0004E_delUpload(oid) {
+	var size = BSC_PROG002D0004E_uploads.length;
+	for (var n=0; n<size; n++) {
+		if ( BSC_PROG002D0004E_uploads[n].oid == oid ) {
+			BSC_PROG002D0004E_uploads.splice( n , 1 );
+			n = size;
+		}
+	}	
+	BSC_PROG002D0004E_showUploadDataTable();
+}
+function BSC_PROG002D0004E_clearUploadDataTable() {
+	BSC_PROG002D0004E_uploads = [];
+	dojo.byId("BSC_PROG002D0004E_uploadDocumentOid").value = "";
+	BSC_PROG002D0004E_showUploadDataTable();
+}
+function BSC_PROG002D0004E_showUploadDataTable() {
+	var size = BSC_PROG002D0004E_uploads.length;	
+	var txtContent = '';
+	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
+	txtContent += '<tr>';
+	txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
+	txtContent += '<td width="80%" align="left" bgcolor="#f5f5f5"><b>Documents (file name)</b></td>';
+	txtContent += '</tr>';
+	for (var n=0; n<size; n++) {
+		var dataItem = BSC_PROG002D0004E_uploads[n];
+		txtContent += '<tr>';
+		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG002D0004E_delUpload(\'' + dataItem.oid + '\');" /> ';
+		txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
+		txtContent += '<td width="80%" align="left" bgcolor="#ffffff"><a href="#" onclick="openCommonLoadUpload( \'download\', \'' + dataItem.oid + '\', {}); return false;" style="color:#424242">' + dataItem.name + '</a></td>';
+		txtContent += '</tr>';				
+	}
+	txtContent += '</table>';	
+	dojo.byId( 'BSC_PROG002D0004E_uploadDocumentTable' ).innerHTML = txtContent;	
+}
+function BSC_PROG002D0004E_getUploadShowName(oid) {
+	var names = getUploadFileNames(oid);	
+	if (names == null || names.length!=1 ) {
+		return "unknown";
+	}
+	return names[0].showName;
+}
+
+//------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
 	if (null!=pageMessage && ''!=pageMessage && ' '!=pageMessage) {
@@ -196,8 +266,9 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG002D0004E_appendOrganizationOid" id="BSC_PROG002D0004E_appendOrganizationOid" value="${fields.appendOrgaOids}" />
 	<input type="hidden" name="BSC_PROG002D0004E_appendEmployeeOid" id="BSC_PROG002D0004E_appendEmployeeOid" value="${fields.appendEmplOids}" />	
+	<input type="hidden" name="BSC_PROG002D0004E_uploadDocumentOid" id="BSC_PROG002D0004E_uploadDocumentOid" value="" /><!-- 這個upload放oid的欄位只是當temp用 -->
 	
-	<table border="0" width="850" height="800px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="850" height="950px" cellpadding="1" cellspacing="0" >
 		<tr>
 		<tr>
     		<td height="50px" width="50%"  align="left">
@@ -453,7 +524,23 @@ function ${programId}_page_message() {
     				Input description, the maximum allowed 500 characters. 
 				</div>   		    	
 		    </td>
-		</tr>		    	    	
+		</tr>	
+		<tr>
+		    <td height="150px" width="100%" align="left" colspan="2">
+		    	<b>Documents&nbsp;/&nbsp;attachment</b>:
+		    	<br/>
+				<button name="BSC_PROG002D0004E_uploadDocumentBtn" id="BSC_PROG002D0004E_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:false,
+						iconClass:'dijitIconFolderOpen',
+						onClick:function(){ 
+							BSC_PROG002D0004E_uploadDocument();
+						}
+					">Upload document/attachment</button>			    	
+		    	<br/>
+		    	<div id="BSC_PROG002D0004E_uploadDocumentTable"></div>
+		    </td>
+		</tr>      	 					    	    	
     	<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
     			<gs:button name="BSC_PROG002D0004E_update" id="BSC_PROG002D0004E_update" onClick="BSC_PROG002D0004E_update();"
@@ -485,7 +572,8 @@ function ${programId}_page_message() {
     						'fields.userMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').checked ? 'true' : 'false' ),    						
     						'fields.description'		: dijit.byId('BSC_PROG002D0004E_description').get('value'),
     						'fields.orgaOids'			: dojo.byId('BSC_PROG002D0004E_appendOrganizationOid').value,
-    						'fields.emplOids'			: dojo.byId('BSC_PROG002D0004E_appendEmployeeOid').value
+    						'fields.emplOids'			: dojo.byId('BSC_PROG002D0004E_appendEmployeeOid').value,
+    						'fields.uploadOids'			: JSON.stringify( { 'oids' : BSC_PROG002D0004E_uploads } )
     					} 
     				"
     				errorFn=""
@@ -501,5 +589,15 @@ function ${programId}_page_message() {
 	</table>	
 	
 <script type="text/javascript">${programId}_page_message();</script>
+
+<s:if test="kpiAttac!=null && kpiAttac.size!=0">
+<script type="text/javascript">
+<s:iterator value="kpiAttac" status="st">
+BSC_PROG002D0004E_uploads.push( {oid: '<s:property value="uploadOid" />' , name: BSC_PROG002D0004E_getUploadShowName('<s:property value="uploadOid" />')} );
+</s:iterator>
+BSC_PROG002D0004E_showUploadDataTable();
+</script>
+</s:if>
+
 </body>
 </html>

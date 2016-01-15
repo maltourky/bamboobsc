@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ import com.netsteadfast.greenstep.bsc.model.BscKpiCode;
 import com.netsteadfast.greenstep.bsc.service.IAggregationMethodService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
+import com.netsteadfast.greenstep.bsc.service.IKpiAttacService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
@@ -54,6 +56,7 @@ import com.netsteadfast.greenstep.po.hbm.BbAggregationMethod;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
+import com.netsteadfast.greenstep.po.hbm.BbKpiAttac;
 import com.netsteadfast.greenstep.po.hbm.BbObjective;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbPerspective;
@@ -62,6 +65,7 @@ import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.AggregationMethodVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.FormulaVO;
+import com.netsteadfast.greenstep.vo.KpiAttacVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
@@ -80,7 +84,8 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private IObjectiveService<ObjectiveVO, BbObjective, String> objectiveService;
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService;
-	private IAggregationMethodService<AggregationMethodVO, BbAggregationMethod, String> aggregationMethodService; 
+	private IAggregationMethodService<AggregationMethodVO, BbAggregationMethod, String> aggregationMethodService;
+	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
 	private Map<String, String> visionMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> perspectiveMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> objectiveMap = this.providedSelectZeroDataMap(true);
@@ -93,6 +98,7 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private Map<String, String> trendsFormulaMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> quasiRangeMap = BscKpiCode.getQuasiRangeMap();
 	private KpiVO kpi = new KpiVO();
+	private List<BbKpiAttac> kpiAttac = null;
 	
 	public KpiManagementAction() {
 		super();
@@ -193,6 +199,18 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		this.aggregationMethodService = aggregationMethodService;
 	}
 
+	public IKpiAttacService<KpiAttacVO, BbKpiAttac, String> getKpiAttacService() {
+		return kpiAttacService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.KpiAttacService")	
+	public void setKpiAttacService(
+			IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService) {
+		this.kpiAttacService = kpiAttacService;
+	}
+
 	private void initData() throws ServiceException, Exception {
 		this.visionMap = this.visionService.findForMap(true);
 		this.formulaMap = this.formulaService.findForMap(true, false);
@@ -209,6 +227,8 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		this.kpi = result.getValue();
 		this.handlerSelectValueForEdit();
 		this.handlerKpiOrgaAndEmplForEdit();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		this.kpiAttac = this.kpiAttacService.findListByParams(paramMap);
 	}
 	
 	private void handlerKpiOrgaAndEmplForEdit() throws ServiceException, Exception {
@@ -417,6 +437,10 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 
 	public KpiVO getKpi() {
 		return kpi;
+	}
+
+	public List<BbKpiAttac> getKpiAttac() {
+		return kpiAttac;
 	}
 
 }

@@ -58,7 +58,7 @@ public class SysUploadDAOImpl extends BaseDAO<TbSysUpload, String> implements IS
 	@Override
 	public int updateTypeOnly(String oid, String type) throws Exception {		
 		return this.getCurrentSession()
-				.createQuery("UPDATE TbSysUpload SET type = :type AND oid = :oid")
+				.createQuery("UPDATE TbSysUpload SET type = :type WHERE oid = :oid")
 				.setString("type", type)
 				.setString("oid", oid)
 				.executeUpdate();
