@@ -337,6 +337,36 @@ function doUpload(formId, uploadId, callbackFn, errFn) {
 	});	
 }
 
+function getUploadFileNames(uploadOid) {
+	var names = [];
+	try {
+		xhrSendParameterNoWatitDlg(
+				'./core.commonLoadUploadFileNamesAction.action', 
+				{
+					'uploadOid'	: uploadOid 
+				},
+				'json', 
+				_gscore_dojo_ajax_timeout, 
+				true, // not change to false(async)
+				true, 
+				function(data){
+	    			if ('Y'==data.success) {
+	    				names.push({
+	    					'oid'		: uploadOid,
+	    					'showName'	: data.showName,
+	    					'fileName'	: data.fileName
+	    				});	    				
+	    			}
+				}, 
+				function(error){
+					alert(error);					
+				}
+		);		
+	} catch (e) {				
+	}
+	return names;
+}
+
 /**
  * 打開簽名Dialog
  * 

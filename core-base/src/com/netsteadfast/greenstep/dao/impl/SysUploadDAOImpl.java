@@ -28,6 +28,7 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.dao.ISysUploadDAO;
 import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 @Repository("core.dao.SysUploadDAO")
 public class SysUploadDAOImpl extends BaseDAO<TbSysUpload, String> implements ISysUploadDAO<TbSysUpload, String> {
@@ -43,6 +44,23 @@ public class SysUploadDAOImpl extends BaseDAO<TbSysUpload, String> implements IS
 				.setString("system", system)
 				.setString("type", UploadTypes.IS_TEMP)
 				.setString("isFile", YesNo.NO)				
+				.executeUpdate();
+	}
+
+	@Override
+	public SysUploadVO findForNoByteContent(String oid) throws Exception {
+		return (SysUploadVO)this.getCurrentSession()
+				.createQuery("SELECT new com.netsteadfast.greenstep.vo.SysUploadVO(m.oid, m.system, m.subDir, m.type, m.fileName, m.showName, m.isFile) FROM TbSysUpload m WHERE m.oid = :oid")
+				.setString("oid", oid)
+				.uniqueResult();		
+	}
+
+	@Override
+	public int updateTypeOnly(String oid, String type) throws Exception {		
+		return this.getCurrentSession()
+				.createQuery("UPDATE TbSysUpload SET type = :type AND oid = :oid")
+				.setString("type", type)
+				.setString("oid", oid)
 				.executeUpdate();
 	}
 	

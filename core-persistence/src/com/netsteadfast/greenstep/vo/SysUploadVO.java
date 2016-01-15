@@ -34,6 +34,22 @@ public class SysUploadVO extends BaseValueObj implements java.io.Serializable {
 	private String isFile;
 	private byte[] content;
 	
+	public SysUploadVO() {
+		
+	}
+	
+	public SysUploadVO(String oid, String system, String subDir, String type,
+			String fileName, String showName, String isFile) {
+		super();
+		this.oid = oid;
+		this.system = system;
+		this.subDir = subDir;
+		this.type = type;
+		this.fileName = fileName;
+		this.showName = showName;
+		this.isFile = isFile;
+	}
+	
 	@Override
 	public String getOid() {
 		return oid;

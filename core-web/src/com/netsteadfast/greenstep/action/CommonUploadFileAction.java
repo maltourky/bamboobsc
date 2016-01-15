@@ -68,6 +68,9 @@ public class CommonUploadFileAction extends BaseJsonAction {
 	private String uploadContentType=""; //The content type of the file
 	private String uploadFileName=""; //The uploaded file name	
 	
+	private String showName = ""; // 給  getFileNames 用的
+	private String fileName = ""; // 給  getFileNames 用的
+	
 	public CommonUploadFileAction() {
 		super();
 	}
@@ -129,9 +132,27 @@ public class CommonUploadFileAction extends BaseJsonAction {
 		if (result.getValue()==null) {
 			return;
 		}
-		this.message = this.message + "<BR/>upload file success!";
+		this.message = this.message + "upload file success!";
 		this.success = IS_YES;
 		this.uploadOid = result.getValue().getOid();
+	}
+	
+	private void loadNames() throws ControllerException, AuthorityException, ServiceException, IOException, Exception {
+		if (StringUtils.isBlank(this.uploadOid)) {
+			throw new ControllerException("Upload oid is required!");
+		}
+		DefaultResult<SysUploadVO> result = this.sysUploadService.findForNoByteContent(this.uploadOid);
+		if (result.getValue()==null) {
+			this.message = result.getSystemMessage().getValue();
+			return;
+		}
+		this.fileName = super.defaultString( result.getValue().getFileName() ).trim();
+		this.showName = super.defaultString( result.getValue().getShowName() ).trim();
+		//this.showName = StringEscapeUtils.escapeEcmaScript( this.showName );
+		//this.showName = StringEscapeUtils.escapeHtml4( this.showName );
+		this.showName = this.showName.replaceAll("'", "’").replaceAll("\"", "＂").replaceAll("<", "＜").replaceAll(">", "＞");		
+		this.success = IS_YES;
+		this.message = "load success!";
 	}
 	
 	/**
@@ -162,6 +183,35 @@ public class CommonUploadFileAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}
+	
+	/**
+	 * core.commonLoadUploadFileNamesAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROGCOMM0002Q")
+	public String getFileNames() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}			
+			this.loadNames();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
 
 	@JSON
 	@Override
@@ -254,6 +304,22 @@ public class CommonUploadFileAction extends BaseJsonAction {
 
 	public void setUploadFileName(String uploadFileName) {
 		this.uploadFileName = uploadFileName;
+	}
+
+	public String getShowName() {
+		return showName;
+	}
+
+	public void setShowName(String showName) {
+		this.showName = showName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

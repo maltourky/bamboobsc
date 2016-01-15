@@ -44,6 +44,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
@@ -51,9 +52,11 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
+import com.netsteadfast.greenstep.bsc.service.IKpiAttacService;
 import com.netsteadfast.greenstep.bsc.service.IKpiEmplService;
 import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
@@ -62,22 +65,28 @@ import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
 import com.netsteadfast.greenstep.bsc.util.AggregationMethodUtils;
+import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
+import com.netsteadfast.greenstep.po.hbm.BbKpiAttac;
 import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbObjective;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.FormulaVO;
+import com.netsteadfast.greenstep.vo.KpiAttacVO;
 import com.netsteadfast.greenstep.vo.KpiEmplVO;
 import com.netsteadfast.greenstep.vo.KpiOrgaVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 import com.thoughtworks.xstream.XStream;
 
 @ServiceAuthority(check=true)
@@ -97,6 +106,8 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService; 
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
+	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService; 
 	
 	public KpiLogicServiceImpl() {
 		super();
@@ -197,6 +208,30 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		this.measureDataService = measureDataService;
 	}
 	
+	public IKpiAttacService<KpiAttacVO, BbKpiAttac, String> getKpiAttacService() {
+		return kpiAttacService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.KpiAttacService")
+	@Required				
+	public void setKpiAttacService(
+			IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService) {
+		this.kpiAttacService = kpiAttacService;
+	}
+
+	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
+		return sysUploadService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysUploadService")
+	@Required					
+	public void setSysUploadService(
+			ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
+		this.sysUploadService = sysUploadService;
+	}
+
 	private FormulaVO fetchFormulaByOid(String formulaOid) throws ServiceException, Exception {
 		FormulaVO formula = new FormulaVO();
 		formula.setOid(formulaOid);
@@ -229,7 +264,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
 	@Override
 	public DefaultResult<KpiVO> create(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception {
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid, List<String> attachment) throws ServiceException, Exception {
 		if (null == kpi || super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) 
 				|| super.isNoSelectId(aggrOid) || super.isNoSelectId(trendsFormulaOid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
@@ -242,6 +277,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		}				
 		this.createKpiOrganization(result.getValue(), organizationOids); // create KPI's organization				
 		this.createKpiEmployee(result.getValue(), employeeOids); // create KPI's owner
+		this.createKpiAttachment(kpi, attachment); // create attachment
 		return result;
 	}
 
@@ -252,7 +288,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )			
 	@Override
 	public DefaultResult<KpiVO> update(KpiVO kpi, String objectiveOid, String formulaOid, String aggrOid,
-			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid) throws ServiceException, Exception {
+			List<String> organizationOids, List<String> employeeOids, String trendsFormulaOid, List<String> attachment) throws ServiceException, Exception {
 		if (null == kpi || super.isBlank(kpi.getOid()) || super.isNoSelectId(objectiveOid) || super.isNoSelectId(formulaOid) 
 				|| super.isNoSelectId(aggrOid) || super.isNoSelectId(trendsFormulaOid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
@@ -271,8 +307,10 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		kpi = result.getValue();		
 		this.deleteKpiOrganization(kpi); // delete KPI's organization
 		this.deleteKpiEmployee(kpi); // delete KPI's owner
+		this.deleteKpiAttachment(kpi); // delete attachment
 		this.createKpiOrganization(result.getValue(), organizationOids); // create KPI's organization				
 		this.createKpiEmployee(result.getValue(), employeeOids); // create KPI's owner
+		this.createKpiAttachment(kpi, attachment); // create attachment
 		return result;
 	}
 
@@ -292,6 +330,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		}
 		this.deleteKpiOrganization( oldResult.getValue() ); // delete KPI's organization
 		this.deleteKpiEmployee( oldResult.getValue() ); // delete KPI's owner						
+		this.deleteKpiAttachment( oldResult.getValue() ); // delete attachment
 		this.measureDataService.deleteForKpiId( oldResult.getValue().getId() ); // delete measuer data
 		return this.kpiService.deleteObject(kpi);		
 	}	
@@ -324,6 +363,22 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		for (BbKpiEmpl kpiEmpl : searchList) {
 			this.kpiEmplService.delete(kpiEmpl);
 		}		
+	}
+	
+	private void deleteKpiAttachment(KpiVO kpi) throws ServiceException, Exception {
+		if (kpi==null) {
+			return;
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("kpiId", kpi.getId());
+		List<BbKpiAttac> searchList = this.kpiAttacService.findListByParams(paramMap);
+		if (searchList==null || searchList.size() < 1) {
+			return;
+		}
+		for (BbKpiAttac attac : searchList) {			
+			this.sysUploadService.updateTypeOnly(attac.getUploadOid(), UploadTypes.IS_TEMP); // 把UPLOAD狀態改為TMP
+			this.kpiAttacService.delete(attac);
+		}
 	}
 	
 	private void createKpiOrganization(KpiVO kpi, List<String> organizationOids) throws ServiceException, Exception {
@@ -362,6 +417,31 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			kpiEmpl.setEmpId(employee.getEmpId());
 			this.kpiEmplService.saveObject(kpiEmpl);
 		}		
+	}
+	
+	private void createKpiAttachment(KpiVO kpi, List<String> attachment) throws ServiceException, Exception {
+		if (kpi==null || attachment==null || attachment.size() < 1 ) {
+			return;
+		}
+		for (String uploadOid : attachment) {
+			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(uploadOid);
+			if (uploadResult.getValue()==null) {
+				throw new ServiceException( uploadResult.getSystemMessage().toString() );
+			}
+			SysUploadVO upload = uploadResult.getValue();
+			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
+				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+			}
+			KpiAttacVO attac = new KpiAttacVO();
+			attac.setKpiId(kpi.getId());
+			attac.setUploadOid(uploadOid);
+			attac.setViewMode(YesNo.NO);
+			DefaultResult<KpiAttacVO> result = this.kpiAttacService.saveObject(attac);
+			if (result.getValue()==null) {
+				throw new ServiceException(result.getSystemMessage().getValue());
+			}
+			this.sysUploadService.updateTypeOnly(uploadOid, UploadTypes.IS_COMMON); // 暫時用 common 類別
+		}
 	}
 	
 	/**

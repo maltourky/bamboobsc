@@ -21,7 +21,9 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -205,6 +208,28 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		ScriptExpressionUtils.execute(expressionObj.getType(), expressionObj.getContent(), null, paramMap);		
 	}	
 	
+	@SuppressWarnings("unchecked")
+	private List<String> getUploadOids() throws Exception {
+		String uploadOidsJsonStr = super.defaultString( this.getFields().get("uploadOids") ).trim();
+		if (StringUtils.isBlank(uploadOidsJsonStr)) {
+			uploadOidsJsonStr = "{'oids' : [] }";
+		}
+		Map<String, List<Map<String, Object>>> jsonData = (Map<String, List<Map<String, Object>>>)
+				new ObjectMapper().readValue( uploadOidsJsonStr, LinkedHashMap.class );
+		List<String> oids = new ArrayList<String>();
+		if (jsonData.get("oids")==null || !(jsonData.get("oids") instanceof List) ) {
+			return oids;
+		}
+		List<Map<String, Object>> uploadDatas = jsonData.get("oids");
+		if (uploadDatas.size()<1) {
+			return oids;
+		}
+		for (Map<String, Object> uploadData : uploadDatas) {
+			oids.add( String.valueOf(uploadData.get("oid")) );
+		}
+		return oids;
+	}
+	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		KpiVO kpi = new KpiVO();
@@ -226,7 +251,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				this.getFields().get("cal"),
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
 				this.transformAppendIds2List(this.getFields().get("emplOids")),
-				this.getFields().get("trendsFormulaOid")); 
+				this.getFields().get("trendsFormulaOid"),
+				this.getUploadOids()); 
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;
@@ -254,7 +280,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				this.getFields().get("cal"),
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
 				this.transformAppendIds2List(this.getFields().get("emplOids")),
-				this.getFields().get("trendsFormulaOid")); 
+				this.getFields().get("trendsFormulaOid"),
+				this.getUploadOids()); 
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;

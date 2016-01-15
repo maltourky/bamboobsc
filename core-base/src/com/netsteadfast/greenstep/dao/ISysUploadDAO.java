@@ -23,9 +23,14 @@ package com.netsteadfast.greenstep.dao;
 
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 public interface ISysUploadDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<TbSysUpload, String> {
 	
 	public int deleteTmpContent(String system) throws Exception;
+	
+	public SysUploadVO findForNoByteContent(PK oid) throws Exception;
+	
+	public int updateTypeOnly(PK oid, String type) throws Exception;
 	
 }

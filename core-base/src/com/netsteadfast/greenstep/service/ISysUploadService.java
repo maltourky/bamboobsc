@@ -22,7 +22,9 @@
 package com.netsteadfast.greenstep.service;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.service.IBaseService;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 public interface ISysUploadService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
@@ -30,5 +32,9 @@ public interface ISysUploadService<T extends java.io.Serializable, E extends jav
 	public static String MAPPER_ID_VO2PO="sysUpload.vo2po";
 	
 	public int deleteTmpContent(String system) throws ServiceException, Exception;
+	
+	public DefaultResult<SysUploadVO> findForNoByteContent(String oid) throws ServiceException, Exception;
+	
+	public DefaultResult<Boolean> updateTypeOnly(String oid, String type) throws ServiceException, Exception;
 	
 }

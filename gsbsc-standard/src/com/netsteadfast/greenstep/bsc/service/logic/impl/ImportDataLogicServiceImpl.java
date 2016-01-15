@@ -696,7 +696,8 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 						AggregationMethodUtils.findSimpleById(cal).getOid(), 
 						organizationOids, 
 						employeeOids,
-						BscFormulaUtils.getFormulaById(trendsForId).getOid());
+						BscFormulaUtils.getFormulaById(trendsForId).getOid(),
+						null);
 			} else { // insert
 				this.kpiLogicService.create(
 						kpi, 
@@ -705,7 +706,8 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 						AggregationMethodUtils.findSimpleById(cal).getOid(), 
 						organizationOids, 
 						employeeOids,
-						BscFormulaUtils.getFormulaById(trendsForId).getOid());
+						BscFormulaUtils.getFormulaById(trendsForId).getOid(),
+						null);
 			}			
 			success = true;
 		}

@@ -36,7 +36,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.dao.ISysUploadDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
@@ -90,6 +92,41 @@ public class SysUploadServiceImpl extends BaseService<SysUploadVO, TbSysUpload, 
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		return this.sysUploadDAO.deleteTmpContent(system);
+	}
+	
+	@Override
+	public DefaultResult<SysUploadVO> findForNoByteContent(String oid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(oid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK)); 
+		}
+		SysUploadVO upload = this.sysUploadDAO.findForNoByteContent(oid);
+		DefaultResult<SysUploadVO> result = new DefaultResult<SysUploadVO>();
+		if (upload!=null && !StringUtils.isBlank(upload.getOid())) {
+			result.setValue(upload);
+		} else {
+			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST)) );
+		}
+		return result;
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public DefaultResult<Boolean> updateTypeOnly(String oid, String type) throws ServiceException, Exception {
+		if (StringUtils.isBlank(oid) || StringUtils.isBlank(type)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK)); 
+		}		
+		DefaultResult<Boolean> result = new DefaultResult<Boolean>();
+		result.setValue(Boolean.FALSE);
+		if (this.sysUploadDAO.updateTypeOnly(oid, type)==1) {
+			result.setValue(Boolean.TRUE);
+			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS)) );
+		} else {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DELETE_FAIL));
+		}
+		return result;
 	}
 
 }
