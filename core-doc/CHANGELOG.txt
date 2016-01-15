@@ -4,7 +4,12 @@
 2. Add 07 - KPIs trends report(BSC_PROG003D0007Q) for default user role's menu-item. ( 0.6.1 SQL dump forget to add ) 
 3. Support configuration option to disable/enable captcha code on Login page. 0.6.2 default is disable captcha code. 
    reference: https://github.com/billchen198318/bamboobsc/issues/5
-4. Some modifications
+4. Support KPI attached files(document) for information/verification document.
+   reference: https://github.com/billchen198318/bamboobsc/issues/6   
+5. Some modifications
+
+database change:
+1. Add new table bb_kpi_attac
 
 
 0.6.1
