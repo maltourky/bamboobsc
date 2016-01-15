@@ -333,7 +333,10 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 		context.put("pieCanvasToData", SimpleUtils.deHex( this.defaultString( this.getFields().get("pieCanvasToData") ) ) );
 		context.put("barCanvasToData", SimpleUtils.deHex( this.defaultString( this.getFields().get("barCanvasToData") ) ) );
 		context.put("uploadSignatureOid", this.getFields().get("uploadSignatureOid") );
-		context.put("ngVer", YesNo.YES); // 有 javascript click 事件的版本
+		context.put("ngVer", YesNo.NO);
+		if ("Y".equals(this.getFields().get("ngVer"))) {
+			context.put("ngVer", YesNo.YES); // 有 javascript click 事件 kpi-report-body-ng.ftl 版本
+		}
 		if (!this.isNoSelectId(this.getFields().get("measureDataOrganizationOid"))) {
 			OrganizationVO organization = new OrganizationVO();
 			organization.setOid( this.getFields().get("measureDataOrganizationOid") );

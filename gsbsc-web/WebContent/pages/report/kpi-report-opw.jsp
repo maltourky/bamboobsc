@@ -57,7 +57,8 @@ function BSC_PROG003D0001Q_getOpenWindowView() {
 			'fields.measureDataEmployeeOid'		:	'${fields.opw_measureDataEmployeeOid}',
 			'fields.frequency'					:	'${fields.opw_frequency}',
 			'fields.nextType'					:	'${fields.opw_nextType}',
-			'fields.nextId'						:	'${fields.opw_nextId}'
+			'fields.nextId'						:	'${fields.opw_nextId}',
+			'fields.ngVer'						:	'N'
     	},
     	success	: function(data) {
     		if ('Y' != data.success) {

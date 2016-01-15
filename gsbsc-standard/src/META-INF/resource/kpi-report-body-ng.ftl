@@ -3,10 +3,11 @@
 	
 	<table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="${backgroundColor}">
 		<tr>
-			<td colspan="3" bgcolor="${vision.bgColor}" align="center" onclick="BSC_PROG003D0001Q_openNew();">
+			<td colspan="3" bgcolor="${vision.bgColor}" align="center" >
 				<b>
 				<font color="${vision.fontColor}" size="+2">
-					${vision.title}<BR/>
+					<a href="#" onclick="BSC_PROG003D0001Q_openNew(); return false;" style="color:${vision.fontColor}">${vision.title}</a>
+					<BR/>
 					score:&nbsp;${vision.score?string(',###.##')}
 				</font>
 				</b>
@@ -20,12 +21,12 @@
 		
 	<#list vision.perspectives as perspective >
 		<tr>
-			<td width="25%" bgcolor="${perspective.bgColor}" rowspan="${perspective.row}" onclick="BSC_PROG003D0001Q_openPerspective('${perspective.perId}');">
+			<td width="25%" bgcolor="${perspective.bgColor}" rowspan="${perspective.row}" >
 				<table border="0" width="100%">
 					<tr>
 						<td width="100%" colspan="2" bgcolor="${perspective.bgColor}">
 							<font color="${perspective.fontColor}" >
-							<b>${perspective.name}</b>
+							<b><a href="#" onclick="BSC_PROG003D0001Q_openPerspective('${perspective.perId}'); return false;" style="color:${perspective.fontColor}">${perspective.name}</a></b>
 							</font>
 							${perspective.imgIcon}
 						</td>						
@@ -95,12 +96,12 @@
 				<tr>
 			</#if>
 			
-			<td width="25%" bgcolor="${objective.bgColor}" rowspan="${objective.row}" onclick="BSC_PROG003D0001Q_openObjective('${objective.objId}');">
+			<td width="25%" bgcolor="${objective.bgColor}" rowspan="${objective.row}" >
 				<table border="0" width="100%">
 					<tr>
 						<td width="100%" colspan="2" bgcolor="${objective.bgColor}">
 							<font color="${objective.fontColor}" >
-							<b>${objective.name}</b>
+							<b><a href="#" onclick="BSC_PROG003D0001Q_openObjective('${objective.objId}'); return false;" style="color:${objective.fontColor}">${objective.name}</a></b>
 							</font>
 							${objective.imgIcon}
 						</td>						
@@ -166,12 +167,12 @@
 					
 				<#list objective.kpis as kpi >
 					
-					<td width="50%" bgcolor="${kpi.bgColor}" onclick="BSC_PROG003D0001Q_openKPI('${kpi.id}');">
+					<td width="50%" bgcolor="${kpi.bgColor}" >
 						<table border="0" width="100%">
 							<tr>
 								<td width="100%" colspan="2" bgcolor="${kpi.bgColor}">
 									<font color="${kpi.fontColor}" >
-									<b>${kpi.name}</b>
+									<b><a href="#" onclick="BSC_PROG003D0001Q_openKPI('${kpi.id}'); return false;" style="color:${kpi.fontColor}">${kpi.name}</a></b>
 									</font>
 									${kpi.imgIcon}
 								</td>						
@@ -317,6 +318,11 @@
 									<font color="${kpi.fontColor}" >
 									${kpi.description}
 									</font>
+									
+									<#list kpi.attachments as attac >
+									<br/><a href="#" onclick="openCommonLoadUpload( 'download', '${attac.uploadOid}', {}); return false;" style="color:${kpi.fontColor}">${attac.showName}</a>									
+									</#list>		
+																	
 								</td>
 							</tr>
 																																								

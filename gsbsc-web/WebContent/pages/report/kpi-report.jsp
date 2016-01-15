@@ -94,7 +94,8 @@ function BSC_PROG003D0001Q_query() {
 				'fields.dataFor'					:	dijit.byId("BSC_PROG003D0001Q_dataFor").get("value"),
 				'fields.measureDataOrganizationOid'	:	dijit.byId("BSC_PROG003D0001Q_measureDataOrganizationOid").get("value"),
 				'fields.measureDataEmployeeOid'		:	dijit.byId("BSC_PROG003D0001Q_measureDataEmployeeOid").get("value"),
-				'fields.frequency'					:	dijit.byId("BSC_PROG003D0001Q_frequency").get("value")
+				'fields.frequency'					:	dijit.byId("BSC_PROG003D0001Q_frequency").get("value"),
+				'fields.ngVer'						:	'Y'
 			}, 
 			'json', 
 			_gscore_dojo_ajax_timeout,
