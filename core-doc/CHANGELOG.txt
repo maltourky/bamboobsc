@@ -11,6 +11,21 @@
 database change:
 1. Add new table bb_kpi_attac
 
+sql:
+
+CREATE TABLE `bb_kpi_attac` (
+  `OID` char(36) NOT NULL,
+  `KPI_ID` varchar(14) NOT NULL,
+  `UPLOAD_OID` char(36) NOT NULL,
+  `VIEW_MODE` varchar(1) NOT NULL DEFAULT 'N',
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`KPI_ID`,`UPLOAD_OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 0.6.1
 -----------------------------------------------------------
