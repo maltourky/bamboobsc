@@ -77,6 +77,7 @@ import com.netsteadfast.greenstep.vo.VisionVO;
 @Scope
 public class KpiManagementAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = 2032871743482471209L;
+	private int maxAttachmentDocument = 5;
 	private IVisionService<VisionVO, BbVision, String> visionService;
 	private IFormulaService<FormulaVO, BbFormula, String> formulaService;
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
@@ -441,6 +442,10 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 
 	public List<BbKpiAttac> getKpiAttac() {
 		return kpiAttac;
+	}
+
+	public int getMaxAttachmentDocument() {
+		return maxAttachmentDocument;
 	}
 
 }

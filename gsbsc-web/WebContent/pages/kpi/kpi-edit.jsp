@@ -168,7 +168,7 @@ function BSC_PROG002D0004E_clearEmplAppendId() {
 }
 
 //------------------------------------------------------------------------------
-var BSC_PROG002D0004E_maxUpload = 5;
+var BSC_PROG002D0004E_maxUpload = ${maxAttachmentDocument};
 var BSC_PROG002D0004E_uploads = [];
 
 function BSC_PROG002D0004E_uploadDocument() {
