@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
@@ -47,6 +48,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.interceptor.UserAgentRejectInterceptor;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
@@ -77,6 +79,8 @@ import com.netsteadfast.greenstep.po.hbm.BbObjective;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 import com.netsteadfast.greenstep.service.ISysUploadService;
+import com.netsteadfast.greenstep.util.SimpleUtils;
+import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.FormulaVO;
 import com.netsteadfast.greenstep.vo.KpiAttacVO;
@@ -98,6 +102,8 @@ import com.thoughtworks.xstream.XStream;
 public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicService {
 	protected Logger logger=Logger.getLogger(KpiLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
+	private static Properties props = new Properties();
+	private static String VIEW_MODE_FILE_EXTENSION[] = null;
 	private IObjectiveService<ObjectiveVO, BbObjective, String> objectiveService;
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
 	private IFormulaService<FormulaVO, BbFormula, String> formulaService;
@@ -108,6 +114,15 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
 	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService; 
+	
+	static {
+		try {
+			props.load(UserAgentRejectInterceptor.class.getClassLoader().getResource("META-INF/KpiAttachmentViewModeFiles.properties").openStream());
+			VIEW_MODE_FILE_EXTENSION = SimpleUtils.getStr(props.getProperty("FILE_EXTENSION")).trim().split(",");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
 	
 	public KpiLogicServiceImpl() {
 		super();
@@ -436,11 +451,17 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			attac.setKpiId(kpi.getId());
 			attac.setUploadOid(uploadOid);
 			attac.setViewMode(YesNo.NO);
+			String fileExtensionName = UploadSupportUtils.getFileExtensionName(upload.getShowName());
+			for (int i=0; VIEW_MODE_FILE_EXTENSION!=null && i<VIEW_MODE_FILE_EXTENSION.length; i++) {
+				if (VIEW_MODE_FILE_EXTENSION[i].equals(fileExtensionName)) {
+					attac.setViewMode(YesNo.YES);
+				}
+			}
 			DefaultResult<KpiAttacVO> result = this.kpiAttacService.saveObject(attac);
 			if (result.getValue()==null) {
 				throw new ServiceException(result.getSystemMessage().getValue());
 			}
-			this.sysUploadService.updateTypeOnly(uploadOid, UploadTypes.IS_COMMON); // 暫時用 common 類別
+			this.sysUploadService.updateTypeOnly(uploadOid, UploadTypes.IS_KPI_DOCUMENT);
 		}
 	}
 	

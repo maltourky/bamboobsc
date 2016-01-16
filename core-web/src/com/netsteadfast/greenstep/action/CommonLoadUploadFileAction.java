@@ -25,9 +25,13 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -36,8 +40,12 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.FSUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 @ControllerAuthority(check=true)
 @Controller("core.web.controller.CommonLoadUploadFileAction")
@@ -45,6 +53,7 @@ import com.netsteadfast.greenstep.util.UploadSupportUtils;
 public class CommonLoadUploadFileAction extends BaseSupportAction {
 	private static final long serialVersionUID = 582037391631119994L;
 	protected Logger logger=Logger.getLogger(CommonLoadUploadFileAction.class);
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	private InputStream inputStream = null;
 	private String filename = "";
 	private String contentType = "";
@@ -55,6 +64,18 @@ public class CommonLoadUploadFileAction extends BaseSupportAction {
 		super();
 	}
 	
+	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
+		return sysUploadService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysUploadService")
+	@Required			
+	public void setSysUploadService(
+			ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
+		this.sysUploadService = sysUploadService;
+	}
+
 	private void loadData(File file) throws ServiceException, Exception {
 		if (StringUtils.isBlank(this.oid)) {
 			return;
@@ -72,6 +93,11 @@ public class CommonLoadUploadFileAction extends BaseSupportAction {
 			}
 		}
 		this.filename = file.getName();
+		DefaultResult<SysUploadVO> result = this.sysUploadService.findForNoByteContent(this.oid);
+		if (result.getValue()==null) {
+			return;
+		}
+		this.filename = result.getValue().getShowName();
 	}
 	
 	/**

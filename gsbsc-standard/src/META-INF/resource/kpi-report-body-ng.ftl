@@ -320,7 +320,16 @@
 									</font>
 									
 									<#list kpi.attachments as attac >
-									<br/><a href="#" onclick="openCommonLoadUpload( 'download', '${attac.uploadOid}', {}); return false;" style="color:${kpi.fontColor}">${attac.showName}</a>									
+										<#if attac.viewMode == 'Y' >
+											
+											<br/><a href="#" onclick="openCommonLoadUpload( 'view', '${attac.uploadOid}', { 'isDialog' : 'Y', 'title' : 'KPI document/attachment view', 'width' : 1280, 'height' : 768 } ); return false;" style="color:${kpi.fontColor}">${attac.showName}</a>
+											
+										<#else>
+									
+											<br/><a href="#" onclick="openCommonLoadUpload( 'download', '${attac.uploadOid}', {}); return false;" style="color:${kpi.fontColor}">${attac.showName}</a>
+									
+										</#if>
+																		
 									</#list>		
 																	
 								</td>

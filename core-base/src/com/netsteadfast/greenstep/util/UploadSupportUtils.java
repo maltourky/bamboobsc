@@ -352,7 +352,7 @@ public class UploadSupportUtils {
 		return result.getValue().getOid();
 	}	
 	
-	private static String getFileExtensionName(String fileFullName) {
+	public static String getFileExtensionName(String fileFullName) {
 		if (StringUtils.isBlank(fileFullName)) {
 			return "";
 		}

@@ -30,7 +30,8 @@ public class UploadTypes {
 	public static final String IS_IMAGE = "image"; // 圖片
 	public static final String IS_TEMP = "tmp"; // 暫存
 	public static final String IS_COMMON = "common"; // 供用
-	public static final String TYPES[] = new String[]{ IS_IMAGE, IS_TEMP, IS_COMMON };
+	public static final String IS_KPI_DOCUMENT = "kpi-doc"; // 給KPI的document類別用
+	public static final String TYPES[] = new String[]{ IS_IMAGE, IS_TEMP, IS_COMMON, IS_KPI_DOCUMENT };
 	
 	public static Map<String, String> getDataMap(boolean pleaseSelect) {
 		Map<String, String> dataMap = new LinkedHashMap<String, String>();
@@ -40,6 +41,7 @@ public class UploadTypes {
 		dataMap.put(IS_TEMP, IS_TEMP);
 		dataMap.put(IS_IMAGE, IS_IMAGE);
 		dataMap.put(IS_COMMON, IS_COMMON);
+		dataMap.put(IS_KPI_DOCUMENT, IS_KPI_DOCUMENT);
 		return dataMap;
 	}
 	
