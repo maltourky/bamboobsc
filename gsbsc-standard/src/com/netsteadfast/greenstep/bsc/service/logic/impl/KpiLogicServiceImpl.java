@@ -451,9 +451,10 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			attac.setKpiId(kpi.getId());
 			attac.setUploadOid(uploadOid);
 			attac.setViewMode(YesNo.NO);
-			String fileExtensionName = UploadSupportUtils.getFileExtensionName(upload.getShowName());
+			String fileExtensionName = super.defaultString( UploadSupportUtils.getFileExtensionName(upload.getShowName()) )
+					.trim().toLowerCase();
 			for (int i=0; VIEW_MODE_FILE_EXTENSION!=null && i<VIEW_MODE_FILE_EXTENSION.length; i++) {
-				if (VIEW_MODE_FILE_EXTENSION[i].equals(fileExtensionName)) {
+				if (VIEW_MODE_FILE_EXTENSION[i].toLowerCase().equals(fileExtensionName)) {
 					attac.setViewMode(YesNo.YES);
 				}
 			}
