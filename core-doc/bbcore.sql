@@ -2380,7 +2380,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861452857876142',1452858125246,7500);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861452915640549',1452915874933,7500);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2484,7 +2484,7 @@ CREATE TABLE `qrtz_triggers` (
 
 LOCK TABLES `qrtz_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1452858180000,1452858120000,0,'WAITING','CRON',1452857875000,0,NULL,0,'');
+INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1452915900000,1452915840000,0,'WAITING','CRON',1452915640000,0,NULL,0,'');
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2881,7 +2881,7 @@ CREATE TABLE `tb_sys_ctx_bean` (
 
 LOCK TABLES `tb_sys_ctx_bean` WRITE;
 /*!40000 ALTER TABLE `tb_sys_ctx_bean` DISABLE KEYS */;
-INSERT INTO `tb_sys_ctx_bean` VALUES ('0de6977f-8638-492f-a797-46e69ec7dc9e','CORE','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','DESTROY','clean uplaod type is temp data!','admin','2014-11-03 10:49:59',NULL,NULL),('142c4cdb-35b4-4b54-a57d-1f3fecb63233','BSC','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:13',NULL,NULL),('2888cff0-2886-4788-9e1f-fa8c6c7d5a6f','QCHARTS','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:25',NULL,NULL),('5efe46f0-6b5c-4aa6-a57f-701a28af5377','CORE','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','INITIALIZE','clean uplaod type is temp data!','admin','2014-11-03 10:49:46',NULL,NULL),('6b00712f-0271-4f93-8bb4-61a6e4d0222b','BSC','com.netsteadfast.greenstep.bsc.support.CleanJasperReportTempDataForContextInitAndDestroy','INITIALIZE','clean SWOT jasperreport data!','admin','2014-12-21 14:15:03',NULL,NULL),('a51af85a-aff9-4b38-b944-5ba421ffa0bf','CORE','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:00',NULL,NULL),('a757a8e3-f38e-4b97-80f1-6393b4bf27c9','BSC','com.netsteadfast.greenstep.bsc.support.CleanJasperReportTempDataForContextInitAndDestroy','DESTROY','clean SWOT jasperreport data!','admin','2014-12-21 14:15:22',NULL,NULL),('e18f4e78-9f4f-41dd-a9dd-7d721a0a0c3b','CORE','com.netsteadfast.greenstep.support.DeployJreportForContextInitialized','INITIALIZE','for deploy jasperreport to report-dir!','admin','2014-11-02 17:03:48',NULL,NULL);
+INSERT INTO `tb_sys_ctx_bean` VALUES ('0de6977f-8638-492f-a797-46e69ec7dc9e','CORE','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','DESTROY','clean uplaod type is temp data!','admin','2014-11-03 10:49:59',NULL,NULL),('142c4cdb-35b4-4b54-a57d-1f3fecb63233','BSC','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:13',NULL,NULL),('2888cff0-2886-4788-9e1f-fa8c6c7d5a6f','QCHARTS','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:25',NULL,NULL),('5efe46f0-6b5c-4aa6-a57f-701a28af5377','CORE','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','INITIALIZE','clean uplaod type is temp data!','admin','2014-11-03 10:49:46',NULL,NULL),('637ef16f-fbad-41db-bee4-a82cac3477ec','BSC','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','INITIALIZE','clean uplaod type is temp data!','admin','2016-01-16 11:43:22',NULL,NULL),('6b00712f-0271-4f93-8bb4-61a6e4d0222b','BSC','com.netsteadfast.greenstep.bsc.support.CleanJasperReportTempDataForContextInitAndDestroy','INITIALIZE','clean SWOT jasperreport data!','admin','2014-12-21 14:15:03',NULL,NULL),('9014b293-d0e0-4bfb-be0d-63863d687f65','QCHARTS','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','INITIALIZE','clean uplaod type is temp data!','admin','2016-01-16 11:43:48',NULL,NULL),('a51af85a-aff9-4b38-b944-5ba421ffa0bf','CORE','com.netsteadfast.greenstep.support.ConfigureAppSiteHostForContextInitialized','INITIALIZE','modify app-site\'s host-address! only first run.','admin','2015-01-23 09:36:00',NULL,NULL),('a757a8e3-f38e-4b97-80f1-6393b4bf27c9','BSC','com.netsteadfast.greenstep.bsc.support.CleanJasperReportTempDataForContextInitAndDestroy','DESTROY','clean SWOT jasperreport data!','admin','2014-12-21 14:15:22',NULL,NULL),('c21cf706-2c4a-4b0c-b39e-3931c32a425f','BSC','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','DESTROY','clean uplaod type is temp data!','admin','2016-01-16 11:43:37',NULL,NULL),('e18f4e78-9f4f-41dd-a9dd-7d721a0a0c3b','CORE','com.netsteadfast.greenstep.support.DeployJreportForContextInitialized','INITIALIZE','for deploy jasperreport to report-dir!','admin','2014-11-02 17:03:48',NULL,NULL),('e5b37e11-4d8d-4471-857f-0b66812a4ef5','QCHARTS','com.netsteadfast.greenstep.support.CleanTempUploadForContextInitAndDestroy','DESTROY','clean uplaod type is temp data!','admin','2016-01-16 11:44:01',NULL,NULL);
 /*!40000 ALTER TABLE `tb_sys_ctx_bean` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3864,4 +3864,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-15 19:43:06
+-- Dump completed on 2016-01-16 11:46:22
