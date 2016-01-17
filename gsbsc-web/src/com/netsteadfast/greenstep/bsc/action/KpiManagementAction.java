@@ -61,6 +61,8 @@ import com.netsteadfast.greenstep.po.hbm.BbObjective;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbPerspective;
 import com.netsteadfast.greenstep.po.hbm.BbVision;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.AggregationMethodVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
@@ -70,6 +72,7 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.PerspectiveVO;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 import com.netsteadfast.greenstep.vo.VisionVO;
 
 @ControllerAuthority(check=true)
@@ -87,6 +90,7 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService;
 	private IAggregationMethodService<AggregationMethodVO, BbAggregationMethod, String> aggregationMethodService;
 	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	private Map<String, String> visionMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> perspectiveMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> objectiveMap = this.providedSelectZeroDataMap(true);
@@ -99,7 +103,7 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private Map<String, String> trendsFormulaMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> quasiRangeMap = BscKpiCode.getQuasiRangeMap();
 	private KpiVO kpi = new KpiVO();
-	private List<BbKpiAttac> kpiAttac = null;
+	private List<KpiAttacVO> kpiAttac = null;
 	
 	public KpiManagementAction() {
 		super();
@@ -212,6 +216,18 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		this.kpiAttacService = kpiAttacService;
 	}
 
+	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
+		return sysUploadService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="core.service.SysUploadService")		
+	public void setSysUploadService(
+			ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
+		this.sysUploadService = sysUploadService;
+	}
+
 	private void initData() throws ServiceException, Exception {
 		this.visionMap = this.visionService.findForMap(true);
 		this.formulaMap = this.formulaService.findForMap(true, false);
@@ -229,7 +245,15 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		this.handlerSelectValueForEdit();
 		this.handlerKpiOrgaAndEmplForEdit();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		this.kpiAttac = this.kpiAttacService.findListByParams(paramMap);
+		this.kpiAttac = this.kpiAttacService.findListVOByParams(paramMap);
+		for (int i=0; this.kpiAttac!=null && i<this.kpiAttac.size(); i++) {
+			KpiAttacVO attac = this.kpiAttac.get(i);
+			attac.setShowName( "unknown-"+attac.getUploadOid() );
+			DefaultResult<SysUploadVO> upResult = this.sysUploadService.findForNoByteContent(attac.getUploadOid());
+			if (upResult.getValue()!=null) {
+				attac.setShowName(upResult.getValue().getShowName());
+			}
+		}
 	}
 	
 	private void handlerKpiOrgaAndEmplForEdit() throws ServiceException, Exception {
@@ -439,11 +463,11 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	public KpiVO getKpi() {
 		return kpi;
 	}
-
-	public List<BbKpiAttac> getKpiAttac() {
+	
+	public List<KpiAttacVO> getKpiAttac() {
 		return kpiAttac;
 	}
-
+	
 	public int getMaxAttachmentDocument() {
 		return maxAttachmentDocument;
 	}

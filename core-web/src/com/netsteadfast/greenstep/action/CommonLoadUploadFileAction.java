@@ -97,7 +97,10 @@ public class CommonLoadUploadFileAction extends BaseSupportAction {
 		if (result.getValue()==null) {
 			return;
 		}
-		this.filename = result.getValue().getShowName();
+		if (!StringUtils.isAsciiPrintable(result.getValue().getShowName())) {
+			return;
+		}
+		this.filename = result.getValue().getShowName();		
 	}
 	
 	/**

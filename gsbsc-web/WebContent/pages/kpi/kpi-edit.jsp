@@ -593,7 +593,7 @@ function ${programId}_page_message() {
 <s:if test="kpiAttac!=null && kpiAttac.size!=0">
 <script type="text/javascript">
 <s:iterator value="kpiAttac" status="st">
-BSC_PROG002D0004E_uploads.push( {oid: '<s:property value="uploadOid" />' , name: BSC_PROG002D0004E_getUploadShowName('<s:property value="uploadOid" />')} );
+BSC_PROG002D0004E_uploads.push( {oid: '<s:property value="uploadOid" />' , name: '<s:property value="showName" escapeJavaScript="true"/>'} );
 </s:iterator>
 BSC_PROG002D0004E_showUploadDataTable();
 </script>
