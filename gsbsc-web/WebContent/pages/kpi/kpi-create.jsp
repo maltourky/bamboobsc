@@ -213,20 +213,22 @@ function BSC_PROG002D0004A_clearUploadDataTable() {
 function BSC_PROG002D0004A_showUploadDataTable() {
 	var size = BSC_PROG002D0004A_uploads.length;	
 	var txtContent = '';
-	txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
-	txtContent += '<tr>';
-	txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
-	txtContent += '<td width="80%" align="left" bgcolor="#f5f5f5"><b>Documents (file name)</b></td>';
-	txtContent += '</tr>';
-	for (var n=0; n<size; n++) {
-		var dataItem = BSC_PROG002D0004A_uploads[n];
+	if (BSC_PROG002D0004A_uploads.length > 0) {
+		txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
 		txtContent += '<tr>';
-		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG002D0004A_delUpload(\'' + dataItem.oid + '\');" /> ';
-		txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
-		txtContent += '<td width="80%" align="left" bgcolor="#ffffff"><a href="#" onclick="openCommonLoadUpload( \'download\', \'' + dataItem.oid + '\', {}); return false;" style="color:#424242">' + dataItem.name + '</a></td>';
-		txtContent += '</tr>';				
+		txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
+		txtContent += '<td width="80%" align="left" bgcolor="#f5f5f5"><b>Documents (file name)</b></td>';
+		txtContent += '</tr>';
+		for (var n=0; n<size; n++) {
+			var dataItem = BSC_PROG002D0004A_uploads[n];
+			txtContent += '<tr>';
+			var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG002D0004A_delUpload(\'' + dataItem.oid + '\');" /> ';
+			txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
+			txtContent += '<td width="80%" align="left" bgcolor="#ffffff"><a href="#" onclick="openCommonLoadUpload( \'download\', \'' + dataItem.oid + '\', {}); return false;" style="color:#424242">' + dataItem.name + '</a></td>';
+			txtContent += '</tr>';				
+		}
+		txtContent += '</table>';		
 	}
-	txtContent += '</table>';	
 	dojo.byId( 'BSC_PROG002D0004A_uploadDocumentTable' ).innerHTML = txtContent;	
 }
 function BSC_PROG002D0004A_getUploadShowName(oid) {
@@ -460,6 +462,9 @@ function ${programId}_page_message() {
 							BSC_PROG001D0002Q_S00_DlgShow('BSC_PROG002D0004A_appendOrganizationOid;BSC_PROG002D0004A_reloadOrganizationAppendName');
 						}
 					"></button>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_deptSelect'">
+    				Select KPI's organization/department. 
+				</div>					
 				<button name="BSC_PROG002D0004A_deptClear" id="BSC_PROG002D0004A_deptClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,
@@ -468,6 +473,9 @@ function ${programId}_page_message() {
 							BSC_PROG002D0004A_clearOrgaAppendId();
 						}
 					"></button>	
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_deptClear'">
+    				Clear KPI's organization/department. 
+				</div>					
 				<br/>	    			    			
     			<span id="BSC_PROG002D0004A_organizationAppendName"></span>    			
     		</td>
@@ -484,6 +492,9 @@ function ${programId}_page_message() {
 							BSC_PROG001D0001Q_S00_DlgShow('BSC_PROG002D0004A_appendEmployeeOid;BSC_PROG002D0004A_reloadEmployeeAppendName');
 						}
 					"></button>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_emplSelect'">
+    				Select KPI's owner(Employee). 
+				</div>						
 				<button name="BSC_PROG002D0004A_emplClear" id="BSC_PROG002D0004A_emplClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,
@@ -492,6 +503,9 @@ function ${programId}_page_message() {
 							BSC_PROG002D0004A_clearEmplAppendId();
 						}
 					"></button>		
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_emplClear'">
+    				Clear KPI's owner(Employee). 
+				</div>											
 				<br/>
 				<span id="BSC_PROG002D0004A_employeeAppendName"></span>	    			
     		</td>    
@@ -537,7 +551,21 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG002D0004A_uploadDocument();
 						}
-					">Upload document/attachment</button>			    	
+					"></button>		
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_uploadDocumentBtn'">
+    				Upload KPI's document/attachment. 
+				</div>  
+				<button name="BSC_PROG002D0004A_uploadDocumentClearBtn" id="BSC_PROG002D0004A_uploadDocumentClearBtn" data-dojo-type="dijit.form.Button"
+					data-dojo-props="
+						showLabel:false,
+						iconClass:'dijitIconClear',
+						onClick:function(){ 
+							BSC_PROG002D0004A_clearUploadDataTable();
+						}
+					"></button>		
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_uploadDocumentClearBtn'">
+    				Clear KPI's upload document/attachment. 
+				</div>												    	
 		    	<br/>
 		    	<div id="BSC_PROG002D0004A_uploadDocumentTable"></div>
 		    </td>
