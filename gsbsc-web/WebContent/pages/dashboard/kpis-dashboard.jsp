@@ -429,8 +429,26 @@ function BSC_PROG003D0006Q_showKpiItemsDataContentTable( kpi ) {
 	content += '<tr>';
 	content += '<td bgcolor="#ffffff" align="center" >' + kpi.description + '</td>';
 	content += '</tr>';	
+	if (kpi.attachments!=null) {
+		content += '<tr>';
+		content += '<td bgcolor="#ffffff" align="center" >' + BSC_PROG003D0006Q_getKpiAttacUrl(kpi.attachments) + '</td>';
+		content += '</tr>';				
+	}
 	content += '</table>';
 	return content;		
+}
+function BSC_PROG003D0006Q_getKpiAttacUrl(attac) {
+	var urlStr = '';	
+	for (var i=0; i<attac.length; i++) {
+		var o = attac[i];
+		if ('Y' == o.viewMode) {
+			urlStr += '<a href="#" onclick="openCommonLoadUpload( \'view\', \'' + o.uploadOid + '\', { \'isDialog\' : \'Y\', \'title\' : \'KPI document/attachment view\', \'width\' : 1280, \'height\' : 768 }); return false;" style="color:#000000">' + o.showName + '</a>';
+		} else {
+			urlStr += '<a href="#" onclick="openCommonLoadUpload( \'download\', \'' + o.uploadOid + '\', {}); return false;" style="color:#000000">' + o.showName + '</a>';
+		}		
+		urlStr += '<br/>';
+	}
+	return urlStr;
 }
 
 function BSC_PROG003D0006Q_generateExport(type) {
