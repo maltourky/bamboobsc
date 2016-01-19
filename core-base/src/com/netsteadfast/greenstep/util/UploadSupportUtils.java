@@ -142,11 +142,15 @@ public class UploadSupportUtils {
 		return result;
 	}
 	
-	public static void cleanTempUpload() throws ServiceException, Exception {
-		logger.info("clean upload temp begin...");
-		sysUploadService.deleteTmpContent(Constants.getSystem());
+	public static void cleanTempUpload() throws ServiceException, Exception {		
+		cleanTempUpload(Constants.getSystem());
+	}
+	
+	public static void cleanTempUpload(String system) throws ServiceException, Exception {
+		logger.info("clean upload(" + system + ") temp begin...");
+		sysUploadService.deleteTmpContent(system);
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("system", Constants.getSystem());
+		params.put("system", system);
 		params.put("type", UploadTypes.IS_TEMP);
 		params.put("isFile", YesNo.YES);		
 		List<TbSysUpload> searchList = sysUploadService.findListByParams(params);		
@@ -168,7 +172,7 @@ public class UploadSupportUtils {
 			}
 		}		
 		logger.info("end...");
-	}
+	}	
 	
 	public static String getSubDir() {
 		return SimpleUtils.getStrYMD(SimpleUtils.IS_YEAR);

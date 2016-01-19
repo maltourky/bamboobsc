@@ -32,6 +32,7 @@
 		<property name="triggers">
 	    	<list>
 				<ref bean="core.job.SendMailHelperJobCronTrigger" />
+				<ref bean="core.job.ClearTempDataJobCronTrigger" />
 	    	</list>
 		</property>
     	<property name="quartzProperties">            

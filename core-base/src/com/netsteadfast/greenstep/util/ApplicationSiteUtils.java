@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,14 @@ import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.vo.SysVO;
 
 public class ApplicationSiteUtils {
-	private static Map<String, String> contextPathMap = new HashMap<String, String>();
+	private static Map<String, String> contextPathMap = new HashMap<String, String>();	
+	
+	@SuppressWarnings("unchecked")
+	public static List<SysVO> getSystems() throws ServiceException, Exception {
+		ISysService<SysVO, TbSys, String> sysService = 
+				(ISysService<SysVO, TbSys, String>)AppContext.getBean("core.service.SysService");		
+		return sysService.findListVOByParams( null );
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static String getHost(String sysId) {
