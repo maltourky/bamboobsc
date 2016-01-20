@@ -97,7 +97,7 @@ public class TextBox implements UIComponent {
 	private void generateHtml() {
 		try {
 			htmlOut.append( ComponentResourceUtils.generatorResource(
-					TextBox.class, IS_HTML, "META-INF/resource/textbox/ui.textbox.htm", this.getParameters(IS_HTML)) );
+					TextBox.class, IS_HTML, "META-INF/resource/textbox/ui.textbox.htm.ftl", this.getParameters(IS_HTML)) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

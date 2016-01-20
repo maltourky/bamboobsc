@@ -85,7 +85,7 @@ public class Button implements UIComponent {
 	private void generateXhrScript() {		
 		try {
 			script.append( ComponentResourceUtils.generatorResource(
-					Button.class, IS_SCRIPT, "META-INF/resource/button/ui.button.js", this.getParameters(IS_SCRIPT)) );
+					Button.class, IS_SCRIPT, "META-INF/resource/button/ui.button.js.ftl", this.getParameters(IS_SCRIPT)) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,7 +94,7 @@ public class Button implements UIComponent {
 	private void generateHtml() {
 		try {
 			htmlOut.append( ComponentResourceUtils.generatorResource(
-					Button.class, IS_HTML, "META-INF/resource/button/ui.button.htm", this.getParameters(IS_HTML)) );
+					Button.class, IS_HTML, "META-INF/resource/button/ui.button.htm.ftl", this.getParameters(IS_HTML)) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

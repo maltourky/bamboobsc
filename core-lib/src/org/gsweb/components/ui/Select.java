@@ -110,7 +110,7 @@ public class Select implements UIComponent {
 	private void generateHtml() {
 		try {
 			htmlOut.append( ComponentResourceUtils.generatorResource(
-					Select.class, IS_HTML, "META-INF/resource/select/ui.select.htm", this.getParameters(IS_HTML)) );
+					Select.class, IS_HTML, "META-INF/resource/select/ui.select.htm.ftl", this.getParameters(IS_HTML)) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

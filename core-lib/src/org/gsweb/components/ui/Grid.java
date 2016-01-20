@@ -95,7 +95,7 @@ public class Grid implements UIComponent {
 	private void generateScript() {	
 		try {
 			script.append( ComponentResourceUtils.generatorResource(
-					Grid.class, IS_SCRIPT, "META-INF/resource/grid/ui.grid.js", this.getParameters(IS_SCRIPT, null)) );
+					Grid.class, IS_SCRIPT, "META-INF/resource/grid/ui.grid.js.ftl", this.getParameters(IS_SCRIPT, null)) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -105,7 +105,7 @@ public class Grid implements UIComponent {
 		Locale locale = ActionContext.getContext().getLocale();
 		try {
 			htmlOut.append( ComponentResourceUtils.generatorResource(
-					Grid.class, IS_HTML, "META-INF/resource/grid/ui.grid.htm", this.getParameters(IS_HTML, locale.getLanguage())) );
+					Grid.class, IS_HTML, "META-INF/resource/grid/ui.grid.htm.ftl", this.getParameters(IS_HTML, locale.getLanguage())) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

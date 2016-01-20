@@ -147,7 +147,7 @@ public class ToolBar implements UIComponent {
 		Locale locale = ActionContext.getContext().getLocale();
 		try {
 			htmlOut.append( ComponentResourceUtils.generatorResource(
-					ToolBar.class, IS_HTML, "META-INF/resource/toolbar/ui.toolbar.htm", this.getParameters(IS_HTML, locale.getLanguage())) );
+					ToolBar.class, IS_HTML, "META-INF/resource/toolbar/ui.toolbar.htm.ftl", this.getParameters(IS_HTML, locale.getLanguage())) );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
