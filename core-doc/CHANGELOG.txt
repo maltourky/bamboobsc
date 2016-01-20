@@ -7,24 +7,9 @@
 4. Support KPI attached files(document) for information/verification document.
    reference: https://github.com/billchen198318/bamboobsc/issues/6   
 5. Some modifications
-
-database change:
-1. Add new table bb_kpi_attac
-
-sql:
-
-CREATE TABLE `bb_kpi_attac` (
-  `OID` char(36) NOT NULL,
-  `KPI_ID` varchar(14) NOT NULL,
-  `UPLOAD_OID` char(36) NOT NULL,
-  `VIEW_MODE` varchar(1) NOT NULL DEFAULT 'N',
-  `CUSERID` varchar(24) NOT NULL,
-  `CDATE` datetime NOT NULL,
-  `UUSERID` varchar(24) DEFAULT NULL,
-  `UDATE` datetime DEFAULT NULL,
-  PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`KPI_ID`,`UPLOAD_OID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+6. *** please re-import bbcore.sql to MySQL *** 
+   If have previous data in MYSQL(bbcore) E.g: 0.6.1 old version, 
+   but did not re-import the SQL file to MYSQL(bbcore), the 0.6.2 version program will not work done.
 
 
 0.6.1
