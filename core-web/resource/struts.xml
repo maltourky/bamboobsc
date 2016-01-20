@@ -13,7 +13,7 @@
 	<constant name="struts.objectFactory.spring.autoWire" value="name" />
 	<constant name="struts.objectFactory.spring.useClassCache" value="true" />	
 	<constant name="struts.custom.i18n.resources" value="global" />
-	<constant name="struts.multipart.maxSize" value="102400000" />
+	<constant name="struts.multipart.maxSize" value="8388608" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
 	<constant name="struts.action.excludePattern" value="/jsp/webui/.*,/dwr/.*,/services/.*,/spring3mvc-controller/.*,/dojo_demo_data/.*" />		
