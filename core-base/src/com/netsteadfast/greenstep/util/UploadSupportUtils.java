@@ -311,6 +311,12 @@ public class UploadSupportUtils {
 			throw new Exception("error. file exists, cannot operate!");
 		}
 		newFile = null;
+		File oldFile = new File(oldFullPath);
+		if (!oldFile.exists()) {
+			oldFile = null;
+			throw new Exception("error. file no exists: " + oldFullPath);
+		}
+		oldFile = null;
 		FSUtils.cp(oldFullPath, newFullPath);
 		FSUtils.rm(oldFullPath);
 		return result;

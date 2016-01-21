@@ -70,6 +70,7 @@ public class CommonUploadFileAction extends BaseJsonAction {
 	
 	private String showName = ""; // 給  getFileNames 用的
 	private String fileName = ""; // 給  getFileNames 用的
+	private String fileExist = YesNo.NO; // 給  getFileNames 用的
 	
 	public CommonUploadFileAction() {
 		super();
@@ -146,13 +147,22 @@ public class CommonUploadFileAction extends BaseJsonAction {
 			this.message = result.getSystemMessage().getValue();
 			return;
 		}
-		this.fileName = super.defaultString( result.getValue().getFileName() ).trim();
-		this.showName = super.defaultString( result.getValue().getShowName() ).trim();
+		SysUploadVO uploadData = result.getValue();
+		this.fileName = super.defaultString( uploadData.getFileName() ).trim();
+		this.showName = super.defaultString( uploadData.getShowName() ).trim();
 		//this.showName = StringEscapeUtils.escapeEcmaScript( this.showName );
 		//this.showName = StringEscapeUtils.escapeHtml4( this.showName );
 		this.showName = this.showName.replaceAll("'", "’").replaceAll("\"", "＂").replaceAll("<", "＜").replaceAll(">", "＞");		
 		this.success = IS_YES;
 		this.message = "load success!";
+		if (YesNo.YES.equals(uploadData.getIsFile())) {
+			@SuppressWarnings("unused")
+			File dataFile = UploadSupportUtils.getRealFile(uploadData.getOid());
+			this.fileExist = YesNo.YES;
+			dataFile = null;
+		} else {
+			this.fileExist = YesNo.YES;
+		}
 	}
 	
 	/**
@@ -192,6 +202,8 @@ public class CommonUploadFileAction extends BaseJsonAction {
 	 */
 	@ControllerMethodAuthority(programId="CORE_PROGCOMM0002Q")
 	public String getFileNames() throws Exception {
+		this.fileExist = YesNo.NO;
+		this.success = IS_NO;
 		try {
 			if (!this.allowJob()) {
 				this.message = this.getNoAllowMessage();
@@ -320,6 +332,14 @@ public class CommonUploadFileAction extends BaseJsonAction {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getFileExist() {
+		return fileExist;
+	}
+
+	public void setFileExist(String fileExist) {
+		this.fileExist = fileExist;
 	}
 
 }

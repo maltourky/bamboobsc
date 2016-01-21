@@ -354,7 +354,8 @@ function getUploadFileNames(uploadOid) {
 	    				names.push({
 	    					'oid'		: uploadOid,
 	    					'showName'	: data.showName,
-	    					'fileName'	: data.fileName
+	    					'fileName'	: data.fileName,
+	    					'fileExist'	: data.fileExist
 	    				});	    				
 	    			}
 				}, 
@@ -447,13 +448,43 @@ function openCommonCodeEditorWindow( uploadOid, valueFieldId, okFn, lang ) { // 
 }
 
 /**
- * 下載檔案 or 檢視圖片
+ * 下載檔案 or 檢視圖片, 會先檢查檔案是否存在
  * 
  * @param type
  * @param uploadOid
  * @param paramData
  */
 function openCommonLoadUpload( type, uploadOid, paramData ) {
+	xhrSendParameterNoWatitDlg(
+			'./core.commonLoadUploadFileNamesAction.action', 
+			{
+				'uploadOid'	: uploadOid 
+			},
+			'json', 
+			_gscore_dojo_ajax_timeout, 
+			true, // not change to false(async)
+			true, 
+			function(data){
+    			if ('Y'!=data.success || 'Y'!=data.fileExist) {
+    				alert( data.message );
+    				return;
+    			}
+    			openCommonLoadUploadDataAction( type, uploadOid, paramData );
+			}, 
+			function(error){
+				alert(error);					
+			}
+	);			
+}
+
+/**
+ * 下載檔案 or 檢視圖片
+ * 
+ * @param type
+ * @param uploadOid
+ * @param paramData
+ */
+function openCommonLoadUploadDataAction( type, uploadOid, paramData ) {
 	var downloadIFrameId = '_gs_downloadIFrame';
 	if ( 'view' == type ) {
 		var isDialog = paramData["isDialog"];
