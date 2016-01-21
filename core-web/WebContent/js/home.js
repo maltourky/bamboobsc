@@ -274,7 +274,7 @@ function hideCommonUploadDialog() {
  * 
  * @param system
  * @param type
- * @param isFile
+ * @param isFile 如果type是會狀態變更的資料, isFile只能使用'N', 除非自己補寫更新 tb_sys_upload.type 狀態時, 也會搬移檔案至新type目錄之下.
  * @param uploadOidField
  * @param callJsFunction
  * @param callJsErrFunction
