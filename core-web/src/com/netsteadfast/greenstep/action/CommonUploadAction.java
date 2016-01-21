@@ -76,6 +76,18 @@ public class CommonUploadAction extends BaseSupportAction {
 		String maxsize = super.getLoadStrutsConstants().get(StrutsConstants.STRUTS_MULTIPART_MAXSIZE);
 		return NumberUtils.isNumber(maxsize) ? maxsize : "8388608";
 	}
+	
+	public String getUploadMultipartMaxSizeLabel() {
+		Long size = NumberUtils.toLong(this.getUploadMultipartMaxSize(), 0L);
+		if (size<1024) {
+			return size + " bytes";
+		}
+		size = size/1024;
+		if (size<1024) {
+			return size + " KB";
+		}
+		return (size/1024) + " MB";
+	}
 
 	public String getType() {
 		return type;

@@ -41,6 +41,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.FSUtils;
@@ -80,23 +81,33 @@ public class CommonLoadUploadFileAction extends BaseSupportAction {
 		if (StringUtils.isBlank(this.oid)) {
 			return;
 		}
-		file = UploadSupportUtils.getRealFile(this.oid);
-		if (!file.exists()) {
-			return;
-		}
-		this.inputStream = new ByteArrayInputStream( FileUtils.readFileToByteArray(file) );
-		if ("view".equals(this.type)) {
-			try {
-				this.contentType = FSUtils.getMimeType4URL(file);
-			} catch (Exception e) {
-				logger.warn( e.getMessage().toString() );
-			}
-		}
-		this.filename = file.getName();
 		DefaultResult<SysUploadVO> result = this.sysUploadService.findForNoByteContent(this.oid);
 		if (result.getValue()==null) {
-			return;
+			throw new ControllerException(result.getSystemMessage().getValue());
+		}		
+		SysUploadVO uploadData = result.getValue();
+		if (YesNo.YES.equals(uploadData.getIsFile())) {
+			file = UploadSupportUtils.getRealFile(this.oid);
+			if (!file.exists()) {
+				return;
+			}
+			this.inputStream = new ByteArrayInputStream( FileUtils.readFileToByteArray(file) );
+			this.filename = file.getName();
+		} else {
+			this.inputStream = new ByteArrayInputStream( UploadSupportUtils.getDataBytes(this.oid) );			
+			this.filename = UploadSupportUtils.generateRealFileName(uploadData.getShowName());
 		}
+		if ("view".equals(this.type)) {
+			if (file!=null) {
+				try {
+					this.contentType = FSUtils.getMimeType(file);
+				} catch (Exception e) {
+					logger.warn( e.getMessage().toString() );
+				}				
+			} else {
+				this.contentType = FSUtils.getMimeType(uploadData.getShowName());
+			}
+		}		
 		if (!StringUtils.isAsciiPrintable(result.getValue().getShowName())) {
 			return;
 		}

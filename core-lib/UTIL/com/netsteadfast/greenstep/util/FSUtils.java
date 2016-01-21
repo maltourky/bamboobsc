@@ -26,10 +26,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.activation.MimetypesFileTypeMap;
+import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 
 public class FSUtils {
 	public static boolean cp(final String sourceFile, final String destFile) {
@@ -170,14 +171,22 @@ public class FSUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getMimeType4MFTM(File file) throws Exception {
+	public static String getMimeType(File file) throws Exception {		
 		String mimeType="";
 		if (file==null || !file.exists() || file.isDirectory() ) {
 			return mimeType;
 		}
+		/*
 		mimeType=new MimetypesFileTypeMap().getContentType(file);
 		return mimeType;
+		*/
+		return Files.probeContentType(file.toPath());
 	}
+	
+	public static String getMimeType(String filename) throws Exception {
+		ConfigurableMimeFileTypeMap mfm = new ConfigurableMimeFileTypeMap();		
+		return mfm.getContentType(filename);
+	}	
 	
 	/**
 	 * get MIME-TYPE 

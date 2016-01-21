@@ -65,7 +65,7 @@ function ${programId}_page_message() {
 	<input type="hidden" name="system" id="CORE_PROGCOMM0002Q_system" value="${system}"/>
 	<input type="hidden" name="isFile" id="CORE_PROGCOMM0002Q_isFile" value="${isFile}"/>
 	<div>		
-		<label id="upload-label" for="upload"><img border="0" alt="help-icon" src="./icons/help-about.png"/>&nbsp;<font size='2'><b>Drag file to color Box.</b></font></label>
+		<label id="upload-label" for="upload"><img border="0" alt="help-icon" src="./icons/help-about.png"/>&nbsp;<font size='2'><b>Drag file to color Box.</b>&nbsp;( maximum size ${uploadMultipartMaxSizeLabel} )</font></label>
 		<input type="file" name="upload" id="upload" draggable="true" width="500px" height="60px" title="Drag file there." onchange="CORE_PROGCOMM0002Q_uploadDataEvent();"/>				
 	</div>	
 	<input type="button" id="CORE_PROGCOMM0002Q_btnUpload" label="Upload file" value="Upload file" 
