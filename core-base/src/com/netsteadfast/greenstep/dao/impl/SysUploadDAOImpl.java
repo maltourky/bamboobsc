@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.dao.impl;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.greenstep.base.dao.BaseDAO;
@@ -56,10 +58,12 @@ public class SysUploadDAOImpl extends BaseDAO<TbSysUpload, String> implements IS
 	}
 
 	@Override
-	public int updateTypeOnly(String oid, String type) throws Exception {		
+	public int updateTypeOnly(String oid, String type, String uuserid) throws Exception {		
 		return this.getCurrentSession()
-				.createQuery("UPDATE TbSysUpload SET type = :type WHERE oid = :oid")
+				.createQuery("UPDATE TbSysUpload SET type = :type, uuserid = :uuserid, udate = :udate WHERE oid = :oid")
 				.setString("type", type)
+				.setString("uuserid", uuserid)
+				.setTimestamp("udate", new Date())
 				.setString("oid", oid)
 				.executeUpdate();
 	}

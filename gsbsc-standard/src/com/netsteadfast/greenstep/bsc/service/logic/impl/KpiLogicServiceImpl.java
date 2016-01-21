@@ -391,7 +391,8 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			return;
 		}
 		for (BbKpiAttac attac : searchList) {			
-			this.sysUploadService.updateTypeOnly(attac.getUploadOid(), UploadTypes.IS_TEMP); // 把UPLOAD狀態改為TMP
+			//this.sysUploadService.updateTypeOnly(attac.getUploadOid(), UploadTypes.IS_TEMP); // 把UPLOAD狀態改為TMP
+			UploadSupportUtils.updateType(attac.getUploadOid(), UploadTypes.IS_TEMP);
 			this.kpiAttacService.delete(attac);
 		}
 	}
@@ -462,7 +463,8 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			if (result.getValue()==null) {
 				throw new ServiceException(result.getSystemMessage().getValue());
 			}
-			this.sysUploadService.updateTypeOnly(uploadOid, UploadTypes.IS_KPI_DOCUMENT);
+			//this.sysUploadService.updateTypeOnly(uploadOid, UploadTypes.IS_KPI_DOCUMENT);
+			UploadSupportUtils.updateType(uploadOid, UploadTypes.IS_KPI_DOCUMENT);
 		}
 	}
 	

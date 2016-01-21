@@ -289,6 +289,33 @@ public class UploadSupportUtils {
 		return datas;
 	}
 	
+	public static DefaultResult<Boolean> updateType(String oid, String type) throws ServiceException, IOException, Exception {
+		DefaultResult<SysUploadVO> uploadResult = sysUploadService.findForNoByteContent(oid);
+		if (uploadResult.getValue()==null) {
+			throw new ServiceException(uploadResult.getSystemMessage().getValue());
+		}
+		SysUploadVO upload = uploadResult.getValue();
+		if (!YesNo.YES.equals(upload.getIsFile())) {
+			return sysUploadService.updateTypeOnly(oid, type);
+		}
+		DefaultResult<Boolean> result = sysUploadService.updateTypeOnly(oid, type);
+		if (result.getValue()==null || !result.getValue()) {
+			return result;
+		}
+		// move file to new dir.
+		String oldFullPath = getUploadFileDir(upload.getSystem(), upload.getSubDir(), upload.getType()) + upload.getFileName();
+		String newFullPath = getUploadFileDir(upload.getSystem(), upload.getSubDir(), type) + upload.getFileName();
+		File newFile = new File(newFullPath);
+		if (newFile.isFile() && newFile.exists()) {
+			newFile = null;
+			throw new Exception("error. file exists, cannot operate!");
+		}
+		newFile = null;
+		FSUtils.cp(oldFullPath, newFullPath);
+		FSUtils.rm(oldFullPath);
+		return result;
+	}
+	
 	public static String create(String system, String type, boolean isFile, File file, 
 			String showName) throws ServiceException, IOException, Exception {
 		if (StringUtils.isBlank(type) || null == file || StringUtils.isBlank(showName)) {

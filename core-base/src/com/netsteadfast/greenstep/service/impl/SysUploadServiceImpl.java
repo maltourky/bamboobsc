@@ -120,7 +120,7 @@ public class SysUploadServiceImpl extends BaseService<SysUploadVO, TbSysUpload, 
 		}		
 		DefaultResult<Boolean> result = new DefaultResult<Boolean>();
 		result.setValue(Boolean.FALSE);
-		if (this.sysUploadDAO.updateTypeOnly(oid, type)==1) {
+		if (this.sysUploadDAO.updateTypeOnly(oid, type, this.getAccountId())==1) {
 			result.setValue(Boolean.TRUE);
 			result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS)) );
 		} else {

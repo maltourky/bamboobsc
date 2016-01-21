@@ -31,6 +31,6 @@ public interface ISysUploadDAO<T extends java.io.Serializable, PK extends java.i
 	
 	public SysUploadVO findForNoByteContent(PK oid) throws Exception;
 	
-	public int updateTypeOnly(PK oid, String type) throws Exception;
+	public int updateTypeOnly(PK oid, String type, String uuserid) throws Exception;
 	
 }
