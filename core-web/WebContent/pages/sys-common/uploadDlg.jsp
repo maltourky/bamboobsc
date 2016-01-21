@@ -40,7 +40,7 @@ function CORE_PROGCOMM0002Q_uploadDataEvent() {
 		alertDialog("Upload file", "Please select an file!", function(){}, 'N');
 		return;
 	}
-	if (document.getElementById('upload').files[0].size > 8388608 ) { /* set size 8388608 equals with struts.xml item "struts.multipart.maxSize"  */
+	if (document.getElementById('upload').files[0].size > ${uploadMultipartMaxSize} ) { /* set size ${uploadMultipartMaxSize} equals with struts.xml item "struts.multipart.maxSize"  */
 		alertDialog("Upload file", "File exceeded upload size!", function(){}, 'N');
 		return;		
 	}

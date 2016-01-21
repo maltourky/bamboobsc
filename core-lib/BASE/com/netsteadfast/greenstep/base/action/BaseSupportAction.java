@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.base.action;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,6 +37,8 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.ognl.Ognl;
@@ -44,6 +48,10 @@ import org.apache.shiro.subject.Subject;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -63,7 +71,8 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class BaseSupportAction extends BaseAction implements ServletRequestAware, ServletResponseAware, ServletContextAware {
 	private static final long serialVersionUID = -6660355550728049961L;
-	public static final int DefaultPageRowSize=PageOf.Rows[0];
+	private static Map<String, String> loadStrutsSettingConstatns = null;
+	public static final int DefaultPageRowSize=PageOf.Rows[0];	
 	
 	private ServletContext servletContext=null;
 	private HttpServletResponse httpServletResponse=null;
@@ -87,7 +96,7 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 	private String googleMapDefaultLng = SimpleUtils.getStr((String)settingsMap.get("googleMap.defaultLng"), "121.516900");
 	private String googleMapLanguage = SimpleUtils.getStr((String)settingsMap.get("googleMap.language"), "en");
 	private String googleMapClientLocationEnable = SimpleUtils.getStr((String)settingsMap.get("googleMap.clientLocationEnable"), YesNo.NO).toUpperCase();
-	private String twitterEnable = SimpleUtils.getStr((String)settingsMap.get("twitter.enable"), YesNo.NO).toUpperCase();
+	private String twitterEnable = SimpleUtils.getStr((String)settingsMap.get("twitter.enable"), YesNo.NO).toUpperCase();	
 	
 	public BaseSupportAction() {
 		super();
@@ -578,6 +587,54 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 			idList.add(value);
 		}
 		return SimpleUtils.getListHashSet(idList);
+	}
+	
+	protected static Map<String, String> getLoadStrutsConstants() {		
+		if (loadStrutsSettingConstatns != null) {
+			return loadStrutsSettingConstatns;
+		}		
+		InputStream is = null;
+		try {
+			is = BaseSupportAction.class.getClassLoader().getResource( "struts.xml" ).openStream();
+			loadStrutsConstants(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			is = null;
+		}
+		return loadStrutsSettingConstatns;
+	}
+	
+	private static Map<String, String> loadStrutsConstants(InputStream is) throws Exception {
+		if (loadStrutsSettingConstatns != null) {
+			return loadStrutsSettingConstatns;
+		}		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setFeature("http://xml.org/sax/features/validation", false);
+		dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+		dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+		dbf.setValidating(false);
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document doc = db.parse(is);
+		NodeList nodes = doc.getElementsByTagName("constant");
+		loadStrutsSettingConstatns = new HashMap<String, String>();
+		for (int i=0; nodes!=null && i<nodes.getLength(); i++) {
+			Node node = nodes.item(i);
+			Element nodeElement = (Element)node;
+			loadStrutsSettingConstatns.put(nodeElement.getAttribute("name"), nodeElement.getAttribute("value"));
+		}
+		return loadStrutsSettingConstatns;
 	}
 	
 }
