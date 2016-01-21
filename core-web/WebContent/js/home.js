@@ -455,6 +455,10 @@ function openCommonCodeEditorWindow( uploadOid, valueFieldId, okFn, lang ) { // 
  * @param paramData
  */
 function openCommonLoadUpload( type, uploadOid, paramData ) {
+	if (null != paramData && null != paramData["url"] && '' != paramData["url"]) { // 自定義 url 讀取資料模式, 直接呼叫 openCommonLoadUploadDataAction
+		openCommonLoadUploadDataAction( type, uploadOid, paramData );
+		return;
+	}
 	xhrSendParameterNoWatitDlg(
 			'./core.commonLoadUploadFileNamesAction.action', 
 			{
