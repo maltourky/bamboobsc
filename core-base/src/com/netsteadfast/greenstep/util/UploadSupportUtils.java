@@ -317,8 +317,11 @@ public class UploadSupportUtils {
 			throw new Exception("error. file no exists: " + oldFullPath);
 		}
 		oldFile = null;
+		FSUtils.mv(oldFullPath, newFullPath);
+		/*
 		FSUtils.cp(oldFullPath, newFullPath);
 		FSUtils.rm(oldFullPath);
+		*/
 		return result;
 	}
 	

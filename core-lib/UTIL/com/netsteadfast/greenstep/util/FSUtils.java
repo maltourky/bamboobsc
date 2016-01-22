@@ -33,32 +33,27 @@ import java.util.List;
 import org.springframework.mail.javamail.ConfigurableMimeFileTypeMap;
 
 public class FSUtils {
-	public static boolean cp(final String sourceFile, final String destFile) {
-		boolean action=false;
+	
+	public static void mv(final String sourceFile, final String destFile) throws IOException, Exception {		
 		File srcFile=new File(sourceFile);
-		File desFile=new File(destFile);		
-		try {
-			org.apache.commons.io.FileUtils.copyFile(srcFile, desFile);
-			action=true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
+		File desFile=new File(destFile);	
+		org.apache.commons.io.FileUtils.moveFile(srcFile, desFile);			
 		srcFile=null;
 		desFile=null;		
-		return action;
 	}
 	
-	public static boolean rm(final String removeFile) {
-		boolean action=false;		
+	public static void cp(final String sourceFile, final String destFile) throws IOException, Exception {		
+		File srcFile=new File(sourceFile);
+		File desFile=new File(destFile);		
+		org.apache.commons.io.FileUtils.copyFile(srcFile, desFile);
+		srcFile=null;
+		desFile=null;		
+	}
+	
+	public static void rm(final String removeFile) throws IOException, Exception {
 		File rmFile=new File(removeFile);
-		try {
-			org.apache.commons.io.FileUtils.forceDelete(rmFile);
-			action=true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		rmFile=null;		
-		return action;
+		org.apache.commons.io.FileUtils.forceDelete(rmFile);
+		rmFile=null;
 	}
 	
 	public static String[] getList(final String dir) {

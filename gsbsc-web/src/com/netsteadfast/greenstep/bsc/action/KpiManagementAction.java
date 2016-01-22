@@ -245,6 +245,7 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 		this.handlerSelectValueForEdit();
 		this.handlerKpiOrgaAndEmplForEdit();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("kpiId", this.kpi.getId());
 		this.kpiAttac = this.kpiAttacService.findListVOByParams(paramMap);
 		for (int i=0; this.kpiAttac!=null && i<this.kpiAttac.size(); i++) {
 			KpiAttacVO attac = this.kpiAttac.get(i);
