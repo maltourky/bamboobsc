@@ -140,7 +140,8 @@ public class ServiceScriptExpressionUtils {
 				value = resultObj;
 			} else {
 				for (int i=0; args!=null && i<args.length; i++) {
-					if (args[i].getClass().getName().equals(map.getMethodParamClass()) 
+					if (args[i] !=null && args[i].getClass() != null 
+							&& args[i].getClass().getName().equals(map.getMethodParamClass()) 
 							&& map.getMethodParamIndex() == i ) {
 						value = args[i];
 					}
