@@ -111,7 +111,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 			e.printStackTrace();
 			throw new ControllerException(e.getMessage().toString());
 		}			
-		if (this.getFields().get("expression").length() > 500 ) {
+		if (this.getFields().get("expression").length() > 4000 ) {
 			this.getFieldsId().add("expression");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_msg1") + "<BR/>");			
 		}

@@ -1128,7 +1128,7 @@ CREATE TABLE `bb_formula` (
   `TRENDS_FLAG` varchar(1) NOT NULL DEFAULT 'N',
   `RETURN_MODE` varchar(1) NOT NULL DEFAULT 'D',
   `RETURN_VAR` varchar(50) NOT NULL,
-  `EXPRESSION` varchar(8000) NOT NULL,
+  `EXPRESSION` varchar(4000) NOT NULL,
   `DESCRIPTION` varchar(500) NOT NULL,
   `CUSERID` varchar(24) NOT NULL,
   `CDATE` datetime NOT NULL,
