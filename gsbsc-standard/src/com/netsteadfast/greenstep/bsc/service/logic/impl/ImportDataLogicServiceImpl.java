@@ -619,6 +619,8 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 		boolean success = false;
 		DefaultResult<Boolean> result = new DefaultResult<Boolean>();		
 		StringBuilder msg = new StringBuilder();
+		// import mode cannot update KPI's attachment/documents, because KPI export no attachment/documents data.
+		List<String> kpiAttacDocs = new ArrayList<String>(); 
 		for (int i=0; i<csvResults.size(); i++) {
 			int row = i+1;
 			Map<String, String> data = csvResults.get(i);
@@ -697,7 +699,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 						organizationOids, 
 						employeeOids,
 						BscFormulaUtils.getFormulaById(trendsForId).getOid(),
-						null);
+						kpiAttacDocs);
 			} else { // insert
 				this.kpiLogicService.create(
 						kpi, 
@@ -707,7 +709,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 						organizationOids, 
 						employeeOids,
 						BscFormulaUtils.getFormulaById(trendsForId).getOid(),
-						null);
+						kpiAttacDocs);
 			}			
 			success = true;
 		}

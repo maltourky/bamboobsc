@@ -177,7 +177,7 @@ function BSC_PROG002D0004A_uploadDocument() {
 		alertDialog(_getApplicationProgramNameById('${programId}'), "Can only upload " + BSC_PROG002D0004A_maxUpload + " files!", function(){}, "Y");
 		return;
 	}
-	openCommonUploadDialog('BSC', 'tmp', 'N', 'BSC_PROG002D0004A_uploadDocumentOid', 'BSC_PROG002D0004A_uploadSuccess', 'BSC_PROG002D0004A_uploadFail');
+	openCommonUploadDialog('BSC', 'tmp', 'Y', 'BSC_PROG002D0004A_uploadDocumentOid', 'BSC_PROG002D0004A_uploadSuccess', 'BSC_PROG002D0004A_uploadFail');
 }
 function BSC_PROG002D0004A_uploadSuccess() {
 	var docOid = dojo.byId("BSC_PROG002D0004A_uploadDocumentOid").value;	
