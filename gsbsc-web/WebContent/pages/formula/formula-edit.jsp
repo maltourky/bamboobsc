@@ -101,7 +101,7 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" height="700px" cellpadding="1" cellspacing="0" >	
+	<table border="0" width="100%" height="800px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_forId')"/></b> <s:property value="getText('BSC_PROG001D0003E_readOnly')"/>:
@@ -163,10 +163,10 @@ function ${programId}_page_message() {
     		</td>
     	</tr>		    	
 		<tr>
-		    <td height="150px" width="100%" align="left">
+		    <td height="250px" width="100%" align="left">
 		    	<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_expression')"/></b>:
 		    	<br/>
-		    	<textarea id="BSC_PROG001D0003E_expression" name="BSC_PROG001D0003E_expression" data-dojo-type="dijit/form/Textarea" rows="4" cols="65" style="width:450px;height:90px;max-height:100px">${formula.expression}</textarea>
+		    	<textarea id="BSC_PROG001D0003E_expression" name="BSC_PROG001D0003E_expression" data-dojo-type="dijit/form/Textarea" rows="4" cols="65" style="width:650px;height:210px;max-height:220px">${formula.expression}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_expression'">
 		    		Input expression.<BR/>
 		    		Example:<BR/>
