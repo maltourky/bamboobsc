@@ -542,7 +542,7 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left" colspan="2">
-		    	<b>Documents&nbsp;/&nbsp;attachment</b>:
+		    	<b><s:property value="getText('BSC_PROG002D0004A_attachment')"/></b>:
 		    	<br/>
 				<button name="BSC_PROG002D0004A_uploadDocumentBtn" id="BSC_PROG002D0004A_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
