@@ -28,6 +28,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.util.ImageIOUtil;
@@ -57,10 +59,12 @@ public class PdfConvertUtils {
 		File tmpDir = new File(Constants.getWorkTmpDir() + "/" + PdfConvertUtils.class.getSimpleName() 
 				+ "/" + System.currentTimeMillis() + "/");
 		FileUtils.forceMkdir( tmpDir );
-		List<File> files = new LinkedList<File>();
+		List<File> files = new LinkedList<File>();	
+		int len = String.valueOf(pages.size()+1).length();
 		for (int i=0; i<pages.size(); i++) {
+			String name = StringUtils.leftPad(String.valueOf(i+1), len, "0");
 			BufferedImage bufImage = pages.get(i).convertToImage(BufferedImage.TYPE_INT_RGB, resolution);
-			File imageFile = new File( tmpDir.getPath() + "/" + String.valueOf(i) + ".png" );
+			File imageFile = new File( tmpDir.getPath() + "/" + name + ".png" );
 			FileOutputStream fos = new FileOutputStream(imageFile);
 			ImageIOUtil.writeImage(bufImage, "png", fos, resolution);
 			fos.flush();
@@ -71,15 +75,19 @@ public class PdfConvertUtils {
 		tmpDir = null;
 		return files;
 	}
-	
-	/*
+		
 	public static void main(String args[]) throws Exception {
-		// for test
-		List<File> imageFiles = toImageFiles(new File("/home/git/bamboobsc/core-doc/install.pdf"), 300);
+		if (args == null || args.length != 2) {
+			System.out.println("PdfConvertUtils [FILE] [RESOLUTION]");
+			System.out.println("Example: PdfConvertUtils /test.pdf 120");		
+			System.exit(1);
+		}		
+		System.out.println("source document file: " + args[0]);		
+		int res = NumberUtils.toInt(args[1], 300);
+		List<File> imageFiles = toImageFiles(new File(args[0]), res);
 		for (File file : imageFiles) {
 			System.out.println( file.getPath() );
 		}
-	}
-	*/
+	}	
 
 }
