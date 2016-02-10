@@ -24,7 +24,7 @@
 					type="text"
 					data-dojo-type="dijit/form/NumberTextBox"
 					value="${perspective.weight}"
-					data-dojo-props="constraints:{min:0,max:999,places:0},
+					data-dojo-props="constraints:{min:0,max:999,places:0, locale: 'en-us'},
 					invalidMessage:'Please enter a numeric value.',
 					rangeMessage:'Invalid value.'" 
 					style="width: 50px;"
@@ -45,7 +45,7 @@
 					type="text"
 					data-dojo-type="dijit/form/NumberTextBox"
 					value="${objective.weight}"
-					data-dojo-props="constraints:{min:0,max:999,places:0},
+					data-dojo-props="constraints:{min:0,max:999,places:0, locale: 'en-us'},
 					invalidMessage:'Please enter a numeric value.',
 					rangeMessage:'Invalid value.'" 
 					style="width: 50px;"
@@ -62,7 +62,7 @@
 							type="text"
 							data-dojo-type="dijit/form/NumberTextBox"
 							value="${kpi.weight}"
-							data-dojo-props="constraints:{min:0,max:999,places:0},
+							data-dojo-props="constraints:{min:0,max:999,places:0, locale: 'en-us'},
 							invalidMessage:'Please enter a numeric value.',
 							rangeMessage:'Invalid value.'" 
 							style="width: 50px;"

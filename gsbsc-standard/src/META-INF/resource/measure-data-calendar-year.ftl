@@ -54,7 +54,7 @@
 							type="text"
 						    data-dojo-type="dijit/form/NumberTextBox"
 						    value="${targetValue}"
-						    data-dojo-props="constraints:{pattern: '#.##',min:-999999999.00,max:999999999.00},
+						    data-dojo-props="constraints:{pattern: '#.##',min:-999999999.00,max:999999999.00, locale: 'en-us'},
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
@@ -70,7 +70,7 @@
 							type="text"
 						    data-dojo-type="dijit/form/NumberTextBox"
 						    value="${actualValue}"
-						    data-dojo-props="constraints:{pattern: '#.##', min:-999999999.00,max:999999999.00},
+						    data-dojo-props="constraints:{pattern: '#.##', min:-999999999.00,max:999999999.00, locale: 'en-us'},
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
