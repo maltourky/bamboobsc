@@ -119,7 +119,7 @@ and save my.cnf
 ###3. Get bambooBSC environment file
 ```
 # cd /home/pi
-# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.6.1/bamboobsc-0.6.2-prerelease-demo.7z
+# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-alpha/bamboobsc-0.6.2-prerelease-demo.7z
 ```
 
 ###4. Install P7ZIP
