@@ -28,7 +28,7 @@ bambooBSC is released under version 2.0 of the Apache Version 2.0
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc-guide.pdf">bamboobsc-guide.pdf</a>
 <br/><br/>
 <h2>Download:</h2>
-https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-PRE/bamboobsc-0.6.2-prerelease-demo.7z
+https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-alpha/bamboobsc-0.6.2-prerelease-demo.7z
 <br/><br/>
 contact: chen.xin.nien@gmail.com
 <br/><br/>
