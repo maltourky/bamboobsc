@@ -205,7 +205,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		try {
 			file = new File( Constants.getWorkTmpDir() + "/" + super.getUuid() + ".htm" );
 			FileUtils.writeStringToFile(file, datas, Constants.BASE_ENCODING);
-			this.oid = UploadSupportUtils.create(Constants.getSystem(), UploadTypes.IS_TEMP, true, file, "analytics-export.xlsx");
+			this.oid = UploadSupportUtils.create(Constants.getSystem(), UploadTypes.IS_TEMP, true, file, "analytics-export.htm");
 		} catch (Exception e) {
 			throw e;
 		} finally {
