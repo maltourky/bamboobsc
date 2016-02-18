@@ -26,22 +26,6 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 	<meta http-equiv="keywords" content="bambooCORE">
 	<meta http-equiv="description" content="bambooCORE">
 	
-	<!-- jqPlot -->
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.meterGaugeRenderer.min.js"></script>	
-	
-	<!-- jqPlot plugins -->
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.pointLabels.min.js"></script>	
-	
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-
-	
-	<link rel="stylesheet" type="text/css" href="<%=mainSysBasePath%>/jqplot/jquery.jqplot.min.css" />		
-	
 <style type="text/css">
 
 .btnExcelIcon {

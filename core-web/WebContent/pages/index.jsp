@@ -91,6 +91,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=basePath%>/highcharts-4.2.1/js/modules/exporting.js"></script>	
 	
 	
+	<!-- ################################################################################ -->
+	<!-- jqPlot -->
+	<script type="text/javascript" src="<%=basePath%>/jqplot/jquery.jqplot.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.meterGaugeRenderer.js"></script>	
+	
+	<!-- jqPlot plugins -->
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.barRenderer.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.categoryAxisRenderer.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.pointLabels.js"></script>	
+	
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.dateAxisRenderer.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.canvasTextRenderer.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/jqplot/plugins/jqplot.canvasAxisTickRenderer.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/jqplot/jquery.jqplot.css" />
+	<!-- ################################################################################ -->
+		
 <style type="text/css">
 
 </style>

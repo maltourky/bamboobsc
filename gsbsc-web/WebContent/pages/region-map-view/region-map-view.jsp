@@ -26,12 +26,6 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 	<meta http-equiv="keywords" content="bambooCORE">
 	<meta http-equiv="description" content="bambooCORE">
 	
-	<!-- jqPlot -->
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/jquery.jqplot.min.js"></script>
-	<script type="text/javascript" src="<%=mainSysBasePath%>/jqplot/plugins/jqplot.meterGaugeRenderer.min.js"></script>	
-	
-	<link rel="stylesheet" type="text/css" href="<%=mainSysBasePath%>/jqplot/jquery.jqplot.min.css" />	
-	
 <style type="text/css">
 
 </style>
