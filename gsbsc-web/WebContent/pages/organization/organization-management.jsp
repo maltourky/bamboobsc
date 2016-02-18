@@ -265,7 +265,7 @@ function ${programId}_map_initialize() {
 				function(data){
 					dijit.byId('BSC_PROG001D0002Q_address').set("value", "");
 		     		if (data!=null || data.results.length>0) {
-		     			if (data.results[0].formatted_address!=null) {
+		     			if (data.results[0]!=null && data.results[0].formatted_address!=null) {
 		     				dijit.byId('BSC_PROG001D0002Q_address').set("value", data.results[0].formatted_address );
 		     			}		     			
 		     		}					
@@ -283,7 +283,9 @@ function ${programId}_map_initialize() {
 			function(data){
 				dijit.byId('BSC_PROG001D0002Q_address').set("value", "");
 	     		if (data!=null || data.results.length>0) {
-	     			dijit.byId('BSC_PROG001D0002Q_address').set("value", data.results[0].formatted_address );
+	     			if (data.results[0]!=null && data.results[0].formatted_address!=null) {
+	     				dijit.byId('BSC_PROG001D0002Q_address').set("value", data.results[0].formatted_address );
+	     			}
 	     		}					
 			}
 	);	
