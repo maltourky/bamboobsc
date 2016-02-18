@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.support;
 
 import javax.servlet.ServletContextEvent;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.ContextInitializedAndDestroyedBean;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 
@@ -32,6 +33,13 @@ public class CleanTempUploadForContextInitAndDestroy extends ContextInitializedA
 	@Override
 	public void execute(ServletContextEvent event) throws Exception {
 		UploadSupportUtils.cleanTempUpload();
+		// 需要獨立處理的部份 tb_sys 沒有加入的系統
+		if (Constants.getMainSystem().equals(Constants.getSystem())) {
+			/**
+			 * BSC-MOBILE 必需與 gsbsc-mobile-web 的 applicationContext-appSettings.properties 設定檔 base.system 的 id 一樣
+			 */
+			UploadSupportUtils.cleanTempUpload("BSC-MOBILE");
+		}
 	}
 
 }
