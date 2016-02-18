@@ -100,8 +100,8 @@ function BSC_PROG003D0004Q_paintPieCharts(data) {
 			.x(function(d) { return d.label })
 			.y(function(d) { return d.value })
 			.showLabels(true).color(d3.scale.myColors().range());
-		
-		chart.pie.pieLabelsOutside(false).labelType("percent");
+				
+		chart.pie.labelsOutside(false).labelType("percent");
 		
 		d3.select("#BSC_PROG003D0004Q_pieChart svg")
 			.datum(data.perspectivesPieChartValue)
