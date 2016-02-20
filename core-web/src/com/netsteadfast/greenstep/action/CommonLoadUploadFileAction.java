@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.action;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URLEncoder;
 
 import javax.annotation.Resource;
 
@@ -35,6 +36,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -108,7 +110,11 @@ public class CommonLoadUploadFileAction extends BaseSupportAction {
 				this.contentType = FSUtils.getMimeType(uploadData.getShowName());
 			}
 		}		
-		if (!StringUtils.isAsciiPrintable(result.getValue().getShowName())) {
+		if (!StringUtils.isAsciiPrintable(result.getValue().getShowName())) {		
+			String userAgent = super.defaultString(super.getHttpServletRequest().getHeader("User-Agent")).toLowerCase();
+			if (userAgent.indexOf("firefox")==-1) { // for chrome or other browser.
+				this.filename = URLEncoder.encode(result.getValue().getShowName(), Constants.BASE_ENCODING);				
+			}
 			return;
 		}
 		this.filename = result.getValue().getShowName();		
