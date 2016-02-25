@@ -43,6 +43,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ChainResultObj;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.service.IVisionService;
 import com.netsteadfast.greenstep.bsc.vo.StrategyMapItemsVO;
 import com.netsteadfast.greenstep.po.hbm.BbVision;
@@ -60,6 +61,7 @@ public class StrategyMapManagementAction extends BaseSupportAction implements IB
 	private List<String> divItems = new ArrayList<String>();
 	private List<String> cssItems = new ArrayList<String>();
 	private List<String> conItems = new ArrayList<String>();
+	private String printMode = YesNo.NO;
 	
 	public StrategyMapManagementAction() {
 		super();
@@ -172,8 +174,18 @@ public class StrategyMapManagementAction extends BaseSupportAction implements IB
 			this.setPageMessage(e.getMessage().toString());
 		}
 		return SUCCESS;		
-	}	
-
+	}
+	
+	/**
+	 *  bsc.strategyMapOpenWinDlgAction.action
+	 */	
+	@ControllerMethodAuthority(programId="BSC_PROG002D0007Q")
+	public String doOpenWinDlg() throws Exception {
+		this.printMode = YesNo.YES;
+		String forward = doLoadRecord();
+		return forward;
+	}
+	
 	@Override
 	public String getProgramName() {
 		try {
@@ -213,6 +225,10 @@ public class StrategyMapManagementAction extends BaseSupportAction implements IB
 
 	public List<String> getConItems() {
 		return conItems;
+	}
+
+	public String getPrintMode() {
+		return printMode;
 	}
 	
 }

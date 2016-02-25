@@ -176,6 +176,7 @@ function ${programId}_page_message() {
 	
 	<jsp:include page="../header.jsp"></jsp:include>		
         
+<s:if test=" \"N\" == printMode ">
         
     <div class="navbar navbar-top navbar-fixed-top" role="navigation">
         <div class="container">
@@ -187,12 +188,15 @@ function ${programId}_page_message() {
         <s:if test=" divItems != null && divItems.size != 0 "> 
         <input type="button" name="save" id="save" value=${action.getText('BSC_PROG002D0007Q_btnSave')} class="flat lighter" >
         <input type="button" name="export" id="export" value="${action.getText('BSC_PROG002D0007Q_btnExport')}" class="flat lighter" >
+        <input type="button" name="print" id="print" value="Print" class="flat lighter" >
         </s:if>                
         <input type="button" name="new" id="new" value="${action.getText('BSC_PROG002D0007Q_btnNew')}" class="flat lighter" >
         	
         	</div>
         </div>
-    </div>    	
+    </div>
+        	
+</s:if>
         	
         <div id="jtk-demo-main">
 
@@ -438,6 +442,16 @@ jsPlumb.ready(function () {
 		
     });    
     
+    $("#print").click(function (e) {
+    	
+    	var url = "<%=basePath%>/bsc.strategyMapOpenWinDlgAction.action?visionOid=" + $("#visionOid").val();
+    	window.open(url, "Strategy Map print", "width=1024", "height=600");
+    	
+    });
+    
+    <s:if test=" \"Y\" == printMode ">
+    setTimeout( function(){ print(); }, 2000 );    
+    </s:if>
     
 });
 
