@@ -150,7 +150,7 @@ body {
 }
 
 .big-title {
-    color: #f1eee5;
+    color: #58775d;
     font-size: 56px;
     font-weight: 400;
     margin-bottom: 20px
@@ -408,7 +408,7 @@ body {
 }
 
 .navbar-top {
-    background-color: #f1eee5;
+    background-color: #58775d;
     border-color: none;
     font-size: 14px;
     font-weight: 700
@@ -416,7 +416,7 @@ body {
 
 @media only screen and (max-width: 320px) {
     .navbar-top {
-        background-color: #f1eee5
+        background-color: #58775d
     }
 }
 
