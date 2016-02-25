@@ -5,9 +5,11 @@
 3. Support configuration option to disable/enable captcha code on Login page. 0.6.2 default is disable captcha code. 
    reference: https://github.com/billchen198318/bamboobsc/issues/5
 4. Support KPI attached files(document) for information/verification document.
-   reference: https://github.com/billchen198318/bamboobsc/issues/6   
-5. Some modifications
-6. *** please re-import bbcore.sql to MySQL *** 
+   reference: https://github.com/billchen198318/bamboobsc/issues/6
+5. Strategy Map add Print button, because export image cannot show line, this is compromise solution.
+   reference: https://github.com/billchen198318/bamboobsc/issues/12      
+6. Some modifications
+7. *** please re-import bbcore.sql to MySQL *** 
    If have previous data in MYSQL(bbcore) E.g: 0.6.1 old version, 
    but did not re-import the SQL file to MYSQL(bbcore), the 0.6.2 version program will not work done.
 
