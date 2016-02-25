@@ -181,8 +181,8 @@ public class StrategyMapManagementAction extends BaseSupportAction implements IB
 	 */	
 	@ControllerMethodAuthority(programId="BSC_PROG002D0007Q")
 	public String doOpenWinDlg() throws Exception {
-		this.printMode = YesNo.YES;
 		String forward = doLoadRecord();
+		this.printMode = YesNo.YES;
 		return forward;
 	}
 	
