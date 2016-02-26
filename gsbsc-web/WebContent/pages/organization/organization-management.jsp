@@ -376,7 +376,7 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>   
 		    	<tr>
-		    		<td height="25px" width="100%" align="center">
+		    		<td height="25px" width="100%" align="left">
 		    			<gs:button name="BSC_PROG001D0002Q_save" id="BSC_PROG001D0002Q_save" onClick="BSC_PROG001D0002Q_save();"
 		    				handleAs="json"
 		    				sync="N"
