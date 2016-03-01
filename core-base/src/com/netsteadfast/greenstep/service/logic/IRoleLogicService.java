@@ -143,4 +143,13 @@ public interface IRoleLogicService {
 	 */
 	public DefaultResult<RoleVO> copyAsNew(String fromRoleOid, RoleVO role) throws ServiceException, Exception;
 	
+	/**
+	 * 使用者設的role-id(角色), 它設定在 tb_sys_code中
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public String getDefaultUserRole() throws ServiceException, Exception;
+	
 }

@@ -49,12 +49,14 @@ import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbRolePermission;
+import com.netsteadfast.greenstep.po.hbm.TbSysCode;
 import com.netsteadfast.greenstep.po.hbm.TbSysMenuRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
 import com.netsteadfast.greenstep.po.hbm.TbUserRole;
 import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.service.IRolePermissionService;
 import com.netsteadfast.greenstep.service.IRoleService;
+import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysMenuRoleService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
@@ -62,6 +64,7 @@ import com.netsteadfast.greenstep.service.logic.IRoleLogicService;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.RolePermissionVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
+import com.netsteadfast.greenstep.vo.SysCodeVO;
 import com.netsteadfast.greenstep.vo.SysMenuRoleVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 import com.netsteadfast.greenstep.vo.UserRoleVO;
@@ -71,7 +74,10 @@ import com.netsteadfast.greenstep.vo.UserRoleVO;
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogicService {
 	protected Logger logger=Logger.getLogger(RoleLogicServiceImpl.class);
+	private final static String DEFAULT_ROLE_CODE = "BSC_CONF001"; // 預設要套用role的 TB_SYS_CODE.CODE = 'BSC_CONF001' and TYPE='BSC'
+	private final static String DEFAULT_ROLE_CODE_TYPE = "BSC"; // 預設要套用role的 TB_SYS_CODE.CODE = 'BSC_CONF001' and TYPE='BSC'	
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
+	private ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
 	private IRoleService<RoleVO, TbRole, String> roleService;
 	private IRolePermissionService<RolePermissionVO, TbRolePermission, String> rolePermissionService;
 	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
@@ -82,6 +88,18 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	public RoleLogicServiceImpl() {
 		super();
 	}
+	
+	public ISysCodeService<SysCodeVO, TbSysCode, String> getSysCodeService() {
+		return sysCodeService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysCodeService")
+	@Required		
+	public void setSysCodeService(
+			ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService) {
+		this.sysCodeService = sysCodeService;
+	}	
 
 	public IRoleService<RoleVO, TbRole, String> getRoleService() {
 		return roleService;
@@ -232,6 +250,10 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 		if (Constants.SUPER_ROLE_ADMIN.equals(role.getRole()) || Constants.SUPER_ROLE_ALL.equals(role.getRole())) {			
 			throw new ServiceException("Administrator or super role cannot delete!");
 		}		
+		String defaultUserRole = this.getDefaultUserRole();
+		if (role.getRole().equals(defaultUserRole)) {
+			throw new ServiceException("Default user role: " + defaultUserRole + " cannot delete!");
+		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("role", role.getRole());		
 		this.deleteRolePermission(params);
@@ -571,5 +593,35 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 		}
 		return result;
 	}
+	
+	/**
+	 * 使用者設的role-id(角色), 它設定在 tb_sys_code中
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	public String getDefaultUserRole() throws ServiceException, Exception {
+		String role = "";
+		SysCodeVO sysCode = new SysCodeVO();
+		sysCode.setType(DEFAULT_ROLE_CODE_TYPE);
+		sysCode.setCode(DEFAULT_ROLE_CODE);
+		DefaultResult<SysCodeVO> result = this.sysCodeService.findByUK(sysCode);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		sysCode = result.getValue();
+		role = sysCode.getParam1();
+		if (super.isBlank(role)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("role", role);
+		if ( this.roleService.countByParams(params) != 1 ) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		return role;
+	}	
 
 }

@@ -64,15 +64,14 @@ import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysCalendarNote;
-import com.netsteadfast.greenstep.po.hbm.TbSysCode;
 import com.netsteadfast.greenstep.po.hbm.TbSysMsgNotice;
 import com.netsteadfast.greenstep.po.hbm.TbUserRole;
 import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysCalendarNoteService;
-import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.service.ISysMsgNoticeService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
+import com.netsteadfast.greenstep.service.logic.IRoleLogicService;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.EmployeeOrgaVO;
@@ -83,7 +82,6 @@ import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysCalendarNoteVO;
-import com.netsteadfast.greenstep.vo.SysCodeVO;
 import com.netsteadfast.greenstep.vo.SysMsgNoticeVO;
 import com.netsteadfast.greenstep.vo.UserRoleVO;
 
@@ -92,12 +90,9 @@ import com.netsteadfast.greenstep.vo.UserRoleVO;
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmployeeLogicService {
 	protected Logger logger=Logger.getLogger(EmployeeLogicServiceImpl.class);
-	private final static String DEFAULT_ROLE_CODE = "BSC_CONF001"; // 預設要套用role的 TB_SYS_CODE.CODE = 'BSC_CONF001' and TYPE='BSC'
-	private final static String DEFAULT_ROLE_CODE_TYPE = "BSC"; // 預設要套用role的 TB_SYS_CODE.CODE = 'BSC_CONF001' and TYPE='BSC'
 	private IAccountService<AccountVO, TbAccount, String> accountService;
 	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
-	private IRoleService<RoleVO, TbRole, String> roleService;
-	private ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService;
+	private IRoleService<RoleVO, TbRole, String> roleService;	
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	private IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> employeeOrgaService;
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
@@ -107,6 +102,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 	private IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService;
 	private IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
+	private IRoleLogicService roleLogicService;
 	
 	public EmployeeLogicServiceImpl() {
 		super();
@@ -145,18 +141,6 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 	@Required		
 	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
 		this.roleService = roleService;
-	}
-
-	public ISysCodeService<SysCodeVO, TbSysCode, String> getSysCodeService() {
-		return sysCodeService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.SysCodeService")
-	@Required		
-	public void setSysCodeService(
-			ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService) {
-		this.sysCodeService = sysCodeService;
 	}
 
 	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
@@ -267,34 +251,23 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		this.measureDataService = measureDataService;
 	}
 
+	public IRoleLogicService getRoleLogicService() {
+		return roleLogicService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.logic.RoleLogicService")
+	@Required		
+	public void setRoleLogicService(IRoleLogicService roleLogicService) {
+		this.roleLogicService = roleLogicService;
+	}	
+	
 	private boolean isAdministrator(String account) {
 		if (account.equals("admin") || account.equals(Constants.SYSTEM_BACKGROUND_USER)) {
 			return true;
 		}
 		return false;
-	}
-	
-	private String getDefaultRole() throws ServiceException, Exception {
-		String role = "";
-		SysCodeVO sysCode = new SysCodeVO();
-		sysCode.setType(DEFAULT_ROLE_CODE_TYPE);
-		sysCode.setCode(DEFAULT_ROLE_CODE);
-		DefaultResult<SysCodeVO> result = this.sysCodeService.findByUK(sysCode);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		sysCode = result.getValue();
-		role = sysCode.getParam1();
-		if (super.isBlank(role)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
-		}
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("role", role);
-		if ( this.roleService.countByParams(params) != 1 ) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
-		}
-		return role;
-	}
+	}	
 	
 	private AccountVO tranAccount(EmployeeVO employee) throws Exception {
 		AccountVO account = new AccountVO();
@@ -334,7 +307,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		// create default role
 		UserRoleVO userRole = new UserRoleVO();
 		userRole.setAccount(result.getValue().getAccount());
-		userRole.setRole(this.getDefaultRole());
+		userRole.setRole( this.roleLogicService.getDefaultUserRole() );
 		userRole.setDescription(result.getValue().getAccount() + " `s role!");
 		this.userRoleService.saveObject(userRole);
 		
