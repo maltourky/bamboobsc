@@ -22,6 +22,8 @@
 package com.netsteadfast.greenstep.sys;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,19 +33,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.realm.ldap.JndiLdapContextFactory;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
+import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.sys.IUSessLogHelper;
 import com.netsteadfast.greenstep.base.sys.USessLogHelperImpl;
@@ -51,12 +58,15 @@ import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.base.sys.UserCurrentCookie;
 import com.netsteadfast.greenstep.po.hbm.TbAccount;
 import com.netsteadfast.greenstep.service.IAccountService;
+import com.netsteadfast.greenstep.util.ScriptExpressionUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 
 public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFilter {
 	protected static Logger logger = Logger.getLogger(GreenStepBaseFormAuthenticationFilter.class);
+	public static final String CREATE_USER_DATA_LDAP_MODE_SCRIPT = "META-INF/create-user-data-ldap-mode.groovy";	
 	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
+	private static String createUserDataLdapModeScript = "";
 	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 	private IAccountService<AccountVO, TbAccount, String> accountService;
 	private IUSessLogHelper uSessLogHelper;
@@ -77,6 +87,27 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 			IAccountService<AccountVO, TbAccount, String> accountService) {
 		this.accountService = accountService;
 	}
+	
+	public static String getCreateUserDataLdapModeScript() throws Exception {
+		if ( !StringUtils.isBlank(createUserDataLdapModeScript) ) {
+			return createUserDataLdapModeScript;
+		}
+		InputStream is = null;
+		try {
+			is = GreenStepBaseFormAuthenticationFilter.class.getClassLoader().getResource( CREATE_USER_DATA_LDAP_MODE_SCRIPT ).openStream();
+			createUserDataLdapModeScript = IOUtils.toString(is, Constants.BASE_ENCODING);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (is!=null) {
+				is.close();
+			}			
+			is = null;			
+		}
+		return createUserDataLdapModeScript;
+	}	
 	
 	protected String getCaptcha(ServletRequest request) {		
         return WebUtils.getCleanParam(request, this.getCaptchaParam());
@@ -99,7 +130,11 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 		String host = StringUtils.defaultString(getHost(request));
 		char pwd[] = null;
 		try {
-			pwd = this.accountService.tranPassword(password).toCharArray();
+			if (this.isLoginLdapMode()) { // login by LDAP.
+				pwd = password.toCharArray();
+			} else { // default by DB
+				pwd = this.accountService.tranPassword(password).toCharArray();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,14 +166,18 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 		try {
 			this.doCaptchaValidate((HttpServletRequest)request, token);
 			AccountVO account = this.queryUser(token.getUsername());
-			this.userValidate(account);
-			Subject subject = this.getSubject(request, response); 
+			this.userValidate(account);			
+			Subject subject = this.getSubject(request, response);
 			subject.login(token);
+			if (this.isLoginLdapMode() && account==null) { // is no account data in DataBase, create it.
+				account = this.createUserDataLdapLoginMode(token.getUsername(), new String(token.getPassword()));
+			}			
 			// set session
 			this.setUserSession((HttpServletRequest)request, (HttpServletResponse)response, account);
 			return this.onLoginSuccess(token, subject, request, response);			
 		} catch (AuthenticationException e) {
 			// clear session	
+			logger.warn( e.getMessage().toString() );			
 			UserAccountHttpSessionSupport.remove( (HttpServletRequest)request );
 			this.getSubject(request, response).logout();
 			return this.onLoginFailure(token, e, request, response);
@@ -224,6 +263,17 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     		return false;
     	}
     	return "XMLHttpRequest".equalsIgnoreCase( request.getHeader("X-Requested-With") );
+    }
+    
+    private boolean isLoginLdapMode() {
+    	try {
+        	if (AppContext.getBean("ldapContextFactory")!=null && (AppContext.getBean("ldapContextFactory") instanceof JndiLdapContextFactory)) {
+        		return true;
+        	}    		
+    	} catch (NoSuchBeanDefinitionException e) {
+    		// nothing...    		
+    	}
+    	return false;
     }
     
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
@@ -326,6 +376,28 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 			lang = "en";
 		}  	
 		return lang;
+    }
+    
+    /**
+     * Create need user data when login by LDAP!
+     * 
+     * @param account
+     * @param password
+     * @throws Exception
+     */
+    private AccountVO createUserDataLdapLoginMode(String account, String password) throws Exception {    	
+    	if (account.length()>24) {
+    		throw new Exception("Create user data fail! account ID length more then 24.");
+    	}
+    	if (password.length()>35) {
+    		throw new Exception("Create user data fail! password length more then 35.");
+    	}
+    	logger.info("create user data, login by LDAP mode, account: " + account);    	
+    	Map<String, Object> paramMap = new HashMap<String, Object>();
+    	paramMap.put("account", account);
+    	paramMap.put("transPassword", this.accountService.tranPassword(password));
+    	ScriptExpressionUtils.execute(ScriptTypeCode.IS_GROOVY, getCreateUserDataLdapModeScript(), null, paramMap);
+    	return this.queryUser(account);
     }
 	
 }
