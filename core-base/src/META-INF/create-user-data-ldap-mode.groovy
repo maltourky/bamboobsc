@@ -76,6 +76,7 @@ try {
 				empParamMap.put("cdate", new Date());
 				jdbcTemplate.update("insert into bb_employee(OID, ACCOUNT, EMP_ID, FULL_NAME, JOB_TITLE, CUSERID, CDATE) values(:oid, :account, :empId, :fullName, :jobTitle, :cuserid, :cdate)", empParamMap);
 				
+				return null;
 			}
 						
 		}
