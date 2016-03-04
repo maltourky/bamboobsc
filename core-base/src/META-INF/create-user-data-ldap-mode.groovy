@@ -27,25 +27,25 @@ try {
 						
 			@Override
 			public Object doInTransaction(TransactionStatus status) {
-				
+				int maxSize = 10;
 				String maxEmpId = jdbcTemplate.queryForObject("select max(EMP_ID) from bb_employee", new HashMap<String, Object>(), String.class);
 				String empId = "";
 				if ( StringUtils.isBlank(maxEmpId) ) {
-					maxEmpId = "0000000000";
+					maxEmpId = StringUtils.leftPad(maxEmpId, maxSize, "0");
 				}
 				if ( NumberUtils.isNumber(maxEmpId) ) {
 					String numStr = (NumberUtils.toInt(maxEmpId) + 1)+"";
 					if (numStr.length() <= maxEmpId.length()) {
 						empId = StringUtils.leftPad(numStr, maxEmpId.length(), "0");
 					} else {
-						empId = StringUtils.leftPad(numStr, 10, "0");		
+						empId = StringUtils.leftPad(numStr, maxSize, "0");		
 					}		
-					if (empId.length()>10) {
+					if (empId.length()>maxSize) {
 						empId = "";
 					}
 				}
 				if (StringUtils.isBlank(empId)) {
-					empId = SimpleUtils.createRandomString(10);
+					empId = SimpleUtils.createRandomString(maxSize);
 				}
 				
 				Map<String, Object> accParamMap = new HashMap<String, Object>();
