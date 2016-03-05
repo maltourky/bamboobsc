@@ -134,6 +134,7 @@ function BSC_PROG001D0006Q_map_initialize() {
 								});
 								BSC_PROG001D0006Q_infowindow.open(BSC_PROG001D0006Q_map, marker_${orgId});		
 								
+								alertDialog(_getApplicationProgramNameById('${programId}'), 'You can click other organization locale maker icon on google map.', function(){}, 'Y');
 								
 							}, 
 							function(error) {
@@ -337,7 +338,7 @@ function ${programId}_page_message() {
 							    intermediateChanges:false,
 							    showButtons:false,
 							    onChange:function(value) {
-							    	
+							    	alertDialog(_getApplicationProgramNameById('${programId}'), 'Please re-click maker icon on google map.', function(){}, 'Y');
 							    }
 							    ">
 							    <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="topDecoration"
