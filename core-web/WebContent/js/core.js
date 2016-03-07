@@ -194,9 +194,9 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     	 */
     	var _t = this.getStrToBase64(txtTitle);    	
     	var _c = this.getStrToBase64(txtContent);
-    	var toasterTxtContent = '<br/><br/><a herf="#" onclick="viewPage.showBeforeAlertDialog(\'' + _t + '\', \'' + _c + '\');"><img src="./icons/help-about.png" border="0" /><b>Click show info.</b></a> ';
+    	var toasterTxtContent = '<br/><br/><a herf="#" onclick="viewPage.showBeforeAlertDialog(\'' + _t + '\', \'' + _c + '\');"><img src="./icons/help-about.png" border="0" />&nbsp;<b>Click show info.</b></a> ';
     	
-    	toasterTxtContent = '<b><font color="#000000" size="3">' + txtTitle + '</font></b>' + '<br/><hr size="2" color="#373737" /><font color="#373737" size="2">' + txtContent + '</font>' + toasterTxtContent;
+    	toasterTxtContent = '<b><font color="#000000" size="3">' + txtTitle + '</font></b>' + '<br/><hr size="2" color="#242424" /><font color="#242424" size="2">' + txtContent + '</font>' + toasterTxtContent;
     	dijit.byId(toasterId).setContent(toasterTxtContent, attributeType);
     	dijit.byId(toasterId).show();  
 		if (null!=callbackFn && eval("typeof " + callbackFn + "=='function'") ) {
