@@ -62,6 +62,13 @@ select {
     border-radius: 5px;     
 }
 
+.lighter {
+    background: #498bf5;
+    color: #ffffff;
+    border: 1px solid #498bf5;
+    font-weight: bold;
+}
+
 -->
 </style>	
 	
@@ -131,7 +138,7 @@ function pageMessage() {
           <td width="160" align="left"><s:password name="password" id="password" maxLength="25" maxSize="12" theme="simple"/></td>
         </tr>        
         <tr>         
-          <td width="320" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();"/></td>          
+          <td width="320" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();" cssClass="lighter"/></td>          
         </tr>
         <tr> 
           <td width="320" align="center" colspan="3" bgcolor="#FAFAFA">

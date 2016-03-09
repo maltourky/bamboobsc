@@ -57,9 +57,11 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 }
 
 .lighter {
-    background: #74B1CD;
+    background: #498bf5;
+    color: #ffffff;
+    border: 1px solid #498bf5;
+    font-weight: bold;
 }
-
 
 
 

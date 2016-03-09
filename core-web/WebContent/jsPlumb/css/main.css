@@ -408,6 +408,7 @@ body {
 }
 
 .navbar-top {
+	height: 30px;
     background-color: #58775d;
     border-color: none;
     font-size: 14px;
