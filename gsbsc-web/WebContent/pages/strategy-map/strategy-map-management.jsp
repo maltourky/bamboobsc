@@ -63,7 +63,20 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     font-weight: bold;
 }
 
-
+.flatSelect {
+    margin: 0px;
+    border: 1px solid #111;
+    background: url(./images/br_down.png) 96% no-repeat #498bf5;
+    width: 200px;   
+    color: #ffffff; 
+    font-size: 16px;
+    border: 1px solid #ccc;    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;         
+}
 
 
 .demo {
@@ -185,7 +198,7 @@ function ${programId}_page_message() {
             <div class="navbar-header">        
         
         <font color="#394045"><s:property value="getText('BSC_PROG002D0007Q_vision')"/>:</font>&nbsp;
-        <s:select list="visionMap" name="visionOid" id="visionOid" value="visionOid" class="flat lighter"></s:select>
+        <s:select list="visionMap" name="visionOid" id="visionOid" value="visionOid" class="flatSelect"></s:select>
         <input type="button" name="load" id="load" value="${action.getText('BSC_PROG002D0007Q_btnLoad')}" class="flat lighter" >
         <s:if test=" divItems != null && divItems.size != 0 "> 
         <input type="button" name="save" id="save" value=${action.getText('BSC_PROG002D0007Q_btnSave')} class="flat lighter" >

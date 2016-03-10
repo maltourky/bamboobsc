@@ -49,17 +49,17 @@ input {
 select {
     margin: 0px;
     border: 1px solid #111;
-    background: transparent;
+    background: url(./images/br_down.png) 96% no-repeat #F2F2F2;
     width: 200px;
-    padding: 5px;
+    /* padding: 5px; */
     font-size: 16px;
     border: 1px solid #ccc;
-    height: 34px;
+    /* height: 34px; */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     -webkit-border-radius: 5px;
-    border-radius: 5px;     
+    border-radius: 5px;
 }
 
 .lighter {
