@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/flat/flat.css">
 		
 	
-	<link rel="stylesheet" href="<%=basePath%>/css/core.css" media="screen">
+	<link rel="stylesheet" href="<%=basePath%>/css/core.css?ver=${jsVerBuild}" media="screen">
 	
 	<link rel="stylesheet" href="<%=basePath%>/d3/nv.d3.css">
 	
