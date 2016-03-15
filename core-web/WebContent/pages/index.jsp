@@ -23,22 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="bambooCORE">
 	<meta http-equiv="description" content="bambooCORE">
 	
-	<!--  	
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojo/resources/dojo.css">
-    <link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/dijit.css">    
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/claro/claro.css">	
-    <link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/dijit_rtl.css">    
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/claro/claro_rtl.css">
-	-->	
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/grid/resources/Grid.css">
-	<!--	
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/grid/resources/claroGrid.css">
-	-->	
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/widget/Toaster/Toaster.css" />	
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/widget/Calendar/Calendar.css" />
-	<!--	
-	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dojox/calendar/themes/claro/Calendar.css" />
-	-->	
 	
 	<!-- Flat -->
 	<link rel="stylesheet" href="<%=basePath%>${dojoLocal}/dijit/themes/flat/flat.css">
