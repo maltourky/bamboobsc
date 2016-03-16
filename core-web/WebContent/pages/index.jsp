@@ -198,6 +198,10 @@ var viewPage = new GS.ViewPage('<%=basePath%>');
 
 <div data-dojo-type="dojox/widget/Toaster" data-dojo-props="positionDirection:'br-left'" id="mainToaster"></div>
 
+<%
+String realPath = getServletContext().getRealPath("/");
+if (realPath.indexOf("org.eclipse.wst.server.core")==-1) {
+%>
 <!-- google analytics for bambooBSC -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -209,7 +213,13 @@ var viewPage = new GS.ViewPage('<%=basePath%>');
   ga('send', 'pageview');
 
 </script>
-
+<%
+} else {
+%>
+<!-- no need google analytics, when run on wst plugin mode -->
+<%
+}
+%>
 </body>
 
 </html>
