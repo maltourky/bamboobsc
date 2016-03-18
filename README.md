@@ -21,13 +21,20 @@ Features:<br/>
 <h2>License</h2>
 bambooBSC is released under version 2.0 of the Apache Version 2.0
 <br/><br/>
-<h2>install document:</h2>
+<h2>VM version install document:</h2>
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/install-vm-ver.pdf">install-vm-ver.pdf</a>
+<br/>
+<h2>manual install document:</h2>
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/install.pdf">install.pdf</a>
 <br/><br/>
 <h2>manual document:</h2>
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc-guide.pdf">bamboobsc-guide.pdf</a>
 <br/><br/>
 <h2>Download:</h2>
+VM version( need with VirtualBox ):
+https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-rc1/bambooBSC-0.6.2-RC1-VM.7z
+<br/>
+Manual install version:
 https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-rc1/bamboobsc-0.6.2-RC1.7z
 <br/><br/>
 contact: chen.xin.nien@gmail.com
