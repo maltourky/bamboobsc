@@ -162,8 +162,6 @@ ul{
 .claro .dijitFolderClosed {
     display: none;
 }
-**/
-
 
 .claro .dijitLeaf {
     display: none;
@@ -176,12 +174,21 @@ ul{
 .claro .dijitTreeLabel {
     font-size: 12px;
 }
+**/
 
 /** Dojo claro style Override : End **/
 
 
 
 /* -- FLAT style -- */
+.flat .dijitFolderOpened {
+    display: none;
+}
+
+.flat .dijitFolderClosed {
+    display: none;
+}
+
 .flat .dijitLeaf {
     display: none;
 }
