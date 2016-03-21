@@ -114,7 +114,7 @@ function ${programId}_page_message() {
     			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_uploadOid')"/></b>:
     			<br/>
     			<input type="button" id="QCHARTS_PROG001D0004A_uploadBtn" label="Upload" value="Upload" 
-			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false "
+			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false, iconClass:'dijitIconFolderOpen' "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('QCHARTS', 'tmp', 'N', 'QCHARTS_PROG001D0004A_uploadOid', 'QCHARTS_PROG001D0004A_uploadSuccess', 'QCHARTS_PROG001D0004A_uploadFail');" />
     			<span id="QCHARTS_PROG001D0004A_uploadShow"><font color='#6E6E6E'><s:property value="getText('QCHARTS_PROG001D0004A_uploadShow')"/></font></span>
     			<input type="hidden" name="QCHARTS_PROG001D0004A_uploadOid" id="QCHARTS_PROG001D0004A_uploadOid" value="" />    			
