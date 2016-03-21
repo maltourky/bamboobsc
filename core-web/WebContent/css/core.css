@@ -204,6 +204,31 @@ ul{
 
 
 
+/* -- bambooBSC patch flat-themes-1.11.0 -- */
+.flat .dijitTreeExpandoOpened {
+	background-image: url(../patch_flat_themes_1_11_icons/expando_opened.png);
+  	width: 20px;
+  	height: 20px;
+}
+.flat .dijitTreeExpandoClosed {
+	background-image: url(../patch_flat_themes_1_11_icons/expando_closed.png);
+  	width: 20px;
+  	height: 20px;
+}
+.flat .dijitIconLoading {
+	background: url(../patch_flat_themes_1_11_icons/loadingAnimation.gif) no-repeat;
+	height: 31px;
+	width: 31px;
+}
+.flat .dijitIconError {
+	background-image: url(../patch_flat_themes_1_11_icons/error.png);
+	height: 24px;
+	width: 24px;
+}
+/* -- bambooBSC patch flat-themes-1.11.0 -- */
+
+
+
 /** toolbar need icon **/
 .myExportIcon {
   	background-image: url(../icons/document-export.png);

@@ -114,6 +114,10 @@ require(["dojo/ready"], function(ready){
 			dojox.image.preload(_coreIconsList);			
 		}				
 		dojox.image.preload( ["./images/sort-up.png", "./images/sort-down.png"] ); // customized grid cell sort button need
+		
+		// for bambooBSC patch flat-themes-1.11.0
+		dojox.image.preload( ["./patch_flat_themes_1_11_icons/expando_opened.png", "./patch_flat_themes_1_11_icons/expando_closed.png", "./patch_flat_themes_1_11_icons/loadingAnimation.gif", "./patch_flat_themes_1_11_icons/error.png"] );
+		
 		dojo.addOnUnload(function() {
 			
 		});	
