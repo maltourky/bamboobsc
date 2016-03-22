@@ -32,10 +32,10 @@ bambooBSC is released under version 2.0 of the Apache Version 2.0
 <br/><br/>
 <h2>Download:</h2>
 VM version( need with VirtualBox ):
-https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-rc1/bambooBSC-0.6.2-RC1-VM.7z
+https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2/bamboobsc-0.6.2-VM.7z
 <br/>
 Manual install version:
-https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-rc1/bamboobsc-0.6.2-RC1.7z
+https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2/bamboobsc-0.6.2.7z
 <br/><br/>
 contact: chen.xin.nien@gmail.com
 <br/><br/>
@@ -126,7 +126,7 @@ and save my.cnf
 ###3. Get bambooBSC environment file
 ```
 # cd /home/pi
-# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2-rc1/bamboobsc-0.6.2-RC1.7z
+# wget --no-check-certificate https://github.com/billchen198318/bamboobsc/releases/download/v0.6.2/bamboobsc-0.6.2.7z
 ```
 
 ###4. Install P7ZIP
@@ -136,7 +136,7 @@ and save my.cnf
 
 ###5. Extract the archive
 ```
-# p7zip -d bamboobsc-0.6.2-RC1.7z
+# p7zip -d bamboobsc-0.6.2.7z
 ```
 
 ###6. Import bbcore.sql to MySQL
