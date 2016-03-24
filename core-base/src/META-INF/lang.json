@@ -6,7 +6,10 @@
 		"en"		:	"EN - English (default)",
 		"es"		:	"ES - español",
 		"fr"		:	"FR - Français",
+		"it"		:	"IT - Italiano",		
 		"ja"		:	"JA - 日本語 ",
+		"pt"		:	"PT - Português",
+		"ru"		:	"RU - русский",
 		"tw"		:	"TW - 繁體中文"
 	} 
 }
