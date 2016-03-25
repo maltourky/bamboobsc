@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <style type="text/css">
 <!--
+
 .style1 {
 	color: #585858;
 	font-weight: bold;
@@ -32,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .style2 {
 	color: #F7982A;
 	font-weight: bold;
-	font-style: italic;
+	font-family:sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%
 }
 .style3 {color: #084F01}
 .style4 {color: #000000}
@@ -50,7 +51,7 @@ select {
     margin: 0px;
     border: 1px solid #111;
     background: url(./images/br_down.png) 96% no-repeat #F2F2F2;
-    width: 200px;
+    width: 250px;
     /* padding: 5px; */
     font-size: 16px;
     border: 1px solid #ccc;
@@ -60,6 +61,7 @@ select {
     appearance: none;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    font-family:"Consolas", Helvetica, Arial, sans-serif;
 }
 
 .lighter {
@@ -102,7 +104,7 @@ function pageMessage() {
     <tr>
       <td height="480" bgcolor="#ffffff">
 	  <center>
-	  <table id="loginTable" width="320" border="0" cellpadding="2" cellspacing="2">	 
+	  <table id="loginTable" width="550" border="0" cellpadding="2" cellspacing="2">	 
         <tr> 
           <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_language')"/>:</span></td>
           <td width="160" align="left">
