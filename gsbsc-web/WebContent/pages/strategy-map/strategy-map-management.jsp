@@ -67,7 +67,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     margin: 0px;
     border: 1px solid #111;
     background: url(./images/br_down.png) 96% no-repeat #498bf5;
-    width: 200px;   
+    width: 250px;   
     color: #ffffff; 
     font-size: 16px;
     border: 1px solid #ccc;    
@@ -76,7 +76,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     appearance: none;
     -webkit-border-radius: 5px;
     border-radius: 5px;         
-    font-family:"Consolas", Helvetica, Arial, sans-serif;
+    font-family: Consolas,monaco,monospace;
 }
 
 

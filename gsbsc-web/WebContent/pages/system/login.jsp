@@ -61,7 +61,7 @@ select {
     appearance: none;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    font-family:"Consolas", Helvetica, Arial, sans-serif;
+    font-family: Consolas,monaco,monospace;
 }
 
 .lighter {
