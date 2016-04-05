@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.15, for FreeBSD10.0 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.27, for FreeBSD10.1 (amd64)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
--- Server version	5.6.15
+-- Server version	5.6.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1302,8 +1302,8 @@ CREATE TABLE `bb_measure_data` (
   `OID` char(36) NOT NULL,
   `KPI_ID` varchar(14) NOT NULL,
   `DATE` varchar(8) NOT NULL,
-  `TARGET` float NOT NULL DEFAULT '0',
-  `ACTUAL` float NOT NULL DEFAULT '0',
+  `TARGET` double NOT NULL DEFAULT '0',
+  `ACTUAL` double NOT NULL DEFAULT '0',
   `FREQUENCY` varchar(1) NOT NULL,
   `ORG_ID` varchar(10) NOT NULL DEFAULT '*',
   `EMP_ID` varchar(10) NOT NULL DEFAULT '*',
@@ -3865,4 +3865,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-18 20:14:59
+-- Dump completed on 2016-04-05  9:31:01

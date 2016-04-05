@@ -1,3 +1,4 @@
+<#setting number_format="0.##">
 <input type="hidden" name="BSC_PROG002D0005Q_dataFor" id="BSC_PROG002D0005Q_dataFor" value="${dataFor}" />
 <input type="hidden" name="BSC_PROG002D0005Q_frequency" id="BSC_PROG002D0005Q_frequency" value="${frequency}" />
 <input type="hidden" name="BSC_PROG002D0005Q_empId" id="BSC_PROG002D0005Q_empId" value="${empId}" />
@@ -59,7 +60,7 @@
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
-						    maxlength="9" />							
+						    maxlength="11" />							
 					</td>														
 				</tr>
 				<tr>
@@ -75,7 +76,7 @@
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
-						    maxlength="9" />								
+						    maxlength="11" />								
 					</td>														
 				</tr>						
 			</table> 
@@ -106,7 +107,7 @@
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
-						    maxlength="9" />						
+						    maxlength="11" />						
 					</td>														
 				</tr>
 				<tr>
@@ -122,7 +123,7 @@
 						    invalidMessage:'Please enter a numeric value.',
 						    rangeMessage:'Invalid value.'" 
 						    style="width: 70px;"
-						    maxlength="9" />							
+						    maxlength="11" />							
 					</td>														
 				</tr>						
 			</table> 			
