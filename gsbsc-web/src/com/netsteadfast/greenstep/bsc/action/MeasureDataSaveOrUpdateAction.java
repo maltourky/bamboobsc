@@ -55,6 +55,8 @@ import com.netsteadfast.greenstep.vo.MeasureDataVO;
 @Scope
 public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 	private static final long serialVersionUID = 4987586611446130067L;
+	private static final float MAX_VALUE = 9999999;
+	private static final float MIN_VALUE = -9999999;
 	protected Logger logger=Logger.getLogger(MeasureDataSaveOrUpdateAction.class);
 	private IMeasureDataLogicService measureDataLogicService;
 	private String message = "";
@@ -130,14 +132,21 @@ public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 			if (!NumberUtils.isNumber(value)) {
 				value = "0";
 			}
+			float numValue = NumberUtils.toFloat(value);
+			if (numValue > MAX_VALUE) {
+				numValue = MAX_VALUE;
+			}
+			if (numValue < MIN_VALUE) {
+				numValue = MIN_VALUE;
+			}
 			MeasureDataVO measureData = this.getMeasureDataFromList(date, measureDatas);
 			measureData.setDate(date);
 			measureData.setFrequency(frequency);
 			if (name.startsWith(BscConstants.MEASURE_DATA_TARGET_ID)) {
-				measureData.setTarget( NumberUtils.toFloat(value) );
+				measureData.setTarget( numValue );
 			}
 			if (name.startsWith(BscConstants.MEASURE_DATA_ACTUAL_ID)) {
-				measureData.setActual( NumberUtils.toFloat(value) );
+				measureData.setActual( numValue );
 			}
 			this.putMeasureDataToList(measureData, measureDatas);
 		}

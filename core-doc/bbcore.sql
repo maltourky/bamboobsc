@@ -1302,8 +1302,8 @@ CREATE TABLE `bb_measure_data` (
   `OID` char(36) NOT NULL,
   `KPI_ID` varchar(14) NOT NULL,
   `DATE` varchar(8) NOT NULL,
-  `TARGET` float(11,2) NOT NULL DEFAULT '0.00',
-  `ACTUAL` float(11,2) NOT NULL DEFAULT '0.00',
+  `TARGET` float(9,2) NOT NULL DEFAULT '0.00',
+  `ACTUAL` float(9,2) NOT NULL DEFAULT '0.00',
   `FREQUENCY` varchar(1) NOT NULL,
   `ORG_ID` varchar(10) NOT NULL DEFAULT '*',
   `EMP_ID` varchar(10) NOT NULL DEFAULT '*',
@@ -3865,4 +3865,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-05 18:03:44
+-- Dump completed on 2016-04-05 20:37:02

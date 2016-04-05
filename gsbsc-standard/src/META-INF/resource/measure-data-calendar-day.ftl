@@ -76,11 +76,11 @@
 									type="text"
 								    data-dojo-type="dijit/form/NumberTextBox"
 								    value="${targetValue}"
-								    data-dojo-props="constraints:{pattern: '#.##',min:-999999999.00,max:999999999.00, locale: 'en-us'},
+								    data-dojo-props="constraints:{pattern: '#.##',min:-9999999.00,max:9999999.00, locale: 'en-us'},
 								    invalidMessage:'Please enter a numeric value.',
 								    rangeMessage:'Invalid value.'" 
 								    style="width: 70px;"
-								    maxlength="11" />								
+								    maxlength="10" />								
 							</td>														
 						</tr>
 						<tr>
@@ -92,11 +92,11 @@
 								type="text"
 							    data-dojo-type="dijit/form/NumberTextBox"
 							    value="${actualValue}"
-							    data-dojo-props="constraints:{pattern: '#.##',min:-999999999.00,max:999999999.00, locale: 'en-us'},
+							    data-dojo-props="constraints:{pattern: '#.##',min:-9999999.00,max:9999999.00, locale: 'en-us'},
 							    invalidMessage:'Please enter a numeric value.',
 							    rangeMessage:'Invalid value.'" 
 							    style="width: 70px;"
-							    maxlength="11" />							
+							    maxlength="10" />							
 							</td>														
 						</tr>						
 					</table> 										    
