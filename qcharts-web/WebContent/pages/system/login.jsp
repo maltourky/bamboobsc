@@ -165,7 +165,7 @@ function pageMessage() {
 	  </td>
     </tr>
     <tr>
-      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.6.2</span> </span></td>
+      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.6.3</span> </span></td>
     </tr>
   </table>
 </s:form>
