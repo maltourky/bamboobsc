@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -62,6 +63,8 @@ import com.netsteadfast.greenstep.vo.SysUploadVO;
 public class UploadSupportUtils {
 	protected static Logger logger=Logger.getLogger(UploadSupportUtils.class);
 	public static final String HELP_EXPRESSION_VARIABLE = "datas";
+	private static Properties props = new Properties();
+	private static String VIEW_MODE_FILE_EXTENSION[] = null;	
 	private static ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	private static ISysUploadTranService<SysUploadTranVO, TbSysUploadTran, String> sysUploadTranService;
 	private static ISysUploadTranSegmService<SysUploadTranSegmVO, TbSysUploadTranSegm, String> sysUploadTranSegmService;
@@ -72,6 +75,23 @@ public class UploadSupportUtils {
 				AppContext.getBean("core.service.SysUploadTranService");
 		sysUploadTranSegmService = (ISysUploadTranSegmService<SysUploadTranSegmVO, TbSysUploadTranSegm, String>)
 				AppContext.getBean("core.service.SysUploadTranSegmService");
+		try {
+			props.load(UploadSupportUtils.class.getClassLoader().getResource("META-INF/view-mode-files.properties").openStream());
+			VIEW_MODE_FILE_EXTENSION = SimpleUtils.getStr(props.getProperty("FILE_EXTENSION")).trim().split(",");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public static String getViewMode(String fileShowName) throws Exception {
+		String viewMode = YesNo.NO;
+		String fileExtensionName = StringUtils.defaultString( getFileExtensionName(fileShowName) ).trim().toLowerCase();
+		for (int i=0; VIEW_MODE_FILE_EXTENSION!=null && i<VIEW_MODE_FILE_EXTENSION.length; i++) {
+			if (VIEW_MODE_FILE_EXTENSION[i].toLowerCase().equals(fileExtensionName)) {
+				viewMode = YesNo.YES;
+			}
+		}
+		return viewMode;
 	}
 	
 	public static SysUploadTranVO findSysUploadTran(String tranId) throws ServiceException, Exception {
