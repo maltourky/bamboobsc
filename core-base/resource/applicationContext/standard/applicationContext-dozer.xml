@@ -94,6 +94,9 @@
 				<value>classpath*:dozer/dozerBeanMapping-degreeFeedbackAssign.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-degreeFeedbackItem.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-degreeFeedbackScore.xml</value>				
+				<value>classpath*:dozer/dozerBeanMapping-pdca.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaDoc.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaOwner.xml</value>
 				
                 <!-- #################################################### -->
                 <!-- QCharts -->
