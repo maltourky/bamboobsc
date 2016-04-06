@@ -1527,13 +1527,13 @@ LOCK TABLES `bb_pdca_item` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_pdca_item_aduit`
+-- Table structure for table `bb_pdca_item_audit`
 --
 
-DROP TABLE IF EXISTS `bb_pdca_item_aduit`;
+DROP TABLE IF EXISTS `bb_pdca_item_audit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_pdca_item_aduit` (
+CREATE TABLE `bb_pdca_item_audit` (
   `OID` char(36) NOT NULL,
   `PDCA_OID` char(36) NOT NULL,
   `ITEM_OID` char(36) NOT NULL,
@@ -1545,18 +1545,18 @@ CREATE TABLE `bb_pdca_item_aduit` (
   `UUSERID` varchar(24) DEFAULT NULL,
   `UDATE` datetime DEFAULT NULL,
   PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`TYPE`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`TYPE`,`EMP_ID`),
   KEY `IDX_1` (`EMP_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bb_pdca_item_aduit`
+-- Dumping data for table `bb_pdca_item_audit`
 --
 
-LOCK TABLES `bb_pdca_item_aduit` WRITE;
-/*!40000 ALTER TABLE `bb_pdca_item_aduit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_pdca_item_aduit` ENABLE KEYS */;
+LOCK TABLES `bb_pdca_item_audit` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_item_audit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_item_audit` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

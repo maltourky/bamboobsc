@@ -97,6 +97,11 @@
 				<value>classpath*:dozer/dozerBeanMapping-pdca.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-pdcaDoc.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-pdcaOwner.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaItem.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaItemDoc.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaKpis.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaItemAudit.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaItemOwner.xml</value>
 				
                 <!-- #################################################### -->
                 <!-- QCharts -->

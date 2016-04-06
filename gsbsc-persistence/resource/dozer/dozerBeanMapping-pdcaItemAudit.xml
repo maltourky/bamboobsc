@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+	http://dozer.sourceforge.net/schema/beanmapping.xsd">
+	
+	<mapping map-id="pdcaItemAudit.po2vo" >
+		<class-a>com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit</class-a>
+		<class-b>com.netsteadfast.greenstep.vo.PdcaItemAuditVO</class-b>
+		<field>
+			<a>oid</a>
+			<b>oid</b>
+		</field>
+		<field>
+			<a>pdcaOid</a>
+			<b>pdcaOid</b>
+		</field>	
+		<field>
+			<a>itemOid</a>
+			<b>itemOid</b>
+		</field>					
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+		<field>
+			<a>empId</a>
+			<b>empId</b>
+		</field>
+		<field>
+			<a>confirmDate</a>
+			<b>confirmDate</b>
+		</field>																													
+	</mapping>
+
+	<mapping map-id="pdcaItemAudit.vo2po" >
+		<class-a>com.netsteadfast.greenstep.vo.PdcaItemAuditVO</class-a>
+		<class-b>com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit</class-b>
+		<field>
+			<a>oid</a>
+			<b>oid</b>
+		</field>
+		<field>
+			<a>pdcaOid</a>
+			<b>pdcaOid</b>
+		</field>	
+		<field>
+			<a>itemOid</a>
+			<b>itemOid</b>
+		</field>					
+		<field>
+			<a>type</a>
+			<b>type</b>
+		</field>
+		<field>
+			<a>empId</a>
+			<b>empId</b>
+		</field>
+		<field>
+			<a>confirmDate</a>
+			<b>confirmDate</b>
+		</field>	
+	</mapping>
+	
+</mappings>

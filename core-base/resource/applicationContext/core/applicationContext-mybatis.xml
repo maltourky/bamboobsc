@@ -110,6 +110,11 @@
                 <value>classpath*:mappers/BbPdca.xml</value>
                 <value>classpath*:mappers/BbPdcaDoc.xml</value>
                 <value>classpath*:mappers/BbPdcaOwner.xml</value>
+                <value>classpath*:mappers/BbPdcaKpis.xml</value>
+                <value>classpath*:mappers/BbPdcaItem.xml</value>
+                <value>classpath*:mappers/BbPdcaItemDoc.xml</value>
+                <value>classpath*:mappers/BbPdcaItemAudit.xml</value>
+                <value>classpath*:mappers/BbPdcaItemOwner.xml</value>
                 
                 <!-- #################################################### -->
                 <!-- QCharts -->
