@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.27, for FreeBSD10.1 (amd64)
+-- MySQL dump 10.13  Distrib 5.6.27, for Win32 (x86)
 --
 -- Host: localhost    Database: bbcore
 -- ------------------------------------------------------
@@ -1424,6 +1424,258 @@ LOCK TABLES `bb_organization_par` WRITE;
 /*!40000 ALTER TABLE `bb_organization_par` DISABLE KEYS */;
 INSERT INTO `bb_organization_par` VALUES ('112699ab-14f8-43d7-ab1c-43e3d58cc4f0','0002','0000000000','admin','2014-11-11 19:33:19',NULL,NULL),('1616dff6-2052-4f5d-a57a-821509cfcd75','0003','0002','admin','2014-12-21 13:54:31',NULL,NULL),('954780f4-0f77-4d6c-ad32-41d0ab9ab313','0001','0000000000','admin','2014-11-11 19:33:24',NULL,NULL);
 /*!40000 ALTER TABLE `bb_organization_par` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca`
+--
+
+DROP TABLE IF EXISTS `bb_pdca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca` (
+  `OID` char(36) NOT NULL,
+  `TITLE` varchar(100) NOT NULL,
+  `DESCRIPTION` varchar(500) NOT NULL,
+  `START_DATE` varchar(8) NOT NULL,
+  `END_DATE` varchar(8) NOT NULL,
+  `PARENT_OID` char(36) DEFAULT NULL,
+  `CONFIRM_DATE` varchar(8) DEFAULT NULL,
+  `CONFIRM_FLAG` varchar(8) NOT NULL DEFAULT 'N',
+  `CONFIRM_EMP_ID` varchar(10) DEFAULT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`TITLE`),
+  KEY `IDX_1` (`TITLE`,`START_DATE`,`END_DATE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca`
+--
+
+LOCK TABLES `bb_pdca` WRITE;
+/*!40000 ALTER TABLE `bb_pdca` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_doc`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_doc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_doc` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `UPLOAD_OID` char(36) NOT NULL,
+  `VIEW_MODE` varchar(1) NOT NULL DEFAULT 'N',
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`UPLOAD_OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_doc`
+--
+
+LOCK TABLES `bb_pdca_doc` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_doc` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_doc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_item`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_item` (
+  `OID` char(36) NOT NULL,
+  `TYPE` varchar(1) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `TITLE` varchar(100) NOT NULL,
+  `DESCRIPTION` varchar(500) NOT NULL,
+  `START_DATE` varchar(8) NOT NULL,
+  `END_DATE` varchar(8) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`TYPE`,`PDCA_OID`,`TITLE`),
+  KEY `IDX_1` (`PDCA_OID`,`TITLE`,`START_DATE`,`END_DATE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_item`
+--
+
+LOCK TABLES `bb_pdca_item` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_item_aduit`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_item_aduit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_item_aduit` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `ITEM_OID` char(36) NOT NULL,
+  `TYPE` varchar(1) NOT NULL,
+  `EMP_ID` varchar(10) NOT NULL,
+  `CONFIRM_DATE` varchar(8) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`TYPE`),
+  KEY `IDX_1` (`EMP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_item_aduit`
+--
+
+LOCK TABLES `bb_pdca_item_aduit` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_item_aduit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_item_aduit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_item_doc`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_item_doc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_item_doc` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `ITEM_OID` char(36) NOT NULL,
+  `UPLOAD_OID` char(36) NOT NULL,
+  `VIEW_MODE` varchar(1) NOT NULL DEFAULT 'N',
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_item_doc`
+--
+
+LOCK TABLES `bb_pdca_item_doc` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_item_doc` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_item_doc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_item_owner`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_item_owner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_item_owner` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `ITEM_OID` char(36) NOT NULL,
+  `EMP_ID` varchar(10) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`EMP_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_item_owner`
+--
+
+LOCK TABLES `bb_pdca_item_owner` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_item_owner` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_item_owner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_kpis`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_kpis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_kpis` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `KPI_ID` varchar(14) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`KPI_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_kpis`
+--
+
+LOCK TABLES `bb_pdca_kpis` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_kpis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_kpis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bb_pdca_owner`
+--
+
+DROP TABLE IF EXISTS `bb_pdca_owner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bb_pdca_owner` (
+  `OID` char(36) NOT NULL,
+  `PDCA_OID` char(36) NOT NULL,
+  `EMP_ID` varchar(10) NOT NULL,
+  `CUSERID` varchar(24) NOT NULL,
+  `CDATE` datetime NOT NULL,
+  `UUSERID` varchar(24) DEFAULT NULL,
+  `UDATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`OID`),
+  UNIQUE KEY `UK_1` (`EMP_ID`,`PDCA_OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bb_pdca_owner`
+--
+
+LOCK TABLES `bb_pdca_owner` WRITE;
+/*!40000 ALTER TABLE `bb_pdca_owner` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bb_pdca_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -3865,4 +4117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-05 20:37:02
+-- Dump completed on 2016-04-06 15:23:39
