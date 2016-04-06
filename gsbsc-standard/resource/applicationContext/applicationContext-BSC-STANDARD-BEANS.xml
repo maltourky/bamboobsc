@@ -42,5 +42,13 @@
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-degreeFeedbackLevel.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-degreeFeedbackProject.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-degreeFeedbackScore.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdca.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaDoc.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaKpis.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaOwner.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItem.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemDoc.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemOwner.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemAudit.xml" />
     
 </beans>    
