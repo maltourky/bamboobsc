@@ -65,7 +65,19 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 		this.confirmFlag = confirmFlag;
 		this.confirmEmpId = confirmEmpId;
 	}
-
+	
+	public String getStartDateDisplayValue() {
+		return super.getDateDisplayValue(this.startDate, "/");
+	}
+	
+	public String getEndDateDisplayValue() {
+		return super.getDateDisplayValue(this.endDate, "/");
+	}
+	
+	public String getConfirmDateDisplayValue() {
+		return super.getDateDisplayValue(this.confirmDate, "/");
+	}
+	
 	@Override
 	public String getOid() {
 		return oid;

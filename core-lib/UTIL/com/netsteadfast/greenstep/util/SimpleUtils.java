@@ -224,6 +224,13 @@ public class SimpleUtils {
 			+ org.apache.commons.lang3.StringUtils.leftPad(calendar.get(Calendar.DAY_OF_MONTH)+"", 2, "0");
 	}
 	
+	public static final String getStrYMD(String yyyymmdd, String splitStr) {
+		if (StringUtils.isBlank(splitStr) || !isDate(yyyymmdd)) {
+			return yyyymmdd;
+		}
+		return yyyymmdd.substring(0, 4) + splitStr + yyyymmdd.substring(4, 6) + splitStr + yyyymmdd.substring(6, 8);
+	}
+	
 	public static int getMaxDayOfMonth(final int year, final int month) {
 		int max=28;		
 		Calendar calendar=Calendar.getInstance();		

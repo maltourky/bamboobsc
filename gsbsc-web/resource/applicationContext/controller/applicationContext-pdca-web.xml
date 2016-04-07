@@ -12,9 +12,9 @@
     
     <bean id="bsc.web.controller.PdcaManagementAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PdcaManagementAction" scope="prototype" />
-    <!-- 
     <bean id="bsc.web.controller.PdcaManagementGridQueryAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PdcaManagementGridQueryAction" scope="prototype" />
+    <!-- 
     <bean id="bsc.web.controller.PdcaSaveOrUpdateAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PdcaSaveOrUpdateAction" scope="prototype" />
     -->

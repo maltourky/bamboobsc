@@ -21,11 +21,20 @@
  */
 package com.netsteadfast.greenstep.bsc.service;
 
+import java.util.List;
+
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.PageOf;
+import com.netsteadfast.greenstep.base.model.QueryResult;
+import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.service.IBaseService;
+import com.netsteadfast.greenstep.vo.PdcaVO;
 
 public interface IPdcaService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
 	public static String MAPPER_ID_PO2VO="pdca.po2vo";
 	public static String MAPPER_ID_VO2PO="pdca.vo2po";
+	
+	public QueryResult<List<PdcaVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception;
 	
 }

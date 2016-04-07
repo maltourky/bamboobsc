@@ -21,6 +21,25 @@
  */
 package com.netsteadfast.greenstep.base.model;
 
+import java.util.Date;
+
+import com.netsteadfast.greenstep.util.SimpleUtils;
+
 public abstract class BaseValueObj {
 	public abstract String getOid();	
+	
+	protected String getDateDisplayValue(Date date, String split) {
+		if (null == date) {
+			return "";
+		}
+		return SimpleUtils.getStrYMD(date, split);
+	}
+	
+	protected String getDateDisplayValue(String yyyymmdd, String split) {
+		if (null == yyyymmdd) {
+			return "";
+		}
+		return SimpleUtils.getStrYMD(yyyymmdd, split);
+	}
+	
 }

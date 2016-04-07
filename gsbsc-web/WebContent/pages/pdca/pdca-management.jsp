@@ -28,6 +28,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 
+function BSC_PROG006D0001Q_GridFieldStructure() {
+	return [
+			{ name: "View / Edit", field: "oid", formatter: BSC_PROG006D0001Q_GridButtonClick, width: "15%" },  
+			{ name: "Title", field: "title", width: "30%" },
+			{ name: "Start", field: "startDateDisplayValue", width: "15%" },
+			{ name: "End", field: "endDateDisplayValue", width: "15%" },
+			{ name: "Confirm", field: "confirmFlag", width: "10%" },
+			{ name: "Confirm date", field: "confirmDateDisplayValue", width: "15%" }
+		];
+}
+
+function BSC_PROG006D0001Q_GridButtonClick(itemOid) {
+	var rd="";
+	rd += "<img src=\"" + _getSystemIconUrl('PROPERTIES') + "\" border=\"0\" alt=\"edit\" onclick=\"BSC_PROG006D0001Q_edit('" + itemOid + "');\" />";
+	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	rd += "<img src=\"" + _getSystemIconUrl('REMOVE') + "\" border=\"0\" alt=\"delete\" onclick=\"BSC_PROG006D0001Q_confirmDelete('" + itemOid + "');\" />";
+	return rd;	
+}
+
+function BSC_PROG006D0001Q_clear() {
+	dijit.byId('BSC_PROG006D0001Q_title').set('value', '');
+	dijit.byId('BSC_PROG006D0001Q_startDate').set('value', '');
+	dijit.byId('BSC_PROG006D0001Q_endDate').set('value', '');
+	dijit.byId('BSC_PROG006D0001Q_startDate').set('displayedValue', '');
+	dijit.byId('BSC_PROG006D0001Q_endDate').set('displayedValue', '');	
+	clearQuery_${programId}_grid();	
+}
+
+function BSC_PROG006D0001Q_edit(oid) {
+	BSC_PROG002D0002E_TabShow(oid);
+}
+
+function BSC_PROG006D0001Q_confirmDelete(oid) {
+	confirmDialog(
+			"${programId}_managementDialogId000", 
+			_getApplicationProgramNameById('${programId}'), 
+			"${action.getText('BSC_PROG006D0001Q_confirmDelete')}", 
+			function(success) {
+				if (!success) {
+					return;
+				}	
+				xhrSendParameter(
+						'${basePath}/bsc.pdcaDeleteAction.action', 
+						{ 'fields.oid' : oid }, 
+						'json', 
+						_gscore_dojo_ajax_timeout,
+						_gscore_dojo_ajax_sync, 
+						true, 
+						function(data) {
+							alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+							getQueryGrid_${programId}_grid();
+						}, 
+						function(error) {
+							alert(error);
+						}
+				);	
+			}, 
+			(window.event ? window.event : null) 
+	);			
+}
+
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -56,7 +117,64 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>		
 
-TEST123~~~
+	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
+		<tr>
+    		<td height="50px" width="100%" align="left"><font size='2'><b>Title:</b></font><br/>    		
+    			<gs:textBox name="BSC_PROG006D0001Q_title" id="BSC_PROG006D0001Q_title" value="" width="300" maxlength="100"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_title'">
+    				Input title.
+				</div>
+    		</td>
+    	</tr>
+		<tr>
+    		<td height="50px" width="100%" align="left"><font size='2'><b>Date range:</b></font><br/>
+    			Start
+    			<input id="BSC_PROG006D0001Q_startDate" type="text" name="BSC_PROG006D0001Q_startDate" data-dojo-type="dijit.form.DateTextBox"
+    				maxlength="10" 
+    				constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" />
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_startDate'">
+					Select start date.
+				</div>
+				&nbsp;						
+				End
+				<input id="BSC_PROG006D0001Q_endDate" type="text" name="BSC_PROG006D0001Q_endDate" data-dojo-type="dijit.form.DateTextBox"
+					maxlength="10" 
+					constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" />																	    									    	
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_endDate'">
+					Select end date.
+				</div>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td  height="25px" width="100%"  align="left">
+    			<gs:button name="BSC_PROG006D0001Q_query" id="BSC_PROG006D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
+    				handleAs="json"
+    				sync="N"
+    				xhrUrl="${basePath}/bsc.pdcaManagementGridQueryAction.action"
+    				parameterType="postData"
+    				xhrParameter=" 
+    					{ 
+    						'searchValue.parameter.title'			: dijit.byId('BSC_PROG006D0001Q_title').get('value'),
+    						'searchValue.parameter.startDate' 		: dijit.byId('BSC_PROG006D0001Q_startDate').get('displayedValue'),
+    						'searchValue.parameter.endDate' 		: dijit.byId('BSC_PROG006D0001Q_endDate').get('displayedValue'),
+    						'pageOf.size'							: getGridQueryPageOfSize_${programId}_grid(),
+    						'pageOf.select'							: getGridQueryPageOfSelect_${programId}_grid(),
+    						'pageOf.showRow'						: getGridQueryPageOfShowRow_${programId}_grid()
+    					} 
+    				"
+    				errorFn="clearQuery_${programId}_grid();"
+    				loadFn="dataGrid_${programId}_grid(data);" 
+    				programId="${programId}"
+    				label="Query" 
+    				iconClass="dijitIconSearch"></gs:button>
+    			<gs:button name="BSC_PROG006D0001Q_clear" id="BSC_PROG006D0001Q_clear" onClick="BSC_PROG006D0001Q_clear();" 
+    				label="Clear" 
+    				iconClass="dijitIconClear"></gs:button>
+    		</td>
+    	</tr>     	    	
+	</table>
+	
+	<gs:grid gridFieldStructure="BSC_PROG006D0001Q_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}" disableOnHeaderCellClick="Y"></gs:grid>
 
 <script type="text/javascript">${programId}_page_message();</script>	
 </body>
