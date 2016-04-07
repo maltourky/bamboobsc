@@ -228,6 +228,9 @@ public class SimpleUtils {
 		if (StringUtils.isBlank(splitStr) || !isDate(yyyymmdd)) {
 			return yyyymmdd;
 		}
+		if (yyyymmdd.length()!=8) {
+			return yyyymmdd;
+		}
 		return yyyymmdd.substring(0, 4) + splitStr + yyyymmdd.substring(4, 6) + splitStr + yyyymmdd.substring(6, 8);
 	}
 	
