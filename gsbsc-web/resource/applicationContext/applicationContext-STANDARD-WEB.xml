@@ -34,6 +34,7 @@
     <import resource="classpath*:applicationContext/controller/applicationContext-reportRoleView-web.xml" />
     <import resource="classpath*:applicationContext/controller/applicationContext-dashboard-web.xml" />    
     <import resource="classpath*:applicationContext/controller/applicationContext-degreeFeedbackProject-web.xml" />
+    <import resource="classpath*:applicationContext/controller/applicationContext-pdca-web.xml" />
     
     
     <!-- Apache CXF WEB Service BEANS -->
