@@ -64,6 +64,24 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		return SUCCESS;		
 	}	
 	
+	/**
+	 *  bsc.pdcaCreateAction.action
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG006D0001A")	
+	public String create() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;	
+	}
+	
 	@Override
 	public String getProgramName() {
 		try {
