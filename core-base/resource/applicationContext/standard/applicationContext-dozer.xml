@@ -102,6 +102,8 @@
 				<value>classpath*:dozer/dozerBeanMapping-pdcaKpis.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-pdcaItemAudit.xml</value>
 				<value>classpath*:dozer/dozerBeanMapping-pdcaItemOwner.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaMeasureFreq.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-pdcaOrga.xml</value>
 				
                 <!-- #################################################### -->
                 <!-- QCharts -->
