@@ -185,6 +185,17 @@ public class CommonLoadDataAction extends BaseJsonAction {
 		this.success = IS_YES;		
 	}
 	
+	private void loadKpisAppendNames() throws ControllerException, AuthorityException, ServiceException, Exception {
+		List<String> names = this.kpiService.findForAppendNames(
+				super.transformAppendIds2List( super.defaultString(this.getFields().get("appendId")) ) );
+		StringBuilder sb = new StringBuilder();
+		for (int i=0; names!=null && i<names.size(); i++) {
+			sb.append(names.get(i)).append(Constants.ID_DELIMITER);
+		}
+		this.appendName = sb.toString();
+		this.success = IS_YES;		
+	}
+	
 	private void fillDataMap2Items(Map<String, String> sourceDataMap) throws Exception {
 		if (null==sourceDataMap) {
 			return;
@@ -358,6 +369,31 @@ public class CommonLoadDataAction extends BaseJsonAction {
 		} catch (ServiceException se) {
 			this.message=se.getMessage().toString();
 		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;			
+	}	
+	
+	/**
+	 * bsc.commonGetKpisNamesAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@JSON(serialize=false)
+	public String getKpisNames() throws Exception {
+		try {
+			this.loadKpisAppendNames();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
 			e.printStackTrace();
 			this.message=e.getMessage().toString();
 			this.logger.error(e.getMessage());

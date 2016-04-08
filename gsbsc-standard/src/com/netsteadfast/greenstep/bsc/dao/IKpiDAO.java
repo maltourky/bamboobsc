@@ -34,4 +34,6 @@ public interface IKpiDAO<T extends java.io.Serializable, PK extends java.io.Seri
 	
 	public int countForMixData(Map<String, Object> paramMap) throws Exception;
 	
+	public List<String> findForAppendNames(List<String> oids) throws Exception;
+	
 }

@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -174,6 +175,14 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 	@Override
 	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception {		
 		return this.kpiDAO.countForMixData(this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId));
+	}
+	
+	@Override
+	public List<String> findForAppendNames(List<String> oids) throws ServiceException, Exception {
+		if (oids==null || oids.size()<1) {
+			return new ArrayList<String>();
+		}
+		return this.kpiDAO.findForAppendNames(oids);
 	}
 
 }

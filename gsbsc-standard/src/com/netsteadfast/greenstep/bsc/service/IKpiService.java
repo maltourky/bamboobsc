@@ -43,4 +43,6 @@ public interface IKpiService<T extends java.io.Serializable, E extends java.io.S
 	
 	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception;
 	
+	public List<String> findForAppendNames(List<String> oids) throws ServiceException, Exception;
+	
 }

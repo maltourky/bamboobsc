@@ -1,3 +1,4 @@
+<%@page import="com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,6 +6,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+Map<String, String> frequencyMap = BscMeasureDataFrequency.getFrequencyMap(true);
 
 %>
 <!doctype html>
@@ -78,6 +81,87 @@ function BSC_PROG006D0001A_contentTab_clearEmplAppendId() {
 	dojo.byId('BSC_PROG006D0001A_contentTab_employeeAppendName').innerHTML = '';
 }
 
+function BSC_PROG006D0001A_contentTab_reloadOrganizationAppendName() {
+	var appendOid = dojo.byId('BSC_PROG006D0001A_contentTab_appendOrganizationOid').value;
+	if (''==appendOid || null==appendOid ) {
+		dojo.byId('BSC_PROG006D0001A_contentTab_appendOrganizationOid').value = '';
+		dojo.byId('BSC_PROG006D0001A_contentTab_organizationAppendName').innerHTML = '';		
+		return;
+	}
+	xhrSendParameter(
+			'${basePath}/bsc.commonGetOrganizationNamesAction.action', 
+			{ 'fields.appendId' : dojo.byId('BSC_PROG006D0001A_contentTab_appendOrganizationOid').value }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				if (data!=null && data.appendName!=null) {
+					dojo.byId('BSC_PROG006D0001A_contentTab_organizationAppendName').innerHTML = data.appendName;
+				}								
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);		
+}
+function BSC_PROG006D0001A_contentTab_clearOrgaAppendId() {
+	dojo.byId('BSC_PROG006D0001A_contentTab_appendOrganizationOid').value = '';
+	dojo.byId('BSC_PROG006D0001A_contentTab_organizationAppendName').innerHTML = '';
+}
+
+//------------------------------------------------------------------------------
+//Content-Tab measure options settings function
+//------------------------------------------------------------------------------
+function BSC_PROG003D0001Q_setDataForValue() {
+	dijit.byId('BSC_PROG003D0001Q_measureDataOrganizationOid').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG003D0001Q_measureDataEmployeeOid').set("value", _gscore_please_select_id);	
+	dijit.byId('BSC_PROG003D0001Q_measureDataOrganizationOid').set('readOnly', true);
+	dijit.byId('BSC_PROG003D0001Q_measureDataEmployeeOid').set('readOnly', true);
+	var dataFor = dijit.byId("BSC_PROG003D0001Q_dataFor").get("value");
+	if ('employee' == dataFor) {
+		dijit.byId('BSC_PROG003D0001Q_measureDataEmployeeOid').set('readOnly', false);
+	}
+	if ('organization' == dataFor) {
+		dijit.byId('BSC_PROG003D0001Q_measureDataOrganizationOid').set('readOnly', false);
+	}	
+}
+
+function BSC_PROG003D0001Q_setMeasureDataOrgaValue() {
+	var dataFor = dijit.byId("BSC_PROG003D0001Q_dataFor").get("value");
+	if ('all' == dataFor || 'employee' == dataFor) {
+		dijit.byId('BSC_PROG003D0001Q_measureDataOrganizationOid').set("value", _gscore_please_select_id);
+	}
+}
+
+function BSC_PROG003D0001Q_setMeasureDataEmplValue() {
+	var dataFor = dijit.byId("BSC_PROG003D0001Q_dataFor").get("value");
+	if ('all' == dataFor || 'organization' == dataFor) {
+		dijit.byId('BSC_PROG003D0001Q_measureDataOrganizationOid').set("value", _gscore_please_select_id);
+	}	
+}
+
+function BSC_PROG003D0001Q_setFrequencyValue() {
+	var frequency = dijit.byId("BSC_PROG003D0001Q_frequency").get("value");
+	dijit.byId("BSC_PROG003D0001Q_startYearDate").set("readOnly", true);
+	dijit.byId("BSC_PROG003D0001Q_endYearDate").set("readOnly", true);
+	dijit.byId("BSC_PROG003D0001Q_startDate").set("readOnly", true);
+	dijit.byId("BSC_PROG003D0001Q_endDate").set("readOnly", true);
+	if ( frequency == _gscore_please_select_id ) {
+		return;
+	}
+	if ('1' == frequency || '2' == frequency || '3' == frequency) { // day, week, month
+		dijit.byId("BSC_PROG003D0001Q_startDate").set("readOnly", false);
+		dijit.byId("BSC_PROG003D0001Q_endDate").set("readOnly", false);		
+	} else { // quarter, half-year, year
+		dijit.byId("BSC_PROG003D0001Q_startYearDate").set("readOnly", false);
+		dijit.byId("BSC_PROG003D0001Q_endYearDate").set("readOnly", false);				
+	}
+}
+
+//------------------------------------------------------------------------------
+//Content-Tab upload function
+//------------------------------------------------------------------------------
 var BSC_PROG006D0001A_contentTab_maxUpload = 5;
 var BSC_PROG006D0001A_contentTab_uploads = [];
 
@@ -149,7 +233,28 @@ function BSC_PROG006D0001A_contentTab_getUploadShowName(oid) {
 }
 
 function BSC_PROG006D0001A_contentTab_reloadKPIsAppendName() {
-	alert('GET-OIDs='+dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value);
+	var appendOid = dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value;
+	if (''==appendOid || null==appendOid ) {
+		dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value = '';
+		dojo.byId('BSC_PROG006D0001A_contentTab_kpisAppendName').innerHTML = '';		
+		return;
+	}
+	xhrSendParameter(
+			'${basePath}/bsc.commonGetKpisNamesAction.action', 
+			{ 'fields.appendId' : dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				if (data!=null && data.appendName!=null) {
+					dojo.byId('BSC_PROG006D0001A_contentTab_kpisAppendName').innerHTML = data.appendName;
+				}								
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);
 }
 function BSC_PROG006D0001A_contentTab_clearKPIsAppendId() {
 	dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value = '';
@@ -188,7 +293,8 @@ function ${programId}_page_message() {
 	<!-- ContentTab hidden field -->
 	<input type="hidden" name="BSC_PROG006D0001A_contentTab_appendEmployeeOid" id="BSC_PROG006D0001A_contentTab_appendEmployeeOid" value="" />
 	<input type="hidden" name="BSC_PROG006D0001A_contentTab_uploadDocumentOid" id="BSC_PROG006D0001A_contentTab_uploadDocumentOid" value="" /><!-- 這個upload放oid的欄位只是當temp用 -->
-	<input type="hidden" name="BSC_PROG006D0001A_contentTab_appendKPIsOid" id="BSC_PROG006D0001A_contentTab_appendKPIsOid" value="" />	
+	<input type="hidden" name="BSC_PROG006D0001A_contentTab_appendKPIsOid" id="BSC_PROG006D0001A_contentTab_appendKPIsOid" value="" />
+	<input type="hidden" name="BSC_PROG006D0001A_contentTab_appendOrganizationOid" id="BSC_PROG006D0001A_contentTab_appendOrganizationOid" value="" />
 	<!-- ##################################################################### -->
 	
 	
@@ -254,6 +360,117 @@ function ${programId}_page_message() {
 						</div>  			
 		    		</td>
 		    	</tr>
+		    	<tr>
+		    		<td height="165px" width="100%"  align="left">
+		    			
+		    			<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'BSC Report measure settings' " open="true">	
+						<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:140px">
+						
+							<table border="0" width="100%" >
+							
+								<tr valign="top">
+									<td width="100%" align="left" height="25px">														
+										Frequency:
+										<gs:select name="BSC_PROG003D0001Q_frequency" dataSource="frequencyMap" id="BSC_PROG003D0001Q_frequency" value="6" onChange="BSC_PROG003D0001Q_setFrequencyValue();" width="140"></gs:select>
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_frequency'">
+						    				Select frequency.
+										</div> 									
+									</td>											
+								</tr>	
+													
+								<tr valign="top">
+									<td width="100%" align="left" height="25px">
+									
+								    	Start year:
+								    	<input id="BSC_PROG003D0001Q_startYearDate" name="BSC_PROG003D0001Q_startYearDate" data-dojo-type="dojox.form.YearTextBox" 
+								    		maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_startYearDate'">
+						    				Select start year.
+										</div>							    		
+								    	&nbsp;	
+								    	End year:
+								    	<input id="BSC_PROG003D0001Q_endYearDate" name="BSC_PROG003D0001Q_endYearDate" data-dojo-type="dojox.form.YearTextBox" 
+								    		maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_endYearDate'">
+						    				Select end year.
+										</div>							    									    	
+								    	&nbsp;&nbsp;		
+										Start date:
+										<input id="BSC_PROG003D0001Q_startDate" type="text" name="BSC_PROG003D0001Q_startDate" data-dojo-type="dijit.form.DateTextBox"
+											maxlength="10" 
+											constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" readonly />
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_startDate'">
+						    				Select start date.
+										</div>											
+										&nbsp;						
+										End date:
+										<input id="BSC_PROG003D0001Q_endDate" type="text" name="BSC_PROG003D0001Q_endDate" data-dojo-type="dijit.form.DateTextBox"
+											maxlength="10" 
+											constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" readonly />																	    									    	
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_endDate'">
+						    				Select end date.
+										</div>							    			
+								    </td>	
+								</tr>
+								<tr valign="top">
+									<td width="100%" align="left" height="25px">							
+										Data type:
+										<gs:select name="BSC_PROG003D0001Q_dataFor" dataSource="{ \"all\":\"All\", \"organization\":\"Organization / department\", \"employee\":\"Personal / employee\" }" id="BSC_PROG003D0001Q_dataFor" onChange="BSC_PROG003D0001Q_setDataForValue();" width="140"></gs:select>
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_dataFor'">
+						    				Select measure data type.
+										</div>										
+										&nbsp;&nbsp;
+										Organization / department:
+										<gs:select name="BSC_PROG003D0001Q_measureDataOrganizationOid" dataSource="measureDataOrganizationMap" id="BSC_PROG003D0001Q_measureDataOrganizationOid" onChange="BSC_PROG003D0001Q_setMeasureDataOrgaValue();" readonly="Y"></gs:select>
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_measureDataOrganizationOid'">
+						    				Select measure data organization/department.
+										</div>									
+										&nbsp;&nbsp;
+										Personal / employee:
+										<gs:select name="BSC_PROG003D0001Q_measureDataEmployeeOid" dataSource="measureDataEmployeeMap" id="BSC_PROG003D0001Q_measureDataEmployeeOid" onChange="BSC_PROG003D0001Q_setMeasureDataEmplValue();" readonly="Y"></gs:select>
+										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0001Q_measureDataEmployeeOid'">
+						    				Select measure data personal/Employee.
+										</div>									
+									</td>
+								</tr>																						
+																												
+							</table>
+				    			
+			    		</div>	
+			    		</div>	 
+			    		   		    		
+		    		</td>
+		    	</tr>
+				<tr>
+		    		<td height="50px" width="100%"  align="left" colspan="2">
+		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Organization / Department)</b>:
+		    			&nbsp;&nbsp;
+						<button name="BSC_PROG006D0001A_contentTab_deptSelect" id="BSC_PROG006D0001A_contentTab_deptSelect" data-dojo-type="dijit.form.Button"
+							data-dojo-props="
+								showLabel:false,
+								iconClass:'dijitIconFolderOpen',
+								onClick:function(){ 
+									BSC_PROG001D0002Q_S00_DlgShow('BSC_PROG006D0001A_contentTab_appendOrganizationOid;BSC_PROG006D0001A_contentTab_reloadOrganizationAppendName');
+								}
+							"></button>
+						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_deptSelect'">
+		    				Select responsibility&nbsp;(Organization / Department).
+						</div>					
+						<button name="BSC_PROG006D0001A_contentTab_deptClear" id="BSC_PROG006D0001A_contentTab_deptClear" data-dojo-type="dijit.form.Button"
+							data-dojo-props="
+								showLabel:false,
+								iconClass:'dijitIconClear',
+								onClick:function(){ 
+									BSC_PROG006D0001A_contentTab_clearOrgaAppendId();
+								}
+							"></button>	
+						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_deptClear'">
+		    				Clear responsibility&nbsp;(Organization / Department).
+						</div>					
+						<br/>	    			    			
+		    			<span id="BSC_PROG006D0001A_contentTab_organizationAppendName"></span>    			
+		    		</td>
+		    	</tr>     		    	
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
 		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Employee)</b>:
@@ -358,16 +575,16 @@ function ${programId}_page_message() {
         </div>
         <!-- ##################################################################### -->
         
-        <div data-dojo-type="dijit/layout/ContentPane" title="Plan" data-dojo-props="selected:false">
+        <div data-dojo-type="dijit/layout/ContentPane" title="(P) Plan" data-dojo-props="selected:false">
             222
         </div>
-        <div data-dojo-type="dijit/layout/ContentPane" title="Do" data-dojo-props="selected:false">
+        <div data-dojo-type="dijit/layout/ContentPane" title="(D) Do" data-dojo-props="selected:false">
             333
         </div>
-        <div data-dojo-type="dijit/layout/ContentPane" title="Check" data-dojo-props="selected:false">
+        <div data-dojo-type="dijit/layout/ContentPane" title="(C) Check" data-dojo-props="selected:false">
             444
         </div>
-        <div data-dojo-type="dijit/layout/ContentPane" title="Action" data-dojo-props="selected:false">
+        <div data-dojo-type="dijit/layout/ContentPane" title="(A) Action" data-dojo-props="selected:false">
             555
         </div>
     </div>
