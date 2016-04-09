@@ -37,6 +37,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
+import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.logic.IReportRoleViewLogicService;
@@ -57,6 +58,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 	private Map<String, String> frequencyMap = BscMeasureDataFrequency.getFrequencyMap(true);
 	private Map<String, String> measureDataOrganizationMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> measureDataEmployeeMap = this.providedSelectZeroDataMap(true);
+	private Map<String, String> pdcaTypeMap = PdcaType.getDataMap(true);
 	
 	public PdcaManagementAction() {
 		super();
@@ -197,6 +199,10 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 
 	public Map<String, String> getMeasureDataEmployeeMap() {
 		return measureDataEmployeeMap;
+	}
+
+	public Map<String, String> getPdcaTypeMap() {
+		return pdcaTypeMap;
 	}	
 
 }

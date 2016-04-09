@@ -583,7 +583,7 @@ function ${programId}_page_message() {
         		<tr>
         			<td height="50px" width="100%"  align="left">
         				<font color='RED'>*</font><b>Type</b>:
-        				<gs:select name="BSC_PROG006D0001A_pdcaTab_type" dataSource="{ \"P\":\"P - Plan\", \"D\":\"D - Do\", \"C\":\"C - Check\",  \"A\":\"A - Action\" }" id="BSC_PROG006D0001A_pdcaTab_type"  width="140"></gs:select>
+        				<gs:select name="BSC_PROG006D0001A_pdcaTab_type" dataSource="pdcaTypeMap" id="BSC_PROG006D0001A_pdcaTab_type"  width="140"></gs:select>
         			</td>
         		</tr>
 				<tr>
