@@ -293,15 +293,22 @@ function BSC_PROG006D0001A_pdcaTab_add() {
 	BSC_PROG006D0001A_pdcaTab_item_node.push({
 		id			: viewPage.generateGuid(),
 		type		: type,
-		title		: title,
+		title		: viewPage.escape1(title),
 		startDate	: startDate,
 		endDate		: endDate,
-		description	: dijit.byId("BSC_PROG006D0001A_pdcaTab_description").get("value"),
+		description	: viewPage.escape1(dijit.byId("BSC_PROG006D0001A_pdcaTab_description").get("value")),
 		upload		: [],		
 		ownerOids	: '',
 		appendNames	: '' // for show only
 	});
 	BSC_PROG006D0001A_pdcaTab_itemTablePaint(BSC_PROG006D0001A_pdcaTab_item_node);
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_type").set("value", _gscore_please_select_id);
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_title").set("value", "");
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_description").set("value", "");
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_startDate").set("value", "");
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_endDate").set("value", "");	
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_startDate").set("displayedValue", "");
+	dijit.byId("BSC_PROG006D0001A_pdcaTab_endDate").set("displayedValue", "");
 }
 function BSC_PROG006D0001A_pdcaTab_tableContentDel(id) {
 	var size = BSC_PROG006D0001A_pdcaTab_item_node.length;
