@@ -300,8 +300,7 @@ function BSC_PROG006D0001A_pdcaTab_add() {
 		startDate	: startDate,
 		endDate		: endDate,
 		description	: dijit.byId("BSC_PROG006D0001A_pdcaTab_description").get("value"),
-		uploadOids	: [],
-		uploadNames	: [], // for show only
+		upload		: [],		
 		ownerOids	: '',
 		appendNames	: '' // for show only
 	});
@@ -335,6 +334,12 @@ function BSC_PROG006D0001A_pdcaTab_itemTablePaint() {
 		if (dijit.byId( idHead + '_emplClear' )!= null) {
 			dijit.byId( idHead + '_emplClear' ).destroy( true );
 		}
+		if (dijit.byId( idHead + '_uploadDocumentBtn' )!= null) {
+			dijit.byId( idHead + '_uploadDocumentBtn' ).destroy( true );
+		}
+		if (dijit.byId( idHead + '_uploadDocumentClearBtn' )!= null) {
+			dijit.byId( idHead + '_uploadDocumentClearBtn' ).destroy( true );
+		}		
 		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG006D0001A_pdcaTab_tableContentDel(\'' + node.id + '\');" /> ';
 		htm += '<tr>';
 		htm += '<td width="10%" align="center" bgcolor="#ffffff">' + img + '</td>';
@@ -344,6 +349,15 @@ function BSC_PROG006D0001A_pdcaTab_itemTablePaint() {
 	}
 	htm += '</table>';
 	dojo.html.set(dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent"), htm, {extractContent: true, parseContent: true});
+	
+	// show PDCA item table - upload documents table content.
+	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+		var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+		BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId = node.id;
+		BSC_PROG006D0001A_pdcaTab_tableContent_showUploadDataTable();
+	}
+	
+	
 }
 var BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId = '';
 function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
@@ -356,6 +370,7 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	if (node.description.trim() != '') {
 		str += node.description + '<br/>';
 	}
+	
 	
 	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
 	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee)</b>:&nbsp;&nbsp;';
@@ -380,8 +395,37 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	str += '<br/>';
 	str += '<span id="' + idHead + '_employeeAppendName">' + node.appendNames + '</span>';
 	
+	str += '<br/>';
+	
+	str += '<input type="hidden" name="' + idHead +'_uploadDocumentOid" id="' + idHead +'_uploadDocumentOid" value="' + node.ownerOids + '" />';
+	str += '<b>Document / attachment</b>:&nbsp;&nbsp;';
+	str += '<button name="' + idHead + '_uploadDocumentBtn" id="' + idHead + '_uploadDocumentBtn" data-dojo-type="dijit.form.Button" ';
+	str += '	data-dojo-props=" ';
+	str += '		showLabel:false, ';
+	str += '		iconClass:\'dijitIconFolderOpen\', ';
+	str += '		onClick:function(){ ';
+	str += ' 			BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId=\'' + id + '\'; ';
+	str += '			BSC_PROG006D0001A_pdcaTab_tableContent_uploadDocument(); ';
+	str += '		} ';
+	str += '	"></button>';
+	str += '<button name="' + idHead + '_uploadDocumentClearBtn" id="' + idHead + '_uploadDocumentClearBtn" data-dojo-type="dijit.form.Button" ';
+	str += '	data-dojo-props=" ';
+	str += '	showLabel:false, ';
+	str += '	iconClass:\'dijitIconClear\', ';
+	str += '	onClick:function(){ ';
+	str += ' 		BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId=\'' + id + '\'; ';
+	str += '		BSC_PROG006D0001A_pdcaTab_tableContent_clearUploadDataTable(); ';
+	str += '	} ';
+	str += '	"></button>';
+	str += '<br/>';
+	str += '<div id="' + idHead + '_uploadDocumentTable"></div>';
+	
+	
 	return str;
 }
+//------------------------------------------------------------------------------
+//Content-PDCA item owner load function
+//------------------------------------------------------------------------------
 function BSC_PROG006D0001A_pdcaTab_itemTablePaint_reloadEmployeeAppendName() {
 	var oidField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_appendEmployeeOid';
 	var showField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_employeeAppendName';
@@ -435,6 +479,92 @@ function BSC_PROG006D0001A_pdcaTab_itemTablePaint_clearEmplAppendId() {
 		}
 	}	
 }
+//------------------------------------------------------------------------------
+//Content-PDCA item upload load function
+//------------------------------------------------------------------------------
+var BSC_PROG006D0001A_pdcaTab_tableContent_maxUpload = 3;
+function BSC_PROG006D0001A_pdcaTab_tableContent_getNode() {
+	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+		var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+		if (node.id == BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId) {
+			return node;
+		}
+	}
+	return null;
+}
+
+function BSC_PROG006D0001A_pdcaTab_tableContent_uploadDocument() {
+	var node = BSC_PROG006D0001A_pdcaTab_tableContent_getNode();
+	if (node.upload.length >= BSC_PROG006D0001A_pdcaTab_tableContent_maxUpload) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), "Can only upload " + BSC_PROG006D0001A_pdcaTab_tableContent_maxUpload + " files!", function(){}, "Y");
+		return;
+	}
+	openCommonUploadDialog('BSC', 'tmp', 'Y', 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_uploadDocumentOid', 'BSC_PROG006D0001A_pdcaTab_tableContent_uploadSuccess', 'BSC_PROG006D0001A_pdcaTab_tableContent_uploadFail');
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_uploadSuccess() {
+	var node = BSC_PROG006D0001A_pdcaTab_tableContent_getNode();
+	var docOid = dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent_" + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + "_uploadDocumentOid").value;	
+	if (docOid!='') {
+		node.upload.push({
+			'oid' 	: docOid,
+			'name' 	: BSC_PROG006D0001A_pdcaTab_tableContent_getUploadShowName(docOid)
+		});
+	}
+	dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent_" + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + "_uploadDocumentOid").value = "";
+	hideCommonUploadDialog();
+	BSC_PROG006D0001A_pdcaTab_tableContent_showUploadDataTable();
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_uploadFail() {
+	dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent_" + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + "_uploadDocumentOid").value = "";
+	hideCommonUploadDialog();
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_delUpload(oid) {
+	var node = BSC_PROG006D0001A_pdcaTab_tableContent_getNode();
+	var size = node.upload.length;
+	for (var n=0; n<size; n++) {
+		if ( node.upload[n].oid == oid ) {
+			node.upload.splice( n , 1 );
+			n = size;
+		}
+	}	
+	BSC_PROG006D0001A_pdcaTab_tableContent_showUploadDataTable();
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_clearUploadDataTable() {
+	var node = BSC_PROG006D0001A_pdcaTab_tableContent_getNode();
+	node.upload = [];
+	dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent_" + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + "_uploadDocumentOid").value = "";
+	BSC_PROG006D0001A_pdcaTab_tableContent_showUploadDataTable();
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_showUploadDataTable() {
+	var node = BSC_PROG006D0001A_pdcaTab_tableContent_getNode();
+	var size = node.upload.length;	
+	var txtContent = '';
+	if (node.upload.length > 0) {
+		txtContent += '<table border="0" width="100%" bgcolor="#d8d8d8">';
+		txtContent += '<tr>';
+		txtContent += '<td width="20%" align="center" bgcolor="#f5f5f5">*</td>';
+		txtContent += '<td width="80%" align="left" bgcolor="#f5f5f5"><b>Documents (file name)</b></td>';
+		txtContent += '</tr>';
+		for (var n=0; n<size; n++) {
+			var dataItem = node.upload[n];
+			txtContent += '<tr>';
+			var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId=\'' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '\';BSC_PROG006D0001A_pdcaTab_tableContent_delUpload(\'' + dataItem.oid + '\');" /> ';
+			txtContent += '<td width="20%" align="center" bgcolor="#ffffff">' + img + '</td>';
+			txtContent += '<td width="80%" align="left" bgcolor="#ffffff"><a href="#" onclick="openCommonLoadUpload( \'download\', \'' + dataItem.oid + '\', {}); return false;" style="color:#424242">' + dataItem.name + '</a></td>';
+			txtContent += '</tr>';				
+		}
+		txtContent += '</table>';		
+	}
+	dojo.byId( 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_uploadDocumentTable' ).innerHTML = txtContent;	
+}
+function BSC_PROG006D0001A_pdcaTab_tableContent_getUploadShowName(oid) {
+	var names = getUploadFileNames(oid);	
+	if (names == null || names.length!=1 ) {
+		return "unknown";
+	}
+	return names[0].showName;
+}
+
 
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
