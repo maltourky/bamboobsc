@@ -1,4 +1,3 @@
-<%@page import="com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,8 +5,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
-Map<String, String> frequencyMap = BscMeasureDataFrequency.getFrequencyMap(true);
 
 %>
 <!doctype html>
@@ -888,6 +885,7 @@ function ${programId}_page_message() {
         		<tr>
         			<td height="50px" width="100%"  align="left">
         				<font color='RED'>*</font><b>Type</b>:
+        				<br/>
         				<gs:select name="BSC_PROG006D0001A_pdcaTab_type" dataSource="pdcaTypeMap" id="BSC_PROG006D0001A_pdcaTab_type"  width="140"></gs:select>
         			</td>
         		</tr>
