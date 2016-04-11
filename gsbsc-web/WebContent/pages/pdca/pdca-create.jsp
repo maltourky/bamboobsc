@@ -261,6 +261,181 @@ function BSC_PROG006D0001A_contentTab_clearKPIsAppendId() {
 	dojo.byId('BSC_PROG006D0001A_contentTab_kpisAppendName').innerHTML = '';	
 }
 
+
+//------------------------------------------------------------------------------
+//Content-PDCA function
+//------------------------------------------------------------------------------
+var BSC_PROG006D0001A_pdcaTab_item_node = [];
+function BSC_PROG006D0001A_pdcaTab_add() {	
+	if (BSC_PROG006D0001A_pdcaTab_item_node.length>=40) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Max only 40 items!', function(){}, 'N');
+		return;
+	}
+	var type = dijit.byId("BSC_PROG006D0001A_pdcaTab_type").get("value");
+	var title = dijit.byId("BSC_PROG006D0001A_pdcaTab_title").get("value").trim();
+	var startDate = dijit.byId("BSC_PROG006D0001A_pdcaTab_startDate").get('displayedValue');
+	var endDate = dijit.byId("BSC_PROG006D0001A_pdcaTab_endDate").get('displayedValue');
+	if (_gscore_please_select_id == type) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please select item type!', function(){}, 'N');
+		return;
+	}
+	if ('' == title) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input item title!', function(){}, 'N');
+		return;
+	}
+	if ('' == startDate || '' == endDate) {
+		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please select start-date and end-date!', function(){}, 'N');
+		return;
+	}
+	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+		if (BSC_PROG006D0001A_pdcaTab_item_node[i].type == type && BSC_PROG006D0001A_pdcaTab_item_node[i].title == title) {
+			alertDialog(_getApplicationProgramNameById('${programId}'), 'Same item title is found!', function(){}, 'N');
+			return;
+		}
+	}
+	BSC_PROG006D0001A_pdcaTab_item_node.push({
+		id			: viewPage.generateGuid(),
+		type		: type,
+		title		: title,
+		startDate	: startDate,
+		endDate		: endDate,
+		description	: dijit.byId("BSC_PROG006D0001A_pdcaTab_description").get("value"),
+		uploadOids	: [],
+		uploadNames	: [], // for show only
+		ownerOids	: '',
+		appendNames	: '' // for show only
+	});
+	BSC_PROG006D0001A_pdcaTab_itemTablePaint(BSC_PROG006D0001A_pdcaTab_item_node);
+}
+function BSC_PROG006D0001A_pdcaTab_tableContentDel(id) {
+	var size = BSC_PROG006D0001A_pdcaTab_item_node.length;
+	for (var n=0; n<size; n++) {
+		if ( BSC_PROG006D0001A_pdcaTab_item_node[n].id == id ) {
+			BSC_PROG006D0001A_pdcaTab_item_node.splice( n , 1 );
+			n = size;
+		}
+	}	
+	BSC_PROG006D0001A_pdcaTab_itemTablePaint(BSC_PROG006D0001A_pdcaTab_item_node);
+}
+function BSC_PROG006D0001A_pdcaTab_itemTablePaint() {
+	dojo.html.set(dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent"), "", {extractContent: true, parseContent: true});
+	var htm = '';
+	htm += '<table border="0" width="100%" bgcolor="#d8d8d8">';
+	htm += '<tr>';
+	htm += '<td width="10%" align="center" bgcolor="#f5f5f5">*</td>';
+	htm += '<td width="10%" align="center" bgcolor="#f5f5f5"><b>Type</b></td>';
+	htm += '<td width="80%" align="center" bgcolor="#f5f5f5"><b>Title / Date / description</b></td>';
+	htm += '</tr>';	
+	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+		var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+		var idHead = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + node.id;
+		if (dijit.byId( idHead + '_emplSelect' )!= null) {
+			dijit.byId( idHead + '_emplSelect' ).destroy( true );
+		}
+		if (dijit.byId( idHead + '_emplClear' )!= null) {
+			dijit.byId( idHead + '_emplClear' ).destroy( true );
+		}
+		var img = '<img src="' + _getSystemIconUrl('REMOVE') + '" border="0" onClick="BSC_PROG006D0001A_pdcaTab_tableContentDel(\'' + node.id + '\');" /> ';
+		htm += '<tr>';
+		htm += '<td width="10%" align="center" bgcolor="#ffffff">' + img + '</td>';
+		htm += '<td width="10%" align="center" bgcolor="#ffffff">' + node.type + '</td>';
+		htm += '<td width="80%" align="left" bgcolor="#ffffff">' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) + '</td>';
+		htm += '</tr>';
+	}
+	htm += '</table>';
+	dojo.html.set(dojo.byId("BSC_PROG006D0001A_pdcaTab_tableContent"), htm, {extractContent: true, parseContent: true});
+}
+var BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId = '';
+function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
+	var id = node.id;
+	var idHead = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + id;
+	
+	var str = '';
+	str += '<b>' + node.title + '</b><br/>';
+	str += node.startDate + ' - ' + node.endDate + '<br/>';
+	if (node.description.trim() != '') {
+		str += node.description + '<br/>';
+	}
+	
+	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
+	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee)</b>:&nbsp;&nbsp;';
+	str += '<button name="' + idHead + '_emplSelect" id="' + idHead + '_emplSelect" data-dojo-type="dijit.form.Button" ';
+	str += '	data-dojo-props=" ';
+	str += '		showLabel:false, ';
+	str += '		iconClass:\'dijitIconFolderOpen\', ';
+	str += '		onClick:function(){ ';
+	str += ' 			BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId=\'' + id + '\'; ';
+	str += '			BSC_PROG001D0001Q_S00_DlgShow(\'' + idHead + '_appendEmployeeOid;BSC_PROG006D0001A_pdcaTab_itemTablePaint_reloadEmployeeAppendName\'); ';
+	str += '		} ';
+	str += '	"></button>';
+	str += '<button name="' + idHead + '_emplClear" id="' + idHead + '_emplClear" data-dojo-type="dijit.form.Button" ';
+	str += '	data-dojo-props=" ';
+	str += '		showLabel:false, ';
+	str += '		iconClass:\'dijitIconClear\', ';
+	str += '		onClick:function(){ ';
+	str += ' 			BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId=\'' + id + '\'; ';
+	str += '			BSC_PROG006D0001A_pdcaTab_itemTablePaint_clearEmplAppendId(); ';
+	str += '		} ';
+	str += '	"></button>';
+	str += '<br/>';
+	str += '<span id="' + idHead + '_employeeAppendName">' + node.appendNames + '</span>';
+	
+	return str;
+}
+function BSC_PROG006D0001A_pdcaTab_itemTablePaint_reloadEmployeeAppendName() {
+	var oidField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_appendEmployeeOid';
+	var showField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_employeeAppendName';
+	var appendOid = dojo.byId(oidField).value;
+	if (''==appendOid || null==appendOid ) {
+		dojo.byId(oidField).value = '';
+		dojo.byId(showField).innerHTML = '';
+		for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+			var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+			if (node.id == BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId) {
+				node.ownerOids = '';
+				node.appendNames = '';
+			}
+		}		
+		return;
+	}
+	xhrSendParameter(
+			'${basePath}/bsc.commonGetEmployeeNamesAction.action', 
+			{ 'fields.appendId' : dojo.byId(oidField).value }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				if (data!=null && data.appendName!=null) {
+					dojo.byId(showField).innerHTML = data.appendName;
+					for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+						var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+						if (node.id == BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId) {
+							node.ownerOids = dojo.byId(oidField).value;
+							node.appendNames = data.appendName;
+						}
+					}
+				}								
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);	
+}
+function BSC_PROG006D0001A_pdcaTab_itemTablePaint_clearEmplAppendId() {
+	var oidField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_appendEmployeeOid';
+	var showField = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId + '_employeeAppendName';
+	dojo.byId(oidField).value = '';
+	dojo.byId(showField).innerHTML = '';
+	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
+		var node = BSC_PROG006D0001A_pdcaTab_item_node[i];
+		if (node.id == BSC_PROG006D0001A_pdcaTab_itemTableTdContentData_nowClickId) {
+			node.ownerOids = '';
+			node.appendNames = '';
+		}
+	}	
+}
+
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -635,6 +810,12 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>		    			    		    	
     		</table>
+    		
+    		
+    		<!-- PDCA item table content -->
+    		<div id="BSC_PROG006D0001A_pdcaTab_tableContent"></div>
+    		
+    		
         </div>
         <!-- ##################################################################### -->
         
