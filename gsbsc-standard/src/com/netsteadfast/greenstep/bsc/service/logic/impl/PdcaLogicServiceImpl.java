@@ -35,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
@@ -57,6 +58,7 @@ import com.netsteadfast.greenstep.bsc.service.IPdcaOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaOwnerService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaService;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
+import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
@@ -70,7 +72,10 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
+import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
@@ -85,6 +90,7 @@ import com.netsteadfast.greenstep.vo.PdcaOrgaVO;
 import com.netsteadfast.greenstep.vo.PdcaOwnerVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.PdcaLogicService")
@@ -105,6 +111,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	
 	public PdcaLogicServiceImpl() {
 		super();
@@ -260,6 +267,17 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	public void setOrganizationService(IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
 		this.organizationService = organizationService;
 	}
+	
+	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
+		return sysUploadService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysUploadService")
+	@Required					
+	public void setSysUploadService(ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
+		this.sysUploadService = sysUploadService;
+	}	
 
 	@Override
 	public SysBpmnResourceVO getBusinessProcessManagementResourceObject(String resourceId) throws ServiceException, Exception {
@@ -297,7 +315,11 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		if (result.getValue() == null) {
 			throw new ServiceException(result.getSystemMessage().getValue());
 		}
-		
+		this.createOwner(pdca, employeeOids);
+		this.createOrganization(pdca, organizationOids);
+		this.createKpis(pdca, kpiOids);
+		this.createDocuments(pdca, attachment);
+		this.createItems(pdca, items);
 		return result;
 	}
 
@@ -323,5 +345,134 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		
 		return null;
 	}
-
+	
+	private void createOrganization(PdcaVO pdca, List<String> orgaOids) throws ServiceException, Exception {
+		for (String oid : orgaOids) {
+			OrganizationVO organization = new OrganizationVO();
+			organization.setOid(oid);
+			DefaultResult<OrganizationVO> orgResult = this.organizationService.findObjectByOid(organization);
+			if (orgResult.getValue() == null) {
+				throw new ServiceException( orgResult.getSystemMessage().getValue() );
+			}
+			organization = orgResult.getValue();
+			PdcaOrgaVO pdcaOrga = new PdcaOrgaVO();
+			pdcaOrga.setOrgId( organization.getOrgId() );
+			this.pdcaOrgaService.saveObject(pdcaOrga);
+		}
+	}
+	
+	private void createOwner(PdcaVO pdca, List<String> emplOids) throws ServiceException, Exception {
+		for (String oid : emplOids) {
+			EmployeeVO employee = new EmployeeVO();
+			employee.setOid(oid);
+			DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
+			if (empResult.getValue() == null) {
+				throw new ServiceException(empResult.getSystemMessage().getValue());
+			}
+			employee = empResult.getValue();
+			PdcaOwnerVO pdcaOwner = new PdcaOwnerVO();
+			pdcaOwner.setPdcaOid(pdca.getOid());
+			pdcaOwner.setEmpId(employee.getEmpId());
+			this.pdcaOwnerService.saveObject(pdcaOwner);
+		}
+	}
+	
+	private void createKpis(PdcaVO pdca, List<String> kpiOids) throws ServiceException, Exception {
+		for (String oid : kpiOids) {
+			KpiVO kpi = new KpiVO();
+			kpi.setOid(oid);
+			DefaultResult<KpiVO> kpiResult = this.kpiService.findObjectByOid(kpi);
+			if (kpiResult.getValue() == null) {
+				throw new ServiceException(kpiResult.getSystemMessage().getValue());
+			}
+			kpi = kpiResult.getValue();
+			PdcaKpisVO pdcaKpi = new PdcaKpisVO();
+			pdcaKpi.setPdcaOid(pdca.getOid());
+			pdcaKpi.setKpiId(kpi.getId());
+			this.pdcaKpisService.saveObject(pdcaKpi);
+		}
+	}
+	
+	private void createDocuments(PdcaVO pdca, List<String> attachment) throws ServiceException, Exception {
+		if (attachment == null || attachment.size()<1) {
+			return;
+		}
+		for (String oid : attachment) {
+			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(oid);
+			if (uploadResult.getValue()==null) {
+				throw new ServiceException( uploadResult.getSystemMessage().toString() );
+			}
+			SysUploadVO upload = uploadResult.getValue();
+			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
+				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+			}
+			PdcaDocVO pdcaDoc = new PdcaDocVO();
+			pdcaDoc.setPdcaOid(pdca.getOid());
+			pdcaDoc.setUploadOid(upload.getOid());
+			pdcaDoc.setViewMode( UploadSupportUtils.getViewMode(upload.getShowName()) );
+			DefaultResult<PdcaDocVO> result = this.pdcaDocService.saveObject(pdcaDoc);
+			if (result.getValue() == null) {
+				throw new ServiceException(result.getSystemMessage().getValue());
+			}
+			UploadSupportUtils.updateType(oid, UploadTypes.IS_PDCA_DOCUMENT);
+		}
+	}
+	
+	private void createItems(PdcaVO pdca, List<PdcaItemVO> items) throws ServiceException, Exception {
+		for (PdcaItemVO item : items) {
+			item.setPdcaOid(pdca.getOid());
+			this.setStringValueMaxLength(item, "description", MAX_DESCRIPTION_LENGTH);
+			DefaultResult<PdcaItemVO> result = this.pdcaItemService.saveObject(item);
+			if (result.getValue() == null) {
+				throw new ServiceException( result.getSystemMessage().getValue() );
+			}
+			item = result.getValue();
+			this.createItemOwner( item );
+			this.createItemDocuments( item );
+		}
+	}
+	
+	private void createItemOwner(PdcaItemVO pdcaItem) throws ServiceException, Exception {
+		for (String oid : pdcaItem.getEmployeeOids()) {
+			EmployeeVO employee = new EmployeeVO();
+			employee.setOid(oid);
+			DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
+			if (empResult.getValue() == null) {
+				throw new ServiceException(empResult.getSystemMessage().getValue());
+			}
+			employee = empResult.getValue();
+			PdcaItemOwnerVO itemOwner = new PdcaItemOwnerVO();
+			itemOwner.setPdcaOid(pdcaItem.getPdcaOid());
+			itemOwner.setItemOid(pdcaItem.getOid());
+			itemOwner.setEmpId(employee.getEmpId());
+			this.pdcaItemOwnerService.saveObject(itemOwner);
+		}
+	}
+	
+	private void createItemDocuments(PdcaItemVO pdcaItem) throws ServiceException, Exception {
+		if (pdcaItem.getUploadOids() == null || pdcaItem.getUploadOids().size()<1) {
+			return;
+		}
+		for (String oid : pdcaItem.getUploadOids()) {
+			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(oid);
+			if (uploadResult.getValue()==null) {
+				throw new ServiceException( uploadResult.getSystemMessage().toString() );
+			}
+			SysUploadVO upload = uploadResult.getValue();
+			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
+				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+			}
+			PdcaItemDocVO itemDoc = new PdcaItemDocVO();
+			itemDoc.setPdcaOid(pdcaItem.getPdcaOid());
+			itemDoc.setItemOid(pdcaItem.getOid());
+			itemDoc.setUploadOid(upload.getOid());
+			itemDoc.setViewMode( UploadSupportUtils.getViewMode(upload.getShowName()) );
+			DefaultResult<PdcaItemDocVO> result = this.pdcaItemDocService.saveObject(itemDoc);
+			if (result.getValue() == null) {
+				throw new ServiceException(result.getSystemMessage().getValue());
+			}
+			UploadSupportUtils.updateType(oid, UploadTypes.IS_PDCA_DOCUMENT);
+		}		
+	}
+	
 }

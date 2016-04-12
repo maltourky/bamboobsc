@@ -119,15 +119,13 @@ function ${programId}_page_message() {
 
 	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="50px" width="100%" align="left"><font size='2'><b>Title:</b></font><br/>    		
+    		<td height="50px" width="50%" align="left"><font size='2'><b>Title:</b></font><br/>    		
     			<gs:textBox name="BSC_PROG006D0001Q_title" id="BSC_PROG006D0001Q_title" value="" width="300" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_title'">
     				Input title.
 				</div>
     		</td>
-    	</tr>
-		<tr>
-    		<td height="50px" width="100%" align="left"><font size='2'><b>Date range:</b></font><br/>
+    		<td height="50px" width="50%" align="left"><font size='2'><b>Date range:</b></font><br/>
     			Start
     			<input id="BSC_PROG006D0001Q_startDate" type="text" name="BSC_PROG006D0001Q_startDate" data-dojo-type="dijit.form.DateTextBox"
     				maxlength="10" 
@@ -143,10 +141,10 @@ function ${programId}_page_message() {
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_endDate'">
 					Select end date.
 				</div>
-    		</td>
+    		</td>    		
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="left">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG006D0001Q_query" id="BSC_PROG006D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

@@ -46,6 +46,7 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.bsc.action.utils.DateDisplayFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
+import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
@@ -115,6 +116,16 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		
 		this.checkMeasureFrequency();
 		this.checkMeasureFrequencyDateRange();
+		
+		if (super.defaultString(super.getFields().get("orgaOids")).trim().length() == 0) {
+			throw new ControllerException("Please select organization/department!<BR/>");
+		}
+		if (super.defaultString(super.getFields().get("emplOids")).trim().length() == 0) {
+			throw new ControllerException("Please select responsibility(Employee) !<BR/>");
+		}
+		if (super.defaultString(super.getFields().get("kpiOids")).trim().length() == 0) {
+			throw new ControllerException("Please select KPIs!<BR/>");
+		}
 		
 	}
 	
@@ -229,6 +240,66 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}	
 	
+	private void checkItems(List<PdcaItemVO> pdcaItems) throws ControllerException, Exception {
+		StringBuilder errMsg = new StringBuilder();
+		if (!this.checkPdcaItemsType(pdcaItems)) {
+			errMsg.append( "Items type must found P,D,C,A!<BR/>" );
+		}
+		String errMsg1 = this.checkPdcaItemOwner(pdcaItems);
+		if (!"".equals(errMsg1)) {
+			errMsg.append( errMsg1 );
+		}
+		String errMsg2 = this.checkPdcaItemDateRange(pdcaItems);		
+		if (!"".equals(errMsg2)) {
+			errMsg.append( errMsg2 );
+		}		
+		if (errMsg.length()>0) {
+			throw new ControllerException( errMsg.toString() );
+		}
+	}
+	
+	private boolean checkPdcaItemsType(List<PdcaItemVO> items) throws Exception {
+		boolean pType = false;
+		boolean dType = false;
+		boolean cType = false;
+		boolean aType = false;
+		for (PdcaItemVO item : items) {
+			if (PdcaType.PLAN.equals(item.getType())) {
+				pType = true;
+			}
+			if (PdcaType.DO.equals(item.getType())) {
+				dType = true;
+			}
+			if (PdcaType.CHECK.equals(item.getType())) {
+				cType = true;
+			}
+			if (PdcaType.ACTION.equals(item.getType())) {
+				aType = true;
+			}			
+		}
+		return ( pType && dType && cType && aType );
+	}
+	
+	private String checkPdcaItemOwner(List<PdcaItemVO> items) throws Exception {
+		StringBuilder errMsg = new StringBuilder();
+		for (PdcaItemVO item : items) {
+			if (item.getEmployeeOids() == null || item.getEmployeeOids().size()<1) {
+				errMsg.append( "Item " + item.getTitle() + " no select responsibility(Employee)!<BR/>" );
+			}
+		}
+		return errMsg.toString();
+	}	
+	
+	private String checkPdcaItemDateRange(List<PdcaItemVO> items) throws Exception {
+		StringBuilder errMsg = new StringBuilder();
+		for (PdcaItemVO item : items) {
+			if (SimpleUtils.getDaysBetween(item.getStartDate(), item.getEndDate())<0) {
+				errMsg.append( "Item " + item.getTitle() + " date range error!<BR/>" );
+			}
+		}
+		return errMsg.toString();		
+	}
+	
 	@SuppressWarnings("unchecked")
 	private List<String> getUploadOids() throws Exception {
 		String uploadOidsJsonStr = super.defaultString( this.getFields().get("uploadOids") ).trim();
@@ -286,7 +357,9 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	}
 
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
-		this.checkFields();
+		this.checkFields();		
+		List<PdcaItemVO> pdcaItems = this.getItemsData();
+		this.checkItems(pdcaItems);
 		PdcaVO pdca = new PdcaVO();
 		this.transformFields2ValueObject(pdca, new String[]{"title", "startDate", "endDate", "description"});
 		DefaultResult<PdcaVO> result = this.pdcaLogicService.create(
@@ -295,7 +368,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 				this.transformAppendIds2List(this.getFields().get("emplOids")),
 				this.transformAppendIds2List(this.getFields().get("kpiOids")),
 				this.getUploadOids(), 
-				this.getItemsData());
+				pdcaItems);
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;
