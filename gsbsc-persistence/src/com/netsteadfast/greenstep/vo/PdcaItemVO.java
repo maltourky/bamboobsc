@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
 public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
@@ -32,6 +34,11 @@ public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
 	private String description;
 	private String startDate;
 	private String endDate;	
+	
+	// --------------------------------------------------------------
+	private List<String> employeeOids = null;
+	private List<String> uploadOids = null;
+	// --------------------------------------------------------------
 	
 	public PdcaItemVO() {
 		
@@ -114,6 +121,26 @@ public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}	
+	}
+		
+	// --------------------------------------------------------------
+	
+	public List<String> getEmployeeOids() {
+		return employeeOids;
+	}
+
+	public void setEmployeeOids(List<String> employeeOids) {
+		this.employeeOids = employeeOids;
+	}
+
+	public List<String> getUploadOids() {
+		return uploadOids;
+	}
+
+	public void setUploadOids(List<String> uploadOids) {
+		this.uploadOids = uploadOids;
+	}		
+	
+	// --------------------------------------------------------------
 	
 }

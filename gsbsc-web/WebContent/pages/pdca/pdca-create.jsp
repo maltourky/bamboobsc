@@ -639,14 +639,32 @@ function ${programId}_page_message() {
     				parameterType="postData"
     				xhrParameter=" 
     					{ 
+    						'fields.title'			:	dijit.byId('BSC_PROG006D0001A_title').get('value'),
+    						'fields.startDate'		:	dijit.byId('BSC_PROG006D0001A_contentTab_startDate').get('displayedValue'),
+    						'fields.endDate'		:	dijit.byId('BSC_PROG006D0001A_contentTab_endDate').get('displayedValue'),
+    						'fields.description'	:	dijit.byId('BSC_PROG006D0001A_contentTab_description').get('value'),
+    						'fields.orgaOids'		:	dojo.byId('BSC_PROG006D0001A_contentTab_appendOrganizationOid').value,
+    						'fields.emplOids'		:	dojo.byId('BSC_PROG006D0001A_contentTab_appendEmployeeOid').value,
+    						'fields.kpiOids'		:	dojo.byId('BSC_PROG006D0001A_contentTab_appendKPIsOid').value,
+    						'fields.uploadOids'		:	JSON.stringify( { 'oids' : BSC_PROG006D0001A_contentTab_uploads } ),
     						
+    						'fields.measureFreq_frequency'					:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_frequency').get('value'),    						
+							'fields.measureFreq_startYearDate'				:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_startYearDate').get('displayedValue'),							
+							'fields.measureFreq_endYearDate'				:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_endYearDate').get('displayedValue'),
+							'fields.measureFreq_startDate'					:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_startDate').get('displayedValue'),
+							'fields.measureFreq_endDate'					:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_endDate').get('displayedValue'),
+							'fields.measureFreq_dataFor'					:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_dataFor').get('value'),
+							'fields.measureFreq_measureDataOrganizationOid'	:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid').get('value'),
+							'fields.measureFreq_measureDataEmployeeOid'		:	dijit.byId('BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid').get('value'),
+							    						
+    						'fields.itemsData'		:	JSON.stringify( { 'items' : BSC_PROG006D0001A_pdcaTab_item_node } )
     					} 
     				"
     				errorFn=""
     				loadFn="BSC_PROG006D0001A_saveSuccess(data);" 
     				programId="${programId}"
     				label="Save" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"></gs:button>
     			<gs:button name="BSC_PROG006D0001A_clear" id="BSC_PROG006D0001A_clear" onClick="BSC_PROG006D0001A_clear();" 
     				label="Clear" 
     				iconClass="dijitIconClear"></gs:button>       		

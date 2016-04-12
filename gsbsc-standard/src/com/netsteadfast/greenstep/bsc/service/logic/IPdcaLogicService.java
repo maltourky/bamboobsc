@@ -34,10 +34,10 @@ import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 public interface IPdcaLogicService extends IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task> {
 	
-	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, 
+	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception;
 	
-	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, 
+	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception;	
 	
 	public DefaultResult<Boolean> delete(PdcaVO pdca) throws ServiceException, Exception;

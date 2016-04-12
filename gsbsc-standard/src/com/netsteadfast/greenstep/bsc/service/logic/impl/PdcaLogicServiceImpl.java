@@ -287,9 +287,9 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			readOnly=false,
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
 	@Override
-	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids,
+	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
-		if (null == pdca || null == items || items.size()<1 || organizationOids.size()<1 || employeeOids.size()<1) {
+		if (null == pdca || null == items || items.size()<1 || organizationOids.size()<1 || employeeOids.size()<1 || kpiOids.size()<1) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
@@ -307,7 +307,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			readOnly=false,
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
 	@Override
-	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids,
+	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
 		
 		return null;

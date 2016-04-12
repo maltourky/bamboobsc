@@ -252,14 +252,37 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	}	
 	
 	@SuppressWarnings("unchecked")
-	private List<PdcaItemVO> getItemsData() throws Exception {
+	private List<PdcaItemVO> getItemsData() throws ControllerException, Exception {
 		String itemsDataStr = super.defaultString( this.getFields().get("itemsData") ).trim();
-		if (StringUtils.isBlank(itemsDataStr)) {
-			itemsDataStr = "[]";
-		}
-		List<Map<String, Object>> datas = (List<Map<String, Object>>) new ObjectMapper().readValue( itemsDataStr, LinkedHashMap.class );
 		
-		return null;
+		if (StringUtils.isBlank(itemsDataStr)) {
+			itemsDataStr = "{ \"items\" : [] }";
+		}
+		Map<String, Object> datas = new ObjectMapper().readValue( itemsDataStr, Map.class );		
+		return this.fillItems( (List<Map<String, Object>>) datas.get("items") );
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<PdcaItemVO> fillItems(List<Map<String, Object>> datas) throws ControllerException, Exception {
+		List<PdcaItemVO> items = new ArrayList<PdcaItemVO>();
+		if (datas == null || datas.size()<1) {
+			return items;
+		}
+		
+		// fill data to PdcaItemVO
+		for (Map<String, Object> data : datas) {
+			PdcaItemVO item = new PdcaItemVO();
+			item.setType( String.valueOf(data.get("type")) );
+			item.setTitle( String.valueOf(data.get("title")) );
+			item.setStartDate( String.valueOf(data.get("startDate")) );
+			item.setEndDate( String.valueOf(data.get("endDate")) );
+			item.setDescription( String.valueOf(data.get("description")) );
+			item.setEmployeeOids( super.transformAppendIds2List( super.defaultString( String.valueOf(data.get("ownerOids")) ).trim() ) );
+			item.setUploadOids( (List<String>) data.get("upload") );
+			items.add( item );
+		}
+		
+		return items;
 	}
 
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
@@ -269,7 +292,8 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		DefaultResult<PdcaVO> result = this.pdcaLogicService.create(
 				pdca, 
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
-				this.transformAppendIds2List(this.getFields().get("emplOids")), 
+				this.transformAppendIds2List(this.getFields().get("emplOids")),
+				this.transformAppendIds2List(this.getFields().get("kpiOids")),
 				this.getUploadOids(), 
 				this.getItemsData());
 		this.message = result.getSystemMessage().getValue();
