@@ -29,6 +29,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var BSC_PROG006D0001A_fieldsId = new Object();
+BSC_PROG006D0001A_fieldsId["title"] 									= "BSC_PROG006D0001A_title";
+BSC_PROG006D0001A_fieldsId["startDate"] 								= "BSC_PROG006D0001A_contentTab_startDate";
+BSC_PROG006D0001A_fieldsId["endDate"] 									= "BSC_PROG006D0001A_contentTab_endDate";
+BSC_PROG006D0001A_fieldsId["measureFreq_frequency"] 					= "BSC_PROG006D0001A_contentTab_measureFreq_frequency";
+BSC_PROG006D0001A_fieldsId["measureFreq_startYearDate"] 				= "BSC_PROG006D0001A_contentTab_measureFreq_startYearDate";
+BSC_PROG006D0001A_fieldsId["measureFreq_endYearDate"] 					= "BSC_PROG006D0001A_contentTab_measureFreq_endYearDate";
+BSC_PROG006D0001A_fieldsId["measureFreq_startDate"] 					= "BSC_PROG006D0001A_contentTab_measureFreq_startDate";
+BSC_PROG006D0001A_fieldsId["measureFreq_endDate"] 						= "BSC_PROG006D0001A_contentTab_measureFreq_endDate";
+BSC_PROG006D0001A_fieldsId["measureFreq_dataFor"] 						= "BSC_PROG006D0001A_contentTab_measureFreq_dataFor";
+BSC_PROG006D0001A_fieldsId["measureFreq_measureDataOrganizationOid"] 	= "BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid";
+BSC_PROG006D0001A_fieldsId["measureFreq_measureDataEmployeeOid"] 		= "BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid";
+
 
 function BSC_PROG006D0001A_saveSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG006D0001A_fieldsId);

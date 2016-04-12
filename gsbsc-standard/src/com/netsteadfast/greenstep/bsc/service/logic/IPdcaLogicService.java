@@ -22,23 +22,23 @@
 package com.netsteadfast.greenstep.bsc.service.logic;
 
 import java.util.List;
-import java.util.Map;
 
 import org.activiti.engine.task.Task;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.service.logic.IBusinessProcessManagementResourceProvide;
+import com.netsteadfast.greenstep.vo.PdcaItemVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 public interface IPdcaLogicService extends IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task> {
 	
 	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, 
-			List<String> attachment, Map<String, Object> itemJsonData) throws ServiceException, Exception;
+			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception;
 	
 	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, 
-			List<String> attachment, Map<String, Object> itemJsonData) throws ServiceException, Exception;	
+			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception;	
 	
 	public DefaultResult<Boolean> delete(PdcaVO pdca) throws ServiceException, Exception;
 	

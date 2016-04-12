@@ -56,6 +56,10 @@ import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFPicture;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Months;
+import org.joda.time.Years;
 
 public class SimpleUtils {
 	public static final int IS_YEAR=1;
@@ -206,6 +210,36 @@ public class SimpleUtils {
 		}
 		return accept;
 	}
+	
+	public static int getDaysBetween(String startDate, String endDate) {
+		DateTime s = new DateTime( getStrYMD(startDate.replaceAll("/", "-"), "-") );
+		DateTime e = new DateTime( getStrYMD(endDate.replaceAll("/", "-"), "-") );
+		return Days.daysBetween(s, e).getDays();
+	}
+	
+	public static int getDaysBetween(Date startDate, Date endDate) {
+		return getDaysBetween( getStrYMD(startDate, "-"), getStrYMD(endDate, "-") );
+	}
+	
+	public static int getYearsBetween(String startDate, String endDate) {
+		DateTime s = new DateTime( startDate.length()==4 ? startDate + "-01-01" : getStrYMD(startDate.replaceAll("/", "-"), "-") ); 
+		DateTime e = new DateTime( endDate.length()==4 ? endDate + "-01-01" : getStrYMD(endDate.replaceAll("/", "-"), "-") );		
+		return Years.yearsBetween(s, e).getYears();
+	}	
+	
+	public static int getYearsBetween(Date startDate, Date endDate) {
+		return getYearsBetween( getStrYMD(startDate, "").substring(0, 4), getStrYMD(endDate, "").substring(0, 4) );
+	}
+	
+	public static int getMonthsBetween(String startDate, String endDate) {		
+		DateTime s = new DateTime( getStrYMD(startDate.replaceAll("/", "-"), "-") ); 
+		DateTime e = new DateTime( getStrYMD(endDate.replaceAll("/", "-"), "-") );		
+		return Months.monthsBetween(s, e).getMonths();
+	}		
+	
+	public static int getMonthsBetween(Date startDate, Date endDate) {
+		return getMonthsBetween( getStrYMD(startDate, "-"), getStrYMD(endDate, "-") );
+	}	
 	
 	public static final String getStrYMD(String splitStr) {
 		StringBuilder sb=new StringBuilder();
