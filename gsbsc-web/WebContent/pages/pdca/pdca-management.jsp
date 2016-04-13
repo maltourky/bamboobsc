@@ -64,7 +64,7 @@ function BSC_PROG006D0001Q_confirmDelete(oid) {
 	confirmDialog(
 			"${programId}_managementDialogId000", 
 			_getApplicationProgramNameById('${programId}'), 
-			"${action.getText('BSC_PROG006D0001Q_confirmDelete')}", 
+			"delete?", 
 			function(success) {
 				if (!success) {
 					return;
