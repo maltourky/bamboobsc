@@ -369,8 +369,8 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		
 		return items;
 	}
-
-	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
+	
+	private void saveOrUpdate(String type) throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();		
 		List<PdcaItemVO> pdcaItems = this.getItemsData();
 		this.checkItems(pdcaItems);
@@ -416,27 +416,49 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 						"measureFreq_date1",
 						"measureFreq_date2"
 				});
-		DefaultResult<PdcaVO> result = this.pdcaLogicService.create(
-				pdca, 
-				measureFreq,
-				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
-				this.transformAppendIds2List(this.getFields().get("emplOids")),
-				this.transformAppendIds2List(this.getFields().get("kpiOids")),
-				this.getUploadOids(), 
-				pdcaItems);
+		DefaultResult<PdcaVO> result = null;
+		if ("save".equals(type)) {
+			result = this.pdcaLogicService.create(
+					pdca, 
+					measureFreq,
+					this.transformAppendIds2List(this.getFields().get("orgaOids")), 
+					this.transformAppendIds2List(this.getFields().get("emplOids")),
+					this.transformAppendIds2List(this.getFields().get("kpiOids")),
+					this.getUploadOids(), 
+					pdcaItems);
+		} else {
+			pdca.setOid( this.getFields().get("oid") );
+			result = this.pdcaLogicService.update(
+					pdca, 
+					measureFreq,
+					this.transformAppendIds2List(this.getFields().get("orgaOids")), 
+					this.transformAppendIds2List(this.getFields().get("emplOids")),
+					this.transformAppendIds2List(this.getFields().get("kpiOids")),
+					this.getUploadOids(), 
+					pdcaItems);
+		}
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;
 		}
 	}
+
+	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.saveOrUpdate("save");
+	}
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
-		this.checkFields();
-		
+		this.saveOrUpdate("update");
 	}
 	
 	private void delete() throws ControllerException, AuthorityException, ServiceException, Exception {
-		
+		PdcaVO pdca = new PdcaVO();
+		this.transformFields2ValueObject(pdca, new String[]{"oid"});
+		DefaultResult<Boolean> result = this.pdcaLogicService.delete(pdca);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()!=null && result.getValue()) {
+			this.success = IS_YES;
+		}
 	}
 	
 	/**

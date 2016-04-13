@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.service.logic.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -331,7 +332,8 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	@Override
 	public DefaultResult<PdcaVO> create(PdcaVO pdca, PdcaMeasureFreqVO measureFreq, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
-		if (null == pdca || null == items || items.size()<1 || organizationOids.size()<1 || employeeOids.size()<1 || kpiOids.size()<1) {
+		if (null == pdca || super.isBlank(pdca.getTitle()) || null == items || items.size()<1 
+				|| organizationOids.size()<1 || employeeOids.size()<1 || kpiOids.size()<1) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
@@ -360,8 +362,36 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	@Override
 	public DefaultResult<PdcaVO> update(PdcaVO pdca, PdcaMeasureFreqVO measureFreq, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
-		
-		return null;
+		if (null == pdca || super.isBlank(pdca.getOid()) || super.isBlank(pdca.getTitle()) || null == items || items.size()<1 
+				|| organizationOids.size()<1 || employeeOids.size()<1 || kpiOids.size()<1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		DefaultResult<PdcaVO> oldResult = this.pdcaService.findObjectByOid(pdca);
+		if ( pdca.getTitle().equals(oldResult.getValue().getTitle()) && !(pdca.getOid().equals(oldResult.getValue().getOid())) ) {
+			throw new ServiceException( "Same title is found: " + pdca.getTitle() );
+		}
+		if (YesNo.YES.equals(oldResult.getValue().getConfirmFlag())) {
+			throw new ServiceException( "Cannot update, because the project is confirm!" );
+		}
+		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
+		pdca.setConfirmFlag(YesNo.NO);
+		this.replaceSplit2Blank(pdca, "startDate", "/");
+		this.replaceSplit2Blank(pdca, "endDate", "/");		
+		DefaultResult<PdcaVO> result = this.pdcaService.updateObject(pdca);
+		pdca = result.getValue();
+		this.deleteMeasureFreq(pdca);
+		this.deleteOwner(pdca);
+		this.deleteOrganization(pdca);
+		this.deleteKpis(pdca);
+		this.deleteDocuments(pdca);
+		this.deleteItems(pdca);
+		this.createMeasureFreq(pdca, measureFreq);
+		this.createOwner(pdca, employeeOids);
+		this.createOrganization(pdca, organizationOids);
+		this.createKpis(pdca, kpiOids);
+		this.createDocuments(pdca, attachment);
+		this.createItems(pdca, items);
+		return result;
 	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.DELETE})
@@ -371,8 +401,25 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )				
 	@Override
 	public DefaultResult<Boolean> delete(PdcaVO pdca) throws ServiceException, Exception {
-		
-		return null;
+		if (null == pdca || super.isBlank(pdca.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		this.deleteMeasureFreq(pdca);
+		this.deleteOwner(pdca);
+		this.deleteOrganization(pdca);
+		this.deleteKpis(pdca);
+		this.deleteDocuments(pdca);
+		this.deleteItems(pdca);
+		return this.pdcaService.deleteObject(pdca);
+	}
+	
+	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaMeasureFreq> measureFreqList = this.pdcaMeasureFreqService.findListByParams(paramMap);
+		for (BbPdcaMeasureFreq measureFreq : measureFreqList) {
+			this.pdcaMeasureFreqService.delete(measureFreq);
+		}
 	}
 	
 	private void createMeasureFreq(PdcaVO pdca, PdcaMeasureFreqVO measureFreq) throws ServiceException, Exception {
@@ -392,6 +439,15 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		this.pdcaMeasureFreqService.saveObject(measureFreq);
 	}
 	
+	private void deleteOrganization(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaOrga> orgaList = this.pdcaOrgaService.findListByParams(paramMap);
+		for (BbPdcaOrga orga : orgaList) {
+			this.pdcaOrgaService.delete(orga);
+		}
+	}
+	
 	private void createOrganization(PdcaVO pdca, List<String> orgaOids) throws ServiceException, Exception {
 		for (String oid : orgaOids) {
 			OrganizationVO organization = this.getOrganization(oid);
@@ -402,6 +458,15 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		}
 	}
 	
+	private void deleteOwner(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaOwner> ownerList = this.pdcaOwnerService.findListByParams(paramMap);
+		for (BbPdcaOwner owner : ownerList) {
+			this.pdcaOwnerService.delete(owner);
+		}
+	}
+	
 	private void createOwner(PdcaVO pdca, List<String> emplOids) throws ServiceException, Exception {
 		for (String oid : emplOids) {
 			EmployeeVO employee = this.getEmployee(oid);
@@ -409,6 +474,15 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			pdcaOwner.setPdcaOid(pdca.getOid());
 			pdcaOwner.setEmpId(employee.getEmpId());
 			this.pdcaOwnerService.saveObject(pdcaOwner);
+		}
+	}
+	
+	private void deleteKpis(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaKpis> kpisList = this.pdcaKpisService.findListByParams(paramMap);
+		for (BbPdcaKpis kpi : kpisList) {
+			this.pdcaKpisService.delete(kpi);
 		}
 	}
 	
@@ -425,6 +499,16 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			pdcaKpi.setPdcaOid(pdca.getOid());
 			pdcaKpi.setKpiId(kpi.getId());
 			this.pdcaKpisService.saveObject(pdcaKpi);
+		}
+	}
+	
+	private void deleteDocuments(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaDoc> docList = this.pdcaDocService.findListByParams(paramMap);
+		for (BbPdcaDoc doc : docList) {
+			UploadSupportUtils.updateType(doc.getUploadOid(), UploadTypes.IS_TEMP);
+			this.pdcaDocService.delete(doc);
 		}
 	}
 	
@@ -453,6 +537,17 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		}
 	}
 	
+	private void deleteItems(PdcaVO pdca) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());
+		List<BbPdcaItem> items = this.pdcaItemService.findListByParams(paramMap);
+		for (BbPdcaItem item : items) {
+			this.deleteItemOwner(item);
+			this.deleteItemDocuments(item);
+			this.pdcaItemService.delete(item);
+		}
+	}
+	
 	private void createItems(PdcaVO pdca, List<PdcaItemVO> items) throws ServiceException, Exception {
 		for (PdcaItemVO itemObj : items) {
 			itemObj.setPdcaOid(pdca.getOid());
@@ -471,6 +566,16 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		}
 	}
 	
+	private void deleteItemOwner(BbPdcaItem pdcaItem) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdcaItem.getOid());
+		paramMap.put("itemOid", pdcaItem.getOid());
+		List<BbPdcaItemOwner> itemOwnerList = this.pdcaItemOwnerService.findListByParams(paramMap);
+		for (BbPdcaItemOwner owner : itemOwnerList) {
+			this.pdcaItemOwnerService.delete(owner);
+		}
+	}
+	
 	private void createItemOwner(PdcaItemVO pdcaItem) throws ServiceException, Exception {
 		for (String oid : pdcaItem.getEmployeeOids()) {
 			EmployeeVO employee = new EmployeeVO();
@@ -485,6 +590,17 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			itemOwner.setItemOid(pdcaItem.getOid());
 			itemOwner.setEmpId(employee.getEmpId());
 			this.pdcaItemOwnerService.saveObject(itemOwner);
+		}
+	}
+	
+	private void deleteItemDocuments(BbPdcaItem pdcaItem) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdcaItem.getOid());
+		paramMap.put("itemOid", pdcaItem.getOid());
+		List<BbPdcaItemDoc> itemDocList = this.pdcaItemDocService.findListByParams(paramMap);
+		for (BbPdcaItemDoc doc : itemDocList) {
+			UploadSupportUtils.updateType(doc.getUploadOid(), UploadTypes.IS_TEMP);
+			this.pdcaItemDocService.delete(doc);			
 		}
 	}
 	
