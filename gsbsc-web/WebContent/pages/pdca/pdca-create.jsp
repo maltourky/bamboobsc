@@ -53,8 +53,7 @@ function BSC_PROG006D0001A_saveSuccess(data) {
 }
 
 function BSC_PROG006D0001A_clear() {
-	setFieldsBackgroundDefault(BSC_PROG006D0001A_fieldsId);	
-	
+	BSC_PROG006D0001A_TabRefresh();
 }
 
 

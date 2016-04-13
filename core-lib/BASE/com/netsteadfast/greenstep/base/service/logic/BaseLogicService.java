@@ -76,4 +76,24 @@ public abstract class BaseLogicService {
 		return obj;
 	}
 	
+	public <T> T replaceSplit2Blank(T obj, String fieldName, String split) {
+		if (obj == null) {
+			return obj;
+		}
+		try {
+			Object value = Ognl.getValue(fieldName, obj);
+			if ( !(value instanceof String) ) {
+				return obj;
+			}
+			if ( this.isBlank((String)value) ) {
+				return obj;
+			}
+			value = ((String)value).replaceAll(split, "");
+			Ognl.setValue(fieldName, obj, value);
+		} catch (OgnlException e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}	
+	
 }

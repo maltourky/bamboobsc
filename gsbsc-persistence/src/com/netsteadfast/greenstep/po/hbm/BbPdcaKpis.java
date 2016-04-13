@@ -3,6 +3,7 @@ package com.netsteadfast.greenstep.po.hbm;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -11,6 +12,7 @@ import com.netsteadfast.greenstep.base.model.BaseEntity;
 import com.netsteadfast.greenstep.base.model.EntityPK;
 import com.netsteadfast.greenstep.base.model.EntityUK;
 
+@Entity
 @Table(
 		name="bb_pdca_kpis", 
 		uniqueConstraints = { 

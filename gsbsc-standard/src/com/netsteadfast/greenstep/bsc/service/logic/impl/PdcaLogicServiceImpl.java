@@ -35,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -43,6 +44,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
@@ -297,7 +299,29 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	@Override
 	public List<Task> queryTask() throws Exception {
 		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
-	}	
+	}		
+	
+	private OrganizationVO getOrganization(String oid) throws ServiceException, Exception {
+		OrganizationVO organization = new OrganizationVO();
+		organization.setOid(oid);
+		DefaultResult<OrganizationVO> orgResult = this.organizationService.findObjectByOid(organization);
+		if (orgResult.getValue() == null) {
+			throw new ServiceException( orgResult.getSystemMessage().getValue() );
+		}
+		organization = orgResult.getValue();
+		return organization;
+	}
+	
+	private EmployeeVO getEmployee(String oid) throws ServiceException, Exception {
+		EmployeeVO employee = new EmployeeVO();
+		employee.setOid(oid);
+		DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
+		if (empResult.getValue() == null) {
+			throw new ServiceException(empResult.getSystemMessage().getValue());
+		}
+		employee = empResult.getValue();
+		return employee;
+	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
 	@Transactional(
@@ -305,16 +329,21 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			readOnly=false,
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
 	@Override
-	public DefaultResult<PdcaVO> create(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
+	public DefaultResult<PdcaVO> create(PdcaVO pdca, PdcaMeasureFreqVO measureFreq, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
 		if (null == pdca || null == items || items.size()<1 || organizationOids.size()<1 || employeeOids.size()<1 || kpiOids.size()<1) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
+		pdca.setConfirmFlag(YesNo.NO);
+		this.replaceSplit2Blank(pdca, "startDate", "/");
+		this.replaceSplit2Blank(pdca, "endDate", "/");
 		DefaultResult<PdcaVO> result = this.pdcaService.saveObject(pdca);
 		if (result.getValue() == null) {
 			throw new ServiceException(result.getSystemMessage().getValue());
 		}
+		pdca = result.getValue();
+		this.createMeasureFreq(pdca, measureFreq);
 		this.createOwner(pdca, employeeOids);
 		this.createOrganization(pdca, organizationOids);
 		this.createKpis(pdca, kpiOids);
@@ -329,7 +358,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			readOnly=false,
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
 	@Override
-	public DefaultResult<PdcaVO> update(PdcaVO pdca, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
+	public DefaultResult<PdcaVO> update(PdcaVO pdca, PdcaMeasureFreqVO measureFreq, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception {
 		
 		return null;
@@ -346,16 +375,28 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		return null;
 	}
 	
+	private void createMeasureFreq(PdcaVO pdca, PdcaMeasureFreqVO measureFreq) throws ServiceException, Exception {
+		measureFreq.setPdcaOid(pdca.getOid());
+		this.replaceSplit2Blank(measureFreq, "startDate", "/");
+		this.replaceSplit2Blank(measureFreq, "endDate", "/");
+		if (this.isNoSelectId(measureFreq.getOrganizationOid())) {
+			measureFreq.setOrgId(BscConstants.MEASURE_DATA_ORGANIZATION_FULL);
+		} else {
+			measureFreq.setOrgId( this.getOrganization(measureFreq.getOrganizationOid()).getOrgId() );
+		}
+		if (this.isNoSelectId(measureFreq.getEmployeeOid())) {
+			measureFreq.setEmpId(BscConstants.MEASURE_DATA_EMPLOYEE_FULL);
+		} else {
+			measureFreq.setEmpId( this.getEmployee(measureFreq.getEmployeeOid()).getEmpId() );
+		}		
+		this.pdcaMeasureFreqService.saveObject(measureFreq);
+	}
+	
 	private void createOrganization(PdcaVO pdca, List<String> orgaOids) throws ServiceException, Exception {
 		for (String oid : orgaOids) {
-			OrganizationVO organization = new OrganizationVO();
-			organization.setOid(oid);
-			DefaultResult<OrganizationVO> orgResult = this.organizationService.findObjectByOid(organization);
-			if (orgResult.getValue() == null) {
-				throw new ServiceException( orgResult.getSystemMessage().getValue() );
-			}
-			organization = orgResult.getValue();
+			OrganizationVO organization = this.getOrganization(oid);
 			PdcaOrgaVO pdcaOrga = new PdcaOrgaVO();
+			pdcaOrga.setPdcaOid(pdca.getOid());
 			pdcaOrga.setOrgId( organization.getOrgId() );
 			this.pdcaOrgaService.saveObject(pdcaOrga);
 		}
@@ -363,13 +404,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void createOwner(PdcaVO pdca, List<String> emplOids) throws ServiceException, Exception {
 		for (String oid : emplOids) {
-			EmployeeVO employee = new EmployeeVO();
-			employee.setOid(oid);
-			DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
-			if (empResult.getValue() == null) {
-				throw new ServiceException(empResult.getSystemMessage().getValue());
-			}
-			employee = empResult.getValue();
+			EmployeeVO employee = this.getEmployee(oid);
 			PdcaOwnerVO pdcaOwner = new PdcaOwnerVO();
 			pdcaOwner.setPdcaOid(pdca.getOid());
 			pdcaOwner.setEmpId(employee.getEmpId());
@@ -419,14 +454,18 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	}
 	
 	private void createItems(PdcaVO pdca, List<PdcaItemVO> items) throws ServiceException, Exception {
-		for (PdcaItemVO item : items) {
-			item.setPdcaOid(pdca.getOid());
-			this.setStringValueMaxLength(item, "description", MAX_DESCRIPTION_LENGTH);
-			DefaultResult<PdcaItemVO> result = this.pdcaItemService.saveObject(item);
+		for (PdcaItemVO itemObj : items) {
+			itemObj.setPdcaOid(pdca.getOid());
+			this.setStringValueMaxLength(itemObj, "description", MAX_DESCRIPTION_LENGTH);
+			this.replaceSplit2Blank(itemObj, "startDate", "/");
+			this.replaceSplit2Blank(itemObj, "endDate", "/");
+			DefaultResult<PdcaItemVO> result = this.pdcaItemService.saveObject(itemObj);
 			if (result.getValue() == null) {
 				throw new ServiceException( result.getSystemMessage().getValue() );
 			}
-			item = result.getValue();
+			PdcaItemVO item = result.getValue();
+			item.setEmployeeOids( itemObj.getEmployeeOids() );
+			item.setUploadOids( itemObj.getUploadOids() );
 			this.createItemOwner( item );
 			this.createItemDocuments( item );
 		}

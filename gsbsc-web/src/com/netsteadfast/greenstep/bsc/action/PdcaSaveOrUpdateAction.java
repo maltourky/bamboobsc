@@ -50,6 +50,7 @@ import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
+import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
 
 @ControllerAuthority(check=true)
@@ -292,9 +293,17 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	
 	private String checkPdcaItemDateRange(List<PdcaItemVO> items) throws Exception {
 		StringBuilder errMsg = new StringBuilder();
+		String projectStartDate = this.getFields().get("startDate");
+		String projectEndDate = this.getFields().get("endDate");		
 		for (PdcaItemVO item : items) {
 			if (SimpleUtils.getDaysBetween(item.getStartDate(), item.getEndDate())<0) {
 				errMsg.append( "Item " + item.getTitle() + " date range error!<BR/>" );
+			}
+			if (SimpleUtils.getDaysBetween(projectStartDate, item.getStartDate())<0) {
+				errMsg.append( "Item " + item.getTitle() + " start-date cannot over then project start-date!<BR/>" );
+			}
+			if (SimpleUtils.getDaysBetween(projectEndDate, item.getEndDate())>0) {
+				errMsg.append( "Item " + item.getTitle() + " end-date cannot over then project end-date!<BR/>" );
 			}
 		}
 		return errMsg.toString();		
@@ -348,8 +357,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 			item.setStartDate( String.valueOf(data.get("startDate")) );
 			item.setEndDate( String.valueOf(data.get("endDate")) );
 			item.setDescription( String.valueOf(data.get("description")) );
-			item.setEmployeeOids( super.transformAppendIds2List( super.defaultString( String.valueOf(data.get("ownerOids")) ).trim() ) );
-			item.setUploadOids( (List<String>) data.get("upload") );
+			item.setEmployeeOids( super.transformAppendIds2List( super.defaultString( String.valueOf(data.get("ownerOids")) ).trim() ) );			
+			//item.setUploadOids( (List<String>) data.get("upload") );
+			item.setUploadOids( new ArrayList<String>() );
+			List<LinkedHashMap<String, String>> uploadDatas = (List<LinkedHashMap<String, String>>) data.get("upload");
+			for (LinkedHashMap<String, String> uploadData : uploadDatas) {
+				item.getUploadOids().add( uploadData.get("oid") );
+			}
 			items.add( item );
 		}
 		
@@ -362,8 +376,49 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		this.checkItems(pdcaItems);
 		PdcaVO pdca = new PdcaVO();
 		this.transformFields2ValueObject(pdca, new String[]{"title", "startDate", "endDate", "description"});
+		this.getFields().remove("measureFreq_date1");
+		this.getFields().remove("measureFreq_date2");
+		this.getFields().remove("measureFreq_dateType");
+		String frequency = this.getFields().get("measureFreq_frequency");		
+		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
+				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
+			this.getFields().put("measureFreq_date1", this.getFields().get("measureFreq_startDate"));
+			this.getFields().put("measureFreq_date2", this.getFields().get("measureFreq_endDate"));
+		} else {
+			this.getFields().put("measureFreq_date1", this.getFields().get("measureFreq_startYearDate"));
+			this.getFields().put("measureFreq_date2", this.getFields().get("measureFreq_endYearDate"));
+		}
+		String dataFor = this.getFields().get("measureFreq_dataFor");
+		this.getFields().put("measureFreq_dateType", "3");
+		if ("organization".equals(dataFor)) {
+			this.getFields().put("measureFreq_dateType", "1");
+		}
+		if ("employee".equals(dataFor)) {
+			this.getFields().put("measureFreq_dateType", "2");
+		}
+		PdcaMeasureFreqVO measureFreq = new PdcaMeasureFreqVO();
+		this.transformFields2ValueObject(
+				measureFreq, 
+				new String[]{
+						"freq",
+						"dataType",
+						"organizationOid",
+						"employeeOid",
+						"startDate",
+						"endDate"
+				}, 
+				new String[]{
+						"measureFreq_frequency",
+						"measureFreq_dateType",
+						"measureFreq_measureDataOrganizationOid",
+						"measureFreq_measureDataEmployeeOid",
+						"measureFreq_date1",
+						"measureFreq_date2"
+				});
 		DefaultResult<PdcaVO> result = this.pdcaLogicService.create(
 				pdca, 
+				measureFreq,
 				this.transformAppendIds2List(this.getFields().get("orgaOids")), 
 				this.transformAppendIds2List(this.getFields().get("emplOids")),
 				this.transformAppendIds2List(this.getFields().get("kpiOids")),
