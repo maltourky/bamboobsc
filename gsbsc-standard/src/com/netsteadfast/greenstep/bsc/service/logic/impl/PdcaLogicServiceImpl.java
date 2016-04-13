@@ -131,11 +131,6 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		this.pdcaService = pdcaService;
 	}
 
-	@Override
-	public String getBusinessProcessManagementResourceId() {
-		return "PDCAProjectProcess";
-	}
-
 	public IPdcaDocService<PdcaDocVO, BbPdcaDoc, String> getPdcaDocService() {
 		return pdcaDocService;
 	}
@@ -282,6 +277,11 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		this.sysUploadService = sysUploadService;
 	}	
 
+	@Override
+	public String getBusinessProcessManagementResourceId() {
+		return "PDCAProjectProcess";
+	}	
+	
 	@Override
 	public SysBpmnResourceVO getBusinessProcessManagementResourceObject(String resourceId) throws ServiceException, Exception {
 		return BusinessProcessManagementUtils.loadResource(getBusinessProcessManagementResourceId());

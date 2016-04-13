@@ -57,7 +57,7 @@ function BSC_PROG006D0001Q_clear() {
 }
 
 function BSC_PROG006D0001Q_edit(oid) {
-	BSC_PROG002D0002E_TabShow(oid);
+	BSC_PROG006D0001E_TabShow(oid);
 }
 
 function BSC_PROG006D0001Q_confirmDelete(oid) {

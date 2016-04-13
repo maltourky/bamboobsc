@@ -56,6 +56,22 @@ public class PdcaMeasureFreqVO extends BaseValueObj implements java.io.Serializa
 		this.empId = empId;
 	}
 	
+	public String getStartDateDisplayValue() {
+		return super.getDateDisplayValue(this.startDate, "/");
+	}
+	
+	public String getEndDateDisplayValue() {
+		return super.getDateDisplayValue(this.endDate, "/");
+	}	
+	
+	public String getStartDateTextBoxValue() {
+		return super.getDateDisplayValue(this.startDate, "-");
+	}
+	
+	public String getEndDateTextBoxValue() {
+		return super.getDateDisplayValue(this.endDate, "-");
+	}		
+	
 	@Override
 	public String getOid() {
 		return oid;
