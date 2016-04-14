@@ -41,4 +41,6 @@ public interface IOrganizationDAO<T extends java.io.Serializable, PK extends jav
 	
 	public List<String> findForAppendOrganizationOidsByReportRoleViewOrga(String roleId) throws Exception;
 	
+	public List<String> findForAppendOrganizationOidsByPdcaOrga(String pdcaOid) throws Exception;
+	
 }

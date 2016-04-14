@@ -568,7 +568,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void deleteItemOwner(BbPdcaItem pdcaItem) throws ServiceException, Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("pdcaOid", pdcaItem.getOid());
+		paramMap.put("pdcaOid", pdcaItem.getPdcaOid());
 		paramMap.put("itemOid", pdcaItem.getOid());
 		List<BbPdcaItemOwner> itemOwnerList = this.pdcaItemOwnerService.findListByParams(paramMap);
 		for (BbPdcaItemOwner owner : itemOwnerList) {
@@ -595,7 +595,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void deleteItemDocuments(BbPdcaItem pdcaItem) throws ServiceException, Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("pdcaOid", pdcaItem.getOid());
+		paramMap.put("pdcaOid", pdcaItem.getPdcaOid());
 		paramMap.put("itemOid", pdcaItem.getOid());
 		List<BbPdcaItemDoc> itemDocList = this.pdcaItemDocService.findListByParams(paramMap);
 		for (BbPdcaItemDoc doc : itemDocList) {

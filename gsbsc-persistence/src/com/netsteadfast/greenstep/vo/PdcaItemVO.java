@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
@@ -38,6 +39,9 @@ public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
 	// --------------------------------------------------------------
 	private List<String> employeeOids = null;
 	private List<String> uploadOids = null;
+	private String employeeAppendOids = ""; // 修改時顯示資料用的
+	private String employeeAppendNames = ""; // 修改時顯示資料用的
+	private List<PdcaItemDocVO> docs = new ArrayList<PdcaItemDocVO>(); // 修改時顯示資料用的
 	// --------------------------------------------------------------
 	
 	public PdcaItemVO() {
@@ -65,6 +69,14 @@ public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+	
+	public String getStartDateDisplayValue() {
+		return this.getDateDisplayValue(this.startDate, "/");
+	}
+	
+	public String getEndDateDisplayValue() {
+		return this.getDateDisplayValue(this.endDate, "/");
+	}	
 	
 	@Override
 	public String getOid() {
@@ -139,6 +151,30 @@ public class PdcaItemVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setUploadOids(List<String> uploadOids) {
 		this.uploadOids = uploadOids;
+	}
+
+	public String getEmployeeAppendOids() {
+		return employeeAppendOids;
+	}
+
+	public void setEmployeeAppendOids(String employeeAppendOids) {
+		this.employeeAppendOids = employeeAppendOids;
+	}
+
+	public String getEmployeeAppendNames() {
+		return employeeAppendNames;
+	}
+
+	public void setEmployeeAppendNames(String employeeAppendNames) {
+		this.employeeAppendNames = employeeAppendNames;
+	}
+
+	public List<PdcaItemDocVO> getDocs() {
+		return docs;
+	}
+
+	public void setDocs(List<PdcaItemDocVO> docs) {
+		this.docs = docs;
 	}		
 	
 	// --------------------------------------------------------------

@@ -48,16 +48,19 @@ public interface IEmployeeService<T extends java.io.Serializable, E extends java
 	
 	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception;
 	
-	public List<String> findForAppendEmployeeOidsByReportRoleViewEmpl(String roleId) throws Exception;
+	public List<String> findForAppendEmployeeOidsByReportRoleViewEmpl(String roleId) throws ServiceException, Exception;
 	
 	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectOwner(String projectOid) throws ServiceException, Exception;
 	
 	public List<String> findForAppendEmployeeOidsByDegreeFeedbackProjectRater(String projectOid) throws ServiceException, Exception;
 	
-	public BbEmployee findByAccountId(String accountId) throws Exception;
+	public BbEmployee findByAccountId(String accountId) throws ServiceException, Exception;
 	
-	public BbEmployee findByAccountOid(String accountOid) throws Exception;
+	public BbEmployee findByAccountOid(String accountOid) throws ServiceException, Exception;
 	
 	public Map<String, String> findForMapByDegreeFeedbackProjectOwner(boolean pleaseSelect, String projectOid) throws ServiceException, Exception;
 	
+	public List<String> findForAppendEmployeeOidsByPdcaOwner(String pdcaOid) throws ServiceException, Exception;
+	
+	public List<String> findForAppendEmployeeOidsByPdcaItemOwner(String pdcaOid, String itemOid) throws ServiceException, Exception;
 }

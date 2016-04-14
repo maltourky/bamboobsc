@@ -45,4 +45,6 @@ public interface IKpiService<T extends java.io.Serializable, E extends java.io.S
 	
 	public List<String> findForAppendNames(List<String> oids) throws ServiceException, Exception;
 	
+	public List<String> findForAppendOidsByPdcaKpis(String pdcaOid) throws Exception;
+	
 }

@@ -21,6 +21,9 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -42,19 +45,34 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaDocService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaItemDocService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaItemService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaMeasureFreqService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaService;
 import com.netsteadfast.greenstep.bsc.service.logic.IReportRoleViewLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
+import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbPdca;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaDoc;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaItem;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaItemDoc;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
+import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
+import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaDocVO;
+import com.netsteadfast.greenstep.vo.PdcaItemDocVO;
+import com.netsteadfast.greenstep.vo.PdcaItemVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
+import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.PdcaManagementAction")
@@ -66,12 +84,19 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 	private IReportRoleViewLogicService reportRoleViewLogicService;
 	private IPdcaService<PdcaVO, BbPdca, String> pdcaService;
 	private IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> pdcaMeasureFreqService;
+	private IKpiService<KpiVO, BbKpi, String> kpiService;
+	private IPdcaDocService<PdcaDocVO, BbPdcaDoc, String> pdcaDocService;
+	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
+	private IPdcaItemService<PdcaItemVO, BbPdcaItem, String> pdcaItemService;
+	private IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> pdcaItemDocService;
 	private Map<String, String> frequencyMap = BscMeasureDataFrequency.getFrequencyMap(true);
 	private Map<String, String> measureDataOrganizationMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> measureDataEmployeeMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> pdcaTypeMap = PdcaType.getDataMap(true);
 	private PdcaVO pdca = new PdcaVO();
 	private PdcaMeasureFreqVO measureFreq = new PdcaMeasureFreqVO();
+	private List<PdcaDocVO> pdcaDocs = new ArrayList<PdcaDocVO>();
+	private List<PdcaItemVO> pdcaItems = new ArrayList<PdcaItemVO>();
 	
 	public PdcaManagementAction() {
 		super();
@@ -136,6 +161,62 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		this.pdcaMeasureFreqService = pdcaMeasureFreqService;
 	}	
 	
+	public IKpiService<KpiVO, BbKpi, String> getKpiService() {
+		return kpiService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="bsc.service.KpiService")		
+	public void setKpiService(IKpiService<KpiVO, BbKpi, String> kpiService) {
+		this.kpiService = kpiService;
+	}	
+	
+	public IPdcaDocService<PdcaDocVO, BbPdcaDoc, String> getPdcaDocService() {
+		return pdcaDocService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaDocService")
+	@Required
+	public void setPdcaDocService(IPdcaDocService<PdcaDocVO, BbPdcaDoc, String> pdcaDocService) {
+		this.pdcaDocService = pdcaDocService;
+	}	
+	
+	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
+		return sysUploadService;
+	}
+
+	@Autowired
+	@Required
+	@Resource(name="core.service.SysUploadService")		
+	public void setSysUploadService(
+			ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
+		this.sysUploadService = sysUploadService;
+	}
+	
+	public IPdcaItemService<PdcaItemVO, BbPdcaItem, String> getPdcaItemService() {
+		return pdcaItemService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaItemService")
+	@Required	
+	public void setPdcaItemService(IPdcaItemService<PdcaItemVO, BbPdcaItem, String> pdcaItemService) {
+		this.pdcaItemService = pdcaItemService;
+	}	
+	
+	public IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> getPdcaItemDocService() {
+		return pdcaItemDocService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaItemDocService")
+	@Required	
+	public void setPdcaItemDocService(IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> pdcaItemDocService) {
+		this.pdcaItemDocService = pdcaItemDocService;
+	}	
+	
 	private void initData(String type) throws ServiceException, Exception {
 		if (!"execute".equals(type)) {
 			initDataForCreateOrEdit();
@@ -152,6 +233,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 			throw new ServiceException(pdcaResult.getSystemMessage().getValue());
 		}
 		this.pdca = pdcaResult.getValue();
+		
 		// ------------------------------------------------------------------------------
 		
 		// ------------------------------------------------------------------------------
@@ -202,7 +284,63 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		}
 		// ------------------------------------------------------------------------------
 		
+		// ------------------------------------------------------------------------------
+		// PDCA organization, Owner, KPIs, DOC
+		List<String> appendOrgaOidsPdcaOrga = this.organizationService.findForAppendOrganizationOidsByPdcaOrga(this.pdca.getOid());
+		List<String> appendOrgaNamesPdcaOrga = this.organizationService.findForAppendNames(appendOrgaOidsPdcaOrga);
+		this.getFields().put( "appendOrgaOidsForPdcaOrga", this.joinAppend2String(appendOrgaOidsPdcaOrga) );
+		this.getFields().put( "appendOrgaNamesForPdcaOrga", this.joinAppend2String(appendOrgaNamesPdcaOrga) );
 		
+		List<String> appendEmplOidsPdcaOwner = this.employeeService.findForAppendEmployeeOidsByPdcaOwner(pdca.getOid());
+		List<String> appendEmplNamesPdcaOwner = this.employeeService.findForAppendNames(appendEmplOidsPdcaOwner);
+		this.getFields().put( "appendOwnerOidsForPdcaOwner", this.joinAppend2String(appendEmplOidsPdcaOwner) );
+		this.getFields().put( "appendOwnerNamesForPdcaOwner", this.joinAppend2String(appendEmplNamesPdcaOwner) );
+		
+		List<String> appendKpiOidsPdcaKpis = this.kpiService.findForAppendOidsByPdcaKpis(pdca.getOid());
+		List<String> appendKpiNamesPdcaKpis = this.kpiService.findForAppendNames(appendKpiOidsPdcaKpis);
+		this.getFields().put( "appendKpiOidsForPdcaKpis", this.joinAppend2String(appendKpiOidsPdcaKpis) );
+		this.getFields().put( "appendKpiNamesForPdcaKpis", this.joinAppend2String(appendKpiNamesPdcaKpis) );
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());		
+		this.pdcaDocs = this.pdcaDocService.findListVOByParams(paramMap);
+		for (int i=0; this.pdcaDocs!=null && i<this.pdcaDocs.size(); i++) {
+			PdcaDocVO pdcaDoc = this.pdcaDocs.get(i);
+			pdcaDoc.setShowName( "unknown-" + pdcaDoc.getUploadOid() );
+			DefaultResult<SysUploadVO> upResult = this.sysUploadService.findForNoByteContent(pdcaDoc.getUploadOid());
+			if (upResult.getValue()!=null) {
+				pdcaDoc.setShowName( upResult.getValue().getShowName() );
+			}
+		}
+		// ------------------------------------------------------------------------------
+		
+		// ------------------------------------------------------------------------------
+		// PDCA Items
+		this.loadPdcaItemsData();
+		// ------------------------------------------------------------------------------
+		
+	}
+	
+	private void loadPdcaItemsData() throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdca.getOid());		
+		this.pdcaItems = this.pdcaItemService.findListVOByParams(paramMap);
+		for (PdcaItemVO item : this.pdcaItems) {
+			List<String> appendEmplOidsPdcaItemOwner = this.employeeService.findForAppendEmployeeOidsByPdcaItemOwner(item.getPdcaOid(), item.getOid());
+			List<String> appendEmplNamesPdcaItemOwner = this.employeeService.findForAppendNames(appendEmplOidsPdcaItemOwner);
+			item.setEmployeeAppendOids( this.joinAppend2String(appendEmplOidsPdcaItemOwner) );
+			item.setEmployeeAppendNames( this.joinAppend2String(appendEmplNamesPdcaItemOwner) );
+			paramMap.put("itemOid", item.getOid());
+			List<PdcaItemDocVO> itemDocs = this.pdcaItemDocService.findListVOByParams(paramMap);
+			for (int i=0; itemDocs!=null && i<itemDocs.size(); i++) {
+				PdcaItemDocVO itemDoc = itemDocs.get(i);
+				itemDoc.setShowName( "unknown-" + itemDoc.getUploadOid() );
+				DefaultResult<SysUploadVO> upResult = this.sysUploadService.findForNoByteContent(itemDoc.getUploadOid());
+				if (upResult.getValue()!=null) {
+					itemDoc.setShowName( upResult.getValue().getShowName() );
+				}				
+				item.getDocs().add(itemDoc);
+			}
+		}
 	}
 	
 	private void initDataForCreateOrEdit() throws ServiceException, Exception {
@@ -339,6 +477,22 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 
 	public void setMeasureFreq(PdcaMeasureFreqVO measureFreq) {
 		this.measureFreq = measureFreq;
+	}
+
+	public List<PdcaDocVO> getPdcaDocs() {
+		return pdcaDocs;
+	}
+
+	public void setPdcaDocs(List<PdcaDocVO> pdcaDocs) {
+		this.pdcaDocs = pdcaDocs;
+	}
+
+	public List<PdcaItemVO> getPdcaItems() {
+		return pdcaItems;
+	}
+
+	public void setPdcaItems(List<PdcaItemVO> pdcaItems) {
+		this.pdcaItems = pdcaItems;
 	}	
 
 }

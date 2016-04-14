@@ -91,5 +91,14 @@ public class OrganizationDAOImpl extends BaseDAO<BbOrganization, String> impleme
 				.setString("type", ReportRoleViewTypes.IS_ORGANIZATION)
 				.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendOrganizationOidsByPdcaOrga(String pdcaOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbOrganization m WHERE m.orgId IN ( SELECT b.orgId FROM BbPdcaOrga b WHERE b.pdcaOid = :pdcaOid ) ")
+				.setString("pdcaOid", pdcaOid)
+				.list();
+	}
 	
 }

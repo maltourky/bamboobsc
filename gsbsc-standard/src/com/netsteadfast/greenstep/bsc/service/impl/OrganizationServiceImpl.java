@@ -142,11 +142,19 @@ public class OrganizationServiceImpl extends BaseService<OrganizationVO, BbOrgan
 	}
 
 	@Override
-	public List<String> findForAppendOrganizationOidsByReportRoleViewOrga(String roleId) throws Exception {
+	public List<String> findForAppendOrganizationOidsByReportRoleViewOrga(String roleId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(roleId)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		return this.organizationDAO.findForAppendOrganizationOidsByReportRoleViewOrga(roleId);		
+	}
+
+	@Override
+	public List<String> findForAppendOrganizationOidsByPdcaOrga(String pdcaOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return this.organizationDAO.findForAppendOrganizationOidsByPdcaOrga(pdcaOid);
 	}
 
 }

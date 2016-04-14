@@ -185,4 +185,12 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 		return this.kpiDAO.findForAppendNames(oids);
 	}
 
+	@Override
+	public List<String> findForAppendOidsByPdcaKpis(String pdcaOid) throws Exception {
+		if (StringUtils.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return this.kpiDAO.findForAppendOidsByPdcaKpis(pdcaOid);
+	}
+
 }

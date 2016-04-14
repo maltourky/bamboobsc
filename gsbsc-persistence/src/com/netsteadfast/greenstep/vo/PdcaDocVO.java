@@ -30,6 +30,10 @@ public class PdcaDocVO extends BaseValueObj implements java.io.Serializable {
 	private String uploadOid;
 	private String viewMode;
 	
+	// ----------------------------------------------------
+	private String showName = "";
+	// ----------------------------------------------------
+	
 	public PdcaDocVO() {
 		
 	}
@@ -73,6 +77,18 @@ public class PdcaDocVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setViewMode(String viewMode) {
 		this.viewMode = viewMode;
-	}	
+	}
+	
+	// ----------------------------------------------------
+	
+	public String getShowName() {
+		return showName;
+	}
+
+	public void setShowName(String showName) {
+		this.showName = showName;
+	}
+	
+	// ----------------------------------------------------
 	
 }

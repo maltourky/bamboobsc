@@ -36,4 +36,6 @@ public interface IKpiDAO<T extends java.io.Serializable, PK extends java.io.Seri
 	
 	public List<String> findForAppendNames(List<String> oids) throws Exception;
 	
+	public List<String> findForAppendOidsByPdcaKpis(String pdcaOid) throws Exception;
+	
 }

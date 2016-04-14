@@ -101,5 +101,24 @@ public class EmployeeDAOImpl extends BaseDAO<BbEmployee, String> implements IEmp
 				.setString("oid", accountOid)
 				.uniqueResult();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendEmployeeOidsByPdcaOwner(String pdcaOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbEmployee m WHERE m.empId IN ( SELECT b.empId FROM BbPdcaOwner b WHERE b.pdcaOid = :pdcaOid ) ")
+				.setString("pdcaOid", pdcaOid)
+				.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendEmployeeOidsByPdcaItemOwner(String pdcaOid, String itemOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbEmployee m WHERE m.empId IN ( SELECT b.empId FROM BbPdcaItemOwner b WHERE b.pdcaOid = :pdcaOid AND b.itemOid = :itemOid ) ")
+				.setString("pdcaOid", pdcaOid)
+				.setString("itemOid", itemOid)
+				.list();
+	}
 	
 }

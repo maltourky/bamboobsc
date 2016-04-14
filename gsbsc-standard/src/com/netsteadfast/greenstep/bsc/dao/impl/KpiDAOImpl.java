@@ -73,5 +73,14 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 				.setParameterList("oids", oids)
 				.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForAppendOidsByPdcaKpis(String pdcaOid) throws Exception {
+		return this.getCurrentSession()
+				.createQuery("SELECT m.oid FROM BbKpi m WHERE m.id IN ( SELECT b.kpiId FROM BbPdcaKpis b WHERE b.pdcaOid = :pdcaOid ) ")
+				.setString("pdcaOid", pdcaOid)
+				.list();
+	}
 	
 }

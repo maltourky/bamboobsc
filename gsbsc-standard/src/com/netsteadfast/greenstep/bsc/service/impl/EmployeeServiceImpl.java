@@ -163,7 +163,7 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 	}
 
 	@Override
-	public List<String> findForAppendEmployeeOidsByReportRoleViewEmpl(String roleId) throws Exception {
+	public List<String> findForAppendEmployeeOidsByReportRoleViewEmpl(String roleId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(roleId)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}				
@@ -187,7 +187,7 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 	}
 
 	@Override
-	public BbEmployee findByAccountId(String accountId) throws Exception {
+	public BbEmployee findByAccountId(String accountId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(accountId)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
@@ -204,7 +204,7 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 	}
 
 	@Override
-	public BbEmployee findByAccountOid(String accountOid) throws Exception {
+	public BbEmployee findByAccountOid(String accountOid) throws ServiceException, Exception {
 		if (StringUtils.isBlank(accountOid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
@@ -224,6 +224,22 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 			dataMap.put( employee.getOid(), employee.getEmpId() + " - " + employee.getFullName() );
 		}		
 		return dataMap;
+	}
+
+	@Override
+	public List<String> findForAppendEmployeeOidsByPdcaOwner(String pdcaOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}			
+		return this.employeeDAO.findForAppendEmployeeOidsByPdcaOwner(pdcaOid);
+	}
+
+	@Override
+	public List<String> findForAppendEmployeeOidsByPdcaItemOwner(String pdcaOid, String itemOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid) || StringUtils.isBlank(itemOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}			
+		return this.employeeDAO.findForAppendEmployeeOidsByPdcaItemOwner(pdcaOid, itemOid);
 	}
 
 }

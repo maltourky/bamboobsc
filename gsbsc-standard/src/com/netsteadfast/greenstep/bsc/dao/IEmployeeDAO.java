@@ -42,4 +42,8 @@ public interface IEmployeeDAO<T extends java.io.Serializable, PK extends java.io
 	
 	public T findByAccountOid(String oid) throws Exception;
 	
+	public List<String> findForAppendEmployeeOidsByPdcaOwner(String pdcaOid) throws Exception;
+	
+	public List<String> findForAppendEmployeeOidsByPdcaItemOwner(String pdcaOid, String itemOid) throws Exception;
+	
 }

@@ -49,7 +49,7 @@ function BSC_PROG006D0001E_updateSuccess(data) {
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG006D0001E_fieldsId);		
 		return;
 	}	
-	BSC_PROG006D0001E_clear();
+	//BSC_PROG006D0001E_clear();
 }
 
 function BSC_PROG006D0001E_clear() {
@@ -611,10 +611,10 @@ function ${programId}_page_message() {
 	
 	<!-- ##################################################################### -->
 	<!-- ContentTab hidden field -->
-	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendEmployeeOid" id="BSC_PROG006D0001E_contentTab_appendEmployeeOid" value="" />
+	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendEmployeeOid" id="BSC_PROG006D0001E_contentTab_appendEmployeeOid" value="${fields.appendOwnerOidsForPdcaOwner}" />
 	<input type="hidden" name="BSC_PROG006D0001E_contentTab_uploadDocumentOid" id="BSC_PROG006D0001E_contentTab_uploadDocumentOid" value="" /><!-- 這個upload放oid的欄位只是當temp用 -->
-	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendKPIsOid" id="BSC_PROG006D0001E_contentTab_appendKPIsOid" value="" />
-	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendOrganizationOid" id="BSC_PROG006D0001E_contentTab_appendOrganizationOid" value="" />
+	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendKPIsOid" id="BSC_PROG006D0001E_contentTab_appendKPIsOid" value="${fields.appendKpiOidsForPdcaKpis}" />
+	<input type="hidden" name="BSC_PROG006D0001E_contentTab_appendOrganizationOid" id="BSC_PROG006D0001E_contentTab_appendOrganizationOid" value="${fields.appendOrgaOidsForPdcaOrga}" />
 	<!-- ##################################################################### -->
 	
 	
@@ -809,7 +809,7 @@ function ${programId}_page_message() {
 		    				Clear responsibility&nbsp;(Organization / Department).
 						</div>					
 						<br/>	    			    			
-		    			<span id="BSC_PROG006D0001E_contentTab_organizationAppendName"></span>    			
+		    			<span id="BSC_PROG006D0001E_contentTab_organizationAppendName"><s:property value="fields.appendOrgaNamesForPdcaOrga"/></span>    			
 		    		</td>
 		    	</tr>     		    	
 				<tr>
@@ -839,7 +839,7 @@ function ${programId}_page_message() {
 		    				Clear responsibility (Employee). 
 						</div>											
 						<br/>
-						<span id="BSC_PROG006D0001E_contentTab_employeeAppendName"></span>	 		    			
+						<span id="BSC_PROG006D0001E_contentTab_employeeAppendName"><s:property value="fields.appendOwnerNamesForPdcaOwner"/></span>	 		    			
 		    		</td>
 		    	</tr>
 				<tr>
@@ -869,7 +869,7 @@ function ${programId}_page_message() {
 		    				Clear KPIs. 
 						</div>											
 						<br/>
-						<span id="BSC_PROG006D0001E_contentTab_kpisAppendName"></span>	 		    			
+						<span id="BSC_PROG006D0001E_contentTab_kpisAppendName"><s:property value="fields.appendKpiNamesForPdcaKpis"/></span>	 		    			
 		    		</td>
 		    	</tr>		    			    	
 				<tr>
@@ -991,10 +991,70 @@ function ${programId}_page_message() {
 	
 <script type="text/javascript">${programId}_page_message();</script>
 <script type="text/javascript">
+
+
+//-----------------------------------------------------------------------------------
+<s:if test="pdcaDocs!=null && pdcaDocs.size!=0">
+<s:iterator value="pdcaDocs" status="st">
+BSC_PROG006D0001E_contentTab_uploads.push( {oid: '<s:property value="uploadOid" />' , name: '<s:property value="showName" escapeJavaScript="true"/>'} );
+</s:iterator>
+</s:if>
+//-----------------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------------
+<s:if test="pdcaItems!=null && pdcaItems.size!=0">
+
+var BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_editMode_tmpNode = null;
+
+<s:iterator value="pdcaItems" status="st">
+
+BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_nowClickId = viewPage.generateGuid();
+
+BSC_PROG006D0001E_pdcaTab_item_node.push({
+	id			: BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_nowClickId,
+	type		: '${type}',
+	title		: '<s:property value="title" escapeJavaScript="true"/>',
+	startDate	: '<s:property value="startDateDisplayValue"/>',
+	endDate		: '<s:property value="endDateDisplayValue"/>',
+	description	: '<s:property value="description" escapeJavaScript="true"/>',
+	upload		: [],		
+	ownerOids	: '${employeeAppendOids}',
+	appendNames	: '<s:property value="employeeAppendNames" escapeJavaScript="true"/>' 
+});
+BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_editMode_tmpNode = BSC_PROG006D0001E_pdcaTab_tableContent_getNode();
+
+	<s:iterator value="docs" status="st">
+BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_editMode_tmpNode.upload.push( {oid : '<s:property value="uploadOid" />', name: '<s:property value="showName" escapeJavaScript="true"/>'} );
+	</s:iterator>
+
+</s:iterator>
+
+BSC_PROG006D0001E_pdcaTab_itemTableTdContentData_nowClickId = '';
+
+</s:if>
+//-----------------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------------
 setTimeout(function(){ 
 	BSC_PROG006D0001E_contentTab_measureFreq_setFrequencyValue();
 	BSC_PROG006D0001E_contentTab_measureFreq_setDataForValue();
-}, 2000);
+	
+	BSC_PROG006D0001E_contentTab_showUploadDataTable();
+	BSC_PROG006D0001E_pdcaTab_itemTablePaint();
+	
+	<s:if test=" \"\" != measureFreq.organizationOid && null != measureFreq.organizationOid ">
+	dijit.byId("BSC_PROG006D0001E_contentTab_measureFreq_measureDataOrganizationOid").set("value", "${measureFreq.organizationOid}");
+	</s:if>
+	<s:if test=" \"\" != measureFreq.employeeOid && null != measureFreq.employeeOid ">
+	dijit.byId("BSC_PROG006D0001E_contentTab_measureFreq_measureDataEmployeeOid").set("value", "${measureFreq.employeeOid}");
+	</s:if>
+	
+}, 1500);
+//-----------------------------------------------------------------------------------
+
+
 </script>
 </body>
 </html>

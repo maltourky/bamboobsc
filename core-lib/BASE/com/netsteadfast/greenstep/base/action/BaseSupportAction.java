@@ -589,6 +589,13 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 		return SimpleUtils.getListHashSet(idList);
 	}
 	
+	protected String joinAppend2String(List<String> datas) throws Exception {
+		if (null == datas || datas.size() < 1) {
+			return "";
+		}
+		return StringUtils.join(datas.toArray(), Constants.ID_DELIMITER) + Constants.ID_DELIMITER;
+	}
+	
 	protected static Map<String, String> getLoadStrutsConstants() {		
 		if (loadStrutsSettingConstatns != null) {
 			return loadStrutsSettingConstatns;
