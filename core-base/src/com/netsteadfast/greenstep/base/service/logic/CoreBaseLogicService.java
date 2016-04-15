@@ -21,12 +21,14 @@
  */
 package com.netsteadfast.greenstep.base.service.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -187,5 +189,27 @@ public abstract class CoreBaseLogicService extends BaseLogicService {
 		}		
 		return allow;
 	}
+	
+	// for extends IBusinessProcessManagementResourceProvide BO ,  maybe need
+	public List<Task> queryTaskByVariable(String businessProcessManagementResourceId, String variableKeyName, String variableKeyValue) throws ServiceException, Exception {
+		if (super.isBlank(variableKeyName) || super.isBlank(variableKeyValue)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		List<Task> tasks = new ArrayList<Task>();
+		List<Task> queryTasks = BusinessProcessManagementUtils.queryTask(businessProcessManagementResourceId);
+		if (null == queryTasks || queryTasks.size()<1) {
+			return tasks;
+		}
+		for (Task task : queryTasks) {
+			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);
+			if (variables==null || super.isBlank( (String)variables.get(variableKeyName) ) ) {
+				continue;
+			}
+			if (variableKeyValue.equals(variables.get(variableKeyName))) {
+				tasks.add( task );
+			}
+		}
+		return tasks;
+	}		
 	
 }

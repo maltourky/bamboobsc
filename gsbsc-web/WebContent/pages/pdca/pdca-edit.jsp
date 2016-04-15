@@ -56,6 +56,33 @@ function BSC_PROG006D0001E_clear() {
 	BSC_PROG006D0001E_TabRefresh();
 }
 
+function BSC_PROG006D0001E_startProcess() {
+	confirmDialog(
+			"${programId}_managementDialogId000", 
+			_getApplicationProgramNameById('${programId}'), 
+			"Start process?", 
+			function(success) {
+				if (!success) {
+					return;
+				}	
+				xhrSendParameter(
+						'${basePath}/bsc.pdcaStartProcessAction.action', 
+						{ 'fields.oid' : '${pdca.oid}' }, 
+						'json', 
+						_gscore_dojo_ajax_timeout,
+						_gscore_dojo_ajax_sync, 
+						true, 
+						function(data) {
+							alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+						}, 
+						function(error) {
+							alert(error);
+						}
+				);	
+			}, 
+			(window.event ? window.event : null) 
+	);
+}
 
 //------------------------------------------------------------------------------
 // Content-Tab
@@ -667,7 +694,11 @@ function ${programId}_page_message() {
     				iconClass="dijitIconSave"></gs:button>
     			<gs:button name="BSC_PROG006D0001E_clear" id="BSC_PROG006D0001E_clear" onClick="BSC_PROG006D0001E_clear();" 
     				label="Clear" 
-    				iconClass="dijitIconClear"></gs:button>       		
+    				iconClass="dijitIconClear"></gs:button>
+    			&nbsp;&nbsp;&nbsp;&nbsp;
+    			<gs:button name="BSC_PROG006D0001E_startProcess" id="BSC_PROG006D0001E_startProcess" onClick="BSC_PROG006D0001E_startProcess();" 
+    				label="Start process" 
+    				iconClass="dijitIconSave"></gs:button>
     		</td>
     	</tr>
 	</table>

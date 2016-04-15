@@ -43,4 +43,8 @@ public interface IPdcaLogicService extends IBusinessProcessManagementResourcePro
 	
 	public DefaultResult<Boolean> delete(PdcaVO pdca) throws ServiceException, Exception;
 	
+	public DefaultResult<PdcaVO> startProcess(PdcaVO pdca) throws ServiceException, Exception;
+	
+	public List<Task> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception;
+	
 }

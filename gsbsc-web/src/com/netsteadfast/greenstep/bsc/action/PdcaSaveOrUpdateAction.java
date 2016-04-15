@@ -461,6 +461,16 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}
 	
+	private void startPdcaAuditProcess() throws ControllerException, AuthorityException, ServiceException, Exception {
+		PdcaVO pdca = new PdcaVO();
+		this.transformFields2ValueObject(pdca, new String[]{"oid"});
+		DefaultResult<PdcaVO> result = this.pdcaLogicService.startProcess(pdca);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()!=null) {
+			this.success = IS_YES;
+		}
+	}
+	
 	/**
 	 * bsc.pdcaSaveAction.action
 	 * 
@@ -547,6 +557,35 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}					
+	
+	/**
+	 * bsc.pdcaStartProcessAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG006D0001E")	
+	public String doStartProcess() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.startPdcaAuditProcess();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}
 
 	@JSON
 	@Override

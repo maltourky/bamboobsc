@@ -45,6 +45,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
+import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
@@ -72,6 +73,7 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
+import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
@@ -260,6 +262,19 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
 	}		
 	
+	private Map<String, Object> getProcessFlowParam(String pdcaOid, String pdcaType, String date, String userid, 
+			String confirm, String reason, String newChild) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdcaOid);
+		paramMap.put("pdcaType", pdcaType);
+		paramMap.put("confirm", confirm);
+		paramMap.put("reason", super.defaultString(reason).length() > MAX_DESCRIPTION_LENGTH ? reason.substring(0, MAX_DESCRIPTION_LENGTH) : reason);
+		paramMap.put("date", date);
+		paramMap.put("cuserid", userid);
+		paramMap.put("new_chile", newChild); // only for "Action" final step
+		return paramMap;
+	}	
+	
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
@@ -348,6 +363,40 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 		this.deleteItems(pdca);
 		return this.pdcaService.deleteObject(pdca);
 	}
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )	
+	@Override
+	public DefaultResult<PdcaVO> startProcess(PdcaVO pdca) throws ServiceException, Exception {
+		if (null == pdca || super.isBlank(pdca.getOid())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		DefaultResult<PdcaVO> result = this.pdcaService.findObjectByOid(pdca);
+		if (result.getValue() == null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		pdca = result.getValue();
+		if (YesNo.YES.equals(pdca.getConfirmFlag())) {
+			throw new ServiceException("The project is confirm, cannot start audit process!");
+		}
+		List<Task> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
+		if (tasks!=null && tasks.size()>0) {
+			throw new ServiceException("Audit process has been started!");
+		}
+		String reason = "Start PDCA audit process, " + pdca.getTitle() + "";
+		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
+		result.setSystemMessage( new SystemMessage(reason) );
+		return result;
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Override
+	public List<Task> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception {		
+		return this.queryTaskByVariable(this.getBusinessProcessManagementResourceId(), "pdcaOid", pdcaOid);
+	}	
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
