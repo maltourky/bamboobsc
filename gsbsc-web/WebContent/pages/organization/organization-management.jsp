@@ -397,10 +397,12 @@ function ${programId}_page_message() {
 		    				loadFn="BSC_PROG001D0002Q_saveSuccess(data);" 
 		    				programId="${programId}"
 		    				label="${action.getText('BSC_PROG001D0002Q_save')}" 
-		    				iconClass="dijitIconSave"></gs:button>    			
+		    				iconClass="dijitIconSave"
+		    				cssClass="alt-primary"></gs:button>    			
 		    			<gs:button name="BSC_PROG001D0002Q_clear" id="BSC_PROG001D0002Q_clear" onClick="BSC_PROG001D0002Q_clear(true);" 
 		    				label="${action.getText('BSC_PROG001D0002Q_clear')}" 
-		    				iconClass="dijitIconClear"></gs:button>
+		    				iconClass="dijitIconClear"
+		    				cssClass="alt-primary"></gs:button>
 		    			&nbsp;&nbsp;&nbsp;&nbsp;
 		    			<gs:button name="BSC_PROG001D0002Q_delete" id="BSC_PROG001D0002Q_delete" onClick="BSC_PROG001D0002Q_delete();" 
 		    				label="${action.getText('BSC_PROG001D0002Q_delete')}" 

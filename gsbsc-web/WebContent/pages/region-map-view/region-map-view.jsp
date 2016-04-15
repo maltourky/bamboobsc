@@ -65,7 +65,7 @@ function BSC_PROG001D0006Q_map_initialize() {
 	    draggable: false
 	});	
 	
-	var new_win_href_${orgId} = '&nbsp;&nbsp;&nbsp;<a href="#" onclick="BSC_PROG001D0006Q_openNew(\'${orgId}\'); return false;"><img src="./icons/help-about.png" border="0" /><font color="#6E6E6E"><b><s:property value="getText('BSC_PROG001D0006Q_clickshowinfo')" escapeJavaScript="true"/></b></font></a>';
+	var new_win_href_${orgId} = '&nbsp;&nbsp;&nbsp;<a href="#" style="text-decoration: none; font-weight: bold;" onclick="BSC_PROG001D0006Q_openNew(\'${orgId}\'); return false;"><img src="./icons/help-about.png" border="0" /><font color="#3794E5"><s:property value="getText('BSC_PROG001D0006Q_clickshowinfo')" escapeJavaScript="true"/></font></a>';
 	
 	google.maps.event.addListener(marker_${orgId}, 'click', function(event) {	
 		

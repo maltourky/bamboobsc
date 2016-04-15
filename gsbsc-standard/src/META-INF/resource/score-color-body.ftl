@@ -28,7 +28,7 @@
 								iconClass="dijitIconEdit"
 								type="button"
 								onclick="BSC_PROG001D0004Q_edit('${scoreColor.oid}', '${scoreColor.fontColor}', '${scoreColor.bgColor}', '${scoreColor.scoreMax?c}', false);"
-								>${btnEdit}</button>
+								class="alt-info">${btnEdit}</button>
 								
 			<#else>
 					
@@ -37,14 +37,14 @@
 								iconClass="dijitIconEdit"
 								type="button"
 								onclick="BSC_PROG001D0004Q_edit('${scoreColor.oid}', '${scoreColor.fontColor}', '${scoreColor.bgColor}', '${scoreColor.scoreMax?c}', true);"
-								>${btnEdit}</button>
+								class="alt-info">${btnEdit}</button>
 															
 							<button data-dojo-type="dijit/form/Button" 
 								data-dojo-props="showLabel: true" 
 								iconClass="dijitIconDelete"
 								type="button"
 								onclick="BSC_PROG001D0004Q_delete('${scoreColor.oid}');"
-								>${btnDelete}</button>						
+								class="alt-warning">${btnDelete}</button>						
 							
 			</#if>		
 								

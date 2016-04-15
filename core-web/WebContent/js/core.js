@@ -222,7 +222,7 @@ dojo.declare("GS.ViewPage", GS.CORE, {
     	    var actionBar = dojo.create("div", {
     	        "class": "dijitDialogPaneActionBar"
     	    }, thisDialog.containerNode);			
-    		okButton = new dijit.form.Button({ label: 'OK', id: 'ok'+this.generateGuid(), onClick: callback, iconClass: 'dijitIconApplication' }).placeAt(actionBar);
+    		okButton = new dijit.form.Button({ label: 'OK', id: 'ok'+this.generateGuid(), onClick: callback, iconClass: 'dijitIconApplication', class: 'alt-primary' }).placeAt(actionBar);
     		//thisDialog.containerNode.appendChild(okButton.domNode);	
     	}		
     	thisDialog.startup();
@@ -272,8 +272,8 @@ dojo.declare("GS.ViewPage", GS.CORE, {
             "class": "dijitDialogPaneActionBar"
         }, confirmDialog.containerNode);			
     	//var questionDiv = dojo.create('div', { innerHTML: question });
-    	var yesButton = new dijit.form.Button({ label: 'Yes', value: 'true', id: 'yes', onClick: callback, iconClass: 'dijitIconConfigure' }).placeAt(actionBar);
-    	var noButton = new dijit.form.Button({ label: 'No', value : 'false', id: 'no', onClick: callback, iconClass: 'dijitEditorIconCancel' }).placeAt(actionBar);
+    	var yesButton = new dijit.form.Button({ label: 'Yes', value: 'true', id: 'yes', onClick: callback, iconClass: 'dijitIconConfigure', class: 'alt-warning' }).placeAt(actionBar);
+    	var noButton = new dijit.form.Button({ label: 'No', value : 'false', id: 'no', onClick: callback, iconClass: 'dijitEditorIconCancel', class: 'alt-primary' }).placeAt(actionBar);
     	//confirmDialog.containerNode.appendChild(questionDiv);
     	//confirmDialog.containerNode.appendChild(yesButton.domNode);
     	//confirmDialog.containerNode.appendChild(noButton.domNode);

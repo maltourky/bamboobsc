@@ -150,7 +150,8 @@ function ${programId}_page_message() {
 											showLabel:false,
 											onClick:function(){  
 												BSC_PROG001D0005Q_query();
-											}"><s:property value="getText('BSC_PROG001D0005Q_btnQuery')"/></button>						
+											}"
+											class="alt-primary"><s:property value="getText('BSC_PROG001D0005Q_btnQuery')"/></button>						
 															
 								</td>
 								

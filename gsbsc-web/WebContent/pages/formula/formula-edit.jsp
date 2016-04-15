@@ -347,7 +347,8 @@ function ${programId}_page_message() {
 				    				loadFn="BSC_PROG001D0003E_testFormulaSuccess(data);" 
 				    				programId="${programId}"
 				    				label="${action.getText('BSC_PROG001D0003E_testFormula')}" 
-				    				iconClass=""></gs:button>    									  				
+				    				iconClass=""
+				    				cssClass="alt-info"></gs:button>    									  				
 			  				</td>		  				
 			  				<td width="16%">
 								<button id="BSC_PROG001D0003E_btnCalClear" data-dojo-type="dijit.form.Button"
@@ -357,7 +358,8 @@ function ${programId}_page_message() {
 										onClick:function(){
 										 	dijit.byId('BSC_PROG001D0003E_expression').set('value', '');
 										}
-									">Cls</button>				  				
+									"
+									class="alt-info">Cls</button>				  				
 			  				</td>					  				
 			  			</tr>
 			  			<tr>
@@ -572,10 +574,12 @@ function ${programId}_page_message() {
     				loadFn="BSC_PROG001D0003E_updateSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('BSC_PROG001D0003E_update')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="BSC_PROG001D0003E_clear" id="BSC_PROG001D0003E_clear" onClick="BSC_PROG001D0003E_clear();" 
     				label="${action.getText('BSC_PROG001D0003E_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>    			
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>    			
     		</td>
     	</tr>     	 	  	    	
 	</table>	

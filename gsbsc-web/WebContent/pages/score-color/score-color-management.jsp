@@ -149,10 +149,12 @@ function ${programId}_page_message() {
 		    				loadFn="BSC_PROG001D0004Q_querySuccess(data);" 
 		    				programId="${programId}"
 		    				label="${action.getText('BSC_PROG001D0004Q_query')}" 
-		    				iconClass="dijitIconSearch"></gs:button>    					    					
+		    				iconClass="dijitIconSearch"
+		    				cssClass="alt-primary"></gs:button>    					    					
 		    			<gs:button name="BSC_PROG001D0004Q_clear" id="BSC_PROG001D0004Q_clear" onClick="BSC_PROG001D0004Q_clear();" 
 		    				label="${action.getText('BSC_PROG001D0004Q_clear')}" 
-		    				iconClass="dijitIconClear"></gs:button>    	    					
+		    				iconClass="dijitIconClear"
+		    				cssClass="alt-primary"></gs:button>    	    					
     					
     					&nbsp;
     					&nbsp;
@@ -187,7 +189,8 @@ function ${programId}_page_message() {
 		    				loadFn="BSC_PROG001D0004Q_saveSuccess(data);" 
 			    			programId="${programId}"
 			    			label="${action.getText('BSC_PROG001D0004Q_save')}" 
-			    			iconClass="dijitIconSave"></gs:button> 	
+			    			iconClass="dijitIconSave"
+			    			cssClass="alt-primary"></gs:button> 	
 			    			
 			    		<table border="0" width="800px" height="150px">
 							<tr valign="top">
