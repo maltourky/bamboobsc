@@ -46,10 +46,8 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
-import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaDocService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemAuditService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemDocService;
@@ -62,9 +60,7 @@ import com.netsteadfast.greenstep.bsc.service.IPdcaOwnerService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaService;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
 import com.netsteadfast.greenstep.model.UploadTypes;
-import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
-import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbPdca;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaDoc;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaItem;
@@ -75,8 +71,6 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
-import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
-import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
@@ -98,7 +92,7 @@ import com.netsteadfast.greenstep.vo.SysUploadVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.PdcaLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogicService {
+public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLogicService {
 	protected Logger logger=Logger.getLogger(PdcaLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IPdcaService<PdcaVO, BbPdca, String> pdcaService;
@@ -112,9 +106,6 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	private IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> pdcaItemDocService;
 	private IPdcaItemOwnerService<PdcaItemOwnerVO, BbPdcaItemOwner, String> pdcaItemOwnerService;
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
-	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
-	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	
 	public PdcaLogicServiceImpl() {
 		super();
@@ -244,39 +235,6 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		this.kpiService = kpiService;
 	}
 
-	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
-		return employeeService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.EmployeeService")
-	@Required
-	public void setEmployeeService(IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
-		this.employeeService = employeeService;
-	}
-
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required
-	public void setOrganizationService(IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
-	}
-	
-	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
-		return sysUploadService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.SysUploadService")
-	@Required					
-	public void setSysUploadService(ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
-		this.sysUploadService = sysUploadService;
-	}	
-
 	@Override
 	public String getBusinessProcessManagementResourceId() {
 		return "PDCAProjectProcess";
@@ -301,28 +259,6 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	public List<Task> queryTask() throws Exception {
 		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
 	}		
-	
-	private OrganizationVO getOrganization(String oid) throws ServiceException, Exception {
-		OrganizationVO organization = new OrganizationVO();
-		organization.setOid(oid);
-		DefaultResult<OrganizationVO> orgResult = this.organizationService.findObjectByOid(organization);
-		if (orgResult.getValue() == null) {
-			throw new ServiceException( orgResult.getSystemMessage().getValue() );
-		}
-		organization = orgResult.getValue();
-		return organization;
-	}
-	
-	private EmployeeVO getEmployee(String oid) throws ServiceException, Exception {
-		EmployeeVO employee = new EmployeeVO();
-		employee.setOid(oid);
-		DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
-		if (empResult.getValue() == null) {
-			throw new ServiceException(empResult.getSystemMessage().getValue());
-		}
-		employee = empResult.getValue();
-		return employee;
-	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
 	@Transactional(
@@ -429,12 +365,12 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 		if (this.isNoSelectId(measureFreq.getOrganizationOid())) {
 			measureFreq.setOrgId(BscConstants.MEASURE_DATA_ORGANIZATION_FULL);
 		} else {
-			measureFreq.setOrgId( this.getOrganization(measureFreq.getOrganizationOid()).getOrgId() );
+			measureFreq.setOrgId( this.findOrganizationData(measureFreq.getOrganizationOid()).getOrgId() );
 		}
 		if (this.isNoSelectId(measureFreq.getEmployeeOid())) {
 			measureFreq.setEmpId(BscConstants.MEASURE_DATA_EMPLOYEE_FULL);
 		} else {
-			measureFreq.setEmpId( this.getEmployee(measureFreq.getEmployeeOid()).getEmpId() );
+			measureFreq.setEmpId( this.findEmployeeData(measureFreq.getEmployeeOid()).getEmpId() );
 		}		
 		this.pdcaMeasureFreqService.saveObject(measureFreq);
 	}
@@ -450,7 +386,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void createOrganization(PdcaVO pdca, List<String> orgaOids) throws ServiceException, Exception {
 		for (String oid : orgaOids) {
-			OrganizationVO organization = this.getOrganization(oid);
+			OrganizationVO organization = this.findOrganizationData(oid);
 			PdcaOrgaVO pdcaOrga = new PdcaOrgaVO();
 			pdcaOrga.setPdcaOid(pdca.getOid());
 			pdcaOrga.setOrgId( organization.getOrgId() );
@@ -469,7 +405,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void createOwner(PdcaVO pdca, List<String> emplOids) throws ServiceException, Exception {
 		for (String oid : emplOids) {
-			EmployeeVO employee = this.getEmployee(oid);
+			EmployeeVO employee = this.findEmployeeData(oid);
 			PdcaOwnerVO pdcaOwner = new PdcaOwnerVO();
 			pdcaOwner.setPdcaOid(pdca.getOid());
 			pdcaOwner.setEmpId(employee.getEmpId());
@@ -517,11 +453,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			return;
 		}
 		for (String oid : attachment) {
-			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(oid);
-			if (uploadResult.getValue()==null) {
-				throw new ServiceException( uploadResult.getSystemMessage().toString() );
-			}
-			SysUploadVO upload = uploadResult.getValue();
+			SysUploadVO upload = this.findUploadDataForNoByteContent( oid );
 			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
 				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
 			}
@@ -578,13 +510,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 	
 	private void createItemOwner(PdcaItemVO pdcaItem) throws ServiceException, Exception {
 		for (String oid : pdcaItem.getEmployeeOids()) {
-			EmployeeVO employee = new EmployeeVO();
-			employee.setOid(oid);
-			DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
-			if (empResult.getValue() == null) {
-				throw new ServiceException(empResult.getSystemMessage().getValue());
-			}
-			employee = empResult.getValue();
+			EmployeeVO employee = this.findEmployeeData(oid);
 			PdcaItemOwnerVO itemOwner = new PdcaItemOwnerVO();
 			itemOwner.setPdcaOid(pdcaItem.getPdcaOid());
 			itemOwner.setItemOid(pdcaItem.getOid());
@@ -609,11 +535,7 @@ public class PdcaLogicServiceImpl extends BaseLogicService implements IPdcaLogic
 			return;
 		}
 		for (String oid : pdcaItem.getUploadOids()) {
-			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(oid);
-			if (uploadResult.getValue()==null) {
-				throw new ServiceException( uploadResult.getSystemMessage().toString() );
-			}
-			SysUploadVO upload = uploadResult.getValue();
+			SysUploadVO upload = this.findUploadDataForNoByteContent(oid);
 			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
 				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
 			}
