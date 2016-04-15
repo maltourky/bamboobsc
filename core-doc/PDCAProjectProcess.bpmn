@@ -25,9 +25,6 @@
     <sequenceFlow id="flow7" sourceRef="usertask4" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm != "Y" }]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow8" name="As a Standard Operation Procedure, or create new PDCA project." sourceRef="usertask4" targetRef="endevent1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm == "Y" }]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow9" sourceRef="usertask4" targetRef="usertask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ confirm != "Y" }]]></conditionExpression>
     </sequenceFlow>
@@ -37,6 +34,11 @@
     <dataObject id="new_child" name="new_child" itemSubjectRef="xsd:string"></dataObject>
     <dataObject id="cuserid" name="cuserid" itemSubjectRef="xsd:string"></dataObject>
     <dataObject id="date" name="date" itemSubjectRef="xsd:string"></dataObject>
+    <dataObject id="pdcaType" name="pdcaType" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <activiti:value></activiti:value>
+      </extensionElements>
+    </dataObject>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_PDCAProjectProcess">
     <bpmndi:BPMNPlane bpmnElement="PDCAProjectProcess" id="BPMNPlane_PDCAProjectProcess">
