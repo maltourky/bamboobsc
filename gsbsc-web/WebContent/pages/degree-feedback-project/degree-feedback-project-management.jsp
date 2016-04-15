@@ -154,10 +154,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="${action.getText('BSC_PROG005D0001Q_query')}" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="BSC_PROG005D0001Q_clear" id="BSC_PROG005D0001Q_clear" onClick="BSC_PROG005D0001Q_clear();" 
     				label="${action.getText('BSC_PROG005D0001Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr> 	
 	</table>

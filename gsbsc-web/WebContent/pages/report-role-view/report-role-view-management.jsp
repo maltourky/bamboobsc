@@ -231,10 +231,12 @@ function ${programId}_page_message() {
     				loadFn="BSC_PROG004D0003Q_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('BSC_PROG004D0003Q_save')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="BSC_PROG004D0003Q_clear" id="BSC_PROG004D0003Q_clear" onClick="BSC_PROG004D0003Q_clear();" 
     				label="${action.getText('BSC_PROG004D0003Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>    	    		
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>    	    		
     		</td>
     	</tr>    		
 	</table>			

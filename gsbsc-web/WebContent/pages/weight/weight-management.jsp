@@ -109,7 +109,8 @@ function ${programId}_page_message() {
 	    				loadFn="BSC_PROG002D0006Q_querySuccess(data);" 
 	    				programId="${programId}"
 	    				label="${action.getText('BSC_PROG002D0006Q_query')}" 
-	    				iconClass="dijitIconSearch"></gs:button>
+	    				iconClass="dijitIconSearch"
+	    				cssClass="alt-primary"></gs:button>
 	    			<gs:button name="BSC_PROG002D0006Q_queryAutoAllocation" id="BSC_PROG002D0006Q_queryAutoAllocation" onClick="BSC_PROG002D0006Q_queryAutoAllocation();"
 	    				handleAs="json"
 	    				sync="N"
@@ -125,7 +126,8 @@ function ${programId}_page_message() {
 	    				loadFn="BSC_PROG002D0006Q_querySuccess(data);" 
 	    				programId="${programId}"
 	    				label="${action.getText('BSC_PROG002D0006Q_queryAutoAllocation')}" 
-	    				iconClass="dijitIconSearch"></gs:button>	    
+	    				iconClass="dijitIconSearch"
+	    				cssClass="alt-primary"></gs:button>	    
 	    			&nbsp;&nbsp;&nbsp;&nbsp;					
 	    			<gs:button name="BSC_PROG002D0006Q_save" id="BSC_PROG002D0006Q_save" onClick="BSC_PROG002D0006Q_save();"
 	    				handleAs="json"
@@ -137,7 +139,8 @@ function ${programId}_page_message() {
 	    				loadFn="BSC_PROG002D0006Q_saveSuccess(data);" 
 	    				programId="${programId}"
 	    				label="${action.getText('BSC_PROG002D0006Q_save')}" 
-	    				iconClass="dijitIconSave"></gs:button> 
+	    				iconClass="dijitIconSave"
+	    				cssClass="alt-primary"></gs:button> 
     									
 					</div>
 				</div>					

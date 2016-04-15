@@ -162,7 +162,8 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG005D0001A_S00_add" id="BSC_PROG005D0001A_S00_add" onClick="BSC_PROG005D0001A_S00_add();"
     				label="${action.getText('BSC_PROG005D0001A_S00_add')}" 
-    				iconClass="dijitIconSave"></gs:button>    	
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    	
 				<button name="BSC_PROG005D0001A_S00_clear" id="BSC_PROG005D0001A_S00_clear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
@@ -170,7 +171,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_S00_clear();
 						}
-					"><s:property value="getText('BSC_PROG005D0001A_S00_clear')"/></button>    						  		
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0001A_S00_clear')"/></button>    						  		
     		</td>
     	</tr> 
     	    	

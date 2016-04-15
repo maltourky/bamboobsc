@@ -190,7 +190,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_update();
 						}
-					"><s:property value="getText('BSC_PROG005D0003Q_btnSave')"/></button>		
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0003Q_btnSave')"/></button>		
 					
 				<button name="BSC_PROG005D0003Q_btnClear" id="BSC_PROG005D0003Q_btnClear" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -199,7 +200,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_clear();
 						}
-					"><s:property value="getText('BSC_PROG005D0003Q_btnClear')"/></button>									
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0003Q_btnClear')"/></button>									
 												
 			</td>
 		</tr>

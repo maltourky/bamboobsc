@@ -80,7 +80,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0003Q_DlgShow('${oid}');
 						}
-					"><s:property value="getText('BSC_PROG005D0002Q_btnScore')"/></button>
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0002Q_btnScore')"/></button>
 				<button name="BSC_PROG005D0002Q_btnReport_${oid}" id="BSC_PROG005D0002Q_btnReport_${oid}" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:true,
@@ -88,7 +89,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0004Q_DlgShow('${oid}');
 						}
-					"><s:property value="getText('BSC_PROG005D0002Q_btnReport')"/></button>										
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0002Q_btnReport')"/></button>										
 			</td>
 		</tr>		
 		

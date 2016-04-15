@@ -114,7 +114,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_S03_DlgShow('${fields.oid};${id}');
 						}
-					"><s:property value="getText('BSC_PROG005D0001A_S02_confirmDlgBtn')"/></button>
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0001A_S02_confirmDlgBtn')"/></button>
 				
 				<button name="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" id="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" data-dojo-type="dijit.form.Button"
 					
@@ -124,7 +125,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_S02_loadDiagram('${id}');
 						}
-					"><s:property value="getText('BSC_PROG005D0001A_S02_diagramDlgBtn')"/></button>				
+					"
+					class="alt-primary"><s:property value="getText('BSC_PROG005D0001A_S02_diagramDlgBtn')"/></button>				
 					
 			</td>
 		</tr>			

@@ -395,10 +395,12 @@ function ${programId}_page_message() {
 					    				loadFn="BSC_PROG002D0005Q_renderBodySuccess(data)" 
 					    				programId="${programId}"
 					    				label="${action.getText('BSC_PROG002D0005Q_query')}" 					    				
-					    				iconClass="dijitIconSearch"></gs:button>
+					    				iconClass="dijitIconSearch"
+					    				cssClass="alt-primary"></gs:button>
 					    			<gs:button name="BSC_PROG002D0005Q_clear" id="BSC_PROG002D0005Q_clear" onClick="BSC_PROG002D0005Q_clear();" 
 					    				label="${action.getText('BSC_PROG002D0005Q_clear')}" 
-					    				iconClass="dijitIconClear"></gs:button>  
+					    				iconClass="dijitIconClear"
+					    				cssClass="alt-primary"></gs:button>  
 					    			<gs:button name="BSC_PROG002D0005Q_save" id="BSC_PROG002D0005Q_save" onClick="BSC_PROG002D0005Q_save();"
 					    				handleAs="json"
 					    				sync="N"
@@ -409,7 +411,8 @@ function ${programId}_page_message() {
 					    				loadFn="BSC_PROG002D0005Q_saveSuccess(data);" 
 					    				programId="${programId}"
 					    				label="${action.getText('BSC_PROG002D0005Q_save')}" 
-					    				iconClass="dijitIconSave"></gs:button>    						    				 								
+					    				iconClass="dijitIconSave"
+					    				cssClass="alt-primary"></gs:button>    						    				 								
    								</td>
    							</tr>
    						</table>

@@ -608,10 +608,12 @@ function ${programId}_page_message() {
     				loadFn="BSC_PROG002D0004E_updateSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('BSC_PROG002D0004E_update')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="BSC_PROG002D0004E_clear" id="BSC_PROG002D0004E_clear" onClick="BSC_PROG002D0004E_clear();" 
     				label="${action.getText('BSC_PROG002D0004E_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>       		    		
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>       		    		
     		</td>
     	</tr>			   	 	  	    	
 	</table>	
