@@ -691,14 +691,17 @@ function ${programId}_page_message() {
     				loadFn="BSC_PROG006D0001E_updateSuccess(data);" 
     				programId="${programId}"
     				label="Save" 
-    				iconClass="dijitIconSave"></gs:button>
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="BSC_PROG006D0001E_clear" id="BSC_PROG006D0001E_clear" onClick="BSC_PROG006D0001E_clear();" 
     				label="Clear" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     			&nbsp;&nbsp;&nbsp;&nbsp;
     			<gs:button name="BSC_PROG006D0001E_startProcess" id="BSC_PROG006D0001E_startProcess" onClick="BSC_PROG006D0001E_startProcess();" 
     				label="Start process" 
-    				iconClass="dijitIconSave"></gs:button>
+    				iconClass="dijitIconSave"
+    				cssClass="alt-warning"></gs:button>
     		</td>
     	</tr>
 	</table>
@@ -1004,7 +1007,8 @@ function ${programId}_page_message() {
 		    		<td height="50px" width="100%"  align="left">
 		    			<gs:button name="BSC_PROG006D0001E_pdcaTab_add" id="BSC_PROG006D0001E_pdcaTab_add" onClick="BSC_PROG006D0001E_pdcaTab_add();" 
 		    				label="Add" 
-		    				iconClass="dijitIconSave"></gs:button>       		
+		    				iconClass="dijitIconSave"
+		    				cssClass="alt-primary"></gs:button>       		
 		    		</td>
 		    	</tr>		    			    		    	
     		</table>

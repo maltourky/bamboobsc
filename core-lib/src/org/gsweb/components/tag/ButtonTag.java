@@ -41,6 +41,7 @@ public class ButtonTag implements GSTag {
 	private String showLabel=YesNo.YES;
 	private String onClick="";
 	private String iconClass="";
+	private String cssClass = "";
 	private String xhrUrl="";
 	private String xhrParameter=""; // 如 { name : dojo("name").value }  或是 form 的 ID
 	private String sync=YesNo.YES;
@@ -60,6 +61,7 @@ public class ButtonTag implements GSTag {
 		button.setShowLabel( (YesNo.YES.equals(this.showLabel) ? true : false) );
 		button.setOnClick(onClick);
 		button.setIconClass(iconClass);
+		button.setCssClass(cssClass);
 		button.setXhrUrl(xhrUrl);
 		button.setXhrParameter(xhrParameter);
 		button.setSync( (YesNo.YES.equals(this.sync) ? true : false) );
@@ -159,6 +161,14 @@ public class ButtonTag implements GSTag {
 
 	public void setIconClass(String iconClass) {
 		this.iconClass = iconClass;
+	}
+
+	public String getCssClass() {
+		return cssClass;
+	}
+
+	public void setCssClass(String cssClass) {
+		this.cssClass = cssClass;
 	}
 
 	public String getXhrUrl() {

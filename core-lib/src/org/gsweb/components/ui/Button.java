@@ -38,6 +38,7 @@ public class Button implements UIComponent {
 	private boolean showLabel=true;
 	private String onClick="";
 	private String iconClass="";
+	private String cssClass = "";
 	private String xhrUrl="";
 	private String xhrParameter=""; // 如 { name : dojo("name").value }  或是 form 的 ID
 	private boolean sync=true;
@@ -76,6 +77,7 @@ public class Button implements UIComponent {
 			params.put("name", this.name);
 			params.put("showLabel", String.valueOf(this.showLabel));
 			params.put("iconClass", this.iconClass);
+			params.put("cssClass", this.cssClass);
 			params.put("onClick", this.onClick );
 			params.put("label", this.label);			
 		}
@@ -171,6 +173,14 @@ public class Button implements UIComponent {
 
 	public void setIconClass(String iconClass) {
 		this.iconClass = iconClass;
+	}
+
+	public String getCssClass() {
+		return cssClass;
+	}
+
+	public void setCssClass(String cssClass) {
+		this.cssClass = cssClass;
 	}
 
 	public String getXhrUrl() {

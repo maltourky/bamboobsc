@@ -164,10 +164,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="Query" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="BSC_PROG006D0001Q_clear" id="BSC_PROG006D0001Q_clear" onClick="BSC_PROG006D0001Q_clear();" 
     				label="Clear" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr>     	    	
 	</table>

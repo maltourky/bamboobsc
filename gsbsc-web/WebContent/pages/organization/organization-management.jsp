@@ -400,10 +400,12 @@ function ${programId}_page_message() {
 		    				iconClass="dijitIconSave"></gs:button>    			
 		    			<gs:button name="BSC_PROG001D0002Q_clear" id="BSC_PROG001D0002Q_clear" onClick="BSC_PROG001D0002Q_clear(true);" 
 		    				label="${action.getText('BSC_PROG001D0002Q_clear')}" 
-		    				iconClass="dijitIconClear"></gs:button>   
+		    				iconClass="dijitIconClear"></gs:button>
+		    			&nbsp;&nbsp;&nbsp;&nbsp;
 		    			<gs:button name="BSC_PROG001D0002Q_delete" id="BSC_PROG001D0002Q_delete" onClick="BSC_PROG001D0002Q_delete();" 
 		    				label="${action.getText('BSC_PROG001D0002Q_delete')}" 
-		    				iconClass="dijitIconDelete"></gs:button>       				 			
+		    				iconClass="dijitIconDelete"
+		    				cssClass="alt-warning"></gs:button>       				 			
 		    		</td>
 		    	</tr>    	   	
 		    </table>		
