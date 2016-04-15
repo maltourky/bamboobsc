@@ -355,6 +355,15 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 		if (null == pdca || super.isBlank(pdca.getOid())) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentOid", pdca.getOid());
+		if (this.pdcaService.countByParams(paramMap)>0) {
+			throw new ServiceException("The project has child project, cannot delete!");
+		}
+		List<Task> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
+		if (tasks!=null && tasks.size()>0) {
+			throw new ServiceException("Audit process running, project cannot delete!");
+		}		
 		this.deleteMeasureFreq(pdca);
 		this.deleteOwner(pdca);
 		this.deleteOrganization(pdca);
