@@ -92,7 +92,7 @@ function ${programId}_page_message() {
     			<b>Activiti BPMN(zip) file</b>:
     			<br/>
     			<input type="button" id="CORE_PROG003D0004E_uploadBtn" label="Upload" value="Upload" 
-			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false "
+			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'Y', 'CORE_PROG003D0004E_uploadOid', 'CORE_PROG003D0004E_uploadSuccess', 'CORE_PROG003D0004E_uploadFail');" />
     			<span id="CORE_PROG003D0004E_uploadShow"><font color='#6E6E6E'>BPMN: <s:property value="bpmnResource.id"/></font></span>
     			<input type="hidden" name="CORE_PROG003D0004E_uploadOid" id="CORE_PROG003D0004E_uploadOid" value="" />

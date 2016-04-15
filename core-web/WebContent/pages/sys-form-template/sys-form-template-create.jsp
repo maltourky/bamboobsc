@@ -110,7 +110,7 @@ function ${programId}_page_message() {
     			<font color='RED'>*</font><b>JSP <s:property value="getText('CORE_PROG001D0012A_uploadOid')"/></b>:
     			<br/>
     			<input type="button" id="CORE_PROG001D0012A_uploadBtn" label="Upload" value="Upload" 
-			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false "
+			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'N', 'CORE_PROG001D0012A_uploadOid', 'CORE_PROG001D0012A_uploadSuccess', 'CORE_PROG001D0012A_uploadFail');" />
     			<span id="CORE_PROG001D0012A_uploadShow"><font color='#6E6E6E'><s:property value="getText('CORE_PROG001D0012A_uploadShow')"/></font></span>
     			<input type="hidden" name="CORE_PROG001D0012A_uploadOid" id="CORE_PROG001D0012A_uploadOid" value="" />    			
