@@ -149,10 +149,12 @@ function ${programId}_page_message() {
     				loadFn="QCHARTS_PROG001D0004A_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('QCHARTS_PROG001D0004A_save')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="QCHARTS_PROG001D0004A_clear" id="QCHARTS_PROG001D0004A_clear" onClick="QCHARTS_PROG001D0004A_clear();" 
     				label="${action.getText('QCHARTS_PROG001D0004A_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>       			
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>       			
     		</td>
     	</tr>     	 	  	    	
 	</table>		

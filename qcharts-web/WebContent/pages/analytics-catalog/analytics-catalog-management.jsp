@@ -157,10 +157,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="${action.getText('QCHARTS_PROG001D0004Q_query')}" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="QCHARTS_PROG001D0004Q_clear" id="QCHARTS_PROG001D0004Q_clear" onClick="QCHARTS_PROG001D0004Q_clear();" 
     				label="${action.getText('QCHARTS_PROG001D0004Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr> 	
 	</table>
