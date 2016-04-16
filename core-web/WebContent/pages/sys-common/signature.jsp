@@ -106,15 +106,18 @@ function ${programId}_page_message() {
     				loadFn="CORE_PROGCOMM0003Q_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('CORE_PROGCOMM0003Q_save')}" 
-    				iconClass="dijitIconSave"></gs:button> 
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button> 
     				   			
     			<gs:button name="CORE_PROGCOMM0003Q_clear" id="CORE_PROGCOMM0003Q_clear" onClick="CORE_PROGCOMM0003Q_clear();" 
     				label="${action.getText('CORE_PROGCOMM0003Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>    	
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>    	
     				
     			<gs:button name="CORE_PROGCOMM0003Q_preview" id="CORE_PROGCOMM0003Q_preview" onClick="CORE_PROGCOMM0003Q_preview();" 
     				label="${action.getText('CORE_PROGCOMM0003Q_preview')}" 
-    				iconClass="dijitIconSearch"></gs:button>   
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>   
     				    								
 		</td>
 	</tr>	

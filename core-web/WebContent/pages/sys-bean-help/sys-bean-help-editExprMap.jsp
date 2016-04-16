@@ -167,10 +167,12 @@ function ${programId}_page_message() {
     				loadFn="CORE_PROG003D0003E_S01_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('CORE_PROG003D0003E_S01_update')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="CORE_PROG003D0003E_S01_clear" id="CORE_PROG003D0003E_S01_clear" onClick="CORE_PROG003D0003E_S01_clear();" 
     				label="${action.getText('CORE_PROG003D0003E_S01_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>    			
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>    			
     		</td>
     	</tr>     	 	  	    	
 	</table>	
@@ -197,7 +199,8 @@ function ${programId}_page_message() {
 			    	loadFn="dataGrid_${programId}_grid(data);" 
 			    	programId="${programId}"
 			    	label="${action.getText('CORE_PROG003D0003E_S01_query')}" 
-			    	iconClass="dijitIconSearch"></gs:button>
+			    	iconClass="dijitIconSearch"
+			    	cssClass="alt-primary"></gs:button>
     		</td>    		  				
     	</tr>   		
 	</table>

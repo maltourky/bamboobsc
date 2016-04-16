@@ -113,7 +113,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							CORE_PROG003D0004Q_S00_loadDiagram('processDefinition', '${id}');
 						}
-					">Diagram</button>	
+					"
+					class="alt-primary">Diagram</button>	
 					
 			</td>
 		</tr>			
@@ -148,7 +149,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							CORE_PROG003D0004Q_S00_loadDiagram('processInstance', '${id}');
 						}
-					">Diagram</button>	
+					"
+					class="alt-primary">Diagram</button>	
 								
 			</td>
 		</tr>			
@@ -185,7 +187,8 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							CORE_PROG003D0004Q_S00_loadDiagram('task', '${id}');
 						}
-					">Diagram</button>
+					"
+					class="alt-primary">Diagram</button>
 								
 			</td>
 		</tr>			

@@ -195,7 +195,8 @@ function ${programId}_page_message() {
 						onClick:function(){
 							CORE_PROG001D0003Q_moveSelectItem('CORE_PROG001D0003Q_disable', 'CORE_PROG001D0003Q_enable');							  							
 						}
-					">←</button>					
+					"
+					class="alt-info">←</button>					
 				<br/>	
 				<button id="CORE_PROG001D0003Q_forward" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -204,7 +205,8 @@ function ${programId}_page_message() {
 						onClick:function(){
 							CORE_PROG001D0003Q_moveSelectItem('CORE_PROG001D0003Q_enable', 'CORE_PROG001D0003Q_disable');
 						}
-					">→</button>					
+					"
+					class="alt-info">→</button>					
 			</td>
 			<td align="center" width="350px" height="200px">
 				<center><b><s:property value="getText('CORE_PROG001D0003Q_disable')"/>:</b></center>
@@ -231,10 +233,12 @@ function ${programId}_page_message() {
     				loadFn="CORE_PROG001D0003Q_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('CORE_PROG001D0003Q_save')}" 
-    				iconClass="dijitIconSave"></gs:button> 			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button> 			
     			<gs:button name="CORE_PROG001D0003Q_clear" id="CORE_PROG001D0003Q_clear" onClick="CORE_PROG001D0003Q_clear();" 
     				label="${action.getText('CORE_PROG001D0003Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>   			
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>   			
 			</td>
 		</tr>
 	</table>

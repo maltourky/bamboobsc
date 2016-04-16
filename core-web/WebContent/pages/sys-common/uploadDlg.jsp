@@ -70,10 +70,12 @@ function ${programId}_page_message() {
 	</div>	
 	<input type="button" id="CORE_PROGCOMM0002Q_btnUpload" label="Upload file" value="Upload file" 
 		data-dojo-props=" iconClass:'dijitIconSave', showLabel:false "
-		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_uploadDataEvent();" />
+		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_uploadDataEvent();" 
+		class="alt-primary"/>
 	<input type="button" id="CORE_PROGCOMM0002Q_btnClose" label="Upload close" value="Upload close" 
 		data-dojo-props=" iconClass:'dijitEditorIconCancel', showLabel:false "
-		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_DlgHide();" />		
+		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_DlgHide();" 
+		class="alt-primary"/>		
 </form>	
 
 <br/>

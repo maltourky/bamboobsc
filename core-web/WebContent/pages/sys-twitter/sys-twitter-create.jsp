@@ -127,10 +127,12 @@ function ${programId}_page_message() {
     				loadFn="CORE_PROG001D0010A_saveSuccess(data);" 
     				programId="${programId}"
     				label="${action.getText('CORE_PROG001D0010A_save')}" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="CORE_PROG001D0010A_clear" id="CORE_PROG001D0010A_clear" onClick="CORE_PROG001D0010A_clear();" 
     				label="${action.getText('CORE_PROG001D0010A_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>      		
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>      		
     		</td>
     	</tr>      	    	    	
     </table>		

@@ -148,10 +148,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="${action.getText('CORE_PROG001D0006Q_query')}" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="CORE_PROG001D0006Q_clear" id="CORE_PROG001D0006Q_clear" onClick="CORE_PROG001D0006Q_clear();" 
     				label="${action.getText('CORE_PROG001D0006Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr>     	    	
     </table>	

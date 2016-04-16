@@ -498,7 +498,8 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG003D0001Q_openClickShowReportInDialog( BSC_PROG003D0001Q_getCoffeeChartOpenWindowUrl() );																			  
 											}">Coffee chart</button>										
-											
+									
+									&nbsp;&nbsp;&nbsp;&nbsp;		
 									<button id="BSC_PROG003D0001Q_btnSignature" data-dojo-type="dijit.form.Button"
 										data-dojo-props="
 											iconClass:'btnSignatureIcon',

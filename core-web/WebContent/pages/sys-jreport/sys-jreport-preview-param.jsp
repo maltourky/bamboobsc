@@ -63,7 +63,8 @@ function ${programId}_page_message() {
     		<td height="25px" width="100%"  align="left" colspan="2">
     			<gs:button name="CORE_PROG001D0008Q_S00_preview" id="CORE_PROG001D0008Q_S00_preview" onClick="CORE_PROG001D0008Q_S00_preview();"
     				label="${action.getText('CORE_PROG001D0008Q_S00_preview')}" 
-    				iconClass="dijitIconSave"></gs:button>    					
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>    					
     		</td>
     	</tr>     	 	  	    	
     	

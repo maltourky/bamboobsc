@@ -139,10 +139,12 @@ function ${programId}_page_message() {
     				loadFn="CORE_PROG003D0004E_updateSuccess(data);" 
     				programId="${programId}"
     				label="Save" 
-    				iconClass="dijitIconSave"></gs:button>    			
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="CORE_PROG003D0004E_clear" id="CORE_PROG003D0004E_clear" onClick="CORE_PROG003D0004E_clear();" 
     				label="Clear" 
-    				iconClass="dijitIconClear"></gs:button>    			
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>    			
     		</td>
     	</tr>     	 	  	    	
 	</table>	

@@ -81,7 +81,7 @@ function repaintSysCalendarNoteMessage(dateStr) {
 				if (data.message == '') {	
 					dojo.html.set(
 							dojo.byId("_my_calendar_note_msg"), 
-							'<s:property value="getText('MESSAGE.IndexAction_noNote')" escapeJavaScript="true"/><br/><button data-dojo-type="dijit/form/Button" type="button" onclick="CORE_PROG001D0004A_TabShow();"><s:property value="getText('IndexAction_CORE_PROG001D0004A_TabShow_button')" escapeJavaScript="true"/></button>', 
+							'<s:property value="getText('MESSAGE.IndexAction_noNote')" escapeJavaScript="true"/><br/><button data-dojo-type="dijit/form/Button" type="button" onclick="CORE_PROG001D0004A_TabShow();" class="alt-primary"><s:property value="getText('IndexAction_CORE_PROG001D0004A_TabShow_button')" escapeJavaScript="true"/></button>', 
 							{extractContent: true, parseContent: true});
 					
 				}

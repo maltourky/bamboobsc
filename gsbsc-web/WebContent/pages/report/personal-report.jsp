@@ -272,7 +272,7 @@ function ${programId}_page_message() {
 												BSC_PROG003D0002Q_generateExport('EXCEL');																			  
 											}"><s:property value="getText('BSC_PROG003D0002Q_btnXls')"/></button>	
 											
-											
+									&nbsp;&nbsp;&nbsp;&nbsp;		
 									<button id="BSC_PROG003D0002Q_btnSignature" data-dojo-type="dijit.form.Button"
 										data-dojo-props="
 											iconClass:'btnSignatureIcon',

@@ -200,10 +200,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="Query" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="CORE_PROG003D0004Q_clear" id="CORE_PROG003D0004Q_clear" onClick="CORE_PROG003D0004Q_clear();" 
     				label="Clear" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr> 	
 	</table>
