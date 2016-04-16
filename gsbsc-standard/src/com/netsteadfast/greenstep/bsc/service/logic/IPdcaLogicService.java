@@ -27,13 +27,11 @@ import org.activiti.engine.task.Task;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
-import com.netsteadfast.greenstep.base.service.logic.IBusinessProcessManagementResourceProvide;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
-import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
-public interface IPdcaLogicService extends IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task> {
+public interface IPdcaLogicService {
 	
 	public DefaultResult<PdcaVO> create(PdcaVO pdca, PdcaMeasureFreqVO measureFreq, List<String> organizationOids, List<String> employeeOids, List<String> kpiOids,
 			List<String> attachment, List<PdcaItemVO> items) throws ServiceException, Exception;

@@ -31,7 +31,7 @@ public interface IBusinessProcessManagementResourceProvide<T extends BaseValueOb
 	
 	public String getBusinessProcessManagementResourceId();
 	
-	public T getBusinessProcessManagementResourceObject(String resourceId) throws ServiceException, Exception;
+	public T getBusinessProcessManagementResourceObject() throws ServiceException, Exception;
 	
 	public String startProcess(Map<String, Object> paramMap) throws Exception;
 	

@@ -47,7 +47,7 @@ import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseBusinessProcessManagementLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaDocService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemAuditService;
@@ -72,7 +72,6 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
-import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
@@ -88,13 +87,12 @@ import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
 import com.netsteadfast.greenstep.vo.PdcaOrgaVO;
 import com.netsteadfast.greenstep.vo.PdcaOwnerVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
-import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 import com.netsteadfast.greenstep.vo.SysUploadVO;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.PdcaLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLogicService {
+public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicService implements IPdcaLogicService {
 	protected Logger logger=Logger.getLogger(PdcaLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IPdcaService<PdcaVO, BbPdca, String> pdcaService;
@@ -112,6 +110,11 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 	public PdcaLogicServiceImpl() {
 		super();
 	}
+	
+	@Override
+	public String getBusinessProcessManagementResourceId() {
+		return "PDCAProjectProcess";
+	}	
 	
 	public IPdcaService<PdcaVO, BbPdca, String> getPdcaService() {
 		return pdcaService;
@@ -235,32 +238,7 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 	@Required
 	public void setKpiService(IKpiService<KpiVO, BbKpi, String> kpiService) {
 		this.kpiService = kpiService;
-	}
-
-	@Override
-	public String getBusinessProcessManagementResourceId() {
-		return "PDCAProjectProcess";
 	}	
-	
-	@Override
-	public SysBpmnResourceVO getBusinessProcessManagementResourceObject(String resourceId) throws ServiceException, Exception {
-		return BusinessProcessManagementUtils.loadResource(getBusinessProcessManagementResourceId());
-	}
-
-	@Override
-	public String startProcess(Map<String, Object> paramMap) throws Exception {
-		return BusinessProcessManagementUtils.startProcess(this.getBusinessProcessManagementResourceId(), paramMap);
-	}
-
-	@Override
-	public void completeTask(String taskId, Map<String, Object> paramMap) throws Exception {
-		BusinessProcessManagementUtils.completeTask(taskId, paramMap);
-	}
-
-	@Override
-	public List<Task> queryTask() throws Exception {
-		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
-	}		
 	
 	private Map<String, Object> getProcessFlowParam(String pdcaOid, String pdcaType, String date, String userid, 
 			String confirm, String reason, String newChild) {
@@ -404,7 +382,7 @@ public class PdcaLogicServiceImpl extends BscBaseLogicService implements IPdcaLo
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
 	public List<Task> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception {		
-		return this.queryTaskByVariable(this.getBusinessProcessManagementResourceId(), "pdcaOid", pdcaOid);
+		return this.queryTaskByVariable("pdcaOid", pdcaOid);
 	}	
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {

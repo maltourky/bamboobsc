@@ -27,14 +27,12 @@ import org.activiti.engine.task.Task;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
-import com.netsteadfast.greenstep.base.service.logic.IBusinessProcessManagementResourceProvide;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackScoreVO;
-import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
-public interface IDegreeFeedbackLogicService extends IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task> {
+public interface IDegreeFeedbackLogicService {
 	
 	public DefaultResult<DegreeFeedbackProjectVO> createProject(DegreeFeedbackProjectVO project, List<DegreeFeedbackItemVO> items,
 			List<DegreeFeedbackLevelVO> levels, List<String> ownerEmplOids, List<String> raterEmplOids) throws ServiceException, Exception;

@@ -21,14 +21,12 @@
  */
 package com.netsteadfast.greenstep.base.service.logic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -44,7 +42,6 @@ import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
-import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysUploadVO;
@@ -164,52 +161,5 @@ public abstract class CoreBaseLogicService extends BaseLogicService {
 		upload = uploadResult.getValue();
 		return upload;
 	}
-	
-	// for extends IBusinessProcessManagementResourceProvide BO ,  maybe need
-	public boolean isAllowTaskAssignee(String businessProcessManagementResourceId, String taskAssignee) throws ServiceException, Exception {
-		return this.isAllowTaskAssignee(businessProcessManagementResourceId, super.getAccountId(), taskAssignee);
-	}
-	
-	// for extends IBusinessProcessManagementResourceProvide BO ,  maybe need
-	public boolean isAllowTaskAssignee(String businessProcessManagementResourceId, String accountId, String taskAssignee) throws ServiceException, Exception {
-		if (super.isBlank(accountId) || super.isBlank(taskAssignee)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}
-		List<TbUserRole> roles = this.findUserRoles(accountId);
-		if (roles==null || roles.size()<1) {
-			return false;
-		}
-		boolean allow = false;
-		for (int i=0; i<roles.size() && !allow; i++) {
-			if ( BusinessProcessManagementUtils
-					.isRoleAssignee(businessProcessManagementResourceId, roles.get(i).getRole(), taskAssignee) ) {
-				allow = true;
-				i = roles.size();
-			}
-		}		
-		return allow;
-	}
-	
-	// for extends IBusinessProcessManagementResourceProvide BO ,  maybe need
-	public List<Task> queryTaskByVariable(String businessProcessManagementResourceId, String variableKeyName, String variableKeyValue) throws ServiceException, Exception {
-		if (super.isBlank(variableKeyName) || super.isBlank(variableKeyValue)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}
-		List<Task> tasks = new ArrayList<Task>();
-		List<Task> queryTasks = BusinessProcessManagementUtils.queryTask(businessProcessManagementResourceId);
-		if (null == queryTasks || queryTasks.size()<1) {
-			return tasks;
-		}
-		for (Task task : queryTasks) {
-			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);
-			if (variables==null || super.isBlank( (String)variables.get(variableKeyName) ) ) {
-				continue;
-			}
-			if (variableKeyValue.equals(variables.get(variableKeyName))) {
-				tasks.add( task );
-			}
-		}
-		return tasks;
-	}		
 	
 }
