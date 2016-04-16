@@ -28,8 +28,8 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
 	
-	<link rel="stylesheet" href="<%=mainSysBasePath%>/jsPlumb/css/jsPlumbToolkit-defaults.css">
 	<link rel="stylesheet" href="<%=mainSysBasePath%>/jsPlumb/css/main.css">
+	<link rel="stylesheet" href="<%=mainSysBasePath%>/jsPlumb/css/jsPlumbToolkit-defaults.css">
 	<link rel="stylesheet" href="<%=mainSysBasePath%>/jsPlumb/css/jsPlumbToolkit-demo.css">        	
 	
 	<link href="<%=mainSysBasePath%>/toastr/toastr.min.css" rel="stylesheet"/>
@@ -231,50 +231,12 @@ function ${programId}_page_message() {
 
 
 
-        </div>	
-	
-
-        <!-- JS -->
-        <!-- support lib for bezier stuff -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/jsBezier-0.7.js"></script>
-        <!-- event adapter -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/mottle-0.7.1.js"></script>
-        <!-- geometry functions -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/biltong-0.2.js"></script>
-        <!-- drag -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/lib/katavorio-0.13.0.js"></script>
-        <!-- jsplumb util -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/util.js"></script>
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/browser-util.js"></script>
-        <!-- main jsplumb engine -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/jsPlumb.js"></script>
-        <!-- base DOM adapter -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/dom-adapter.js"></script>
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/overlay-component.js"></script>
-        <!-- endpoint -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/endpoint.js"></script>
-        <!-- connection -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/connection.js"></script>
-        <!-- anchors -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/anchors.js"></script>
-        <!-- connectors, endpoint and overlays  -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/defaults.js"></script>
-        <!-- bezier connectors -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/connectors-bezier.js"></script>
-        <!-- state machine connectors -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/connectors-statemachine.js"></script>
-        <!-- flowchart connectors -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/connectors-flowchart.js"></script>
-        <!-- SVG renderer -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/renderers-svg.js"></script>
-
-        <!-- common adapter -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/base-library-adapter.js"></script>
-        <!-- no library jsPlumb adapter -->
-        <script src="<%=mainSysBasePath%>/jsPlumb/src/dom.jsPlumb.js"></script>
-        <!-- /JS -->
-
-	
+        </div>
+        
+        
+        <script src="<%=mainSysBasePath%>/jsPlumb/js/jsPlumb-2.0.7.js"></script>
+        
+        
 <script type="text/javascript">
 
 jsPlumb.ready(function () {
