@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IAggregationMethodService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.logic.IAggregationMethodLogicService;
@@ -54,7 +54,7 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.AggregationMethodLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class AggregationMethodLogicServiceImpl extends BaseLogicService implements IAggregationMethodLogicService {
+public class AggregationMethodLogicServiceImpl extends CoreBaseLogicService implements IAggregationMethodLogicService {
 	protected Logger logger=Logger.getLogger(AggregationMethodLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IAggregationMethodService<AggregationMethodVO, BbAggregationMethod, String> aggregationMethodService;

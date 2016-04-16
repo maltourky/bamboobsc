@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.QcDataQuery;
 import com.netsteadfast.greenstep.po.hbm.QcDataSourceConf;
 import com.netsteadfast.greenstep.po.hbm.QcDataSourceDriver;
@@ -56,7 +56,7 @@ import com.netsteadfast.greenstep.vo.DataSourceDriverVO;
 @ServiceAuthority(check=true)
 @Service("qcharts.service.logic.DataSourceLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class DataSourceLogicServiceImpl extends BaseLogicService implements IDataSourceLogicService {
+public class DataSourceLogicServiceImpl extends CoreBaseLogicService implements IDataSourceLogicService {
 	protected Logger logger=Logger.getLogger(DataSourceLogicServiceImpl.class);
 	private static final int MAX_JDBC_URL_LENGTH = 500;
 	private static final int MAX_DESCRIPTION_LENGTH = 500;

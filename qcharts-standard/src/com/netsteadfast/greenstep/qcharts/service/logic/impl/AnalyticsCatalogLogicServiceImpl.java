@@ -42,7 +42,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.QcOlapCatalog;
 import com.netsteadfast.greenstep.po.hbm.QcOlapMdx;
 import com.netsteadfast.greenstep.qcharts.service.IOlapCatalogService;
@@ -56,7 +56,7 @@ import com.netsteadfast.greenstep.vo.OlapMdxVO;
 @ServiceAuthority(check=true)
 @Service("qcharts.service.logic.AnalyticsCatalogLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class AnalyticsCatalogLogicServiceImpl extends BaseLogicService implements IAnalyticsCatalogLogicService {
+public class AnalyticsCatalogLogicServiceImpl extends CoreBaseLogicService implements IAnalyticsCatalogLogicService {
 	protected Logger logger=Logger.getLogger(AnalyticsCatalogLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IOlapCatalogService<OlapCatalogVO, QcOlapCatalog, String> olapCatalogService;

@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.QcDataQuery;
 import com.netsteadfast.greenstep.po.hbm.QcDataQueryMapper;
 import com.netsteadfast.greenstep.po.hbm.QcDataSourceConf;
@@ -59,7 +59,7 @@ import com.netsteadfast.greenstep.vo.DataSourceDriverVO;
 @ServiceAuthority(check=true)
 @Service("qcharts.service.logic.DataQueryLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class DataQueryLogicServiceImpl extends BaseLogicService implements IDataQueryLogicService {
+public class DataQueryLogicServiceImpl extends CoreBaseLogicService implements IDataQueryLogicService {
 	protected Logger logger=Logger.getLogger(DataQueryLogicServiceImpl.class);
 	private IDataSourceDriverService<DataSourceDriverVO, QcDataSourceDriver, String> dataSourceDriverService;
 	private IDataSourceConfService<DataSourceConfVO, QcDataSourceConf, String> dataSourceConfService;

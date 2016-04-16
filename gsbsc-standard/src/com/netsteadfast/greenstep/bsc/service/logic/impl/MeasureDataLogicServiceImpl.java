@@ -44,7 +44,7 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
@@ -62,7 +62,7 @@ import com.netsteadfast.greenstep.vo.OrganizationVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.MeasureDataLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class MeasureDataLogicServiceImpl extends BaseLogicService implements IMeasureDataLogicService {
+public class MeasureDataLogicServiceImpl extends CoreBaseLogicService implements IMeasureDataLogicService {
 	protected Logger logger=Logger.getLogger(MeasureDataLogicServiceImpl.class);
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService; 

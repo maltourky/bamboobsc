@@ -42,7 +42,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.QcDataQuery;
 import com.netsteadfast.greenstep.po.hbm.QcDataQueryMapper;
 import com.netsteadfast.greenstep.po.hbm.QcDataQueryMapperSet;
@@ -57,7 +57,7 @@ import com.netsteadfast.greenstep.vo.DataQueryVO;
 @ServiceAuthority(check=true)
 @Service("qcharts.service.logic.DataQueryMapperLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class DataQueryMapperLogicServiceImpl extends BaseLogicService implements IDataQueryMapperLogicService {
+public class DataQueryMapperLogicServiceImpl extends CoreBaseLogicService implements IDataQueryMapperLogicService {
 	protected Logger logger=Logger.getLogger(DataQueryMapperLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IDataQueryMapperService<DataQueryMapperVO, QcDataQueryMapper, String> dataQueryMapperService;

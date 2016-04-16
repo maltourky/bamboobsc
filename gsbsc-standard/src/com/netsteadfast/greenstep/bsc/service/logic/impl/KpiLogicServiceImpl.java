@@ -52,8 +52,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
-import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiAttacService;
 import com.netsteadfast.greenstep.bsc.service.IKpiEmplService;
@@ -61,11 +60,9 @@ import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
 import com.netsteadfast.greenstep.bsc.util.AggregationMethodUtils;
 import com.netsteadfast.greenstep.model.UploadTypes;
-import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbFormula;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbKpiAttac;
@@ -73,9 +70,6 @@ import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbObjective;
-import com.netsteadfast.greenstep.po.hbm.BbOrganization;
-import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
-import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.FormulaVO;
@@ -95,7 +89,7 @@ import com.thoughtworks.xstream.XStream;
 @Path("/")
 @Produces("application/json")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicService {
+public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogicService {
 	protected Logger logger=Logger.getLogger(KpiLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IObjectiveService<ObjectiveVO, BbObjective, String> objectiveService;
@@ -103,11 +97,8 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 	private IFormulaService<FormulaVO, BbFormula, String> formulaService;
 	private IKpiOrgaService<KpiOrgaVO, BbKpiOrga, String> kpiOrgaService;
 	private IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService;
-	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService; 
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
-	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	
 	public KpiLogicServiceImpl() {
 		super();
@@ -172,30 +163,6 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 		this.kpiEmplService = kpiEmplService;
 	}
 
-	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
-		return employeeService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.EmployeeService")
-	@Required	
-	public void setEmployeeService(
-			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
-		this.employeeService = employeeService;
-	}
-
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required		
-	public void setOrganizationService(
-			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
-	}
-
 	public IMeasureDataService<MeasureDataVO, BbMeasureData, String> getMeasureDataService() {
 		return measureDataService;
 	}
@@ -218,18 +185,6 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 	public void setKpiAttacService(
 			IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService) {
 		this.kpiAttacService = kpiAttacService;
-	}
-
-	public ISysUploadService<SysUploadVO, TbSysUpload, String> getSysUploadService() {
-		return sysUploadService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.SysUploadService")
-	@Required					
-	public void setSysUploadService(
-			ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService) {
-		this.sysUploadService = sysUploadService;
 	}
 
 	private FormulaVO fetchFormulaByOid(String formulaOid) throws ServiceException, Exception {
@@ -387,13 +342,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			return;
 		}
 		for (String oid : organizationOids) {
-			OrganizationVO organization = new OrganizationVO();
-			organization.setOid(oid);
-			DefaultResult<OrganizationVO> oResult = this.organizationService.findObjectByOid(organization);
-			if (oResult.getValue()==null) {
-				throw new ServiceException(oResult.getSystemMessage().getValue());
-			}
-			organization = oResult.getValue();
+			OrganizationVO organization = this.findOrganizationData(oid);
 			KpiOrgaVO kpiOrga = new KpiOrgaVO();
 			kpiOrga.setKpiId(kpi.getId());
 			kpiOrga.setOrgId(organization.getOrgId());
@@ -406,13 +355,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			return;
 		}
 		for (String oid : employeeOids) {
-			EmployeeVO employee = new EmployeeVO();
-			employee.setOid(oid);
-			DefaultResult<EmployeeVO> eResult = this.employeeService.findObjectByOid(employee);
-			if (eResult.getValue()==null) {
-				throw new ServiceException(eResult.getSystemMessage().getValue());
-			}
-			employee = eResult.getValue();
+			EmployeeVO employee = this.findEmployeeData(oid);
 			KpiEmplVO kpiEmpl = new KpiEmplVO();
 			kpiEmpl.setKpiId(kpi.getId());
 			kpiEmpl.setEmpId(employee.getEmpId());
@@ -425,11 +368,7 @@ public class KpiLogicServiceImpl extends BaseLogicService implements IKpiLogicSe
 			return;
 		}
 		for (String uploadOid : attachment) {
-			DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(uploadOid);
-			if (uploadResult.getValue()==null) {
-				throw new ServiceException( uploadResult.getSystemMessage().toString() );
-			}
-			SysUploadVO upload = uploadResult.getValue();
+			SysUploadVO upload = this.findUploadDataForNoByteContent(uploadOid);
 			if (!(upload.getSystem().equals(Constants.getSystem()) && upload.getType().equals(UploadTypes.IS_TEMP))) {
 				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
 			}

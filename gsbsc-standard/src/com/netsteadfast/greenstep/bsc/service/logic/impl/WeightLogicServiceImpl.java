@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
 import com.netsteadfast.greenstep.bsc.service.IPerspectiveService;
@@ -56,7 +56,7 @@ import com.netsteadfast.greenstep.vo.PerspectiveVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.WeightLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class WeightLogicServiceImpl extends BaseLogicService implements IWeightLogicService {
+public class WeightLogicServiceImpl extends CoreBaseLogicService implements IWeightLogicService {
 	protected Logger logger=Logger.getLogger(WeightLogicServiceImpl.class);	
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService;
 	private IObjectiveService<ObjectiveVO, BbObjective, String> objectiveService;

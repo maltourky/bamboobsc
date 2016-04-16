@@ -45,7 +45,7 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IStrategyMapConnsService;
 import com.netsteadfast.greenstep.bsc.service.IStrategyMapNodesService;
 import com.netsteadfast.greenstep.bsc.service.IStrategyMapService;
@@ -63,7 +63,7 @@ import com.netsteadfast.greenstep.vo.VisionVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.StrategyMapLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class StrategyMapLogicServiceImpl extends BaseLogicService implements IStrategyMapLogicService {
+public class StrategyMapLogicServiceImpl extends CoreBaseLogicService implements IStrategyMapLogicService {
 	protected Logger logger=Logger.getLogger(StrategyMapLogicServiceImpl.class);
 	private IVisionService<VisionVO, BbVision, String> visionService;
 	private IStrategyMapService<StrategyMapVO, BbStrategyMap, String> strategyMapService;

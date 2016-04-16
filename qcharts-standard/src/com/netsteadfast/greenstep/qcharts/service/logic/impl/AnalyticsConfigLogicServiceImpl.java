@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.po.hbm.QcOlapConf;
 import com.netsteadfast.greenstep.po.hbm.QcOlapMdx;
 import com.netsteadfast.greenstep.qcharts.service.IOlapConfService;
@@ -53,7 +53,7 @@ import com.netsteadfast.greenstep.vo.OlapMdxVO;
 @ServiceAuthority(check=true)
 @Service("qcharts.service.logic.AnalyticsConfigLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class AnalyticsConfigLogicServiceImpl extends BaseLogicService implements IAnalyticsConfigLogicService {
+public class AnalyticsConfigLogicServiceImpl extends CoreBaseLogicService implements IAnalyticsConfigLogicService {
 	protected Logger logger=Logger.getLogger(AnalyticsConfigLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IOlapConfService<OlapConfVO, QcOlapConf, String> olapConfService;

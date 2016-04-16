@@ -43,7 +43,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IWorkspaceCompomentService;
 import com.netsteadfast.greenstep.bsc.service.IWorkspaceConfigService;
 import com.netsteadfast.greenstep.bsc.service.IWorkspaceLabelService;
@@ -64,7 +64,7 @@ import com.netsteadfast.greenstep.vo.WorkspaceVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.WorkspaceLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class WorkspaceLogicServiceImpl extends BaseLogicService implements IWorkspaceLogicService {
+public class WorkspaceLogicServiceImpl extends CoreBaseLogicService implements IWorkspaceLogicService {
 	protected Logger logger=Logger.getLogger(WorkspaceLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IWorkspaceService<WorkspaceVO, BbWorkspace, String> workspaceService;

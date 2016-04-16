@@ -46,73 +46,28 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.model.ReportRoleViewTypes;
-import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.logic.IReportRoleViewLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
-import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbUserRole;
-import com.netsteadfast.greenstep.service.IRoleService;
-import com.netsteadfast.greenstep.service.IUserRoleService;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
-import com.netsteadfast.greenstep.vo.UserRoleVO;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.ReportRoleViewLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements IReportRoleViewLogicService {
+public class ReportRoleViewLogicServiceImpl extends BscBaseLogicService implements IReportRoleViewLogicService {
 	protected Logger logger=Logger.getLogger(ReportRoleViewLogicServiceImpl.class);
-	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService; 
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
-	private IRoleService<RoleVO, TbRole, String> roleService;
 	private IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService;
-	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
 	
 	public ReportRoleViewLogicServiceImpl() {
 		super();
-	}
-	
-	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
-		return employeeService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.EmployeeService")
-	@Required	
-	public void setEmployeeService(
-			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
-		this.employeeService = employeeService;
-	}
-
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required		
-	public void setOrganizationService(
-			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
-	}	
-	
-	public IRoleService<RoleVO, TbRole, String> getRoleService() {
-		return roleService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.RoleService")
-	@Required		
-	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
-		this.roleService = roleService;
 	}	
 	
 	public IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> getReportRoleViewService() {
@@ -126,18 +81,6 @@ public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements 
 			IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService) {
 		this.reportRoleViewService = reportRoleViewService;
 	}	
-	
-	public IUserRoleService<UserRoleVO, TbUserRole, String> getUserRoleService() {
-		return userRoleService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.UserRoleService")
-	@Required		
-	public void setUserRoleService(
-			IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService) {
-		this.userRoleService = userRoleService;
-	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT, ServiceMethodType.UPDATE})
 	@Transactional(
@@ -151,30 +94,18 @@ public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements 
 		}
 		RoleVO role = new RoleVO();
 		role.setOid(roleOid);
-		DefaultResult<RoleVO> rResult = this.roleService.findObjectByOid(role);
+		DefaultResult<RoleVO> rResult = this.getRoleService().findObjectByOid(role);
 		if ( rResult.getValue() == null ) {
 			throw new ServiceException( rResult.getSystemMessage().getValue() );
 		}
 		role = rResult.getValue();
 		this.deleteByRole( role.getRole() );		
 		for (int i=0; emplOids!=null && i<emplOids.size(); i++) {
-			EmployeeVO employee = new EmployeeVO();
-			employee.setOid( emplOids.get(i) );
-			DefaultResult<EmployeeVO> eResult = this.employeeService.findObjectByOid(employee);
-			if ( eResult.getValue() == null ) {
-				throw new ServiceException( eResult.getSystemMessage().getValue() );
-			}
-			employee = eResult.getValue();			
+			EmployeeVO employee = this.findEmployeeData( emplOids.get(i) );		
 			this.createReportRoleView(role.getRole(), ReportRoleViewTypes.IS_EMPLOYEE, employee.getAccount());			
 		}
 		for (int i=0; orgaOids!=null && i<orgaOids.size(); i++) {
-			OrganizationVO organization = new OrganizationVO();
-			organization.setOid( orgaOids.get(i) );
-			DefaultResult<OrganizationVO> oResult = this.organizationService.findObjectByOid(organization);
-			if ( oResult.getValue() == null ) {
-				throw new ServiceException( oResult.getSystemMessage().getValue() );
-			}
-			organization = oResult.getValue();
+			OrganizationVO organization = this.findOrganizationData( orgaOids.get(i) );
 			this.createReportRoleView(role.getRole(), ReportRoleViewTypes.IS_ORGANIZATION, organization.getOrgId());
 		}		
 		DefaultResult<Boolean> result = new DefaultResult<Boolean>();
@@ -201,9 +132,7 @@ public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements 
 	}
 	
 	private List<TbUserRole> getUserRoles(String account) throws ServiceException, Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("account", account);
-		return userRoleService.findListByParams(paramMap);
+		return this.findUserRoles(account);
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
@@ -225,7 +154,7 @@ public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements 
 			for (int j=0; views!=null && j<views.size(); j++) {
 				paramMap.clear();
 				paramMap.put("account", views.get(j).getIdName());
-				List<BbEmployee> employees = this.employeeService.findListByParams(paramMap);
+				List<BbEmployee> employees = this.getEmployeeService().findListByParams(paramMap);
 				for (int e=0; employees!=null && e<employees.size(); e++) {
 					BbEmployee employee = employees.get(e);
 					if ( dataMap.get( employee.getOid() )!=null ) {
@@ -295,7 +224,7 @@ public class ReportRoleViewLogicServiceImpl extends BaseLogicService implements 
 			for (int j=0; views!=null && j<views.size(); j++) {
 				BbOrganization organization = new BbOrganization();
 				organization.setOrgId(views.get(j).getIdName());
-				organization = this.organizationService.findByEntityUK(organization);
+				organization = this.getOrganizationService().findByEntityUK(organization);
 				if ( organization == null ) {
 					continue;
 				}

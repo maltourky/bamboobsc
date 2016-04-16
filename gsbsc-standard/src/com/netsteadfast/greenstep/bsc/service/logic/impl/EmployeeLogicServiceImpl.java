@@ -45,32 +45,23 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.YesNo;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackAssignService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
-import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IKpiEmplService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.logic.IEmployeeLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackAssign;
-import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
 import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
-import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
-import com.netsteadfast.greenstep.po.hbm.TbAccount;
-import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysCalendarNote;
 import com.netsteadfast.greenstep.po.hbm.TbSysMsgNotice;
 import com.netsteadfast.greenstep.po.hbm.TbUserRole;
-import com.netsteadfast.greenstep.service.IAccountService;
-import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysCalendarNoteService;
 import com.netsteadfast.greenstep.service.ISysMsgNoticeService;
-import com.netsteadfast.greenstep.service.IUserRoleService;
 import com.netsteadfast.greenstep.service.logic.IRoleLogicService;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
@@ -80,7 +71,6 @@ import com.netsteadfast.greenstep.vo.KpiEmplVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
-import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysCalendarNoteVO;
 import com.netsteadfast.greenstep.vo.SysMsgNoticeVO;
 import com.netsteadfast.greenstep.vo.UserRoleVO;
@@ -88,14 +78,9 @@ import com.netsteadfast.greenstep.vo.UserRoleVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.EmployeeLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmployeeLogicService {
+public class EmployeeLogicServiceImpl extends BscBaseLogicService implements IEmployeeLogicService {
 	protected Logger logger=Logger.getLogger(EmployeeLogicServiceImpl.class);
-	private IAccountService<AccountVO, TbAccount, String> accountService;
-	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
-	private IRoleService<RoleVO, TbRole, String> roleService;	
-	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	private IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> employeeOrgaService;
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private ISysMsgNoticeService<SysMsgNoticeVO, TbSysMsgNotice, String> sysMsgNoticeService;
 	private ISysCalendarNoteService<SysCalendarNoteVO, TbSysCalendarNote, String> sysCalendarNoteService;
 	private IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService;
@@ -107,77 +92,17 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 	public EmployeeLogicServiceImpl() {
 		super();
 	}
-
-	public IAccountService<AccountVO, TbAccount, String> getAccountService() {
-		return accountService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.AccountService")
-	@Required			
-	public void setAccountService(
-			IAccountService<AccountVO, TbAccount, String> accountService) {
-		this.accountService = accountService;
-	}	
 	
-	public IUserRoleService<UserRoleVO, TbUserRole, String> getUserRoleService() {
-		return userRoleService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.UserRoleService")
-	@Required		
-	public void setUserRoleService(
-			IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService) {
-		this.userRoleService = userRoleService;
-	}
-
-	public IRoleService<RoleVO, TbRole, String> getRoleService() {
-		return roleService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.RoleService")
-	@Required		
-	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
-		this.roleService = roleService;
-	}
-
-	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
-		return employeeService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.EmployeeService")
-	@Required			
-	public void setEmployeeService(
-			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
-		this.employeeService = employeeService;
-	}
-
 	public IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> getEmployeeOrgaService() {
 		return employeeOrgaService;
 	}
 
 	@Autowired
 	@Resource(name="bsc.service.EmployeeOrgaService")
-	@Required		
-	public void setEmployeeOrgaService(
-			IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> employeeOrgaService) {
+	@Required	
+	public void setEmployeeOrgaService(IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> employeeOrgaService) {
 		this.employeeOrgaService = employeeOrgaService;
-	}
-	
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
 	}	
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required			
-	public void setOrganizationService(
-			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
-	}
 	
 	public ISysMsgNoticeService<SysMsgNoticeVO, TbSysMsgNotice, String> getSysMsgNoticeService() {
 		return sysMsgNoticeService;
@@ -273,7 +198,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		AccountVO account = new AccountVO();
 		account.setAccount(employee.getAccount());
 		account.setOnJob(YesNo.YES);
-		account.setPassword( this.accountService.tranPassword(employee.getPassword()) );		
+		account.setPassword( this.getAccountService().tranPassword(employee.getPassword()) );		
 		return account;
 	}
 
@@ -289,7 +214,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("empId", employee.getEmpId());
-		if (this.employeeService.countByParams(params) > 0) {
+		if (this.getEmployeeService().countByParams(params) > 0) {
 			throw new ServiceException("Please change another Id!");
 		}
 		AccountVO account = this.tranAccount(employee);
@@ -297,11 +222,11 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 			throw new ServiceException("Please change another Account!");
 		}		
 		
-		DefaultResult<AccountVO> mResult = this.accountService.saveObject(account);
+		DefaultResult<AccountVO> mResult = this.getAccountService().saveObject(account);
 		if (mResult.getValue()==null) {
 			throw new ServiceException( mResult.getSystemMessage().getValue() );
 		}		
-		DefaultResult<EmployeeVO> result = this.employeeService.saveObject(employee);
+		DefaultResult<EmployeeVO> result = this.getEmployeeService().saveObject(employee);
 		this.createEmployeeOrganization(result.getValue(), organizationOid);
 		
 		// create default role
@@ -309,7 +234,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		userRole.setAccount(result.getValue().getAccount());
 		userRole.setRole( this.roleLogicService.getDefaultUserRole() );
 		userRole.setDescription(result.getValue().getAccount() + " `s role!");
-		this.userRoleService.saveObject(userRole);
+		this.getUserRoleService().saveObject(userRole);
 		
 		return result;
 	}
@@ -324,14 +249,11 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		if (employee==null || super.isBlank(employee.getOid()) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		DefaultResult<EmployeeVO> oldResult = this.employeeService.findObjectByOid(employee);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		this.deleteEmployeeOrganization( oldResult.getValue() );
-		employee.setAccount( oldResult.getValue().getAccount() );
-		employee.setEmpId( oldResult.getValue().getEmpId() );	
-		DefaultResult<EmployeeVO> result = this.employeeService.updateObject(employee);
+		EmployeeVO dbEmployee = this.findEmployeeData( employee.getOid() );
+		this.deleteEmployeeOrganization( dbEmployee );
+		employee.setAccount(dbEmployee.getAccount() );
+		employee.setEmpId( dbEmployee.getEmpId() );	
+		DefaultResult<EmployeeVO> result = this.getEmployeeService().updateObject(employee);
 		if (result.getValue()==null) {
 			throw new ServiceException(result.getSystemMessage().getValue());
 		}
@@ -350,22 +272,13 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 				|| super.isBlank(employee.getPassword()) || super.isBlank(newPassword) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		DefaultResult<EmployeeVO> oldResult = this.employeeService.findObjectByOid(employee);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		AccountVO account = new AccountVO();
-		account.setAccount( oldResult.getValue().getAccount() );
-		DefaultResult<AccountVO> mResult = this.accountService.findByUK(account);
-		if (mResult.getValue()==null) {
-			throw new ServiceException( mResult.getSystemMessage().getValue() );
-		}
-		account = mResult.getValue();
-		if (!account.getPassword().equals( this.accountService.tranPassword(employee.getPassword()) ) ) {
+		EmployeeVO dbEmployee = this.findEmployeeData(employee.getOid());
+		AccountVO account = this.findAccountData( dbEmployee.getAccount() );
+		if (!account.getPassword().equals( this.getAccountService().tranPassword(employee.getPassword()) ) ) {
 			throw new ServiceException("The current password(old password) is incorrect!");
 		}		
-		account.setPassword( this.accountService.tranPassword(newPassword) );		
-		return accountService.updateObject(account);
+		account.setPassword( this.getAccountService().tranPassword(newPassword) );		
+		return getAccountService().updateObject(account);
 	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.DELETE})
@@ -378,22 +291,11 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		if (employee==null || super.isBlank(employee.getOid()) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		DefaultResult<EmployeeVO> oldResult = this.employeeService.findObjectByOid(employee);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		employee = oldResult.getValue();
-		AccountVO account = new AccountVO();
-		account.setAccount( oldResult.getValue().getAccount() );
-		DefaultResult<AccountVO> mResult = this.accountService.findByUK(account);
-		if (mResult.getValue()==null) {
-			throw new ServiceException( mResult.getSystemMessage().getValue() );
-		}
-		account = mResult.getValue();
+		employee = this.findEmployeeData(employee.getOid());
+		AccountVO account = this.findAccountData(employee.getAccount());
 		if (this.isAdministrator(account.getAccount())) {
 			throw new ServiceException("Administrator cannot delete!");
 		}
-		
 		
 		// check account data for other table use.
 		this.checkInformationRelated(account, employee);
@@ -403,10 +305,10 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		// delete user role
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("account", account.getAccount());
-		List<TbUserRole> userRoles = this.userRoleService.findListByParams(params);
+		List<TbUserRole> userRoles = this.getUserRoleService().findListByParams(params);
 		for (int i=0; userRoles!=null && i<userRoles.size(); i++) {
 			TbUserRole uRole = userRoles.get(i);
-			this.userRoleService.delete(uRole);
+			this.getUserRoleService().delete(uRole);
 		}
 		
 		// delete BB_REPORT_ROLE_VIEW
@@ -421,8 +323,8 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 		// delete from BB_MEASURE_DATA where EMP_ID = :empId
 		this.measureDataService.deleteForEmpId( employee.getEmpId() );
 		
-		this.accountService.deleteByPKng(account.getOid());
-		return employeeService.deleteObject(employee);
+		this.getAccountService().deleteByPKng(account.getOid());
+		return getEmployeeService().deleteObject(employee);
 	}
 	
 	private void checkInformationRelated(AccountVO account, EmployeeVO employee) throws ServiceException, Exception {
@@ -472,13 +374,7 @@ public class EmployeeLogicServiceImpl extends BaseLogicService implements IEmplo
 			return;
 		}
 		for (String oid : organizationOid) {
-			OrganizationVO organization = new OrganizationVO();
-			organization.setOid(oid);
-			DefaultResult<OrganizationVO> oResult = this.organizationService.findObjectByOid(organization);
-			if (oResult.getValue()==null) {
-				throw new ServiceException( oResult.getSystemMessage().getValue() );
-			}
-			organization = oResult.getValue();
+			OrganizationVO organization = this.findOrganizationData(oid);
 			EmployeeOrgaVO empOrg = new EmployeeOrgaVO();
 			empOrg.setEmpId(employee.getEmpId());
 			empOrg.setOrgId(organization.getOrgId());

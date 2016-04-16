@@ -50,19 +50,17 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationParService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.ISwotService;
 import com.netsteadfast.greenstep.bsc.service.logic.IOrganizationLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
-import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbOrganizationPar;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
 import com.netsteadfast.greenstep.po.hbm.BbSwot;
@@ -78,11 +76,10 @@ import com.netsteadfast.greenstep.vo.SwotVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.OrganizationLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class OrganizationLogicServiceImpl extends BaseLogicService implements IOrganizationLogicService {
+public class OrganizationLogicServiceImpl extends BscBaseLogicService implements IOrganizationLogicService {
 	protected Logger logger=Logger.getLogger(OrganizationLogicServiceImpl.class);
 	private final static int MAX_DESCRIPTION_LENGTH = 500;
 	private final static String TREE_ICON_ID = "STOCK_HOME";
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
 	private IOrganizationParService<OrganizationParVO, BbOrganizationPar, String> organizationParService;
 	private IEmployeeOrgaService<EmployeeOrgaVO, BbEmployeeOrga, String> employeeOrgaService; 
 	private IKpiOrgaService<KpiOrgaVO, BbKpiOrga, String> kpiOrgaService;
@@ -92,18 +89,6 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 	
 	public OrganizationLogicServiceImpl() {
 		super();
-	}
-
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required		
-	public void setOrganizationService(
-			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
 	}
 
 	public IOrganizationParService<OrganizationParVO, BbOrganizationPar, String> getOrganizationParService() {
@@ -207,7 +192,7 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 		this.setStringValueMaxLength(organization, "description", MAX_DESCRIPTION_LENGTH);
 		this.handlerLongitudeAndLatitude(organization);
 		this.createParent(organization, BscConstants.ORGANIZATION_ZERO_ID);
-		return this.organizationService.saveObject(organization);
+		return this.getOrganizationService().saveObject(organization);
 	}
 
 	@ServiceMethodAuthority(type={ServiceMethodType.UPDATE})
@@ -221,14 +206,11 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		this.checkOrganizationIdIsZero(organization);
-		DefaultResult<OrganizationVO> oldResult = this.organizationService.findObjectByOid(organization);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		organization.setOrgId( oldResult.getValue().getOrgId() );
+		OrganizationVO dbOrganization = this.findOrganizationData(organization.getOid());
+		organization.setOrgId( dbOrganization.getOrgId() );
 		this.setStringValueMaxLength(organization, "description", MAX_DESCRIPTION_LENGTH);
 		this.handlerLongitudeAndLatitude(organization);
-		return this.organizationService.updateObject(organization);
+		return this.getOrganizationService().updateObject(organization);
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.DELETE})
@@ -241,27 +223,24 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 		if (organization==null || super.isBlank(organization.getOid())) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		DefaultResult<OrganizationVO> oldResult = this.organizationService.findObjectByOid(organization);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		if (this.foundChild(oldResult.getValue())) {
+		organization = this.findOrganizationData(organization.getOid());
+		if (this.foundChild(organization)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("orgId", oldResult.getValue().getOrgId());
+		params.put("orgId", organization.getOrgId());
 		if (this.employeeOrgaService.countByParams(params) > 0 ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
 		if (this.kpiOrgaService.countByParams(params) > 0 ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
-		this.deleteParent(oldResult.getValue());
-		this.swotService.deleteForOrgId(oldResult.getValue().getOrgId());
+		this.deleteParent(organization);
+		this.swotService.deleteForOrgId(organization.getOrgId());
 		
 		// delete BB_REPORT_ROLE_VIEW
 		params.clear();
-		params.put("idName", oldResult.getValue().getOrgId());
+		params.put("idName", organization.getOrgId());
 		List<BbReportRoleView> reportRoleViews = this.reportRoleViewService.findListByParams(params);
 		for (int i=0; reportRoleViews!=null && i<reportRoleViews.size(); i++) {
 			BbReportRoleView reportRoleView = reportRoleViews.get( i );
@@ -269,9 +248,9 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 		}		
 		
 		// delete from BB_MEASURE_DATA where ORG_ID = :orgId
-		this.measureDataService.deleteForOrgId( oldResult.getValue().getOrgId() );
+		this.measureDataService.deleteForOrgId( organization.getOrgId() );
 		
-		return this.organizationService.deleteObject(organization);
+		return this.getOrganizationService().deleteObject(organization);
 	}	
 	
 	/**
@@ -304,7 +283,7 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 	@Override
 	public List<Map<String, Object>> getTreeData(String basePath, boolean checkBox, String appendId) throws ServiceException, Exception {
 		List<Map<String, Object>> items=new LinkedList<Map<String, Object>>();
-		List<OrganizationVO> orgList = this.organizationService.findForJoinParent(); 
+		List<OrganizationVO> orgList = this.getOrganizationService().findForJoinParent(); 
 		if (orgList==null || orgList.size()<1 ) {
 			return items;
 		}
@@ -342,22 +321,12 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 		DefaultResult<Boolean> result = new DefaultResult<Boolean>();
 		result.setValue(Boolean.FALSE);
 		result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_FAIL)) );
-		DefaultResult<OrganizationVO> oldResult = this.organizationService.findObjectByOid(organization);
-		if (oldResult.getValue()==null) {
-			throw new ServiceException( oldResult.getSystemMessage().getValue() );
-		}
-		organization = oldResult.getValue();
+		organization = this.findOrganizationData(organization.getOid());
 		this.deleteParent(organization);
 		if ("root".equals(parentOid) || "r".equals(parentOid)) {
 			this.createParent(organization, BscConstants.ORGANIZATION_ZERO_ID);
 		} else {
-			OrganizationVO newParOrganization = new OrganizationVO();
-			newParOrganization.setOid(parentOid);
-			DefaultResult<OrganizationVO> newParOrgResult = this.organizationService.findObjectByOid(newParOrganization);
-			if (newParOrgResult.getValue()==null) {
-				throw new ServiceException( newParOrgResult.getSystemMessage().getValue() );
-			}
-			newParOrganization = newParOrgResult.getValue();
+			OrganizationVO newParOrganization = this.findOrganizationData(parentOid);
 			// 找當前部門的子部門中的資料, 不因該存在要update的新父部門
 			if ( this.foundChild(organization.getOrgId(), newParOrganization.getOrgId()) ) {
 				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
@@ -510,7 +479,7 @@ public class OrganizationLogicServiceImpl extends BaseLogicService implements IO
 	 * @throws Exception
 	 */
 	private boolean foundChild(String parentId, String checkOrgId) throws ServiceException, Exception {
-		List<OrganizationVO> treeList = this.organizationService.findForJoinParent();
+		List<OrganizationVO> treeList = this.getOrganizationService().findForJoinParent();
 		if (treeList==null || treeList.size() <1 ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}

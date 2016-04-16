@@ -45,7 +45,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IPerspectiveService;
 import com.netsteadfast.greenstep.bsc.service.IStrategyMapConnsService;
 import com.netsteadfast.greenstep.bsc.service.IStrategyMapNodesService;
@@ -70,7 +70,7 @@ import com.netsteadfast.greenstep.vo.VisionVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.VisionLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class VisionLogicServiceImpl extends BaseLogicService implements IVisionLogicService {
+public class VisionLogicServiceImpl extends CoreBaseLogicService implements IVisionLogicService {
 	protected Logger logger=Logger.getLogger(VisionLogicServiceImpl.class);	
 	private IVisionService<VisionVO, BbVision, String> visionService; 
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService;

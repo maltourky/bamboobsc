@@ -53,7 +53,6 @@ import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackItemService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackLevelService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackProjectService;
 import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackScoreService;
-import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.logic.IDegreeFeedbackLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackAssign;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackItem;
@@ -61,8 +60,6 @@ import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackLevel;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
-import com.netsteadfast.greenstep.po.hbm.TbUserRole;
-import com.netsteadfast.greenstep.service.IUserRoleService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
@@ -70,7 +67,6 @@ import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackScoreVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
-import com.netsteadfast.greenstep.vo.UserRoleVO;
 
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.DegreeFeedbackLogicService")
@@ -84,8 +80,6 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 	private IDegreeFeedbackLevelService<DegreeFeedbackLevelVO, BbDegreeFeedbackLevel, String> degreeFeedbackLevelService;
 	private IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService;
 	private IDegreeFeedbackScoreService<DegreeFeedbackScoreVO, BbDegreeFeedbackScore, String> degreeFeedbackScoreService;
-	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
-	private IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService;
 	
 	public DegreeFeedbackLogicServiceImpl() {
 		super();
@@ -155,30 +149,6 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 			IDegreeFeedbackScoreService<DegreeFeedbackScoreVO, BbDegreeFeedbackScore, String> degreeFeedbackScoreService) {
 		this.degreeFeedbackScoreService = degreeFeedbackScoreService;
 	}
-
-	public IEmployeeService<EmployeeVO, BbEmployee, String> getEmployeeService() {
-		return employeeService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.EmployeeService")
-	@Required		
-	public void setEmployeeService(
-			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
-		this.employeeService = employeeService;
-	}
-
-	public IUserRoleService<UserRoleVO, TbUserRole, String> getUserRoleService() {
-		return userRoleService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.UserRoleService")
-	@Required		
-	public void setUserRoleService(
-			IUserRoleService<UserRoleVO, TbUserRole, String> userRoleService) {
-		this.userRoleService = userRoleService;
-	}	
 	
 	private Map<String, Object> getProcessFlowParam(String projectOid, String confirm, String reason) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -313,11 +283,11 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		}
 		project = projectResult.getValue();
 		DefaultResult<DegreeFeedbackProjectVO> result = new DefaultResult<DegreeFeedbackProjectVO>();
-		BbEmployee rater = this.employeeService.findByAccountOid( raterEmployeeOid );
+		BbEmployee rater = this.getEmployeeService().findByAccountOid( raterEmployeeOid );
 		if (null == rater || super.isBlank(rater.getOid())) {
 			throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS) );
 		}
-		BbEmployee owner = this.employeeService.findByPKng( ownerEmployeeOid );
+		BbEmployee owner = this.getEmployeeService().findByPKng( ownerEmployeeOid );
 		if (null == owner || super.isBlank(owner.getOid())) {
 			throw new ServiceException( SysMessageUtil.get(GreenStepSysMsgConstants.DATA_NO_EXIST) );
 		}
@@ -371,25 +341,8 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
 	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception {
-		if (super.isBlank(taskAssignee)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("account", super.getAccountId());
-		List<TbUserRole> roles = this.userRoleService.findListByParams(paramMap);		
-		if (roles==null || roles.size()<1) {
-			return false;
-		}
-		boolean allow = false;
-		for (int i=0; i<roles.size() && !allow; i++) {
-			if ( BusinessProcessManagementUtils
-					.isRoleAssignee(this.getBusinessProcessManagementResourceId(), roles.get(i).getRole(), taskAssignee) ) {
-				allow = true;
-				i = roles.size();
-			}
-		}		
-		return allow;
-	}	
+		return super.isAllowTaskAssignee(taskAssignee);
+	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})
 	@Transactional(
@@ -508,14 +461,9 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		if (tmpBag.get(oid)!=null) {
 			return tmpBag.get(oid);
 		}
-		EmployeeVO employee = new EmployeeVO();
-		employee.setOid(oid);
-		DefaultResult<EmployeeVO> result = this.employeeService.findObjectByOid(employee);
-		if (result.getValue() == null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		tmpBag.put(oid, result.getValue());
-		return result.getValue();
+		EmployeeVO employee = this.findEmployeeData(oid);
+		tmpBag.put(oid, employee);
+		return employee;
 	}
 	
 	private void deleteLevels(DegreeFeedbackProjectVO project) throws ServiceException, Exception {

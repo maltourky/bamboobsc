@@ -26,10 +26,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
-import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
-import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
@@ -37,7 +34,7 @@ import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
 
-public abstract class BscBaseBusinessProcessManagementLogicService extends BusinessProcessManagementBaseLogicService {
+public abstract class BscBaseBusinessProcessManagementLogicService extends BusinessProcessManagementBaseLogicService implements IBscBaseLogicServiceCommonProvide {
 	
 	private IEmployeeService<EmployeeVO, BbEmployee, String> employeeService;
 	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
@@ -69,31 +66,11 @@ public abstract class BscBaseBusinessProcessManagementLogicService extends Busin
 	}
 	
 	public OrganizationVO findOrganizationData(String oid) throws ServiceException, Exception {
-		if (super.isBlank(oid)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}		
-		OrganizationVO organization = new OrganizationVO();
-		organization.setOid(oid);
-		DefaultResult<OrganizationVO> orgResult = this.organizationService.findObjectByOid(organization);
-		if (orgResult.getValue() == null) {
-			throw new ServiceException( orgResult.getSystemMessage().getValue() );
-		}
-		organization = orgResult.getValue();
-		return organization;
+		return BscBaseLogicServiceCommonSupport.findOrganizationData(organizationService, oid);
 	}
 	
 	public EmployeeVO findEmployeeData(String oid) throws ServiceException, Exception {
-		if (super.isBlank(oid)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}		
-		EmployeeVO employee = new EmployeeVO();
-		employee.setOid(oid);
-		DefaultResult<EmployeeVO> empResult = this.employeeService.findObjectByOid(employee);
-		if (empResult.getValue() == null) {
-			throw new ServiceException(empResult.getSystemMessage().getValue());
-		}
-		employee = empResult.getValue();
-		return employee;
+		return BscBaseLogicServiceCommonSupport.findEmployeeData(employeeService, oid);
 	}	
 
 }

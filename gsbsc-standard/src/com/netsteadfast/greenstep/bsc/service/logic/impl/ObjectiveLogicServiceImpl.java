@@ -44,7 +44,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
 import com.netsteadfast.greenstep.bsc.service.IPerspectiveService;
@@ -60,7 +60,7 @@ import com.netsteadfast.greenstep.vo.PerspectiveVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.ObjectiveLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class ObjectiveLogicServiceImpl extends BaseLogicService implements IObjectiveLogicService {
+public class ObjectiveLogicServiceImpl extends CoreBaseLogicService implements IObjectiveLogicService {
 	protected Logger logger=Logger.getLogger(ObjectiveLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService; 

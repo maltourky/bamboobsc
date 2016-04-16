@@ -41,7 +41,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
+import com.netsteadfast.greenstep.base.service.logic.CoreBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.logic.IFormulaLogicService;
@@ -53,7 +53,7 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.FormulaLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class FormulaLogicServiceImpl extends BaseLogicService implements IFormulaLogicService {
+public class FormulaLogicServiceImpl extends CoreBaseLogicService implements IFormulaLogicService {
 	protected Logger logger=Logger.getLogger(FormulaLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	private IFormulaService<FormulaVO, BbFormula, String> formulaService;

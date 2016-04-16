@@ -43,13 +43,11 @@ import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
-import com.netsteadfast.greenstep.base.service.logic.BaseLogicService;
-import com.netsteadfast.greenstep.bsc.service.IOrganizationService;
+import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IPerspectiveService;
 import com.netsteadfast.greenstep.bsc.service.ISwotService;
 import com.netsteadfast.greenstep.bsc.service.IVisionService;
 import com.netsteadfast.greenstep.bsc.service.logic.ISwotLogicService;
-import com.netsteadfast.greenstep.po.hbm.BbOrganization;
 import com.netsteadfast.greenstep.po.hbm.BbPerspective;
 import com.netsteadfast.greenstep.po.hbm.BbSwot;
 import com.netsteadfast.greenstep.po.hbm.BbVision;
@@ -61,11 +59,10 @@ import com.netsteadfast.greenstep.vo.VisionVO;
 @ServiceAuthority(check=true)
 @Service("bsc.service.logic.SwotLogicService")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class SwotLogicServiceImpl extends BaseLogicService implements ISwotLogicService {
+public class SwotLogicServiceImpl extends BscBaseLogicService implements ISwotLogicService {
 	protected Logger logger=Logger.getLogger(SwotLogicServiceImpl.class);	
 	private static final int MAX_ISSUES_LENGTH = 500;
-	private IVisionService<VisionVO, BbVision, String> visionService; 
-	private IOrganizationService<OrganizationVO, BbOrganization, String> organizationService;
+	private IVisionService<VisionVO, BbVision, String> visionService;
 	private ISwotService<SwotVO, BbSwot, String> swotService;
 	private IPerspectiveService<PerspectiveVO, BbPerspective, String> perspectiveService; 
 	
@@ -83,18 +80,6 @@ public class SwotLogicServiceImpl extends BaseLogicService implements ISwotLogic
 	public void setVisionService(
 			IVisionService<VisionVO, BbVision, String> visionService) {
 		this.visionService = visionService;
-	}
-
-	public IOrganizationService<OrganizationVO, BbOrganization, String> getOrganizationService() {
-		return organizationService;
-	}
-
-	@Autowired
-	@Resource(name="bsc.service.OrganizationService")
-	@Required		
-	public void setOrganizationService(
-			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
-		this.organizationService = organizationService;
 	}
 
 	public ISwotService<SwotVO, BbSwot, String> getSwotService() {
@@ -139,13 +124,7 @@ public class SwotLogicServiceImpl extends BaseLogicService implements ISwotLogic
 			throw new ServiceException(vResult.getSystemMessage().getValue());
 		}
 		vision = vResult.getValue();
-		OrganizationVO organization = new OrganizationVO();
-		organization.setOid(organizationOid);
-		DefaultResult<OrganizationVO> oResult = this.organizationService.findObjectByOid(organization);
-		if (oResult.getValue()==null) {
-			throw new ServiceException(oResult.getSystemMessage().getValue());
-		}
-		organization = oResult.getValue();
+		OrganizationVO organization = this.findOrganizationData( organizationOid );
 		
 		//因為 dojo 的 dijit.InlineEditBox 元件特性是, 沒有修改過, 就不會產生editor , 所以修改模式下用全部刪除後->再全部新增會有問題
 		//this.delete(vision.getVisId());
