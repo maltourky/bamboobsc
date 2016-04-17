@@ -23,9 +23,9 @@ package com.netsteadfast.greenstep.bsc.service;
 
 import com.netsteadfast.greenstep.base.service.IBaseService;
 
-public interface IPdcaItemAuditService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
+public interface IPdcaAuditService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
-	public static String MAPPER_ID_PO2VO="pdcaItemAudit.po2vo";
-	public static String MAPPER_ID_VO2PO="pdcaItemAudit.vo2po";
+	public static String MAPPER_ID_PO2VO="pdcaAudit.po2vo";
+	public static String MAPPER_ID_VO2PO="pdcaAudit.vo2po";
 	
 }

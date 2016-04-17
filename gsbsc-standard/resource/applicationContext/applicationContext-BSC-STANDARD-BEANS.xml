@@ -49,7 +49,7 @@
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItem.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemDoc.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemOwner.xml" />
-    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemAudit.xml" />
+    <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaAudit.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaItemAudit.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaOrga.xml" />
     <import resource="classpath*:applicationContext/bsc/standard/applicationContext-pdcaMeasureFreq.xml" />

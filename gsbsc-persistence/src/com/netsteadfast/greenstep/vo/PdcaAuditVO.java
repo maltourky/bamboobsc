@@ -23,27 +23,27 @@ package com.netsteadfast.greenstep.vo;
 
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
-public class PdcaItemAuditVO extends BaseValueObj implements java.io.Serializable {
+public class PdcaAuditVO extends BaseValueObj implements java.io.Serializable {
 	private static final long serialVersionUID = -5231867989535641351L;
 	private String oid;
 	private String pdcaOid;
-	private String itemOid;
 	private String type;
 	private String empId;
 	private String confirmDate;
+	private int confirmSeq;
 	
-	public PdcaItemAuditVO() {
+	public PdcaAuditVO() {
 		
 	}
-	
-	public PdcaItemAuditVO(String oid, String pdcaOid, String itemOid, String type, String empId, String confirmDate) {
+
+	public PdcaAuditVO(String oid, String pdcaOid, String type, String empId, String confirmDate, int confirmSeq) {
 		super();
 		this.oid = oid;
 		this.pdcaOid = pdcaOid;
-		this.itemOid = itemOid;
 		this.type = type;
 		this.empId = empId;
 		this.confirmDate = confirmDate;
+		this.confirmSeq = confirmSeq;
 	}
 
 	@Override
@@ -61,14 +61,6 @@ public class PdcaItemAuditVO extends BaseValueObj implements java.io.Serializabl
 
 	public void setPdcaOid(String pdcaOid) {
 		this.pdcaOid = pdcaOid;
-	}
-
-	public String getItemOid() {
-		return itemOid;
-	}
-
-	public void setItemOid(String itemOid) {
-		this.itemOid = itemOid;
 	}
 
 	public String getType() {
@@ -93,6 +85,14 @@ public class PdcaItemAuditVO extends BaseValueObj implements java.io.Serializabl
 
 	public void setConfirmDate(String confirmDate) {
 		this.confirmDate = confirmDate;
+	}
+	
+	public int getConfirmSeq() {
+		return confirmSeq;
+	}
+	
+	public void setConfirmSeq(int confirmSeq) {
+		this.confirmSeq = confirmSeq;
 	}
 	
 }

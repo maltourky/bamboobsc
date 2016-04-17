@@ -12,7 +12,7 @@
     
     <context:annotation-config />
     
-	<bean id="bsc.dao.PdcaItemAuditDAO" class="com.netsteadfast.greenstep.bsc.dao.impl.PdcaItemAuditDAOImpl" />
-	<bean id="bsc.service.PdcaItemAuditService" class="com.netsteadfast.greenstep.bsc.service.impl.PdcaItemAuditServiceImpl" />
+	<bean id="bsc.dao.PdcaAuditDAO" class="com.netsteadfast.greenstep.bsc.dao.impl.PdcaAuditDAOImpl" />
+	<bean id="bsc.service.PdcaAuditService" class="com.netsteadfast.greenstep.bsc.service.impl.PdcaAuditServiceImpl" />
 		     		
 </beans>

@@ -14,19 +14,19 @@ import com.netsteadfast.greenstep.base.model.EntityUK;
 
 @Entity
 @Table(
-		name="bb_pdca_item_audit", 
+		name="bb_pdca_audit", 
 		uniqueConstraints = { 
-				@UniqueConstraint( columnNames = {"PDCA_OID", "ITEM_OID", "TYPE", "EMP_ID"} ) 
+				@UniqueConstraint( columnNames = {"PDCA_OID", "TYPE", "CONFIRM_SEQ"} ) 
 		} 
 )
-public class BbPdcaItemAudit extends BaseEntity<String> implements java.io.Serializable {
+public class BbPdcaAudit extends BaseEntity<String> implements java.io.Serializable {
 	private static final long serialVersionUID = -4984755977520353207L;
 	private String oid;
 	private String pdcaOid;
-	private String itemOid;
 	private String type;
 	private String empId;
 	private String confirmDate;
+	private int confirmSeq; 
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -52,16 +52,6 @@ public class BbPdcaItemAudit extends BaseEntity<String> implements java.io.Seria
 	
 	public void setPdcaOid(String pdcaOid) {
 		this.pdcaOid = pdcaOid;
-	}
-	
-	@EntityUK(name="itemOid")
-	@Column(name="ITEM_OID")	
-	public String getItemOid() {
-		return itemOid;
-	}
-	
-	public void setItemOid(String itemOid) {
-		this.itemOid = itemOid;
 	}
 	
 	@EntityUK(name="type")
@@ -91,6 +81,15 @@ public class BbPdcaItemAudit extends BaseEntity<String> implements java.io.Seria
 	
 	public void setConfirmDate(String confirmDate) {
 		this.confirmDate = confirmDate;
+	}
+	
+	@Column(name="CONFIRM_SEQ")
+	public int getConfirmSeq() {
+		return confirmSeq;
+	}
+	
+	public void setConfirmSeq(int confirmSeq) {
+		this.confirmSeq = confirmSeq;
 	}
 	
 	@Override

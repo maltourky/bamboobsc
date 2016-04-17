@@ -113,7 +113,7 @@
                 <value>classpath*:mappers/BbPdcaKpis.xml</value>
                 <value>classpath*:mappers/BbPdcaItem.xml</value>
                 <value>classpath*:mappers/BbPdcaItemDoc.xml</value>
-                <value>classpath*:mappers/BbPdcaItemAudit.xml</value>
+                <value>classpath*:mappers/BbPdcaAudit.xml</value>
                 <value>classpath*:mappers/BbPdcaItemOwner.xml</value>
                 <value>classpath*:mappers/BbPdcaMeasureFreq.xml</value>
                 <value>classpath*:mappers/BbPdcaOrga.xml</value>

@@ -50,7 +50,7 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BscBaseBusinessProcessManagementLogicService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaDocService;
-import com.netsteadfast.greenstep.bsc.service.IPdcaItemAuditService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaAuditService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemDocService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemOwnerService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemService;
@@ -63,9 +63,9 @@ import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
 import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbPdca;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaDoc;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaItem;
-import com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaItemDoc;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaItemOwner;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
@@ -77,8 +77,8 @@ import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaAuditVO;
 import com.netsteadfast.greenstep.vo.PdcaDocVO;
-import com.netsteadfast.greenstep.vo.PdcaItemAuditVO;
 import com.netsteadfast.greenstep.vo.PdcaItemDocVO;
 import com.netsteadfast.greenstep.vo.PdcaItemOwnerVO;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
@@ -102,7 +102,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 	private IPdcaOwnerService<PdcaOwnerVO, BbPdcaOwner, String> pdcaOwnerService;
 	private IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> pdcaMeasureFreqService;
 	private IPdcaItemService<PdcaItemVO, BbPdcaItem, String> pdcaItemService;
-	private IPdcaItemAuditService<PdcaItemAuditVO, BbPdcaItemAudit, String> pdcaItemAuditService;
+	private IPdcaAuditService<PdcaAuditVO, BbPdcaAudit, String> pdcaAuditService;
 	private IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> pdcaItemDocService;
 	private IPdcaItemOwnerService<PdcaItemOwnerVO, BbPdcaItemOwner, String> pdcaItemOwnerService;
 	private IKpiService<KpiVO, BbKpi, String> kpiService;
@@ -193,19 +193,18 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 	public void setPdcaItemService(IPdcaItemService<PdcaItemVO, BbPdcaItem, String> pdcaItemService) {
 		this.pdcaItemService = pdcaItemService;
 	}
-
-	public IPdcaItemAuditService<PdcaItemAuditVO, BbPdcaItemAudit, String> getPdcaItemAuditService() {
-		return pdcaItemAuditService;
+	
+	public IPdcaAuditService<PdcaAuditVO, BbPdcaAudit, String> getPdcaAuditService() {
+		return pdcaAuditService;
 	}
 
 	@Autowired
-	@Resource(name="bsc.service.PdcaItemAuditService")
-	@Required
-	public void setPdcaItemAuditService(
-			IPdcaItemAuditService<PdcaItemAuditVO, BbPdcaItemAudit, String> pdcaItemAuditService) {
-		this.pdcaItemAuditService = pdcaItemAuditService;
+	@Resource(name="bsc.service.PdcaAuditService")
+	@Required	
+	public void setPdcaAuditService(IPdcaAuditService<PdcaAuditVO, BbPdcaAudit, String> pdcaAuditService) {
+		this.pdcaAuditService = pdcaAuditService;
 	}
-	
+
 	public IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> getPdcaItemDocService() {
 		return pdcaItemDocService;
 	}

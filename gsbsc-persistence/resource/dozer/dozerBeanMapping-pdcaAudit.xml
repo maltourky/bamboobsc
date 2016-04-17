@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://dozer.sourceforge.net
 	http://dozer.sourceforge.net/schema/beanmapping.xsd">
 	
-	<mapping map-id="pdcaItemAudit.po2vo" >
-		<class-a>com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit</class-a>
-		<class-b>com.netsteadfast.greenstep.vo.PdcaItemAuditVO</class-b>
+	<mapping map-id="pdcaAudit.po2vo" >
+		<class-a>com.netsteadfast.greenstep.po.hbm.BbPdcaAudit</class-a>
+		<class-b>com.netsteadfast.greenstep.vo.PdcaAuditVO</class-b>
 		<field>
 			<a>oid</a>
 			<b>oid</b>
@@ -14,11 +14,7 @@
 		<field>
 			<a>pdcaOid</a>
 			<b>pdcaOid</b>
-		</field>	
-		<field>
-			<a>itemOid</a>
-			<b>itemOid</b>
-		</field>					
+		</field>						
 		<field>
 			<a>type</a>
 			<b>type</b>
@@ -30,12 +26,16 @@
 		<field>
 			<a>confirmDate</a>
 			<b>confirmDate</b>
-		</field>																													
+		</field>	
+		<field>
+			<a>confirmSeq</a>
+			<b>confirmSeq</b>
+		</field>																														
 	</mapping>
 
-	<mapping map-id="pdcaItemAudit.vo2po" >
-		<class-a>com.netsteadfast.greenstep.vo.PdcaItemAuditVO</class-a>
-		<class-b>com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit</class-b>
+	<mapping map-id="pdcaAudit.vo2po" >
+		<class-a>com.netsteadfast.greenstep.vo.PdcaAuditVO</class-a>
+		<class-b>com.netsteadfast.greenstep.po.hbm.BbPdcaAudit</class-b>
 		<field>
 			<a>oid</a>
 			<b>oid</b>
@@ -43,11 +43,7 @@
 		<field>
 			<a>pdcaOid</a>
 			<b>pdcaOid</b>
-		</field>	
-		<field>
-			<a>itemOid</a>
-			<b>itemOid</b>
-		</field>					
+		</field>						
 		<field>
 			<a>type</a>
 			<b>type</b>
@@ -60,6 +56,10 @@
 			<a>confirmDate</a>
 			<b>confirmDate</b>
 		</field>	
+		<field>
+			<a>confirmSeq</a>
+			<b>confirmSeq</b>
+		</field>		
 	</mapping>
 	
 </mappings>

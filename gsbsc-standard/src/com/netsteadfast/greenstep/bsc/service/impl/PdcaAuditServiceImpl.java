@@ -33,37 +33,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.service.BaseService;
-import com.netsteadfast.greenstep.bsc.dao.IPdcaItemAuditDAO;
-import com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit;
-import com.netsteadfast.greenstep.bsc.service.IPdcaItemAuditService;
-import com.netsteadfast.greenstep.vo.PdcaItemAuditVO;
+import com.netsteadfast.greenstep.bsc.dao.IPdcaAuditDAO;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
+import com.netsteadfast.greenstep.bsc.service.IPdcaAuditService;
+import com.netsteadfast.greenstep.vo.PdcaAuditVO;
 
-@Service("bsc.service.PdcaItemAuditService")
+@Service("bsc.service.PdcaAuditService")
 @Scope("prototype")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
-public class PdcaItemAuditServiceImpl extends BaseService<PdcaItemAuditVO, BbPdcaItemAudit, String> implements IPdcaItemAuditService<PdcaItemAuditVO, BbPdcaItemAudit, String> {
-	protected Logger logger=Logger.getLogger(PdcaItemAuditServiceImpl.class);
-	private IPdcaItemAuditDAO<BbPdcaItemAudit, String> pdcaItemAuditDAO;
+public class PdcaAuditServiceImpl extends BaseService<PdcaAuditVO, BbPdcaAudit, String> implements IPdcaAuditService<PdcaAuditVO, BbPdcaAudit, String> {
+	protected Logger logger=Logger.getLogger(PdcaAuditServiceImpl.class);
+	private IPdcaAuditDAO<BbPdcaAudit, String> pdcaAuditDAO;
 	
-	public PdcaItemAuditServiceImpl() {
+	public PdcaAuditServiceImpl() {
 		super();
 	}
 
-	public IPdcaItemAuditDAO<BbPdcaItemAudit, String> getPdcaItemAuditDAO() {
-		return pdcaItemAuditDAO;
+	public IPdcaAuditDAO<BbPdcaAudit, String> getPdcaAuditDAO() {
+		return pdcaAuditDAO;
 	}
 
 	@Autowired
-	@Resource(name="bsc.dao.PdcaItemAuditDAO")
+	@Resource(name="bsc.dao.PdcaAuditDAO")
 	@Required		
-	public void setPdcaItemAuditDAO(
-			IPdcaItemAuditDAO<BbPdcaItemAudit, String> pdcaItemAuditDAO) {
-		this.pdcaItemAuditDAO = pdcaItemAuditDAO;
+	public void setPdcaAuditDAO(
+			IPdcaAuditDAO<BbPdcaAudit, String> pdcaAuditDAO) {
+		this.pdcaAuditDAO = pdcaAuditDAO;
 	}
 
 	@Override
-	protected IBaseDAO<BbPdcaItemAudit, String> getBaseDataAccessObject() {
-		return pdcaItemAuditDAO;
+	protected IBaseDAO<BbPdcaAudit, String> getBaseDataAccessObject() {
+		return pdcaAuditDAO;
 	}
 
 	@Override

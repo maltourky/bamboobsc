@@ -19,11 +19,21 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.bsc.dao;
+package com.netsteadfast.greenstep.bsc.dao.impl;
 
-import com.netsteadfast.greenstep.base.dao.IBaseDAO;
-import com.netsteadfast.greenstep.po.hbm.BbPdcaItemAudit;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
-public interface IPdcaItemAuditDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbPdcaItemAudit, String> {
+import com.netsteadfast.greenstep.base.dao.BaseDAO;
+import com.netsteadfast.greenstep.bsc.dao.IPdcaAuditDAO;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
+
+@Repository("bsc.dao.PdcaAuditDAO")
+@Scope("prototype")
+public class PdcaAuditDAOImpl extends BaseDAO<BbPdcaAudit, String> implements IPdcaAuditDAO<BbPdcaAudit, String> {
+	
+	public PdcaAuditDAOImpl() {
+		super();
+	}
 	
 }
