@@ -183,6 +183,27 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 		}
 		return forward;			
 	}
+	
+	/**
+	 * core.systemBpmnResourceRoleAssigneeManagementAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0005Q")	
+	public String roleAssignee() throws Exception {
+		try {
+			this.initData();
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;		
+	}
 
 	@Override
 	public String getProgramName() {
