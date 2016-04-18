@@ -203,7 +203,10 @@ function ${programId}_page_message() {
         <input type="button" name="load" id="load" value="${action.getText('BSC_PROG002D0007Q_btnLoad')}" class="flat lighter" >
         <s:if test=" divItems != null && divItems.size != 0 "> 
         <input type="button" name="save" id="save" value=${action.getText('BSC_PROG002D0007Q_btnSave')} class="flat lighter" >
+        <!-- 2016-04-18 rem -->
+        <!-- 
         <input type="button" name="export" id="export" value="${action.getText('BSC_PROG002D0007Q_btnExport')}" class="flat lighter" >
+        -->
         <input type="button" name="print" id="print" value="${action.getText('BSC_PROG002D0007Q_btnPrint')}" class="flat lighter" >
         </s:if>                
         <input type="button" name="new" id="new" value="${action.getText('BSC_PROG002D0007Q_btnNew')}" class="flat lighter" >
@@ -403,6 +406,8 @@ jsPlumb.ready(function () {
         
     });    
     
+    // 2016-04-18 rem
+    /*
     $("#export").click(function (e) {
     	
 		html2canvas( $('#jtk-demo-main'), {
@@ -419,6 +424,7 @@ jsPlumb.ready(function () {
 		});    	
 		
     });    
+    */
     
     $("#print").click(function (e) {
     	

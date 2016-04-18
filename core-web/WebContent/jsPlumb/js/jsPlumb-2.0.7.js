@@ -12631,9 +12631,11 @@
             return p;
         },
         setDragFilter: function (el, filter, _exclude) {
-            if (el._katavorioDrag) {
-                el._katavorioDrag.setFilter(filter, _exclude);
-            }
+        	if (typeof el != "undefined") { // 2016-04-18 bambooBSC strategy-map type error el is undefined
+                if (el._katavorioDrag) {
+                    el._katavorioDrag.setFilter(filter, _exclude);
+                }        		
+        	}
         },
         setElementDraggable: function (el, draggable) {
             el = jsPlumb.getElement(el);
