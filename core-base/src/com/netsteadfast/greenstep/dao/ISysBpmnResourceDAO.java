@@ -21,9 +21,14 @@
  */
 package com.netsteadfast.greenstep.dao;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 public interface ISysBpmnResourceDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<TbSysBpmnResource, String> {
+	
+	public List<SysBpmnResourceVO> findForSimple() throws Exception;
 	
 }

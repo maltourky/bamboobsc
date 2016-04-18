@@ -21,8 +21,13 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -31,7 +36,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.PageOf;
+import com.netsteadfast.greenstep.base.model.QueryResult;
+import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.dao.ISysBpmnResourceRoleDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
@@ -74,6 +85,34 @@ public class SysBpmnResourceRoleServiceImpl extends BaseService<SysBpmnResourceR
 	@Override
 	public String getMapperIdVo2Po() {
 		return MAPPER_ID_VO2PO;
+	}
+	
+	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
+		Map<String, Object> params=new LinkedHashMap<String, Object>();
+		String id = searchValue.getParameter().get("id");
+		String assignee = searchValue.getParameter().get("assignee");
+		if (!this.isNoSelectId(id)) {
+			params.put("id", id);
+		}
+		if (!StringUtils.isBlank(assignee)) {
+			params.put("assignee", "%"+assignee+"%");
+		}		
+		return params;
+	}
+
+	@Override
+	public QueryResult<List<SysBpmnResourceRoleVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
+		if (searchValue==null || pageOf==null) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+		}
+		Map<String, Object> params=this.getQueryGridParameter(searchValue);	
+		int limit=Integer.parseInt(pageOf.getShowRow());
+		int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;
+		QueryResult<List<SysBpmnResourceRoleVO>> result=this.sysBpmnResourceRoleDAO.findPageQueryResultByQueryName(
+				"findSysBpmnResourceRolePageGrid", params, offset, limit);
+		pageOf.setCountSize(String.valueOf(result.getRowCount()));
+		pageOf.toCalculateSize();
+		return result;
 	}
 
 }

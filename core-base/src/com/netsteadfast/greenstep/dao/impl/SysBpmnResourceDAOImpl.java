@@ -21,12 +21,15 @@
  */
 package com.netsteadfast.greenstep.dao.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.netsteadfast.greenstep.base.dao.BaseDAO;
 import com.netsteadfast.greenstep.dao.ISysBpmnResourceDAO;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @Repository("core.dao.SysBpmnResourceDAO")
 @Scope("prototype")
@@ -34,6 +37,14 @@ public class SysBpmnResourceDAOImpl extends BaseDAO<TbSysBpmnResource, String> i
 	
 	public SysBpmnResourceDAOImpl() {
 		super();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SysBpmnResourceVO> findForSimple() throws Exception {
+		return this.getCurrentSession()
+				.createQuery("select new com.netsteadfast.greenstep.vo.SysBpmnResourceVO(m.oid, m.id, m.deploymentId, m.name, m.description) from TbSysBpmnResource m order by m.id asc")
+				.list();
 	}
 	
 }

@@ -41,7 +41,10 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
+import com.netsteadfast.greenstep.service.ISysBpmnResourceRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @ControllerAuthority(check=true)
@@ -51,6 +54,7 @@ public class SystemBpmnResourceGridQueryManagementAction extends BaseQueryGridJs
 	private static final long serialVersionUID = -1235676145744946045L;
 	protected Logger logger=Logger.getLogger(SystemBpmnResourceGridQueryManagementAction.class);
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
+	private ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService;
 	private String message = "";
 	private String success = IS_NO;
 	private List<Map<String, String>> items=new ArrayList<Map<String, String>>();
@@ -71,6 +75,18 @@ public class SystemBpmnResourceGridQueryManagementAction extends BaseQueryGridJs
 		this.sysBpmnResourceService = sysBpmnResourceService;
 	}
 	
+	@JSON(serialize=false)
+	public ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> getSysBpmnResourceRoleService() {
+		return sysBpmnResourceRoleService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysBpmnResourceRoleService")
+	public void setSysBpmnResourceRoleService(
+			ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService) {
+		this.sysBpmnResourceRoleService = sysBpmnResourceRoleService;
+	}
+
 	private void query() throws ControllerException, AuthorityException, ServiceException, Exception {
 		QueryResult<List<SysBpmnResourceVO>> queryResult = this.sysBpmnResourceService.findGridResult(
 				super.getSearchValue(), 
@@ -90,6 +106,27 @@ public class SystemBpmnResourceGridQueryManagementAction extends BaseQueryGridJs
 		this.items = super.transformSearchGridList2JsonDataMapList(
 				searchList, 
 				new String[]{"oid", "id", "deploymentId", "name", "description"});		
+	}
+	
+	private void query2() throws ControllerException, AuthorityException, ServiceException, Exception {
+		QueryResult<List<SysBpmnResourceRoleVO>> queryResult = this.sysBpmnResourceRoleService.findGridResult(
+				super.getSearchValue(), 
+				super.getPageOf());
+		this.success = IS_YES;
+		if (queryResult.getValue()==null) {
+			this.message=super.defaultString(queryResult.getSystemMessage().getValue());
+			return;
+		}
+		this.setGridData2(queryResult.getValue());		
+	}
+	
+	private void setGridData2(List<SysBpmnResourceRoleVO> searchList) throws Exception {
+		if (searchList==null || searchList.size()<1) {
+			return;
+		}		
+		this.items = super.transformSearchGridList2JsonDataMapList(
+				searchList, 
+				new String[]{"oid", "id", "role", "assignee", "name"});		
 	}
 	
 	/**
@@ -116,7 +153,36 @@ public class SystemBpmnResourceGridQueryManagementAction extends BaseQueryGridJs
 			this.success = IS_EXCEPTION;
 		}
 		return SUCCESS;
-	}		
+	}
+	
+	/**
+	 * core.systemBpmnResourceRoleAssigneeManagementGridQueryAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0005Q")
+	public String queryRoleAssignee() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.query2();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}
 
 	@JSON
 	@Override

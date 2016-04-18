@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -58,6 +59,11 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	private List<ProcessInstance> processInstances = new ArrayList<ProcessInstance>();
 	private List<Task> tasks = new ArrayList<Task>();
 	
+	// ------------------------------------------------------------------------------------
+	// CORE_PROG003D0005Q
+	// ------------------------------------------------------------------------------------
+	private Map<String, String> resourceMap = this.providedSelectZeroDataMap( true );
+	
 	public SystemBpmnResourceManagementAction() {
 		super();
 	}
@@ -74,8 +80,10 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 		this.sysBpmnResourceService = sysBpmnResourceService;
 	}	
 	
-	private void initData() throws ServiceException, Exception {
-		
+	private void initData(String type) throws ServiceException, Exception {
+		if ("roleAssignee".equals(type)) {
+			this.resourceMap = this.sysBpmnResourceService.findForMap(true);
+		}
 	}
 	
 	private void loadResourceData() throws ServiceException, Exception {
@@ -102,7 +110,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	@ControllerMethodAuthority(programId="CORE_PROG003D0004Q")
 	public String execute() throws Exception {
 		try {
-			this.initData();
+			this.initData("execute");
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
 		} catch (ServiceException e) {
@@ -123,7 +131,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	@ControllerMethodAuthority(programId="CORE_PROG003D0004A")	
 	public String create() throws Exception {
 		try {
-			this.initData();
+			this.initData("create");
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
 		} catch (ServiceException e) {
@@ -145,7 +153,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	public String edit() throws Exception {
 		String forward = RESULT_SEARCH_NO_DATA;
 		try {
-			this.initData();
+			this.initData("edit");
 			this.loadResourceData();
 			forward = SUCCESS;
 		} catch (ControllerException e) {
@@ -169,7 +177,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	public String processList() throws Exception {
 		String forward = RESULT_SEARCH_NO_DATA;
 		try {
-			this.initData();
+			this.initData("processList");
 			this.loadResourceData();
 			this.queryProcess();
 			forward = SUCCESS;
@@ -193,7 +201,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	@ControllerMethodAuthority(programId="CORE_PROG003D0005Q")	
 	public String roleAssignee() throws Exception {
 		try {
-			this.initData();
+			this.initData("roleAssignee");
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
 		} catch (ServiceException e) {
@@ -252,6 +260,14 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
+	}
+
+	public Map<String, String> getResourceMap() {
+		return resourceMap;
+	}
+
+	public void setResourceMap(Map<String, String> resourceMap) {
+		this.resourceMap = resourceMap;
 	}
 
 }
