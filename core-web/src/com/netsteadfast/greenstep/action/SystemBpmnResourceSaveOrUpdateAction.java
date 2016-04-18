@@ -45,9 +45,12 @@ import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
+import com.netsteadfast.greenstep.service.ISysBpmnResourceRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
+import com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @ControllerAuthority(check=true)
@@ -58,6 +61,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
 	protected Logger logger=Logger.getLogger(SystemBpmnResourceSaveOrUpdateAction.class);
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
+	private ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService;
 	private String message = "";
 	private String success = IS_NO;
 	private String uploadOid = ""; // 下載用
@@ -76,6 +80,18 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	public void setSysBpmnResourceService(
 			ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService) {
 		this.sysBpmnResourceService = sysBpmnResourceService;
+	}
+	
+	@JSON(serialize=false)
+	public ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> getSysBpmnResourceRoleService() {
+		return sysBpmnResourceRoleService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysBpmnResourceRoleService")
+	public void setSysBpmnResourceRoleService(
+			ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService) {
+		this.sysBpmnResourceRoleService = sysBpmnResourceRoleService;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -268,6 +284,16 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}
 	
+	private void deleteRoleAssignee() throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysBpmnResourceRoleVO bpmnResourceRole = new SysBpmnResourceRoleVO();
+		this.transformFields2ValueObject(bpmnResourceRole, "oid");
+		DefaultResult<Boolean> result = this.sysBpmnResourceRoleService.deleteObject(bpmnResourceRole);
+		if (result.getValue()!=null && result.getValue()) {
+			this.success = IS_YES;
+		}
+		this.message = result.getSystemMessage().getValue();
+	}
+	
 	/**
 	 * core.systemBpmnResourceSaveAction.action
 	 * 
@@ -427,6 +453,35 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 				return SUCCESS;
 			}
 			this.exportDiagram();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}
+	
+	/**
+	 * core.systemBpmnResourceRoleAssigneeDeleteAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0005Q")
+	public String doRoleAssigneeDelete() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.deleteRoleAssignee();
 		} catch (ControllerException ce) {
 			this.message=ce.getMessage().toString();
 		} catch (AuthorityException ae) {
