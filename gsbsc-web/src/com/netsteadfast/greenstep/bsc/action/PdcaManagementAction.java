@@ -35,6 +35,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.BscConstants;
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.action.IBaseAdditionalSupportAction;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -42,6 +43,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeService;
@@ -52,6 +54,7 @@ import com.netsteadfast.greenstep.bsc.service.IPdcaItemDocService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaItemService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaMeasureFreqService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaService;
+import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
 import com.netsteadfast.greenstep.bsc.service.logic.IReportRoleViewLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
@@ -64,6 +67,7 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
@@ -89,6 +93,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 	private ISysUploadService<SysUploadVO, TbSysUpload, String> sysUploadService;
 	private IPdcaItemService<PdcaItemVO, BbPdcaItem, String> pdcaItemService;
 	private IPdcaItemDocService<PdcaItemDocVO, BbPdcaItemDoc, String> pdcaItemDocService;
+	private IPdcaLogicService pdcaLogicService;
 	private Map<String, String> frequencyMap = BscMeasureDataFrequency.getFrequencyMap(true);
 	private Map<String, String> measureDataOrganizationMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> measureDataEmployeeMap = this.providedSelectZeroDataMap(true);
@@ -97,6 +102,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 	private PdcaMeasureFreqVO measureFreq = new PdcaMeasureFreqVO();
 	private List<PdcaDocVO> pdcaDocs = new ArrayList<PdcaDocVO>();
 	private List<PdcaItemVO> pdcaItems = new ArrayList<PdcaItemVO>();
+	private BusinessProcessManagementTaskVO bpmTaskObj;
 	
 	public PdcaManagementAction() {
 		super();
@@ -217,9 +223,28 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		this.pdcaItemDocService = pdcaItemDocService;
 	}	
 	
+	public IPdcaLogicService getPdcaLogicService() {
+		return pdcaLogicService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.logic.PdcaLogicService")
+	@Required
+	public void setPdcaLogicService(IPdcaLogicService pdcaLogicService) {
+		this.pdcaLogicService = pdcaLogicService;
+	}	
+	
 	private void initData(String type) throws ServiceException, Exception {
-		if (!"execute".equals(type)) {
+		if (!"execute".equals(type) && !"confirmDialog".equals(type)) {
 			initDataForCreateOrEdit();
+		}
+		if ("confirmDialog".equals(type)) { // BSC_PROG006D0001E_S00 Confirm audit dialog , 帶入的 fields.oid 是由 tb_pdca.oid 與 流程 task-id 組成
+			String parameterStr = super.defaultString( this.getFields().get("oid") );
+			String tmp[] = parameterStr.split(Constants.ID_DELIMITER);
+			if (tmp.length == 2) {
+				this.getFields().put("pdcaOid", tmp[0].trim());
+				this.getFields().put("taskId", tmp[1].trim());
+			}
 		}
 	}
 	
@@ -227,13 +252,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		
 		// ------------------------------------------------------------------------------
 		// PDCA main
-		this.transformFields2ValueObject(this.pdca, "oid");
-		DefaultResult<PdcaVO> pdcaResult = this.pdcaService.findObjectByOid(pdca);
-		if (pdcaResult.getValue() == null) {
-			throw new ServiceException(pdcaResult.getSystemMessage().getValue());
-		}
-		this.pdca = pdcaResult.getValue();
-		
+		this.loadPdcaDataSimple("oid");		
 		// ------------------------------------------------------------------------------
 		
 		// ------------------------------------------------------------------------------
@@ -373,6 +392,28 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		
 	}
 	
+	// PDCA main
+	private void loadPdcaDataSimple(String fieldName) throws ServiceException, Exception {
+		
+		this.transformFields2ValueObject(this.pdca, fieldName);
+		DefaultResult<PdcaVO> pdcaResult = this.pdcaService.findObjectByOid(pdca);
+		if (pdcaResult.getValue() == null) {
+			throw new ServiceException(pdcaResult.getSystemMessage().getValue());
+		}
+		this.pdca = pdcaResult.getValue();
+		
+	}
+	
+	private void loadProjectTask() throws Exception {
+		
+		List<BusinessProcessManagementTaskVO> tasks = this.pdcaLogicService.queryTaskByVariablePdcaOid( this.pdca.getOid() );
+		if (tasks.size() != 1) {
+			return;
+		}
+		this.bpmTaskObj = tasks.get(0);	
+		
+	}
+	
 	/**
 	 *  bsc.pdcaManagementAction.action
 	 */
@@ -418,6 +459,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		try {
 			this.initData("edit");
 			this.loadPdcaData();
+			this.loadProjectTask();
 			forward = SUCCESS;
 		} catch (ControllerException e) {
 			this.setPageMessage(e.getMessage().toString());
@@ -429,6 +471,34 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 		}
 		return forward;			
 	}	
+	
+	/**
+	 * bsc.pdcaConfirmDialogAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG006D0001E_S00")
+	public String confirmDialog() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.initData("confirmDialog");
+			this.loadPdcaDataSimple("pdcaOid");
+			this.loadProjectTask();
+			forward = SUCCESS;
+			if (this.bpmTaskObj == null || !YesNo.YES.equals(this.bpmTaskObj.getAllowAssignee())) {
+				forward = RESULT_NO_AUTHORITH;
+			}
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;			
+	}
 	
 	@Override
 	public String getProgramName() {
@@ -493,6 +563,14 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 
 	public void setPdcaItems(List<PdcaItemVO> pdcaItems) {
 		this.pdcaItems = pdcaItems;
+	}
+
+	public BusinessProcessManagementTaskVO getBpmTaskObj() {
+		return bpmTaskObj;
+	}
+
+	public void setBpmTaskObj(BusinessProcessManagementTaskVO bpmTaskObj) {
+		this.bpmTaskObj = bpmTaskObj;
 	}	
 
 }

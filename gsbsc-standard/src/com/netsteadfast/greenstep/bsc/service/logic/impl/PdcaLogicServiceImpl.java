@@ -71,6 +71,7 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
+import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
@@ -381,7 +382,23 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
 	public List<BusinessProcessManagementTaskVO> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception {		
+		if (super.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}			
 		return this.queryTaskPlus("pdcaOid", pdcaOid);
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )	
+	@Override
+	public String getTaskDiagram(String taskId) throws ServiceException, Exception {
+		if (super.isBlank(taskId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		return BusinessProcessManagementUtils.getTaskDiagramById2Upload(this.getBusinessProcessManagementResourceId(), taskId);
 	}	
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {

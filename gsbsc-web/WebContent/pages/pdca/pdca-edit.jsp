@@ -74,6 +74,9 @@ function BSC_PROG006D0001E_startProcess() {
 						true, 
 						function(data) {
 							alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+							if ( 'Y' == data.success ) {
+								BSC_PROG006D0001E_TabRefresh();
+							}
 						}, 
 						function(error) {
 							alert(error);
@@ -607,6 +610,41 @@ function BSC_PROG006D0001E_pdcaTab_tableContent_getUploadShowName(oid) {
 	return names[0].showName;
 }
 
+//------------------------------------------------------------------------------
+//PDCA project audit function
+//------------------------------------------------------------------------------
+function BSC_PROG006D0001E_openConfirmDialog(keyStr) {
+	BSC_PROG006D0001E_S00_DlgShow(keyStr);
+}
+
+function BSC_PROG006D0001E_loadDiagram(taskId) {
+	xhrSendParameter(
+			'${basePath}/bsc.pdcaLoadTaskDiagramAction.action', 
+			{ 'fields.taskId' : taskId }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+				if ( 'Y' == data.success ) {
+					openCommonLoadUpload(
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	800,
+								"height"		:	600
+							} 
+					);
+				}
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);	
+}
 
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
@@ -697,11 +735,40 @@ function ${programId}_page_message() {
     				label="Clear" 
     				iconClass="dijitIconClear"
     				cssClass="alt-primary"></gs:button>
+    				
     			&nbsp;&nbsp;&nbsp;&nbsp;
     			<gs:button name="BSC_PROG006D0001E_startProcess" id="BSC_PROG006D0001E_startProcess" onClick="BSC_PROG006D0001E_startProcess();" 
     				label="Start process" 
     				iconClass="dijitIconSave"
     				cssClass="alt-warning"></gs:button>
+    				
+    			<button name="BSC_PROG006D0001E_openConfirmDialog" id="BSC_PROG006D0001E_openConfirmDialog"  data-dojo-type="dijit.form.Button"
+    				<s:if test=" bpmTaskObj == null || \"Y\" != bpmTaskObj.allowAssignee "> disabled="disabled" </s:if>
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSave',
+						onClick:function(){ 
+							<s:if test=" bpmTaskObj != null ">
+							BSC_PROG006D0001E_openConfirmDialog('${pdca.oid};${bpmTaskObj.task.id}');
+							</s:if>
+						}
+					"
+    				class="alt-warning">Confirm audit</button> 
+    				
+				<button name="BSC_PROG006D0001E_loadDiagram" id="BSC_PROG006D0001E_loadDiagram" data-dojo-type="dijit.form.Button"
+					<s:if test=" bpmTaskObj == null "> disabled="disabled" </s:if>
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSearch',
+						onClick:function(){ 
+							<s:if test=" bpmTaskObj != null ">
+							BSC_PROG006D0001E_loadDiagram('${bpmTaskObj.task.id}');
+							</s:if>
+						}
+					"
+					class="alt-primary">View audit diagram</button>			    				    				
+    				
+    						
     		</td>
     	</tr>
 	</table>

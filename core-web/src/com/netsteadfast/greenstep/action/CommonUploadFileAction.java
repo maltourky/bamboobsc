@@ -200,6 +200,7 @@ public class CommonUploadFileAction extends BaseJsonAction {
 	 * @return
 	 * @throws Exception
 	 */
+	@JSON(serialize=false)
 	@ControllerMethodAuthority(programId="CORE_PROGCOMM0002Q")
 	public String getFileNames() throws Exception {
 		this.fileExist = YesNo.NO;

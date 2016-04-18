@@ -44,4 +44,6 @@ public interface IPdcaLogicService {
 	
 	public List<BusinessProcessManagementTaskVO> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception;
 	
+	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
+	
 }

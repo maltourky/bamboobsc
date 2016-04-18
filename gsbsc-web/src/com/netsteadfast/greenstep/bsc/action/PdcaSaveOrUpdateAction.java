@@ -36,6 +36,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -43,6 +44,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.bsc.action.utils.DateDisplayFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
@@ -62,6 +64,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	private IPdcaLogicService pdcaLogicService;
 	private String message = "";
 	private String success = IS_NO;
+	private String uploadOid = ""; // 圖檔資料的oid
 	
 	public PdcaSaveOrUpdateAction() {
 		super();
@@ -586,6 +589,39 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}
+	
+	/**
+	 * bsc.pdcaLoadTaskDiagramAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG006D0001E")
+	public String doLoadTaskDiagram() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.uploadOid = this.pdcaLogicService.getTaskDiagram( this.getFields().get("taskId") );
+			if (!StringUtils.isBlank(this.uploadOid)) {
+				this.message = SysMessageUtil.get(GreenStepSysMsgConstants.INSERT_SUCCESS);
+				this.success = IS_YES;
+			}
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;	
+	}	
 
 	@JSON
 	@Override
@@ -617,4 +653,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 
+	@JSON
+	public String getUploadOid() {
+		return uploadOid;
+	}
+
+	public void setUploadOid(String uploadOid) {
+		this.uploadOid = uploadOid;
+	}
+	
 }
