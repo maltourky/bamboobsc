@@ -120,7 +120,7 @@ public class SysBpmnResourceServiceImpl extends BaseService<SysBpmnResourceVO, T
 		Map<String, String> dataMap = this.providedSelectZeroDataMap(pleaseSelect);
 		List<SysBpmnResourceVO> searchList = this.sysBpmnResourceDAO.findForSimple();
 		for (int i=0; searchList!=null && i<searchList.size(); i++) {
-			dataMap.put(searchList.get(i).getId(), searchList.get(i).getName());
+			dataMap.put(searchList.get(i).getOid(), searchList.get(i).getName());
 		}
 		return dataMap;
 	}

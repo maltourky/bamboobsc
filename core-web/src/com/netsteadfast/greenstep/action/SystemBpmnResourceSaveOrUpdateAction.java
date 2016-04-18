@@ -32,7 +32,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.netsteadfast.greenstep.action.utils.IdFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.NotBlankFieldCheckUtils;
+import com.netsteadfast.greenstep.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
@@ -44,12 +46,15 @@ import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.model.UploadTypes;
+import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResourceRole;
+import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
+import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
@@ -62,6 +67,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	protected Logger logger=Logger.getLogger(SystemBpmnResourceSaveOrUpdateAction.class);
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
 	private ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService;
+	private IRoleService<RoleVO, TbRole, String> roleService;
 	private String message = "";
 	private String success = IS_NO;
 	private String uploadOid = ""; // 下載用
@@ -93,6 +99,17 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 			ISysBpmnResourceRoleService<SysBpmnResourceRoleVO, TbSysBpmnResourceRole, String> sysBpmnResourceRoleService) {
 		this.sysBpmnResourceRoleService = sysBpmnResourceRoleService;
 	}
+	
+	@JSON(serialize=false)
+	public IRoleService<RoleVO, TbRole, String> getRoleService() {
+		return roleService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.RoleService")
+	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
+		this.roleService = roleService;
+	}	
 
 	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
@@ -109,6 +126,35 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 					new Class[]{
 							NotBlankFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class
+					},
+					this.getFieldsId() );			
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			throw new ControllerException(e.getMessage().toString());
+		}
+	}	
+
+	@SuppressWarnings("unchecked")
+	private void checkFields2() throws ControllerException {
+		try {
+			super.checkFields(
+					new String[]{
+							"resourceOid",
+							"roleOid",
+							"assignee"
+					}, 
+					new String[]{
+							"Please select resource!<BR/>",
+							"Please select role!<BR/>",
+							"Assignee is required!"
+					}, 
+					new Class[]{
+							SelectItemFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class,
+							IdFieldCheckUtils.class //NotBlankFieldCheckUtils.class
 					},
 					this.getFieldsId() );			
 		} catch (InstantiationException e) {
@@ -292,6 +338,30 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 			this.success = IS_YES;
 		}
 		this.message = result.getSystemMessage().getValue();
+	}
+	
+	private void saveRoleAssignee() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields2();
+		SysBpmnResourceRoleVO bpmnResourceRole = new SysBpmnResourceRoleVO();
+		String resourceOid = this.getFields().get("resourceOid");
+		String roleOid = this.getFields().get("roleOid");
+		TbSysBpmnResource resourceObj = this.sysBpmnResourceService.findByPKng(resourceOid);
+		if (null == resourceObj) {
+			throw new ControllerException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+		}
+		TbRole roleObj = this.roleService.findByPKng(roleOid);
+		if (null == roleObj) {
+			throw new ControllerException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+		}
+		this.transformFields2ValueObject(bpmnResourceRole, "assignee");
+		bpmnResourceRole.setId(resourceObj.getId());
+		bpmnResourceRole.setRole(roleObj.getRole());
+		DefaultResult<SysBpmnResourceRoleVO> result = this.sysBpmnResourceRoleService.saveObject(bpmnResourceRole);
+		if (result.getValue() == null) {
+			throw new ServiceException( result.getSystemMessage().getValue() );
+		}
+		this.message = result.getSystemMessage().getValue();
+		this.success = IS_YES;
 	}
 	
 	/**
@@ -496,6 +566,35 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}
+	
+	/**
+	 * core.systemBpmnResourceRoleAssigneeSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0005A")
+	public String doRoleAssigneeSave() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.saveRoleAssignee();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}		
 	
 	@JSON
 	@Override

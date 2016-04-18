@@ -45,7 +45,7 @@ function CORE_PROG003D0005Q_GridButtonClick(itemOid) {
 }
 
 function CORE_PROG003D0005Q_clear() {
-	dijit.byId('CORE_PROG003D0005Q_id').set('value', _gscore_please_select_id);
+	dijit.byId('CORE_PROG003D0005Q_resourceOid').set('value', _gscore_please_select_id);
 	dijit.byId('CORE_PROG003D0005Q_assignee').set('value', '');
 	clearQuery_${programId}_grid();
 }
@@ -112,7 +112,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="50%"  align="left">
     			<b>Resource:</b>
     			<br/>
-    			<gs:select name="CORE_PROG003D0005Q_id" dataSource="resourceMap" id="CORE_PROG003D0005Q_id" width="250px"></gs:select>
+    			<gs:select name="CORE_PROG003D0005Q_resourceOid" dataSource="resourceMap" id="CORE_PROG003D0005Q_resourceOid" width="250px"></gs:select>
     		</td>
     		
     		<td height="50px" width="50%"  align="left">
@@ -130,7 +130,7 @@ function ${programId}_page_message() {
     				parameterType="postData"
     				xhrParameter=" 
     					{ 
-    						'searchValue.parameter.id'			: dijit.byId('CORE_PROG003D0005Q_id').get('value'), 
+    						'searchValue.parameter.resourceOid'	: dijit.byId('CORE_PROG003D0005Q_resourceOid').get('value'), 
     						'searchValue.parameter.assignee'	: dijit.byId('CORE_PROG003D0005Q_assignee').get('value'),
     						'pageOf.size'						: getGridQueryPageOfSize_${programId}_grid(),
     						'pageOf.select'						: getGridQueryPageOfSelect_${programId}_grid(),

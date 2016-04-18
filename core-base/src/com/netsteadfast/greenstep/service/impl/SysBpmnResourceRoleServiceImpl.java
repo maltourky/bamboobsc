@@ -89,10 +89,10 @@ public class SysBpmnResourceRoleServiceImpl extends BaseService<SysBpmnResourceR
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
 		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String id = searchValue.getParameter().get("id");
+		String resourceOid = searchValue.getParameter().get("resourceOid");
 		String assignee = searchValue.getParameter().get("assignee");
-		if (!this.isNoSelectId(id)) {
-			params.put("id", id);
+		if (!this.isNoSelectId(resourceOid)) {
+			params.put("resourceOid", resourceOid);
 		}
 		if (!StringUtils.isBlank(assignee)) {
 			params.put("assignee", "%"+assignee+"%");

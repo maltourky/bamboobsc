@@ -42,10 +42,13 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
+import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysBpmnResourceService;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
 @ControllerAuthority(check=true)
@@ -54,6 +57,7 @@ import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 public class SystemBpmnResourceManagementAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -8874018162071109964L;
 	private ISysBpmnResourceService<SysBpmnResourceVO, TbSysBpmnResource, String> sysBpmnResourceService;
+	private IRoleService<RoleVO, TbRole, String> roleService;
 	private SysBpmnResourceVO bpmnResource = new SysBpmnResourceVO();
 	private List<ProcessDefinition> processDefinitions = new ArrayList<ProcessDefinition>();
 	private List<ProcessInstance> processInstances = new ArrayList<ProcessInstance>();
@@ -63,6 +67,9 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	// CORE_PROG003D0005Q
 	// ------------------------------------------------------------------------------------
 	private Map<String, String> resourceMap = this.providedSelectZeroDataMap( true );
+	
+	// CORE_PROG003D0005A
+	private Map<String, String> roleMap = this.providedSelectZeroDataMap( true );
 	
 	public SystemBpmnResourceManagementAction() {
 		super();
@@ -80,9 +87,23 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 		this.sysBpmnResourceService = sysBpmnResourceService;
 	}	
 	
+	public IRoleService<RoleVO, TbRole, String> getRoleService() {
+		return roleService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.RoleService")		
+	@Required	
+	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
+		this.roleService = roleService;
+	}
+
 	private void initData(String type) throws ServiceException, Exception {
-		if ("roleAssignee".equals(type)) {
+		if ("roleAssignee".equals(type) || "createRoleAssignee".equals(type)) {
 			this.resourceMap = this.sysBpmnResourceService.findForMap(true);
+		}
+		if ("createRoleAssignee".equals(type)) {
+			this.roleMap = this.roleService.findForMap(true, false);
 		}
 	}
 	
@@ -212,7 +233,28 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 		}
 		return SUCCESS;		
 	}
-
+	
+	/**
+	 * core.systemBpmnResourceRoleAssigneeCreateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG003D0005A")	
+	public String createRoleAssignee() throws Exception {
+		try {
+			this.initData("createRoleAssignee");
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return SUCCESS;		
+	}
+	
 	@Override
 	public String getProgramName() {
 		try {
@@ -268,6 +310,14 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 
 	public void setResourceMap(Map<String, String> resourceMap) {
 		this.resourceMap = resourceMap;
+	}
+
+	public Map<String, String> getRoleMap() {
+		return roleMap;
+	}
+
+	public void setRoleMap(Map<String, String> roleMap) {
+		this.roleMap = roleMap;
 	}
 
 }

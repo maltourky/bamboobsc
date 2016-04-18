@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.action.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.model.IActionFieldsCheckUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
@@ -35,6 +36,9 @@ public class IdFieldCheckUtils implements IActionFieldsCheckUtils {
 			return false;
 		}
 		if ( !SimpleUtils.checkBeTrueOf_azAZ09( value.replaceAll("-", "").replaceAll("_", "") ) ) {
+			return false;
+		}
+		if (Constants.HTML_SELECT_NO_SELECT_ID.equals(value)) { // id不能是 all
 			return false;
 		}
 		return true;

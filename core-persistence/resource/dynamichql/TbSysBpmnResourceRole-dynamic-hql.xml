@@ -8,8 +8,8 @@
 		FROM TbSysBpmnResourceRole rr, TbSysBpmnResource r 
 		WHERE rr.id = r.id
 		
-		<#if id??>
-		and rr.id = :id
+		<#if resourceOid??>
+		and r.oid = :resourceOid
 		</#if>
 		
 		<#if assignee??>
@@ -27,8 +27,8 @@
 		FROM TbSysBpmnResourceRole rr, TbSysBpmnResource r 
 		WHERE rr.id = r.id
 		
-		<#if id??>
-		and rr.id = :id
+		<#if resourceOid??>
+		and r.oid = :resourceOid
 		</#if>
 		
 		<#if assignee??>
