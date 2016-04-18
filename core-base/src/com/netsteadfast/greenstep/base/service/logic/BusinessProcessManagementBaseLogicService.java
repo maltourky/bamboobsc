@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.base.service.logic;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +31,13 @@ import org.activiti.engine.task.Task;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.po.hbm.TbUserRole;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.SysBpmnResourceVO;
 
-public abstract class BusinessProcessManagementBaseLogicService extends CoreBaseLogicService implements IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task> {
+public abstract class BusinessProcessManagementBaseLogicService extends CoreBaseLogicService implements IBusinessProcessManagementResourceProvide<SysBpmnResourceVO, Task>, IBusinessProcessManagementResourcePlusProvide {
 	
 	public BusinessProcessManagementBaseLogicService() {
 		super();
@@ -57,6 +60,35 @@ public abstract class BusinessProcessManagementBaseLogicService extends CoreBase
 	public List<Task> queryTask() throws Exception {
 		return BusinessProcessManagementUtils.queryTask( this.getBusinessProcessManagementResourceId() );
 	}		
+	
+	/**
+	 * 提供直接查出這個Task 與 Task變數, 與是否有權限 assigne 這個Task
+	 */
+	public List<BusinessProcessManagementTaskVO> queryTaskPlus() throws ServiceException, Exception {
+		return queryTaskPlus(null, null);
+	}
+	
+	/**
+	 * 提供直接查出這個Task 與 Task變數, 與是否有權限 assigne 這個Task
+	 */
+	public List<BusinessProcessManagementTaskVO> queryTaskPlus(String variableKeyName, String variableKeyValue) throws ServiceException, Exception {
+		List<Task> queryTask = null;
+		if (!super.isBlank(variableKeyValue) && !super.isBlank(variableKeyValue)) {
+			queryTask = this.queryTaskByVariable(variableKeyName, variableKeyValue);
+		} else {
+			queryTask = this.queryTask();
+		}
+		List<BusinessProcessManagementTaskVO> tasks = new LinkedList<BusinessProcessManagementTaskVO>();
+		for (int i=0; queryTask!=null && i<queryTask.size(); i++) {
+			Task task = queryTask.get(i);
+			BusinessProcessManagementTaskVO bpmTaskObj = new BusinessProcessManagementTaskVO(
+					task,
+					( isAllowTaskAssignee(task.getAssignee()) ? YesNo.YES : YesNo.NO ),
+					BusinessProcessManagementUtils.getTaskVariables(task));
+			tasks.add(bpmTaskObj);
+		}
+		return tasks;
+	}
 	
 	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception {
 		return this.isAllowTaskAssignee(super.getAccountId(), taskAssignee);

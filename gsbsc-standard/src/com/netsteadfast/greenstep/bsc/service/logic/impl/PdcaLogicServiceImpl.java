@@ -28,7 +28,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.task.Task;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -74,6 +73,7 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
@@ -337,7 +337,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		if (this.pdcaService.countByParams(paramMap)>0) {
 			throw new ServiceException("The project has child project, cannot delete!");
 		}
-		List<Task> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
 		if (tasks!=null && tasks.size()>0) {
 			throw new ServiceException("Audit process running, project cannot delete!");
 		}		
@@ -368,7 +368,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		if (YesNo.YES.equals(pdca.getConfirmFlag())) {
 			throw new ServiceException("The project is confirm, cannot start audit process!");
 		}
-		List<Task> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
 		if (tasks!=null && tasks.size()>0) {
 			throw new ServiceException("Audit process has been started!");
 		}
@@ -380,8 +380,8 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
-	public List<Task> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception {		
-		return this.queryTaskByVariable("pdcaOid", pdcaOid);
+	public List<BusinessProcessManagementTaskVO> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception {		
+		return this.queryTaskPlus("pdcaOid", pdcaOid);
 	}	
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {

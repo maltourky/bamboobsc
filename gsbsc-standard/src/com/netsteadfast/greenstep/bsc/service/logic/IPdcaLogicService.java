@@ -23,10 +23,9 @@ package com.netsteadfast.greenstep.bsc.service.logic;
 
 import java.util.List;
 
-import org.activiti.engine.task.Task;
-
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
 import com.netsteadfast.greenstep.vo.PdcaVO;
@@ -43,6 +42,6 @@ public interface IPdcaLogicService {
 	
 	public DefaultResult<PdcaVO> startProcess(PdcaVO pdca) throws ServiceException, Exception;
 	
-	public List<Task> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception;
+	public List<BusinessProcessManagementTaskVO> queryTaskByVariablePdcaOid(String pdcaOid) throws ServiceException, Exception;
 	
 }
