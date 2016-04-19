@@ -57,20 +57,20 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 }
 
 .lighter {
-    background: #498bf5;
+    background: #1e88e5;
     color: #ffffff;
-    border: 1px solid #498bf5;
+    border: 1px solid #166fbd;
     font-weight: bold;
 }
 
 .flatSelect {
     margin: 0px;
     border: 1px solid #111;
-    background: url(./images/br_down.png) 96% no-repeat #498bf5;
+    background: url(./images/br_down.png) 96% no-repeat #1e88e5;
     width: 250px;   
     color: #ffffff; 
     font-size: 16px;
-    border: 1px solid #ccc;    
+    border: 1px solid #166fbd;    
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

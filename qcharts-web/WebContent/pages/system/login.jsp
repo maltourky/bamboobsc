@@ -65,9 +65,9 @@ select {
 }
 
 .lighter {
-    background: #498bf5;
+    background: #1e88e5;
     color: #ffffff;
-    border: 1px solid #498bf5;
+    border: 1px solid #166fbd;
     font-weight: bold;
 }
 
