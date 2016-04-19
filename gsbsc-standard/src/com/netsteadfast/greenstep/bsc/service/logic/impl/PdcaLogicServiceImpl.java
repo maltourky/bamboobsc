@@ -21,7 +21,9 @@
  */
 package com.netsteadfast.greenstep.bsc.service.logic.impl;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -305,7 +307,8 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
 		pdca.setConfirmFlag(YesNo.NO);
 		this.replaceSplit2Blank(pdca, "startDate", "/");
-		this.replaceSplit2Blank(pdca, "endDate", "/");		
+		this.replaceSplit2Blank(pdca, "endDate", "/");
+		pdca.setParentOid( oldResult.getValue().getParentOid() );
 		DefaultResult<PdcaVO> result = this.pdcaService.updateObject(pdca);
 		pdca = result.getValue();
 		this.deleteMeasureFreq(pdca);
@@ -427,6 +430,9 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		Map<String, Object> flowDataMap = this.getProcessFlowParam(pdcaOid, type, newDate, super.getAccountId(), confirm, reason, newChild);
 		this.completeTask(taskId, flowDataMap);
 		this.createAudit(pdca, flowDataMap);
+		
+		tasks = this.queryTaskByVariablePdcaOid(pdca.getOid()); // 重新查是否還有task
+		
 		if (null != tasks && tasks.size()>0) { 
 			return;
 		}
@@ -437,7 +443,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			pdca.setConfirmFlag(YesNo.YES);
 			this.pdcaService.updateObject(pdca);
 		}
-		if (YesNo.YES.equals(newChild)) {
+		if (YesNo.YES.equals(confirm) && YesNo.YES.equals(newChild)) {
 			this.cloneNewProject(pdca);
 		}
 		
@@ -656,7 +662,122 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		this.pdcaAuditService.saveObject(audit);
 	}
 	
-	private void cloneNewProject(PdcaVO pdca) throws ServiceException, Exception {
+	private void cloneNewProject(PdcaVO parentPdca) throws ServiceException, Exception {
+		
+		// 1. PDCA main
+		PdcaVO pdca = new PdcaVO();
+		this.pdcaService.copyProperties(parentPdca, pdca);
+		pdca.setOid( null );
+		pdca.setConfirmDate( null );
+		pdca.setConfirmEmpId( null );
+		pdca.setConfirmFlag( YesNo.NO );
+		pdca.setParentOid(parentPdca.getOid());
+		String lastTitle = "-(New)";
+		if ((pdca.getTitle()+lastTitle).length()<=100) {
+			pdca.setTitle( pdca.getTitle() + lastTitle );
+		} else {
+			pdca.setTitle( pdca.getTitle().substring( pdca.getTitle().length() - lastTitle.length(), 100 ) + lastTitle );
+		}
+		
+		// 2. PDCA measure-freq
+		PdcaMeasureFreqVO measureFreq = new PdcaMeasureFreqVO();
+		measureFreq.setPdcaOid(parentPdca.getOid());
+		DefaultResult<PdcaMeasureFreqVO> mfResult = this.pdcaMeasureFreqService.findByUK(measureFreq);
+		if (mfResult.getValue() == null) {
+			throw new ServiceException( mfResult.getSystemMessage().getValue() );
+		}
+		measureFreq = mfResult.getValue();
+		measureFreq.setOid( null );
+		measureFreq.setPdcaOid( null );
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", parentPdca.getOid());
+		
+		// 3. organizationOids
+		List<String> organizationOids = new ArrayList<String>();
+		List<BbPdcaOrga> pdcaOrgaList = this.pdcaOrgaService.findListByParams(paramMap);
+		for (BbPdcaOrga pdcaOrga : pdcaOrgaList) {
+			OrganizationVO organization = this.findOrganizationDataByUK(pdcaOrga.getOrgId());
+			organizationOids.add(organization.getOid());
+		}
+		
+		// 4. employeeOids
+		List<String> employeeOids = new ArrayList<String>();
+		List<BbPdcaOwner> pdcaOwnerList = this.pdcaOwnerService.findListByParams(paramMap);
+		for (BbPdcaOwner pdcaOwner : pdcaOwnerList) {
+			EmployeeVO employee = this.findEmployeeDataByEmpId(pdcaOwner.getEmpId());
+			employeeOids.add(employee.getOid());
+		}
+		
+		// 5. kpiOids
+		List<String> kpiOids = new ArrayList<String>();
+		List<BbPdcaKpis> pdcaKpisList = this.pdcaKpisService.findListByParams(paramMap);
+		for (BbPdcaKpis pdcaKpi : pdcaKpisList) {
+			KpiVO kpi = new KpiVO();
+			kpi.setId( pdcaKpi.getKpiId() );
+			DefaultResult<KpiVO> kResult = this.kpiService.findByUK(kpi);
+			if (kResult.getValue() == null) {
+				throw new ServiceException( kResult.getSystemMessage().getValue() );
+			}
+			kpi = kResult.getValue();
+			kpiOids.add( kpi.getOid() );
+		}
+		
+		// 6. attachment
+		List<String> attachment = new ArrayList<String>();
+		List<BbPdcaDoc> pdcaDocList = this.pdcaDocService.findListByParams(paramMap);
+		for (BbPdcaDoc pdcaDoc : pdcaDocList) {
+			DefaultResult<SysUploadVO> upResult = this.getSysUploadService().findForNoByteContent( pdcaDoc.getUploadOid() );
+			if (upResult.getValue() == null) {
+				throw new ServiceException( upResult.getSystemMessage().getValue() );
+			}
+			SysUploadVO upload = upResult.getValue();
+			File oldFile = UploadSupportUtils.getRealFile(pdcaDoc.getUploadOid());
+			attachment.add( UploadSupportUtils.create(Constants.getSystem(), UploadTypes.IS_TEMP, true, oldFile, upload.getShowName()) );
+		}
+		
+		// 7. items - PdcaItemVO
+		List<PdcaItemVO> items = new ArrayList<PdcaItemVO>();
+		List<BbPdcaItem> pdcaItems = this.pdcaItemService.findListByParams(paramMap);
+		for (BbPdcaItem pdcaItem : pdcaItems) {
+			PdcaItemVO itemObj = new PdcaItemVO();
+			this.pdcaItemService.doMapper(pdcaItem, itemObj, IPdcaItemService.MAPPER_ID_PO2VO);
+			items.add(itemObj);
+		}
+		
+		// 8. item - owner
+		for (PdcaItemVO itemObj : items) {
+			itemObj.setEmployeeOids( new ArrayList<String>() );
+			paramMap.put("itemOid", itemObj.getOid());
+			List<BbPdcaItemOwner> itemOwnerList = this.pdcaItemOwnerService.findListByParams(paramMap);
+			for (BbPdcaItemOwner itemOwner : itemOwnerList) {
+				itemObj.getEmployeeOids().add( this.findEmployeeDataByEmpId(itemOwner.getEmpId()).getOid() );
+			}
+		}
+		
+		// 9. item - attachment
+		for (PdcaItemVO itemObj : items) {
+			itemObj.setUploadOids( new ArrayList<String>() );
+			paramMap.put("itemOid", itemObj.getOid());
+			List<BbPdcaItemDoc> itemDocList = this.pdcaItemDocService.findListByParams(paramMap);
+			for (BbPdcaItemDoc itemDoc : itemDocList) {
+				DefaultResult<SysUploadVO> upResult = this.getSysUploadService().findForNoByteContent( itemDoc.getUploadOid() );
+				if (upResult.getValue() == null) {
+					throw new ServiceException( upResult.getSystemMessage().getValue() );
+				}
+				SysUploadVO upload = upResult.getValue();
+				File oldFile = UploadSupportUtils.getRealFile(itemDoc.getUploadOid());
+				itemObj.getUploadOids().add( UploadSupportUtils.create(Constants.getSystem(), UploadTypes.IS_TEMP, true, oldFile, upload.getShowName()) );
+			}
+		}
+		
+		// clear item old OID, PDCA_OID
+		for (PdcaItemVO itemObj : items) {
+			itemObj.setOid( null );
+			itemObj.setPdcaOid( null );			
+		}
+		
+		this.create(pdca, measureFreq, organizationOids, employeeOids, kpiOids, attachment, items);
 		
 	}
 	

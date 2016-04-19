@@ -31,4 +31,12 @@ public interface IBscBaseLogicServiceCommonProvide {
 	
 	public EmployeeVO findEmployeeData(String oid) throws ServiceException, Exception;
 	
+	public OrganizationVO findOrganizationDataByUK(String orgId) throws ServiceException, Exception;
+	
+	public EmployeeVO findEmployeeDataByUK(String accountId, String empId) throws ServiceException, Exception;
+	
+	public EmployeeVO findEmployeeDataByAccountId(String accountId) throws ServiceException, Exception;
+	
+	public EmployeeVO findEmployeeDataByEmpId(String empId) throws ServiceException, Exception;
+	
 }

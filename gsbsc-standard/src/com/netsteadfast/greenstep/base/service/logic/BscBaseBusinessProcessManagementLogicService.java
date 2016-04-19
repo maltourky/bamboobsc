@@ -72,5 +72,21 @@ public abstract class BscBaseBusinessProcessManagementLogicService extends Busin
 	public EmployeeVO findEmployeeData(String oid) throws ServiceException, Exception {
 		return BscBaseLogicServiceCommonSupport.findEmployeeData(employeeService, oid);
 	}	
+	
+	public OrganizationVO findOrganizationDataByUK(String orgId) throws ServiceException, Exception {
+		return BscBaseLogicServiceCommonSupport.findOrganizationDataByUK(organizationService, orgId);
+	}
+	
+	public EmployeeVO findEmployeeDataByUK(String accountId, String empId) throws ServiceException, Exception {
+		return BscBaseLogicServiceCommonSupport.findEmployeeDataByUK(employeeService, accountId, empId);
+	}
+	
+	public EmployeeVO findEmployeeDataByAccountId(String accountId) throws ServiceException, Exception {
+		return BscBaseLogicServiceCommonSupport.findEmployeeDataByAccountId(employeeService, accountId);
+	}
+	
+	public EmployeeVO findEmployeeDataByEmpId(String empId) throws ServiceException, Exception {
+		return BscBaseLogicServiceCommonSupport.findEmployeeDataByEmpId(employeeService, empId);
+	}
 
 }

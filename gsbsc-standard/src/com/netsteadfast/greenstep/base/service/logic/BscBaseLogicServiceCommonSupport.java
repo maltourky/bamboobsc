@@ -21,6 +21,10 @@
  */
 package com.netsteadfast.greenstep.base.service.logic;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.netsteadfast.greenstep.base.SysMessageUtil;
@@ -62,6 +66,61 @@ public class BscBaseLogicServiceCommonSupport {
 		}
 		employee = empResult.getValue();
 		return employee;		
+	}
+	
+	public static OrganizationVO findOrganizationDataByUK(IOrganizationService<OrganizationVO, BbOrganization, String> service, String orgId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(orgId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}			
+		OrganizationVO organization = new OrganizationVO();
+		organization.setOrgId(orgId);
+		DefaultResult<OrganizationVO> orgResult = service.findByUK(organization);
+		if (orgResult.getValue() == null) {
+			throw new ServiceException( orgResult.getSystemMessage().getValue() );
+		}
+		organization = orgResult.getValue();
+		return organization;				
+	}
+
+	public static EmployeeVO findEmployeeDataByUK(IEmployeeService<EmployeeVO, BbEmployee, String> service, String accountId, String empId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(accountId) || StringUtils.isBlank(empId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}	
+		EmployeeVO employee = new EmployeeVO();
+		employee.setAccount(accountId);
+		employee.setEmpId(empId);
+		DefaultResult<EmployeeVO> empResult = service.findByUK(employee);
+		if (empResult.getValue() == null) {
+			throw new ServiceException(empResult.getSystemMessage().getValue());
+		}
+		employee = empResult.getValue();
+		return employee;		
+	}		
+	
+	public static EmployeeVO findEmployeeDataByAccountId(IEmployeeService<EmployeeVO, BbEmployee, String> service, String accountId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(accountId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		BbEmployee poEmployee = service.findByAccountId(accountId);
+		EmployeeVO employeeObj = new EmployeeVO();
+		service.doMapper(poEmployee, employeeObj, IEmployeeService.MAPPER_ID_PO2VO);
+		return employeeObj;
+	}	
+	
+	public static EmployeeVO findEmployeeDataByEmpId(IEmployeeService<EmployeeVO, BbEmployee, String> service, String empId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(empId)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("empId", empId);
+		List<EmployeeVO> employeeList = service.findListVOByParams(paramMap);
+		if (employeeList == null || employeeList.size() < 1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+		}
+		if (employeeList.size() != 1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		return employeeList.get(0);
 	}
 
 }
