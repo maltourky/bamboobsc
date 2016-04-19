@@ -429,7 +429,9 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		}
 		Map<String, Object> flowDataMap = this.getProcessFlowParam(pdcaOid, type, newDate, super.getAccountId(), confirm, reason, newChild);
 		this.completeTask(taskId, flowDataMap);
-		this.createAudit(pdca, flowDataMap);
+		if (YesNo.YES.equals(confirm)) { // 只有 confirm == Y 的, 才要寫入 bb_pdca_audit , 報表顯示時要用到
+			this.createAudit(pdca, flowDataMap);
+		}
 		
 		tasks = this.queryTaskByVariablePdcaOid(pdca.getOid()); // 重新查是否還有task
 		
