@@ -753,8 +753,22 @@ function ${programId}_page_message() {
 							</s:if>
 						}
 					"
-    				class="alt-warning">Confirm audit</button> 
-    				
+    				class="alt-primary">Confirm audit</button>
+				<s:if test=" bpmTaskObj != null && bpmTaskObj.variables != null ">
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_openConfirmDialog'">
+					<b>Type:</b>&nbsp;${bpmTaskObj.variables.pdcaType}
+					<br/>
+					<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}
+					<br/>
+					<b>Audit:</b>&nbsp;${bpmTaskObj.variables.cuserid}
+					<br/>
+					<b>Date:</b>&nbsp;${bpmTaskObj.variables.dateDisplayValue}
+					<br/>
+					<b>Reason:</b><br/>
+					<s:property value="bpmTaskObj.variables.reason" />
+				</div>
+				</s:if>
+				
 				<button name="BSC_PROG006D0001E_loadDiagram" id="BSC_PROG006D0001E_loadDiagram" data-dojo-type="dijit.form.Button"
 					<s:if test=" bpmTaskObj == null "> disabled="disabled" </s:if>
 					data-dojo-props="

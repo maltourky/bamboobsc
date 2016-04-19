@@ -35,5 +35,13 @@ public class PdcaAuditDAOImpl extends BaseDAO<BbPdcaAudit, String> implements IP
 	public PdcaAuditDAOImpl() {
 		super();
 	}
+
+	@Override
+	public Integer findForMaxConfirmSeq(String pdcaOid) throws Exception {
+		return (Integer)this.getCurrentSession()
+				.createQuery("SELECT max(m.confirmSeq) FROM BbPdcaAudit m WHERE m.pdcaOid = :pdcaOid")
+				.setString("pdcaOid", pdcaOid)
+				.uniqueResult();
+	}
 	
 }

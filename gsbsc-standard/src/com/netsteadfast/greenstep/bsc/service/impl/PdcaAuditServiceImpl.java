@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.bsc.service.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -31,7 +32,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.service.BaseService;
 import com.netsteadfast.greenstep.bsc.dao.IPdcaAuditDAO;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
@@ -74,6 +78,18 @@ public class PdcaAuditServiceImpl extends BaseService<PdcaAuditVO, BbPdcaAudit, 
 	@Override
 	public String getMapperIdVo2Po() {
 		return MAPPER_ID_VO2PO;
+	}
+
+	@Override
+	public int findForMaxConfirmSeq(String pdcaOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		Integer maxSeq = this.pdcaAuditDAO.findForMaxConfirmSeq(pdcaOid);
+		if (maxSeq == null) {
+			maxSeq = 0;
+		}
+		return maxSeq;
 	}
 
 }

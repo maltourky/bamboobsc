@@ -374,7 +374,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			throw new ServiceException("Audit process has been started!");
 		}
 		String reason = "Start PDCA audit process, " + pdca.getTitle() + "";
-		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
+		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "P", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
 		result.setSystemMessage( new SystemMessage(reason) );
 		return result;
 	}	
@@ -400,6 +400,48 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		}		
 		return BusinessProcessManagementUtils.getTaskDiagramById2Upload(this.getBusinessProcessManagementResourceId(), taskId);
 	}	
+
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )
+	@Override
+	public void confirmTask(String pdcaOid, String taskId, String confirm, String reason, String newChild) throws ServiceException, Exception {
+		if (super.isBlank(pdcaOid) || super.isBlank(taskId) || super.isBlank(confirm)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		PdcaVO pdca = new PdcaVO();
+		pdca.setOid(pdcaOid);
+		DefaultResult<PdcaVO> result = this.pdcaService.findObjectByOid(pdca);
+		if (result.getValue() == null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		pdca = result.getValue();
+		String newDate = SimpleUtils.getStrYMD("");
+		String type = "E";
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
+		if (tasks!=null && tasks.size()>0) {
+			type = tasks.get(0).getTask().getName().substring(0, 1);
+		}
+		Map<String, Object> flowDataMap = this.getProcessFlowParam(pdcaOid, type, newDate, super.getAccountId(), confirm, reason, newChild);
+		this.completeTask(taskId, flowDataMap);
+		this.createAudit(pdca, flowDataMap);
+		if (null != tasks && tasks.size()>0) { 
+			return;
+		}
+		
+		if (YesNo.YES.equals(confirm)) {
+			pdca.setConfirmDate(newDate);
+			pdca.setConfirmEmpId(super.getAccountId());
+			pdca.setConfirmFlag(YesNo.YES);
+			this.pdcaService.updateObject(pdca);
+		}
+		if (YesNo.YES.equals(newChild)) {
+			this.cloneNewProject(pdca);
+		}
+		
+	}
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -602,6 +644,20 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			}
 			UploadSupportUtils.updateType(oid, UploadTypes.IS_PDCA_DOCUMENT);
 		}		
+	}
+	
+	private void createAudit(PdcaVO pdca, Map<String, Object> flowDataMap) throws ServiceException, Exception {
+		PdcaAuditVO audit = new PdcaAuditVO();
+		audit.setPdcaOid(pdca.getOid());
+		audit.setEmpId( this.getEmployeeService().findByAccountId( (String)flowDataMap.get("cuserid") ).getEmpId() );
+		audit.setType( (String)flowDataMap.get("pdcaType") );
+		audit.setConfirmDate( (String)flowDataMap.get("date") );
+		audit.setConfirmSeq( (this.pdcaAuditService.findForMaxConfirmSeq(pdca.getOid())+1) );
+		this.pdcaAuditService.saveObject(audit);
+	}
+	
+	private void cloneNewProject(PdcaVO pdca) throws ServiceException, Exception {
+		
 	}
 	
 }

@@ -26,4 +26,6 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
 
 public interface IPdcaAuditDAO<T extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseDAO<BbPdcaAudit, String> {
 	
+	public Integer findForMaxConfirmSeq(String pdcaOid) throws Exception;
+	
 }

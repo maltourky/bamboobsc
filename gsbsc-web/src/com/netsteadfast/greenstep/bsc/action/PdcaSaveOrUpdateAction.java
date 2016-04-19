@@ -45,6 +45,7 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.DateDisplayFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
@@ -474,6 +475,22 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 	}
 	
+	private void confirmAuditTask() throws ControllerException, AuthorityException, ServiceException, Exception {
+		String pdcaOid = StringUtils.defaultString( this.getFields().get("pdcaOid") );
+		String taskId = StringUtils.defaultString( this.getFields().get("taskId") );
+		String reason = StringUtils.defaultString( this.getFields().get("reason") );
+		String confirm = StringUtils.defaultString( this.getFields().get("confirm") );
+		String newChild = StringUtils.defaultString( this.getFields().get("newChild") );
+		if ("true".equals(newChild)) {
+			newChild = YesNo.YES;
+		} else {
+			newChild = YesNo.NO;
+		}
+		this.pdcaLogicService.confirmTask(pdcaOid, taskId, confirm, reason, newChild);
+		this.success = IS_YES;
+		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);
+	}	
+	
 	/**
 	 * bsc.pdcaSaveAction.action
 	 * 
@@ -622,6 +639,35 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;	
 	}	
+	
+	/**
+	 * bsc.pdcaConfirmSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="BSC_PROG006D0001E_S00")
+	public String doConfirmAuditTask() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.confirmAuditTask();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;	
+	}
 
 	@JSON
 	@Override

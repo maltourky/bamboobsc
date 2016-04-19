@@ -16,7 +16,7 @@ import com.netsteadfast.greenstep.base.model.EntityUK;
 @Table(
 		name="bb_pdca_audit", 
 		uniqueConstraints = { 
-				@UniqueConstraint( columnNames = {"PDCA_OID", "TYPE", "CONFIRM_SEQ"} ) 
+				@UniqueConstraint( columnNames = {"PDCA_OID", "CONFIRM_SEQ"} ) 
 		} 
 )
 public class BbPdcaAudit extends BaseEntity<String> implements java.io.Serializable {
@@ -54,7 +54,6 @@ public class BbPdcaAudit extends BaseEntity<String> implements java.io.Serializa
 		this.pdcaOid = pdcaOid;
 	}
 	
-	@EntityUK(name="type")
 	@Column(name="TYPE")	
 	public String getType() {
 		return type;
@@ -64,7 +63,6 @@ public class BbPdcaAudit extends BaseEntity<String> implements java.io.Serializa
 		this.type = type;
 	}
 	
-	@EntityUK(name="empId")
 	@Column(name="EMP_ID")	
 	public String getEmpId() {
 		return empId;
@@ -83,6 +81,7 @@ public class BbPdcaAudit extends BaseEntity<String> implements java.io.Serializa
 		this.confirmDate = confirmDate;
 	}
 	
+	@EntityUK(name="confirmSeq")
 	@Column(name="CONFIRM_SEQ")
 	public int getConfirmSeq() {
 		return confirmSeq;

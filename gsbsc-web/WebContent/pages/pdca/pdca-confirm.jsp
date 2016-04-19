@@ -28,6 +28,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 
+function BSC_PROG006D0001E_S00_saveSuccess(data) {
+	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
+	if ('Y' != data.success) {
+		return;
+	}
+	BSC_PROG006D0001E_TabRefresh(); // PDCA修改頁面刷新
+	${programId}_DlgHide(); // 隱藏這個dlg
+}
+
+function BSC_PROG006D0001E_S00_clear() {
+	dijit.byId('BSC_PROG006D0001E_S00_confirm').set("value", "Y");
+	dijit.byId('BSC_PROG006D0001E_S00_reason').set("value", "");
+	dijit.byId('BSC_PROG006D0001E_S00_newChild').set("checked", false);
+}
+
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
 	if (null!=pageMessage && ''!=pageMessage && ' '!=pageMessage) {
@@ -54,24 +69,58 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	7777777_test
+	<table border="0" width="100%" bgcolor="#ffffff">
+		<tr>
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><b>Confirm:</b>
+    			<br/>
+    			<gs:select name="BSC_PROG006D0001E_S00_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG006D0001E_S00_confirm" value="Y"></gs:select>  			
+    		</td>   
+		</tr>
+		<tr>
+		    <td height="150px" width="100%" align="left">
+		    	<b>Reason:</b>
+		    	<br/>
+		    	<textarea id="BSC_PROG006D0001E_S00_reason" name="BSC_PROG006D0001E_S00_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:90px;max-height:100px">Please allow: ${bpmTaskObj.task.name}</textarea>	    	
+		    </td>
+		</tr>
+		<tr>
+    		<td height="50px" width="100%"  align="left" colspan="2">
+    			<b>New project ( The PDCA project is completed, no need next PDCA ) :</b>
+    			<br/>
+    			<input id="BSC_PROG006D0001E_S00_newChild" name="BSC_PROG006D0001E_S00_newChild" data-dojo-type="dijit/form/CheckBox" value="false" <s:if test=" \"A\" != bpmTaskObj.task.name.substring(0, 1) "> disabled="disabled" </s:if> />
+    		</td>
+    	</tr>
+    	<tr>
+    		<td height="50px" width="100%"  align="left">
+    			<gs:button name="BSC_PROG006D0001E_S00_save" id="BSC_PROG006D0001E_S00_save" onClick="BSC_PROG006D0001E_S00_save();"
+    				handleAs="json"
+    				sync="N"
+    				xhrUrl="${basePath}/bsc.pdcaConfirmSaveAction.action"
+    				parameterType="postData"
+    				xhrParameter=" 
+    					{     						
+    						'fields.pdcaOid'		: '${pdca.oid}',
+    						'fields.taskId'			: '${fields.taskId}',
+    						'fields.reason'			: dijit.byId('BSC_PROG006D0001E_S00_reason').get('value'),
+    						'fields.confirm'		: dijit.byId('BSC_PROG006D0001E_S00_confirm').get('value'),
+    						'fields.newChild'		: ( dijit.byId('BSC_PROG006D0001E_S00_newChild').checked ? 'true' : 'false' )
+    					} 
+    				"
+    				errorFn=""
+    				loadFn="BSC_PROG006D0001E_S00_saveSuccess(data);" 
+    				programId="${programId}"
+    				label="Save" 
+    				iconClass="dijitIconSave"
+    				cssClass="alt-primary"></gs:button>    			
+    			<gs:button name="BSC_PROG006D0001E_S00_clear" id="BSC_PROG006D0001E_S00_clear" onClick="BSC_PROG006D0001E_S00_clear();" 
+    				label="Clear" 
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>       		
+    		</td>
+    	</tr>				
+	</table>		
 	
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
 	
 <script type="text/javascript">${programId}_page_message();</script>
 </body>

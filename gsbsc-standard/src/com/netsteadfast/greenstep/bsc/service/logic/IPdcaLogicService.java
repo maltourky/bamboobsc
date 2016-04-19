@@ -46,4 +46,6 @@ public interface IPdcaLogicService {
 	
 	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
 	
+	public void confirmTask(String pdcaOid, String taskId, String confirm, String reason, String newChild) throws ServiceException, Exception;
+	
 }

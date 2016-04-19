@@ -67,6 +67,7 @@ import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.TbSysUpload;
 import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiVO;
@@ -394,8 +395,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 	
 	// PDCA main
 	private void loadPdcaDataSimple(String fieldName) throws ServiceException, Exception {
-		
-		this.transformFields2ValueObject(this.pdca, fieldName);
+		this.transformFields2ValueObject( this.pdca, new String[]{"oid"}, new String[]{fieldName} );
 		DefaultResult<PdcaVO> pdcaResult = this.pdcaService.findObjectByOid(pdca);
 		if (pdcaResult.getValue() == null) {
 			throw new ServiceException(pdcaResult.getSystemMessage().getValue());
@@ -411,6 +411,8 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 			return;
 		}
 		this.bpmTaskObj = tasks.get(0);	
+		String date = this.bpmTaskObj.getVariableValueAsString( "date" );
+		this.bpmTaskObj.getVariables().put("dateDisplayValue", SimpleUtils.getStrYMD(date, "/"));
 		
 	}
 	
