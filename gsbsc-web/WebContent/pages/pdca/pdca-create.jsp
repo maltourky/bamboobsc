@@ -380,8 +380,8 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	var idHead = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + id;
 	
 	var str = '';
-	str += '<b>' + node.title + '</b><br/>';
-	str += node.startDate + ' - ' + node.endDate + '<br/>';
+	str += '<div class="isa_success"><b>' + node.title + '</b></div>';
+	str += '<b>Date range:</b>&nbsp;' + node.startDate + ' - ' + node.endDate + '<br/>';
 	if (node.description.trim() != '') {
 		str += node.description + '<br/>';
 	}

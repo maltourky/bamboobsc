@@ -60,7 +60,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     background: #1e88e5;
     color: #ffffff;
     border: 1px solid #166fbd;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .flatSelect {
@@ -69,7 +69,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     background: url(./images/br_down.png) 96% no-repeat #1e88e5;
     width: 250px;   
     color: #ffffff; 
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid #166fbd;    
     -webkit-appearance: none;
     -moz-appearance: none;

@@ -67,7 +67,7 @@ body, html {
     background: #1e88e5;
     color: #ffffff;
     border: 1px solid #166fbd;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 <s:if test=" \"Y\" == cbMode ">

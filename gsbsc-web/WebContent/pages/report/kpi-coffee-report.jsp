@@ -51,7 +51,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     background: #1e88e5;
     color: #ffffff;
     border: 1px solid #166fbd;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 body {
@@ -261,7 +261,7 @@ function displayInfo(d) {
 	var content = '';
 	content+='<table border=\"0\" cellpadding=\"1\" cellspacing=\"1\" width=\"100%\" bgcolor="#ffffff" >';
 	content+='<tr>';
-	content+='<td bgcolor="#f1eee5" width=\"100%\" align=\"center\" colspan=\"2\" ><font color="#394045"><b>Performance coffee chart</b>&nbsp;&nbsp;<input type="button" onclick="exportCoffeeChartsAsPNG();" value="Export image" class="flat lighter"/></font></td>';
+	content+='<td bgcolor="#ffffff" width=\"100%\" align=\"center\" colspan=\"2\" ><input type="button" onclick="exportCoffeeChartsAsPNG();" value="Performance coffee chart - Export image" class="flat lighter"/></font></td>';
 	content+='</tr>';	
 	if (d!=null) {
 		content+='<tr>';
