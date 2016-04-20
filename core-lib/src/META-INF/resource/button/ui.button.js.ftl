@@ -1,6 +1,17 @@
 <script type="text/javascript">
 
 function ${onClick} {
+
+<#if confirmDialogMode == 'Y' >
+	confirmDialog(
+			"${id}_dialog", 
+			<#if confirmDialogTitle != "" > "${confirmDialogTitle}" <#else> _getApplicationProgramNameById('${programId}') </#if>, 
+			"${confirmDialogMsg}", 
+			function(success) {
+				if (!success) {
+					return;
+				}
+</#if>
 	
 <#if parameterType == 'postData' >
 	var queryParameters=${xhrParameter};
@@ -35,6 +46,12 @@ function ${onClick} {
 				alert(error);
 				${errorFn}
 			}
+	);
+</#if>
+
+<#if confirmDialogMode == 'Y' >
+			}, 
+			(window.event ? window.event : null) 
 	);
 </#if>
 

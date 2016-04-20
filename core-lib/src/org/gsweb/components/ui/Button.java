@@ -30,6 +30,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.gsweb.components.util.ComponentResourceUtils;
 import org.gsweb.components.util.UIComponent;
 
+import com.netsteadfast.greenstep.base.model.YesNo;
+
 public class Button implements UIComponent {
 	private PageContext pageContext = null;
 	private String id="";
@@ -49,12 +51,17 @@ public class Button implements UIComponent {
 	private String errorFn = "";
 	private String parameterType = "postData";  // form 或 postData
 	private String programId = "Message"; // 提供給 alertDialog 呼叫 _getApplicationProgramNameById(progId) 取程式名稱用
+	private String confirmDialogMode = YesNo.NO;
+	private String confirmDialogTitle = "";
+	private String confirmDialogMsg = "";
 	private StringBuilder script=new StringBuilder();
 	private StringBuilder htmlOut=new StringBuilder();	
 	
 	private Map<String, Object> getParameters(String type) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		if (IS_SCRIPT.equals(type)) { // javascript
+			params.put("id", this.id);
+			params.put("name", this.name);
 			params.put("onClick", ComponentResourceUtils.getScriptFunctionNameForXhrMain(this.onClick) );
 			params.put("xhrUrl", this.xhrUrl);
 			params.put("xhrParameter", this.xhrParameter);
@@ -71,7 +78,10 @@ public class Button implements UIComponent {
 			}
 			if (!StringUtils.isBlank(this.errorFn) && !this.errorFn.endsWith(";")) {
 				params.put("errorFn", this.errorFn+";");
-			}						
+			}
+			params.put("confirmDialogMode", confirmDialogMode);
+			params.put("confirmDialogTitle", StringUtils.defaultString(confirmDialogTitle).trim());
+			params.put("confirmDialogMsg", confirmDialogMsg);
 		} else { // html
 			params.put("id", this.id);
 			params.put("name", this.name);
@@ -279,4 +289,28 @@ public class Button implements UIComponent {
 		this.programId = programId;
 	}
 
+	public String getConfirmDialogMode() {
+		return confirmDialogMode;
+	}
+
+	public void setConfirmDialogMode(String confirmDialogMode) {
+		this.confirmDialogMode = confirmDialogMode;
+	}
+
+	public String getConfirmDialogTitle() {
+		return confirmDialogTitle;
+	}
+
+	public void setConfirmDialogTitle(String confirmDialogTitle) {
+		this.confirmDialogTitle = confirmDialogTitle;
+	}
+
+	public String getConfirmDialogMsg() {
+		return confirmDialogMsg;
+	}
+
+	public void setConfirmDialogMsg(String confirmDialogMsg) {
+		this.confirmDialogMsg = confirmDialogMsg;
+	}
+	
 }

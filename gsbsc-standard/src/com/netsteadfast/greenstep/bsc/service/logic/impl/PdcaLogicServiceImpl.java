@@ -377,7 +377,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			throw new ServiceException("Audit process has been started!");
 		}
 		String reason = "Start PDCA audit process, " + pdca.getTitle() + "";
-		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "P", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
+		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "*", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
 		result.setSystemMessage( new SystemMessage(reason) );
 		return result;
 	}	

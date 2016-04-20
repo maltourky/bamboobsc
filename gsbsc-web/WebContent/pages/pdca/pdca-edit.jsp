@@ -56,35 +56,11 @@ function BSC_PROG006D0001E_clear() {
 	BSC_PROG006D0001E_TabRefresh();
 }
 
-function BSC_PROG006D0001E_startProcess() {
-	confirmDialog(
-			"${programId}_managementDialogId000", 
-			_getApplicationProgramNameById('${programId}'), 
-			"Start process?", 
-			function(success) {
-				if (!success) {
-					return;
-				}	
-				xhrSendParameter(
-						'${basePath}/bsc.pdcaStartProcessAction.action', 
-						{ 'fields.oid' : '${pdca.oid}' }, 
-						'json', 
-						_gscore_dojo_ajax_timeout,
-						_gscore_dojo_ajax_sync, 
-						true, 
-						function(data) {
-							alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
-							if ( 'Y' == data.success ) {
-								BSC_PROG006D0001E_TabRefresh();
-							}
-						}, 
-						function(error) {
-							alert(error);
-						}
-				);	
-			}, 
-			(window.event ? window.event : null) 
-	);
+function BSC_PROG006D0001E_startProcessSuccess(data) {
+	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+	if ( 'Y' == data.success ) {
+		BSC_PROG006D0001E_TabRefresh();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -737,9 +713,24 @@ function ${programId}_page_message() {
     				cssClass="alt-primary"></gs:button>
     				
     			&nbsp;&nbsp;&nbsp;&nbsp;
-    			<gs:button name="BSC_PROG006D0001E_startProcess" id="BSC_PROG006D0001E_startProcess" onClick="BSC_PROG006D0001E_startProcess();" 
-    				label="Start process" 
+    			<gs:button id="BSC_PROG006D0001E_startProcess" name="BSC_PROG006D0001E_startProcess" onClick="BSC_PROG006D0001E_startProcess();"
+    				handleAs="json"
+    				sync="N"
+    				xhrUrl="${basePath}/bsc.pdcaStartProcessAction.action"
+    				parameterType="postData"
+    				xhrParameter="
+    					{ 
+    						'fields.oid' : '${pdca.oid}'
+    					}
+    				"
+    				errorFn=""
+    				loadFn="BSC_PROG006D0001E_startProcessSuccess(data);" 
+    				programId="${programId}"
+    				label="Start process"
     				iconClass="dijitIconSave"
+    				confirmDialogMode="Y"
+    				confirmDialogTitle=""
+    				confirmDialogMsg="Start process?"
     				cssClass="alt-warning"></gs:button>
     				
     			<button name="BSC_PROG006D0001E_openConfirmDialog" id="BSC_PROG006D0001E_openConfirmDialog"  data-dojo-type="dijit.form.Button"

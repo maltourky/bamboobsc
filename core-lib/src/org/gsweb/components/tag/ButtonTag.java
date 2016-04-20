@@ -52,6 +52,9 @@ public class ButtonTag implements GSTag {
 	private String errorFn = "";
 	private String parameterType = "postData";  // form 或 postData
 	private String programId = "Message"; // 提供給 alertDialog 呼叫 _getApplicationProgramNameById(progId) 取程式名稱用
+	private String confirmDialogMode = "";
+	private String confirmDialogTitle = "";
+	private String confirmDialogMsg = "";
 	
 	private Button handler() {
 		Button button = new Button();
@@ -72,6 +75,9 @@ public class ButtonTag implements GSTag {
 		button.setLoadFn(loadFn);
 		button.setErrorFn(errorFn);
 		button.setProgramId(this.programId);
+		button.setConfirmDialogMode(this.confirmDialogMode);
+		button.setConfirmDialogTitle(this.confirmDialogTitle);
+		button.setConfirmDialogMsg(this.confirmDialogMsg);
 		return button;
 	}
 	
@@ -253,6 +259,30 @@ public class ButtonTag implements GSTag {
 
 	public void setProgramId(String programId) {
 		this.programId = programId;
+	}
+
+	public String getConfirmDialogMode() {
+		return confirmDialogMode;
+	}
+
+	public void setConfirmDialogMode(String confirmDialogMode) {
+		this.confirmDialogMode = confirmDialogMode;
+	}
+
+	public String getConfirmDialogTitle() {
+		return confirmDialogTitle;
+	}
+
+	public void setConfirmDialogTitle(String confirmDialogTitle) {
+		this.confirmDialogTitle = confirmDialogTitle;
+	}
+
+	public String getConfirmDialogMsg() {
+		return confirmDialogMsg;
+	}
+
+	public void setConfirmDialogMsg(String confirmDialogMsg) {
+		this.confirmDialogMsg = confirmDialogMsg;
 	}
 
 }

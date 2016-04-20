@@ -99,7 +99,22 @@
 			<name>errorFn</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>						
+		</attribute>
+		<attribute>
+			<name>confirmDialogMode</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>confirmDialogTitle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>confirmDialogMsg</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	
 	
