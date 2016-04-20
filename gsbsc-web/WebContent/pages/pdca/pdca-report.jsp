@@ -71,10 +71,28 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 <script type="text/javascript">
 
 var BSC_PROG006D0002Q_fieldsId = new Object();
-BSC_PROG006D0002Q_fieldsId['pdcaOid'] 					= 'BSC_PROG006D0002Q_pdcaOid';
+BSC_PROG006D0002Q_fieldsId['pdcaOid']	= 'BSC_PROG006D0002Q_pdcaOid';
 
 function BSC_PROG006D0002Q_query() {
-	
+	setFieldsBackgroundDefault(BSC_PROG006D0002Q_fieldsId);
+	xhrSendParameter(
+			'${basePath}/bsc.pdcaReportContentQuery.action', 
+			{ 'fields.pdcaOid' : dijit.byId('BSC_PROG006D0002Q_pdcaOid').get('value') }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				if ('Y' != data.success) {
+					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG006D0002Q_fieldsId);
+					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+				}
+				dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body;
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);	
 }
 
 

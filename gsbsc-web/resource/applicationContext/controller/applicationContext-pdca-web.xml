@@ -20,5 +20,7 @@
     <!-- PDCA report -->
     <bean id="bsc.web.controller.PdcaReportAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PdcaReportAction" scope="prototype" />
-    	
+    <bean id="bsc.web.controller.PdcaReportContentQueryAction" 
+    	class="com.netsteadfast.greenstep.bsc.action.PdcaReportContentQueryAction" scope="prototype" />
+    	    	
 </beans>
