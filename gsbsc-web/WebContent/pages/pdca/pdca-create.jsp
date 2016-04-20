@@ -701,7 +701,7 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>
 		    	<tr>
-		    		<td height="165px" width="100%"  align="left">
+		    		<td height="50px" width="100%"  align="left">
 		    			
 		    			<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'BSC Report measure settings' " open="true">	
 						<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:140px">

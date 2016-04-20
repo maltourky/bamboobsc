@@ -118,4 +118,14 @@ public class PdcaServiceImpl extends BaseService<PdcaVO, BbPdca, String> impleme
 		return result;
 	}
 
+	@Override
+	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception {
+		Map<String, String> dataMap = this.providedSelectZeroDataMap(true);
+		List<BbPdca> pdcaList = this.findListByParams( null );
+		for (int i=0; pdcaList!=null && i<pdcaList.size(); i++) {
+			dataMap.put(pdcaList.get(i).getOid(), pdcaList.get(i).getTitle());
+		}
+		return dataMap;
+	}
+
 }

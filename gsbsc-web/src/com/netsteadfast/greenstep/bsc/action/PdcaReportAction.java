@@ -21,6 +21,12 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -30,22 +36,38 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.bsc.service.IPdcaService;
+import com.netsteadfast.greenstep.po.hbm.BbPdca;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
+import com.netsteadfast.greenstep.vo.PdcaVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.PdcaReportAction")
 @Scope
 public class PdcaReportAction extends BaseSupportAction implements IBaseAdditionalSupportAction {
 	private static final long serialVersionUID = -9113952422196266449L;
+	private IPdcaService<PdcaVO, BbPdca, String> pdcaService;
+	private Map<String, String> pdcaMap = this.providedSelectZeroDataMap( true );
 	
 	public PdcaReportAction() {
 		super();
 	}
 	
 	private void initData() throws ServiceException, Exception {
-		
+		this.pdcaMap = this.pdcaService.findForMap( true );
 	}
 	
+	public IPdcaService<PdcaVO, BbPdca, String> getPdcaService() {
+		return pdcaService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaService")
+	@Required
+	public void setPdcaService(IPdcaService<PdcaVO, BbPdca, String> pdcaService) {
+		this.pdcaService = pdcaService;
+	}
+
 	/**
 	 * bsc.pdcaReportAction.action
 	 */
@@ -79,6 +101,14 @@ public class PdcaReportAction extends BaseSupportAction implements IBaseAddition
 	@Override
 	public String getProgramId() {
 		return super.getActionMethodProgramId();
+	}
+
+	public Map<String, String> getPdcaMap() {
+		return pdcaMap;
+	}
+
+	public void setPdcaMap(Map<String, String> pdcaMap) {
+		this.pdcaMap = pdcaMap;
 	}
 
 }

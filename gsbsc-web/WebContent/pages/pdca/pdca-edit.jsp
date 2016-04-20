@@ -754,20 +754,6 @@ function ${programId}_page_message() {
 						}
 					"
     				class="alt-primary">Confirm audit</button>
-				<s:if test=" bpmTaskObj != null && bpmTaskObj.variables != null ">
-				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_openConfirmDialog'">
-					<b>Type:</b>&nbsp;${bpmTaskObj.variables.pdcaType}
-					<br/>
-					<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}
-					<br/>
-					<b>Audit:</b>&nbsp;${bpmTaskObj.variables.cuserid}
-					<br/>
-					<b>Date:</b>&nbsp;${bpmTaskObj.variables.dateDisplayValue}
-					<br/>
-					<b>Reason:</b><br/>
-					<s:property value="bpmTaskObj.variables.reason" />
-				</div>
-				</s:if>
 				
 				<button name="BSC_PROG006D0001E_loadDiagram" id="BSC_PROG006D0001E_loadDiagram" data-dojo-type="dijit.form.Button"
 					<s:if test=" bpmTaskObj == null "> disabled="disabled" </s:if>
@@ -786,6 +772,25 @@ function ${programId}_page_message() {
     		</td>
     	</tr>
 	</table>
+	
+	<s:if test=" bpmTaskObj != null && bpmTaskObj.variables != null ">
+	<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'Current audit info' " open="true">
+		<div data-dojo-type="dijit/layout/ContentPane" title="Audit info" data-dojo-props="selected:true">
+			<div class="isa_info">
+				<b>Type:</b>&nbsp;${bpmTaskObj.variables.pdcaType}
+				<br/>
+				<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}
+				<br/>
+				<b>Audit:</b>&nbsp;${bpmTaskObj.variables.cuserid}
+				<br/>
+				<b>Date:</b>&nbsp;${bpmTaskObj.variables.dateDisplayValue}
+				<br/>
+				<b>Reason:</b><br/>
+				<s:property value="bpmTaskObj.variables.reason" />
+			</div>
+		</div>
+	</div>
+	</s:if>
 	
     <div data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;" data-dojo-props="region:'center', tabStrip:true" id="BSC_PROG006D0001E_TabContainer">
         
@@ -817,7 +822,7 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>
 		    	<tr>
-		    		<td height="165px" width="100%"  align="left">
+		    		<td height="50px" width="100%"  align="left">
 		    			
 		    			<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'BSC Report measure settings' " open="true">	
 						<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:140px">

@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.PageOf;
@@ -36,5 +37,7 @@ public interface IPdcaService<T extends java.io.Serializable, E extends java.io.
 	public static String MAPPER_ID_VO2PO="pdca.vo2po";
 	
 	public QueryResult<List<PdcaVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception;
+	
+	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception;
 	
 }
