@@ -21,20 +21,32 @@
  */
 package com.netsteadfast.greenstep.bsc.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.chain.Context;
+import org.apache.commons.chain.impl.ContextBase;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
+import com.netsteadfast.greenstep.base.chain.SimpleChain;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.ChainResultObj;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
+import com.netsteadfast.greenstep.util.SimpleUtils;
+import com.netsteadfast.greenstep.vo.EmployeeVO;
+import com.netsteadfast.greenstep.vo.OrganizationVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.PdcaReportContentQueryAction")
@@ -75,11 +87,41 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	
 	private void getContent() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
+		ChainResultObj pdcaReportObj = this.getPdcaReportContent();
+		List<ChainResultObj> bscReportResults = this.getBscReportContent();
+		if ( pdcaReportObj.getValue() instanceof String ) {
+			this.body = String.valueOf(pdcaReportObj.getValue());
+		}
+		this.message = super.defaultString(pdcaReportObj.getMessage()).trim();
+		for (ChainResultObj bscReportObj : bscReportResults) {
+			if ( bscReportObj.getValue() instanceof String ) {
+				this.body += String.valueOf(bscReportObj.getValue());
+			}
+			if (!this.message.equals(bscReportObj.getMessage())) {
+				if (!"".equals(this.message)) {
+					this.message += "<BR/>";
+				}
+				this.message += bscReportObj.getMessage();
+			}			
+		}
+		if (!StringUtils.isBlank(this.body)) {
+			this.success = IS_YES;
+		}
+	}
+	
+	private ChainResultObj getPdcaReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
+		ChainResultObj test = new ChainResultObj();
+		test.setValue("test!");
+		test.setMessage("test!");
+		return test;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<ChainResultObj> getBscReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
+		List<ChainResultObj> results = new ArrayList<ChainResultObj>();
+		// 先找出 bb_pdca_kpis 的最上層 vision
 		
-		
-		this.message = "TEST!!!";
-		this.success = IS_YES;
-		
+		return results;
 	}
 	
 	/**
