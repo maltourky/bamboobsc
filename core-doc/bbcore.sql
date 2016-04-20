@@ -1560,39 +1560,6 @@ LOCK TABLES `bb_pdca_item` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bb_pdca_item_audit`
---
-
-DROP TABLE IF EXISTS `bb_pdca_item_audit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bb_pdca_item_audit` (
-  `OID` char(36) NOT NULL,
-  `PDCA_OID` char(36) NOT NULL,
-  `ITEM_OID` char(36) NOT NULL,
-  `TYPE` varchar(1) NOT NULL,
-  `EMP_ID` varchar(10) NOT NULL,
-  `CONFIRM_DATE` varchar(8) NOT NULL,
-  `CUSERID` varchar(24) NOT NULL,
-  `CDATE` datetime NOT NULL,
-  `UUSERID` varchar(24) DEFAULT NULL,
-  `UDATE` datetime DEFAULT NULL,
-  PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`TYPE`,`EMP_ID`),
-  KEY `IDX_1` (`EMP_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bb_pdca_item_audit`
---
-
-LOCK TABLES `bb_pdca_item_audit` WRITE;
-/*!40000 ALTER TABLE `bb_pdca_item_audit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bb_pdca_item_audit` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `bb_pdca_item_doc`
 --
 
@@ -4212,4 +4179,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-20 10:11:40
+-- Dump completed on 2016-04-20 14:47:52
