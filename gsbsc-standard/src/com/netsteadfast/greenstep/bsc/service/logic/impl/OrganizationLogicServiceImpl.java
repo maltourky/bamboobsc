@@ -55,6 +55,7 @@ import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IOrganizationParService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.ISwotService;
 import com.netsteadfast.greenstep.bsc.service.logic.IOrganizationLogicService;
@@ -62,6 +63,7 @@ import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbOrganizationPar;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaOrga;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
 import com.netsteadfast.greenstep.po.hbm.BbSwot;
 import com.netsteadfast.greenstep.util.IconUtils;
@@ -70,6 +72,7 @@ import com.netsteadfast.greenstep.vo.KpiOrgaVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.OrganizationParVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaOrgaVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
 import com.netsteadfast.greenstep.vo.SwotVO;
 
@@ -86,6 +89,7 @@ public class OrganizationLogicServiceImpl extends BscBaseLogicService implements
 	private ISwotService<SwotVO, BbSwot, String> swotService;
 	private IReportRoleViewService<ReportRoleViewVO, BbReportRoleView, String> reportRoleViewService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
+	private IPdcaOrgaService<PdcaOrgaVO, BbPdcaOrga, String> pdcaOrgaService;
 	
 	public OrganizationLogicServiceImpl() {
 		super();
@@ -162,6 +166,17 @@ public class OrganizationLogicServiceImpl extends BscBaseLogicService implements
 		this.measureDataService = measureDataService;
 	}
 	
+	public IPdcaOrgaService<PdcaOrgaVO, BbPdcaOrga, String> getPdcaOrgaService() {
+		return pdcaOrgaService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaOrgaService")
+	@Required	
+	public void setPdcaOrgaService(IPdcaOrgaService<PdcaOrgaVO, BbPdcaOrga, String> pdcaOrgaService) {
+		this.pdcaOrgaService = pdcaOrgaService;
+	}
+	
 	private void handlerLongitudeAndLatitude(OrganizationVO organization) {
 		if ( !NumberUtils.isNumber(organization.getLat()) ) {
 			organization.setLat( (String)Constants.getSettingsMap().get("googleMap.defaultLat") );
@@ -233,6 +248,9 @@ public class OrganizationLogicServiceImpl extends BscBaseLogicService implements
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
 		if (this.kpiOrgaService.countByParams(params) > 0 ) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		if (this.pdcaOrgaService.countByParams(params) > 0 ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
 		this.deleteParent(organization);

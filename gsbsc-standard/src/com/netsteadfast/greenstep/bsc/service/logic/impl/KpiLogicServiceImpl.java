@@ -60,6 +60,7 @@ import com.netsteadfast.greenstep.bsc.service.IKpiOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
 import com.netsteadfast.greenstep.bsc.service.IObjectiveService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaKpisService;
 import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
 import com.netsteadfast.greenstep.bsc.util.AggregationMethodUtils;
 import com.netsteadfast.greenstep.model.UploadTypes;
@@ -70,6 +71,7 @@ import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
 import com.netsteadfast.greenstep.po.hbm.BbKpiOrga;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
 import com.netsteadfast.greenstep.po.hbm.BbObjective;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.FormulaVO;
@@ -80,6 +82,7 @@ import com.netsteadfast.greenstep.vo.KpiVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.ObjectiveVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaKpisVO;
 import com.netsteadfast.greenstep.vo.SysUploadVO;
 import com.thoughtworks.xstream.XStream;
 
@@ -99,6 +102,7 @@ public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogi
 	private IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
 	private IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService;
+	private IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService;
 	
 	public KpiLogicServiceImpl() {
 		super();
@@ -185,6 +189,17 @@ public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogi
 	public void setKpiAttacService(
 			IKpiAttacService<KpiAttacVO, BbKpiAttac, String> kpiAttacService) {
 		this.kpiAttacService = kpiAttacService;
+	}
+
+	public IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> getPdcaKpisService() {
+		return pdcaKpisService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaKpisService")
+	@Required		
+	public void setPdcaKpisService(IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService) {
+		this.pdcaKpisService = pdcaKpisService;
 	}
 
 	private FormulaVO fetchFormulaByOid(String formulaOid) throws ServiceException, Exception {
@@ -283,6 +298,14 @@ public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogi
 		if (oldResult.getValue()==null) {
 			throw new ServiceException(oldResult.getSystemMessage().getValue());
 		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("kpiId", oldResult.getValue().getId());
+		if (this.pdcaKpisService.countByParams(paramMap) > 0) {
+			String msg = "PDCA Project used the KPI, " + SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE);
+			throw new ServiceException( msg );
+		}
+		
 		this.deleteKpiOrganization( oldResult.getValue() ); // delete KPI's organization
 		this.deleteKpiEmployee( oldResult.getValue() ); // delete KPI's owner						
 		this.deleteKpiAttachment( oldResult.getValue() ); // delete attachment

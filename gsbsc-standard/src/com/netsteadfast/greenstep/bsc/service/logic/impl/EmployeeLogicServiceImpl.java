@@ -50,12 +50,16 @@ import com.netsteadfast.greenstep.bsc.service.IDegreeFeedbackAssignService;
 import com.netsteadfast.greenstep.bsc.service.IEmployeeOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiEmplService;
 import com.netsteadfast.greenstep.bsc.service.IMeasureDataService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaItemOwnerService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaOwnerService;
 import com.netsteadfast.greenstep.bsc.service.IReportRoleViewService;
 import com.netsteadfast.greenstep.bsc.service.logic.IEmployeeLogicService;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackAssign;
 import com.netsteadfast.greenstep.po.hbm.BbEmployeeOrga;
 import com.netsteadfast.greenstep.po.hbm.BbKpiEmpl;
 import com.netsteadfast.greenstep.po.hbm.BbMeasureData;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaItemOwner;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaOwner;
 import com.netsteadfast.greenstep.po.hbm.BbReportRoleView;
 import com.netsteadfast.greenstep.po.hbm.TbSysCalendarNote;
 import com.netsteadfast.greenstep.po.hbm.TbSysMsgNotice;
@@ -70,6 +74,8 @@ import com.netsteadfast.greenstep.vo.EmployeeVO;
 import com.netsteadfast.greenstep.vo.KpiEmplVO;
 import com.netsteadfast.greenstep.vo.MeasureDataVO;
 import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaItemOwnerVO;
+import com.netsteadfast.greenstep.vo.PdcaOwnerVO;
 import com.netsteadfast.greenstep.vo.ReportRoleViewVO;
 import com.netsteadfast.greenstep.vo.SysCalendarNoteVO;
 import com.netsteadfast.greenstep.vo.SysMsgNoticeVO;
@@ -87,6 +93,8 @@ public class EmployeeLogicServiceImpl extends BscBaseLogicService implements IEm
 	private IKpiEmplService<KpiEmplVO, BbKpiEmpl, String> kpiEmplService;
 	private IDegreeFeedbackAssignService<DegreeFeedbackAssignVO, BbDegreeFeedbackAssign, String> degreeFeedbackAssignService;
 	private IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService;
+	private IPdcaOwnerService<PdcaOwnerVO, BbPdcaOwner, String> pdcaOwnerService;
+	private IPdcaItemOwnerService<PdcaItemOwnerVO, BbPdcaItemOwner, String> pdcaItemOwnerService;
 	private IRoleLogicService roleLogicService;
 	
 	public EmployeeLogicServiceImpl() {
@@ -175,7 +183,30 @@ public class EmployeeLogicServiceImpl extends BscBaseLogicService implements IEm
 			IMeasureDataService<MeasureDataVO, BbMeasureData, String> measureDataService) {
 		this.measureDataService = measureDataService;
 	}
+	
+	public IPdcaOwnerService<PdcaOwnerVO, BbPdcaOwner, String> getPdcaOwnerService() {
+		return pdcaOwnerService;
+	}
 
+	@Autowired
+	@Resource(name="bsc.service.PdcaOwnerService")
+	@Required		
+	public void setPdcaOwnerService(IPdcaOwnerService<PdcaOwnerVO, BbPdcaOwner, String> pdcaOwnerService) {
+		this.pdcaOwnerService = pdcaOwnerService;
+	}
+
+	public IPdcaItemOwnerService<PdcaItemOwnerVO, BbPdcaItemOwner, String> getPdcaItemOwnerService() {
+		return pdcaItemOwnerService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaItemOwnerService")
+	@Required		
+	public void setPdcaItemOwnerService(
+			IPdcaItemOwnerService<PdcaItemOwnerVO, BbPdcaItemOwner, String> pdcaItemOwnerService) {
+		this.pdcaItemOwnerService = pdcaItemOwnerService;
+	}
+	
 	public IRoleLogicService getRoleLogicService() {
 		return roleLogicService;
 	}
@@ -351,6 +382,16 @@ public class EmployeeLogicServiceImpl extends BscBaseLogicService implements IEm
 		params.clear();
 		params.put("empId", employee.getEmpId());
 		if (this.kpiEmplService.countByParams(params) > 0) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		
+		// bb_pdca_owner
+		if (this.pdcaOwnerService.countByParams(params) > 0) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
+		}
+		
+		// bb_pdca_item_owner
+		if (this.pdcaItemOwnerService.countByParams(params) > 0) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
 		
