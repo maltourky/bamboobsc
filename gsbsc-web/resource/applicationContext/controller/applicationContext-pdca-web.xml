@@ -16,5 +16,9 @@
     	class="com.netsteadfast.greenstep.bsc.action.PdcaManagementGridQueryAction" scope="prototype" />
     <bean id="bsc.web.controller.PdcaSaveOrUpdateAction" 
     	class="com.netsteadfast.greenstep.bsc.action.PdcaSaveOrUpdateAction" scope="prototype" />
-    	    	    	    	    	    	    
+    	
+    <!-- PDCA report -->
+    <bean id="bsc.web.controller.PdcaReportAction" 
+    	class="com.netsteadfast.greenstep.bsc.action.PdcaReportAction" scope="prototype" />
+    	
 </beans>

@@ -27,7 +27,13 @@
 			<result name="input">/pages/pdca/pdca-confirm.jsp</result>		
 			<result name="success">/pages/pdca/pdca-confirm.jsp</result>
 		</action>
-																   	
+		
+		<!-- PDCA report -->
+		<action name="bsc.pdcaReportAction" class="bsc.web.controller.PdcaReportAction">
+			<result name="input">/pages/pdca/pdca-report.jsp</result>		
+			<result name="success">/pages/pdca/pdca-report.jsp</result>
+		</action>	
+		
 	</package>
 	
 	<package name="bsc-pdca-json" extends="bsc-default,json-default" namespace="/" >			
