@@ -54,7 +54,6 @@ import com.netsteadfast.greenstep.bsc.service.IVisionService;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbVision;
-import com.netsteadfast.greenstep.util.FSUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.PdcaKpisVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
@@ -159,14 +158,13 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private ChainResultObj getPdcaReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
-		ChainResultObj test = new ChainResultObj();
-		
-		// for TEST!!!
-		test.setValue( FSUtils.readStr("/home/git/bamboobsc/core-doc/PDCA-REPORT-SAMPLE.htm") );
-		test.setMessage("test!");
-		
-		return test;
+		Context context = new ContextBase();
+		context.put("pdcaOid", this.getFields().get("pdcaOid"));
+		SimpleChain chain = new SimpleChain();
+		ChainResultObj resultObj = chain.getResultFromResource("PdcaReportHtmlContentChain", context);
+		return resultObj;
 	}
 	
 	private List<ChainResultObj> getBscReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {

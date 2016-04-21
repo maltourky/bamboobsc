@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.util.List;
+
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
 public class PdcaVO extends BaseValueObj implements java.io.Serializable {
@@ -34,6 +36,19 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 	private String confirmDate;
 	private String confirmFlag;
 	private String confirmEmpId;
+	
+	// ------------------------------------------------------
+	// report need
+	private String responsibilityAppendNames = "";
+	private String confirmEmployeeName = "";
+	private String organizationAppendNames = "";
+	private String kpisAppendNames = "";
+	private String parentName = "";
+	private List<PdcaDocVO> docs = null;
+	private List<PdcaItemVO> itemPlan = null;
+	private List<PdcaItemVO> itemDo = null;
+	private List<PdcaItemVO> itemCheck = null;
+	private List<PdcaItemVO> itemAction = null;
 	
 	public PdcaVO() {
 		
@@ -162,5 +177,88 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 	public void setConfirmEmpId(String confirmEmpId) {
 		this.confirmEmpId = confirmEmpId;
 	}
+	
+	// ------------------------------------------------------
+	// report need
+	
+	public String getResponsibilityAppendNames() {
+		return responsibilityAppendNames;
+	}
+
+	public void setResponsibilityAppendNames(String responsibilityAppendNames) {
+		this.responsibilityAppendNames = responsibilityAppendNames;
+	}
+
+	public String getConfirmEmployeeName() {
+		return confirmEmployeeName;
+	}
+
+	public void setConfirmEmployeeName(String confirmEmployeeName) {
+		this.confirmEmployeeName = confirmEmployeeName;
+	}
+
+	public String getOrganizationAppendNames() {
+		return organizationAppendNames;
+	}
+
+	public void setOrganizationAppendNames(String organizationAppendNames) {
+		this.organizationAppendNames = organizationAppendNames;
+	}
+
+	public String getKpisAppendNames() {
+		return kpisAppendNames;
+	}
+
+	public void setKpisAppendNames(String kpisAppendNames) {
+		this.kpisAppendNames = kpisAppendNames;
+	}
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public List<PdcaDocVO> getDocs() {
+		return docs;
+	}
+
+	public void setDocs(List<PdcaDocVO> docs) {
+		this.docs = docs;
+	}
+
+	public List<PdcaItemVO> getItemPlan() {
+		return itemPlan;
+	}
+
+	public void setItemPlan(List<PdcaItemVO> itemPlan) {
+		this.itemPlan = itemPlan;
+	}
+
+	public List<PdcaItemVO> getItemDo() {
+		return itemDo;
+	}
+
+	public void setItemDo(List<PdcaItemVO> itemDo) {
+		this.itemDo = itemDo;
+	}
+
+	public List<PdcaItemVO> getItemCheck() {
+		return itemCheck;
+	}
+
+	public void setItemCheck(List<PdcaItemVO> itemCheck) {
+		this.itemCheck = itemCheck;
+	}
+
+	public List<PdcaItemVO> getItemAction() {
+		return itemAction;
+	}
+
+	public void setItemAction(List<PdcaItemVO> itemAction) {
+		this.itemAction = itemAction;
+	}	
 
 }
