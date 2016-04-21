@@ -26,6 +26,8 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 	<meta http-equiv="keywords" content="bambooCORE">
 	<meta http-equiv="description" content="bambooCORE">
 	
+	<link rel="stylesheet" href="<%=mainSysBasePath%>/css/core.css?ver=${jsVerBuild}" media="screen">
+	
 	<script type="text/javascript" src="<%=mainSysBasePath%>core.configJsAction.action?ver=${jsVerBuild}"></script>
 	
     <script type="text/javascript" src="<%=mainSysBasePath%>/jquery/jquery-1.11.1.min.js"></script>
@@ -62,7 +64,7 @@ function BSC_PROG003D0001Q_getOpenWindowView() {
     	},
     	success	: function(data) {
     		if ('Y' != data.success) {
-    			$("#BSC_PROG003D0001Q_content").html("<h1><font color='RED'>" + data.message + "</font></h1>");
+    			$("#BSC_PROG003D0001Q_content").html("<div class='isa_warning'><b>" + data.message + "</b></div>");
     			return;
     		}
     		$("#BSC_PROG003D0001Q_content").html( data.body );
