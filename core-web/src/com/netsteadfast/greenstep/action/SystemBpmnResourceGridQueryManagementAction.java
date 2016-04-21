@@ -126,7 +126,7 @@ public class SystemBpmnResourceGridQueryManagementAction extends BaseQueryGridJs
 		}		
 		this.items = super.transformSearchGridList2JsonDataMapList(
 				searchList, 
-				new String[]{"oid", "id", "role", "assignee", "name"});		
+				new String[]{"oid", "id", "role", "taskName", "name"});		
 	}
 	
 	/**

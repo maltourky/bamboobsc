@@ -16,7 +16,7 @@ import com.netsteadfast.greenstep.base.model.EntityUK;
 @Table(
 		name="tb_sys_bpmn_resource_role", 
 		uniqueConstraints = { 
-				@UniqueConstraint( columnNames = {"ID", "ROLE", "ASSIGNEE"} ) 
+				@UniqueConstraint( columnNames = {"ID", "ROLE", "TASK_NAME"} ) 
 		} 
 )
 public class TbSysBpmnResourceRole extends BaseEntity<String> implements java.io.Serializable {
@@ -24,7 +24,7 @@ public class TbSysBpmnResourceRole extends BaseEntity<String> implements java.io
 	private String oid;	
 	private String id;
 	private String role;
-	private String assignee;
+	private String taskName;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -62,14 +62,14 @@ public class TbSysBpmnResourceRole extends BaseEntity<String> implements java.io
 		this.role = role;
 	}
 	
-	@EntityUK(name="assignee")
-	@Column(name="ASSIGNEE")
-	public String getAssignee() {
-		return assignee;
+	@EntityUK(name="taskName")
+	@Column(name="TASK_NAME")
+	public String getTaskName() {
+		return taskName;
 	}
 	
-	public void setAssignee(String assignee) {
-		this.assignee = assignee;
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
 	
 	@Override

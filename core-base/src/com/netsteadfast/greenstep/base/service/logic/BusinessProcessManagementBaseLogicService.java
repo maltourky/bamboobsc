@@ -83,19 +83,19 @@ public abstract class BusinessProcessManagementBaseLogicService extends CoreBase
 			Task task = queryTask.get(i);
 			BusinessProcessManagementTaskVO bpmTaskObj = new BusinessProcessManagementTaskVO(
 					task,
-					( isAllowTaskAssignee(task.getAssignee()) ? YesNo.YES : YesNo.NO ),
+					( isRoleAllowApproval(task.getName()) ? YesNo.YES : YesNo.NO ),
 					BusinessProcessManagementUtils.getTaskVariables(task));
 			tasks.add(bpmTaskObj);
 		}
 		return tasks;
 	}
 	
-	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception {
-		return this.isAllowTaskAssignee(super.getAccountId(), taskAssignee);
+	public boolean isRoleAllowApproval(String taskName) throws ServiceException, Exception {
+		return this.isRoleAllowApproval(super.getAccountId(), taskName);
 	}
 	
-	public boolean isAllowTaskAssignee(String accountId, String taskAssignee) throws ServiceException, Exception {
-		if (super.isBlank(accountId) || super.isBlank(taskAssignee)) {
+	public boolean isRoleAllowApproval(String accountId, String taskName) throws ServiceException, Exception {
+		if (super.isBlank(accountId) || super.isBlank(taskName)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
 		List<TbUserRole> roles = this.findUserRoles(accountId);
@@ -105,7 +105,7 @@ public abstract class BusinessProcessManagementBaseLogicService extends CoreBase
 		boolean allow = false;
 		for (int i=0; i<roles.size() && !allow; i++) {
 			if ( BusinessProcessManagementUtils
-					.isRoleAssignee(this.getBusinessProcessManagementResourceId(), roles.get(i).getRole(), taskAssignee) ) {
+					.isRoleAllowApproval(this.getBusinessProcessManagementResourceId(), roles.get(i).getRole(), taskName) ) {
 				allow = true;
 				i = roles.size();
 			}

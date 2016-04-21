@@ -32,7 +32,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.netsteadfast.greenstep.action.utils.IdFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.base.Constants;
@@ -144,17 +143,17 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 					new String[]{
 							"resourceOid",
 							"roleOid",
-							"assignee"
+							"taskName"
 					}, 
 					new String[]{
 							"Please select resource!<BR/>",
 							"Please select role!<BR/>",
-							"Assignee is required!"
+							"Task-name is required!"
 					}, 
 					new Class[]{
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class //NotBlankFieldCheckUtils.class
+							NotBlankFieldCheckUtils.class
 					},
 					this.getFieldsId() );			
 		} catch (InstantiationException e) {
@@ -353,7 +352,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		if (null == roleObj) {
 			throw new ControllerException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
 		}
-		this.transformFields2ValueObject(bpmnResourceRole, "assignee");
+		this.transformFields2ValueObject(bpmnResourceRole, "taskName");
 		bpmnResourceRole.setId(resourceObj.getId());
 		bpmnResourceRole.setRole(roleObj.getRole());
 		DefaultResult<SysBpmnResourceRoleVO> result = this.sysBpmnResourceRoleService.saveObject(bpmnResourceRole);

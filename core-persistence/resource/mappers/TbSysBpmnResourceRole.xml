@@ -8,7 +8,7 @@
 		<id column="OID" property="oid"/>	
 		<result column="ID" property="id"/>			
 		<result column="ROLE" property="role"/>
-		<result column="ASSIGNEE" property="assignee"/>				
+		<result column="TASK_NAME" property="taskName"/>				
 		<result column="CUSERID" property="cuserid"/>
 		<result column="CDATE" property="cdate"/>
 		<result column="UUSERID" property="uuserid"/>		
@@ -26,8 +26,8 @@
 		<if test="role != null">
 			AND ROLE = #{role}
 		</if>
-		<if test="assignee != null">
-			AND ASSIGNEE = #{assignee}
+		<if test="taskName != null">
+			AND TASK_NAME = #{taskName}
 		</if>																								
 	</select>
 	
@@ -42,8 +42,8 @@
 		<if test="role != null">
 			AND ROLE = #{role}
 		</if>
-		<if test="assignee != null">
-			AND ASSIGNEE = #{assignee}
+		<if test="taskName != null">
+			AND TASK_NAME = #{taskName}
 		</if>			
 	</select>	
 	

@@ -205,14 +205,14 @@ public class BusinessProcessManagementUtils {
 		return data;
 	}
 	
-	public static boolean isRoleAssignee(String resourceId, String roleId, String assignee) throws ServiceException, Exception {
-		if (StringUtils.isBlank(resourceId) || StringUtils.isBlank(roleId) || StringUtils.isBlank(assignee)) {
+	public static boolean isRoleAllowApproval(String resourceId, String roleId, String taskName) throws ServiceException, Exception {
+		if (StringUtils.isBlank(resourceId) || StringUtils.isBlank(roleId) || StringUtils.isBlank(taskName)) {
 			throw new Exception( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
 		}		
 		TbSysBpmnResourceRole resourceRole = new TbSysBpmnResourceRole();
 		resourceRole.setId(resourceId);
 		resourceRole.setRole(roleId);
-		resourceRole.setAssignee(assignee);
+		resourceRole.setTaskName(taskName);
 		if (sysBpmnResourceRoleService.countByEntityUK(resourceRole)>0) {
 			return true;
 		}

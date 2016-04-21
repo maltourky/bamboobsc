@@ -4,7 +4,7 @@
 	<query name="findSysBpmnResourceRolePageGrid-select">	
 	<![CDATA[
 		SELECT
-			new com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO(rr.oid, rr.id, rr.role, rr.assignee, r.name)
+			new com.netsteadfast.greenstep.vo.SysBpmnResourceRoleVO(rr.oid, rr.id, rr.role, rr.taskName, r.name)
 		FROM TbSysBpmnResourceRole rr, TbSysBpmnResource r 
 		WHERE rr.id = r.id
 		
@@ -12,11 +12,11 @@
 		and r.oid = :resourceOid
 		</#if>
 		
-		<#if assignee??>
-		and rr.assignee LIKE :assignee
+		<#if taskName??>
+		and rr.taskName LIKE :taskName
 		</#if>
 		
-		ORDER BY rr.id, rr.role, rr.assignee ASC
+		ORDER BY rr.id, rr.role, rr.taskName ASC
 	]]>
 	</query>
 	
@@ -31,8 +31,8 @@
 		and r.oid = :resourceOid
 		</#if>
 		
-		<#if assignee??>
-		and rr.assignee LIKE :assignee
+		<#if taskName??>
+		and rr.taskName LIKE :taskName
 		</#if>
 	]]>
 	</query>

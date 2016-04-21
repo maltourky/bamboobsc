@@ -22,13 +22,14 @@
 package com.netsteadfast.greenstep.base.service.logic;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.ognl.Ognl;
-import org.apache.ibatis.ognl.OgnlException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.util.SimpleUtils;
+
+import ognl.Ognl;
+import ognl.OgnlException;
 
 public abstract class BaseLogicService {
 	

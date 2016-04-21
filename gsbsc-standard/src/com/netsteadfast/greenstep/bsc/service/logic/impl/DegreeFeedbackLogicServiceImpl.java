@@ -340,8 +340,8 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Override
-	public boolean isAllowTaskAssignee(String taskAssignee) throws ServiceException, Exception {
-		return super.isAllowTaskAssignee(taskAssignee);
+	public boolean isRoleAllowApproval(String taskName) throws ServiceException, Exception {
+		return super.isRoleAllowApproval(taskName);
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})

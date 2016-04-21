@@ -488,7 +488,7 @@ public class PdcaManagementAction extends BaseSupportAction implements IBaseAddi
 			this.loadPdcaDataSimple("pdcaOid");
 			this.loadProjectTask();
 			forward = SUCCESS;
-			if (this.bpmTaskObj == null || !YesNo.YES.equals(this.bpmTaskObj.getAllowAssignee())) {
+			if (this.bpmTaskObj == null || !YesNo.YES.equals(this.bpmTaskObj.getAllowApproval())) {
 				forward = RESULT_NO_AUTHORITH;
 			}
 		} catch (ControllerException e) {

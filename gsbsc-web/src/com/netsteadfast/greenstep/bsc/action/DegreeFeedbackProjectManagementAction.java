@@ -205,7 +205,7 @@ public class DegreeFeedbackProjectManagementAction extends BaseSupportAction imp
 				this.degreeFeedbackProject.getOid());
 		for (int i=0; i<this.tasks.size(); i++) {	
 			Task task = tasks.get(i);
-			if (this.degreeFeedbackLogicService.isAllowTaskAssignee(task.getAssignee())) {
+			if (this.degreeFeedbackLogicService.isRoleAllowApproval(task.getName())) {
 				this.allowAssignee.add(YesNo.YES);
 			} else {
 				this.allowAssignee.add(YesNo.NO);

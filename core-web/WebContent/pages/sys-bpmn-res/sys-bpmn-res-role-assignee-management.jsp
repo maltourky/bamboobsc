@@ -34,7 +34,7 @@ function CORE_PROG003D0005Q_GridFieldStructure() {
 			{ name: "Resource Id", field: "id", width: "20%" },
 			{ name: "Resource name", field: "name", width: "30%" },
 			{ name: "Role", field: "role", width: "20%" },
-			{ name: "Assignee", field: "assignee", width: "20%" }
+			{ name: "Task name", field: "taskName", width: "20%" }
 		];
 }
 
@@ -46,7 +46,7 @@ function CORE_PROG003D0005Q_GridButtonClick(itemOid) {
 
 function CORE_PROG003D0005Q_clear() {
 	dijit.byId('CORE_PROG003D0005Q_resourceOid').set('value', _gscore_please_select_id);
-	dijit.byId('CORE_PROG003D0005Q_assignee').set('value', '');
+	dijit.byId('CORE_PROG003D0005Q_taskName').set('value', '');
 	clearQuery_${programId}_grid();
 }
 
@@ -116,9 +116,9 @@ function ${programId}_page_message() {
     		</td>
     		
     		<td height="50px" width="50%"  align="left">
-    			<b>Assignee:</b>
+    			<b>Task name:</b>
     			<br/>
-    			<gs:textBox name="CORE_PROG003D0005Q_assignee" id="CORE_PROG003D0005Q_assignee" value="" width="200" maxlength="100"></gs:textBox>
+    			<gs:textBox name="CORE_PROG003D0005Q_taskName" id="CORE_PROG003D0005Q_taskName" value="" width="200" maxlength="100"></gs:textBox>
     		</td>
     	</tr>
     	<tr>
@@ -131,7 +131,7 @@ function ${programId}_page_message() {
     				xhrParameter=" 
     					{ 
     						'searchValue.parameter.resourceOid'	: dijit.byId('CORE_PROG003D0005Q_resourceOid').get('value'), 
-    						'searchValue.parameter.assignee'	: dijit.byId('CORE_PROG003D0005Q_assignee').get('value'),
+    						'searchValue.parameter.taskName'	: dijit.byId('CORE_PROG003D0005Q_taskName').get('value'),
     						'pageOf.size'						: getGridQueryPageOfSize_${programId}_grid(),
     						'pageOf.select'						: getGridQueryPageOfSelect_${programId}_grid(),
     						'pageOf.showRow'					: getGridQueryPageOfShowRow_${programId}_grid()

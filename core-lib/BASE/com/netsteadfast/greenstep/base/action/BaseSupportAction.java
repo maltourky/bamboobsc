@@ -41,8 +41,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.ognl.Ognl;
-import org.apache.ibatis.ognl.OgnlException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -68,6 +66,9 @@ import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.util.ControllerAuthorityCheckUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.opensymphony.xwork2.ActionContext;
+
+import ognl.Ognl;
+import ognl.OgnlException;
 
 public class BaseSupportAction extends BaseAction implements ServletRequestAware, ServletResponseAware, ServletContextAware {
 	private static final long serialVersionUID = -6660355550728049961L;

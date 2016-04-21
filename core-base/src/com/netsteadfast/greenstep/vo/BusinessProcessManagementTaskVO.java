@@ -30,17 +30,17 @@ import com.netsteadfast.greenstep.base.model.YesNo;
 public class BusinessProcessManagementTaskVO implements java.io.Serializable {	
 	private static final long serialVersionUID = -649164140417201907L;
 	private Task task;
-	private String allowAssignee = YesNo.NO;
+	private String allowApproval = YesNo.NO;
 	private Map<String, Object> variables = null;
 	
 	public BusinessProcessManagementTaskVO() {
 		
 	}
 	
-	public BusinessProcessManagementTaskVO(Task task, String allowAssignee, Map<String, Object> variables) {
+	public BusinessProcessManagementTaskVO(Task task, String allowApproval, Map<String, Object> variables) {
 		super();
 		this.task = task;
-		this.allowAssignee = allowAssignee;
+		this.allowApproval = allowApproval;
 		this.variables = variables;
 	}
 	
@@ -52,12 +52,12 @@ public class BusinessProcessManagementTaskVO implements java.io.Serializable {
 		this.task = task;
 	}
 
-	public String getAllowAssignee() {
-		return allowAssignee;
+	public String getAllowApproval() {
+		return allowApproval;
 	}
 
-	public void setAllowAssignee(String allowAssignee) {
-		this.allowAssignee = allowAssignee;
+	public void setAllowApproval(String allowApproval) {
+		this.allowApproval = allowApproval;
 	}
 
 	public Map<String, Object> getVariables() {

@@ -28,7 +28,7 @@ public class SysBpmnResourceRoleVO extends BaseValueObj implements java.io.Seria
 	private String oid;	
 	private String id;
 	private String role;
-	private String assignee;
+	private String taskName;
 	
 	// -------------------------------------------------
 	// for Grid query tb_sys_bpmn_resource.name
@@ -40,20 +40,20 @@ public class SysBpmnResourceRoleVO extends BaseValueObj implements java.io.Seria
 	}
 
 	public SysBpmnResourceRoleVO(String oid, String id, String role,
-			String assignee) {
+			String taskName) {
 		super();
 		this.oid = oid;
 		this.id = id;
 		this.role = role;
-		this.assignee = assignee;
+		this.taskName = taskName;
 	}
 
-	public SysBpmnResourceRoleVO(String oid, String id, String role, String assignee, String name) {
+	public SysBpmnResourceRoleVO(String oid, String id, String role, String taskName, String name) {
 		super();
 		this.oid = oid;
 		this.id = id;
 		this.role = role;
-		this.assignee = assignee;
+		this.taskName = taskName;
 		this.name = name;
 	}
 
@@ -82,14 +82,14 @@ public class SysBpmnResourceRoleVO extends BaseValueObj implements java.io.Seria
 		this.role = role;
 	}
 
-	public String getAssignee() {
-		return assignee;
+	public String getTaskName() {
+		return taskName;
 	}
 
-	public void setAssignee(String assignee) {
-		this.assignee = assignee;
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
-
+	
 	public String getName() {
 		return name;
 	}

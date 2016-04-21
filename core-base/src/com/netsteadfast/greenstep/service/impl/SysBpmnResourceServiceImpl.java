@@ -90,12 +90,12 @@ public class SysBpmnResourceServiceImpl extends BaseService<SysBpmnResourceVO, T
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
 		Map<String, Object> params=new LinkedHashMap<String, Object>();
 		String id = searchValue.getParameter().get("id");
-		String name = searchValue.getParameter().get("name");		
+		String taskName = searchValue.getParameter().get("taskName");		
 		if (!StringUtils.isBlank(id)) {
 			params.put("id", id);
 		}
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
+		if (!StringUtils.isBlank(taskName)) {
+			params.put("taskName", "%"+taskName+"%");
 		}			
 		return params;
 	}

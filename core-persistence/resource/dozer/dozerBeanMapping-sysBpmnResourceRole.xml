@@ -20,8 +20,8 @@
 			<b>role</b>
 		</field>				
 		<field>
-			<a>assignee</a>
-			<b>assignee</b>
+			<a>taskName</a>
+			<b>taskName</b>
 		</field>																										
 	</mapping>
 
@@ -41,8 +41,8 @@
 			<b>role</b>
 		</field>				
 		<field>
-			<a>assignee</a>
-			<b>assignee</b>
+			<a>taskName</a>
+			<b>taskName</b>
 		</field>					
 	</mapping>
 	
