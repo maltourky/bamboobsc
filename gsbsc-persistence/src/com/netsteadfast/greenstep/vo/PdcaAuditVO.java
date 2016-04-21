@@ -45,6 +45,10 @@ public class PdcaAuditVO extends BaseValueObj implements java.io.Serializable {
 		this.confirmDate = confirmDate;
 		this.confirmSeq = confirmSeq;
 	}
+	
+	public String getConfirmDateDisplayValue() {
+		return this.getDateDisplayValue(this.confirmDate, "/");
+	}	
 
 	@Override
 	public String getOid() {

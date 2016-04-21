@@ -49,6 +49,10 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 	private List<PdcaItemVO> itemDo = null;
 	private List<PdcaItemVO> itemCheck = null;
 	private List<PdcaItemVO> itemAction = null;
+	private PdcaAuditVO auditPlan = null;
+	private PdcaAuditVO auditDo = null;
+	private PdcaAuditVO auditCheck = null;
+	private PdcaAuditVO auditAction = null;
 	
 	public PdcaVO() {
 		
@@ -259,6 +263,38 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setItemAction(List<PdcaItemVO> itemAction) {
 		this.itemAction = itemAction;
+	}
+
+	public PdcaAuditVO getAuditPlan() {
+		return auditPlan;
+	}
+
+	public void setAuditPlan(PdcaAuditVO auditPlan) {
+		this.auditPlan = auditPlan;
+	}
+
+	public PdcaAuditVO getAuditDo() {
+		return auditDo;
+	}
+
+	public void setAuditDo(PdcaAuditVO auditDo) {
+		this.auditDo = auditDo;
+	}
+
+	public PdcaAuditVO getAuditCheck() {
+		return auditCheck;
+	}
+
+	public void setAuditCheck(PdcaAuditVO auditCheck) {
+		this.auditCheck = auditCheck;
+	}
+
+	public PdcaAuditVO getAuditAction() {
+		return auditAction;
+	}
+
+	public void setAuditAction(PdcaAuditVO auditAction) {
+		this.auditAction = auditAction;
 	}	
 
 }
