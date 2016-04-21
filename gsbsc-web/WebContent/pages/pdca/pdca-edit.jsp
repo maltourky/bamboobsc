@@ -734,7 +734,7 @@ function ${programId}_page_message() {
     				cssClass="alt-warning"></gs:button>
     				
     			<button name="BSC_PROG006D0001E_openConfirmDialog" id="BSC_PROG006D0001E_openConfirmDialog"  data-dojo-type="dijit.form.Button"
-    				<s:if test=" bpmTaskObj == null || \"Y\" != bpmTaskObj.allowAssignee "> disabled="disabled" </s:if>
+    				<s:if test=" bpmTaskObj == null || \"Y\" != bpmTaskObj.allowApproval "> disabled="disabled" </s:if>
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconSave',
