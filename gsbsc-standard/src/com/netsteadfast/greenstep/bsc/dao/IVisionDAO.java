@@ -39,4 +39,6 @@ public interface IVisionDAO<T extends java.io.Serializable, PK extends java.io.S
 	
 	public List<String> findForOidByKpiOrga(String orgId) throws Exception;
 	
+	public List<String> findForOidByPdcaOid(String pdcaOid) throws Exception;
+	
 }

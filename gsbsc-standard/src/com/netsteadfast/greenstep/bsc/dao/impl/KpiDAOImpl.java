@@ -47,6 +47,9 @@ public class KpiDAOImpl extends BaseDAO<BbKpi, String> implements IKpiDAO<BbKpi,
 			if (entry.getValue()!=null && entry.getValue() instanceof String) {
 				query.setString(entry.getKey(), String.valueOf(entry.getValue()));
 			}
+			if (entry.getValue()!=null && entry.getValue() instanceof List) {
+				query.setParameterList(entry.getKey(), (List<?>)entry.getValue());
+			}
 		}		
 	}	
 	

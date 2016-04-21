@@ -118,7 +118,7 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 		return params;
 	}
 	
-	private Map<String, Object> getMixDataQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId) {
+	private Map<String, Object> getMixDataQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId, List<String> kpiIds) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (!StringUtils.isBlank(visionOid)) {
 			paramMap.put("visionOid", visionOid);
@@ -141,6 +141,9 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 			paramMap.put("kpiId", nextId);
 			//paramMap.put("nextType", nextType);			
 		}	
+		if (kpiIds != null && kpiIds.size() > 0) {
+			paramMap.put("kpiIds", kpiIds);
+		}
 		return paramMap;
 	}	
 
@@ -160,10 +163,10 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 	}
 
 	@Override
-	public DefaultResult<List<BscMixDataVO>> findForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception {
+	public DefaultResult<List<BscMixDataVO>> findForMixData(String visionOid, String orgId, String empId, String nextType, String nextId, List<String> kpiIds) throws ServiceException, Exception {
 		DefaultResult<List<BscMixDataVO>> result = new DefaultResult<List<BscMixDataVO>>();
 		List<BscMixDataVO> searchList = this.kpiDAO.findForMixData(
-				this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId));
+				this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId, kpiIds));
 		if (null!=searchList && searchList.size()>0) {
 			result.setValue(searchList);
 		} else {
@@ -173,8 +176,8 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 	}
 
 	@Override
-	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId) throws ServiceException, Exception {		
-		return this.kpiDAO.countForMixData(this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId));
+	public int countForMixData(String visionOid, String orgId, String empId, String nextType, String nextId, List<String> kpiIds) throws ServiceException, Exception {		
+		return this.kpiDAO.countForMixData(this.getMixDataQueryParam(visionOid, orgId, empId, nextType, nextId, kpiIds));
 	}
 	
 	@Override

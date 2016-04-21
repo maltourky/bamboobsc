@@ -107,7 +107,11 @@
 		
 		<#if kpiId??>
 		AND k.id = :kpiId
-		</#if>		
+		</#if>
+		
+		<#if kpiIds??>
+		AND k.id IN ( :kpiIds )
+		</#if>
 		
 		ORDER BY v.visId, p.perId, o.objId, k.id ASC			
 	]]>		
@@ -150,6 +154,11 @@
 		<#if kpiId??>
 		AND k.id = :kpiId
 		</#if>
+		
+		<#if kpiIds??>
+		AND k.id IN ( :kpiIds )
+		</#if>
+				
 	]]>		
 	</query>	
 	

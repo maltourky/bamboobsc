@@ -49,4 +49,6 @@ public interface IVisionService<T extends java.io.Serializable, E extends java.i
 	
 	public List<String> findForOidByKpiOrga(String orgId) throws ServiceException, Exception;
 	
+	public List<String> findForOidByPdcaOid(String pdcaOid) throws ServiceException, Exception;
+	
 }

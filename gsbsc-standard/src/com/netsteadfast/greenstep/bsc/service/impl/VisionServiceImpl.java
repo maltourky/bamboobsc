@@ -178,5 +178,13 @@ public class VisionServiceImpl extends BaseService<VisionVO, BbVision, String> i
 		}		
 		return this.visionDAO.findForOidByKpiOrga(orgId);
 	}
+
+	@Override
+	public List<String> findForOidByPdcaOid(String pdcaOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return this.visionDAO.findForOidByPdcaOid(pdcaOid);
+	}
 	
 }

@@ -22,17 +22,21 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ContextBase;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.chain.SimpleChain;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
@@ -44,9 +48,16 @@ import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
+import com.netsteadfast.greenstep.bsc.service.IPdcaKpisService;
+import com.netsteadfast.greenstep.bsc.service.IPdcaMeasureFreqService;
+import com.netsteadfast.greenstep.bsc.service.IVisionService;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
+import com.netsteadfast.greenstep.po.hbm.BbVision;
 import com.netsteadfast.greenstep.util.SimpleUtils;
-import com.netsteadfast.greenstep.vo.EmployeeVO;
-import com.netsteadfast.greenstep.vo.OrganizationVO;
+import com.netsteadfast.greenstep.vo.PdcaKpisVO;
+import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
+import com.netsteadfast.greenstep.vo.VisionVO;
 
 @ControllerAuthority(check=true)
 @Controller("bsc.web.controller.PdcaReportContentQueryAction")
@@ -54,6 +65,9 @@ import com.netsteadfast.greenstep.vo.OrganizationVO;
 public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private static final long serialVersionUID = -3513975229265102278L;
 	protected Logger logger=Logger.getLogger(PdcaReportContentQueryAction.class);
+	private IVisionService<VisionVO, BbVision, String> visionService;
+	private IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> pdcaMeasureFreqService;
+	private IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService;
 	private String message = "";
 	private String success = IS_NO;
 	private String body = "";
@@ -62,6 +76,41 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		super();
 	}
 	
+	@JSON(serialize=false)
+	public IVisionService<VisionVO, BbVision, String> getVisionService() {
+		return visionService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.VisionService")
+	public void setVisionService(
+			IVisionService<VisionVO, BbVision, String> visionService) {
+		this.visionService = visionService;
+	}	
+	
+	@JSON(serialize=false)
+	public IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> getPdcaMeasureFreqService() {
+		return pdcaMeasureFreqService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaMeasureFreqService")
+	public void setPdcaMeasureFreqService(
+			IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> pdcaMeasureFreqService) {
+		this.pdcaMeasureFreqService = pdcaMeasureFreqService;
+	}	
+	
+	@JSON(serialize=false)
+	public IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> getPdcaKpisService() {
+		return pdcaKpisService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.PdcaKpisService")
+	public void setPdcaKpisService(IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService) {
+		this.pdcaKpisService = pdcaKpisService;
+	}
+
 	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException, Exception {
 		try {
@@ -116,12 +165,56 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		return test;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private List<ChainResultObj> getBscReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
 		List<ChainResultObj> results = new ArrayList<ChainResultObj>();
-		// 先找出 bb_pdca_kpis 的最上層 vision
 		
+		String pdcaOid = this.getFields().get("pdcaOid");
+		
+		// 先找出 bb_pdca_kpis 的最上層 vision
+		List<String> visionOids = this.visionService.findForOidByPdcaOid( pdcaOid );
+		
+		for (String visionOid : visionOids) {
+			PdcaMeasureFreqVO measureFreq = new PdcaMeasureFreqVO();
+			measureFreq.setPdcaOid(pdcaOid);
+			DefaultResult<PdcaMeasureFreqVO> mfResult = this.pdcaMeasureFreqService.findByUK(measureFreq);
+			if (mfResult.getValue() == null) {
+				throw new ServiceException( mfResult.getSystemMessage().getValue() );
+			}
+			measureFreq = mfResult.getValue();
+			Context context = this.getBscReportChainContext(pdcaOid, visionOid, measureFreq);
+			SimpleChain chain = new SimpleChain();
+			ChainResultObj resultObj = chain.getResultFromResource("kpiReportHtmlContentChain", context);
+			results.add(resultObj);
+		}
 		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private Context getBscReportChainContext(String pdcaOid, String visionOid, PdcaMeasureFreqVO measureFreq) throws Exception {
+		Context context = new ContextBase();
+		context.put("visionOid", visionOid);
+		context.put("startDate", SimpleUtils.getStrYMD(measureFreq.getStartDate(), "/"));
+		context.put("endDate", SimpleUtils.getStrYMD(measureFreq.getEndDate(), "/"));		
+		context.put("startYearDate", SimpleUtils.getStrYMD(measureFreq.getStartDate(), "/"));
+		context.put("endYearDate", SimpleUtils.getStrYMD(measureFreq.getEndDate(), "/"));		
+		context.put("frequency", measureFreq.getFreq());
+		context.put("dataFor", measureFreq.getDataType());
+		context.put("orgId", measureFreq.getOrgId());
+		context.put("empId", measureFreq.getEmpId());
+		context.put("account", "");
+		context.put("ngVer", YesNo.NO);
+		
+		List<String> kpiIds = new ArrayList<String>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pdcaOid", pdcaOid);
+		List<BbPdcaKpis> pdcaKpisList = this.pdcaKpisService.findListByParams(paramMap);
+		for (BbPdcaKpis pdcaKpi : pdcaKpisList) {
+			kpiIds.add( pdcaKpi.getKpiId() );
+		}
+		
+		context.put("kpiIds", kpiIds); // 只顯示,要顯示的KPI
+		
+		return context;
 	}
 	
 	/**

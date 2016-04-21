@@ -45,6 +45,7 @@ public class LoadBscMixDataCommand extends BaseChainCommandSupport implements Co
 		kpiService = (IKpiService<KpiVO, BbKpi, String>)AppContext.getBean("bsc.service.KpiService");		
 		String orgId = (String)context.get("orgId");
 		String empId = (String)context.get("empId");
+		List<String> kpiIds = (List<String>)context.get("kpiIds");
 		if (BscConstants.MEASURE_DATA_ORGANIZATION_FULL.equals(orgId)) {
 			orgId = "";
 		}
@@ -56,7 +57,8 @@ public class LoadBscMixDataCommand extends BaseChainCommandSupport implements Co
 				orgId, 
 				empId,
 				StringUtils.defaultString( (String)context.get("nextType") ),
-				StringUtils.defaultString( (String)context.get("nextId")) );
+				StringUtils.defaultString( (String)context.get("nextId")),
+				kpiIds);
 		if (result.getValue()!=null) {
 			this.setResult(context, result.getValue());
 		} else {

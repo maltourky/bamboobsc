@@ -81,5 +81,16 @@ public class VisionDAOImpl extends BaseDAO<BbVision, String> implements IVisionD
 				.setString("orgId", orgId)
 				.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findForOidByPdcaOid(String pdcaOid) throws Exception {
+		return (List<String>)this.getCurrentSession()
+				.createQuery(
+						"select distinct v.oid from BbVision v, BbKpi k, BbObjective o, BbPerspective p " + 
+						"where k.objId = o.objId and o.perId = p.perId and p.visId = v.visId and k.id in ( select pk.kpiId from BbPdcaKpis pk where pk.pdcaOid = :pdcaOid ) ")
+				.setString("pdcaOid", pdcaOid)
+				.list();
+	}
 	
 }
