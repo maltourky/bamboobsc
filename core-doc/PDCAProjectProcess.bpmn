@@ -2,10 +2,10 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="PDCAProjectProcess" name="PDCA Project confirm process" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
-    <userTask id="usertask1" name="Plan" activiti:assignee="PDCA_Plan"></userTask>
-    <userTask id="usertask2" name="Do" activiti:assignee="PDCA_Do"></userTask>
-    <userTask id="usertask3" name="Check" activiti:assignee="PDCA_Check"></userTask>
-    <userTask id="usertask4" name="Action" activiti:assignee="PDCA_Action"></userTask>
+    <userTask id="usertask1" name="Plan" activiti:assignee="${cuserid}"></userTask>
+    <userTask id="usertask2" name="Do" activiti:assignee="${cuserid}"></userTask>
+    <userTask id="usertask3" name="Check" activiti:assignee="${cuserid}"></userTask>
+    <userTask id="usertask4" name="Action" activiti:assignee="${cuserid}"></userTask>
     <dataObject id="pdcaOid" name="pdcaOid" itemSubjectRef="xsd:string"></dataObject>
     <dataObject id="reason" name="reason" itemSubjectRef="xsd:string"></dataObject>
     <dataObject id="confirm" name="confirm" itemSubjectRef="xsd:string"></dataObject>

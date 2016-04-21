@@ -155,6 +155,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		paramMap.put("projectOid", projectOid);
 		paramMap.put("confirm", confirm);
 		paramMap.put("reason", ( super.defaultString( reason ).length()>MAX_REASON_LENGTH ? reason.substring(0, MAX_REASON_LENGTH) : reason ) );
+		paramMap.put("cuserid", super.getAccountId());
 		return paramMap;
 	}
 
