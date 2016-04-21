@@ -42,6 +42,7 @@ import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.service.IRoleService;
 import com.netsteadfast.greenstep.service.ISysUploadService;
 import com.netsteadfast.greenstep.service.IUserRoleService;
+import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
 import com.netsteadfast.greenstep.vo.RoleVO;
 import com.netsteadfast.greenstep.vo.SysUploadVO;
@@ -138,28 +139,14 @@ public abstract class CoreBaseLogicService extends BaseLogicService {
 		if (super.isBlank(oid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		SysUploadVO upload = new SysUploadVO();
-		upload.setOid(oid);
-		DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findObjectByOid(upload);
-		if (uploadResult.getValue()==null) {
-			throw new ServiceException( uploadResult.getSystemMessage().toString() );
-		}
-		upload = uploadResult.getValue();
-		return upload;		
+		return UploadSupportUtils.findUpload(oid);	
 	}
 	
 	public SysUploadVO findUploadDataForNoByteContent(String oid) throws ServiceException, Exception {
 		if (super.isBlank(oid)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}		
-		SysUploadVO upload = new SysUploadVO();
-		upload.setOid(oid);
-		DefaultResult<SysUploadVO> uploadResult = this.sysUploadService.findForNoByteContent(oid);
-		if (uploadResult.getValue()==null) {
-			throw new ServiceException( uploadResult.getSystemMessage().toString() );
-		}
-		upload = uploadResult.getValue();
-		return upload;
+		return UploadSupportUtils.findUploadNoByteContent(oid);
 	}
 	
 }

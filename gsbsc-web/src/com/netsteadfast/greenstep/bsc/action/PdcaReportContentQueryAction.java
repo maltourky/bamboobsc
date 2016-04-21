@@ -163,7 +163,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		Context context = new ContextBase();
 		context.put("pdcaOid", this.getFields().get("pdcaOid"));
 		SimpleChain chain = new SimpleChain();
-		ChainResultObj resultObj = chain.getResultFromResource("PdcaReportHtmlContentChain", context);
+		ChainResultObj resultObj = chain.getResultFromResource("pdcaReportHtmlContentChain", context);
 		return resultObj;
 	}
 	

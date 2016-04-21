@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
@@ -44,7 +45,7 @@ public class PdcaVO extends BaseValueObj implements java.io.Serializable {
 	private String organizationAppendNames = "";
 	private String kpisAppendNames = "";
 	private String parentName = "";
-	private List<PdcaDocVO> docs = null;
+	private List<PdcaDocVO> docs = new ArrayList<PdcaDocVO>();
 	private List<PdcaItemVO> itemPlan = null;
 	private List<PdcaItemVO> itemDo = null;
 	private List<PdcaItemVO> itemCheck = null;

@@ -248,13 +248,7 @@ public class UploadSupportUtils {
 		if (StringUtils.isBlank(uploadOid)) {
 			throw new Exception("parameter is blank!");
 		}
-		SysUploadVO uploadObj = new SysUploadVO();
-		uploadObj.setOid(uploadOid);
-		DefaultResult<SysUploadVO> result = sysUploadService.findObjectByOid(uploadObj);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		uploadObj = result.getValue();
+		SysUploadVO uploadObj = findUpload(uploadOid);
 		File packageFile = null;
 		if (!YesNo.YES.equals(uploadObj.getIsFile())) {
 			File dir = new File( Constants.getWorkTmpDir() + "/" + UploadSupportUtils.class.getSimpleName() );
@@ -292,13 +286,7 @@ public class UploadSupportUtils {
 			throw new Exception("parameter is blank!");
 		}
 		byte datas[] = null;
-		SysUploadVO uploadObj = new SysUploadVO();
-		uploadObj.setOid(uploadOid);
-		DefaultResult<SysUploadVO> result = sysUploadService.findObjectByOid(uploadObj);
-		if (result.getValue()==null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		uploadObj = result.getValue();
+		SysUploadVO uploadObj = findUpload(uploadOid);
 		datas = uploadObj.getContent();
 		if (YesNo.YES.equals(uploadObj.getIsFile())) {
 			String uploadDir = getUploadFileDir(uploadObj.getSystem(), uploadObj.getSubDir(), uploadObj.getType());
@@ -422,6 +410,31 @@ public class UploadSupportUtils {
 			extension = tmp[i];
 		}
 		return extension;
+	}
+	
+	public static SysUploadVO findUpload(String uploadOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(uploadOid)) {
+			throw new Exception("Upload OID parameter is blank!");
+		}		
+		SysUploadVO uploadObj = new SysUploadVO();
+		uploadObj.setOid(uploadOid);
+		DefaultResult<SysUploadVO> result = sysUploadService.findObjectByOid(uploadObj);
+		if (result.getValue()==null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		uploadObj = result.getValue();
+		return uploadObj;
+	}
+	
+	public static SysUploadVO findUploadNoByteContent(String uploadOid) throws ServiceException, Exception {
+		if (StringUtils.isBlank(uploadOid)) {
+			throw new Exception("Upload OID parameter is blank!");
+		}
+		DefaultResult<SysUploadVO> result = sysUploadService.findForNoByteContent(uploadOid);
+		if (result.getValue()==null) {
+			throw new ServiceException( result.getSystemMessage().toString() );
+		}
+		return result.getValue();
 	}
 	
 	private static Map<String, String> fillDataMap(SysUploadTranVO tran, List<TbSysUploadTranSegm> segms, 

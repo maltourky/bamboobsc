@@ -175,5 +175,11 @@
 	<chain name="kpiPeriodTrendsExcelCommandExcelContentChain">
 		<command id="KpiPeriodTrendsExcelCommand"				className="com.netsteadfast.greenstep.bsc.command.KpiPeriodTrendsExcelCommand"/> 
 	</chain>
+	
+	<!-- PDCA報表HTML版產生內容用的 chain -->
+	<chain name="pdcaReportHtmlContentChain">
+		<command id="LoadPdcaDataCommand"			className="com.netsteadfast.greenstep.bsc.command.LoadPdcaDataCommand"/> 
+		<command id="PdcaReportBodyCommand"		className="com.netsteadfast.greenstep.bsc.command.PdcaReportBodyCommand"/>
+	</chain>	
 						
 </catalog>  
