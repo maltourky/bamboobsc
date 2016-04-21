@@ -1577,7 +1577,7 @@ CREATE TABLE `bb_pdca_item_doc` (
   `UUSERID` varchar(24) DEFAULT NULL,
   `UDATE` datetime DEFAULT NULL,
   PRIMARY KEY (`OID`),
-  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`)
+  UNIQUE KEY `UK_1` (`PDCA_OID`,`ITEM_OID`,`UPLOAD_OID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
