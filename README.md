@@ -12,7 +12,8 @@ Features:<br/>
 3. Strategy Map, and BSC SWOT.<br/>
 4. Provides SQL client query results show as Chart ( PIE, BAR, LINE, AREA ).<br/>
 5. Provides a simple OLAP client query.<br/>
-6. Provides Sourcecard query for mobile-device browser.
+6. Provides Sourcecard query for mobile-device browser.<br/>
+7. PDCA & PDCA report.
 <br/><br/>
 
 <h2>bambooBSC architecture</h2>
