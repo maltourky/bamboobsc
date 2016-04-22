@@ -122,6 +122,34 @@ BSC_PROG005D0001E_itemData.push( {name: '<s:property value="name" escapeJavaScri
 </s:iterator>
 </s:if>
 
+function BSC_PROG005D0001E_loadDiagram(taskId) {
+	xhrSendParameter(
+			'${basePath}/bsc.degreeFeedbackProjectLoadTaskDiagramAction.action', 
+			{ 'fields.taskId' : taskId }, 
+			'json', 
+			_gscore_dojo_ajax_timeout,
+			_gscore_dojo_ajax_sync, 
+			true, 
+			function(data) {
+				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+				if ( 'Y' == data.success ) {
+					openCommonLoadUpload(
+							'view', 
+							data.uploadOid, 
+							{ 
+								"isDialog" 	: 	"Y",
+								"title"		:	_getApplicationProgramNameById('${programId}'),
+								"width"		:	800,
+								"height"	:	600
+							} 
+					);
+				}
+			}, 
+			function(error) {
+				alert(error);
+			}
+	);
+}
 
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
@@ -154,7 +182,7 @@ function ${programId}_page_message() {
 	<input type="hidden" name="BSC_PROG005D0001E_owner" id="BSC_PROG005D0001E_owner" value="${fields.ownerOids}" />
 	<input type="hidden" name="BSC_PROG005D0001E_rater" id="BSC_PROG005D0001E_rater" value="${fields.raterOids}" />
 	
-	<table border="0" width="100%" height="500px" cellpadding="1" cellspacing="0" >	
+	<table border="0" width="100%" height="600px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_name')"/></b>:
@@ -284,9 +312,28 @@ function ${programId}_page_message() {
 				<br/>
 				<span id="BSC_PROG005D0001E_itemData"><s:property value="itemsLabel"/></span>					   			
     		</td>    
-    	</tr>    	   	  	    		 	  	    	    	      	    	    	    	   	  	    		 	  	    	
+    	</tr>    	       		  	    		 	  	    	    	      	    	    	    	   	  	    		 	  	    	
     	<tr>
-    		<td height="50px" width="100%"  align="left">
+    		<td height="150px" width="100%"  align="left">
+    		
+				<s:if test=" bpmTaskObj != null && bpmTaskObj.variables != null ">
+				<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'Current audit info' " open="true">
+					<div data-dojo-type="dijit/layout/ContentPane" title="Audit info" data-dojo-props="selected:true">
+						<div class="isa_info">
+							<b>Now task:</b>&nbsp;<s:property value="bpmTaskObj.task.name" />
+							<br/>
+							<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}									
+							<br/>									
+							<b>Assignee:</b>&nbsp;<s:property value="bpmTaskObj.task.assignee" />
+							<br/>
+							<b>Reason:</b><br/>
+							<s:property value="bpmTaskObj.variables.reason" />
+						</div>
+					</div>
+				</div>
+				</s:if>    	    		
+    		
+    		
     			<gs:button name="BSC_PROG005D0001E_update" id="BSC_PROG005D0001E_update" onClick="BSC_PROG005D0001E_update();"
     				handleAs="json"
     				sync="N"
@@ -329,8 +376,39 @@ function ${programId}_page_message() {
     				loadFn="BSC_PROG005D0001E_reApplySuccess(data);" 
     				programId="${programId}"
     				label="Re apply" 
-    				iconClass="dijitIconApplication"
-    				cssClass="alt-warning"></gs:button>    				    		
+    				iconClass="dijitIconSave"
+    				confirmDialogMode="Y"
+    				confirmDialogTitle=""
+    				confirmDialogMsg="Confirm?"       				
+    				cssClass="alt-warning"></gs:button> 
+    				
+				<button name="BSC_PROG005D0001E_confirmDlgBtn" id="BSC_PROG005D0001E_confirmDlgBtn" data-dojo-type="dijit.form.Button"
+					
+					<s:if test=" bpmTaskObj == null || \"Y\" != bpmTaskObj.allowApproval "> disabled="disabled" </s:if>
+					
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSave',
+						onClick:function(){ 
+							BSC_PROG005D0001A_S03_DlgShow('${degreeFeedbackProject.oid};${bpmTaskObj.task.id}');
+						}
+					"
+					class="alt-primary">Confirm audit</button>
+				
+				<button name="BSC_PROG005D0001E_diagramDlgBtn" id="BSC_PROG005D0001E_diagramDlgBtn" data-dojo-type="dijit.form.Button"
+					
+					<s:if test=" bpmTaskObj == null "> disabled="disabled" </s:if>
+					
+					data-dojo-props="
+						showLabel:true,
+						iconClass:'dijitIconSearch',
+						onClick:function(){ 
+							BSC_PROG005D0001E_loadDiagram('${bpmTaskObj.task.id}');
+						}
+					"
+					class="alt-primary">View audit diagram</button>		    				
+    				
+    				   				    		
     		</td>
     	</tr>     	 	  	    	
 	</table>	

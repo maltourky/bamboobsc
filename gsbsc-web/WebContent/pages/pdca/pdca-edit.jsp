@@ -769,11 +769,11 @@ function ${programId}_page_message() {
 	<div data-dojo-type="dijit.TitlePane" data-dojo-props=" title: 'Current audit info' " open="true">
 		<div data-dojo-type="dijit/layout/ContentPane" title="Audit info" data-dojo-props="selected:true">
 			<div class="isa_info">
-				<b>Type:</b>&nbsp;${bpmTaskObj.variables.pdcaType}
+				<b>Now task:</b>&nbsp;<s:property value="bpmTaskObj.task.name" />
 				<br/>
 				<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}
 				<br/>
-				<b>Audit:</b>&nbsp;${bpmTaskObj.variables.cuserid}
+				<b>Assignee:</b>&nbsp;<s:property value="bpmTaskObj.task.assignee" />
 				<br/>
 				<b>Date:</b>&nbsp;${bpmTaskObj.variables.dateDisplayValue}
 				<br/>

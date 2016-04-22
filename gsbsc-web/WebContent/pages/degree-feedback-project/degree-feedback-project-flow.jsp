@@ -1,3 +1,6 @@
+<% /* 基本上這隻程式 BSC_PROG005D0001A_S02 目前停用了 */ %>
+<% /* 基本上這隻程式 BSC_PROG005D0001A_S02 目前停用了 */ %>
+<% /* 基本上這隻程式 BSC_PROG005D0001A_S02 目前停用了 */ %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -94,43 +97,42 @@ function ${programId}_page_message() {
 			<td align="left" width="30%" bgcolor="#f5f5f5"><b>Reason</b></td>
 			<td align="center" width="25%" bgcolor="#f5f5f5"><b>#</b></td>
 		</tr>
-		<s:if test="null != tasks">
-		<s:iterator value="tasks" status="st">
+		<s:if test="null != bpmTaskObj">
 		
 		<tr>
-			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="id"/></td>
-			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="name"/></td>
-			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="assignee"/></td>
-			<td align="left" width="30%" bgcolor="#ffffff"><s:property value="taskReason[#st.index]"/></td>
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="bpmTaskObj.task.id"/></td>
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="bpmTaskObj.task.name"/></td>
+			<td align="left" width="15%" bgcolor="#ffffff"><s:property value="bpmTaskObj.task.assignee"/></td>
+			<td align="left" width="30%" bgcolor="#ffffff"><s:property value="bpmTaskObj.variables.reason"/></td>
 			<td align="center" width="25%" bgcolor="#ffffff">
 				
-				<button name="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${id}" id="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${id}" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${bpmTaskObj.task.id}" id="BSC_PROG005D0001A_S02_confirmDlgBtn_${fields.oid}_${bpmTaskObj.task.id}" data-dojo-type="dijit.form.Button"
 					
-					<s:if test=" \"Y\" != allowAssignee[#st.index] "> disabled="disabled" </s:if>
+					<s:if test=" bpmTaskObj == null || \"Y\" != bpmTaskObj.allowApproval "> disabled="disabled" </s:if>
 					
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconSave',
 						onClick:function(){ 
-							BSC_PROG005D0001A_S03_DlgShow('${fields.oid};${id}');
+							BSC_PROG005D0001A_S03_DlgShow('${fields.oid};${bpmTaskObj.task.id}');
 						}
 					"
 					class="alt-primary"><s:property value="getText('BSC_PROG005D0001A_S02_confirmDlgBtn')"/></button>
 				
-				<button name="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" id="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${id}" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${bpmTaskObj.task.id}" id="BSC_PROG005D0001A_S02_diagramDlgBtn_${fields.oid}_${bpmTaskObj.task.id}" data-dojo-type="dijit.form.Button"
 					
 					data-dojo-props="
 						showLabel:true,
 						iconClass:'dijitIconSearch',
 						onClick:function(){ 
-							BSC_PROG005D0001A_S02_loadDiagram('${id}');
+							BSC_PROG005D0001A_S02_loadDiagram('${bpmTaskObj.task.id}');
 						}
 					"
 					class="alt-primary"><s:property value="getText('BSC_PROG005D0001A_S02_diagramDlgBtn')"/></button>				
 					
 			</td>
 		</tr>			
-		</s:iterator>
+		
 		</s:if>
 		
 	</table>		

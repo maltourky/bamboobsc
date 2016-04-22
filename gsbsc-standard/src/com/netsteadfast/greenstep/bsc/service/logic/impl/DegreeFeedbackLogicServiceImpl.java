@@ -22,14 +22,12 @@
 package com.netsteadfast.greenstep.bsc.service.logic.impl;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.activiti.engine.task.Task;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -61,6 +59,7 @@ import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackProject;
 import com.netsteadfast.greenstep.po.hbm.BbDegreeFeedbackScore;
 import com.netsteadfast.greenstep.po.hbm.BbEmployee;
 import com.netsteadfast.greenstep.util.BusinessProcessManagementUtils;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackAssignVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
@@ -205,7 +204,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 			throw new ServiceException(oldResult.getSystemMessage().getValue());
 		}
 		project = oldResult.getValue();
-		List<Task> tasks = this.queryTaskByVariableProjectOid( project.getOid() );
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariableProjectOid( project.getOid() );
 		if (tasks!=null && tasks.size()>0) {
 			throw new ServiceException( "Audit running, project cannot delete." );
 		}
@@ -314,35 +313,6 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		result.setValue(project);
 		result.setSystemMessage( new SystemMessage( SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS) ) );		
 		return result;
-	}		
-	
-	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Override
-	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception {
-		if (super.isBlank(projectOid)) {
-			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
-		}
-		List<Task> tasks = new ArrayList<Task>();
-		List<Task> queryTasks = this.queryTask();
-		if (null == queryTasks || queryTasks.size()<1) {
-			return tasks;
-		}
-		for (Task task : queryTasks) {
-			Map<String, Object> variables = BusinessProcessManagementUtils.getTaskVariables(task);
-			if (variables==null || super.isBlank( (String)variables.get("projectOid") ) ) {
-				continue;
-			}
-			if (projectOid.equals(variables.get("projectOid"))) {
-				tasks.add( task );
-			}
-		}
-		return tasks;
-	}	
-	
-	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Override
-	public boolean isRoleAllowApproval(String taskName) throws ServiceException, Exception {
-		return super.isRoleAllowApproval(taskName);
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT, ServiceMethodType.UPDATE})
@@ -363,7 +333,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		}
 		project = result.getValue();		
 		this.completeTask(taskId, this.getProcessFlowParam(projectOid, confirm, reason));
-		List<Task> tasks = this.queryTaskByVariableProjectOid(projectOid);
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariableProjectOid(projectOid);
 		if (null != tasks && tasks.size()>0) { 
 			return;
 		}
@@ -407,13 +377,22 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		if (YesNo.YES.equals(project.getPublishFlag())) {
 			throw new ServiceException( "Cannot re-apply, because project is publish!" );
 		}
-		List<Task> tasks = this.queryTaskByVariableProjectOid(project.getOid());
+		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariableProjectOid(project.getOid());
 		if (null!=tasks && tasks.size()>0) {
 			throw new ServiceException( "Cannot re-apply, because project is audit processing!" );
 		}
 		this.startProcess( this.getProcessFlowParam(project.getOid(), YesNo.YES, "start re-apply. " + project.getName()) );
 		result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS)) );		
 		return result;
+	}	
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Override
+	public List<BusinessProcessManagementTaskVO> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception {
+		if (super.isBlank(projectOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		return super.queryTaskPlus("projectOid", projectOid);
 	}	
 	
 	private void createLevels(DegreeFeedbackProjectVO project, List<DegreeFeedbackLevelVO> levels) throws ServiceException, Exception {

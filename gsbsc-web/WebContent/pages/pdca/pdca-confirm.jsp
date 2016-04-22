@@ -112,7 +112,10 @@ function ${programId}_page_message() {
     				programId="${programId}"
     				label="Save" 
     				iconClass="dijitIconSave"
-    				cssClass="alt-primary"></gs:button>    			
+    				confirmDialogMode="Y"
+    				confirmDialogTitle=""
+    				confirmDialogMsg="Confirm?"    				
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="BSC_PROG006D0001E_S00_clear" id="BSC_PROG006D0001E_S00_clear" onClick="BSC_PROG006D0001E_S00_clear();" 
     				label="Clear" 
     				iconClass="dijitIconClear"

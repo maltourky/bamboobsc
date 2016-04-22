@@ -32,7 +32,8 @@ function BSC_PROG005D0001A_S03_saveSuccess(data) {
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ( 'Y' == data.success ) {
 		${programId}_DlgHide(); // 關掉自己的 Dlg
-		BSC_PROG005D0001A_S02_DlgShow('${fields.projectOid}'); // 刷新上一層tak清單Dlg
+		//BSC_PROG005D0001A_S02_DlgShow('${fields.projectOid}'); // 刷新上一層tak清單Dlg , 因為停用了 BSC_PROG005D0001A_S02 , 改再 BSC_PROG005D0001E 開啟這個 dlg.
+		BSC_PROG005D0001E_TabRefresh();
 	}
 }
 
@@ -104,6 +105,9 @@ function ${programId}_page_message() {
     				programId="${programId}"
     				label="${action.getText('BSC_PROG005D0001A_S03_save')}" 
     				iconClass="dijitIconSave"
+    				confirmDialogMode="Y"
+    				confirmDialogTitle=""
+    				confirmDialogMsg="Confirm?"    				
     				cssClass="alt-primary"></gs:button>    			
     			<gs:button name="BSC_PROG005D0001A_S03_clear" id="BSC_PROG005D0001A_S03_clear" onClick="BSC_PROG005D0001A_S03_clear();" 
     				label="${action.getText('BSC_PROG005D0001A_S03_clear')}" 

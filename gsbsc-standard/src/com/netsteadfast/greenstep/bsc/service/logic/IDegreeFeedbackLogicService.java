@@ -23,10 +23,9 @@ package com.netsteadfast.greenstep.bsc.service.logic;
 
 import java.util.List;
 
-import org.activiti.engine.task.Task;
-
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackItemVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackLevelVO;
 import com.netsteadfast.greenstep.vo.DegreeFeedbackProjectVO;
@@ -45,14 +44,12 @@ public interface IDegreeFeedbackLogicService {
 	public DefaultResult<DegreeFeedbackProjectVO> updateScore(String projectOid, String ownerEmployeeOid, String raterEmployeeOid,
 			List<DegreeFeedbackScoreVO> scores) throws ServiceException, Exception;
 	
-	public List<Task> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception;
-	
-	public boolean isRoleAllowApproval(String taskName) throws ServiceException, Exception;
-	
 	public void confirmTask(String projectOid, String taskId, String reason, String confirm) throws ServiceException, Exception;
 	
 	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
 	
 	public DefaultResult<DegreeFeedbackProjectVO> reApplyProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception;
+	
+	public List<BusinessProcessManagementTaskVO> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception;
 	
 }

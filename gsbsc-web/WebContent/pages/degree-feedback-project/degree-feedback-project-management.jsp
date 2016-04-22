@@ -41,8 +41,10 @@ function BSC_PROG005D0001Q_GridButtonClick(itemOid) {
 	var rd="";
 	rd += "<img src=\"" + _getSystemIconUrl('PROPERTIES') + "\" border=\"0\" alt=\"edit\" onclick=\"BSC_PROG005D0001Q_edit('" + itemOid + "');\" />";
 	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	/*
 	rd += "<img src=\"" + _getSystemIconUrl('SYSTEM') + "\" border=\"0\" alt=\"delete\" onclick=\"BSC_PROG005D0001A_S02_DlgShow('" + itemOid + "');\" />";
 	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	*/
 	rd += "<img src=\"" + _getSystemIconUrl('REMOVE') + "\" border=\"0\" alt=\"delete\" onclick=\"BSC_PROG005D0001Q_confirmDelete('" + itemOid + "');\" />";
 	return rd;	
 }
