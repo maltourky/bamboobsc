@@ -91,7 +91,7 @@ function BSC_PROG006D0002Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body;
+				dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body + '<div id="BSC_PROG006D0002Q_container"></div>';
 				BSC_PROG006D0002Q_chart(data);
 			}, 
 			function(error) {
@@ -292,7 +292,7 @@ function ${programId}_page_message() {
 						    		&nbsp;
 						    		
 						    		<b>BSC Report:</b>
-						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="false" />
+						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_bscReportShow'">
 					    				Show with BSC report.
 									</div>						   
@@ -321,8 +321,7 @@ function ${programId}_page_message() {
 	
 	
 	<div id="BSC_PROG006D0002Q_content"></div>
-	<br/>
-	<div id="BSC_PROG006D0002Q_container"></div>
+	
 	
 	
 <script type="text/javascript">${programId}_page_message();</script>	
