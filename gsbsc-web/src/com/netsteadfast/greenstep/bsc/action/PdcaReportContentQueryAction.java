@@ -57,6 +57,7 @@ import com.netsteadfast.greenstep.po.hbm.BbVision;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.PdcaKpisVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
+import com.netsteadfast.greenstep.vo.PdcaVO;
 import com.netsteadfast.greenstep.vo.VisionVO;
 
 @ControllerAuthority(check=true)
@@ -71,6 +72,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private String message = "";
 	private String success = IS_NO;
 	private String body = "";
+	private PdcaVO pdca = new PdcaVO();
 	
 	public PdcaReportContentQueryAction() {
 		super();
@@ -134,15 +136,22 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void getContent() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
-		ChainResultObj pdcaReportObj = this.getPdcaReportContent();
+		
+		Context pdcaContext = new ContextBase();
+		pdcaContext.put("pdcaOid", this.getFields().get("pdcaOid"));
+		SimpleChain chain = new SimpleChain();
+		ChainResultObj pdcaReportObj = chain.getResultFromResource("pdcaReportHtmlContentChain", pdcaContext);		
+		
 		List<ChainResultObj> bscReportResults = null;
 		if ("true".equals(this.getFields().get("showBscReport"))) {
 			bscReportResults = this.getBscReportContent();
 		}
 		if ( pdcaReportObj.getValue() instanceof String ) {
 			this.body = String.valueOf(pdcaReportObj.getValue());
+			this.pdca = (PdcaVO) pdcaContext.get("pdca");
 		}
 		this.message = super.defaultString(pdcaReportObj.getMessage()).trim();
 		for (int i=0; bscReportResults!=null && i<bscReportResults.size(); i++) {
@@ -160,15 +169,6 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		if (!StringUtils.isBlank(this.body)) {
 			this.success = IS_YES;
 		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	private ChainResultObj getPdcaReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
-		Context context = new ContextBase();
-		context.put("pdcaOid", this.getFields().get("pdcaOid"));
-		SimpleChain chain = new SimpleChain();
-		ChainResultObj resultObj = chain.getResultFromResource("pdcaReportHtmlContentChain", context);
-		return resultObj;
 	}
 	
 	private List<ChainResultObj> getBscReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
@@ -288,6 +288,11 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	@JSON
 	public String getBody() {
 		return body;
+	}
+
+	@JSON
+	public PdcaVO getPdca() {
+		return pdca;
 	}	
 
 }

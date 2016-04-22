@@ -89,8 +89,10 @@ function BSC_PROG006D0002Q_query() {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG006D0002Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
+					return;
 				}
 				dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body;
+				BSC_PROG006D0002Q_chart(data);
 			}, 
 			function(error) {
 				alert(error);
@@ -98,6 +100,151 @@ function BSC_PROG006D0002Q_query() {
 	);	
 }
 
+function BSC_PROG006D0002Q_chart(data) {
+	
+	var pdcaItemData = [];
+	BSC_PROG006D0002Q_chartFillItems( data.pdca.itemPlan, pdcaItemData );
+	BSC_PROG006D0002Q_chartFillItems( data.pdca.itemDo, pdcaItemData );
+	BSC_PROG006D0002Q_chartFillItems( data.pdca.itemCheck, pdcaItemData );
+	BSC_PROG006D0002Q_chartFillItems( data.pdca.itemAction, pdcaItemData );
+	
+	var series = [];
+	$.each(pdcaItemData.reverse(), function(i, application) {
+	    var item = {
+	        name: application.name,
+	        data: [],
+	        pointStart: Date.UTC(2015, 0, 1),
+	        pointInterval: 3 * 24 * 3600 * 1000
+	    };
+	    $.each(application.intervals, function(j, interval) {
+	        item.data.push({
+	            x: interval.from,
+	            y: i,
+	            label: interval.label,
+	            from: interval.from,
+	            to: interval.to,
+	            color: interval.color
+	        }, {
+	            x: interval.to,
+	            y: i,
+	            from: interval.from,
+	            to: interval.to,
+	            color: interval.color
+	        });
+	        
+	        // add a null value between intervals
+	        if (application.intervals[j + 1]) {
+	            item.data.push(
+	                [(interval.to + application.intervals[j + 1].from) / 2, null]
+	            );
+	        }
+
+	    });
+
+	    series.push(item);
+	});
+
+	// create the chart
+	var chart = new Highcharts.Chart({
+
+	    chart: {
+	        renderTo: 'BSC_PROG006D0002Q_container'
+	    },
+	    
+	    title: {
+	        text: data.pdca.title
+	    },
+
+	    xAxis: {
+	        //startOfWeek: 1,
+	        type: 'datetime',
+	        labels: {
+	            formatter: function () {
+	                return Highcharts.dateFormat('%e %b', this.value);
+	            }
+	        }
+	    },
+
+	    yAxis: {
+	        tickInterval: 1,
+	        labels: {
+	            formatter: function() {
+	                if (pdcaItemData[this.value]) {
+	                    return pdcaItemData[this.value].name;
+	                }
+	            }
+	        },
+	        startOnTick: false,
+	        endOnTick: false,
+	        title: {
+	            text: 'PDCA items'
+	        },
+	            minPadding: 0.2,
+	                maxPadding: 0.2
+	    },
+
+	    legend: {
+	        enabled: false
+	    },
+	    tooltip: {
+	        formatter: function() {
+	            return '<b>'+ pdcaItemData[this.y].name + '</b><br/>' +
+	                Highcharts.dateFormat('%Y-%m-%d', this.point.options.from)  +
+	                ' - ' + Highcharts.dateFormat('%Y-%m-%d', this.point.options.to); 
+	        }
+	    },   
+	    // We can define the color chart to our lines
+	    //colors: ['#B572A7'],
+	    plotOptions: {
+	        series: {
+	            // We can specify a single color of a line
+	            //lineColor: '#303030'
+	            //lineColor: function() {
+	            //        return this.point.options.color;
+	            //        return '#303030';
+				//},
+	        },
+	        line: {
+	            lineWidth: 9,
+	            // We can specify a single color of a line
+	            //color: '#B572A7',
+	            // We can't make function (){ ... } to get color for each     point.option or juste return a single color !
+	            //color: function() {
+	            //        return this.point.options.color;
+	            //        return '#B572A7';
+				//},
+	            marker: {
+	                enabled: false
+	            },
+	            dataLabels: {
+	                enabled: true,
+	                align: 'left',
+	                formatter: function() {
+	                    return this.point.options && this.point.options.label;
+	                }
+	            }
+	        }
+	    },
+	    series: series
+
+	});
+	
+}
+function BSC_PROG006D0002Q_chartFillItems(items, pdcaItemData) {
+	for (var i=0; i<items.length; i++) {
+		var item = items[i];
+		var d1 = item.startDate;
+		var d2 = item.endDate;
+		pdcaItemData.push({
+			name : item.type + ' - ' + item.title,
+			intervals : [{
+				from	:	Date.UTC( parseInt( d1.substring(0, 4) ), parseInt( d1.substring(4, 6) ) -1, parseInt( d1.substring(6, 8) ) ),
+				to		:	Date.UTC( parseInt( d2.substring(0, 4) ), parseInt( d2.substring(4, 6) ) -1, parseInt( d2.substring(6, 8) ) ),
+				label	:	item.type + ' - ' + item.title
+			}]
+		});
+	}	
+}
 
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
@@ -172,7 +319,10 @@ function ${programId}_page_message() {
 		</tr>
 	</table>
 	
+	
 	<div id="BSC_PROG006D0002Q_content"></div>
+	<br/>
+	<div id="BSC_PROG006D0002Q_container"></div>
 	
 	
 <script type="text/javascript">${programId}_page_message();</script>	
