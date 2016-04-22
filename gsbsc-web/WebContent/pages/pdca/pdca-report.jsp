@@ -77,7 +77,10 @@ function BSC_PROG006D0002Q_query() {
 	setFieldsBackgroundDefault(BSC_PROG006D0002Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/bsc.pdcaReportContentQuery.action', 
-			{ 'fields.pdcaOid' : dijit.byId('BSC_PROG006D0002Q_pdcaOid').get('value') }, 
+			{ 
+				'fields.pdcaOid' 		: dijit.byId('BSC_PROG006D0002Q_pdcaOid').get('value'),
+				'fields.showBscReport'	: ( dijit.byId('BSC_PROG006D0002Q_bscReportShow').checked ? 'true' : 'false' )
+			}, 
 			'json', 
 			_gscore_dojo_ajax_timeout,
 			_gscore_dojo_ajax_sync, 
@@ -139,6 +142,13 @@ function ${programId}_page_message() {
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_pdcaOid'">
 					    				Select PDCA project.
 									</div>  									
+						    		&nbsp;
+						    		
+						    		<b>BSC Report:</b>
+						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="false" />
+									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_bscReportShow'">
+					    				Show with BSC report.
+									</div>						   
 						    		&nbsp;
 						    		
 									<button id="BSC_PROG006D0002Q_btnQuery" data-dojo-type="dijit.form.Button"

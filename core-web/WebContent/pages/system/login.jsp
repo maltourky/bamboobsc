@@ -71,6 +71,36 @@ select {
     font-weight: bold;
 }
 
+
+/* -- http://isabelcastillo.com/error-info-messages-css -- */
+.isa_info, .isa_success, .isa_warning, .isa_error {
+	margin: 10px 0px;
+	padding:12px;
+	border-radius: 10px;
+}
+.isa_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.isa_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.isa_error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+.isa_info i, .isa_success i, .isa_warning i, .isa_error i {
+    margin:10px 22px;
+    font-size:2em;
+    vertical-align:middle;
+}
+
+
 -->
 </style>	
 	
@@ -86,12 +116,6 @@ function redirectLogin(sel) {
 	window.location = '<%=basePath%>login.action?lang=' + sel.value;
 }
 
-function pageMessage() {
-	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
-	if (null!=pageMessage && ''!=pageMessage && ' '!=pageMessage) {
-		alert(pageMessage);
-	}	
-}
 </script>
 </head>  
 
@@ -102,9 +126,9 @@ function pageMessage() {
       <td bgcolor="#ffffff"><img src="./images/original.jpg" width="220" height="30" /></td>
     </tr>
     <tr>
-      <td height="480" bgcolor="#ffffff">
-	  <center>
-	  <table id="loginTable" width="550" border="0" cellpadding="2" cellspacing="2">	 
+      <td height="600" bgcolor="#ffffff" align="center">
+	  
+	  <table id="loginTable" width="640" border="0" cellpadding="2" cellspacing="2">	 
         <tr> 
           <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_language')"/>:</span></td>
           <td width="160" align="left">
@@ -141,27 +165,40 @@ function pageMessage() {
         </tr>        
         <tr>         
           <td width="320" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();" cssClass="lighter"/></td>          
-        </tr>
+        </tr>        
+        
+        <s:if test=" pageMessage != null && \"\" != pageMessage ">
+        
         <tr> 
-          <td width="320" align="center" colspan="3" bgcolor="#FAFAFA">
-          <a href="../gsbsc-mobile-web/index.action"><font color="#7E7E7E" size="3"><b>click to mobile version web.</b></font></a>
+          <td width="320" align="center" colspan="2">
+          <div class="isa_error"><s:property value="pageMessage"/></div>
           </td>
-         </tr>        
+		</tr> 
+        
+        </s:if>
+        
         <tr> 
-          <td width="320" align="center" colspan="2" bgcolor="#FAFAFA">
-          <font color="#7E7E7E" size="2">Please use <b>Chrome</b> (recommend) or <b>Firefox</b> browser, can not support other browser.</font>
+          <td width="320" align="center" colspan="2">
+          <div class="isa_success">Please use <b>Chrome</b> (recommend) or <b>Firefox</b> browser, can not support other browser.</div>
           </td>
-         </tr>         
+		</tr> 
+        <tr> 
+          <td width="320" align="center" colspan="3" bgcolor="#ffffff">
+          <a href="../gsbsc-mobile-web/index.action" style="text-decoration: none; font-weight: bold; color:#3794E5" >click to mobile version web.</a>
+          </td>
+		</tr>                 
       </table>
-	  <table id="pwaitTable" width="600" border="0" cellpadding="0" cellspacing="0" style="visibility:hidden" >
+      
+	  <table id="pwaitTable" width="640" border="0" cellpadding="0" cellspacing="0" style="visibility:hidden" >
 	  	<tr>
 	  		<td align="center"><img alt="please wait" src="./images/please-wait.gif"></img></td>
 	  	</tr>
 		<tr>
-			<td align="center" bgcolor="#FAFAFA"><h2><font color="#7E7E7E">Please wait!</font></h2></td>
+			<td align="center" bgcolor="#ffffff"><div class=isa_success><h3>Please wait!</h3></div></td>
 		</tr>	  	
-	  </table>      
-	  </center>
+	  </table>
+	        
+	  
 	  </td>
     </tr>
     <tr>
@@ -169,6 +206,5 @@ function pageMessage() {
     </tr>
   </table>
 </s:form>
-<script type="text/javascript">pageMessage();</script>
 </body>
 </html>

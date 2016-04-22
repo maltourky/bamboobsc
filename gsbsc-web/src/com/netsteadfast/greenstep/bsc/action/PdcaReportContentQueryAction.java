@@ -137,12 +137,16 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private void getContent() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		ChainResultObj pdcaReportObj = this.getPdcaReportContent();
-		List<ChainResultObj> bscReportResults = this.getBscReportContent();
+		List<ChainResultObj> bscReportResults = null;
+		if ("true".equals(this.getFields().get("showBscReport"))) {
+			bscReportResults = this.getBscReportContent();
+		}
 		if ( pdcaReportObj.getValue() instanceof String ) {
 			this.body = String.valueOf(pdcaReportObj.getValue());
 		}
 		this.message = super.defaultString(pdcaReportObj.getMessage()).trim();
-		for (ChainResultObj bscReportObj : bscReportResults) {
+		for (int i=0; bscReportResults!=null && i<bscReportResults.size(); i++) {
+			ChainResultObj bscReportObj = bscReportResults.get(i);
 			if ( bscReportObj.getValue() instanceof String ) {
 				this.body += String.valueOf(bscReportObj.getValue());
 			}

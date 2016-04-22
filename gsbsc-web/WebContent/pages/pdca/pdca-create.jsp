@@ -380,11 +380,12 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	var idHead = 'BSC_PROG006D0001A_pdcaTab_tableContent_' + id;
 	
 	var str = '';
-	str += '<div class="isa_success"><b>' + node.title + '</b></div>';
-	str += '<b>Date range:</b>&nbsp;' + node.startDate + ' - ' + node.endDate + '<br/>';
+	str += '<div class="isa_success"><b>' + node.title + '</b>';
 	if (node.description.trim() != '') {
-		str += node.description + '<br/>';
-	}
+		str += '<br/>' + node.description;
+	}	
+	str += '</div>';
+	str += '<b>Date range:</b>&nbsp;' + node.startDate + ' - ' + node.endDate + '<br/>';
 	
 	
 	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
