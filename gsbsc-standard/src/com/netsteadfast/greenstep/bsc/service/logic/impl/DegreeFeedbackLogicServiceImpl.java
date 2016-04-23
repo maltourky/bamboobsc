@@ -184,8 +184,9 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		project = result.getValue();
 		this.createLevels(project, levels);
 		this.createItems(project, items);
-		this.createAssign(project, ownerEmplOids, raterEmplOids);		
-		this.startProcess(this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply."));		
+		this.createAssign(project, ownerEmplOids, raterEmplOids);
+		//改成自己點選Start apply按鈕再啟用申請審核流程
+		//this.startProcess(this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply."));		
 		return result;
 	}
 	
@@ -206,7 +207,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		project = oldResult.getValue();
 		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariableProjectOid( project.getOid() );
 		if (tasks!=null && tasks.size()>0) {
-			throw new ServiceException( "Audit running, project cannot delete." );
+			throw new ServiceException( "Audit processing running, project cannot delete!" );
 		}
 		this.deleteLevels(project);
 		this.deleteItems(project);
@@ -237,7 +238,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 			throw new ServiceException( oldResult.getSystemMessage().getValue() );
 		}		
 		if (YesNo.YES.equals(oldResult.getValue().getPublishFlag())) {
-			throw new ServiceException( "Cannot update/modify publish project!" );
+			throw new ServiceException( "Cannot update/modify published project!" );
 		}
 		DefaultResult<DegreeFeedbackProjectVO> ukResult = this.degreeFeedbackProjectService.findByUK(project);
 		if (ukResult.getValue()!=null) {
@@ -365,7 +366,7 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 			readOnly=false,
 			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
 	@Override
-	public DefaultResult<DegreeFeedbackProjectVO> reApplyProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
+	public DefaultResult<DegreeFeedbackProjectVO> startProcess(DegreeFeedbackProjectVO project) throws ServiceException, Exception {
 		if (null == project || super.isBlank(project.getOid())) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
@@ -375,13 +376,13 @@ public class DegreeFeedbackLogicServiceImpl extends BscBaseBusinessProcessManage
 		}
 		project = result.getValue();
 		if (YesNo.YES.equals(project.getPublishFlag())) {
-			throw new ServiceException( "Cannot re-apply, because project is publish!" );
+			throw new ServiceException( "The project is published, cannot start audit processing!" );
 		}
 		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariableProjectOid(project.getOid());
 		if (null!=tasks && tasks.size()>0) {
-			throw new ServiceException( "Cannot re-apply, because project is audit processing!" );
+			throw new ServiceException( "Audit processing has been started!" );
 		}
-		this.startProcess( this.getProcessFlowParam(project.getOid(), YesNo.YES, "start re-apply. " + project.getName()) );
+		this.startProcess( this.getProcessFlowParam(project.getOid(), YesNo.YES, "start apply." + project.getName()) );
 		result.setSystemMessage( new SystemMessage(SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS)) );		
 		return result;
 	}	

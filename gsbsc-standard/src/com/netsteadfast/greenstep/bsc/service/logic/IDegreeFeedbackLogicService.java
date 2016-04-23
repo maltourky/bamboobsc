@@ -48,7 +48,7 @@ public interface IDegreeFeedbackLogicService {
 	
 	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
 	
-	public DefaultResult<DegreeFeedbackProjectVO> reApplyProject(DegreeFeedbackProjectVO project) throws ServiceException, Exception;
+	public DefaultResult<DegreeFeedbackProjectVO> startProcess(DegreeFeedbackProjectVO project) throws ServiceException, Exception;
 	
 	public List<BusinessProcessManagementTaskVO> queryTaskByVariableProjectOid(String projectOid) throws ServiceException, Exception;
 	

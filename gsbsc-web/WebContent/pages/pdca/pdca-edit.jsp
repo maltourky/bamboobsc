@@ -727,11 +727,11 @@ function ${programId}_page_message() {
     				errorFn=""
     				loadFn="BSC_PROG006D0001E_startProcessSuccess(data);" 
     				programId="${programId}"
-    				label="Start process"
+    				label="Start apply"
     				iconClass="dijitIconSave"
     				confirmDialogMode="Y"
     				confirmDialogTitle=""
-    				confirmDialogMsg="Start process?"
+    				confirmDialogMsg="Start apply?"
     				cssClass="alt-warning"></gs:button>
     				
     			<button name="BSC_PROG006D0001E_openConfirmDialog" id="BSC_PROG006D0001E_openConfirmDialog"  data-dojo-type="dijit.form.Button"

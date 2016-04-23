@@ -42,13 +42,15 @@ function BSC_PROG005D0001E_updateSuccess(data) {
 	}	
 }
 
-function BSC_PROG005D0001E_reApplySuccess(data) {
+function BSC_PROG005D0001E_startProcessSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG005D0001E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG005D0001E_fieldsId);		
 		return;
 	}	
+	//刷新畫面
+	BSC_PROG005D0001E_TabRefresh();
 }
 
 function BSC_PROG005D0001E_reloadOwnerName() {
@@ -182,7 +184,7 @@ function ${programId}_page_message() {
 	<input type="hidden" name="BSC_PROG005D0001E_owner" id="BSC_PROG005D0001E_owner" value="${fields.ownerOids}" />
 	<input type="hidden" name="BSC_PROG005D0001E_rater" id="BSC_PROG005D0001E_rater" value="${fields.raterOids}" />
 	
-	<table border="0" width="100%" height="600px" cellpadding="1" cellspacing="0" >	
+	<table border="0" width="100%" height="650px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_name')"/></b>:
@@ -362,10 +364,10 @@ function ${programId}_page_message() {
     				iconClass="dijitIconClear"
     				cssClass="alt-primary"></gs:button>   
     			&nbsp;&nbsp;&nbsp;&nbsp;
-    			<gs:button name="BSC_PROG005D0001E_reApply" id="BSC_PROG005D0001E_reApply" onClick="BSC_PROG005D0001E_reApply();"
+    			<gs:button name="BSC_PROG005D0001E_startProcess" id="BSC_PROG005D0001E_startProcess" onClick="BSC_PROG005D0001E_startProcess();"
     				handleAs="json"
     				sync="N"
-    				xhrUrl="${basePath}/bsc.degreeFeedbackProjectReApplyAction.action"
+    				xhrUrl="${basePath}/bsc.degreeFeedbackProjectStartProcessAction.action"
     				parameterType="postData"
     				xhrParameter=" 
     					{     						
@@ -373,13 +375,13 @@ function ${programId}_page_message() {
     					} 
     				"
     				errorFn=""
-    				loadFn="BSC_PROG005D0001E_reApplySuccess(data);" 
+    				loadFn="BSC_PROG005D0001E_startProcessSuccess(data);" 
     				programId="${programId}"
-    				label="Re apply" 
+    				label="Start apply" 
     				iconClass="dijitIconSave"
     				confirmDialogMode="Y"
     				confirmDialogTitle=""
-    				confirmDialogMsg="Confirm?"       				
+    				confirmDialogMsg="Start apply?"       				
     				cssClass="alt-warning"></gs:button> 
     				
 				<button name="BSC_PROG005D0001E_confirmDlgBtn" id="BSC_PROG005D0001E_confirmDlgBtn" data-dojo-type="dijit.form.Button"

@@ -213,10 +213,10 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);
 	}
 	
-	private void reApplyProject() throws ControllerException, AuthorityException, ServiceException, Exception {
+	private void startProcess() throws ControllerException, AuthorityException, ServiceException, Exception {
 		DegreeFeedbackProjectVO project = new DegreeFeedbackProjectVO();
 		this.transformFields2ValueObject(project, new String[]{"oid"});
-		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.reApplyProject(project);
+		DefaultResult<DegreeFeedbackProjectVO> result = this.degreeFeedbackLogicService.startProcess(project);
 		this.message = result.getSystemMessage().getValue();
 		if (result.getValue()!=null) {
 			this.success = IS_YES;
@@ -374,19 +374,19 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	}
 	
 	/**
-	 * bsc.degreeFeedbackProjectReApplyAction.action
+	 * bsc.degreeFeedbackProjectStartProcessAction.action
 	 * 
 	 * @return
 	 * @throws Exception
 	 */	
 	@ControllerMethodAuthority(programId="BSC_PROG005D0001E")
-	public String doReApplyProject() throws Exception {
+	public String doStartProcess() throws Exception {
 		try {
 			if (!this.allowJob()) {
 				this.message = this.getNoAllowMessage();
 				return SUCCESS;
 			}
-			this.reApplyProject();
+			this.startProcess();
 		} catch (ControllerException ce) {
 			this.message=ce.getMessage().toString();
 		} catch (AuthorityException ae) {

@@ -302,7 +302,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			throw new ServiceException( "Same title is found: " + pdca.getTitle() );
 		}
 		if (YesNo.YES.equals(oldResult.getValue().getConfirmFlag())) {
-			throw new ServiceException( "Cannot update, because the project is confirm!" );
+			throw new ServiceException( "Cannot update/modify confirm project!" );
 		}
 		this.setStringValueMaxLength(pdca, "description", MAX_DESCRIPTION_LENGTH);
 		pdca.setConfirmFlag(YesNo.NO);
@@ -343,7 +343,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		}
 		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
 		if (tasks!=null && tasks.size()>0) {
-			throw new ServiceException("Audit process running, project cannot delete!");
+			throw new ServiceException("Audit processing running, project cannot delete!");
 		}		
 		this.deleteMeasureFreq(pdca);
 		this.deleteOwner(pdca);
@@ -370,13 +370,13 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		}
 		pdca = result.getValue();
 		if (YesNo.YES.equals(pdca.getConfirmFlag())) {
-			throw new ServiceException("The project is confirm, cannot start audit process!");
+			throw new ServiceException("The project is confirm, cannot start audit processing!");
 		}
 		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
 		if (tasks!=null && tasks.size()>0) {
-			throw new ServiceException("Audit process has been started!");
+			throw new ServiceException("Audit processing has been started!");
 		}
-		String reason = "Start PDCA audit process, " + pdca.getTitle() + "";
+		String reason = "Start PDCA audit processing, " + pdca.getTitle() + "";
 		this.startProcess(this.getProcessFlowParam(pdca.getOid(), "*", SimpleUtils.getStrYMD(""), super.getAccountId(), YesNo.YES, reason, YesNo.NO));
 		result.setSystemMessage( new SystemMessage(reason) );
 		return result;
