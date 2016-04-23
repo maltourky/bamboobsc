@@ -73,6 +73,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private String success = IS_NO;
 	private String body = "";
 	private PdcaVO pdca = new PdcaVO();
+	private String uploadOid = "";
 	
 	public PdcaReportContentQueryAction() {
 		super();
@@ -147,7 +148,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		
 		List<ChainResultObj> bscReportResults = null;
 		if ("true".equals(this.getFields().get("showBscReport"))) {
-			bscReportResults = this.getBscReportContent();
+			bscReportResults = this.getBscReportContent( "kpiReportHtmlContentChain" );
 		}
 		if ( pdcaReportObj.getValue() instanceof String ) {
 			this.body = String.valueOf(pdcaReportObj.getValue());
@@ -171,7 +172,35 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		}
 	}
 	
-	private List<ChainResultObj> getBscReportContent() throws ControllerException, AuthorityException, ServiceException, Exception {
+	@SuppressWarnings("unchecked")
+	private void getExcel() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
+		
+		List<String> bscExcelFileUploadOids = new ArrayList<String>();
+		List<ChainResultObj> bscReportResults = null;
+		if ("true".equals(this.getFields().get("showBscReport"))) {
+			bscReportResults = this.getBscReportContent( "kpiReportExcelContentChain" );
+		}
+		for (int i=0; bscReportResults!=null && i<bscReportResults.size(); i++) {
+			ChainResultObj resultObj = bscReportResults.get(i);
+			if ( resultObj.getValue() instanceof String ) {
+				bscExcelFileUploadOids.add( (String)resultObj.getValue() );
+			}
+		}
+		
+		Context pdcaContext = new ContextBase();
+		pdcaContext.put("pdcaOid", this.getFields().get("pdcaOid"));
+		pdcaContext.put("bscExcelFileUploadOids", bscExcelFileUploadOids);
+		SimpleChain chain = new SimpleChain();
+		ChainResultObj resultObj = chain.getResultFromResource("pdcaReportExcelContentChain", pdcaContext);		
+		this.message = resultObj.getMessage();
+		if ( resultObj.getValue() instanceof String ) {
+			this.uploadOid = (String)resultObj.getValue();
+			this.success = IS_YES;
+		}
+	}
+	
+	private List<ChainResultObj> getBscReportContent(String chainId) throws ControllerException, AuthorityException, ServiceException, Exception {
 		List<ChainResultObj> results = new ArrayList<ChainResultObj>();
 		
 		String pdcaOid = this.getFields().get("pdcaOid");
@@ -189,7 +218,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 			measureFreq = mfResult.getValue();
 			Context context = this.getBscReportChainContext(pdcaOid, visionOid, measureFreq);
 			SimpleChain chain = new SimpleChain();
-			ChainResultObj resultObj = chain.getResultFromResource("kpiReportHtmlContentChain", context);
+			ChainResultObj resultObj = chain.getResultFromResource(chainId, context);
 			results.add(resultObj);
 		}
 		return results;
@@ -255,6 +284,38 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * bsc.pdcaReportExcelQuery.action
+	 */
+	@JSON(serialize=false)
+	@ControllerMethodAuthority(programId="BSC_PROG006D0002Q")	
+	public String doExcel() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.getExcel();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getMessage()==null) { 
+				this.message=e.toString();
+				this.logger.error(e.toString());
+			} else {
+				this.message=e.getMessage().toString();
+				this.logger.error(e.getMessage());
+			}						
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;		
+	}	
+	
 	@JSON
 	@Override
 	public String getLogin() {
@@ -293,6 +354,14 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	@JSON
 	public PdcaVO getPdca() {
 		return pdca;
+	}
+
+	public String getUploadOid() {
+		return uploadOid;
+	}
+
+	public void setUploadOid(String uploadOid) {
+		this.uploadOid = uploadOid;
 	}	
 
 }

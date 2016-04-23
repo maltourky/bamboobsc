@@ -181,5 +181,11 @@
 		<command id="LoadPdcaDataCommand"			className="com.netsteadfast.greenstep.bsc.command.LoadPdcaDataCommand"/> 
 		<command id="PdcaReportBodyCommand"		className="com.netsteadfast.greenstep.bsc.command.PdcaReportBodyCommand"/>
 	</chain>	
-						
+	
+	<!-- PDCA報表Excel版產生內容用的 chain -->
+	<chain name="pdcaReportExcelContentChain">
+		<command id="LoadPdcaDataCommand"			className="com.netsteadfast.greenstep.bsc.command.LoadPdcaDataCommand"/> 
+		<command id="PdcaReportExcelCommand"	className="com.netsteadfast.greenstep.bsc.command.PdcaReportExcelCommand"/>
+	</chain>	
+							
 </catalog>  

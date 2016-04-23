@@ -73,10 +73,14 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
 var BSC_PROG006D0002Q_fieldsId = new Object();
 BSC_PROG006D0002Q_fieldsId['pdcaOid']	= 'BSC_PROG006D0002Q_pdcaOid';
 
-function BSC_PROG006D0002Q_query() {
+function BSC_PROG006D0002Q_query(type) {
+	var actionUrl = 'bsc.pdcaReportContentQuery.action';
+	if ('EXCEL' == type) {
+		actionUrl = 'bsc.pdcaReportExcelQuery.action';
+	}
 	setFieldsBackgroundDefault(BSC_PROG006D0002Q_fieldsId);
 	xhrSendParameter(
-			'${basePath}/bsc.pdcaReportContentQuery.action', 
+			'${basePath}/' + actionUrl, 
 			{ 
 				'fields.pdcaOid' 		: dijit.byId('BSC_PROG006D0002Q_pdcaOid').get('value'),
 				'fields.showBscReport'	: ( dijit.byId('BSC_PROG006D0002Q_bscReportShow').checked ? 'true' : 'false' )
@@ -91,8 +95,12 @@ function BSC_PROG006D0002Q_query() {
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
-				dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body + '<div id="BSC_PROG006D0002Q_container"></div>';
-				BSC_PROG006D0002Q_chart(data);
+				if ('EXCEL' == type) {
+					openCommonLoadUpload( 'download', data.uploadOid, { } );
+				} else {
+					dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body + '<div id="BSC_PROG006D0002Q_container"></div>';
+					BSC_PROG006D0002Q_chart(data);					
+				}
 			}, 
 			function(error) {
 				alert(error);
@@ -303,8 +311,16 @@ function ${programId}_page_message() {
 											iconClass:'dijitIconSearch',
 											showLabel:false,
 											onClick:function(){  
-												BSC_PROG006D0002Q_query();
+												BSC_PROG006D0002Q_query('HTML');
 											}">Query</button>
+										
+									<button id="BSC_PROG006D0002Q_btnXls" data-dojo-type="dijit.form.Button"
+										data-dojo-props="
+											iconClass:'btnExcelIcon',
+											showLabel:false,
+											onClick:function(){
+												BSC_PROG006D0002Q_query('EXCEL');																			  
+											}">Excel</button>											
 											
 								</td>
 							</tr>																						

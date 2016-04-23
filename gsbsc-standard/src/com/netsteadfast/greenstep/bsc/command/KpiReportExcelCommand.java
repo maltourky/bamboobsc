@@ -108,6 +108,9 @@ public class KpiReportExcelCommand extends BaseChainCommandSupport implements Co
 		String fileName = SimpleUtils.getUUIDStr() + ".xlsx";
 		String fileFullPath = Constants.getWorkTmpDir() + "/" + fileName;	
 		int row = 24;
+		if (context.get("pieCanvasToData") == null || context.get("barCanvasToData") == null) {
+			row = 0;
+		}
 		XSSFWorkbook wb = new XSSFWorkbook();				
 		XSSFSheet sh = wb.createSheet();
 		
@@ -116,8 +119,9 @@ public class KpiReportExcelCommand extends BaseChainCommandSupport implements Co
 		
 		row = row + 1; // 空一列
 		row = this.createDateRange(wb, sh, row, vision, context);
-		
-		this.putCharts(wb, sh, context);
+		if (context.get("pieCanvasToData") != null && context.get("barCanvasToData") != null) {
+			this.putCharts(wb, sh, context);
+		}
 		this.putSignature(wb, sh, row+1, context);
 		
         FileOutputStream out = new FileOutputStream(fileFullPath);
