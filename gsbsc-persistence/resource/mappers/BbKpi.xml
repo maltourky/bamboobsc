@@ -24,6 +24,7 @@
 		<result column="ORGA_MEASURE_SEPARATE" property="orgaMeasureSeparate"/>
 		<result column="USER_MEASURE_SEPARATE" property="userMeasureSeparate"/>
 		<result column="QUASI_RANGE" property="quasiRange"/>
+		<result column="ACTIVATE" property="activate"/>
 		<result column="CUSERID" property="cuserid"/>
 		<result column="CDATE" property="cdate"/>
 		<result column="UUSERID" property="uuserid"/>		

@@ -41,6 +41,7 @@ public class BbKpi extends BaseEntity<String> implements java.io.Serializable {
 	private String orgaMeasureSeparate;
 	private String userMeasureSeparate;	
 	private int quasiRange;
+	private String activate;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -219,6 +220,15 @@ public class BbKpi extends BaseEntity<String> implements java.io.Serializable {
 	
 	public void setQuasiRange(int quasiRange) {
 		this.quasiRange = quasiRange;
+	}
+	
+	@Column(name="ACTIVATE")
+	public String getActivate() {
+		return activate;
+	}
+	
+	public void setActivate(String activate) {
+		this.activate = activate;
 	}
 	
 	@Override

@@ -50,6 +50,7 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 	private String orgaMeasureSeparate;
 	private String userMeasureSeparate;
 	private int quasiRange;
+	private String activate;
 	
 	private String visionTitle; // 查詢 query Grid 要用的 , 放 BB_VISION.TITLE
 	private String perspectiveName; // 查詢 query Grid 要用的 , 放 BB_PERSPECTIVE.NAME
@@ -235,6 +236,14 @@ public class KpiVO extends BaseValueObj implements java.io.Serializable {
 
 	public void setQuasiRange(int quasiRange) {
 		this.quasiRange = quasiRange;
+	}
+	
+	public String getActivate() {
+		return activate;
+	}
+
+	public void setActivate(String activate) {
+		this.activate = activate;
 	}
 
 	public String getVisionTitle() {

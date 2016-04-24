@@ -29,6 +29,7 @@ import java.util.Map;
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.po.hbm.TbSysCode;
 import com.netsteadfast.greenstep.service.ISysCodeService;
 import com.netsteadfast.greenstep.vo.SysCodeVO;
@@ -204,6 +205,16 @@ public class BscKpiCode implements java.io.Serializable {
 	
 	public static Map<String, String> getQuasiRangeMap() {
 		return quasiRangeMap;
+	}
+	
+	public static Map<String, String> getActivateOptionMap(boolean pleaseSelect) {
+		Map<String, String> dataMap = new LinkedHashMap<String, String>();
+		if (pleaseSelect) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		dataMap.put(YesNo.YES, YesNo.YES);
+		dataMap.put(YesNo.NO, YesNo.NO);
+		return dataMap;
 	}
 
 	/**

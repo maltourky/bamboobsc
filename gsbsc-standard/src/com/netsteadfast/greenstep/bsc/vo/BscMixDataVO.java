@@ -41,6 +41,7 @@ public class BscMixDataVO implements java.io.Serializable {
 	private String kpiOrgaMeasureSeparate;
 	private String kpiUserMeasureSeparate;	
 	private int kpiQuasiRange;
+	private String kpiActivate;
 	private String objOid;
 	private String objId;
 	private String objName;
@@ -88,7 +89,7 @@ public class BscMixDataVO implements java.io.Serializable {
 			float kpiMax, float kpiTarget, float kpiMin, String kpiManagement,
 			String kpiCompareType, String kpiCal, String kpiDataType,
 			String kpiOrgaMeasureSeparate, String kpiUserMeasureSeparate,
-			int kpiQuasiRange, String objOid, String objId, String objName,
+			int kpiQuasiRange, String kpiActivate, String objOid, String objId, String objName,
 			BigDecimal objWeight, String objDescription, float objTarget,
 			float objMin, String perOid, String perId, String perName,
 			BigDecimal perWeight, String perDescription, float perTarget,
@@ -117,6 +118,7 @@ public class BscMixDataVO implements java.io.Serializable {
 		this.kpiOrgaMeasureSeparate = kpiOrgaMeasureSeparate;
 		this.kpiUserMeasureSeparate = kpiUserMeasureSeparate;
 		this.kpiQuasiRange = kpiQuasiRange;
+		this.kpiActivate = kpiActivate;
 		this.objOid = objOid;
 		this.objId = objId;
 		this.objName = objName;
@@ -282,6 +284,14 @@ public class BscMixDataVO implements java.io.Serializable {
 
 	public void setKpiQuasiRange(int kpiQuasiRange) {
 		this.kpiQuasiRange = kpiQuasiRange;
+	}
+	
+	public String getKpiActivate() {
+		return kpiActivate;
+	}
+
+	public void setKpiActivate(String kpiActivate) {
+		this.kpiActivate = kpiActivate;
 	}
 
 	public String getObjOid() {

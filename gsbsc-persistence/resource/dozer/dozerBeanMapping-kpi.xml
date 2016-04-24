@@ -82,7 +82,11 @@
 		<field>
 			<a>quasiRange</a>
 			<b>quasiRange</b>
-		</field>																																				
+		</field>
+		<field>
+			<a>activate</a>
+			<b>activate</b>
+		</field>																																							
 	</mapping>
 
 	<mapping map-id="kpi.vo2po" >
@@ -163,7 +167,11 @@
 		<field>
 			<a>quasiRange</a>
 			<b>quasiRange</b>
-		</field>				
+		</field>	
+		<field>
+			<a>activate</a>
+			<b>activate</b>
+		</field>					
 	</mapping>
 	
 </mappings>

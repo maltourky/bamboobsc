@@ -68,6 +68,7 @@
 				k.oid, k.id, k.name, k.description, k.weight, k.unit, k.max, k.target, k.min,
 				k.management, k.compareType, k.cal, k.dataType, k.orgaMeasureSeparate, k.userMeasureSeparate,
 				k.quasiRange,
+				k.activate,
 				o.oid, o.objId, o.name, o.weight, o.description, o.target, o.min,
 				p.oid, p.perId, p.name, p.weight, p.description, p.target, p.min,
 				v.oid, v.visId, v.title,
@@ -112,6 +113,8 @@
 		<#if kpiIds??>
 		AND k.id IN ( :kpiIds )
 		</#if>
+		
+		AND k.activate = 'Y'
 		
 		ORDER BY v.visId, p.perId, o.objId, k.id ASC			
 	]]>		
@@ -158,6 +161,8 @@
 		<#if kpiIds??>
 		AND k.id IN ( :kpiIds )
 		</#if>
+		
+		AND k.activate = 'Y'
 				
 	]]>		
 	</query>	

@@ -642,6 +642,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String description = data.get("DESCRIPTION");
 			String max = data.get("MAX");
 			String trendsForId = data.get("TRENDS_FOR_ID");
+			String activate = data.get("ACTIVATE");
 			String errMsg = this.checkKPIsDataError(
 					row,
 					id, objId, name, weight, target, 
@@ -685,8 +686,12 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			kpi.setDescription(description);
 			kpi.setOrgaMeasureSeparate(YesNo.NO);
 			kpi.setUserMeasureSeparate(YesNo.NO);
+			kpi.setActivate(YesNo.NO);
 			if ( YesNo.YES.equals(orgaMeasureSeparate) || YesNo.YES.equals(userMeasureSeparate) ) {
 				msg.append("row: " + row + " import mode no support organization/personal measure separate data. please manual settings.<br/>");
+			}
+			if (YesNo.YES.equals(activate)) {
+				kpi.setActivate(YesNo.YES);
 			}
 			DefaultResult<KpiVO> kResult = this.kpiService.findByUK(kpi);
 			if (kResult.getValue()!=null) { // update

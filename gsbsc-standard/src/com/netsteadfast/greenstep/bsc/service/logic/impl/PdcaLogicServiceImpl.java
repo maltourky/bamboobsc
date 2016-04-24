@@ -584,6 +584,9 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 				throw new ServiceException(kpiResult.getSystemMessage().getValue());
 			}
 			kpi = kpiResult.getValue();
+			if (!YesNo.YES.equals(kpi.getActivate())) { // 在打開 KPI-tree 選取時還是 ACTIVATE = 'Y' , 然後故意的去KPI修改, 把 ACTIVATE 設定為'N' , 所以要檢查是否正確
+				throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+			}
 			PdcaKpisVO pdcaKpi = new PdcaKpisVO();
 			pdcaKpi.setPdcaOid(pdca.getOid());
 			pdcaKpi.setKpiId(kpi.getId());

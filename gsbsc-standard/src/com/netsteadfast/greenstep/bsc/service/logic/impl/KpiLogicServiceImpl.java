@@ -52,6 +52,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.ServiceAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
+import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicService;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
 import com.netsteadfast.greenstep.bsc.service.IKpiAttacService;
@@ -267,6 +268,13 @@ public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogi
 		if (oldResult.getValue()==null) {
 			throw new ServiceException(oldResult.getSystemMessage().getValue());
 		}
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("kpiId", oldResult.getValue().getId());
+		if (this.pdcaKpisService.countByParams(paramMap) > 0 && !YesNo.YES.equals(kpi.getActivate())) {
+			throw new ServiceException( "Cannot disable activate options, because the KPI is used in!" );
+		}		
+		
 		this.setStringValueMaxLength(kpi, "description", MAX_DESCRIPTION_LENGTH);
 		this.handlerDataForCreateOrUpdate(kpi, objectiveOid, formulaOid, aggrOid, trendsFormulaOid);
 		kpi.setId( oldResult.getValue().getId() );		

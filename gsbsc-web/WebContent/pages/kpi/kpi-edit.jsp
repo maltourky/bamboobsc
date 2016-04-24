@@ -45,6 +45,7 @@ BSC_PROG002D0004E_fieldsId['unit'] 				= 'BSC_PROG002D0004E_unit';
 BSC_PROG002D0004E_fieldsId['management'] 		= 'BSC_PROG002D0004E_management';
 BSC_PROG002D0004E_fieldsId['cal'] 				= 'BSC_PROG002D0004E_cal';
 BSC_PROG002D0004E_fieldsId['dataType'] 			= 'BSC_PROG002D0004E_dataType';
+BSC_PROG002D0004E_fieldsId['activate'] 			= 'BSC_PROG002D0004E_activate';
 
 function BSC_PROG002D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG002D0004E_fieldsId);
@@ -76,7 +77,8 @@ function BSC_PROG002D0004E_clear() {
 	dijit.byId('BSC_PROG002D0004E_dataType').set("value", _gscore_please_select_id);
 	dijit.byId('BSC_PROG002D0004E_orgaMeasureSeparate').set("checked", true);
 	dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').set("checked", true);
-	dijit.byId('BSC_PROG002D0004E_description').set("value", "");	
+	dijit.byId('BSC_PROG002D0004E_description').set("value", "");
+	dijit.byId('BSC_PROG002D0004E_activate').set("value", _gscore_please_select_id);
 	BSC_PROG002D0004E_clearOrgaAppendId();
 	BSC_PROG002D0004E_clearEmplAppendId();
 	BSC_PROG002D0004E_clearUploadDataTable();
@@ -270,7 +272,7 @@ function ${programId}_page_message() {
 	<input type="hidden" name="BSC_PROG002D0004E_appendEmployeeOid" id="BSC_PROG002D0004E_appendEmployeeOid" value="${fields.appendEmplOids}" />	
 	<input type="hidden" name="BSC_PROG002D0004E_uploadDocumentOid" id="BSC_PROG002D0004E_uploadDocumentOid" value="" /><!-- 這個upload放oid的欄位只是當temp用 -->
 	
-	<table border="0" width="850" height="950px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="850" height="1000px" cellpadding="1" cellspacing="0" >
 		<tr>
 		<tr>
     		<td height="50px" width="50%"  align="left">
@@ -528,7 +530,18 @@ function ${programId}_page_message() {
     				enable, can input KPI item measure-data for personal/Employee. 
 				</div> 		    			
     		</td>
-    	</tr>		    	
+    	</tr>
+		<tr>
+    		<td height="50px" width="100%"  align="left" colspan="2">
+    			<font color='RED'>*</font><b>Activate options</b>:
+    			<br/>
+    			<gs:select name="BSC_PROG002D0004E_activate" dataSource="activateMap" id="BSC_PROG002D0004E_activate" value="kpi.activate"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_activate'">
+    				Y - show KPI item on Report, or other related functions.<br/>
+    				N - no show KPI item on Report, or other related functions.
+				</div>       				    			
+    		</td>       		  		
+    	</tr>    			    	
 		<tr>
 		    <td height="150px" width="100%" align="left" colspan="2">
 		    	<b><s:property value="getText('BSC_PROG002D0004E_description')"/></b>:
@@ -597,7 +610,8 @@ function ${programId}_page_message() {
     						'fields.cal'				: dijit.byId('BSC_PROG002D0004E_cal').get('value'),
     						'fields.dataType'			: dijit.byId('BSC_PROG002D0004E_dataType').get('value'),
     						'fields.orgaMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_orgaMeasureSeparate').checked ? 'true' : 'false' ),
-    						'fields.userMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').checked ? 'true' : 'false' ),    						
+    						'fields.userMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').checked ? 'true' : 'false' ),   
+    						'fields.activate'			: dijit.byId('BSC_PROG002D0004E_activate').get('value'), 						
     						'fields.description'		: dijit.byId('BSC_PROG002D0004E_description').get('value'),
     						'fields.orgaOids'			: dojo.byId('BSC_PROG002D0004E_appendOrganizationOid').value,
     						'fields.emplOids'			: dojo.byId('BSC_PROG002D0004E_appendEmployeeOid').value,

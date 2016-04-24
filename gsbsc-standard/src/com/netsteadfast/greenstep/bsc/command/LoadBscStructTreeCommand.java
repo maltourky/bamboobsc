@@ -197,7 +197,8 @@ public class LoadBscStructTreeCommand extends BaseChainCommandSupport implements
 							kpi.setManagementName( managementMap.get(kpi.getManagement()) );
 							//kpi.setCalculationName( calculationMap.get(kpi.getCal()) );
 							kpi.setCalculationName( AggregationMethodUtils.getNameByAggrId(kpi.getCal()) );
-							kpi.setQuasiRange( mixData.getKpiQuasiRange() );							
+							kpi.setQuasiRange( mixData.getKpiQuasiRange() );	
+							kpi.setActivate( mixData.getKpiActivate() );
 							FormulaVO formula = new FormulaVO();
 							formula.setOid( mixData.getForOid() );
 							formula.setForId( mixData.getForId() );

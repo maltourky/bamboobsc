@@ -115,7 +115,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							"unit",
 							"management",
 							"cal",
-							"dataType"
+							"dataType",
+							"activate"
 					}, 
 					new String[]{
 							this.getText("MESSAGE.BSC_PROG002D0004A_visionOid") + "<BR/>",
@@ -133,7 +134,8 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG002D0004A_unit") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_management") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_cal") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>"
+							this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>",
+							"Please select activate options!"
 					}, 
 					new Class[]{
 							SelectItemFieldCheckUtils.class,
@@ -149,6 +151,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							BscNumberFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class
@@ -237,11 +240,15 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				"compareType", "unit", "management", "quasiRange", "dataType", "description"});
 		kpi.setOrgaMeasureSeparate(YesNo.NO);
 		kpi.setUserMeasureSeparate(YesNo.NO);
+		kpi.setActivate(YesNo.NO);
 		if ("true".equals(this.getFields().get("orgaMeasureSeparate")) ) {
 			kpi.setOrgaMeasureSeparate(YesNo.YES);
 		}
 		if ("true".equals(this.getFields().get("userMeasureSeparate")) ) {
 			kpi.setUserMeasureSeparate(YesNo.YES);
+		}
+		if (YesNo.YES.equals(this.getFields().get("activate"))) {
+			kpi.setActivate(YesNo.YES);
 		}
 		this.checkMaxTargetMinCriteria(kpi);		
 		DefaultResult<KpiVO> result = this.kpiLogicService.create(
@@ -266,12 +273,16 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 				"compareType", "unit", "management", "quasiRange", "dataType", "description"});
 		kpi.setOrgaMeasureSeparate(YesNo.NO);
 		kpi.setUserMeasureSeparate(YesNo.NO);
+		kpi.setActivate(YesNo.NO);
 		if ("true".equals(this.getFields().get("orgaMeasureSeparate")) ) {
 			kpi.setOrgaMeasureSeparate(YesNo.YES);
 		}
 		if ("true".equals(this.getFields().get("userMeasureSeparate")) ) {
 			kpi.setUserMeasureSeparate(YesNo.YES);
 		}
+		if (YesNo.YES.equals(this.getFields().get("activate"))) {
+			kpi.setActivate(YesNo.YES);
+		}	
 		this.checkMaxTargetMinCriteria(kpi);		
 		DefaultResult<KpiVO> result = this.kpiLogicService.update(
 				kpi, 
