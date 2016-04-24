@@ -95,6 +95,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>/jqplot/jquery.jqplot.css" />
 	<!-- ################################################################################ -->
+	
+	
+	<!-- ################################################################################ -->
+	<!-- OrgChart -->
+	<script type="text/javascript" src="<%=basePath%>/OrgChart-0.9.9.7/jquery.orgchart.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/OrgChart-0.9.9.7/jquery.orgchart.css" />
+	<!-- ################################################################################ -->
 		
 <style type="text/css">
 
