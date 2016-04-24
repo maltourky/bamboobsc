@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,7 +122,9 @@ public class PdcaServiceImpl extends BaseService<PdcaVO, BbPdca, String> impleme
 	@Override
 	public Map<String, String> findForMap(boolean pleaseSelect) throws ServiceException, Exception {
 		Map<String, String> dataMap = this.providedSelectZeroDataMap(true);
-		List<BbPdca> pdcaList = this.findListByParams( null );
+		Map<String, String> orderParams = new HashMap<String, String>();
+		orderParams.put("title", "ASC");
+		List<BbPdca> pdcaList = this.findListByParams(null, null, orderParams);
 		for (int i=0; pdcaList!=null && i<pdcaList.size(); i++) {
 			dataMap.put(pdcaList.get(i).getOid(), pdcaList.get(i).getTitle());
 		}

@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.chain.SimpleChain;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
@@ -46,11 +47,14 @@ import com.netsteadfast.greenstep.base.model.ChainResultObj;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.service.IPdcaKpisService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaMeasureFreqService;
 import com.netsteadfast.greenstep.bsc.service.IVisionService;
+import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
+import com.netsteadfast.greenstep.bsc.vo.PdcaProjectRelatedVO;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaKpis;
 import com.netsteadfast.greenstep.po.hbm.BbPdcaMeasureFreq;
 import com.netsteadfast.greenstep.po.hbm.BbVision;
@@ -69,11 +73,13 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private IVisionService<VisionVO, BbVision, String> visionService;
 	private IPdcaMeasureFreqService<PdcaMeasureFreqVO, BbPdcaMeasureFreq, String> pdcaMeasureFreqService;
 	private IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService;
+	private IPdcaLogicService pdcaLogicService;
 	private String message = "";
 	private String success = IS_NO;
 	private String body = "";
 	private PdcaVO pdca = new PdcaVO();
 	private String uploadOid = "";
+	private PdcaProjectRelatedVO projectRelated;
 	
 	public PdcaReportContentQueryAction() {
 		super();
@@ -113,6 +119,17 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	public void setPdcaKpisService(IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService) {
 		this.pdcaKpisService = pdcaKpisService;
 	}
+	
+	@JSON(serialize=false)
+	public IPdcaLogicService getPdcaLogicService() {
+		return pdcaLogicService;
+	}
+
+	@Autowired
+	@Resource(name="bsc.service.logic.PdcaLogicService")
+	public void setPdcaLogicService(IPdcaLogicService pdcaLogicService) {
+		this.pdcaLogicService = pdcaLogicService;
+	}	
 
 	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException, Exception {
@@ -252,6 +269,18 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		return context;
 	}
 	
+	private void loadProjectRelatedData() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFields();
+		this.projectRelated = this.pdcaLogicService.findProjectRelated(this.getFields().get("pdcaOid"));
+		if (null != this.projectRelated && null != this.projectRelated.getProject() 
+				&& (this.projectRelated.getChild().size()>0 || this.projectRelated.getParent().size()>0) ) {
+			this.message = "success!";
+			this.success = IS_YES;
+		} else {
+			this.message = "Project related: " + SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA);
+		}
+	}
+	
 	/**
 	 * bsc.pdcaReportContentQuery.action
 	 */
@@ -316,6 +345,38 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		return SUCCESS;		
 	}	
 	
+	/**
+	 * bsc.pdcaProjectRelatedQuery.action
+	 */
+	@JSON(serialize=false)
+	@ControllerMethodAuthority(programId="BSC_PROG006D0002Q")		
+	public String doProjectRelated() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.loadProjectRelatedData();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getMessage()==null) { 
+				this.message=e.toString();
+				this.logger.error(e.toString());
+			} else {
+				this.message=e.getMessage().toString();
+				this.logger.error(e.getMessage());
+			}						
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;			
+	}
+	
 	@JSON
 	@Override
 	public String getLogin() {
@@ -356,12 +417,22 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 		return pdca;
 	}
 
+	@JSON
 	public String getUploadOid() {
 		return uploadOid;
 	}
 
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
+	}
+
+	@JSON
+	public PdcaProjectRelatedVO getProjectRelated() {
+		return projectRelated;
+	}
+
+	public void setProjectRelated(PdcaProjectRelatedVO projectRelated) {
+		this.projectRelated = projectRelated;
 	}	
 
 }

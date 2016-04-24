@@ -21,6 +21,8 @@
  */
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +44,21 @@ public class PdcaAuditDAOImpl extends BaseDAO<BbPdcaAudit, String> implements IP
 				.createQuery("SELECT max(m.confirmSeq) FROM BbPdcaAudit m WHERE m.pdcaOid = :pdcaOid")
 				.setString("pdcaOid", pdcaOid)
 				.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public BbPdcaAudit findForLast(String pdcaOid, String type) throws Exception {
+		List<BbPdcaAudit> searchList = this.getCurrentSession()
+				.createQuery("FROM BbPdcaAudit m WHERE m.pdcaOid = :pdcaOid AND m.type = :type ORDER BY m.confirmSeq DESC")
+				.setString("pdcaOid", pdcaOid)
+				.setString("type", type)
+				.setMaxResults(1)
+				.list();
+		if (searchList != null && searchList.size() > 0) {
+			return searchList.get(0);
+		}
+		return null;
 	}
 	
 }

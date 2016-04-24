@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.bsc.service;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.service.IBaseService;
+import com.netsteadfast.greenstep.po.hbm.BbPdcaAudit;
 
 public interface IPdcaAuditService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
 	
@@ -30,5 +31,7 @@ public interface IPdcaAuditService<T extends java.io.Serializable, E extends jav
 	public static String MAPPER_ID_VO2PO="pdcaAudit.vo2po";
 	
 	public int findForMaxConfirmSeq(String pdcaOid) throws ServiceException, Exception;
+	
+	public BbPdcaAudit findForLast(String pdcaOid, String type) throws ServiceException, Exception;
 	
 }

@@ -25,6 +25,7 @@ import java.util.List;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.bsc.vo.PdcaProjectRelatedVO;
 import com.netsteadfast.greenstep.vo.BusinessProcessManagementTaskVO;
 import com.netsteadfast.greenstep.vo.PdcaItemVO;
 import com.netsteadfast.greenstep.vo.PdcaMeasureFreqVO;
@@ -47,5 +48,7 @@ public interface IPdcaLogicService {
 	public String getTaskDiagram(String taskId) throws ServiceException, Exception;
 	
 	public void confirmTask(String pdcaOid, String taskId, String confirm, String reason, String newChild) throws ServiceException, Exception;
+	
+	public PdcaProjectRelatedVO findProjectRelated(String pdcaOid) throws ServiceException, Exception;
 	
 }

@@ -35,7 +35,6 @@ import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.BaseChainCommandSupport;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
-import com.netsteadfast.greenstep.base.model.CustomeOperational;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.service.logic.BscBaseLogicServiceCommonSupport;
 import com.netsteadfast.greenstep.bsc.model.PdcaType;
@@ -130,7 +129,9 @@ public class LoadPdcaDataCommand extends BaseChainCommandSupport implements Comm
 		
 		// 5. parent project
 		if (!StringUtils.isBlank(pdca.getParentOid())) {
-			DefaultResult<PdcaVO> pResult = this.pdcaService.findObjectByOid(pdca);
+			PdcaVO parentPdca = new PdcaVO();
+			parentPdca.setOid( pdca.getParentOid() );
+			DefaultResult<PdcaVO> pResult = this.pdcaService.findObjectByOid(parentPdca);
 			if (pResult.getValue() == null) {
 				throw new ServiceException( pResult.getSystemMessage().getValue() );
 			}
@@ -214,6 +215,7 @@ public class LoadPdcaDataCommand extends BaseChainCommandSupport implements Comm
 	}
 	
 	private PdcaAuditVO findMaxConfirmSeqPdcaAuditData(PdcaVO pdca, String type) throws ServiceException, Exception {
+		/*
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("pdcaOid", pdca.getOid());	
 		
@@ -230,8 +232,13 @@ public class LoadPdcaDataCommand extends BaseChainCommandSupport implements Comm
 		if (planAuditList == null || planAuditList.size() < 1) {
 			return null;
 		}
+		*/
+		BbPdcaAudit pdcaAudit = this.pdcaAuditService.findForLast(pdca.getOid(), type);
+		if (null == pdcaAudit) {
+			return null;
+		}
 		PdcaAuditVO audit = new PdcaAuditVO();
-		pdcaAuditService.doMapper(planAuditList.get(0), audit, IPdcaAuditService.MAPPER_ID_PO2VO);
+		pdcaAuditService.doMapper(pdcaAudit, audit, IPdcaAuditService.MAPPER_ID_PO2VO);
 		return audit;
 	}
 	

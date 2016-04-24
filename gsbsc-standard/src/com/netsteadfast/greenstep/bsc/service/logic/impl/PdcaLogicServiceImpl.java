@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ import com.netsteadfast.greenstep.bsc.service.IPdcaOrgaService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaOwnerService;
 import com.netsteadfast.greenstep.bsc.service.IPdcaService;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
+import com.netsteadfast.greenstep.bsc.vo.PdcaProjectRelatedVO;
 import com.netsteadfast.greenstep.model.UploadTypes;
 import com.netsteadfast.greenstep.po.hbm.BbKpi;
 import com.netsteadfast.greenstep.po.hbm.BbPdca;
@@ -98,6 +100,7 @@ import com.netsteadfast.greenstep.vo.SysUploadVO;
 public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicService implements IPdcaLogicService {
 	protected Logger logger=Logger.getLogger(PdcaLogicServiceImpl.class);
 	private static final int MAX_DESCRIPTION_LENGTH = 500;
+	private static final int MAX_PROJECT_RELATED_SHOW = 5;
 	private IPdcaService<PdcaVO, BbPdca, String> pdcaService;
 	private IPdcaDocService<PdcaDocVO, BbPdcaDoc, String> pdcaDocService;
 	private IPdcaKpisService<PdcaKpisVO, BbPdcaKpis, String> pdcaKpisService;
@@ -254,6 +257,17 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		paramMap.put("new_chile", newChild); // only for "Action" final step
 		return paramMap;
 	}	
+	
+	private PdcaVO findPdca(String oid) throws ServiceException, Exception {
+		PdcaVO pdca = new PdcaVO();
+		pdca.setOid(oid);
+		DefaultResult<PdcaVO> result = this.pdcaService.findObjectByOid(pdca);
+		if (result.getValue() == null) {
+			throw new ServiceException(result.getSystemMessage().getValue());
+		}
+		pdca = result.getValue();
+		return pdca;
+	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
 	@Transactional(
@@ -414,13 +428,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		if (super.isBlank(pdcaOid) || super.isBlank(taskId) || super.isBlank(confirm)) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
 		}
-		PdcaVO pdca = new PdcaVO();
-		pdca.setOid(pdcaOid);
-		DefaultResult<PdcaVO> result = this.pdcaService.findObjectByOid(pdca);
-		if (result.getValue() == null) {
-			throw new ServiceException(result.getSystemMessage().getValue());
-		}
-		pdca = result.getValue();
+		PdcaVO pdca = this.findPdca(pdcaOid);
 		String newDate = SimpleUtils.getStrYMD("");
 		String type = "E";
 		List<BusinessProcessManagementTaskVO> tasks = this.queryTaskByVariablePdcaOid(pdca.getOid());
@@ -452,6 +460,46 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 			this.cloneNewProject(pdca);
 		}
 		
+	}
+	
+	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
+	@Override
+	public PdcaProjectRelatedVO findProjectRelated(String pdcaOid) throws ServiceException, Exception {
+		if (super.isBlank(pdcaOid)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		PdcaVO pdca = this.findPdca(pdcaOid);
+		PdcaProjectRelatedVO projectRelated = new PdcaProjectRelatedVO();
+		projectRelated.setProject(pdca);
+		this.findProjectRelatedParent(projectRelated, pdca);
+		this.findProjectRelatedChild(projectRelated, pdca);
+		return projectRelated;
+	}	
+	
+	private void findProjectRelatedParent(PdcaProjectRelatedVO projectRelated, PdcaVO pdca) throws ServiceException, Exception {
+		if (super.isBlank(pdca.getParentOid()) || projectRelated.getParent().size() >= MAX_PROJECT_RELATED_SHOW ) {
+			return;
+		}
+		PdcaVO parentPdca = this.findPdca(pdca.getParentOid());
+		( (LinkedList<PdcaVO>) projectRelated.getParent() ).addFirst(parentPdca);
+		this.findProjectRelatedParent(projectRelated, parentPdca);
+	}
+	
+	private void findProjectRelatedChild(PdcaProjectRelatedVO projectRelated, PdcaVO pdca) throws ServiceException, Exception {
+		if (projectRelated.getChild().size() >= MAX_PROJECT_RELATED_SHOW ) {
+			return;
+		}		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("parentOid", pdca.getOid());
+		List<PdcaVO> childList = this.pdcaService.findListVOByParams(paramMap);
+		if (childList == null || childList.size() < 1) {
+			return;
+		}
+		if (childList.size() != 1) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		( (LinkedList<PdcaVO>) projectRelated.getChild() ).addLast( childList.get(0) );
+		this.findProjectRelatedChild(projectRelated, childList.get(0) );
 	}
 	
 	private void deleteMeasureFreq(PdcaVO pdca) throws ServiceException, Exception {

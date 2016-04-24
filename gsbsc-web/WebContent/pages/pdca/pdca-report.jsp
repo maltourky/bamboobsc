@@ -36,24 +36,8 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
   	text-align: center;
 }
 
-.btnPdfIcon {
-  	background-image: url(./icons/application-pdf.png);
-  	background-repeat: no-repeat;
-  	width: 16px;
-  	height: 16px;
-  	text-align: center;
-}
-
-.btnSignatureIcon {
-  	background-image: url(./icons/text_signature.png);
-  	background-repeat: no-repeat;
-  	width: 16px;
-  	height: 16px;
-  	text-align: center;
-}
-
-.btnPieIcon {
-  	background-image: url(./icons/chart-pie.png);
+.btnDiagramIcon {
+  	background-image: url(./icons/x-dia-diagram.png);
   	background-repeat: no-repeat;
   	width: 16px;
   	height: 16px;
@@ -74,9 +58,13 @@ var BSC_PROG006D0002Q_fieldsId = new Object();
 BSC_PROG006D0002Q_fieldsId['pdcaOid']	= 'BSC_PROG006D0002Q_pdcaOid';
 
 function BSC_PROG006D0002Q_query(type) {
+	document.getElementById( 'BSC_PROG006D0002Q_projectRelated_orgChart' ).innerHTML = '';
 	var actionUrl = 'bsc.pdcaReportContentQuery.action';
 	if ('EXCEL' == type) {
 		actionUrl = 'bsc.pdcaReportExcelQuery.action';
+	}
+	if ('PROJECT_RELATED' == type) {
+		actionUrl = 'bsc.pdcaProjectRelatedQuery.action';
 	}
 	setFieldsBackgroundDefault(BSC_PROG006D0002Q_fieldsId);
 	xhrSendParameter(
@@ -97,9 +85,11 @@ function BSC_PROG006D0002Q_query(type) {
 				}
 				if ('EXCEL' == type) {
 					openCommonLoadUpload( 'download', data.uploadOid, { } );
-				} else {
+				} else if ('HTML' == type) {
 					dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body + '<div id="BSC_PROG006D0002Q_container"></div>';
 					BSC_PROG006D0002Q_chart(data);					
+				} else {
+					BSC_PROG006D0002Q_OrgChart(data);
 				}
 			}, 
 			function(error) {
@@ -254,6 +244,17 @@ function BSC_PROG006D0002Q_chartFillItems(items, pdcaItemData) {
 	}	
 }
 
+function BSC_PROG006D0002Q_OrgChart(data) {
+	
+	$('#BSC_PROG006D0002Q_projectRelated_orgChart').orgchart({
+		'data' : data.projectRelated.orgData,
+		'depth': 99,
+		'nodeTitle': 'name',
+		'nodeContent': 'title'
+	});
+	
+}
+
 //------------------------------------------------------------------------------
 function ${programId}_page_message() {
 	var pageMessage='<s:property value="pageMessage" escapeJavaScript="true"/>';
@@ -321,6 +322,14 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG006D0002Q_query('EXCEL');																			  
 											}">Excel</button>											
+									
+									<button id="BSC_PROG006D0002Q_btnProjectRelated" data-dojo-type="dijit.form.Button"
+										data-dojo-props="
+											iconClass:'btnDiagramIcon',
+											showLabel:false,
+											onClick:function(){  
+												BSC_PROG006D0002Q_query('PROJECT_RELATED');
+											}">Query project related diagram only</button>									
 											
 								</td>
 							</tr>																						
@@ -336,10 +345,10 @@ function ${programId}_page_message() {
 	</table>
 	
 	
+	<div id="BSC_PROG006D0002Q_projectRelated_orgChart"></div>
 	<div id="BSC_PROG006D0002Q_content"></div>
 	
-	
-	
+		
 <script type="text/javascript">${programId}_page_message();</script>	
 </body>
 </html>

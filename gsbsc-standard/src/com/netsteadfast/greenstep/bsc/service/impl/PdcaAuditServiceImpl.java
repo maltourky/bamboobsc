@@ -92,4 +92,12 @@ public class PdcaAuditServiceImpl extends BaseService<PdcaAuditVO, BbPdcaAudit, 
 		return maxSeq;
 	}
 
+	@Override
+	public BbPdcaAudit findForLast(String pdcaOid, String type) throws ServiceException, Exception {
+		if (StringUtils.isBlank(pdcaOid) || StringUtils.isBlank(type)) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}		
+		return this.pdcaAuditDAO.findForLast(pdcaOid, type);
+	}
+
 }

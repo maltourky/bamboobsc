@@ -28,4 +28,6 @@ public interface IPdcaAuditDAO<T extends java.io.Serializable, PK extends java.i
 	
 	public Integer findForMaxConfirmSeq(String pdcaOid) throws Exception;
 	
+	public BbPdcaAudit findForLast(String pdcaOid, String type) throws Exception;
+	
 }
