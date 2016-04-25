@@ -1,11 +1,13 @@
-0.6.3_DEV
+0.6.3
 -----------------------------------------------------------
-1. Support locale ( IT - Italy , PT - Portugal, RU - Russia )
-2. PDCA features
-3. Enhanced QCHARTS-WEB project features
-4. Monitor scorecard
+1. Support locale ( IT - Italy , PT - Portugal, RU - Russia ).
+2. PDCA features.
    reference: https://github.com/billchen198318/bamboobsc/issues/14
-5. Measure data  field input value fix, range - 9999999.00 ~ 9999999.00
+3. KPI inactive options.
+   reference: https://github.com/billchen198318/bamboobsc/issues/14
+4. Measure-data target / actual field input bug fix.
+   reference: https://github.com/billchen198318/bamboobsc/issues/16
+5. Some modifications
 
 
 0.6.2
