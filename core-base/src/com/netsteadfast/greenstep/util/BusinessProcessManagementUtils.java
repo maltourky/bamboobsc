@@ -334,7 +334,11 @@ public class BusinessProcessManagementUtils {
 					.addZipInputStream( zip )
 					.deploy();	
 			result.getValue().setDeploymentId(deployment.getId());
-			sysBpmnResourceService.updateObject(result.getValue());		
+			byte[] content = result.getValue().getContent();
+			result.getValue().setContent( null ); // 先清掉content
+			sysBpmnResourceService.updateObject(result.getValue()); // 先清掉content
+			result.getValue().setContent(content); // 填回content
+			sysBpmnResourceService.updateObject(result.getValue());	// 填回content	
 			logger.info("deployment Id: " + deployment.getId() + " , name: " + deployment.getName());			
 		} catch (Exception e) {
 			e.printStackTrace();
