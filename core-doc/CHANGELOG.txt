@@ -8,6 +8,9 @@
 4. Measure-data target / actual field input bug fix.
    reference: https://github.com/billchen198318/bamboobsc/issues/16
 5. Some modifications
+6. *** please re-import bbcore.sql to MySQL *** 
+   If have previous data in MYSQL(bbcore) E.g: 0.6.2 old version, 
+   but did not re-import the SQL file to MYSQL(bbcore), the 0.6.3 version program will not work done.
 
 
 0.6.2
