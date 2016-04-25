@@ -77,15 +77,15 @@ public class PdcaProjectRelatedVO implements java.io.Serializable {
 			nowNode = node;
 		}
 		if (nowNode == null) {
-			data.put("name", "<font color='#000000'>" + project.getTitle() + "</font>");
-			data.put("title", "<font color='#000000'>" + project.getStartDateDisplayValue() + " - " + project.getEndDateDisplayValue() + "</font>");
+			data.put("name", "<font color='#8A0808'>" + project.getTitle() + "</font>");
+			data.put("title", "<font color='#8A0808'>" + project.getStartDateDisplayValue() + " - " + project.getEndDateDisplayValue() + "</font>");
 			data.put("children", new ArrayList<Map<String, Object>>() );			
 			nowNode = data;
 		} else {
 			List<Map<String, Object>> children = (List<Map<String, Object>>) nowNode.get("children");
 			Map<String, Object> node = new HashMap<String, Object>();
-			node.put("name", "<font color='#000000'>" + project.getTitle() + "</font>");
-			node.put("title", "<font color='#000000'>" + project.getStartDateDisplayValue() + " - " + project.getEndDateDisplayValue() + "</font>");
+			node.put("name", "<font color='#8A0808'>" + project.getTitle() + "</font>");
+			node.put("title", "<font color='#8A0808'>" + project.getStartDateDisplayValue() + " - " + project.getEndDateDisplayValue() + "</font>");
 			node.put("children", new ArrayList<Map<String, Object>>() );
 			children.add(node);		
 			nowNode = node;

@@ -48,6 +48,7 @@ import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.action.utils.DateDisplayFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.action.utils.NotBlankFieldCheckUtils;
+import com.netsteadfast.greenstep.bsc.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.bsc.model.BscMeasureDataFrequency;
 import com.netsteadfast.greenstep.bsc.model.PdcaType;
 import com.netsteadfast.greenstep.bsc.service.logic.IPdcaLogicService;
@@ -89,17 +90,20 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 					new String[]{
 							"title",
 							"startDate",
-							"endDate"
+							"endDate",
+							"measureFreq_frequency"
 					}, 
 					new String[]{
 							"Title is required!<BR/>",
 							"Start-date is required!<BR/>",
-							"End-date is required!<BR/>"
+							"End-date is required!<BR/>",
+							"Measure settings, Please select frequency!<BR/>"
 					}, 
 					new Class[]{
 							NotBlankFieldCheckUtils.class,
 							DateDisplayFieldCheckUtils.class,
-							DateDisplayFieldCheckUtils.class
+							DateDisplayFieldCheckUtils.class,
+							SelectItemFieldCheckUtils.class
 					},
 					this.getFieldsId() );			
 		} catch (InstantiationException e) {
@@ -147,7 +151,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
 				this.getFieldsId().add("measureFreq_startDate");
 				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Start-date and end-date is required!<BR/>");				
+				throw new ControllerException("Measure settings, Start-date and end-date is required!<BR/>");				
 			}
 		}
 		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
@@ -156,51 +160,51 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
 				this.getFieldsId().add("measureFreq_startYearDate");
 				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Start-year and end-year is required!<BR/>");				
+				throw new ControllerException("Measure settings, Start-year and end-year is required!<BR/>");				
 			}			
 		}		
 		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
 			if ( !SimpleUtils.isDate( startDate ) ) {
 				this.getFieldsId().add("measureFreq_startDate");
-				throw new ControllerException("Start-date format is incorrect!<BR/>");
+				throw new ControllerException("Measure settings, Start-date format is incorrect!<BR/>");
 			}
 			if ( !SimpleUtils.isDate( endDate ) ) {
 				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("End-date format is incorrect!<BR/>");			
+				throw new ControllerException("Measure settings, End-date format is incorrect!<BR/>");			
 			}
 			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
 				this.getFieldsId().add("measureFreq_startDate");
 				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Start-date / end-date incorrect!<BR/>");			
+				throw new ControllerException("Measure settings, Start-date / end-date incorrect!<BR/>");			
 			}			
 		}
 		if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
 				this.getFieldsId().add("measureFreq_startYearDate");
-				throw new ControllerException("Start-year format is incorrect!<BR/>");				
+				throw new ControllerException("Measure settings, Start-year format is incorrect!<BR/>");				
 			}
 			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
 				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("End-year format is incorrect!<BR/>");						
+				throw new ControllerException("Measure settings, End-year format is incorrect!<BR/>");						
 			}
 			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
 				this.getFieldsId().add("measureFreq_startYearDate");
 				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Start-year / end-year incorrect!<BR/>");			
+				throw new ControllerException("Measure settings, Start-year / end-year incorrect!<BR/>");			
 			}					
 		}
 		String dataFor = this.getFields().get("measureFreq_dataFor");
 		if ("organization".equals(dataFor) 
 				&& this.isNoSelectId(this.getFields().get("measureFreq_measureDataOrganizationOid")) ) {
 			this.getFieldsId().add("measureFreq_measureDataOrganizationOid");
-			throw new ControllerException("Please select measure-data organization!<BR/>");
+			throw new ControllerException("Measure settings, Please select measure-data organization!<BR/>");
 		}
 		if ("employee".equals(dataFor)
 				&& this.isNoSelectId(this.getFields().get("measureFreq_measureDataEmployeeOid")) ) {
 			this.getFieldsId().add("measureFreq_measureDataEmployeeOid");
-			throw new ControllerException("Please select measure-data employee!<BR/>");
+			throw new ControllerException("Measure settings, Please select measure-data employee!<BR/>");
 		}		
 	}
 	

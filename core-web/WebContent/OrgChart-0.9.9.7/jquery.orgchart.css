@@ -25,14 +25,14 @@
   display: inline-block;
   min-height: 202px;
   min-width: 640px;
-  width: 90%;
+  width: 95%;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-image: linear-gradient(90deg, #F2F2F2 10%, rgba(0, 0, 0, 0) 10%), linear-gradient(#F2F2F2 10%, rgba(0, 0, 0, 0) 10%);
+  background-image: linear-gradient(90deg, #E6E6E6 10%, rgba(0, 0, 0, 0) 10%), linear-gradient(#E6E6E6 10%, rgba(0, 0, 0, 0) 10%);
   background-size: 10px 10px;
   border: 1px dashed rgba(0,0,0,0);
   transition: border .3s;
@@ -60,19 +60,19 @@
 }
 
 .orgchart td.top {
-  border-top: 2px solid #4f8a10;
+  border-top: 2px solid #3794E5;
 }
 
 .orgchart td.right {
-  border-right: 1px solid #4f8a10;
+  border-right: 1px solid #3794E5;
 }
 
 .orgchart td.left {
-  border-left: 1px solid #4f8a10;
+  border-left: 1px solid #3794E5;
 }
 
 .orgchart td>.down {
-  background-color: #4f8a10;
+  background-color: #3794E5;
   margin: 0px auto;
   height: 20px;
   width: 2px;
@@ -114,8 +114,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-color: #dff2bf;
-  color: #4f8a10;
+  background-color: #3794E5;
+  color: #000000;
   border-radius: 4px 4px 0 0; 
   max-width: 350px;
 }
@@ -130,7 +130,7 @@
   font-size: 11px;
   line-height: 13px;
   padding: 2px;
-  border: 1px solid #dff2bf;
+  border: 1px solid #3794E5;
   border-radius: 0 0 4px 4px;
   text-align: center;
   background-color: #fff;
