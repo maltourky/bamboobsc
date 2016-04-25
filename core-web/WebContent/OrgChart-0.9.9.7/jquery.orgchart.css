@@ -60,19 +60,19 @@
 }
 
 .orgchart td.top {
-  border-top: 2px solid rgba(217, 83, 79, 0.8);
+  border-top: 2px solid #4f8a10;
 }
 
 .orgchart td.right {
-  border-right: 1px solid rgba(217, 83, 79, 0.8);
+  border-right: 1px solid #4f8a10;
 }
 
 .orgchart td.left {
-  border-left: 1px solid rgba(217, 83, 79, 0.8);
+  border-left: 1px solid #4f8a10;
 }
 
 .orgchart td>.down {
-  background-color: rgba(217, 83, 79, 0.8);
+  background-color: #4f8a10;
   margin: 0px auto;
   height: 20px;
   width: 2px;
