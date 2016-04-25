@@ -267,28 +267,28 @@ camel-servlet-2.15.3.jar
 
 Activiti
 -------------------------
-activiti-bpmn-converter-5.18.0.jar
-activiti-bpmn-layout-5.18.0.jar
-activiti-bpmn-model-5.18.0.jar
-activiti-camel-5.18.0.jar
+activiti-bpmn-converter-5.20.0.jar
+activiti-bpmn-layout-5.20.0.jar
+activiti-bpmn-model-5.20.0.jar
+activiti-camel-5.20.0.jar
 activiti-cdi.jar
-activiti-common-rest-5.18.0.jar
-activiti-crystalball-5.18.0.jar
-activiti-cxf-5.18.0.jar
-activiti-diagram-rest-5.18.0.jar
-activiti-engine-5.18.0.jar
-activiti-explorer-5.18.0.jar
-activiti-image-generator-5.18.0.jar
-activiti-jmx-5.18.0.jar				(remove, not currently needed)
-activiti-json-converter-5.18.0.jar
-activiti-ldap-5.18.0.jar
-activiti-modeler-5.18.0.jar
-activiti-mule-5.18.0.jar
-activiti-osgi-5.18.0.jar
-activiti-process-validation-5.18.0.jar
-activiti-rest-5.18.0.jar
-activiti-simple-workflow-5.18.0.jar
-activiti-spring-5.18.0.jar
+activiti-common-rest-5.20.0.jar
+activiti-crystalball-5.20.0.jar
+activiti-cxf-5.20.0.jar
+activiti-diagram-rest-5.20.0.jar
+activiti-engine-5.20.0.jar
+activiti-explorer-5.20.0.jar
+activiti-image-generator-5.20.0.jar
+activiti-jmx-5.20.0.jar			(remove, not currently needed)
+activiti-json-converter-5.20.0.jar
+activiti-ldap-5.20.0.jar
+activiti-modeler-5.20.0.jar
+activiti-mule-5.20.0.jar
+activiti-osgi-5.20.0.jar
+activiti-process-validation-5.20.0.jar
+activiti-rest-5.20.0.jar
+activiti-simple-workflow-5.20.0.jar
+activiti-spring-5.20.0.jar
 
 
 Guava: Google Core Libraries for Java
