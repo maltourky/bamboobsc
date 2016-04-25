@@ -452,7 +452,7 @@ public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicS
 		
 		if (YesNo.YES.equals(confirm)) {
 			pdca.setConfirmDate(newDate);
-			pdca.setConfirmEmpId(super.getAccountId());
+			pdca.setConfirmEmpId(this.findEmployeeDataByAccountId(super.getAccountId()).getEmpId());
 			pdca.setConfirmFlag(YesNo.YES);
 			this.pdcaService.updateObject(pdca);
 		}

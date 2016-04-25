@@ -45,7 +45,6 @@ BSC_PROG002D0004E_fieldsId['unit'] 				= 'BSC_PROG002D0004E_unit';
 BSC_PROG002D0004E_fieldsId['management'] 		= 'BSC_PROG002D0004E_management';
 BSC_PROG002D0004E_fieldsId['cal'] 				= 'BSC_PROG002D0004E_cal';
 BSC_PROG002D0004E_fieldsId['dataType'] 			= 'BSC_PROG002D0004E_dataType';
-BSC_PROG002D0004E_fieldsId['activate'] 			= 'BSC_PROG002D0004E_activate';
 
 function BSC_PROG002D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG002D0004E_fieldsId);
@@ -79,6 +78,7 @@ function BSC_PROG002D0004E_clear() {
 	dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').set("checked", true);
 	dijit.byId('BSC_PROG002D0004E_description').set("value", "");
 	dijit.byId('BSC_PROG002D0004E_activate').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG002D0004E_activate').set("checked", true);
 	BSC_PROG002D0004E_clearOrgaAppendId();
 	BSC_PROG002D0004E_clearEmplAppendId();
 	BSC_PROG002D0004E_clearUploadDataTable();
@@ -533,15 +533,15 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<font color='RED'>*</font><b>Activate options</b>:
+    			<b>Activate options</b>:
     			<br/>
-    			<gs:select name="BSC_PROG002D0004E_activate" dataSource="activateMap" id="BSC_PROG002D0004E_activate" value="kpi.activate"></gs:select>
+				<input id="BSC_PROG002D0004E_activate" name="BSC_PROG002D0004E_activate" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == kpi.activate "> checked="checked" </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_activate'">
-    				Y - show KPI item on Report, or other related functions.<br/>
-    				N - no show KPI item on Report, or other related functions.
+    				Checked - show KPI item on Report, or other related functions.<br/>
+    				No check - no show KPI item on Report, or other related functions.
 				</div>       				    			
     		</td>       		  		
-    	</tr>    			    	
+    	</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left" colspan="2">
 		    	<b><s:property value="getText('BSC_PROG002D0004E_description')"/></b>:
@@ -611,7 +611,7 @@ function ${programId}_page_message() {
     						'fields.dataType'			: dijit.byId('BSC_PROG002D0004E_dataType').get('value'),
     						'fields.orgaMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_orgaMeasureSeparate').checked ? 'true' : 'false' ),
     						'fields.userMeasureSeparate': ( dijit.byId('BSC_PROG002D0004E_userMeasureSeparate').checked ? 'true' : 'false' ),   
-    						'fields.activate'			: dijit.byId('BSC_PROG002D0004E_activate').get('value'), 						
+    						'fields.activate'			: ( dijit.byId('BSC_PROG002D0004E_activate').checked ? 'true' : 'false' ),
     						'fields.description'		: dijit.byId('BSC_PROG002D0004E_description').get('value'),
     						'fields.orgaOids'			: dojo.byId('BSC_PROG002D0004E_appendOrganizationOid').value,
     						'fields.emplOids'			: dojo.byId('BSC_PROG002D0004E_appendEmployeeOid').value,

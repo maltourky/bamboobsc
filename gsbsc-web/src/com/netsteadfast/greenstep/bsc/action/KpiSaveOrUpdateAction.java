@@ -115,8 +115,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							"unit",
 							"management",
 							"cal",
-							"dataType",
-							"activate"
+							"dataType"
 					}, 
 					new String[]{
 							this.getText("MESSAGE.BSC_PROG002D0004A_visionOid") + "<BR/>",
@@ -134,8 +133,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							this.getText("MESSAGE.BSC_PROG002D0004A_unit") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_management") + "<BR/>",
 							this.getText("MESSAGE.BSC_PROG002D0004A_cal") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>",
-							"Please select activate options!"
+							this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>"
 					}, 
 					new Class[]{
 							SelectItemFieldCheckUtils.class,
@@ -151,7 +149,6 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 							BscNumberFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class,
 							SelectItemFieldCheckUtils.class
@@ -247,7 +244,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		if ("true".equals(this.getFields().get("userMeasureSeparate")) ) {
 			kpi.setUserMeasureSeparate(YesNo.YES);
 		}
-		if (YesNo.YES.equals(this.getFields().get("activate"))) {
+		if ("true".equals(this.getFields().get("activate"))) {
 			kpi.setActivate(YesNo.YES);
 		}
 		this.checkMaxTargetMinCriteria(kpi);		
@@ -280,9 +277,9 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		if ("true".equals(this.getFields().get("userMeasureSeparate")) ) {
 			kpi.setUserMeasureSeparate(YesNo.YES);
 		}
-		if (YesNo.YES.equals(this.getFields().get("activate"))) {
+		if ("true".equals(this.getFields().get("activate"))) {
 			kpi.setActivate(YesNo.YES);
-		}	
+		}
 		this.checkMaxTargetMinCriteria(kpi);		
 		DefaultResult<KpiVO> result = this.kpiLogicService.update(
 				kpi, 

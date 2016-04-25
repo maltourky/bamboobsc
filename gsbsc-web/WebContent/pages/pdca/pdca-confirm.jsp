@@ -74,21 +74,31 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b>Confirm:</b>
     			<br/>
-    			<gs:select name="BSC_PROG006D0001E_S00_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG006D0001E_S00_confirm" value="Y"></gs:select>  			
+    			<gs:select name="BSC_PROG006D0001E_S00_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG006D0001E_S00_confirm" value="Y"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_S00_confirm'">
+					Select confirm.
+				</div>    			
     		</td>   
 		</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left">
 		    	<b>Reason:</b>
 		    	<br/>
-		    	<textarea id="BSC_PROG006D0001E_S00_reason" name="BSC_PROG006D0001E_S00_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:90px;max-height:100px">Please allow: ${bpmTaskObj.task.name}</textarea>	    	
+		    	<textarea id="BSC_PROG006D0001E_S00_reason" name="BSC_PROG006D0001E_S00_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:90px;max-height:100px">Please allow: ${bpmTaskObj.task.name}</textarea>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_S00_reason'">
+					Input confirm/reject reason description.
+				</div>
 		    </td>
 		</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b>New project ( The PDCA project is completed, no need next PDCA ) :</b>
+    			<b>New child project:</b>
     			<br/>
     			<input id="BSC_PROG006D0001E_S00_newChild" name="BSC_PROG006D0001E_S00_newChild" data-dojo-type="dijit/form/CheckBox" value="false" <s:if test=" \"A\" != bpmTaskObj.task.name.substring(0, 1) "> disabled="disabled" </s:if> />
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_S00_newChild'">
+					Checked - The current project must be improved, create child PDCA project.<br/>
+    				No check - The PDCA project is completed, no need next PDCA. 
+				</div>
     		</td>
     	</tr>
     	<tr>

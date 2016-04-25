@@ -45,7 +45,6 @@ BSC_PROG002D0004A_fieldsId['unit'] 				= 'BSC_PROG002D0004A_unit';
 BSC_PROG002D0004A_fieldsId['management'] 		= 'BSC_PROG002D0004A_management';
 BSC_PROG002D0004A_fieldsId['cal'] 				= 'BSC_PROG002D0004A_cal';
 BSC_PROG002D0004A_fieldsId['dataType'] 			= 'BSC_PROG002D0004A_dataType';
-BSC_PROG002D0004A_fieldsId['activate'] 			= 'BSC_PROG002D0004A_activate';
 
 function BSC_PROG002D0004A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG002D0004A_fieldsId);
@@ -79,7 +78,7 @@ function BSC_PROG002D0004A_clear() {
 	dijit.byId('BSC_PROG002D0004A_orgaMeasureSeparate').set("checked", true);
 	dijit.byId('BSC_PROG002D0004A_userMeasureSeparate').set("checked", true);
 	dijit.byId('BSC_PROG002D0004A_description').set("value", "");
-	dijit.byId('BSC_PROG002D0004A_activate').set("value", _gscore_please_select_id);
+	dijit.byId('BSC_PROG002D0004A_activate').set("checked", true);
 	BSC_PROG002D0004A_clearOrgaAppendId();
 	BSC_PROG002D0004A_clearEmplAppendId();
 	BSC_PROG002D0004A_clearUploadDataTable();
@@ -534,12 +533,12 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<font color='RED'>*</font><b>Activate options</b>:
+    			<b>Activate options</b>:
     			<br/>
-    			<gs:select name="BSC_PROG002D0004A_activate" dataSource="activateMap" id="BSC_PROG002D0004A_activate" value="Y"></gs:select>
+				<input id="BSC_PROG002D0004A_activate" name="BSC_PROG002D0004A_activate" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_activate'">
-    				Y - show KPI item on Report, or other related functions.<br/>
-    				N - no show KPI item on Report, or other related functions.
+    				Checked - show KPI item on Report, or other related functions.<br/>
+    				No check - no show KPI item on Report, or other related functions.
 				</div>       				    			
     		</td>       		  		
     	</tr>
@@ -611,7 +610,7 @@ function ${programId}_page_message() {
     						'fields.dataType'			: dijit.byId('BSC_PROG002D0004A_dataType').get('value'),
     						'fields.orgaMeasureSeparate': ( dijit.byId('BSC_PROG002D0004A_orgaMeasureSeparate').checked ? 'true' : 'false' ),
     						'fields.userMeasureSeparate': ( dijit.byId('BSC_PROG002D0004A_userMeasureSeparate').checked ? 'true' : 'false' ),  	
-    						'fields.activate'			: dijit.byId('BSC_PROG002D0004A_activate').get('value'),
+    						'fields.activate'			: ( dijit.byId('BSC_PROG002D0004A_activate').checked ? 'true' : 'false' ),
     						'fields.description'		: dijit.byId('BSC_PROG002D0004A_description').get('value'),
     						'fields.orgaOids'			: dojo.byId('BSC_PROG002D0004A_appendOrganizationOid').value,
     						'fields.emplOids'			: dojo.byId('BSC_PROG002D0004A_appendEmployeeOid').value,

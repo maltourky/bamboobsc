@@ -75,14 +75,20 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S03_confirm')"/></b>:
     			<br/>
-    			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" value="Y"></gs:select>  			
+    			<gs:select name="BSC_PROG005D0001A_S03_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG005D0001A_S03_confirm" value="Y"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_S03_confirm'">
+					Select confirm.
+				</div>
     		</td>   
 		</tr>
 		<tr>
 		    <td height="100px" width="100%" align="left">
 		    	<b>Reason</b>:
 		    	<br/>
-		    	<textarea id="BSC_PROG005D0001A_S03_reason" name="BSC_PROG005D0001A_S03_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:50px;max-height:50px">Please allow Id: ${fields.taskId}</textarea>	    	
+		    	<textarea id="BSC_PROG005D0001A_S03_reason" name="BSC_PROG005D0001A_S03_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:50px;max-height:50px">Please allow Id: ${fields.taskId}</textarea>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_S03_reason'">
+					Input confirm/reject reason description.
+				</div>
 		    </td>
 		</tr>
     	<tr>

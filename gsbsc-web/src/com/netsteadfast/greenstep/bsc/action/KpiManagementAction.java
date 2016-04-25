@@ -102,7 +102,6 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 	private Map<String, String> formulaMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> trendsFormulaMap = this.providedSelectZeroDataMap(true);
 	private Map<String, String> quasiRangeMap = BscKpiCode.getQuasiRangeMap();
-	private Map<String, String> activateMap = BscKpiCode.getActivateOptionMap(true);
 	private KpiVO kpi = new KpiVO();
 	private List<KpiAttacVO> kpiAttac = null;
 	
@@ -460,10 +459,6 @@ public class KpiManagementAction extends BaseSupportAction implements IBaseAddit
 
 	public Map<String, String> getQuasiRangeMap() {
 		return quasiRangeMap;
-	}
-
-	public Map<String, String> getActivateMap() {
-		return activateMap;
 	}
 
 	public KpiVO getKpi() {
