@@ -25,11 +25,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.AccountObj;
 import com.opensymphony.xwork2.ActionContext;
 
 public class UserAccountHttpSessionSupport {
+	protected static Logger logger=Logger.getLogger(UserAccountHttpSessionSupport.class);
 	
 	public static void create(HttpServletRequest request, AccountObj account, String language) {
 		request.getSession().setAttribute(Constants.SESS_ACCOUNT, account);
@@ -62,21 +65,33 @@ public class UserAccountHttpSessionSupport {
 	}
 	
 	public static void remove(HttpServletRequest request) {
-		request.getSession().removeAttribute(Constants.SESS_ACCOUNT);
-		request.getSession().removeAttribute(Constants.SESS_LANG);
-		request.getSession().removeAttribute(Constants.SESS_SYSCURRENT_ID);
+		try {
+			request.getSession().removeAttribute(Constants.SESS_ACCOUNT);
+			request.getSession().removeAttribute(Constants.SESS_LANG);
+			request.getSession().removeAttribute(Constants.SESS_SYSCURRENT_ID);
+		} catch (Exception e) {
+			logger.warn( e.getMessage().toString() );
+		}
 	}
 	
 	public static void remove(ActionContext actionContext) {
-		actionContext.getSession().remove(Constants.SESS_ACCOUNT);
-		actionContext.getSession().remove(Constants.SESS_LANG);
-		actionContext.getSession().remove(Constants.SESS_SYSCURRENT_ID);
+		try {
+			actionContext.getSession().remove(Constants.SESS_ACCOUNT);
+			actionContext.getSession().remove(Constants.SESS_LANG);
+			actionContext.getSession().remove(Constants.SESS_SYSCURRENT_ID);
+		} catch (Exception e) {
+			logger.warn( e.getMessage().toString() );
+		}
 	}	
 	
 	public static void remove(Map<String, Object> session) {
-		session.remove(Constants.SESS_ACCOUNT);
-		session.remove(Constants.SESS_LANG);
-		session.remove(Constants.SESS_SYSCURRENT_ID);
+		try {
+			session.remove(Constants.SESS_ACCOUNT);
+			session.remove(Constants.SESS_LANG);
+			session.remove(Constants.SESS_SYSCURRENT_ID);
+		} catch (Exception e) {
+			logger.warn( e.getMessage().toString() );
+		}
 	}
 	
 	public static String getLang(HttpServletRequest request) {

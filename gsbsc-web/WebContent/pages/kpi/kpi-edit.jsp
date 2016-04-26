@@ -533,7 +533,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b>Activate options</b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_activate')"/></b>:
     			<br/>
 				<input id="BSC_PROG002D0004E_activate" name="BSC_PROG002D0004E_activate" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == kpi.activate "> checked="checked" </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_activate'">
