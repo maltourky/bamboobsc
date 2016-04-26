@@ -59,6 +59,7 @@ BSC_PROG006D0002Q_fieldsId['pdcaOid']	= 'BSC_PROG006D0002Q_pdcaOid';
 
 function BSC_PROG006D0002Q_query(type) {
 	document.getElementById( 'BSC_PROG006D0002Q_projectRelated_orgChart' ).innerHTML = '';
+	document.getElementById( 'BSC_PROG006D0002Q_content' ).innerHTML = '';
 	var actionUrl = 'bsc.pdcaReportContentQuery.action';
 	if ('EXCEL' == type) {
 		actionUrl = 'bsc.pdcaReportExcelQuery.action';

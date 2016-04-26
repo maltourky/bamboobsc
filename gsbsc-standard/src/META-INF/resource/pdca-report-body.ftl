@@ -1,4 +1,4 @@
-<table style="width: 100%" bgcolor="#d8d8d8">
+<table style="width: 100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#d8d8d8">
 				<tr>
 								<td colspan="6" bgcolor="#d8d8d8" align="center">
 								<h2><b>${pdca.title}</b></h2>
