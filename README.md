@@ -86,6 +86,10 @@ contact: chen.xin.nien@gmail.com
 <br/>14 PDCA Report.
 <br/>
 <img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/PDCA-REPORT-03.png"/><br/>
+<br/>15 PDCA Project history.
+<br/>
+<img src="https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/bamboobsc-pic/PDCA-REPORT-04.png"/><br/>
+
 <br/>
 <br/>
 ###Install on Windows
