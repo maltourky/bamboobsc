@@ -137,7 +137,7 @@ function ${programId}_page_message() {
 		<tr valign="top">
 			<td width="100%" align="left" height="30%">
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG001D0004Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:250px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:255px">
 			    			
 		    			<gs:button name="BSC_PROG001D0004Q_query" id="BSC_PROG001D0004Q_query" onClick="BSC_PROG001D0004Q_query();"
 		    				handleAs="json"

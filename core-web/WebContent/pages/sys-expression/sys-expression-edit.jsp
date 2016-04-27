@@ -116,7 +116,7 @@ function ${programId}_page_message() {
     		<td height="325px" width="100%"  align="left">
     		
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:350px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 						
     					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002E_iframe1')"/></b>:
     					<br/>

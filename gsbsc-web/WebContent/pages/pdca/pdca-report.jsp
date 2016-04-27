@@ -290,7 +290,7 @@ function ${programId}_page_message() {
 		<tr valign="top">
 			<td width="100%" align="center" height="35%">
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Options' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:50px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:50px">
 					
 						<table border="0" width="100%" >
 							<tr valign="top">

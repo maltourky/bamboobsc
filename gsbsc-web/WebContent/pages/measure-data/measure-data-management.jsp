@@ -331,7 +331,7 @@ function ${programId}_page_message() {
 		<tr>
 			<td width="270px" valign="top">
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG002D0005Q_kpiTree')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:270px;height:600px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:270px;height:100%">
    						<div id="BSC_PROG002D0005Q_kpiTree"></div> 						
    					</div>		    						       								    					
 		  		</div>		
@@ -339,7 +339,7 @@ function ${programId}_page_message() {
 			</td>
 			<td valign="top" align="center" >
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG002D0005Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:100px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:110px">
    						<table border="0" width="100%" height="100%">
    							<tr>							
    								<td width="20%" align="right"><font size='2'><s:property value="getText('BSC_PROG002D0005Q_dataForOpt')"/>:</font></td>

@@ -136,7 +136,7 @@ function ${programId}_page_message() {
 		    <td height="360px" width="100%" align="left">
 		    
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:350px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 							    
 		    		<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0008E_iframe1')"/></b>:
 		    		<br/>
@@ -153,7 +153,7 @@ function ${programId}_page_message() {
 		    <td height="360px" width="100%" align="left">
 		    
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression ( for date range )' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:350px">		    
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">		    
 		    
 		    		<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0008E_iframe2')"/></b>:
 		    		<br/>

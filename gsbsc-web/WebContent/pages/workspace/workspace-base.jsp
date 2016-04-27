@@ -93,7 +93,7 @@ function ${programId}_page_message() {
 		<tr valign="top">
 			<td width="100%" align="center" height="35%">
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG001D0005Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:100%;height:60px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:60px">
 					
 						<table border="0" width="100%" cellspacing="0" >
 							<tr valign="top">
