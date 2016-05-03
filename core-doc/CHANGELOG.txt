@@ -1,3 +1,10 @@
+0.6.3-1
+-----------------------------------------------------------
+1. Fix core.css patch flat-themes-1.11.1
+2. Add BR - Brazil locale, language support by Giacomozzi( https://github.com/giacomozzi ) 
+   https://github.com/billchen198318/bamboobsc/issues/8
+
+
 0.6.3
 -----------------------------------------------------------
 1. Support locale ( IT - Italy , PT - Portugal, RU - Russia ).

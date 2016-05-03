@@ -204,28 +204,52 @@ ul{
 
 
 
-/* -- bambooBSC patch flat-themes-1.11.0 -- */
+/* -- bambooBSC patch flat-themes-1.11.1 -- */
+.flat .dijitTreeExpandoLoading {
+	background: url(../patch_flat_themes_1_11_icons/loadingAnimation.gif) no-repeat;
+	height: 31px;
+	width: 31px;	
+}
+.flat .dijitTreeExpandoLoading:before {
+	content: ""; /* -- flat-icon.ttf no found "\e60e" -- */
+}
+
 .flat .dijitTreeExpandoOpened {
 	background-image: url(../patch_flat_themes_1_11_icons/expando_opened.png);
   	width: 20px;
   	height: 20px;
 }
+.flat .dijitTreeExpandoOpened::before {
+	content: ""; /* -- flat-icon.ttf no found "\e60d" -- */
+}
+
 .flat .dijitTreeExpandoClosed {
 	background-image: url(../patch_flat_themes_1_11_icons/expando_closed.png);
   	width: 20px;
   	height: 20px;
 }
+.flat .dijitTreeExpandoClosed::before {
+	content: ""; /* -- flat-icon.ttf no found "\e60a" -- */
+}
+
 .flat .dijitIconLoading {
 	background: url(../patch_flat_themes_1_11_icons/loadingAnimation.gif) no-repeat;
 	height: 31px;
 	width: 31px;
 }
+.flat .dijitIconLoading::before {
+	content: ""; /* -- flat-icon.ttf no found "\f01d" -- */
+}
+
 .flat .dijitIconError {
 	background-image: url(../patch_flat_themes_1_11_icons/error.png);
 	height: 24px;
 	width: 24px;
 }
-/* -- bambooBSC patch flat-themes-1.11.0 -- */
+.flat .dijitIconError::before {
+	content: ""; /* -- flat-icon.ttf no found "\f017" -- */
+}
+/* -- bambooBSC patch flat-themes-1.11.1 -- */
 
 
 
