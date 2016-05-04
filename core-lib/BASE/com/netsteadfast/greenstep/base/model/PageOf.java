@@ -30,7 +30,7 @@ import com.netsteadfast.greenstep.base.Constants;
 
 public class PageOf implements java.io.Serializable {
 	private static final long serialVersionUID = -3060749245195776228L;
-	public static final int Rows[]={10, 20, 30};
+	public static final int Rows[]={10, 20, 30, 50, 75, 100}; // 要配合 ui.grid.htm.flt
 	
 	private String countSize="0"; // count record 頁面grid資料count的筆數
 	private String showRow=Rows[0]+""; // a page show size 頁面要顯示grid row比數
@@ -59,10 +59,14 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getShowRow() {
-		if (NumberUtils.toInt(this.showRow, 0) == 0) {
-			return String.valueOf(Rows[0]);
+		boolean c = false;
+		int r = NumberUtils.toInt(this.showRow, 0);
+		for (int i=0; !c && i<Rows.length; i++) { // 在 bambooCORE 中只允許這幾個Row數
+			if (r == Rows[i]) {
+				c = true;
+			}
 		}
-		return showRow;
+		return ( c ? showRow : String.valueOf(Rows[0]) );
 	}
 
 	public void setShowRow(String showRow) {
@@ -78,7 +82,7 @@ public class PageOf implements java.io.Serializable {
 	}
 
 	public String getSelect() {
-		if (NumberUtils.toInt(this.select, 0) == 0) {
+		if (NumberUtils.toInt(this.select, 0) < 1 || NumberUtils.toInt(this.select, 0) > 1000000) { // 在 bambooCORE 中不允許
 			return "1";
 		}
 		return select;
@@ -135,6 +139,11 @@ public class PageOf implements java.io.Serializable {
 		this.setSize(_size+"");	
 	}
 	
+	/**
+	 * 查詢 grid 頁面沒有再用
+	 * @return
+	 */
+	@Deprecated
 	public String getHtmlSelectOptions() {
 		StringBuilder out=new StringBuilder();
 		String sel="";
@@ -147,6 +156,11 @@ public class PageOf implements java.io.Serializable {
 		return out.toString();
 	}
 	
+	/**
+	 * 查詢 grid 頁面沒有再用
+	 * @return
+	 */
+	@Deprecated
 	public String getHtmlRowShowSelectOptions() {
 		StringBuilder out=new StringBuilder();
 		String sel="";
