@@ -104,6 +104,9 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     -webkit-transition: background-color 0.25s ease-in;
     -moz-transition: background-color 0.25s ease-in;
     transition: background-color 0.25s ease-in;
+    
+    width: 450px;
+    
 }
 
 .w:hover {
