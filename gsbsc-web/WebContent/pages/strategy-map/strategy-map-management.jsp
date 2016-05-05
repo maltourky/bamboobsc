@@ -136,14 +136,20 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     position: absolute;
     bottom: 37%;
     right: 5px;
-    width: 1em;
-    height: 1em;
-    background-color: orange;
+    /*width: 1em;*/
+    width: 16px;
+    /*height: 1em;*/
+    height: 16px;
+    /* background-color: orange; */
+    background-color: #ffffff;
     cursor: pointer;
     box-shadow: 0 0 2px black;
     -webkit-transition: -webkit-box-shadow 0.25s ease-in;
     -moz-transition: -moz-box-shadow 0.25s ease-in;
     transition: box-shadow 0.25s ease-in;
+    
+    background-image: url("./icons/star.png");
+    
 }
 
 .ep:hover {
