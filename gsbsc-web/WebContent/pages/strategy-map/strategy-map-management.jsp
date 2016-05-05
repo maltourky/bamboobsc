@@ -141,7 +141,7 @@ String mainSysBasePath = ApplicationSiteUtils.getBasePath(Constants.getMainSyste
     /*height: 1em;*/
     height: 16px;
     /* background-color: orange; */
-    background-color: #ffffff;
+    background-color: #F5DA81;
     cursor: pointer;
     box-shadow: 0 0 2px black;
     -webkit-transition: -webkit-box-shadow 0.25s ease-in;
