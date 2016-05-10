@@ -1172,7 +1172,7 @@ CREATE TABLE `bb_formula` (
 
 LOCK TABLES `bb_formula` WRITE;
 /*!40000 ALTER TABLE `bb_formula` DISABLE KEYS */;
-INSERT INTO `bb_formula` VALUES ('b58b87cc-e938-4538-9617-4656788492cb','F777','KPI trends change(%)','BSH','Y','C','ans','if ( (float)cv!=0.0 && (float)pv!=0.0 ) {\n    ans = ( cv ÷ pv - 1 ) × 100.0;\n    return;\n}\nif ( (float)cv==0.0 ) {\n    ans = pv * -1.0;   \n    return;\n}\nif ( (float)pv==0.0 ) {\n    ans = cv;\n    return;\n}\nans = 0.0;\n\n','for KPI peroid current/previous score change(%)','admin','2015-10-15 16:09:02','admin','2015-10-17 12:18:19'),('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','N','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 percent of target','GROOVY','N','C','ans','if (actual > 0 && target > 0 ) {\n    ans = Math.max( actual ÷ target ,  0 ) × 100;\n    return ans;\n}\nif (\n    (actual <= 0 && target < 0 && actual >= target)\n    ||\n    (actual <= 0 && target < 0 && actual < target)\n    ||\n    (actual > 0 && target < 0 )\n) {\n    ans = ((((target - actual) ÷ target) × 100) + 100);\n    return ans;\n}\nif (actual < 0 && target > 0 ) {\n    ans = ((((actual - target) ÷ target) × 100) + 100);\n    return ans;\n}\nif (actual == 0 && target > 0 ) {\n    ans = 0;\n    return ans;\n}\nif (actual >= 0 && target == 0 ) {\n    ans = ((actual × 100) + 100);\n    return ans;\n}\nif (actual < 0 && target == 0 ) {\n    ans = ((actual × 100) + 100);\n    return ans;   \n}\nans = 0;\nreturn ans;','Calculating percent of target.','admin','2014-11-19 11:39:03','admin','2016-01-25 19:25:30'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','N','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
+INSERT INTO `bb_formula` VALUES ('b58b87cc-e938-4538-9617-4656788492cb','F777','KPI trends change(%)','BSH','Y','C','ans','if ( (float)cv!=0.0 && (float)pv!=0.0 ) {\n    ans = ( cv ÷ pv - 1 ) × 100.0;\n    return;\n}\nif ( (float)cv==0.0 ) {\n    ans = pv * -1.0;   \n    return;\n}\nif ( (float)pv==0.0 ) {\n    ans = cv;\n    return;\n}\nans = 0.0;\n\n','for KPI peroid current/previous score change(%)','admin','2015-10-15 16:09:02','admin','2015-10-17 12:18:19'),('bfc7c7df-0e7a-448b-b666-a9a2f7a7f950','F999','F999 Example for jython','PYTHON','N','C','ans','import math;\nans = math.sqrt( actual ÷ target ) × 100','is a sample!','admin','2014-11-20 10:03:12','admin','2014-11-20 15:49:10'),('d382b6ab-fe55-4c93-8c8e-79896ed09f7a','F001','F001 percent of target','GROOVY','N','C','ans','import org.apache.commons.lang3.math.*;\nimport java.lang.*;\n\nif (actual > 0 && target > 0 ) {\n    ans = Math.max( actual ÷ target ,  0 ) × 100;\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nif (\n    (actual <= 0 && target < 0 && actual >= target)\n    ||\n    (actual <= 0 && target < 0 && actual < target)\n    ||\n    (actual > 0 && target < 0 )\n) {\n    ans = ((((target - actual) ÷ target) × 100) + 100);\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nif (actual < 0 && target > 0 ) {\n    ans = ((((actual - target) ÷ target) × 100) + 100);\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nif (actual == 0 && target > 0 ) {\n    ans = 0;\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nif (actual >= 0 && target == 0 ) {\n    ans = ((actual × 100) + 100);\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nif (actual < 0 && target == 0 ) {\n    ans = ((actual × 100) + 100);\n    ans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\n    return ans;\n}\nans = 0;\nans = NumberUtils.toFloat( String.valueOf(ans), 0.0f);\nreturn ans;','Calculating percent of target.','admin','2014-11-19 11:39:03','admin','2016-05-10 19:13:34'),('e2d2dc04-ed37-471b-ac73-7de51dfa4721','F002','F002 for return actual','BSH','N','D','','actual','for return actual !','admin','2014-11-19 11:45:13',NULL,NULL);
 /*!40000 ALTER TABLE `bb_formula` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2721,7 +2721,7 @@ CREATE TABLE `qrtz_scheduler_state` (
 
 LOCK TABLES `qrtz_scheduler_state` WRITE;
 /*!40000 ALTER TABLE `qrtz_scheduler_state` DISABLE KEYS */;
-INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861461676116387',1461677311553,7500);
+INSERT INTO `qrtz_scheduler_state` VALUES ('scheduler','localX861462878665671',1462878998368,7500);
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2825,7 +2825,7 @@ CREATE TABLE `qrtz_triggers` (
 
 LOCK TABLES `qrtz_triggers` WRITE;
 /*!40000 ALTER TABLE `qrtz_triggers` DISABLE KEYS */;
-INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.ClearTempDataJobCronTrigger','DEFAULT','core.job.ClearTempDataJob','DEFAULT',NULL,1461699001000,-1,0,'WAITING','CRON',1461676116000,0,NULL,0,''),('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1461677400000,1461677280000,0,'WAITING','CRON',1461676116000,0,NULL,0,'');
+INSERT INTO `qrtz_triggers` VALUES ('scheduler','core.job.ClearTempDataJobCronTrigger','DEFAULT','core.job.ClearTempDataJob','DEFAULT',NULL,1462908601000,-1,0,'WAITING','CRON',1462878665000,0,NULL,0,''),('scheduler','core.job.SendMailHelperJobCronTrigger','DEFAULT','core.job.SendMailHelperJob','DEFAULT',NULL,1462879080000,1462878960000,0,'WAITING','CRON',1462878665000,0,NULL,0,'');
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4205,4 +4205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-26 21:29:21
+-- Dump completed on 2016-05-10 19:16:39
