@@ -1,4 +1,4 @@
-<table id="gridQuery_table${id}" width="${width}" border="0" cellspacing="0" cellpadding="1" style="display:none" style="background-color:#f1eee5;">
+<table id="gridQuery_table${id}" width="${width}" border="0" cellspacing="0" cellpadding="1" style="display:none; border:1px #ebeadb solid; background-color:#f1eee5;">
   <tr>
   	<td width="100px" bgcolor="#f1eee5" align="center" >
   		<font size="2">${totalName}:&nbsp;<span id="gridQuery_pageOf_rowCount${id}"/></font>  	
