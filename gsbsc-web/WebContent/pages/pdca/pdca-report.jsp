@@ -294,7 +294,7 @@ function ${programId}_page_message() {
 					
 						<table border="0" width="100%" >
 							<tr valign="top">
-								<td width="100%" align="left" height="40px" bgcolor="#f3f3f3">	
+								<td width="100%" align="left" height="40px" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">	
 								
 									<b>PDCA Project:</b> &nbsp;
 									<gs:select name="BSC_PROG006D0002Q_pdcaOid" dataSource="pdcaMap" id="BSC_PROG006D0002Q_pdcaOid"></gs:select>

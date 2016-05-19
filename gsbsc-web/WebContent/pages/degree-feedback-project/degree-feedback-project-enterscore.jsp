@@ -172,7 +172,7 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%">
 		<tr>
-			<td align="center" bgcolor="#58775d"><b><font color="#ffffff"><s:property value="project.year"/> - <s:property value="project.name"/></font></b></td>
+			<td align="center" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);"><b><font color="#000000"><s:property value="project.year"/> - <s:property value="project.name"/></font></b></td>
 		</tr>		
 		<tr>
 			<td align="left" bgcolor="#ffffff">
@@ -209,7 +209,7 @@ function ${programId}_page_message() {
 	
 	<br/>
 	
-	<table border="0" width="1000px" bgcolor="#d8d8d8">
+	<table border="0" width="1000px" cellspacing="1" cellpadding="1" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 	
 	<s:if test="items!=null">
 	<s:iterator value="items" status="st1" >

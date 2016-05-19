@@ -57,13 +57,13 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" bgcolor="#d8d8d8">
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 		<legend><b>Project</b></legend>
 		<tr>
-			<td align="center" width="10%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_01')"/></b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_02')"/></b></td>
-			<td align="left" width="35%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_03')"/></b></td>
-			<td align="center" width="15%" bgcolor="#f5f5f5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_04')"/></b></td>
+			<td align="center" width="10%" bgcolor="#f1eee5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_01')"/></b></td>
+			<td align="left" width="40%" bgcolor="#f1eee5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_02')"/></b></td>
+			<td align="left" width="35%" bgcolor="#f1eee5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_03')"/></b></td>
+			<td align="center" width="15%" bgcolor="#f1eee5"><b><s:property value="getText('BSC_PROG005D0002Q_grid_04')"/></b></td>
 		</tr>
 		<s:if test=" null != projects && projects.size != 0 ">
 		<s:iterator value="projects" status="st">

@@ -95,9 +95,9 @@ function ${programId}_page_message() {
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG001D0005Q_options')" escapeJavaScript="true"/>' " >						
 					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:60px">
 					
-						<table border="0" width="100%" cellspacing="0" >
+						<table border="0" width="100%" cellspacing="0" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);" >
 							<tr valign="top">
-								<td width="65%" align="left" height="50px" bgcolor="#f3f3f3" >	
+								<td width="65%" align="left" height="50px" >	
 									
 									<s:property value="getText('BSC_PROG001D0005Q_workspaceOid')"/>:
 									<gs:select name="BSC_PROG001D0005Q_workspaceOid" dataSource="workspaceMap" id="BSC_PROG001D0005Q_workspaceOid" value="fields.workspaceOid"></gs:select>
@@ -115,7 +115,7 @@ function ${programId}_page_message() {
 						    		&nbsp;		    															
 								
 								</td>
-								<td width="25%" align="left" height="45px" bgcolor="#f3f3f3">
+								<td width="25%" align="left" height="45px" >
 									
 									<div id="BSC_PROG001D0005Q_yearHorizontalSlider"
 									    style="width:200px;"
@@ -142,7 +142,7 @@ function ${programId}_page_message() {
 									</div>   
 																	
 								</td>
-								<td align="left" height="10%" bgcolor="#f3f3f3">
+								<td align="left" height="10%" >
 
 									<button id="BSC_PROG001D0005Q_btnQuery" data-dojo-type="dijit.form.Button"
 										data-dojo-props="

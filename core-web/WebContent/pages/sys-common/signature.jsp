@@ -77,18 +77,18 @@ function ${programId}_page_message() {
 <body class="flat" bgcolor="#ffffff">
 
 <!-- CORE_PROGCOMM0003Q -->
-<table border="0">
-	<tr>
-		<td align="center" bgcolor="#d7e3ed" >
+<table border="0" >
+	<tr valign="top">
+		<td align="center" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 			<font size='2'><s:property value="getText('CORE_PROGCOMM0003Q_label')"/></font>
 		</td>
 	</tr>
-	<tr>
+	<tr valign="top">
 		<td align="center" bgcolor="#ffffff" >
 			<canvas id="CORE_PROGCOMM0003Q_signature_canvas" height="200" width="460" style="border:1px solid #000000;" ></canvas>
 		</td>
 	</tr>	
-	<tr>
+	<tr valign="top">
 		<td align="center" >
 		
     			<gs:button name="CORE_PROGCOMM0003Q_save" id="CORE_PROGCOMM0003Q_save" onClick="CORE_PROGCOMM0003Q_save();"

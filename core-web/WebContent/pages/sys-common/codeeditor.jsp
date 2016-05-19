@@ -87,9 +87,9 @@ body, html {
 
 <s:if test=" \"Y\" == cbMode ">
 
-<table border="0" width="100%">
+<table border="0" width="100%" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);" >
 	<tr>
-		<td align="left" bgcolor="#f1eee5">
+		<td align="left">
 			&nbsp;&nbsp;
 			<input type="button" name="okBtn" id="okBtn" value="${action.getText('CORE_PROGCOMM0004Q_okBtn')}" class="flat lighter" onClick="setCbFieldValue();">
 			&nbsp;&nbsp;

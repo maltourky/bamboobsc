@@ -90,12 +90,12 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" bgcolor="#d8d8d8">
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 		<legend><b>Process definition</b></legend>
 		<tr>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Key</b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Name</b></td>
-			<td align="center" width="20%" bgcolor="#f5f5f5"><b>#</b></td>
+			<td align="left" width="40%" bgcolor="#f1eee5"><b>Key</b></td>
+			<td align="left" width="40%" bgcolor="#f1eee5"><b>Name</b></td>
+			<td align="center" width="20%" bgcolor="#f1eee5"><b>#</b></td>
 		</tr>
 		
 		<s:if test="processDefinitions!=null">
@@ -126,12 +126,12 @@ function ${programId}_page_message() {
 	
 	<br/>
 	
-	<table border="0" width="100%" bgcolor="#d8d8d8">
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 		<legend><b>Process instance</b></legend>
 		<tr>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Id</b></td>
-			<td align="left" width="40%" bgcolor="#f5f5f5"><b>Process definition</b></td>
-			<td align="center" width="20%" bgcolor="#f5f5f5"><b>#</b></td>
+			<td align="left" width="40%" bgcolor="#f1eee5"><b>Id</b></td>
+			<td align="left" width="40%" bgcolor="#f1eee5"><b>Process definition</b></td>
+			<td align="center" width="20%" bgcolor="#f1eee5"><b>#</b></td>
 		</tr>
 		
 		<s:if test="processInstances!=null">
@@ -162,13 +162,13 @@ function ${programId}_page_message() {
 	
 	<br/>
 	
-	<table border="0" width="100%" bgcolor="#d8d8d8">
+	<table border="0" width="100%" cellspacing="1" cellpadding="1" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">
 		<legend><b>Task</b></legend>
 		<tr>
-			<td align="left" width="30%" bgcolor="#f5f5f5"><b>Id</b></td>
-			<td align="left" width="30%" bgcolor="#f5f5f5"><b>Name</b></td>
-			<td align="left" width="30%" bgcolor="#f5f5f5"><b>Assignee</b></td>			
-			<td align="center" width="10%" bgcolor="#f5f5f5"><b>#</b></td>
+			<td align="left" width="30%" bgcolor="#f1eee5"><b>Id</b></td>
+			<td align="left" width="30%" bgcolor="#f1eee5"><b>Name</b></td>
+			<td align="left" width="30%" bgcolor="#f1eee5"><b>Assignee</b></td>			
+			<td align="center" width="10%" bgcolor="#f1eee5"><b>#</b></td>
 		</tr>
 		
 		<s:if test="tasks!=null">

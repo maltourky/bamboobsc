@@ -517,7 +517,7 @@ function ${programId}_page_message() {
 					
 						<table border="0" width="100%" >
 							<tr valign="top">
-								<td width="100%" align="left" height="25px" bgcolor="#f3f3f3">	
+								<td width="100%" align="left" height="25px" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">	
 								
 									<button id="BSC_PROG003D0006Q_btnQuery" data-dojo-type="dijit.form.Button"
 										data-dojo-props="

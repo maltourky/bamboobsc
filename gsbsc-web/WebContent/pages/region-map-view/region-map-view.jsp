@@ -185,9 +185,9 @@ function BSC_PROG001D0006Q_openNew(orgId) {
 function BSC_PROG001D0006Q_showOrganizationInfo(organization) {
 	
 	var content = '';
-	content += '<table width="100%" border="0" cellpadding="1" cellspacing="1" bgcolor="#d8d8d8" >';
+	content += '<table width="100%" border="0" cellpadding="1" cellspacing="1" style="border:1px #ebeadb solid; border-radius: 5px;" >';
 	content += '<tr>';
-	content += '<td colspan="2" bgcolor="#d8d8d8" align="center" ><b><s:property value="getText('BSC_PROG001D0006Q_orga_label')" escapeJavaScript="true"/></b></td>';
+	content += '<td colspan="2" bgcolor="#f1eee5" align="center" ><b><s:property value="getText('BSC_PROG001D0006Q_orga_label')" escapeJavaScript="true"/></b></td>';
 	content += '</tr>';	
 	content += '<tr>';
 	content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_id')" escapeJavaScript="true"/>:</td>';
@@ -217,9 +217,9 @@ function BSC_PROG001D0006Q_showOrganizationInfo(organization) {
 function BSC_PROG001D0006Q_showRelationKpis(kpis) {
 	
 	var content = '';
-	content += '<table width="100%" border="0" cellpadding="1" cellspacing="1" bgcolor="#d8d8d8" >';
+	content += '<table width="100%" border="0" cellpadding="1" cellspacing="1" style="border:1px #ebeadb solid; border-radius: 5px;" >';
 	content += '<tr>';
-	content += '<td colspan="2" bgcolor="#d8d8d8" align="center" ><b>KPIs</b></td>';
+	content += '<td colspan="2" bgcolor="#f1eee5" align="center" ><b>KPIs</b></td>';
 	content += '</tr>';	
 	
 	for (var k in kpis) {
