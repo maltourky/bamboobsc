@@ -29,6 +29,7 @@ input[type=file] {
 	height: 60px; 
 	border: 2px dotted #FFAD1C; 
 	background: #FFEFD0;
+	border-radius: 4px;
 }
     
 </style>
@@ -60,6 +61,10 @@ function ${programId}_page_message() {
 </head>
 <body class="flat" bgcolor="#ffffff">
 
+<table border="0" width="100%">
+	<tr valign="top">
+		<td  align="center">
+
 <form method="post" action="core.commonUploadFileAction.action" name="CORE_PROGCOMM0002Q_form" id="CORE_PROGCOMM0002Q_form" enctype="multipart/form-data" >
 	<input type="hidden" name="type" id="CORE_PROGCOMM0002Q_type" value="${type}"/>
 	<input type="hidden" name="system" id="CORE_PROGCOMM0002Q_system" value="${system}"/>
@@ -77,6 +82,10 @@ function ${programId}_page_message() {
 		data-dojo-type="dijit.form.Button" onClick="CORE_PROGCOMM0002Q_DlgHide();" 
 		class="alt-primary"/>		
 </form>	
+
+		</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
