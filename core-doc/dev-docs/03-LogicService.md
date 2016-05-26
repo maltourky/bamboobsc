@@ -70,6 +70,40 @@ https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/n
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/impl/KpiLogicServiceImpl.java<br/>
 
 
+<br/>
+<br/>
+<br/>
+
+
+###BscBaseBusinessProcessManagementLogicService 
+BscBaseBusinessProcessManagementLogicService is extends CoreBaseLogicService and BusinessProcessManagementBaseLogicService.<br/> 
+BscBaseBusinessProcessManagementLogicService it main support GSBSC-SYSTEM with BPMN.
+
+| Name | Return | description |
+| --- | --- | --- |
+| findOrganizationData(String oid) | OrganizationVO | find organization data by OID |
+| findEmployeeData(String oid) | EmployeeVO | find employee data by OID |
+| findOrganizationDataByUK(String orgId) | OrganizationVO | find organization data by organization-ID |
+| findEmployeeDataByUK(String accountId, String empId) | EmployeeVO | find employee data by employee UK / unique key |
+| findEmployeeDataByAccountId(String accountId) | EmployeeVO | find employee data by account-id |
+| findEmployeeDataByEmpId(String empId) | EmployeeVO | find employee data by employee-id / employee-no |
+| getBusinessProcessManagementResourceId() | String | get BO BPMN resource-Id |
+| getBusinessProcessManagementResourceObject() | SysBpmnResourceVO | get GSBSC-CORE BO BPMN resource object |
+| startProcess(Map`<String, Object>` paramMap) | String | start process |
+| completeTask(String taskId, Map`<String, Object>` paramMap) | void | complete process task |
+| queryTask() | List`<Task>` | query process tasks |
+| queryTaskPlus() | List`<BusinessProcessManagementTaskVO>` | query process tasks |
+| queryTaskPlus(String variableKeyName, String variableKeyValue) | List`<BusinessProcessManagementTaskVO>` | query process tasks by args variable name and value found |
+| queryTaskByVariable(String variableKeyName, String variableKeyValue) | List`<Task>` | query process tasks by args variable name and value found |
+| isRoleAllowApproval(String taskName)<br/><br/>isRoleAllowApproval(String accountId, String taskName) | boolean | check approval task permission, true has permission, false is no permission |
+
+
+reference example:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/IPdcaLogicService.java<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/impl/PdcaLogicServiceImpl.java<br/>
+
+
+
 
 
 
