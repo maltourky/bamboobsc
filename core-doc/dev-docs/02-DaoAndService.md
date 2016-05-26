@@ -67,6 +67,16 @@ public class TestDAOImpl extends BaseDAO<BbTest, String> implements ITestDAO<BbT
 | queryForListByNativeSQL(String sql)<br/>queryForListByNativeSQL(String sql, RowMapper rowMapper)<br/>queryForListByNativeSQL(String sql, Object[] args)<br/>queryForListByNativeSQL(String sql, Object[] args, RowMapper rowMapper) | List | jdbc query for List |
 | count(String hql)<br/>count(String hql, Object... args) | int | hibernate query for count mode |
 | findList(final String hql, final int offset, final int length) | List | hibernate query for page grid |
+| findPageQueryResult(String findHQL, String countHQL, Map<String, Object> params, int offset, int limit) | QueryResult<> | hibernate query for page grid |
+| findPageQueryResultByQueryName(String pageQueryName, Map<String, Object> params, int offset, int limit) | QueryResult<> | hibernate query for page grid config from /resource/dynamichql/*-dynamic-hql.xml |
+| save(T entityObject) | T <BaseEntity> | hibernate save |
+| persist(T entityObject) | T <BaseEntity> | hibernate persist |
+| update(T entityObject) | T <BaseEntity> | hibernate update |
+| merge(T entityObject) | T <BaseEntity> | hibernate merge |
+| delete(T entityObject) | T <BaseEntity> | hibernate delete |
+| clear() | void | hibernate current session clear |
+| findByPK(PK pk)<br/>findByOid(T entityObj) | T | hibernate find by OID/PK |
+
 
 
 
