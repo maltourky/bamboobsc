@@ -9,6 +9,8 @@ BaseService for for data basic operation package call DAO.<br>
 4. MyBatis https://github.com/mybatis/mybatis-3<br/>
 
 #<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">Previous section 01-Entity</a>
+#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">Next section 03-Logic service</a>
+
 
 ###DAO interfaces example
 ```JAVA
