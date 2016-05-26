@@ -3,7 +3,7 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/04-ControllerAction.md">⇨ Next section 04-Controller</a>
 
 
-#Logic service
+#03 - Logic service
 #Introduction
 Logic service is do many base-service with complicated transaction script bean service.<br>
 
