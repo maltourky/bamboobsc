@@ -86,7 +86,7 @@ public class TestDAOImpl extends BaseDAO<BbTest, String> implements ITestDAO<BbT
 | ibatisSelectListByParams(Map`<String, Object>` params) | List | MyBatis query list |
 | ibatisSelectOneByValue(T valueObj) | T BaseValue | MyBatis query object |
 | getDynamicHqlResource(String resource) | DynamicHql | get /resource/dynamichql/*-dynamic-hql.xml config |
-| getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
+| getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map`<String, Object>` paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
 
 
 <br/>
@@ -245,6 +245,15 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 | findListByParams(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, String>` orderParams) | List`<E>` | find data List by parameter |
 | findListByParams(Map`<String, Object>` params) | List`<E>` | find data List by parameter |
 | findListByParams2(Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, CustomeOperational>` customOperParams, Map`<String, String>` orderParams) | List`<E>` | find data List by parameter |
+| findListVOByParams(Map`<String, Object>` params) | List`<T>` | find List data by parameter |
+| findByUK(T object) | DefaultResult `<T>` | find data by value object UK / unique key |
+| countByUK(T object) | int | count data by value object UK / unique key |
+| findByEntityUK(E entityObject) | `<E>` | find data by entity object UK / unique key |
+| countByEntityUK(E entityObject) | int | count data by entity object UK / unique key |
+| ibatisSelectListByParams(Map`<String, Object>` params) | DefaultResult`<List<E>>` | find List by parameter on MyBatis |
+| ibatisSelectOneByValue(E valueObj) | DefaultResult`<E>` | find by not hibernate mode entity on MyBatis |
+| getDynamicHqlResource(String resource) | DynamicHql | get /resource/dynamichql/*-dynamic-hql.xml config |
+| getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map`<String, Object>` paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
 
 
 
