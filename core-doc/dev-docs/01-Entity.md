@@ -1,3 +1,5 @@
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">⇨ Next section 02-DAO and Service</a>
+
 #Introduction
 BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis custom query mapper, or page grid query.<br>
 BaseEntity recommend only for hibernate do save/update/delete.<br>
@@ -7,9 +9,6 @@ BaseEntity recommend only for hibernate do save/update/delete.<br>
 2. Hibernate http://hibernate.org/<br/>
 3. Dozer https://github.com/DozerMapper/dozer<br/>
 4. MyBatis https://github.com/mybatis/mybatis-3<br/>
-
-#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">Next section 02-DAO and Service</a>
-
 
 #Persistence entity
 
