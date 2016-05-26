@@ -1,6 +1,6 @@
 #Introduction
-BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis custom query mapper.<br>
-BaseEntity recommend only for hibernate.<br>
+BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis custom query mapper, or page grid query.<br>
+BaseEntity recommend only for hibernate do save/update/delete.<br>
 
 ***You must first understand the following framework***<br/>
 1. Spring http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/<br/>
