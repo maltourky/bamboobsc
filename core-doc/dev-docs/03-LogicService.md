@@ -91,7 +91,7 @@ BscBaseBusinessProcessManagementLogicService it main support GSBSC-SYSTEM with B
 | findEmployeeDataByAccountId(String accountId) | EmployeeVO | find employee data by account-id |
 | findEmployeeDataByEmpId(String empId) | EmployeeVO | find employee data by employee-id / employee-no |
 | getBusinessProcessManagementResourceId() | String | get BO BPMN resource-Id |
-| getBusinessProcessManagementResourceObject() | SysBpmnResourceVO | get GSBSC-CORE BO BPMN resource object |
+| getBusinessProcessManagementResourceObject() | SysBpmnResourceVO | get CORE-SYSTEM BO BPMN resource object |
 | startProcess(Map`<String, Object>` paramMap) | String | start process |
 | completeTask(String taskId, Map`<String, Object>` paramMap) | void | complete process task |
 | queryTask() | List`<Task>` | query process tasks |
