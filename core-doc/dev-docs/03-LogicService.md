@@ -13,7 +13,7 @@ Login service is do many base-service with transaction script bean service.<br>
 #<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">Previous section 02-DAO and Service</a>
 
 ###BaseLogicService
-BaseLogicService is minimum unit Login Service, it main support CORE-SYSTEM used.
+BaseLogicService is minimum unit Logic Service, it main support CORE-SYSTEM used.
 
 
 | Name | Return | description |
@@ -28,5 +28,29 @@ BaseLogicService is minimum unit Login Service, it main support CORE-SYSTEM used
 reference example:<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/core-base/src/com/netsteadfast/greenstep/service/logic/IApplicationSystemLogicService.java<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/core-base/src/com/netsteadfast/greenstep/service/logic/impl/ApplicationSystemLogicServiceImpl.java<br/>
+
+<br/>
+<br/>
+<br/>
+
+###CoreBaseLogicService 
+CoreBaseLogicService is extends BaseLogicService, it main support GSBSC-SYSTEM, QCHARTS-SYSTEM.
+
+| Name | Return | description |
+| --- | --- | --- |
+| findAccountData() | AccountVO | get current user account object |
+| findAccountData(String accountId) | AccountVO | get user account object by account-Id |
+| findUserRoles() | List`<TbUserRole>` | get current user Role data |
+| findUserRoles(String accountId) | List`<TbUserRole>` | get user Role data by account-Id |
+| findUploadData(String oid) | SysUploadVO | find upload data log |
+| findUploadDataForNoByteContent(String oid) | SysUploadVO | find upload data log, not blob content field value |
+
+reference example:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/qcharts-standard/src/com/netsteadfast/greenstep/qcharts/service/logic/IDataQueryLogicService.java<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/qcharts-standard/src/com/netsteadfast/greenstep/qcharts/service/logic/impl/DataQueryLogicServiceImpl.java<br/>
+
+
+
+
 
 
