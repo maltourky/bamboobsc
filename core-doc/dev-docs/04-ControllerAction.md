@@ -139,7 +139,7 @@ The gs tag is work with Struts2 and DOJO javascript.
 
 | Tag | description |
 | --- | --- |
-| gs:button | page DOJO button compoment, can easy do send data to action no need write script |
+| gs:button | page DOJO button compoment, can easy do send data to action no need write many javascript |
 | gs:grid | page query grid, show DOJO grid |
 | gs:select | page DOJO select compoment |
 | gs:textbox | page DOJO input compoment |
