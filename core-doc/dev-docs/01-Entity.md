@@ -1,5 +1,7 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">⇨ Next section 02-DAO and Service</a>
 
+#01 - Entitiy
+
 #Introduction
 BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis custom query mapper, or page grid query.<br>
 BaseEntity recommend only for hibernate do save/update/delete.<br>
