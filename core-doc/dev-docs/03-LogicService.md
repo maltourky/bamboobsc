@@ -131,6 +131,29 @@ https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/
 | DELETE | method delete data mode |
 
 
+#Logic service AOP scan package config
+```JAVA
+package com.netsteadfast.greenstep.service.aspect;
+
+public class ServiceAspectConstants {
+	
+	public static final String AROUND_VALUE = " execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
+	
+}
+```
+
+#Add Logic service authority
+Please use: 
+Role's permitted settings -> `01 - Role` function to add permitted value
+
+Example:<br/>
+Logice bean id is `bsc.service.logic.KpiLogicService` and method ServiceMethodAuthority type is INSERT<br/>
+permitted string value is: `bsc.service.logic.KpiLogicService#INSERT`
+
+
+role permitted table:<br/>
+`select * from tb_role_permission`
+
 
 
 
