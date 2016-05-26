@@ -12,6 +12,22 @@ BaseEntity recommend only for hibernate.<br>
 
 #Persistence entity
 
+<br/>
+
+a database table name `bb_test`
+
+| Name | Type | description |
+| --- | --- | --- |
+| oid | PK, char(36) | PK-key |
+| id | UK, varchar(10) | UK, product no |
+| title | varchar(100) | product title |
+| cuserid | varchar(24) | create account-id |
+| cdate | datetime | create date-time |
+| uuserid | varchar(24) | update account-id |
+| udate | datetime | update date-time |
+
+<br/>
+
 a persistence object extends BaseEntity
 ```java
 package com.netsteadfast.greenstep.po.hbm;
@@ -260,3 +276,56 @@ add dozerBeanMapping-test.xml into resource/dozer/
 <value>classpath*:dozer/dozerBeanMapping-test.xml</value>
 ```
 
+<br/>
+<br/>
+
+#Options for MyBatis-3
+### Add BbTest.xml into /resource/mappers
+
+```xml
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BbTest">
+
+	<resultMap type="com.netsteadfast.greenstep.po.hbm.BbTest" id="baseResultMap">
+		<id column="OID" property="oid"/>						
+		<result column="ID" property="id"/>		
+		<result column="TITLE" property="title"/>		
+		<result column="CUSERID" property="cuserid"/>
+		<result column="CDATE" property="cdate"/>
+		<result column="UUSERID" property="uuserid"/>		
+		<result column="UDATE" property="udate"/>		
+	</resultMap>
+	
+	<select id="selectByParams" resultMap="baseResultMap" >
+		select * from bb_test where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>		
+		<if test="id != null">
+			AND ID = #{id}
+		</if>
+		<if test="title != null">
+			AND TITLE like #{title}
+		</if>						
+	</select>
+	
+	<select id="selectByValue" resultMap="baseResultMap" >
+		select * from bb_test where 1=1
+		<if test="oid != null">
+			AND OID = #{oid}
+		</if>
+		<if test="id != null">
+			AND ID = #{id}
+		</if>
+	</select>	
+	
+</mapper>
+```
+
+### Config /resource/applicationContext/core/applicationContext-mybatis.xml
+```xml
+<value>classpath*:mappers/BbTest.xml</value>
+```
