@@ -112,3 +112,33 @@ BaseQueryGridJsonAction is extends BaseJsonAction, it main support Grid query.
 | getPageOfCountSize() | String | String-number of grid record size |
 | getPageOfSize() | String | String-number of page total size |
 
+<br/>
+<br/>
+#Controller annotation
+
+| Name | description |
+| --- | --- |
+| `@ControllerAuthority` | `check=true` , ControllerAuthorityCheckInterceptor will check |
+| `@ControllerMethodAuthority` | programId value set controller action program-id |
+
+Program id naming rules example:
+<br/>
+
+| Program-id | description |
+| --- | --- |
+| BSC_PROG002D | `BSC` is BSC-system, `CORE` is CORE-SYSTEM, `PROG002D` the `D` mean it is a directory not an action method |
+| BSC_PROG002D0001Q | 0001Q is for Query page, 0001 is serial-no, `Q` is mean Query page |
+| BSC_PROG002D0001A | 0001A is for Create page, 0001 is serial-no, `A` is mean Create/Add page |
+| BSC_PROG002D0001E | 0001E is for Edit page, 0001 is serial-no, `E` is mean Edit page |
+
+<br/>
+<br/>
+
+#Add controller to menu item and config authority
+Please use:
+<br/> 
+1. Registration use `02 - Program registration` to add.<br/> 
+2. Config menu use `03 - Menu settings` settings.<br/>
+3. Role's permitted settings -> `01 - Role` function to add permitted value<br/>
+
+
