@@ -197,13 +197,36 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 
 | Name | Return | description |
 | --- | --- | --- |
+| getMapperIdPo2Vo() | String | get MAPPER_ID_PO2VO |
+| getMapperIdVo2Po() | String | get MAPPER_ID_VO2PO |
+| getBaseDataAccessObject() | BaseDAO | get DAO |
 | getPlatformTransactionManager() | PlatformTransactionManager | get spring platform Transaction Manager |
 | getTransactionTemplate() | TransactionTemplate | get spring Transaction Template |
 | getMapper() | Mapper | get Dozer mapper |
 | isSuperRole() | boolean | is super/Administrator user |
 | getAccountId() | String | get account id |
 | generateOid() | String | generate OID value |
-| defaultString(String source) | String | args value null will return blank. |
+| defaultString(String source) | String | args value null will return blank |
+| generateDate() | Date | get now Date object |
+| copyProperties(Object source, Object target) | void | copy source args field fill to target object  |
+| doMapper(Object sourceObject, Object targetObject, String mapperId) | void | copy source args field fill to target object, args mapperId is MAPPER_ID_PO2VO or MAPPER_ID_VO2PO |
+| populate(Object bean, Map properties) | void | copy map field value fill to bean |
+| fillToValueObject(Object destObject, Object origObject) | void | copy args origObject variable-field fill to destObject variable-field |
+| fillToPersisentObject(Object destObject, Object origObject) | void | copy args origObject variable-field fill to destObject variable-field |
+| saveIgnoreUK(T object) | DefaultResult `<T>` | Save data by value object, no to check UK on database |
+| mergeIgnoreUK(T object) | DefaultResult `<T>` | Merge data by value object, no to check UK on database |
+| findObjectByOid(T object) | DefaultResult `<T>` | find data by PK return value object |
+| saveObject(T object) | DefaultResult `<T>` | Save data by value object, before will check UK on database |
+| updateObject(T object) | DefaultResult `<T>` | Update data by value object |
+| mergeObject(T object) | DefaultResult `<T>` | merge data by value object, before will check UK on database |
+| deleteObject(T object) | DefaultResult `<Boolean>` | delete data by value object, success DefaultResult getValue() is true /fail is false |
+| hibernateSessionClear() | void | Clear hibernate current session |
+| save(E entityObject) | BaseEntity `<E>` | Save data by entity |
+| update(E entityObject) | BaseEntity `<E>` | Update data by entity |
+| merge(E entityObject) | BaseEntity `<E>` | merge data by entity |
+| delete(E entityObject) | BaseEntity `<E>` | Delete data by entity |
+| saveRequiresNew(E entityObject) | BaseEntity `<E>` | Save data by entity with `@Transactional` `Propagation.REQUIRES_NEW` mode |
+
 
 
 
