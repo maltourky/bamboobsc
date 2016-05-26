@@ -89,6 +89,106 @@ public class TestDAOImpl extends BaseDAO<BbTest, String> implements ITestDAO<BbT
 | getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map<String, Object> paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
 
 
+<br/>
+<br/>
 
+###Service interfaces example
+*** The service interfaces must define two static variable, `MAPPER_ID_PO2VO` with `MAPPER_ID_VO2PO`  ***
+```JAVA
+package com.netsteadfast.greenstep.bsc.service;
 
+import java.util.List;
+import java.util.Map;
 
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.service.IBaseService;
+
+public interface ITestService<T extends java.io.Serializable, E extends java.io.Serializable, PK extends java.io.Serializable> extends IBaseService<T, E, PK> {
+	
+	public static String MAPPER_ID_PO2VO="test.po2vo"; // Dozer mapper config PO to VO id
+	public static String MAPPER_ID_VO2PO="test.vo2po"; // Dozer mapper config VO to PO id
+	
+}
+```
+
+| Name | description |
+| --- | --- |
+| MAPPER_ID_PO2VO | value set Dozer config PO2VO id |
+| MAPPER_ID_VO2PO | value set Dozer config VO2PO id |
+
+<br/>
+<br/>
+
+###Service implements example
+
+*** Template T, E, PK ***
+
+| Name | description |
+| --- | --- |
+| T | BaseValue object |
+| E | BaseEntity object |
+| PK | PK key type default is String |
+
+```JAVA
+package com.netsteadfast.greenstep.bsc.service.impl;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.netsteadfast.greenstep.base.dao.IBaseDAO;
+import com.netsteadfast.greenstep.bsc.dao.ITestDAO;
+import com.netsteadfast.greenstep.po.hbm.BbTest;
+import com.netsteadfast.greenstep.bsc.service.ITestService;
+import com.netsteadfast.greenstep.vo.TestVO;
+
+@Service("bsc.service.TestService")
+@Scope("prototype")
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+public class TestServiceImpl extends BaseService<TestVO, BbTest, String> implements ITestService<TestVO, BbTest, String> {
+	protected Logger logger=Logger.getLogger(TestServiceImpl.class);
+	private ITestDAO<BbTest, String> testDAO;
+	
+	public VisionServiceImpl() {
+		super();
+	}
+
+	public ITestDAO<BbTest, String> getTestDAO() {
+		return testDAO;
+	}
+
+	@Autowired
+	@Resource(name="bsc.dao.TestDAO")
+	@Required		
+	public void setTestDAO(
+			ITestDAO<BbTest, String> testDAO) {
+		this.testDAO = testDAO;
+	}
+
+	@Override
+	protected IBaseDAO<BbTest, String> getBaseDataAccessObject() {
+		return testDAO;
+	}
+
+	@Override
+	public String getMapperIdPo2Vo() {		
+		return MAPPER_ID_PO2VO;
+	}
+
+	@Override
+	public String getMapperIdVo2Po() {
+		return MAPPER_ID_VO2PO;
+	}
+	
+}
+```
