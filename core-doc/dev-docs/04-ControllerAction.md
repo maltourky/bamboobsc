@@ -141,4 +141,27 @@ Please use:
 2. Config menu use `03 - Menu settings` settings.<br/>
 3. Role's permitted settings -> `01 - Role` function to add permitted value<br/>
 
+<br/>
+<br/>
 
+#reference example:
+Management query action:<br>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/src/com/netsteadfast/greenstep/bsc/action/VisionManagementAction.java<br/><br>
+Grid query action:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/src/com/netsteadfast/greenstep/bsc/action/VisionManagementGridQueryAction.java<br/><br>
+Save data or update data action:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/src/com/netsteadfast/greenstep/bsc/action/VisionSaveOrUpdateAction.java<br/><br>
+View page / JSP:<br>
+Management query view page:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-management.jsp<br/><br/>
+Create view page:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-create.jsp<br/><br/>
+Edit view page:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-edit.jsp<br/><br/>
+<br/><br/>
+Spring config:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/resource/applicationContext/controller/applicationContext-vision-web.xml<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/resource/applicationContext/applicationContext-STANDARD-WEB.xml<br/>
+<br/>
+Struts config:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/resource/struts/struts-bsc-vision.xml
