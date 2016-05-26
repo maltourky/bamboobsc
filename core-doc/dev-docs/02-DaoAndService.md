@@ -255,6 +255,41 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 | getDynamicHqlResource(String resource) | DynamicHql | get /resource/dynamichql/*-dynamic-hql.xml config |
 | getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map`<String, Object>` paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
 
+<br/>
+<br/>
+<br/>
+
+###Config bean settings
+add applicationContext-test.xml into /resource/applicationContext/bsc/standard/
+```XML
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+    
+    <context:annotation-config />
+    
+	<bean id="bsc.dao.TestDAO" class="com.netsteadfast.greenstep.bsc.dao.impl.TestDAOImpl" />
+	<bean id="bsc.service.TestService" class="com.netsteadfast.greenstep.bsc.service.impl.TestServiceImpl" />
+		     		
+</beans>
+```
+<br/>
+<br/>
+
+###Config add resource xml
+Edit config applicationContext-BSC-STANDARD-BEANS.xml add item
+```XML
+<import resource="classpath*:applicationContext/bsc/standard/applicationContext-test.xml" />
+```
+
 
 
 
