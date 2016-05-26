@@ -83,4 +83,32 @@ JSP code for IBaseAdditionalSupportAction show head label.
 <jsp:include page="../header.jsp"></jsp:include>
 ```
 
+<br/>
+<br/>
+
+#BaseJsonAction
+BaseJsonAction is extends BaseSupportAction, it is for Save/Update/Delete controller action use.
+
+| Name | Return | description |
+| --- | --- | --- |
+| allowJob() | boolean | usually only true, because before will check by UserLoginInterceptor, ControllerAuthorityCheckInterceptor |
+| getNoAllowMessage() | String | get no allow message |
+| getLogin() | String | Y/N |
+| getIsAuthorize() | String | Y/N |
+| getMessage() | String | message |
+| getSuccess() | String | Y/N |
+| getFieldsId() | List`<String>` | get page fields-id, when throw ControllerException, view page will RED-color input field background style |
+
+<br/>
+<br/>
+#BaseQueryGridJsonAction
+BaseQueryGridJsonAction is extends BaseJsonAction, it main support Grid query.
+
+| Name | Return | description |
+| --- | --- | --- |
+| getItems() | List`<Map<String, String>>` | grid results list |
+| getPageOfShowRow() | String | String-number of page show row size |
+| getPageOfSelect() | String | String-number of page number of select |
+| getPageOfCountSize() | String | String-number of grid record size |
+| getPageOfSize() | String | String-number of page total size |
 
