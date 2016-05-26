@@ -1,4 +1,16 @@
-#Entity
+#Introduction
+BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis query mapper.<br>
+BaseEntity recommend only for hibernate.<br>
+
+***You must first understand the following framework***<br/>
+1. Spring http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/<br/>
+2. Hibernate http://hibernate.org/<br/>
+3. Dozer https://github.com/DozerMapper/dozer<br/>
+4. MyBatis https://github.com/mybatis/mybatis-3<br/>
+
+
+
+#Persistence entity
 
 a persistence object extends BaseEntity
 ```java
