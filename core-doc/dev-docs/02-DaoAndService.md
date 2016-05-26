@@ -192,3 +192,9 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 	
 }
 ```
+
+###BaseService method description.
+
+| Name | Return | description |
+| --- | --- | --- |
+| xxx() | int | test |
