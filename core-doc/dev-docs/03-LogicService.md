@@ -1,6 +1,6 @@
 #Logic service
 #Introduction
-Login service is do many base-service with transaction script bean service.<br>
+Logic service is do many base-service with complicated transaction script bean service.<br>
 
 
 ***You must first understand the following framework***<br/>
