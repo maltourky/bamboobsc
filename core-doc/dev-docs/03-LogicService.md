@@ -101,7 +101,9 @@ BscBaseBusinessProcessManagementLogicService it main support GSBSC-SYSTEM with B
 reference example:<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/IPdcaLogicService.java<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/impl/PdcaLogicServiceImpl.java<br/>
-
+config file reference:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/applicationContext/bsc/standard/ext/applicationContext-ext-pdca.xml<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/applicationContext/applicationContext-BSC-STANDARD-EXT-BEANS.xml<br/>
 
 
 
