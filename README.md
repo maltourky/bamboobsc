@@ -1,3 +1,10 @@
+###Development Manual: 
+https://github.com/billchen198318/bamboobsc/tree/master/core-doc/dev-docs
+
+<br>
+<br>
+<br>
+
 <h1><a href="https://en.wikipedia.org/wiki/Balanced_scorecard">What is the Balanced Scorecard?</a></h1>
 <br/>
 
