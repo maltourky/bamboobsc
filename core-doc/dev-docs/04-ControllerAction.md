@@ -126,13 +126,28 @@ Program id naming rules example:
 
 | Program-id | description |
 | --- | --- |
-| BSC_PROG002D | `BSC` is BSC-system, `CORE` is CORE-SYSTEM, `PROG002D` the `D` mean it is a directory not an action method |
+| BSC_PROG002D | `BSC` is BSC-system, `CORE` is CORE-SYSTEM, `PROG002D` the `D` mean it is a menu item directory |
 | BSC_PROG002D0001Q | 0001Q is for Query page, 0001 is serial-no, `Q` is mean Query page |
 | BSC_PROG002D0001A | 0001A is for Create page, 0001 is serial-no, `A` is mean Create/Add page |
 | BSC_PROG002D0001E | 0001E is for Edit page, 0001 is serial-no, `E` is mean Edit page |
 
 <br/>
 <br/>
+
+#GreenStep page Tag
+The gs tag is work with Struts2 and DOJO javascript.
+
+| Tag | description |
+| --- | --- |
+| gs:button | page DOJO button compoment, can easy do send data to action no need write script |
+| gs:grid | page query grid, show DOJO grid |
+| gs:select | page DOJO select compoment |
+| gs:textbox | page DOJO input compoment |
+| gs:toolbar | page head DOJO label compoment |
+
+<br/>
+<br/>
+
 
 #Add controller to menu item and config authority
 Please use:
