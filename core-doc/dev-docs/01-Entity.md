@@ -222,7 +222,8 @@ public class TestVO extends BaseValueObj implements java.io.Serializable {
 | oid | This is PK, String |
 
 BaseValue no need cuserid, cdate, uuserid, udate<br/>
-BaseService will convert VO(BaseValue) to PO(BaseEntity) and auto fill cuserid,cdate,uuserid,udate. when call saveObject method.
+BaseService will convert VO(BaseValue) to PO(BaseEntity) and auto fill cuserid,cdate,uuserid,udate. when call saveObject method.<br/>
+BaseService will auto fill oid variable when call saveObject method.
 
 #Settings Mapper VO(value object) to PO(Persistence object) config xml ( Dozer )
 add dozerBeanMapping-test.xml into resource/dozer/
