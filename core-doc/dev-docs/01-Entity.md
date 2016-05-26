@@ -1,5 +1,5 @@
 #Introduction
-BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis query mapper.<br>
+BaseValue recommend for Page view(VO) or transform (DTO) and for MyBatis custom query mapper.<br>
 BaseEntity recommend only for hibernate.<br>
 
 ***You must first understand the following framework***<br/>
