@@ -1,4 +1,6 @@
-#Controller
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">⇦ Previous section 03-Logic service</a>
+
+#04 - Controller
 #Introduction
 bambooBSC page view / controller is use JSP / Struts2 and DOJO.<br>
 
@@ -9,4 +11,3 @@ bambooBSC page view / controller is use JSP / Struts2 and DOJO.<br>
 3. DOJO javascript framework https://dojotoolkit.org/<br/>
 
 
-#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">Previous section 03-Logic service</a>
