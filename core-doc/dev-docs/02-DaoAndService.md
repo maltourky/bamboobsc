@@ -8,7 +8,7 @@ BaseService for for data basic operation package call DAO.<br>
 3. Dozer https://github.com/DozerMapper/dozer<br/>
 4. MyBatis https://github.com/mybatis/mybatis-3<br/>
 
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">Previous section 01-Entity</a>
+#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">Previous section 01-Entity</a>
 
 #DAO interfaces
 ```JAVA
