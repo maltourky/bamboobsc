@@ -11,6 +11,7 @@ Logic service is do many base-service with complicated transaction script bean s
 5. Activiti BPMN http://activiti.org/<br/>
 
 #<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">Previous section 02-DAO and Service</a>
+#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/04-ControllerAction.md">Next section 04-Controller</a>
 
 ###BaseLogicService
 BaseLogicService is minimum unit Logic Service, it main support CORE-SYSTEM used.
