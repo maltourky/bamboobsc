@@ -55,6 +55,32 @@ BaseSupportAction is for default page action, usually use of Management page, Ed
 | transformList2JsonDataMapList(List<T> searchList, String[] objFields, String[] mapKeys) | List`<Map<String, String>>` | fill List value object data to List map for query page grid need |
 | providedSelectZeroDataMap(boolean pleaseSelectItem) | Map`<String, String>` | provide zero Map for `gs:select` or `s:select` tag |
 | isNoSelectId(String value) | boolean | if no select options item return true |
-| transformAppendIds2ListByEncode(String appendIds)<br/><br/>transformAppendIds2List(String appendIds)<br/><br/>joinAppend2String(List<String> datas) | String | for text work |
+| transformAppendIds2ListByEncode(String appendIds)<br/><br/>transformAppendIds2List(String appendIds)<br/><br/>joinAppend2String(List`<String>` datas) | String | for text work |
+
+#IBaseAdditionalSupportAction interfaces
+The IBaseAdditionalSupportAction interfaces support View Page( JSP ) to get action method program-id and program-name.
+```JAVA
+@Override
+public String getProgramName() {
+	try {
+		return MenuSupportUtils.getProgramName(this.getProgramId());
+	} catch (ServiceException e) {
+		e.printStackTrace();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return "";
+}
+
+@Override
+public String getProgramId() {
+	return super.getActionMethodProgramId();
+}
+```
+
+JSP code for IBaseAdditionalSupportAction show head label.
+```JSP
+<jsp:include page="../header.jsp"></jsp:include>
+```
 
 
