@@ -330,3 +330,16 @@ add dozerBeanMapping-test.xml into resource/dozer/
 ```xml
 <value>classpath*:mappers/BbTest.xml</value>
 ```
+
+<br/>
+<br/>
+<br/>
+
+###Dynamic HQL from XML config
+reference:<br/>
+for KPI page grid query:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-persistence/resource/dynamichql/BbKpi-dynamic-hql.xml
+<br/>
+for Vision page grid query:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-persistence/resource/dynamichql/BbVision-dynamic-hql.xml
+
