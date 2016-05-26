@@ -290,8 +290,50 @@ Edit config applicationContext-BSC-STANDARD-BEANS.xml add item
 <import resource="classpath*:applicationContext/bsc/standard/applicationContext-test.xml" />
 ```
 
+<br/>
+<br/>
+<br/>
 
+###Page grid query example code ( for Dynamic HQL from XML config )
+reference:<br/>
+Dynamic HQL XML config:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-persistence/resource/dynamichql/BbVision-dynamic-hql.xml<br/>
+Service:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/impl/VisionServiceImpl.java<br/>
+Action:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/src/com/netsteadfast/greenstep/bsc/action/VisionManagementGridQueryAction.java<br/>
+View Page:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-management.jsp<br/>
 
+```JAVA
+private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
+	Map<String, Object> params=new LinkedHashMap<String, Object>();
+	String visId = searchValue.getParameter().get("visId");
+	String title = searchValue.getParameter().get("title");
+	if (!StringUtils.isBlank(visId)) {
+		params.put("visId", visId);
+	}		
+	if (!StringUtils.isBlank(title)) {
+		params.put("title", "%"+title+"%");
+	}
+	return params;
+}	
+
+@Override
+public QueryResult<List<VisionVO>> findGridResult(SearchValue searchValue, PageOf pageOf) throws ServiceException, Exception {
+	if (searchValue==null || pageOf==null) {
+		throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+	}
+	Map<String, Object> params=this.getQueryGridParameter(searchValue);	
+	int limit=Integer.parseInt(pageOf.getShowRow());
+	int offset=(Integer.parseInt(pageOf.getSelect())-1)*limit;		
+	QueryResult<List<VisionVO>> result=this.visionDAO.findPageQueryResultByQueryName(
+			"findVisionPageGrid", params, offset, limit);
+	pageOf.setCountSize(String.valueOf(result.getRowCount()));
+	pageOf.toCalculateSize();
+	return result;
+}
+```
 
 
 
