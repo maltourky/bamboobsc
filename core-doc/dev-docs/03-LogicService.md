@@ -49,6 +49,30 @@ reference example:<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/qcharts-standard/src/com/netsteadfast/greenstep/qcharts/service/logic/IDataQueryLogicService.java<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/qcharts-standard/src/com/netsteadfast/greenstep/qcharts/service/logic/impl/DataQueryLogicServiceImpl.java<br/>
 
+<br/>
+<br/>
+<br/>
+
+###BscBaseLogicService 
+BscBaseLogicService is extends CoreBaseLogicService, it main support GSBSC-SYSTEM.
+
+| Name | Return | description |
+| --- | --- | --- |
+| findOrganizationData(String oid) | OrganizationVO | find organization data by OID |
+| findEmployeeData(String oid) | EmployeeVO | find employee data by OID |
+| findOrganizationDataByUK(String orgId) | OrganizationVO | find organization data by organization-ID |
+| findEmployeeDataByUK(String accountId, String empId) | EmployeeVO | find employee data by employee UK / unique key |
+| findEmployeeDataByAccountId(String accountId) | EmployeeVO | find employee data by account-id |
+| findEmployeeDataByEmpId(String empId) | EmployeeVO | find employee data by employee-id / employee-no |
+
+reference example:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/IKpiLogicService.java<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/impl/KpiLogicServiceImpl.java<br/>
+
+
+
+
+
 
 
 
