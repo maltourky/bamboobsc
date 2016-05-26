@@ -108,7 +108,27 @@ config file reference:<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/applicationContext/bsc/standard/ext/applicationContext-ext-pdca.xml<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/applicationContext/applicationContext-BSC-STANDARD-EXT-BEANS.xml<br/>
 
+<br/>
+<br/>
+<br/>
 
+###Logic service Authority annotation
+| Name | description |
+| --- | --- |
+| @ServiceAuthority | check=true this Logic service enable Authority check,  check=false disable |
+| @ServiceMethodAuthority | method Authority type |
+
+<br/>
+<br/>
+
+`@ServiceMethodAuthority` type list
+
+| Name | description |
+| --- | --- |
+| SELECT | method select data mode |
+| INSERT | method insert data mode |
+| UPDATE | method update data mode |
+| DELETE | method delete data mode |
 
 
 
