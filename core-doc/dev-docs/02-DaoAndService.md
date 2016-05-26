@@ -197,4 +197,16 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 
 | Name | Return | description |
 | --- | --- | --- |
-| xxx() | int | test |
+| getPlatformTransactionManager() | PlatformTransactionManager | get spring platform Transaction Manager |
+| getTransactionTemplate() | TransactionTemplate | get spring Transaction Template |
+| getMapper() | Mapper | get Dozer mapper |
+| isSuperRole() | boolean | is super/Administrator user |
+| getAccountId() | String | get account id |
+| generateOid() | String | generate OID value |
+| defaultString(String source) | String | args value null will return blank. |
+
+
+
+
+
+
