@@ -10,7 +10,7 @@ BaseService for for data basic operation package call DAO.<br>
 
 #<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">Previous section 01-Entity</a>
 
-#DAO interfaces
+###DAO interfaces example
 ```JAVA
 package com.netsteadfast.greenstep.bsc.dao;
 
@@ -25,7 +25,7 @@ public interface ITestDAO<T extends java.io.Serializable, PK extends java.io.Ser
 }
 ```
 
-#DAO implements
+###DAO implements example
 ```JAVA
 package com.netsteadfast.greenstep.bsc.dao.impl;
 
@@ -49,4 +49,23 @@ public class TestDAOImpl extends BaseDAO<BbTest, String> implements ITestDAO<BbT
 	
 }
 ```
+
+###BaseDAO method description.
+
+| Name | Return | description |
+| --- | --- | --- |
+| getSessionFactory() | SessionFactory | get hibernate session factory |
+| getCurrentSession() | Session | get hibernate current session |
+| getJdbcTemplate() | JdbcTemplate | get Spring JDBC template |
+| getNamedParameterJdbcTemplate() | NamedParameterJdbcTemplate | get Spring JDBC template |
+| getConnection() | Connection | get Spring JDBC connection |
+| getSqlSession() | SqlSession | get MyBatis-3 session |
+| updateByNativeSQL(String sql) | void | jdbc update |
+| executeByNativeSQL(String sql) | void | jdbc execute |
+| queryByNativeSQL(String sql, T rowMapper, Object... args) | Object | jdbc queryForObject |
+
+
+
+
+
 
