@@ -156,8 +156,8 @@ public class BbTest extends BaseEntity<String> implements java.io.Serializable {
 | @EntityUK | for UK(unique key) variable | @EntityUK(name="id") |
 
 the annotation name="" value is object variable name, not table field name.<br/>
-if PO add the @EntityPK annotation, BaseService will check PK(primary key) when call saveObject method.<br/>
-if PO add the @EntityUK annotation, BaseService will check UK(unique key) when call saveObject method.<br/>
+if PO add the `@EntityPK` annotation, BaseService will check PK(primary key) when call saveObject method.<br/>
+if PO add the `@EntityUK` annotation, BaseService will check UK(unique key) when call saveObject method.<br/>
 
 
 #Value object
@@ -221,9 +221,9 @@ public class TestVO extends BaseValueObj implements java.io.Serializable {
 | --- | --- |
 | oid | This is PK, String |
 
-BaseValue no need cuserid, cdate, uuserid, udate<br/>
-BaseService will convert VO(BaseValue) to PO(BaseEntity) and auto fill cuserid,cdate,uuserid,udate. when call saveObject method.<br/>
-BaseService will auto fill oid variable when call saveObject method.
+BaseValue no need `cuserid, cdate, uuserid, udate` <br/>
+BaseService will convert VO(BaseValue) to PO(BaseEntity) and auto fill `cuserid,cdate,uuserid,udate` . when call saveObject method.<br/>
+BaseService will auto fill `oid` variable(PK) when call saveObject method.
 
 #Settings Mapper VO(value object) to PO(Persistence object) config xml ( Dozer )
 add dozerBeanMapping-test.xml into resource/dozer/
