@@ -1,3 +1,7 @@
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">⇦ Previous section 01-Entity</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">⇨ Next section 03-Logic service</a>
+
 #Introduction
 BaseDAO for data basic operation.<br>
 BaseService for for data basic operation package call DAO.<br>
@@ -7,10 +11,6 @@ BaseService for for data basic operation package call DAO.<br>
 2. Hibernate http://hibernate.org/<br/>
 3. Dozer https://github.com/DozerMapper/dozer<br/>
 4. MyBatis https://github.com/mybatis/mybatis-3<br/>
-
-#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">Previous section 01-Entity</a>
-#<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">Next section 03-Logic service</a>
-
 
 ###DAO interfaces example
 ```JAVA
