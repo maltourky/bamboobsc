@@ -49,6 +49,12 @@ BaseSupportAction is for default page action, usually use of Management page, Ed
 | getBasePath() | String | get full URL |
 | getDojoMainTabContainer() | String | get main DOJO tabContainer Id `gscoreTabContainer` |
 | checkFields(String[] fieldsName, String[] msg, Class`<IActionFieldsCheckUtils>[]` checkUtilsClass)<br/><br/>checkFields(String[] fieldsName, String[] msg, Class`<IActionFieldsCheckUtils>`[] checkUtilsClass, List`<String>` fieldsId)<br/><br/>checkFields(String[] fieldsName, String[] msg, Class`<IActionFieldsCheckUtils>`[] checkUtilsClass, String[] methodsName, List`<String>` fieldsId) | void | check input field |
-
+| transformFields2ValueObject(T valueObj, String... fieldsName) | `<T>` BaseValue | fill page fields Map variable to value object |
+| transformFields2ValueObject(T valueObj, String[] objFieldsName , String[] fieldsName) | `<T>` BaseValue | fill page fields Map variable to value object |
+| transformSearchGridList2JsonDataMapList(List<T> searchList, String... fields) | List`<Map<String, String>>` | fill List value object data to List map for query page grid need |
+| transformList2JsonDataMapList(List<T> searchList, String[] objFields, String[] mapKeys) | List`<Map<String, String>>` | fill List value object data to List map for query page grid need |
+| providedSelectZeroDataMap(boolean pleaseSelectItem) | Map`<String, String>` | provide zero Map for `gs:select` or `s:select` tag |
+| isNoSelectId(String value) | boolean | if no select options item return true |
+| transformAppendIds2ListByEncode(String appendIds)<br/><br/>transformAppendIds2List(String appendIds)<br/><br/>joinAppend2String(List<String> datas) | String | for text work |
 
 
