@@ -63,6 +63,13 @@ public class TestDAOImpl extends BaseDAO<BbTest, String> implements ITestDAO<BbT
 | updateByNativeSQL(String sql) | void | jdbc update |
 | executeByNativeSQL(String sql) | void | jdbc execute |
 | queryByNativeSQL(String sql, T rowMapper, Object... args) | Object | jdbc queryForObject |
+| queryByNativeSQL(String sql) | int | jdbc query for count mode |
+| queryForListByNativeSQL(String sql)<br/>queryForListByNativeSQL(String sql, RowMapper rowMapper)<br/>queryForListByNativeSQL(String sql, Object[] args)<br/>queryForListByNativeSQL(String sql, Object[] args, RowMapper rowMapper) | List | jdbc query for List |
+| count(String hql)<br/>count(String hql, Object... args) | int | hibernate query for count mode |
+| findList(final String hql, final int offset, final int length) | List | hibernate query for page grid |
+
+
+
 
 
 
