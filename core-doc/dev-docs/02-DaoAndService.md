@@ -213,20 +213,38 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 | populate(Object bean, Map properties) | void | copy map field value fill to bean |
 | fillToValueObject(Object destObject, Object origObject) | void | copy args origObject variable-field fill to destObject variable-field |
 | fillToPersisentObject(Object destObject, Object origObject) | void | copy args origObject variable-field fill to destObject variable-field |
-| saveIgnoreUK(T object) | DefaultResult `<T>` | Save data by value object, no to check UK on database |
-| mergeIgnoreUK(T object) | DefaultResult `<T>` | Merge data by value object, no to check UK on database |
-| findObjectByOid(T object) | DefaultResult `<T>` | find data by PK return value object |
-| saveObject(T object) | DefaultResult `<T>` | Save data by value object, before will check UK on database |
+| saveIgnoreUK(T object) | DefaultResult `<T>` | Save data by value object, no to check UK / unique key on database |
+| mergeIgnoreUK(T object) | DefaultResult `<T>` | Merge data by value object, no to check UK / unique key on database |
+| findObjectByOid(T object) | DefaultResult `<T>` | find data by PK / primary key return value object |
+| saveObject(T object) | DefaultResult `<T>` | Save data by value object, before will check UK / unique key on database |
 | updateObject(T object) | DefaultResult `<T>` | Update data by value object |
-| mergeObject(T object) | DefaultResult `<T>` | merge data by value object, before will check UK on database |
+| mergeObject(T object) | DefaultResult `<T>` | merge data by value object, before will check UK / unique key on database |
 | deleteObject(T object) | DefaultResult `<Boolean>` | delete data by value object, success DefaultResult getValue() is true /fail is false |
 | hibernateSessionClear() | void | Clear hibernate current session |
-| save(E entityObject) | BaseEntity `<E>` | Save data by entity |
-| update(E entityObject) | BaseEntity `<E>` | Update data by entity |
-| merge(E entityObject) | BaseEntity `<E>` | merge data by entity |
-| delete(E entityObject) | BaseEntity `<E>` | Delete data by entity |
-| saveRequiresNew(E entityObject) | BaseEntity `<E>` | Save data by entity with `@Transactional` `Propagation.REQUIRES_NEW` mode |
-
+| save(E entityObject) | `<E>` | Save data by entity |
+| update(E entityObject) | `<E>` | Update data by entity |
+| merge(E entityObject) | `<E>` | merge data by entity |
+| delete(E entityObject) | `<E>` | Delete data by entity |
+| saveRequiresNew(E entityObject) | `<E>` | Save data by entity with `@Transactional` `Propagation.REQUIRES_NEW` mode |
+| mergeRequiresNew(E entityObject) | `<E>` | Merge data by entity with `@Transactional` `Propagation.REQUIRES_NEW` mode |
+| findByOid(E entityObject) | `<E>` | find data by Entity OID |
+| countByOid(E entityObject) | int | count data by Entity OID |
+| deleteByPK(String pk) | boolean | Delete data by PK / primary key |
+| findByOid(E entityObject) | `<E>` | find data by Entity OID |
+| findByPK(String pk) | `<E>` | find data by PK / primary key |
+| countByPK(String pk) | int | count data by PK / primary key |
+| deleteByPK(E entityObject) | boolean | delete data by entity OID |
+| findByPK(E entityObject) | `<E>` | find data by entity OID |
+| countByPK(E entityObject) | int | Count data by entity OID |
+| deleteByPKng(PK pk) | boolean | delete data by PK / primary key |
+| findByPKng(PK pk) | `<E>` | find data by PK / primary key |
+| countByPKng(PK pk) | int | count data by PK / primary key |
+| countByParams(Map`<String, Object>` params, Map`<String, String>` likeParams) | long | count data by parameter |
+| countByParams(Map`<String, Object>` params) | long | count data by parameter |
+| findListByParams(Map`<String, Object>` params, Map`<String, String>` likeParams) | List`<E>` | find data List by parameter |
+| findListByParams(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, String>` orderParams) | List`<E>` | find data List by parameter |
+| findListByParams(Map`<String, Object>` params) | List`<E>` | find data List by parameter |
+| findListByParams2(Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, CustomeOperational>` customOperParams)<br/><br/>findListByParams2(Map`<String, Object>` params, Map`<String, String>` likeParams, Map`<String, CustomeOperational>` customOperParams, Map`<String, String>` orderParams) | List`<E>` | find data List by parameter |
 
 
 
