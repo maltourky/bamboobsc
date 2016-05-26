@@ -2,6 +2,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">⇨ Next section 03-Logic service</a>
 
+#02 - DAO and Service
+
 #Introduction
 BaseDAO for data basic operation.<br>
 BaseService for for data basic operation package call DAO.<br>
