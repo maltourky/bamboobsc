@@ -321,6 +321,28 @@ function BSC_PROG002D0001Q_GridButtonClick(itemOid) {
 <br/>
 <br/>
 
+***gs:textbox***
+
+| Args | required | description |
+| --- | --- | --- |
+| id | true | compoment-id |
+| name | true | component-name |
+| maxlength | false | input field maxlength |
+| placeHolder | false | place holder text |
+| width | false | field width |
+| value | false | field value, can put action variable |
+| readonly | false | Y / N |
+
+***gs:textbox example:***
+```JSP
+<gs:textBox name="BSC_PROG006D0001E_title" id="BSC_PROG006D0001E_title" 
+	value="pdca.title" 
+	width="400" maxlength="100"></gs:textBox>
+```
+
+<br/>
+<br/>
+
 
 #Add controller to menu item and config authority
 Please use:
