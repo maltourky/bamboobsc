@@ -1,6 +1,6 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/08-WebService.md"> ⇦ Previous section 08 - WebService</a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/10-BPMN.md"> ⇨ Next section 10 - PMN</a>
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/10-BPMN.md"> ⇨ Next section 10 - BPMN</a>
 
 
 #09 - JasperReport
