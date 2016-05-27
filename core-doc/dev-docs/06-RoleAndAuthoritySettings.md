@@ -22,3 +22,11 @@ bambooBSC role and authority settings.<br>
 <br/>
 <br/>
 ***`admin` and * Role is super role, super role no need permitted settings***
+
+
+#Config user role
+1. click `02 - User's role` to settings
+![Image of Role-mgr3](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/06-003.jpg)
+<br/>
+<br/>
+
