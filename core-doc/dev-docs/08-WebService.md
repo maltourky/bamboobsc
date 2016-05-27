@@ -71,5 +71,12 @@ public class KpiWebServiceImpl implements KpiWebService {
 
 **Public the service**
 
-
+click `01 - WebService registration` to management
+![Image of ws-mgr1](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/08-001.jpg)
+<br/>
+<br/>
+![Image of ws-mgr2](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/08-002.jpg)
+<br/>
+<br/>
+***Note: need restart tomcat server to take effect***
 
