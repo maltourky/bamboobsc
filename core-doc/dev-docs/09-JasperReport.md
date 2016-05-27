@@ -22,8 +22,18 @@ BSC_RPT002<BR/>
  
 zip compression directory folder `BSC_RPT002` to `BSC_RPT002.zip`
 
-***Management and upload***
-
+#Management and upload
+click `08 - Report management` to management
+![Image of RPT-mgr1](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/09-001.jpg)
+<br/>
+<br/>
+![Image of RPT-mgr2](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/09-002.jpg)
+<br/>
+<br/>
+***Settings report parameter***
+![Image of RPT-mgr3](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/09-003.jpg)
+<br/>
+<br/>
 
 
 
