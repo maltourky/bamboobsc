@@ -49,5 +49,7 @@ openCommonJasperReportLoadWindow( "SWOT-Report", "BSC_RPT002", "PDF", { 'reportI
 ```
 
 #reference example:
-https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-management.jsp
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/swot/swot-management.jsp
+
+
 
