@@ -15,8 +15,8 @@ now system found role list
 | --- | --- |
 | * | super role, equals admin |
 | admin | super role, equals * |
-| BSC_STANDARD | default use role |
-| HR_MANAGE | for HR-manager |
+| BSC_STANDARD | default use role, cannot delete account |
+| HR_MANAGE | for HR-manager, can delete account |
 | VIEW_ONLY_CLASS01 | for view only, no create/update/delete permission |
 
 when create a account, the account role default is `BSC_STANDARD` <br/>
