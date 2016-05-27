@@ -31,4 +31,47 @@ click `04 - BPMN Resource` to management
 
 #Settings resource audit roles
 click `05 - BPMN Resource role` to management
+![Image of BPMN-res-mgr3](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/10-003.png)
+<br/>
+<br/>
 
+#Logic Service integrate BPMN resource example
+The example is PDCA Project. `getBusinessProcessManagementResourceId()` return value is deploy BPMN resource id.
+```JAVA
+@ServiceAuthority(check=true)
+@Service("bsc.service.logic.PdcaLogicService")
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+public class PdcaLogicServiceImpl extends BscBaseBusinessProcessManagementLogicService implements IPdcaLogicService {
+  
+  ...
+  
+	@Override
+	public String getBusinessProcessManagementResourceId() {
+		return "PDCAProjectProcess";
+	}	  
+  
+  ...
+  
+}
+```
+
+**BscBaseBusinessProcessManagementLogicService**<br/>
+integrate BPMN resource service object need extends BscBaseBusinessProcessManagementLogicService<br/>
+reference:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md#bscbasebusinessprocessmanagementlogicservice
+<br/>
+<br/>
+**Full code reference:**
+<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/IPdcaLogicService.java<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/netsteadfast/greenstep/bsc/service/logic/impl/PdcaLogicServiceImpl.java
+
+#Force delete a work resource
+Example:<br/>
+BusinessProcessManagementDeleteTools [true/false] [resource-Id]<br/>
+`delete_bpmn_res.sh true TestResourceId`
+<br/>
+UNIX:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/core-web/resource/delete_bpmn_res.sh<br/>
+Windows:<br/>
+https://github.com/billchen198318/bamboobsc/blob/master/core-web/resource/delete_bpmn_res.bat<br/>
