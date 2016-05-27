@@ -22,7 +22,7 @@ BSC_RPT002<BR/>
  
 zip compression directory folder `BSC_RPT002` to `BSC_RPT002.zip`
 
-***Upload***
+***Management and upload***
 
 
 
