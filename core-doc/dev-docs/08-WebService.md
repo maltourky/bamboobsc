@@ -69,7 +69,54 @@ public class KpiWebServiceImpl implements KpiWebService {
 <bean id="bsc.webservice.KpiWebService" class="com.netsteadfast.greenstep.bsc.webservice.impl.KpiWebServiceImpl" />
 ```
 
-**Public the service**
+#REST
+Example for REST:
+
+```JAVA
+@ServiceAuthority(check=true)
+@Service("bsc.service.logic.KpiLogicService")
+@WebService
+@Path("/")
+@Produces("application/json")
+@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+public class KpiLogicServiceImpl extends BscBaseLogicService implements IKpiLogicService {
+	
+	...
+	
+	@WebMethod
+	@GET
+	@Path("/kpis/{format}")
+	@Override
+	public String findKpis(@WebParam(name="format") @PathParam("format") String format) throws ServiceException, Exception {				
+		List<KpiVO> kpis = null;
+		try {
+			kpis = this.kpiService.findListVOByParams( null );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (null == kpis) {
+				kpis = new ArrayList<KpiVO>();
+			}
+		}
+		if ("json".equals(format)) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("KPIS", kpis);
+			ObjectMapper mapper = new ObjectMapper();
+			return mapper.writeValueAsString( paramMap );
+		}		
+		XStream xstream = new XStream();
+		xstream.setMode(XStream.NO_REFERENCES);		
+		xstream.alias("KPIS", List.class);
+		xstream.alias("KPI", KpiVO.class);
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + xstream.toXML(kpis);
+	}	
+	
+	...
+	
+}
+```
+
+#Public the service
 
 click `01 - WebService registration` to management
 ![Image of ws-mgr1](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/08-001.jpg)
@@ -79,4 +126,6 @@ click `01 - WebService registration` to management
 <br/>
 <br/>
 ***Note: need restart tomcat server to take effect***
+
+
 
