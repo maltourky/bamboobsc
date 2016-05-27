@@ -14,9 +14,11 @@ bambooBSC role and authority settings.<br>
 ![Image of Role-mgr1](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/06-001.jpg)
 <br/>
 <br/>
+***`admin` and * Role is super role, super role cannot share copy as***
 
 #Role's permitted settings 
 
 ![Image of Role-mgr2](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/06-002.jpg)
 <br/>
 <br/>
+***`admin` and * Role is super role, super role no need permitted settings***
