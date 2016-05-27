@@ -10,7 +10,8 @@ bambooBSC public a SOAP / REST.<br>
 
 ***You must first understand the following framework***<br/>
 1. Spring http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/<br/>
-2. Apache CXF http://cxf.apache.org/
+2. Apache CXF http://cxf.apache.org/<br/>
+3. Apache Camel http://camel.apache.org/examples.html
 
 ###SOAP
 Example for SOAP:
