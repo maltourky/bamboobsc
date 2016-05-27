@@ -30,3 +30,9 @@ bambooBSC role and authority settings.<br>
 <br/>
 <br/>
 
+#Config menu item role
+1. click `03 - Role for program (menu) ` to settings
+![Image of Role-mgr4](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/06-004.jpg)
+<br/>
+<br/>
+***`admin` and * Role is super role, super role no need config***
