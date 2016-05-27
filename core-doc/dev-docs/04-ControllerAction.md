@@ -145,6 +145,83 @@ The gs tag is work with Struts2 and DOJO javascript.
 | gs:textbox | page DOJO input compoment |
 | gs:toolbar | page head DOJO label compoment |
 
+
+Use GS tag example:
+```JSP
+<%@ taglib prefix="gs" uri="http://www.gsweb.org/controller/tag" %>
+```
+
+***gs:button***
+
+| Args | required | description |
+| --- | --- | --- |
+| id | true | compoment-id |
+| name | true | compoment-name |
+| programId | false | action-method program-id `${programId}` |
+| label | false | button label text |
+| showLabel | false | Y show label, N no show |
+| onClick | true | click event function |
+| iconClass | false | dojo-themes icon class |
+| cssClass | false | dojo-themes icon class |
+| xhrUrl | false | json action url |
+| parameterType | false | postData or form |
+| xhrParameter | false | send json data, parameterType = postData need xhrParameter |
+| sync | false | Y or N |
+| handleAs | false | dojo xhr handleAs type, default use `json`  |
+| timeout | false | xhr timeout-time |
+| preventCache | false | Y or N |
+| loadFn | false | xhr load success function |
+| errorFn | false | xhr load error function |
+| confirmDialogMode | false | Y or N , Y when click button will show confirm dialog |
+| confirmDialogTitle | false | confirm dialog title |
+| confirmDialogMsg | false | confirm dialog message |
+
+***gs:button example:***
+```JSP
+
+function BSC_PROG002D0001A_saveSuccess(data) {
+	setFieldsBackgroundDefault(BSC_PROG002D0001A_fieldsId);
+	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
+	if ('Y' != data.success) {						
+		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0001A_fieldsId);		
+		return;
+	}	
+	BSC_PROG002D0001A_clear();
+}
+
+function BSC_PROG002D0001A_clear() {
+	setFieldsBackgroundDefault(BSC_PROG002D0001A_fieldsId);	
+	dijit.byId('BSC_PROG002D0001A_title').set("value", "");	
+	dijit.byId('BSC_PROG002D0001A_content').set("value", "");		
+}
+
+...
+
+<gs:button name="BSC_PROG002D0001A_save" id="BSC_PROG002D0001A_save" onClick="BSC_PROG002D0001A_save();"
+	handleAs="json"
+	sync="N"
+	xhrUrl="${basePath}/bsc.visionSaveAction.action"
+	parameterType="postData"
+	xhrParameter=" 
+		{ 
+			'fields.title'		: dijit.byId('BSC_PROG002D0001A_title').get('value'), 
+			'fields.content'	: dijit.byId('BSC_PROG002D0001A_content').get('value')
+		} 
+	"
+	errorFn=""
+	loadFn="BSC_PROG002D0001A_saveSuccess(data);" 
+	programId="${programId}"
+	label="Save" 
+	iconClass="dijitIconSave"
+	cssClass="alt-primary"></gs:button>    			
+<gs:button name="BSC_PROG002D0001A_clear" id="BSC_PROG002D0001A_clear" onClick="BSC_PROG002D0001A_clear();" 
+	label="Clear" 
+	iconClass="dijitIconClear"
+	cssClass="alt-primary"></gs:button>
+
+```
+
+
 <br/>
 <br/>
 
