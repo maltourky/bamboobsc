@@ -7,6 +7,11 @@
 #Introduction
 bambooBSC expression.<br>
 
+***You must first understand the following framework***<br/>
+1. GROOVY http://www.groovy-lang.org/documentation.html<br/>
+2. BeanShell http://www.beanshell.org/intro.html
+
+
 ***Section unfinished***
 
 `02 - Expression`
