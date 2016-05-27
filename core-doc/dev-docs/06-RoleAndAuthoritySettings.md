@@ -7,6 +7,23 @@
 #Introduction
 bambooBSC role and authority settings.<br>
 
+**super role no need do all settings, it can use all function and view all menu-item.**
+
+now system found role list
+
+| ROLE-ID | description |
+| --- | --- |
+| * | super role, equals admin |
+| admin | super role, equals * |
+| BSC_STANDARD | default use role |
+| HR_MANAGE | for HR-manager |
+| VIEW_ONLY_CLASS01 | for view only, no create/update/delete permission |
+
+when create a account, the account role default is `BSC_STANDARD` <br/>
+Parameter config: 
+```SQL
+select PARAM1 from tb_sys_code where CODE='BSC_CONF001'
+```
 
 #Role management
 
