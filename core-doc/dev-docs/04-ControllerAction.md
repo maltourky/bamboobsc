@@ -134,7 +134,10 @@ Program id naming rules example:
 | BSC_PROG002D0001A | 0001A is for Create page, 0001 is serial-no, `A` is mean Create/Add page |
 | BSC_PROG002D0001E | 0001E is for Edit page, 0001 is serial-no, `E` is mean Edit page |
 
+<br/>
+<br/>
 
+#Program page show at DOJO-Tab javascript
 Show at DOJO-Tab javascript function system auto generated when the program has registered.
 
 | function-key | description |
