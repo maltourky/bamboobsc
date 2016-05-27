@@ -34,7 +34,20 @@ click `08 - Report management` to management
 ![Image of RPT-mgr3](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/09-003.jpg)
 <br/>
 <br/>
+#JSP call show report example 
+use common javascript function to open.
+```
+openCommonJasperReportLoadWindow( 
+ title name, 
+ report id, 
+ type now olny PDF, 
+ json parameter );
+```
 
+```javascript
+openCommonJasperReportLoadWindow( "SWOT-Report", "BSC_RPT002", "PDF", { 'reportId' : data.reportId } );
+```
 
-
+#reference example:
+https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/vision/vision-management.jsp
 
