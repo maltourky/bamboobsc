@@ -11,5 +11,14 @@ bambooBSC deploy BPMN resource.<br>
 2. Activiti BPMN http://activiti.org/<br/>
 
 
-#Deploy
+#Package resource file
+Example for `PDCAProjectProcess` <br/>
+PDCAProjectProcess files:<br/>
+|--PDCAProjectProcess.bpmn<br/>
+|--PDCAProjectProcess.png<br/>
+
+zip compression PDCAProjectProcess.bpmn and PDCAProjectProcess.png to PDCAProjectProcess.zip
+
+#Upload resource and deploy
+click `04 - BPMN Resource` to management
 
