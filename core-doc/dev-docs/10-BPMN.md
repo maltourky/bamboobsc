@@ -69,7 +69,9 @@ https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/src/com/n
 #Force delete a work resource
 Example:<br/>
 BusinessProcessManagementDeleteTools [true/false] [resource-Id]<br/>
-`delete_bpmn_res.sh true TestResourceId`
+UNIX command: `delete_bpmn_res.sh true TestResourceId`<br/>
+Windows command: `delete_bpmn_res.bat true TestResourceId`
+<br/>
 <br/>
 UNIX:<br/>
 https://github.com/billchen198318/bamboobsc/blob/master/core-web/resource/delete_bpmn_res.sh<br/>
