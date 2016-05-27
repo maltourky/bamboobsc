@@ -3,7 +3,7 @@
 
 #10 - BPMN resource
 #Introduction
-bambooBSC public a BPMN resource.<br>
+bambooBSC deploy BPMN resource.<br>
 
 
 ***You must first understand the following framework***<br/>
