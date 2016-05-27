@@ -221,6 +221,71 @@ function BSC_PROG002D0001A_clear() {
 
 ```
 
+<br/>
+<br/>
+
+***gs:grid***
+
+| Args | required | description |
+| --- | --- | --- |
+| id | true | compoment-id |
+| programId | false | action-method program-id `${programId}` |
+| gridFieldStructure | true | DOJO - grid field structure |
+| clearQueryFn | true | clear grid |
+| width | false | grid width |
+| disableOnHeaderCellClick | false | Y / N , Y disable header cell click event |
+
+***gs:grid example:***
+```JSP
+
+function BSC_PROG002D0001Q_GridFieldStructure() {
+	return [
+			{ name: "*", field: "oid", formatter: BSC_PROG002D0001Q_GridButtonClick, width: "15%" },  
+			{ name: "ID", field: "visId", width: "25%" },
+			{ name: "Title", field: "title", width: "60%" }			
+		];
+}
+
+function BSC_PROG002D0001Q_GridButtonClick(itemOid) {
+	var rd="";
+	rd += "<img src=\"" + _getSystemIconUrl('PROPERTIES') + "\" border=\"0\" alt=\"edit\" onclick=\"BSC_PROG002D0001Q_edit('" + itemOid + "');\" />";
+	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	rd += "<img src=\"" + _getSystemIconUrl('APPLICATION_PDF') + "\" border=\"0\" alt=\"edit\" onclick=\"BSC_PROG002D0001Q_pdf('" + itemOid + "');\" />";
+	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	rd += "<img src=\"" + _getSystemIconUrl('REMOVE') + "\" border=\"0\" alt=\"delete\" onclick=\"BSC_PROG002D0001Q_confirmDelete('" + itemOid + "');\" />";
+	return rd;	
+}
+
+...
+
+<gs:button name="BSC_PROG002D0001Q_query" id="BSC_PROG002D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
+	handleAs="json"
+	sync="N"
+	xhrUrl="${basePath}/bsc.visionManagementGridQueryAction.action"
+	parameterType="postData"
+	xhrParameter=" 
+		{ 
+			'searchValue.parameter.visId'		: dijit.byId('BSC_PROG002D0001Q_visId').get('value'), 
+			'searchValue.parameter.title'		: dijit.byId('BSC_PROG002D0001Q_title').get('value'),
+			'pageOf.size'				: getGridQueryPageOfSize_${programId}_grid(),
+			'pageOf.select'				: getGridQueryPageOfSelect_${programId}_grid(),
+			'pageOf.showRow'			: getGridQueryPageOfShowRow_${programId}_grid()
+		} 
+	"
+	errorFn="clearQuery_${programId}_grid();"
+	loadFn="dataGrid_${programId}_grid(data);" 
+	programId="${programId}"
+	label="Query" 
+	iconClass="dijitIconSearch"
+	cssClass="alt-primary"></gs:button>
+	
+<gs:grid gridFieldStructure="BSC_PROG002D0001Q_GridFieldStructure()" 
+	clearQueryFn="" 
+	id="_${programId}_grid" 
+	programId="${programId}"></gs:grid>	
+	
+```
+
 
 <br/>
 <br/>
