@@ -291,6 +291,37 @@ function BSC_PROG002D0001Q_GridButtonClick(itemOid) {
 <br/>
 
 
+***gs:select***
+
+| Args | required | description |
+| --- | --- | --- |
+| id | true | compoment-id |
+| name | true | component-name |
+| width | false | component width |
+| dataSource | true | can put action Map`<String, String>` variable, or json data |
+| value | false | default select value |
+| onChange | false | ocChange event function |
+| readonly | false | Y / N |
+
+***gs:select example:***
+```JSP
+<gs:select name="BSC_PROG002D0002Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0002Q_visionOid"></gs:select>
+
+...
+
+<gs:select name="BSC_PROG006D0001E_S00_confirm" 
+	dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" 
+	id="BSC_PROG006D0001E_S00_confirm" 
+	value="Y"></gs:select>
+
+```
+
+
+
+<br/>
+<br/>
+
+
 #Add controller to menu item and config authority
 Please use:
 <br/> 
