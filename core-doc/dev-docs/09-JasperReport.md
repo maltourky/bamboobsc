@@ -43,7 +43,7 @@ openCommonJasperReportLoadWindow(
  type now olny PDF, 
  json parameter );
 ```
-
+Example code:
 ```javascript
 openCommonJasperReportLoadWindow( "SWOT-Report", "BSC_RPT002", "PDF", { 'reportId' : data.reportId } );
 ```
