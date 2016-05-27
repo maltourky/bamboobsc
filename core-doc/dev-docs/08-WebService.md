@@ -63,3 +63,13 @@ public class KpiWebServiceImpl implements KpiWebService {
 
 }
 ```
+
+**Config applicationContext-STANDARD-CXF.xml**
+```XML
+<bean id="bsc.webservice.KpiWebService" class="com.netsteadfast.greenstep.bsc.webservice.impl.KpiWebServiceImpl" />
+```
+
+**Public the service**
+
+
+
