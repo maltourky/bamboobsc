@@ -127,5 +127,8 @@ click `01 - WebService registration` to management
 <br/>
 ***Note: need restart tomcat server to take effect***
 
+![Image of ws-mgr3](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/08-003.jpg)
+<br/>
+<br/>
 
 
