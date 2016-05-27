@@ -21,4 +21,9 @@ zip compression PDCAProjectProcess.bpmn and PDCAProjectProcess.png to PDCAProjec
 
 #Upload resource and deploy
 click `04 - BPMN Resource` to management
-
+![Image of BPMN-res-mgr1](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/10-001.png)
+<br/>
+<br/>
+![Image of BPMN-res-mgr2](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/10-002.png)
+<br/>
+<br/>
