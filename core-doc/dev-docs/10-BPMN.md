@@ -27,3 +27,8 @@ click `04 - BPMN Resource` to management
 ![Image of BPMN-res-mgr2](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/10-002.png)
 <br/>
 <br/>
+
+
+#Settings resource audit roles
+click `05 - BPMN Resource role` to management
+
