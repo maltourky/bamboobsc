@@ -8,5 +8,12 @@
 bambooBSC registration controller action url into menu.<br>
 
 
-#XXXX
-xxxxxxxxxxx 123123.<br/>
+#Program registration
+
+1. click `02 - Program registration`
+![Image of prgoram-reg](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/05-001.jpg)
+<br/>
+<br/>
+2. to create
+![Image of prgoram-reg-create](https://raw.githubusercontent.com/billchen198318/bamboobsc/master/core-doc/dev-docs/pics/05-002.jpg)
+
