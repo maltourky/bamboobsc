@@ -13,4 +13,53 @@ bambooBSC public a SOAP / REST.<br>
 2. Apache CXF http://cxf.apache.org/
 
 ###SOAP
-Example for SOAP.
+Example for SOAP:
+
+**Service interfaces**
+```JAVA
+package com.netsteadfast.greenstep.bsc.webservice;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
+@WebService
+@SOAPBinding
+public interface KpiWebService {
+	
+	@WebMethod
+	public String outputKpisResult(@WebParam(name="format") String format) throws Exception;
+
+}
+```
+
+**Service bean**
+```JAVA
+package com.netsteadfast.greenstep.bsc.webservice.impl;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+
+import org.springframework.stereotype.Service;
+
+import com.netsteadfast.greenstep.base.AppContext;
+import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
+import com.netsteadfast.greenstep.bsc.webservice.KpiWebService;
+
+@Service("bsc.webservice.KpiWebService")
+@WebService
+@SOAPBinding
+public class KpiWebServiceImpl implements KpiWebService {
+
+	@WebMethod
+	@Override
+	public String outputKpisResult(@WebParam(name="format") String format) throws Exception {
+		IKpiLogicService kpiLogicService = (IKpiLogicService)AppContext.getBean("bsc.service.logic.KpiLogicService");		
+		return kpiLogicService.findKpis(format);
+	}
+
+}
+```
