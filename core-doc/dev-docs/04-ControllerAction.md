@@ -134,6 +134,33 @@ Program id naming rules example:
 | BSC_PROG002D0001A | 0001A is for Create page, 0001 is serial-no, `A` is mean Create/Add page |
 | BSC_PROG002D0001E | 0001E is for Edit page, 0001 is serial-no, `E` is mean Edit page |
 
+
+Show at DOJO-Tab javascript function system auto generated when the program has registered.
+
+| function-key | description |
+| --- | --- |
+| `_TabShow()` | Tab show |
+| `_TabRefresh()` | Tab refresh |
+| `_TabClose()` | Tab close |
+| `TabShow(oid)` | Tab show with Edit mode |
+| `_DlgShow()` | Dialog page show |
+| `_DlgShow(oid)` | Dialog page show with Edit mode |
+| `_DlgHide()` | Dialog page hide |
+
+
+Example:
+
+| Program-id | system auto generated javascript function | description |
+| --- | --- | --- |
+| BSC_PROG002D0001Q | BSC_PROG002D0001Q_TabShow() | BSC_PROG002D0001Q for query management page show |
+| BSC_PROG002D0001Q | BSC_PROG002D0001Q_TabRefresh() | BSC_PROG002D0001Q for refresh query management page |
+| BSC_PROG002D0001Q | BSC_PROG002D0001Q_TabClose() | BSC_PROG002D0001Q for close query management page |
+| BSC_PROG002D0001E | BSC_PROG002D0001E_TabShow(oid) | BSC_PROG002D0001E for Edit mode page |
+| CORE_PROGCOMM0001Q | CORE_PROGCOMM0001Q_DlgShow() | for Dialog mode page |
+| BSC_PROG005D0001A_S03 | BSC_PROG005D0001A_S03_DlgShow(oid) | for Dialog page with Edit data mode |
+| CORE_PROGCOMM0001Q | CORE_PROGCOMM0001Q_DlgHide() | for hide Dialog page |
+
+
 <br/>
 <br/>
 
