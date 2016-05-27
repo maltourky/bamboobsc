@@ -12,7 +12,7 @@ bambooBSC public a JasperReport.<br>
 1. JasperReport / iReport http://community.jaspersoft.com/<br/>
 
 
-###Upload and deploy the jasperreport
+###Report file and directory structure
 Example is bambooBSC SWOT PDF report.
 
 BSC_RPT002<BR/>
