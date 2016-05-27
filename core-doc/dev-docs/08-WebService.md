@@ -131,4 +131,58 @@ click `01 - WebService registration` to management
 <br/>
 <br/>
 
+#ESB service
+Example for result out of servlet:
 
+```JAVA
+package com.netsteadfast.greenstep.bsc.esb.router;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.commons.lang3.StringUtils;
+
+import com.netsteadfast.greenstep.base.AppContext;
+import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
+
+/**
+ * The is test for provide KPIs data output, use apache-camel(ESB) 
+ * 
+ * http://127.0.0.1:8080/gsbsc-web/camel/kpis
+ * 
+ * http://127.0.0.1:8080/gsbsc-web/camel/kpis?format=json
+ * http://127.0.0.1:8080/gsbsc-web/camel/kpis?format=xml
+ * 
+ */
+public class KPIsRouteBuilder extends RouteBuilder {
+	
+	@Override
+	public void configure() throws Exception {		
+		from( "servlet:///kpis" )
+		.process( new Processor() {
+
+			@Override
+			public void process(Exchange exchange) throws Exception {
+				String format = StringUtils.defaultString(exchange.getIn().getHeader("format", String.class))
+						.trim().toLowerCase();							
+				IKpiLogicService kpiLogicService = 
+						(IKpiLogicService)AppContext.getBean( "bsc.service.logic.KpiLogicService" );
+				exchange.getOut().setBody( kpiLogicService.findKpis(format) );
+			}
+			
+		})		
+		.to( "stream:out" );		
+	}
+
+}
+
+```
+
+***Config applicationContext-STANDARD-ESB.xml***
+```XML
+
+    <camel:camelContext id="esb.BSC-SystemCamelContext">
+    	<camel:package>com.netsteadfast.greenstep.bsc.esb.router</camel:package>
+    </camel:camelContext>    
+    
+```
