@@ -16,7 +16,7 @@ Send email method description.<br>
 1. Spring http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/<br/>
 
 #Use CORE-system job to send mail
-the method will send job, and pre job max 50s mail to send, a job wait 2 min.<br/>
+it will send mail by job, and pre job max 50s mail to send, a job task wait 2 min.<br/>
 Example:
 ```JAVA
 TemplateResultObj result = TemplateUtils.getResult(TemplateCode.TPLMSG0001, note);
