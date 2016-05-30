@@ -30,6 +30,10 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/10-BPMN.md">10 - BPMN resource</a>
 <br/>
 
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md">11 - Mail</a>
+<br/>
+
+
 
 <br>
 <br>
