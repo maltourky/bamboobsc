@@ -77,10 +77,10 @@ mailSender.send(message);
 
 #Config for mail, applicationContext-mail.properties
 
-mail.host=localhost 
-mail.port=25
-mail.username=root
-mail.password=password
+mail.host=localhost<br/> 
+mail.port=25<br/>
+mail.username=root<br/>
+mail.password=password<br/>
 
 
 | Name | description |
