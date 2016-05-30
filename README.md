@@ -36,6 +36,8 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/12-Job.md">12 - Job Scheduler</a>
 <br/>
 
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/13-Template.md">13 - Template</a>
+<br/>
 
 <br>
 <br>
