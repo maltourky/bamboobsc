@@ -21,9 +21,11 @@
  */
 package com.netsteadfast.greenstep.vo;
 
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
 public class VisionVO extends BaseValueObj implements java.io.Serializable {
@@ -39,6 +41,15 @@ public class VisionVO extends BaseValueObj implements java.io.Serializable {
 	private float score; // 報表要用的
 	
 	private List<PerspectiveVO> perspectives = new LinkedList<PerspectiveVO>(); // 給 StructTreeObj 用的
+	
+	public String getContentString() {
+		try {
+			return new String(this.content, Constants.BASE_ENCODING);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	public VisionVO() {
 		
