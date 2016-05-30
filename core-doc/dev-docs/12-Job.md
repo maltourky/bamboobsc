@@ -33,7 +33,8 @@ public class TestJobImpl extends BaseJob implements Job {
 }	
 ```
 
-Use super role login for Job example:
+Use super role login for Job example:<br/>
+If job need call Logic Service method, need use `loginForBackgroundProgram()` to login.
 
 ```JAVA
 
@@ -43,7 +44,10 @@ Use super role login for Job example:
 protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
   this.loginForBackgroundProgram();
   try {
-    // do-something...
+    	
+    	// do-something...
+    	// call Logic Service event, Logic Service need login, because AOP will check LogicService ...
+    	
 	} catch (ServiceException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
