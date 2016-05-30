@@ -195,8 +195,8 @@ Use GS tag example:
 | label | false | button label text |
 | showLabel | false | Y show label, N no show |
 | onClick | true | click event function |
-| iconClass | false | dojo-themes icon class |
-| cssClass | false | dojo-themes icon class |
+| iconClass | false | dojo-themes icon css class |
+| cssClass | false | dojo-themes css class |
 | xhrUrl | false | json action url |
 | parameterType | false | postData or form |
 | xhrParameter | false | send json data, parameterType = postData need xhrParameter |
