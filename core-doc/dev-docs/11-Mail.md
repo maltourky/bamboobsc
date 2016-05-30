@@ -5,7 +5,7 @@
 
 #11 - Mail
 #Introduction
-Send email.<br>
+Send email method description.<br>
 
 
 ***You must first understand the following framework***<br/>
