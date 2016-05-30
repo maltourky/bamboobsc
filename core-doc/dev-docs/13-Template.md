@@ -28,12 +28,7 @@ Settings variable mapper.<br/>
 
 **Example java code:**
 ```JAVA
-	TemplateResultObj tplResultObj = TemplateUtils.getResult("TPL-MSG-77", vision);
-	MailClientUtils.send(
-			"root@localhost", 
-			"chen.xin.nien@gmail.com", 
-			tplResultObj.getTitle(), 
-			tplResultObj.getContent());
+TemplateResultObj tplResultObj = TemplateUtils.getResult("TPL-MSG-77", vision);
 ```
 
 Full code:
@@ -57,7 +52,7 @@ public DefaultResult<VisionVO> create(VisionVO vision) throws ServiceException, 
 	 * TEST Template : TPL-MSG-77
 	 */
 	TemplateResultObj tplResultObj = TemplateUtils.getResult("TPL-MSG-77", vision);
-	System.out.println( tplResultObj.getContent() );
+	
 	MailClientUtils.send(
 			"root@localhost", 
 			"chen.xin.nien@gmail.com", 
