@@ -53,4 +53,12 @@ openCommonJasperReportLoadWindow( "SWOT-Report", "BSC_RPT002", "PDF", { 'reportI
 https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pages/swot/swot-management.jsp
 
 
+#JReportUtils
+
+| Name | return |description |
+| --- | --- | --- |
+| deployReport(SysJreportVO report) | void | deploy report from resource |
+| deployReport(TbSysJreport report) | void | deploy report from resource |
+| deploy() | void | deploy all |
+| compileReportToJasperFile(String sourceFileName[], String destDir) | String | compile jrxml to jasper, `sourceFileName[]` is jrxml files source fullpath, `destDir` is destination directory |
 
