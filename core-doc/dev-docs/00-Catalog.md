@@ -33,7 +33,7 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md">11 - Mail</a>
 <br/>
 
-<a href="https://github.com/billchen198318/bamboobsc/edit/master/core-doc/dev-docs/12-Job.md">12 - Job Scheduler</a>
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/12-Job.md">12 - Job Scheduler</a>
 <br/>
 
 
