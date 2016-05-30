@@ -1,5 +1,7 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/00-Catalog.md">⌂ Catalog</a><br/>
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/09-JasperReport.md"> ⇦ Previous section 09 - JasperReport</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md"> ⇨ Next section 11- Mail</a>
 
 
 #10 - BPMN resource
