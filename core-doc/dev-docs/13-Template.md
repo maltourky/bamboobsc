@@ -29,7 +29,6 @@ Settings variable mapper.<br/>
 **Example java code:**
 ```JAVA
 	TemplateResultObj tplResultObj = TemplateUtils.getResult("TPL-MSG-77", vision);
-	System.out.println( tplResultObj.getContent() );
 	MailClientUtils.send(
 			"root@localhost", 
 			"chen.xin.nien@gmail.com", 
