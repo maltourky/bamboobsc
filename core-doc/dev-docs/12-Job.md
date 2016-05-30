@@ -1,7 +1,9 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/00-Catalog.md">⌂ Catalog</a><br/>
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md">⇦ 
 Previous section 11 - Mail</a>
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/13-Template.md">⇨ 
+Next section 13 - Template</a>
 
 
 #12 - Job scheduler
