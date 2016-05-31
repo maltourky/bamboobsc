@@ -9,7 +9,11 @@ Next section 08 - WebService</a>
 #Introduction
 bambooBSC expression.<br>
 我想也不會有人想看吧，所以直接用中文寫好了。<br/>
-**注意: 錯誤的 expression 都有可能造成系統崩潰，所以必須要有良好的經驗，在來使用這個功能**
+**注意: 錯誤的 expression 都有可能造成系統崩潰，所以必須要有良好的經驗，在來使用這個功能**<br/>
+
+有時後有些不是很複雜的需求，但是每個使用方所要的方法又不一樣。
+或是沒有一定規則的需求，這些特別的需要如果寫成JAVA code 在 LogicService 中，會照成要常常改code又要重新包版( package WAR )與佈署( re-deploy )，非常的不方便，所以才會有這個功能來輔助 Logic Service。
+
 
 ***You must first understand the following framework***<br/>
 1. GROOVY http://www.groovy-lang.org/documentation.html<br/>
@@ -47,3 +51,4 @@ bambooBSC expression.<br>
 <br/>
 <br/>
 
+**以上步驟設定完後，每次被設的的 LogicService method 觸發時，AOP 都會去調用執行設定的 Expression**
