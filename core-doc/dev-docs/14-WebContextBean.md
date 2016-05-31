@@ -8,8 +8,8 @@ Next section 15 - Formula</a>
 
 #13 - Web Context bean
 #Introduction
-server web context start shutdown run java class bean.<br>
-WebSystemCtxBeanSupportListener will auto create bean( ContextInitializedAndDestroyedBean ) do event for INITIALIZE or DESTROY.
+server web context start or shutdown will run java class bean.<br>
+WebSystemCtxBeanSupportListener will auto create bean( ContextInitializedAndDestroyedBean ) and call `execute(ServletContextEvent event)` method for INITIALIZE or DESTROY.
 
 
 ***You must first understand the following framework***<br/>
