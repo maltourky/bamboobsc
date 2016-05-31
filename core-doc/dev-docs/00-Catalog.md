@@ -39,3 +39,8 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/13-Template.md">13 - Template</a>
 <br/>
 
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/14-WebContextBean.md">14 - Web Context bean</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/15-Formula.md">15 - Formula</a>
+<br/>
