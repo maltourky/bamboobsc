@@ -1,6 +1,6 @@
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/00-Catalog.md">⌂ Catalog</a><br/>
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/14-WebContextBean.md">⇦ 
-Previous section 14 - WEB Context bean</a>
+Previous section 14 - Web Context bean</a>
 
 
 #15 - Formula
