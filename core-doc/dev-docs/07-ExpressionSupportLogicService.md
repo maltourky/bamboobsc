@@ -54,13 +54,14 @@ bambooBSC expression.<br>
 **以上步驟設定完後，每次被設的的 LogicService method 觸發時，AOP ( ServiceScriptExpressionProcessAspect ) 都會去調用執行設定的 Expression**
 
 
-###ServiceScriptExpressionUtils
+###ServiceScriptExpressionUtils only for ServiceScriptExpressionProcessAspect 
 
 | Name | return |description |
 | --- | --- | --- |
 | needProcess(String beanId, String methodName, String system) | boolean | true this LogicService method need expression |
 | processBefore(String beanId, Method method, String system, ProceedingJoinPoint pjp) | void | before process expression with ServiceLogic method |
 | processAfter(String beanId, Method method, String system, Object resultObj, ProceedingJoinPoint pjp) | void | after process expression with ServiceLogic method |
+
 
 <br/>
 <br/>
