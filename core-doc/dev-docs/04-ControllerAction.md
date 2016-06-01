@@ -377,6 +377,41 @@ function BSC_PROG002D0001Q_GridButtonClick(itemOid) {
 <br/>
 <br/>
 
+#Page common javascript function
+
+| Name | return | description |
+| --- | --- | --- |
+| alertDialog(txtTitle, txtContent, callbackFn, successFlag) | void | show DOJO toaster, `txtTitle` is title, `txtContent` is message content, `callbackFn` callback function, `successFlag` flag Y - success, N - work fail, E - error or exception |
+| confirmDialog(dialogId, title, question, callbackFn, e) | void | show confirm dialog, `dialogId` dialog-id, `title` dialog title, `question` dialog message content, `callbackFn` click OK,YES button do event, `e` mouse event `(window.event ? window.event : null)` |
+| showPleaseWait() | void | show Please wait dialog |
+| hidePleaseWait() | void | hide Please wait dialog |
+| getGuid() | string | get a non-RFC GUID |
+| xhrSendForm(_urlAction, _formId, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction) | void | send form XHR mode.<br/> `_urlAction` action url<br/> `_formId` form id<br/> `_handleAs` use `json`<br/>`_loadFunction` function for load success<br/> `_errFunction` function for error-load |
+| xhrSendParameter(_urlAction, _parameter, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction) | void | send input-field XHR mode.<br/> `_urlAction` action url<br/> `_parameter` json parameter<br/> `_handleAs` use `json`<br/>`_loadFunction` function for load success<br/> `_errFunction` function for error-load |
+| xhrSendFormNoWatitDlg(_urlAction, _formId, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction) | void | send form XHR mode with no show please wait dialog |
+| xhrSendParameterNoWatitDlg(_urlAction, _parameter, _handleAs, _timeout, _sync, _preventCache, _loadFunction, _errFunction) | void | send input-field XHR mode with no show please wait dialog |
+| logoutEvent(success) | void | do logout, `success` true or false |
+| openCommonUploadDialog(system, type, isFile, uploadOidField, callJsFunction, callJsErrFunction) | void | open upload file dialog<br/> `system` CORE,BSC,QCHARTS<br/> `type` tmp,image,common,kpi-doc,pdca-doc ( com.netsteadfast.greenstep.model.UploadTypes.java )<br/> `isFile` Y,N Y-use real file mode, N-use byte-blob mode<br/>`uploadOidField` the input-field id for upload success will set fill upload OID value<br/>`callJsFunction` success event, `callJsErrFunction` fail event |
+| hideCommonUploadDialog() | void | hide upload file dialog |
+| doUpload(formId, uploadId, callbackFn, errFn) | void | no need use openCommonUploadDialog to upload file, manual mode upload |
+| getUploadFileNames(uploadOid) | string| get upload file show-name, `uploadOid` upload OID |
+| openCommonSignatureDialog(system, uploadOidField, callJsFunction, callJsErrFunction) | void | signature dialog<br>`uploadOidField` input-field for signature-image upload OID ( `tb_sys_upload.OID` ) |
+| openCommonJasperReportLoadWindow( title, jreportId, format, paramData ) | void | open jasperreport dialog |
+| openCommonCodeEditorWindow( uploadOid, valueFieldId, okFn, lang ) | void | open common expression edit dialog, first need write expression to `tb_sys_upload` |
+| openCommonLoadUpload( type, uploadOid, paramData ) | void | open view dialog or download for upload-file ( `tb_sys_upload` ) |
+| openCommonLoadUploadDataAction( type, uploadOid, paramData ) | void | open view dialog or download for upload-file ( `tb_sys_upload` ) |
+| setFieldsBackgroundAlert(fieldsId, viewFieldsId) | void | alert color for fields |
+| setFieldsBackgroundDefault(viewFieldsId) | void | default color for fields |
+
+other:<br/>
+`setSelectItems(data, destSelectId)`<br/>
+`clearSelectItems(pleaseSelect, destSelectId)`<br/>
+`selectChangeTriggerRefreshTargetSelectItems(srcSelectId, destSelectId, action, parameters)`<br/>
+`_getSystemIconUrl(iconId)`<br/>
+`setPageOfSortAsc(_id)`<br/>
+`setPageOfSortDesc(_id)`<br/>
+`setPageOfOrderBy(_id, queryFieldName)`<br/>
+`getGoogleMapAddressName(lat, lng, _setAddressFn)`<br/>
 
 #Add controller to menu item and config authority
 Please use:
