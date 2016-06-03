@@ -1,4 +1,4 @@
-<div id="${id}" data-dojo-type="dijit/Toolbar">
+<div id="${id}" data-dojo-type="dijit/Toolbar" style="background: linear-gradient(to top, #F5F5F5 , #FFFFFF);">
 <#if createNewEnable == "Y" >	
 	<div data-dojo-type="dijit/form/Button" id="${id}.new"
 		data-dojo-props="iconClass:'dijitIconFile', showLabel:false,
