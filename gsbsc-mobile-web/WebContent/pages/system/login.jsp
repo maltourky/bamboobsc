@@ -99,7 +99,7 @@ function pageMessage() {
         </tr>
         <tr> 
           <td width="100%" align="center" >
-          <font color="#7E7E7E" size="2"><b>bambooBSC 0.6.3.1 mobile version web.</b></font>
+          <font color="#7E7E7E" size="2"><b>bambooBSC 0.6.4 mobile version web.</b></font>
           </td>
          </tr>         
       </table>
