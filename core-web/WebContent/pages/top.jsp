@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 %>
 <div dojoType="dijit.layout.ContentPane" region="top" id="topBar" style=" overflow:hidden; ">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#f3f3f3" >
+	<table border="0" width="100%" cellspacing="0" cellpadding="0" style="background: linear-gradient(to top, #ffffff, #f3f3f3);" >
 		<tr>
 			<td width="70%" align="left">
 			
