@@ -264,4 +264,16 @@ public class Constants {
 		return (String)appSettingsMap.get("base.loginCaptchaCodeEnable");
 	}
 	
+	/**
+	 * 是否更新 tb_sys.host 的設定
+	 * config update tb_sys.host when start CORE-WEB,GSBSC-WEB,QCHARTS-WEB
+	 * 1 - only first one 只有第一次啟動時, check 有 log 檔案後就不更新了
+	 * 2 - always update 每次都會更新
+	 * @return
+	 */
+	public static String getApplicationSiteHostUpdateMode() {
+		getSettingsMap();
+		return (String)appSettingsMap.get("base.applicationSiteHostUpdateMode");
+	}
+	
 }

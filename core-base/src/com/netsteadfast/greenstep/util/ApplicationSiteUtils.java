@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 
 import com.netsteadfast.greenstep.base.AppContext;
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.po.hbm.TbSys;
@@ -37,6 +38,8 @@ import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.vo.SysVO;
 
 public class ApplicationSiteUtils {
+	public static final String UPDATE_HOST_ALWAYS = "2";
+	public static final String UPDATE_HOST_ONLY_FIRST_ONE = "1";
 	private static Map<String, String> contextPathMap = new HashMap<String, String>();	
 	
 	@SuppressWarnings("unchecked")
@@ -128,7 +131,10 @@ public class ApplicationSiteUtils {
 	
 	@SuppressWarnings("unchecked")
 	public static void configureHost(String sysId, String logConfFileFullPath) {
-		if (FSUtils.readStr(logConfFileFullPath).trim().equals("1")) {
+		String logValue = FSUtils.readStr(logConfFileFullPath).trim();
+		if (!StringUtils.isBlank(logValue) && UPDATE_HOST_ONLY_FIRST_ONE.equals(Constants.getApplicationSiteHostUpdateMode())) {
+			// has before start log file, and UPDATE_HOST_ONLY_FIRST_ONE mode
+			FSUtils.writeStr2(logConfFileFullPath, UPDATE_HOST_ONLY_FIRST_ONE);
 			return;
 		}
 		ISysService<SysVO, TbSys, String> sysService = 
@@ -153,7 +159,14 @@ public class ApplicationSiteUtils {
 				sys.setHost( hostAddress + ":" + port );
 			}
 			sysService.updateObject(sys);
-			FSUtils.writeStr2(logConfFileFullPath, "1");			
+			
+			
+			if (UPDATE_HOST_ALWAYS.equals(Constants.getApplicationSiteHostUpdateMode())) {
+				FSUtils.writeStr2(logConfFileFullPath, UPDATE_HOST_ALWAYS);
+			} else {
+				FSUtils.writeStr2(logConfFileFullPath, UPDATE_HOST_ONLY_FIRST_ONE);
+			}
+			
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

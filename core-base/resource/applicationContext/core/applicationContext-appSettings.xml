@@ -33,6 +33,7 @@
 				<entry key="googleMap.clientLocationEnable" 			value="${googleMap.clientLocationEnable}" />
 				<entry key="twitter.enable" 							value="${twitter.enable}" />
 				<entry key="base.loginCaptchaCodeEnable" 				value="${base.loginCaptchaCodeEnable}" />
+				<entry key="base.applicationSiteHostUpdateMode" 		value="${base.applicationSiteHostUpdateMode}" />
 			</map>
 		</constructor-arg>				
 	</bean>
