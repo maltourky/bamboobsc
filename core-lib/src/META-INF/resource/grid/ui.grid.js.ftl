@@ -228,5 +228,47 @@ function dataGrid${id}(postData) {
 	}		
 }
 
+function doGridQueryShowPreviewHtml${id}() {
+	if (store${id}==null) {
+		return;
+	}
+	var structureFields = ${gridFieldStructure};
+	var body = '<a href="javascript:window.close();" style="text-decoration: none; font-weight: bold; color:#3794E5" >Close</a>';
+	body += '<table width="100%" border="0" cellspacing="1" cellpadding="1" style="border:1px #d5cdb5 solid; background: #d5cdb5">';
+	body += '<tr>';	
+	for (var f=0; f<structureFields.length; f++) {
+		var title = structureFields[f].name.split('<br/>')[0];
+		if ( "oid" == structureFields[f].field ) {
+			title = "Primary Key";
+		}
+		body += '<td bgcolor="#f1eee5"><b>' + title + '</b></td>';
+	}
+	body += '</tr>';
+	store${id}.fetch({
+		onComplete:function(items, request) {
+			for (var i=0; i<items.length; i++) {
+				body += '<tr>';
+				for (var f=0; f<structureFields.length; f++) {
+					var valStr = eval('items[' + i + '].' + structureFields[f].field );
+					if ( valStr == null ) {
+						valStr = '&nbsp;';
+					}
+					valStr += '';
+					valStr = valStr.replace(/</g, "〈").replace(/>/g, "〉");
+					body += '<td bgcolor="#ffffff">' + valStr + '</td>';
+				}
+				body += '</tr>';
+			}
+		}
+	});
+	body += '</table>';
+	body += '<a href="javascript:window.close();" style="text-decoration: none; font-weight: bold; color:#3794E5" >Close</a>';
+	
+	var newWindow = window.open();
+	newWindow.document.write( body );
+	newWindow.document.close();
+	
+}
+
 //============================================================================================	
 </script>

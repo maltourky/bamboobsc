@@ -1,5 +1,8 @@
 <table id="gridQuery_table${id}" width="${width}" border="0" cellspacing="0" cellpadding="1" style="display:none; border:1px #ebeadb solid; background: linear-gradient(to top, #f1eee5 , #fafafa);">
   <tr>
+  	<td width="20px" style="background: linear-gradient(to top, #f1eee5 , #fafafa);" align="center" >
+  		<a href="javascript:doGridQueryShowPreviewHtml${id}();"><img src="./icons/view-list-icons.png" border="0" alt="G" title="HTML content"/></a>
+  	</td>
   	<td width="100px" style="background: linear-gradient(to top, #f1eee5 , #fafafa);" align="center" >
   		<font size="2">${totalName}:&nbsp;<span id="gridQuery_pageOf_rowCount${id}"/></font>  	
   	</td>
