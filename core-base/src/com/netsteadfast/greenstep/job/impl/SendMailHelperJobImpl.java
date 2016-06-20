@@ -55,10 +55,10 @@ public class SendMailHelperJobImpl extends BaseJob implements Job {
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		log.info("begin....");		
+		//log.info("begin....");		
 		try {
 			this.loginForBackgroundProgram();
-			log.info("Background Program userId: " + this.getAccountId());
+			//log.info("Background Program userId: " + this.getAccountId());
 			if (MailClientUtils.getEnable()) {
 				String linkMailId = SimpleUtils.getStrYMD("").substring(0, 6);
 				DefaultResult<List<TbSysMailHelper>> result = this.sysMailHelperService.findForJobList(
@@ -80,7 +80,7 @@ public class SendMailHelperJobImpl extends BaseJob implements Job {
 				e.printStackTrace();
 			}
 		}
-		log.info("end....");		
+		//log.info("end....");		
 	}
 	
 	private void process(List<TbSysMailHelper> mailHelperList) throws ServiceException, Exception {
