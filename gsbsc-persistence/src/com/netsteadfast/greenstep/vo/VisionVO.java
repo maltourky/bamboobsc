@@ -43,6 +43,9 @@ public class VisionVO extends BaseValueObj implements java.io.Serializable {
 	private List<PerspectiveVO> perspectives = new LinkedList<PerspectiveVO>(); // 給 StructTreeObj 用的
 	
 	public String getContentString() {
+		if (null == this.content) {
+			return "";
+		}
 		try {
 			return new String(this.content, Constants.BASE_ENCODING);
 		} catch (UnsupportedEncodingException e) {

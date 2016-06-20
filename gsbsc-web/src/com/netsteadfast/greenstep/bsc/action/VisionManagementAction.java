@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.action.IBaseAdditionalSupportAction;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
@@ -48,7 +47,6 @@ public class VisionManagementAction extends BaseSupportAction implements IBaseAd
 	private static final long serialVersionUID = -8778388464510867702L;
 	private IVisionService<VisionVO, BbVision, String> visionService;
 	private VisionVO vision = new VisionVO(); // 編輯edit 要用
-	private String visionContent = ""; // 編輯edit 要用
 	
 	public VisionManagementAction() {
 		super();
@@ -77,9 +75,6 @@ public class VisionManagementAction extends BaseSupportAction implements IBaseAd
 			throw new ServiceException( result.getSystemMessage().getValue() );
 		}
 		this.vision = result.getValue();
-		if (this.vision.getContent() != null) {
-			this.visionContent = new String(this.vision.getContent(), Constants.BASE_ENCODING);
-		}
 	}	
 	
 	/**
@@ -158,10 +153,6 @@ public class VisionManagementAction extends BaseSupportAction implements IBaseAd
 
 	public VisionVO getVision() {
 		return vision;
-	}
-
-	public String getVisionContent() {
-		return visionContent;
 	}
 
 }

@@ -100,7 +100,7 @@ function ${programId}_page_message() {
 			<td height="375px" width="100%"  align="left">
 				<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0001E_content')"/></b>:
 				<br/>
-				<div data-dojo-type="dijit/Editor" id="BSC_PROG002D0001E_content" data-dojo-props="onChange:function(){ }">${visionContent}</div>
+				<div data-dojo-type="dijit/Editor" id="BSC_PROG002D0001E_content" data-dojo-props="onChange:function(){ }">${vision.contentString}</div>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001E_content'">
     				Input content. ( recommend content should not exceed A4 paper size )
 				</div> 					
