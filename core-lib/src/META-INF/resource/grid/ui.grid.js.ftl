@@ -255,7 +255,11 @@ function doGridQueryShowPreviewHtml${id}() {
 					}
 					valStr += '';
 					valStr = valStr.replace(/</g, "〈").replace(/>/g, "〉");
-					body += '<td bgcolor="#ffffff">' + valStr + '</td>';
+					var nowBgcolor = '#fffdf3';
+					if (i%2 == 0) {
+						nowBgcolor = '#ffffff';
+					}
+					body += '<td bgcolor="' + nowBgcolor + '">' + valStr + '</td>';
 				}
 				body += '</tr>';
 			}
