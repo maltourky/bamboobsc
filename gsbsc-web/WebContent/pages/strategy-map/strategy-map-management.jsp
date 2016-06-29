@@ -246,7 +246,7 @@ function ${programId}_page_message() {
         </div>
         
         
-        <script src="<%=mainSysBasePath%>/jsPlumb/js/jsPlumb-2.0.7.js"></script>
+        <script src="<%=mainSysBasePath%>/jsPlumb/js/jsPlumb-2.1.4.js"></script>
         
         
 <script type="text/javascript">
@@ -264,7 +264,7 @@ jsPlumb.ready(function () {
                 length: 14,
                 foldback: 0.8
             } ],
-            [ "Label", { label: "FOO", id: "label", cssClass: "aLabel" }]
+            [ "Label", { label: "Link point line", id: "label", cssClass: "aLabel" }]
         ],
         Container: "canvas"
     });
