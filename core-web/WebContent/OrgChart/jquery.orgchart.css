@@ -17,10 +17,6 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-.hidden {
-  display: none!important;
-}
-
 .orgchart {
   display: inline-block;
   min-height: 202px;
@@ -37,6 +33,16 @@
   border: 1px dashed rgba(0,0,0,0);
   transition: border .3s;
   padding: 20px;
+}
+
+.orgchart .hidden, .orgchart~.hidden {
+  display: none!important;
+}
+
+.orgchart *, .orgchart *:before, .orgchart *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .orgchart>.spinner {
@@ -87,6 +93,12 @@
   text-align: center;
   width: 350px;
 }
+
+.orgchart.l2r .node, .orgchart.r2l .node {
+  width: 50px;
+  height: 130px;
+}
+
 .orgchart .node>.spinner {
   position: absolute;
   top: calc(50% - 15px);
