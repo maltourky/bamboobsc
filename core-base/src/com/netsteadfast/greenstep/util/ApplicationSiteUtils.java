@@ -148,11 +148,15 @@ public class ApplicationSiteUtils {
 				return;
 			}
 			sys = result.getValue();
+			// 2016-06-29 rem
+			/*
 			String port = "";
 			String tmp[] = sys.getHost().split(":");
 			if ( tmp!=null && tmp.length==2 ) {
 				port = tmp[1];
 			}
+			*/
+			String port = String.valueOf( HostUtils.getHttpPort() ); // 2016-06-29 add
 			String hostAddress = HostUtils.getHostAddress();
 			sys.setHost(hostAddress);
 			if (!StringUtils.isBlank(port)) {				
