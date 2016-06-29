@@ -22,21 +22,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="bambooCORE">
 	<meta http-equiv="description" content="bambooCORE">
 	
-	<script src="<%=basePath%>/codemirror-5.10/lib/codemirror.js" type="text/javascript"></script>
-	<script src="<%=basePath%>/codemirror-5.10/addon/edit/matchbrackets.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/addon/hint/show-hint.js"></script>	
-	<script src="<%=basePath%>/codemirror-5.10/clike.js"></script>	
-	<link rel="stylesheet" type="text/css" href="<%=basePath%>/codemirror-5.10/doc/docs.css" />
-	<link rel="stylesheet" type="text/css" href="<%=basePath%>/codemirror-5.10/lib/codemirror.css" />		
-	<link rel="stylesheet" href="<%=basePath%>/codemirror-5.10/addon/hint/show-hint.css">	
+	<script src="<%=basePath%>/codemirror/lib/codemirror.js" type="text/javascript"></script>
+	<script src="<%=basePath%>/codemirror/addon/edit/matchbrackets.js"></script>
+	<script src="<%=basePath%>/codemirror/addon/hint/show-hint.js"></script>	
+	<script src="<%=basePath%>/codemirror/clike.js"></script>	
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/codemirror/doc/docs.css" />
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>/codemirror/lib/codemirror.css" />		
+	<link rel="stylesheet" href="<%=basePath%>/codemirror/addon/hint/show-hint.css">	
 	
 	
-	<script src="<%=basePath%>/codemirror-5.10/mode/xml/xml.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/mode/javascript/javascript.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/mode/css/css.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/mode/htmlmixed/htmlmixed.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/addon/mode/multiplex.js"></script>
-	<script src="<%=basePath%>/codemirror-5.10/mode/htmlembedded/htmlembedded.js"></script>
+	<script src="<%=basePath%>/codemirror/mode/xml/xml.js"></script>
+	<script src="<%=basePath%>/codemirror/mode/javascript/javascript.js"></script>
+	<script src="<%=basePath%>/codemirror/mode/css/css.js"></script>
+	<script src="<%=basePath%>/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+	<script src="<%=basePath%>/codemirror/addon/mode/multiplex.js"></script>
+	<script src="<%=basePath%>/codemirror/mode/htmlembedded/htmlembedded.js"></script>
 	
 	
 <style type="text/css">
