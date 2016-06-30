@@ -264,7 +264,7 @@ jsPlumb.ready(function () {
                 length: 14,
                 foldback: 0.8
             } ],
-            [ "Label", { label: "Link point line", id: "label", cssClass: "aLabel" }]
+            [ "Label", { label: "Link line", id: "label", cssClass: "aLabel" }]
         ],
         Container: "canvas"
     });
