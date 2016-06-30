@@ -41,12 +41,12 @@ public class Constants {
 	/**
 	 * EncryptorUtils 要用的 key1
 	 */
-	public static final String ENCRYPTOR_KEY1 = "GS_98143BSC59043";
+	public static final String ENCRYPTOR_KEY1 = "@s&T$1O3aSg59#7!";
 	
 	/**
 	 * EncryptorUtils 要用的 key2
 	 */
-	public static final String ENCRYPTOR_KEY2 = "ToQp2Bv7Zr16RwSx";
+	public static final String ENCRYPTOR_KEY2 = "3215498760654321";
 	
 	public static final String MAIN_TabContainer_ID = "gscoreTabContainer"; // index.jsp 主要的 Tab id
 	public static final String GS_GET_APPLICATION_NAME_SCRIPT_FN = "_getApplicationProgramNameById(progId)"; // 表層非實作 for MenuSupportUtils 與 core.js 用的 script function

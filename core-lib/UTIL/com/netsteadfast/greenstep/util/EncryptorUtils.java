@@ -36,9 +36,9 @@ import com.netsteadfast.greenstep.base.Constants;
  */
 public class EncryptorUtils {
 	
-	public static String encrypt(String key1, String key2, String value) {
+	public static String encrypt(String key1, String iv1, String value) {
 		try {
-			IvParameterSpec iv = new IvParameterSpec(key2.getBytes(Constants.BASE_ENCODING));
+			IvParameterSpec iv = new IvParameterSpec(iv1.getBytes(Constants.BASE_ENCODING));
             SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes(Constants.BASE_ENCODING), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
@@ -51,9 +51,9 @@ public class EncryptorUtils {
         return null;
     }
 
-    public static String decrypt(String key1, String key2, String encrypted) {
+    public static String decrypt(String key1, String iv1, String encrypted) {
         try {
-            IvParameterSpec iv = new IvParameterSpec(key2.getBytes(Constants.BASE_ENCODING));
+            IvParameterSpec iv = new IvParameterSpec(iv1.getBytes(Constants.BASE_ENCODING));
             SecretKeySpec skeySpec = new SecretKeySpec(key1.getBytes(Constants.BASE_ENCODING), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
