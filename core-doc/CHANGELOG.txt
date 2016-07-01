@@ -1,3 +1,13 @@
+0.6.4
+-----------------------------------------------------------
+1. Fix Personal BSC report score always zero bug.
+2. Support auto config host:port every when start tomcat-server(bambooBSC) on DHCP daymanic IP environment. ( old version only first one start tomcat-server-bambooBSC will config )
+   for manual install mode version:
+   config base.applicationSiteHostUpdateMode=2
+   reference: https://github.com/billchen198318/bamboobsc/issues/24 
+3. Some modifications
+
+
 0.6.3.1
 -----------------------------------------------------------
 1. Fix core.css patch flat-themes-1.11.1
