@@ -76,9 +76,15 @@ public class PersonalAndOrganizationReportDateRangeScoreCommand extends BaseChai
 				data.setActual( measureData.getActual() );
 				data.setTarget( measureData.getTarget() );
 				Object value = BscFormulaUtils.parse(kpi.getFormula(), data);
+				/* 2016-07-01 rem
 				if (value != null && (value instanceof Integer || value instanceof Float || value instanceof Long) ) {
 					score = NumberUtils.toFloat( String.valueOf(value), 0.0f);
-				}				
+				}
+				*/
+				// 2016-07-01
+				if (NumberUtils.isNumber( String.valueOf(value)) ) {
+					score = NumberUtils.toFloat(String.valueOf(value), 0.0f);
+				}
 			}
 		}
 		DateRangeScoreVO dateRangeScore = new DateRangeScoreVO();
