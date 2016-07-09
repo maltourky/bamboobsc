@@ -1,3 +1,7 @@
+#bambooBSC demo video
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=N5BsWZL8bxQ" target="_blank">bambooBSC demo video</a>
+
+
 #bambooBSC development manual
 
 <a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">01 - Entitiy</a>
