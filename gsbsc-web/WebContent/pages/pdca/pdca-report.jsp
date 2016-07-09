@@ -89,7 +89,7 @@ function BSC_PROG006D0002Q_query(type) {
 				if ('EXCEL' == type) {
 					openCommonLoadUpload( 'download', data.uploadOid, { } );
 				} else if ('HTML' == type) {
-					dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body + '<div id="BSC_PROG006D0002Q_container"></div>';
+					dojo.byId('BSC_PROG006D0002Q_content').innerHTML = data.body;
 					BSC_PROG006D0002Q_chart(data);					
 				} else {
 					BSC_PROG006D0002Q_OrgChart(data);
@@ -149,7 +149,7 @@ function BSC_PROG006D0002Q_chart(data) {
 	var chart = new Highcharts.Chart({
 
 	    chart: {
-	        renderTo: 'BSC_PROG006D0002Q_container'
+	        renderTo: 'BSC_PROG006D0002Q_container' // BSC_PROG006D0002Q_container	div-id in pdca-report-body.ftl
 	    },
 	    
 	    title: {
