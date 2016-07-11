@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div id="comboButtonHelp" data-dojo-type="dijit.form.ComboButton">
 					<span><s:property value="getText('IndexAction_help')"/></span>
 					<div dojoType="dijit.Menu" id="helpMenu">
-						<div dojoType="dijit.MenuItem" data-dojo-props='onClick:function(){ window.open("https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc-guide.pdf"); }' ><s:property value="getText('IndexAction_manual')"/></div>
+						<div dojoType="dijit.MenuItem" data-dojo-props='onClick:function(){ window.open("https://github.com/billchen198318/bamboobsc/raw/master/core-doc/bamboobsc-guide.pdf"); }' ><s:property value="getText('IndexAction_manual')"/></div>
 						<div dojoType="dijit.MenuItem" data-dojo-props='onClick:function(){ window.open("https://github.com/billchen198318/bamboobsc/issues"); }' ><s:property value="getText('IndexAction_issues')"/></div>
 						<div dojoType="dijit.MenuItem" data-dojo-props='onClick:function(){ CORE_PROGCOMM0001Q_DlgShow(); }' ><s:property value="getText('IndexAction_about')"/></div>										
 					</div>
