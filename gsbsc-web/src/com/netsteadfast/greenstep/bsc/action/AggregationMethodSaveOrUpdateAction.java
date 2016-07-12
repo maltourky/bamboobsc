@@ -69,40 +69,16 @@ public class AggregationMethodSaveOrUpdateAction extends BaseJsonAction {
 			IAggregationMethodLogicService aggregationMethodLogicService) {
 		this.aggregationMethodLogicService = aggregationMethodLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {	
-			super.checkFields(
-					new String[]{
-							"aggrId",
-							"name",
-							"type",
-							"expression1",
-							"expression2"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0008A_aggrId") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0008A_name") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0008A_type") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0008A_iframe1") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0008A_iframe2") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("aggrId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_aggrId") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_name") + "<BR/>")
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_type") + "<BR/>")
+		.add("expression1", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe1") + "<BR/>")
+		.add("expression2", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe2") + "<BR/>")
+		.process().throwMode();
+		
 		if (this.getFields().get("expression1").length() > 4000 ) {
 			this.getFieldsId().add("expression1");
 			throw new ControllerException( this.getText("MESSAGE.BSC_PROG001D0008A_iframe1_msg1") + "<BR/>" );			

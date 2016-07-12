@@ -75,42 +75,16 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		this.formulaLogicService = formulaLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {	
-			super.checkFields(
-					new String[]{
-							"forId",
-							"name",
-							"type",
-							"trendsFlag",
-							"returnMode",
-							"expression"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0003A_forId") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0003A_name") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("forId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_forId") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_name") + "<BR/>")
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>")
+		.add("trendsFlag", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>")
+		.add("returnMode", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
+		.process().throwMode();
+		
 		if (this.getFields().get("expression").length() > 4000 ) {
 			this.getFieldsId().add("expression");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_msg1") + "<BR/>");			

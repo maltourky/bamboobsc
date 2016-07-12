@@ -53,30 +53,11 @@ public class DegreeFeedbackProjectReportContentQueryAction extends BaseJsonActio
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"projectOid",
-							"ownerOid"
-					}, 
-					new String[]{
-							"Data error no project, please close the page!<BR/>",
-							this.getText("MESSAGE.BSC_PROG005D0004Q_ownerOid") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!<BR/>")
+		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0004Q_ownerOid") + "<BR/>")
+		.process().throwMode();
 	}
 	
 	private void queryProjectScore() throws ControllerException, AuthorityException, ServiceException, Exception {

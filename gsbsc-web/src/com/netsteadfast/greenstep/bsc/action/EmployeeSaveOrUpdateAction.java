@@ -69,39 +69,15 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 		this.employeeLogicService = employeeLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"account",
-							"empId",
-							"password1",
-							"password2",
-							"fullName"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0001A_account") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001A_empId") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001A_password1") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001A_password2") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("account", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_account") + "<BR/>")
+		.add("empId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_empId") + "<BR/>")
+		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password1") + "<BR/>")
+		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password2") + "<BR/>")
+		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>")
+		.process().throwMode();
+		
 		if ( !this.getFields().get("password1").equals( this.getFields().get("password2") ) ) {
 			this.getFieldsId().add("password1");
 			this.getFieldsId().add("password2");
@@ -115,56 +91,19 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 		this.getFields().put("password", this.getFields().get("password1"));
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFieldsForUpdate() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"fullName"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>")
+		.process().throwMode();
 	}		
 	
-	@SuppressWarnings("unchecked")
 	private void checkFieldsForUpdatePassword() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"password1",
-							"password2",
-							"password3"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0001E_S00_password1") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001E_S00_password2") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0001E_S00_password3") + "<BR/>",
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password1") + "<BR/>")
+		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password2") + "<BR/>")
+		.add("password3", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password3") + "<BR/>")
+		.process().throwMode();
+		
 		if ( !this.getFields().get("password2").equals( this.getFields().get("password3") ) ) {
 			this.getFieldsId().add("password2");
 			this.getFieldsId().add("password3");

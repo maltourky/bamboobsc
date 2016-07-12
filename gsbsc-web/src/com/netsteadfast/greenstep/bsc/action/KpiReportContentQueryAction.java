@@ -121,31 +121,13 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 			IEmployeeService<EmployeeVO, BbEmployee, String> employeeService) {
 		this.employeeService = employeeService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid",
-							"frequency"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG003D0001Q_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG003D0001Q_frequency") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_visionOid") + "<BR/>")
+		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_frequency") + "<BR/>")
+		.process().throwMode();
+		
 		String frequency = this.getFields().get("frequency");
 		String startDate = this.getFields().get("startDate");
 		String endDate = this.getFields().get("endDate");

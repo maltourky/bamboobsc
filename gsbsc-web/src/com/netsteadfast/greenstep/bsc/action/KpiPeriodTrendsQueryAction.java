@@ -63,30 +63,12 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields(String p) throws ControllerException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid"+p,
-							"frequency"+p,
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG003D0007Q_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG003D0007Q_frequency") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("visionOid"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_visionOid") + "<BR/>")
+		.add("frequency"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_frequency") + "<BR/>")
+		.process().throwMode();
+		
 		String frequency = this.getFields().get("frequency"+p);
 		String startDate = this.getFields().get("startDate"+p);
 		String endDate = this.getFields().get("endDate"+p);

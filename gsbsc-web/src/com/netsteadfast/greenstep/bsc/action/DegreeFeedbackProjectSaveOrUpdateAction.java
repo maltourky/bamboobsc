@@ -80,30 +80,12 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.degreeFeedbackLogicService = degreeFeedbackLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"name",
-							"year",
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG005D0001A_name") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG005D0001A_year") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_name") + "<BR/>")
+		.add("year", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_year") + "<BR/>")
+		.process().throwMode();
+		
 		if (!SimpleUtils.isDate(this.getFields().get("year")+"/01/01")) {
 			this.fieldsId.add("year");
 			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg1") + "<BR/>" );
