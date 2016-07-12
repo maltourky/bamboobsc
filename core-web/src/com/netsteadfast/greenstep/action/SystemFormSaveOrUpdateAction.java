@@ -70,33 +70,12 @@ public class SystemFormSaveOrUpdateAction extends BaseJsonAction {
 		this.systemFormLogicService = systemFormLogicService;
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"formId",
-							"templateOid",
-							"name"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0013A_formId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0013A_templateOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0013A_name") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("formId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_formId") + "<BR/>")
+		.add("templateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_templateOid") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_name") + "<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

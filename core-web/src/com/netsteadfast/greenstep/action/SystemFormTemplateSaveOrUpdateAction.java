@@ -90,31 +90,12 @@ public class SystemFormTemplateSaveOrUpdateAction extends BaseJsonAction {
 			ISysFormTemplateService<SysFormTemplateVO, TbSysFormTemplate, String> sysFormTemplateService) {
 		this.sysFormTemplateService = sysFormTemplateService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException, AuthorityException, ServiceException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"tplId", 
-							"name"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0012A_tplId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0012A_name") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("tplId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_tplId") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_name") + "<BR/>")
+		.process().throwMode();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

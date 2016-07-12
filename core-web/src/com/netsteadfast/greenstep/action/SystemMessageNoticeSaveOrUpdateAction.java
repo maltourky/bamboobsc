@@ -73,42 +73,16 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 		this.systemMessageNoticeLogicService = systemMessageNoticeLogicService;
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"msgOid",
-							"noticeId", 
-							"title",
-							"date1",
-							"date2",
-							"message"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0006A_msgOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0006A_noticeId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0006A_title") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0006A_date1") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0006A_date2") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0006A_message") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							DateFieldCheckUtils.class,
-							DateFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("msgOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_msgOid") + "<BR/>")
+		.add("noticeId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_noticeId") + "<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_title") + "<BR/>")
+		.add("date1", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date1") + "<BR/>")
+		.add("date2", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date2") + "<BR/>")
+		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_message") + "<BR/>")
+		.process().throwMode();
+		
 		String date1 = this.getFields().get("date1").replaceAll("/", "").replaceAll("-", "");
 		String date2 = this.getFields().get("date2").replaceAll("/", "").replaceAll("-", "");		
 		if (Integer.parseInt(date1) > Integer.parseInt(date2)) {

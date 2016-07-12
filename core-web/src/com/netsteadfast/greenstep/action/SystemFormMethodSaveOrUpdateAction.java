@@ -91,40 +91,15 @@ public class SystemFormMethodSaveOrUpdateAction extends BaseJsonAction {
 			ISysFormMethodService<SysFormMethodVO, TbSysFormMethod, String> sysFormMethodService) {
 		this.sysFormMethodService = sysFormMethodService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"formOid",
-							"name",
-							"resultType",
-							"type",
-							"expression"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0014A_formOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0014A_name") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0014A_resultType") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0014A_type") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0014A_iframe1") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("formOid", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_formOid") + "<BR/>")
+		.add("name", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_name") + "<BR/>")
+		.add("resultType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_resultType") + "<BR/>")
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_type") + "<BR/>")
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_iframe1") + "<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

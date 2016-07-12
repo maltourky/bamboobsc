@@ -69,33 +69,13 @@ public class SystemContextBeanSaveOrUpdateAction extends BaseJsonAction {
 		this.systemContextBeanLogicService = systemContextBeanLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"systemOid",
-							"className",
-							"type"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0009A_systemOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0009A_className") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0009A_type") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0009A_systemOid") + "<BR/>")
+		.add("className", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0009A_className") + "<BR/>")
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0009A_type") + "<BR/>")
+		.process()
+		.throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

@@ -74,65 +74,22 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 		this.systemBeanHelpLogicService = systemBeanHelpLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"systemOid",
-							"beanId", 
-							"method"							
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG003D0003A_systemOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003A_beanId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003A_method") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_systemOid") + "<BR/>")
+		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_beanId") + "<BR/>")
+		.add("method", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_method") + "<BR/>")
+		.process().throwMode();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkExprFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"exprOid",
-							"exprSeq", 
-							"runType"							
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprSeq") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003E_S00_runType") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("exprOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprOid") + "<BR/>")
+		.add("exprSeq", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprSeq") + "<BR/>")
+		.add("runType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_runType") + "<BR/>")
+		.process().throwMode();
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkExprMapFields() throws ControllerException {
 		if ("true".equals(this.getFields().get("methodResultFlag"))) {
 			if (StringUtils.isBlank(this.getFields().get("varName"))) {
@@ -141,32 +98,11 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 			}
 			return;
 		}
-		
-		try {
-			super.checkFields(
-					new String[]{
-							"varName",
-							"methodParamClass", 
-							"methodParamIndex"							
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG003D0003E_S01_varName") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamClass") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamIndex") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							PositiveIntegerFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("varName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_varName") + "<BR/>")
+		.add("methodParamClass", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamClass") + "<BR/>")
+		.add("methodParamIndex", PositiveIntegerFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamIndex") + "<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

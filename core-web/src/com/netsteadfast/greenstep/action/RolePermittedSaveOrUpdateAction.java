@@ -68,30 +68,12 @@ public class RolePermittedSaveOrUpdateAction extends BaseJsonAction {
 		this.roleLogicService = roleLogicService;
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"permission",
-							"permType"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG002D0001E_S00_permission") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG002D0001E_S00_permType") + "<BR/>"
-					},					
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		super.getCheckFieldHandler()
+		.add("permission", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permission") + "<BR/>")
+		.add("permType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permType") + "<BR/>")
+		.process()
+		.throwMode();
 	}
 	
 	/**

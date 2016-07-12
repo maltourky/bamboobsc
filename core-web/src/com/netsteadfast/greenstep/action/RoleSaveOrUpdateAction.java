@@ -66,28 +66,12 @@ public class RoleSaveOrUpdateAction extends BaseJsonAction {
 	public void setRoleLogicService(IRoleLogicService roleLogicService) {
 		this.roleLogicService = roleLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"role"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG002D0001A_role") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("role", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001A_role") + "<BR/>")
+		.process()
+		.throwMode();
 	}		
 	
 	/**

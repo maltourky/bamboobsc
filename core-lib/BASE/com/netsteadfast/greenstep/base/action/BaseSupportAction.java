@@ -56,6 +56,7 @@ import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.model.AccountObj;
 import com.netsteadfast.greenstep.base.model.ActionInfoProvide;
 import com.netsteadfast.greenstep.base.model.BaseSimpleActionInfo;
+import com.netsteadfast.greenstep.base.model.CheckFieldHandler;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.IActionFieldsCheckUtils;
 import com.netsteadfast.greenstep.base.model.InterceptorSimpleActionInfo;
@@ -380,6 +381,7 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 		return Constants.MAIN_TabContainer_ID;
 	}
 	
+	@Deprecated
 	protected void checkFields(String[] fieldsName, String[] msg, 
 			Class<IActionFieldsCheckUtils>[] checkUtilsClass, String[] methodsName, List<String> fieldsId) throws ControllerException, InstantiationException, IllegalAccessException {
 		if (fieldsName==null || msg==null || checkUtilsClass==null 
@@ -423,15 +425,27 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 		}		
 	}	
 	
+	@Deprecated
 	protected void checkFields(String[] fieldsName, String[] msg, 
 			Class<IActionFieldsCheckUtils>[] checkUtilsClass, 
 			List<String> fieldsId) throws ControllerException, InstantiationException, IllegalAccessException {
 		this.checkFields(fieldsName, msg, checkUtilsClass, null, fieldsId);		
 	}
 	
+	@Deprecated
 	protected void checkFields(String[] fieldsName, String[] msg, 
 			Class<IActionFieldsCheckUtils>[] checkUtilsClass) throws ControllerException, InstantiationException, IllegalAccessException {
 		this.checkFields(fieldsName, msg, checkUtilsClass, null);
+	}
+	
+	protected CheckFieldHandler checkFields(Map<String, String> fields, List<String> fieldsId) {
+		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(fields, fieldsId);
+		return checkFieldHandler;
+	}	
+	
+	protected CheckFieldHandler checkFields(List<String> fieldsId) {
+		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(this.getFields(), fieldsId);
+		return checkFieldHandler;
 	}
 	
 	/**

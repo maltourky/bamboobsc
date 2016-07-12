@@ -76,36 +76,14 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 		this.systemProgramLogicService = systemProgramLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields(String workType) throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"CORE_PROG001D0002"+workType+"_progSystem",
-							"CORE_PROG001D0002"+workType+"_progId", 
-							"CORE_PROG001D0002"+workType+"_name", 
-							"CORE_PROG001D0002"+workType+"_url"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0002A_progSystem") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0002A_progId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0002A_name") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0002A_url") + "<BR/>",
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SysProgUrlFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("CORE_PROG001D0002"+workType+"_progSystem", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progSystem") + "<BR/>")
+		.add("CORE_PROG001D0002"+workType+"_progId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progId") + "<BR/>")
+		.add("CORE_PROG001D0002"+workType+"_name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_name") + "<BR/>")
+		.add("CORE_PROG001D0002"+workType+"_url", SysProgUrlFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_url") + "<BR/>")
+		.process().throwMode();
+		
 		String url = this.getFields().get("CORE_PROG001D0002"+workType+"_url");
 		String type = this.getFields().get("CORE_PROG001D0002"+workType+"_itemType");
 		if (MenuItemType.ITEM.equals(type) && StringUtils.isBlank(url) ) {

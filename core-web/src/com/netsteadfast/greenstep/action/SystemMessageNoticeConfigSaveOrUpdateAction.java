@@ -70,33 +70,12 @@ public class SystemMessageNoticeConfigSaveOrUpdateAction extends BaseJsonAction 
 		this.systemMessageNoticeLogicService = systemMessageNoticeLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"systemOid",
-							"msgId", 
-							"className"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0005A_system") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0005A_msgId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0005A_className") + "<BR/>",
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_system") + "<BR/>")
+		.add("msgId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_msgId") + "<BR/>")
+		.add("className", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_className") + "<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

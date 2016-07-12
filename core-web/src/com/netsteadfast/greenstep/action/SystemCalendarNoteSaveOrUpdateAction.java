@@ -87,40 +87,15 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 			ISysCalendarNoteService<SysCalendarNoteVO, TbSysCalendarNote, String> sysCalendarNoteService) {
 		this.sysCalendarNoteService = sysCalendarNoteService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"title",
-							"note",
-							"date",
-							"contact",
-							"accountOid"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0004A_title") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0004A_note") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0004A_date") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0004A_contact") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0004A_accountOid") + "<BR/>"
-					},					
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							EmailFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_title") + "<BR/>")
+		.add("note", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_note") + "<BR/>")
+		.add("date", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_date") + "<BR/>")
+		.add("contact", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_contact") + "<BR/>")
+		.add("accountOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_accountOid") + "<BR/>")
+		.process().throwMode();
 		
 		// date check
 		if ( !SimpleUtils.isDate(this.getFields().get("date")) ) {

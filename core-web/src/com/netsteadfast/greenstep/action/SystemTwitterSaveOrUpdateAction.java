@@ -87,33 +87,13 @@ public class SystemTwitterSaveOrUpdateAction extends BaseJsonAction {
 		this.sysTwitterService = sysTwitterService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"systemOid",
-							"title", 
-							"content"
-					},
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0010A_systemOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0010A_title") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0010A_content") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0010A_systemOid") + "<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0010A_title") + "<BR/>")
+		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0010A_content") + "<BR/>")
+		.process().throwMode();
+		
 		if ( this.getFields().get("content").length() > 2000 
 				|| this.getFields().get("content").indexOf("twitter") == -1
 				|| this.getFields().get("content").indexOf("data-widget-id") == -1 ) {

@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
 
+import com.netsteadfast.greenstep.base.model.CheckFieldHandler;
 import com.netsteadfast.greenstep.base.model.YesNo;
 
 public abstract class BaseJsonAction extends BaseSupportAction {
@@ -60,6 +61,10 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	
 	protected String getNoAllowMessage() {
 		return this.noAllowMessage;
+	}
+	
+	protected CheckFieldHandler getCheckFieldHandler() {
+		return super.checkFields(this.fieldsId);
 	}
 	
 	// -----------------------------------------------------

@@ -70,61 +70,21 @@ public class SystemTemplateSaveOrUpdateAction extends BaseJsonAction {
 			ISystemTemplateLogicService systemTemplateLogicService) {
 		this.systemTemplateLogicService = systemTemplateLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"templateId", 
-							"title",
-							"message"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0007A_templateId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0007A_title") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0007A_message") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("templateId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_templateId") + "<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_title") + "<BR/>")
+		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_message") + "<BR/>")
+		.process().throwMode();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFieldsForParamEdit() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"templateVar", 
-							"objectVar"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0007E_S00_templateVar") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0007E_S00_objectVar") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
-	}	
+		this.getCheckFieldHandler()
+		.add("templateVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_templateVar") + "<BR/>")
+		.add("objectVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_objectVar") + "<BR/>")
+		.process().throwMode();
+	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();

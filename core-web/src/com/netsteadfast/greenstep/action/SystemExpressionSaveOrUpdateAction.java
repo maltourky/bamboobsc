@@ -91,37 +91,14 @@ public class SystemExpressionSaveOrUpdateAction extends BaseJsonAction {
 			ISysExpressionService<SysExpressionVO, TbSysExpression, String> sysExpressionService) {
 		this.sysExpressionService = sysExpressionService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"type",
-							"exprId", 
-							"name",
-							"content"
-					},
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG003D0002A_type") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0002A_exprId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0002A_name") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0002A_iframe1") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}		
+		this.getCheckFieldHandler()
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_type") + "<BR/>")
+		.add("exprId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_exprId") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_name") + "<BR/>")
+		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_iframe1") + "<BR/>")
+		.process().throwMode();
 		if (Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("exprId"))) {
 			this.getFieldsId().add("exprId");
 			throw new ControllerException( this.getText("MESSAGE.CORE_PROG003D0002A_exprId_msg1") + "<BR/>" );				

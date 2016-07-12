@@ -72,33 +72,13 @@ public class SystemWsConfigSaveOrUpdateAction extends BaseJsonAction {
 		this.systemWebServiceConfigLogicService = systemWebServiceConfigLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"systemOid",
-							"wsId", 
-							"beanId"
-					},
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG003D0001A_systemOid") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0001A_wsId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG003D0001A_beanId") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_systemOid") + "<BR/>")
+		.add("wsId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_wsId") + "<BR/>")
+		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_beanId") + "<BR/>")
+		.process().throwMode();
+		
 		if (WSConfig.TYPE_SOAP.equals(this.getFields().get("type")) 
 				&& StringUtils.isBlank(this.getFields().get("publishAddress")) ) {
 			this.getFieldsId().add("publishAddress");

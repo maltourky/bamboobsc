@@ -109,60 +109,20 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	public void setRoleService(IRoleService<RoleVO, TbRole, String> roleService) {
 		this.roleService = roleService;
 	}	
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"id",
-							"name"
-					}, 
-					new String[]{
-							"Id is required!<BR/>",
-							"Name is required!<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("id", NotBlankFieldCheckUtils.class, "Id is required!<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, "Name is required!<BR/>")
+		.process().throwMode();
 	}	
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields2() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"resourceOid",
-							"roleOid",
-							"taskName"
-					}, 
-					new String[]{
-							"Please select resource!<BR/>",
-							"Please select role!<BR/>",
-							"Task-name is required!"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("resourceOid", SelectItemFieldCheckUtils.class, "Please select resource!<BR/>")
+		.add("roleOid", SelectItemFieldCheckUtils.class, "Please select role!<BR/>")
+		.add("taskName", NotBlankFieldCheckUtils.class, "Task-name is required!<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void selfTestUploadResourceData() throws ControllerException, AuthorityException, ServiceException, Exception {

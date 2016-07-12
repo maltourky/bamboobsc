@@ -54,30 +54,12 @@ public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"mailFrom",
-							"mailFrom"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg1") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg2") + "<BR/>"
-					}, 
-					new Class[]{
-							EmailFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("mailFrom", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg1") + "<BR/>")
+		.add("mailFrom", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg2") + "<BR/>")
+		.process()
+		.throwMode();
 	}		
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {

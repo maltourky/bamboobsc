@@ -75,55 +75,19 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 			ISystemJreportLogicService systemJreportLogicService) {
 		this.systemJreportLogicService = systemJreportLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"reportId"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0008A_reportId") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("reportId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008A_reportId") + "<BR/>")
+		.process().throwMode();
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkParamFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"rptParam",
-							"urlParam"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0008E_S00_rptParam") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0008E_S00_urlParam") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							IdFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
-	}		
+		this.getCheckFieldHandler()
+		.add("rptParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_rptParam") + "<BR/>")
+		.add("urlParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_urlParam") + "<BR/>")
+		.process().throwMode();
+	}
 	
 	private void selfTestUploadReportData() throws ControllerException, AuthorityException, ServiceException, Exception {
 		String uploadOid = super.getFields().get("uploadOid");

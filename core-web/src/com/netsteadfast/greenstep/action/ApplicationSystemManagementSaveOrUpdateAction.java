@@ -71,40 +71,18 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		this.applicationSystemLogicService = applicationSystemLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"sysId",
-							"name",
-							"host",
-							"contextPath"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.CORE_PROG001D0001A_sysId") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0001A_name") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0001A_host") + "<BR/>",
-							this.getText("MESSAGE.CORE_PROG001D0001A_contextPath")
-					}, 
-					new Class[]{
-							NormalFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		super.getCheckFieldHandler()
+		.add("sysId", 		NormalFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_sysId") + "<BR/>")
+		.add("name", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_name") + "<BR/>")
+		.add("host", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_host") + "<BR/>")
+		.add("contextPath", NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_contextPath") + "<BR/>")
+		.process()
+		.throwMode();
 		if (Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ) { // id cann't euqals all
 			this.getFieldsId().add("sysId");
-			throw new ControllerException("ID is incorrect, please change another!");	
-		}		
+			throw new ControllerException("ID is incorrect, please change another!<BR/>");	
+		}
 	}
 	
 	/**
