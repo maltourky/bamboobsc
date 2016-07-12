@@ -94,6 +94,24 @@ public class CheckFieldHandler {
 		return this;
 	}
 	
+	public CheckFieldHandler single(String fieldsName, boolean checkResult, String message) {
+		if (this.actionFieldsId == null) {
+			this.actionFieldsId = new LinkedList<String>();
+		}
+		if (!checkResult) {
+			return this;
+		}
+		String name[] = fieldsName.replaceAll(" ", "").split("|");
+		for (int i=0; i<name.length; i++) {
+			if (StringUtils.isBlank(name[i])) {
+				continue;
+			}
+			actionFieldsId.add( name[i].trim() );
+		}
+		msg.append( StringUtils.defaultString(message) );
+		return this;
+	}
+	
 	public String getMessage() {
 		return this.msg.toString();
 	}

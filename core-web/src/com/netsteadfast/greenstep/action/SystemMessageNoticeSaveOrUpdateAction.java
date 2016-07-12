@@ -84,24 +84,25 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 		.process().throwMode();
 		
 		String date1 = this.getFields().get("date1").replaceAll("/", "").replaceAll("-", "");
-		String date2 = this.getFields().get("date2").replaceAll("/", "").replaceAll("-", "");		
-		if (Integer.parseInt(date1) > Integer.parseInt(date2)) {
-			this.getFieldsId().add("date1");
-			this.getFieldsId().add("date2");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0006A_dateRange") + "<BR/>" );
-		}
-		if ( Integer.parseInt( this.getFields().get("startHour")+this.getFields().get("startMinutes") ) 
-				> Integer.parseInt( this.getFields().get("endHour")+this.getFields().get("endMinutes") ) ) {
-			this.getFieldsId().add("startHour");
-			this.getFieldsId().add("startMinutes");
-			this.getFieldsId().add("endHour");
-			this.getFieldsId().add("endMinutes");			
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0006A_timeRange") + "<BR/>" );			
-		}
-		if (!"true".equals(this.getFields().get("isGlobal")) && this.isNoSelectId(this.getFields().get("toAccountOid"))) {
-			this.getFieldsId().add("toAccountOid");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0006A_toAccountOid") + "<BR/>" );
-		}
+		String date2 = this.getFields().get("date2").replaceAll("/", "").replaceAll("-", "");	
+		this.getCheckFieldHandler().single(
+				"date1|date2", 
+				(Integer.parseInt(date1) > Integer.parseInt(date2)), 
+				this.getText("MESSAGE.CORE_PROG001D0006A_dateRange") + "<BR/>")
+		.throwMode();
+		
+		this.getCheckFieldHandler().single(
+				"startHour|startMinutes|endHour|endMinutes", 
+				( Integer.parseInt( this.getFields().get("startHour")+this.getFields().get("startMinutes") ) > Integer.parseInt( this.getFields().get("endHour")+this.getFields().get("endMinutes") ) ), 
+				this.getText("MESSAGE.CORE_PROG001D0006A_timeRange") + "<BR/>")
+		.throwMode();
+		
+		this.getCheckFieldHandler().single(
+				"toAccountOid", 
+				(!"true".equals(this.getFields().get("isGlobal")) && this.isNoSelectId(this.getFields().get("toAccountOid"))), 
+				this.getText("MESSAGE.CORE_PROG001D0006A_toAccountOid") + "<BR/>")
+		.throwMode();
+		
 	}	
 	
 	private String getNoticeDate() {

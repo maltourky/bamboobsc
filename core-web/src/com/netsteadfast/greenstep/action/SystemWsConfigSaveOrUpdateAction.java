@@ -79,11 +79,11 @@ public class SystemWsConfigSaveOrUpdateAction extends BaseJsonAction {
 		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_beanId") + "<BR/>")
 		.process().throwMode();
 		
-		if (WSConfig.TYPE_SOAP.equals(this.getFields().get("type")) 
-				&& StringUtils.isBlank(this.getFields().get("publishAddress")) ) {
-			this.getFieldsId().add("publishAddress");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG003D0001A_publishAddress") + "<BR/>" );
-		}
+		this.getCheckFieldHandler().single(
+				"publishAddress", 
+				( WSConfig.TYPE_SOAP.equals(this.getFields().get("type")) && StringUtils.isBlank(this.getFields().get("publishAddress")) ), 
+				this.getText("MESSAGE.CORE_PROG003D0001A_publishAddress") + "<BR/>")
+		.throwMode();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

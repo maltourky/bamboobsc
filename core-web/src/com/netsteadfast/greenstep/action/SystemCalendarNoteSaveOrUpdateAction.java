@@ -98,10 +98,11 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 		.process().throwMode();
 		
 		// date check
-		if ( !SimpleUtils.isDate(this.getFields().get("date")) ) {
-			this.getFieldsId().add("date");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0004A_date") );				
-		}
+		this.getCheckFieldHandler().single(
+				"date", 
+				( !SimpleUtils.isDate(this.getFields().get("date")) ), 
+				this.getText("MESSAGE.CORE_PROG001D0004A_date")
+		).throwMode();
 		
 		// time check
 		String time = super.defaultString( this.getFields().get("time") );

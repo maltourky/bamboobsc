@@ -92,10 +92,12 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkExprMapFields() throws ControllerException {
 		if ("true".equals(this.getFields().get("methodResultFlag"))) {
-			if (StringUtils.isBlank(this.getFields().get("varName"))) {
-				this.getFieldsId().add("varName");
-				throw new ControllerException("Variable is required!<BR/>");
-			}
+			this.getCheckFieldHandler()
+			.single(
+					"varName", 
+					( StringUtils.isBlank(this.getFields().get("varName")) ), 
+					"Variable is required!<BR/>"
+			).throwMode();
 			return;
 		}
 		this.getCheckFieldHandler()

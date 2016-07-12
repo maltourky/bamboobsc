@@ -79,10 +79,14 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		.add("contextPath", NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_contextPath") + "<BR/>")
 		.process()
 		.throwMode();
-		if (Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ) { // id cann't euqals all
-			this.getFieldsId().add("sysId");
-			throw new ControllerException("ID is incorrect, please change another!<BR/>");	
-		}
+		
+		// id cann't euqals all
+		super.getCheckFieldHandler()
+		.single(
+				"sysId", 
+				( Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ), 
+				"ID is incorrect, please change another!<BR/>"
+		).throwMode();
 	}
 	
 	/**

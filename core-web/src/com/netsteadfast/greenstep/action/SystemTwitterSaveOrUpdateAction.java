@@ -94,12 +94,11 @@ public class SystemTwitterSaveOrUpdateAction extends BaseJsonAction {
 		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0010A_content") + "<BR/>")
 		.process().throwMode();
 		
-		if ( this.getFields().get("content").length() > 2000 
-				|| this.getFields().get("content").indexOf("twitter") == -1
-				|| this.getFields().get("content").indexOf("data-widget-id") == -1 ) {
-			this.getFieldsId().add("content");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0010A_contentTwitterWidget") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single(
+				"content", 
+				( this.getFields().get("content").length() > 2000 || this.getFields().get("content").indexOf("twitter") == -1 || this.getFields().get("content").indexOf("data-widget-id") == -1 ), 
+				this.getText("MESSAGE.CORE_PROG001D0010A_contentTwitterWidget") + "<BR/>")
+		.throwMode();
 	}	
 	
 	private SysVO findSys() throws ServiceException, Exception {		
