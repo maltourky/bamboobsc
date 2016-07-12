@@ -75,27 +75,11 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 		this.dataQueryMapperLogicService = dataQueryMapperLogicService;
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"name"
-					}, 
-					new String[]{						
-							this.getText("MESSAGE.QCHARTS_PROG001D0002A_name") + "<BR/>"					
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0002A_name") + "<BR/>")
+		.process().throwMode();
+		
 		if (StringUtils.isBlank(this.getFields().get("appendFields"))) {
 			this.getFieldsId().add("labelField");
 			this.getFieldsId().add("valueField");

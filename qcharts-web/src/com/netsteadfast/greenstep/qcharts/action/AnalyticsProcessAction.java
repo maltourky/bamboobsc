@@ -146,34 +146,13 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		catalog = result.getValue();		
 		return catalog;
 	}
-
-	@SuppressWarnings("unchecked")
-	private void checkFields() throws ControllerException {		
-		try {
-			super.checkFields(
-					new String[]{
-							"configOid",
-							"catalogOid",
-							"expression"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") + "<BR/>"									
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+	
+	private void checkFields() throws ControllerException {
+		this.getCheckFieldHandler()
+		.add("configOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") + "<BR/>")
+		.add("catalogOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") + "<BR/>")
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") + "<BR/>")
+		.process().throwMode();
 	}		
 	
 	private void rendererHtml(File catalogFile) throws ControllerException, AuthorityException, ServiceException, Exception {

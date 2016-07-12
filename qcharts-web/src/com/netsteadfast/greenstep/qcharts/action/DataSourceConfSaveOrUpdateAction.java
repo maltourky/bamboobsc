@@ -69,43 +69,16 @@ public class DataSourceConfSaveOrUpdateAction extends BaseJsonAction {
 			IDataSourceLogicService dataSourceLogicService) {
 		this.dataSourceLogicService = dataSourceLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"driverOid",
-							"id",
-							"name",
-							"jdbcUrl",
-							"dbAccount",
-							"dbPassword"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_driverOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_id") + "<BR/>",							
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_name") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_jdbcUrl") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbAccount") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbPassword") + "<BR/>"							
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("driverOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_driverOid") + "<BR/>")
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_id") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_name") + "<BR/>")
+		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_jdbcUrl") + "<BR/>")
+		.add("dbAccount", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbAccount") + "<BR/>")
+		.add("dbPassword", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbPassword") + "<BR/>")
+		.process().throwMode();
 	}		
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

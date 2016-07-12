@@ -81,63 +81,21 @@ public class QueryDataAction extends BaseJsonAction {
 			IDataQueryLogicService dataQueryLogicService) {
 		this.dataQueryLogicService = dataQueryLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"dataSourceConfOid",
-							"queryExpression"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>"									
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>")
+		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
+		.process().throwMode();
 	}		
 	
-	@SuppressWarnings("unchecked")
 	private void checkFieldsForCreate() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"dataSourceConfOid",
-							"dataQueryMapperOid",
-							"name",
-							"queryExpression"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>"									
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>")
+		.add("dataQueryMapperOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>")
+		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
+		.process().throwMode();
 	}		
 	
 	private void query() throws ControllerException, AuthorityException, ServiceException, Exception {

@@ -72,31 +72,12 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 		this.analyticsCatalogLogicService = analyticsCatalogLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void checkFields() throws ControllerException {		
-		try {
-			super.checkFields(
-					new String[]{
-							"id",
-							"name"
-					}, 
-					new String[]{						
-							this.getText("MESSAGE.QCHARTS_PROG001D0004A_id") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0004A_name") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
-	}			
+	private void checkFields() throws ControllerException {
+		this.getCheckFieldHandler()
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_id") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_name") + "<BR/>")
+		.process().throwMode();
+	}
 	
 	private void checkUploadCatalog() throws ControllerException, AuthorityException, ServiceException, Exception {
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {

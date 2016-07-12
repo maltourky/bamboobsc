@@ -68,38 +68,15 @@ public class AnalyticsConfigSaveOrUpdateAction extends BaseJsonAction {
 			IAnalyticsConfigLogicService analyticsConfigLogicService) {
 		this.analyticsConfigLogicService = analyticsConfigLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
-	private void checkFields() throws ControllerException {		
-		try {
-			super.checkFields(
-					new String[]{
-							"id",
-							"name",
-							"jdbcDrivers",
-							"jdbcUrl"
-					}, 
-					new String[]{						
-							this.getText("MESSAGE.QCHARTS_PROG001D0003A_id") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0003A_name") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcDrivers") + "<BR/>",
-							this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcUrl") + "<BR/>"							
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
-	}		
+	
+	private void checkFields() throws ControllerException {
+		this.getCheckFieldHandler()
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_id") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_name") + "<BR/>")
+		.add("jdbcDrivers", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcDrivers") + "<BR/>")
+		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcUrl") + "<BR/>")
+		.process().throwMode();
+	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
