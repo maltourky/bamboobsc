@@ -101,7 +101,7 @@ public class CheckFieldHandler {
 		if (!checkResult) {
 			return this;
 		}
-		String name[] = fieldsName.replaceAll(" ", "").split("|");
+		String name[] = fieldsName.replaceAll(" ", "").split("[|]");
 		for (int i=0; i<name.length; i++) {
 			if (StringUtils.isBlank(name[i])) {
 				continue;
