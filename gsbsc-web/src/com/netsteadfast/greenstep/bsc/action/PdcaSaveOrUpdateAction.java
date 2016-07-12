@@ -83,36 +83,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		this.pdcaLogicService = pdcaLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"title",
-							"startDate",
-							"endDate",
-							"measureFreq_frequency"
-					}, 
-					new String[]{
-							"Title is required!<BR/>",
-							"Start-date is required!<BR/>",
-							"End-date is required!<BR/>",
-							"Measure settings, Please select frequency!<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							DateDisplayFieldCheckUtils.class,
-							DateDisplayFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("title", NotBlankFieldCheckUtils.class, "Title is required!<BR/>")
+		.add("startDate", DateDisplayFieldCheckUtils.class, "Start-date is required!<BR/>")
+		.add("endDate", DateDisplayFieldCheckUtils.class, "End-date is required!<BR/>")
+		.add("measureFreq_frequency", SelectItemFieldCheckUtils.class, "Measure settings, Please select frequency!<BR/>")
+		.process().throwMode();
 		
 		String startDate = this.getFields().get("startDate");
 		String endDate = this.getFields().get("endDate");

@@ -56,30 +56,11 @@ public class SwotContentQueryAction extends BaseJsonAction {
 		super();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid",
-							"organizationOid"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>")
+		.add("organizationOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>")
+		.process().throwMode();	
 	}
 	
 	@SuppressWarnings("unchecked")

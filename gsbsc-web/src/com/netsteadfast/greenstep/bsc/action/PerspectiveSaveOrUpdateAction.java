@@ -70,39 +70,14 @@ public class PerspectiveSaveOrUpdateAction extends BaseJsonAction {
 		this.perspectiveLogicService = perspectiveLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid",
-							"name",
-							"weight",
-							"target",
-							"min"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG002D0002A_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0002A_name") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0002A_weight") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0002A_target") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0002A_min") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0002A_visionOid") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0002A_name") + "<BR/>")
+		.add("weight", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0002A_weight") + "<BR/>")
+		.add("target", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0002A_target") + "<BR/>")
+		.add("min", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0002A_min") + "<BR/>")
+		.process().throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

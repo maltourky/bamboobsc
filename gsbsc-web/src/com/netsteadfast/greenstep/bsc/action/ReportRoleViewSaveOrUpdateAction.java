@@ -66,28 +66,11 @@ public class ReportRoleViewSaveOrUpdateAction extends BaseJsonAction {
 			IReportRoleViewLogicService reportRoleViewLogicService) {
 		this.reportRoleViewLogicService = reportRoleViewLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"roleOid"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG004D0003Q_roleOid") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("roleOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0003Q_roleOid") + "<BR/>")
+		.process().throwMode();		
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

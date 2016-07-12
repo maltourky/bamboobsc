@@ -74,34 +74,13 @@ public class WorkspaceSettingsSaveOrUpdateAction extends BaseJsonAction {
 			IWorkspaceLogicService workspaceLogicService) {
 		this.workspaceLogicService = workspaceLogicService;
 	}
-
-	@SuppressWarnings("unchecked")
-	private void checkFields() throws ControllerException {		
-		try {
-			super.checkFields(
-					new String[]{
-							"workspaceId",
-							"workspaceName",
-							"workspaceTemplateOid"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG004D0002A_workspaceId") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0002A_workspaceName") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0002A_workspaceTemplateOid") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,							
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+	
+	private void checkFields() throws ControllerException {	
+		this.getCheckFieldHandler()
+		.add("workspaceId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceId") + "<BR/>")
+		.add("workspaceName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceName") + "<BR/>")
+		.add("workspaceTemplateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceTemplateOid") + "<BR/>")
+		.process().throwMode();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -85,31 +85,13 @@ public class OrganizationSaveOrUpdateAction extends BaseJsonAction {
 			IOrganizationService<OrganizationVO, BbOrganization, String> organizationService) {
 		this.organizationService = organizationService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"orgId",
-							"name"				
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0002Q_orgId") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG001D0002Q_name") + "<BR/>"
-					}, 
-					new Class[]{
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("orgId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_orgId") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_name") + "<BR/>")
+		.process().throwMode();
+		
 		if ( super.defaultString( super.getFields().get("address") ).length() > 500 ) {
 			this.getFieldsId().add("address");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0002Q_address") + "<BR/>");

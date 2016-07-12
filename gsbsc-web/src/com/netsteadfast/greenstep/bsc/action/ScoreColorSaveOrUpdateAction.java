@@ -74,27 +74,11 @@ public class ScoreColorSaveOrUpdateAction extends BaseJsonAction {
 		this.scoreColorService = scoreColorService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"score"			
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG001D0004Q_score") + "<BR/>"
-					}, 
-					new Class[]{
-							BscNumberFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("score", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0004Q_score") + "<BR/>")
+		.process().throwMode();
+		
 		if ( NumberUtils.toLong(this.getFields().get("score"), 0) < BscConstants.SCORE_COLOR_MIN_VALUE ) {
 			this.getFieldsId().add("score");
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg1") + " " + BscConstants.SCORE_COLOR_MIN_VALUE + "<BR/>");

@@ -78,36 +78,14 @@ public class PersonalReportContentQueryAction extends BaseJsonAction {
 		this.employeeService = employeeService;
 	}	
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid",
-							"frequency",
-							"employeeOid",
-							"dateType"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG003D0002Q_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG003D0002Q_frequency") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG003D0002Q_employeeOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG003D0002Q_dateType") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_visionOid") + "<BR/>")
+		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_frequency") + "<BR/>")
+		.add("employeeOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_employeeOid") + "<BR/>")
+		.add("dateType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_dateType") + "<BR/>")
+		.process().throwMode();
+		
 		String frequency = this.getFields().get("frequency");
 		String dateType = this.getFields().get("dateType");
 		if ( "3".equals(dateType) && !"6".equals(frequency) ) { // year

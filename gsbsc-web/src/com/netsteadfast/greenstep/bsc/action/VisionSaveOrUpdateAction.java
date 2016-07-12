@@ -67,30 +67,11 @@ public class VisionSaveOrUpdateAction extends BaseJsonAction {
 		this.visionLogicService = visionLogicService;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"title",
-							"content"				
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG002D0001A_title") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0001A_content") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_title") + "<BR/>")
+		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_content") + "<BR/>")
+		.process().throwMode();	
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

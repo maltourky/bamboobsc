@@ -94,73 +94,27 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 			ISysExpressionService<SysExpressionVO, TbSysExpression, String> sysExpressionService) {
 		this.sysExpressionService = sysExpressionService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"visionOid",
-							"perspectiveOid",
-							"objectiveOid",
-							"id",
-							"name",
-							"formulaOid",
-							"trendsFormulaOid",
-							"weight",
-							"max",
-							"target",
-							"min",
-							"compareType",
-							"unit",
-							"management",
-							"cal",
-							"dataType"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG002D0004A_visionOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_perspectiveOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_objectiveOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_id") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_name") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_formulaOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_trendsFormulaOid") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_weight") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_max") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_target") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_min") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_compareType") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_unit") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_management") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_cal") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							IdFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							BscNumberFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class,
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}	
+		this.getCheckFieldHandler()
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_visionOid") + "<BR/>")
+		.add("perspectiveOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_perspectiveOid") + "<BR/>")
+		.add("objectiveOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_objectiveOid") + "<BR/>")
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_id") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_name") + "<BR/>")
+		.add("formulaOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_formulaOid") + "<BR/>")
+		.add("trendsFormulaOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_trendsFormulaOid") + "<BR/>")
+		.add("weight", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_weight") + "<BR/>")
+		.add("max", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_max") + "<BR/>")
+		.add("target", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_target") + "<BR/>")
+		.add("min", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_min") + "<BR/>")
+		.add("compareType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_compareType") + "<BR/>")
+		.add("unit", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_unit") + "<BR/>")
+		.add("management", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_management") + "<BR/>")
+		.add("cal", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_cal") + "<BR/>")
+		.add("dataType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>")
+		.process().throwMode();
+		
 		String dataType = this.getFields().get("dataType");
 		if (BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ) {
 			this.getFieldsId().add("dataType");

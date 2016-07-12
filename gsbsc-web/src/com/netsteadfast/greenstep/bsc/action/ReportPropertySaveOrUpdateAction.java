@@ -71,43 +71,17 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 			ISysCodeService<SysCodeVO, TbSysCode, String> sysCodeService) {
 		this.sysCodeService = sysCodeService;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException {
-		try {
-			super.checkFields(
-					new String[]{
-							"backgroundColor",
-							"fontColor",
-							"perspectiveTitle",
-							"objectiveTitle",
-							"kpiTitle",
-							"classNote"
-					}, 
-					new String[]{
-							this.getText("MESSAGE.BSC_PROG004D0001Q_backgroundColor") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0001Q_fontColor") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0001Q_perspectiveTitle") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") + "<BR/>",
-							this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") + "<BR/>"
-					}, 
-					new Class[]{
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class,
-							NotBlankFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}			
+		this.getCheckFieldHandler()
+		.add("backgroundColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_backgroundColor") + "<BR/>")
+		.add("fontColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_fontColor") + "<BR/>")
+		.add("perspectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_perspectiveTitle") + "<BR/>")
+		.add("objectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") + "<BR/>")
+		.add("kpiTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") + "<BR/>")
+		.add("classNote", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") + "<BR/>")
+		.process().throwMode();
+		
 		String classNote = this.getFields().get("classNote");
 		if (classNote.length()>100) {
 			this.getFieldsId().add("classNote");

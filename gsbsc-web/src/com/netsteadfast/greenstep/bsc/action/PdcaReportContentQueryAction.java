@@ -130,28 +130,11 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	public void setPdcaLogicService(IPdcaLogicService pdcaLogicService) {
 		this.pdcaLogicService = pdcaLogicService;
 	}	
-
-	@SuppressWarnings("unchecked")
+	
 	private void checkFields() throws ControllerException, Exception {
-		try {
-			super.checkFields(
-					new String[]{
-							"pdcaOid"
-					}, 
-					new String[]{
-							"Please select PDCA project!<BR/>"
-					}, 
-					new Class[]{
-							SelectItemFieldCheckUtils.class
-					},
-					this.getFieldsId() );			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			throw new ControllerException(e.getMessage().toString());
-		}
+		this.getCheckFieldHandler()
+		.add("pdcaOid", SelectItemFieldCheckUtils.class, "Please select PDCA project!<BR/>")
+		.process().throwMode();
 	}
 	
 	@SuppressWarnings("unchecked")
