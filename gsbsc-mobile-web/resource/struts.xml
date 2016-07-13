@@ -16,8 +16,9 @@
 	<constant name="struts.multipart.maxSize" value="8388608" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
-	<constant name="struts.action.excludePattern" value="/jsp/webui/.*,/dwr/.*,/services/.*,/spring3mvc-controller/.*,/dojo_demo_data/.*" />		
-			
+	<constant name="struts.action.excludePattern" value="/jsp/webui/.*,/dwr/.*,/services/.*,/spring3mvc-controller/.*,/dojo_demo_data/.*" />
+	<constant name="struts.allowed.action.names" value="[a-zA-Z0-9.]*" />
+	
 	<include file="struts-default.xml" />		
 	<include file="struts/struts-bsc-mobile.xml" />	
 	

@@ -150,18 +150,18 @@ function redirectLogin(sel) {
         <s:if test=" \"Y\" == loginCaptchaCodeEnable ">        
         <tr>
           <td width="160" align="right"><img src="./kaptcha.jpg?n=<%=System.currentTimeMillis()%>"/></td>
-          <td width="160" align="left"><s:textfield name="captcha" id="captcha" maxLength="12" maxSize="12" theme="simple"/></td>      
+          <td width="160" align="left"><s:textfield name="captcha" id="captcha" maxlength="12" maxSize="12" theme="simple"/></td>      
         </tr>         
 		</s:if>
 		<!-- ##### -->
 		
         <tr>  
           <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_username')"/>:</span></td>
-          <td width="160" align="left"><s:textfield name="username" id="username" maxLength="12" maxSize="12" theme="simple"/></td>
+          <td width="160" align="left"><s:textfield name="username" id="username" maxlength="12" maxSize="12" theme="simple"/></td>
         </tr>
         <tr> 
           <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_password')"/>:</span></td>
-          <td width="160" align="left"><s:password name="password" id="password" maxLength="25" maxSize="12" theme="simple"/></td>
+          <td width="160" align="left"><s:password name="password" id="password" maxlength="25" maxSize="12" theme="simple"/></td>
         </tr>        
         <tr>         
           <td width="320" align="center" colspan="2"><s:submit key="LOGIN_btnLogin" theme="simple" id="btnLogin" name="btnLogin" onclick="submit_login();" cssClass="lighter"/></td>          
