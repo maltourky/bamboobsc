@@ -1,16 +1,15 @@
 Struts2
 -------------------------
 commons-logging-1.1.3.jar
-commons-io-2.2.jar (change to commons-io-2.4.jar  )
-commons-fileupload-1.3.1.jar
-ognl-3.0.14.jar
-freemarker-2.3.22
-struts2-core-2.3.28.1.jar
-struts2-jasperreports-plugin-2.3.28.1.jar
-struts2-jfreechart-plugin-2.3.28.1.jar
-struts2-json-plugin-2.3.28.1.jar
-struts2-spring-plugin-2.3.28.1.jar
-xwork-core-2.3.28.1.jar
+commons-io-2.4.jar
+commons-fileupload-1.3.2.jar
+freemarker-2.3.23.jar
+ognl-3.1.10.jar
+struts2-core-2.5.2.jar
+struts2-jasperreports-plugin-2.5.2.jar
+struts2-jfreechart-plugin-2.5.2.jar
+struts2-json-plugin-2.5.2.jar
+struts2-spring-plugin-2.5.2.jar
 
 
 Spring4
@@ -99,6 +98,8 @@ javassist-3.18.1-GA.jar
 log4j
 -------------------------
 log4j-1.2.17.jar
+log4j-core-2.5.jar
+log4j-api-2.5.jar
 
 
 slf4j
