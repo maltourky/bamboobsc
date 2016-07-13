@@ -78,16 +78,15 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>")
 		.process().throwMode();
 		
-		if ( !this.getFields().get("password1").equals( this.getFields().get("password2") ) ) {
-			this.getFieldsId().add("password1");
-			this.getFieldsId().add("password2");
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg1") + "<BR/>");
-		}
-		if ( this.getFields().get("password1").length() < 4 || this.getFields().get("password1").length() > 14 ) {
-			this.getFieldsId().add("password1");
-			this.getFieldsId().add("password2");			
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg2") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single(
+				"password1|password2", 
+				( !this.getFields().get("password1").equals( this.getFields().get("password2") ) ), 
+				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg1") + "<BR/>").throwMode();
+		this.getCheckFieldHandler().single(
+				"password1|password2", 
+				( this.getFields().get("password1").length() < 4 || this.getFields().get("password1").length() > 14 ), 
+				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg2") + "<BR/>").throwMode();
+		
 		this.getFields().put("password", this.getFields().get("password1"));
 	}	
 	
@@ -104,16 +103,15 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 		.add("password3", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password3") + "<BR/>")
 		.process().throwMode();
 		
-		if ( !this.getFields().get("password2").equals( this.getFields().get("password3") ) ) {
-			this.getFieldsId().add("password2");
-			this.getFieldsId().add("password3");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg1") + "<BR/>");
-		}
-		if ( this.getFields().get("password2").length() < 4 || this.getFields().get("password2").length() > 14 ) {
-			this.getFieldsId().add("password2");
-			this.getFieldsId().add("password3");			
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg2") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single(
+				"password2|password3", 
+				( !this.getFields().get("password2").equals( this.getFields().get("password3") ) ), 
+				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg1") + "<BR/>").throwMode();
+		this.getCheckFieldHandler().single(
+				"password2|password3", 
+				( this.getFields().get("password2").length() < 4 || this.getFields().get("password2").length() > 14 ), 
+				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg2") + "<BR/>").throwMode();
+		
 		this.getFields().put("password", this.getFields().get("password1"));		
 	}
 	

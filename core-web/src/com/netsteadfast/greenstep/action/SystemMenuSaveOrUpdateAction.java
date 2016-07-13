@@ -67,11 +67,11 @@ public class SystemMenuSaveOrUpdateAction extends BaseJsonAction {
 	}
 
 	private void checkFields() throws ControllerException {
-		if (super.isNoSelectId(this.getFields().get("sysProgOid")) ) {
-			this.getFieldsId().add("CORE_PROG001D0003Q_sysProg");
-			throw new ControllerException("Please select a Folder program item!");	
-		}		
-	}	
+		this.getCheckFieldHandler().single(
+				"CORE_PROG001D0003Q_sysProg", 
+				( super.isNoSelectId(this.getFields().get("sysProgOid")) ), 
+				"Please select a Folder program item!").throwMode();
+	}
 	
 	/**
 	 * 儲存或更新 TB_SYS_MENU

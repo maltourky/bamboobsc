@@ -56,10 +56,10 @@ public class WeightContentQueryAction extends BaseJsonAction {
 	
 	@SuppressWarnings("unchecked")
 	private void renderBody() throws ControllerException, ServiceException, Exception {
-		if (super.isNoSelectId(this.getFields().get("visionOid")) ) {
-			this.getFieldsId().add("visionOid");
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single(
+				"visionOid", 
+				( super.isNoSelectId(this.getFields().get("visionOid")) ), 
+				this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") + "<BR/>").throwMode();
 		SimpleChain simpleChanin = new SimpleChain();
 		Context context = new ContextBase();
 		context.put("visionOid", this.getFields().get("visionOid") );

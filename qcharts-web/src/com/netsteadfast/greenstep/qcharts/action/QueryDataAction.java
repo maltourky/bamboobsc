@@ -106,19 +106,22 @@ public class QueryDataAction extends BaseJsonAction {
 		String dataQueryMapperOid = this.getFields().get("dataQueryMapperOid");
 		String dataQueryMapperSetOid = this.getFields().get("dataQueryMapperSetOid");
 		String name = this.getFields().get("name");
-		if ( ("2".equals(queryType) || "3".equals(queryType)) && StringUtils.isBlank(name) ) {
-			this.getFieldsId().add("name");
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>" );
-		}
-		if ( "2".equals(queryType) && (this.isNoSelectId(dataQueryMapperOid) || this.isNoSelectId(dataQueryMapperSetOid)) ) {
-			this.getFieldsId().add("dataQueryMapperOid");
-			this.getFieldsId().add("dataQueryMapperSetOid");
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg1") + "<BR/>" );
-		}
-		if ( ("3".equals(queryType) || "4".equals(queryType)) && this.isNoSelectId(dataQueryMapperOid) ) {
-			this.getFieldsId().add("dataQueryMapperOid");
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>" );			
-		}
+		
+		this.getCheckFieldHandler()
+		.single(
+				"name", 
+				( ("2".equals(queryType) || "3".equals(queryType)) && StringUtils.isBlank(name) ), 
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>")
+		.single(
+				"dataQueryMapperOid|dataQueryMapperSetOid", 
+				( "2".equals(queryType) && (this.isNoSelectId(dataQueryMapperOid) || this.isNoSelectId(dataQueryMapperSetOid)) ), 
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg1") + "<BR/>")
+		.single(
+				"dataQueryMapperOid", 
+				( ("3".equals(queryType) || "4".equals(queryType)) && this.isNoSelectId(dataQueryMapperOid) ), 
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
+		.throwMode();
+		
 		this.searchDatas = QueryDataUtils.query(dataSourceConfOid, queryExpression);
 		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg2") + "<BR/>";
 		if (this.searchDatas!=null) {

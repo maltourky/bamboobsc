@@ -80,12 +80,11 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0002A_name") + "<BR/>")
 		.process().throwMode();
 		
-		if (StringUtils.isBlank(this.getFields().get("appendFields"))) {
-			this.getFieldsId().add("labelField");
-			this.getFieldsId().add("valueField");
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>" );
-		}
-	}		
+		this.getCheckFieldHandler().single(
+				"labelField|valueField", 
+				(StringUtils.isBlank(this.getFields().get("appendFields"))), 
+				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMode();
+	}
 
 	private List<Map<String, String>> fillFieldsMapperData() throws Exception {
 		String appendFields = this.getFields().get("appendFields");
@@ -115,11 +114,10 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 				datas.add(dataMap);				
 			}
 		}
-		if (null == datas || datas.size()<1) {
-			this.getFieldsId().add("labelField");
-			this.getFieldsId().add("valueField");
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>" );
-		}		
+		this.getCheckFieldHandler().single(
+				"labelField|valueField", 
+				(null == datas || datas.size()<1), 
+				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMode();
 		return datas;
 	}
 	

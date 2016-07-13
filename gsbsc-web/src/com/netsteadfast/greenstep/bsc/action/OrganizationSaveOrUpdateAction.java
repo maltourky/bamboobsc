@@ -92,10 +92,10 @@ public class OrganizationSaveOrUpdateAction extends BaseJsonAction {
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_name") + "<BR/>")
 		.process().throwMode();
 		
-		if ( super.defaultString( super.getFields().get("address") ).length() > 500 ) {
-			this.getFieldsId().add("address");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0002Q_address") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single(
+				"address", 
+				( super.defaultString( super.getFields().get("address") ).length() > 500 ), 
+				this.getText("MESSAGE.BSC_PROG001D0002Q_address") + "<BR/>").throwMode();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

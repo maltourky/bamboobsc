@@ -66,11 +66,11 @@ public class UserRoleSaveOrUpdateAction extends BaseJsonAction {
 	}
 	
 	private void checkFields() throws ControllerException {
-		if (super.isNoSelectId(this.getFields().get("accountOid")) ) {
-			this.getFieldsId().add("accountOid");
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG002D0002Q_account") + "</BR>" );	
-		}		
-	}	
+		this.getCheckFieldHandler().single(
+				"accountOid", 
+				( super.isNoSelectId(this.getFields().get("accountOid")) ), 
+				this.getText("MESSAGE.CORE_PROG002D0002Q_account") + "</BR>").throwMode();
+	}
 	
 	/**
 	 * 更新 TB_USER_ROLE 資料

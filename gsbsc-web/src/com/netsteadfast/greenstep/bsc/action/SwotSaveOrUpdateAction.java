@@ -74,14 +74,10 @@ public class SwotSaveOrUpdateAction extends BaseJsonAction {
 		String errMsg = "";
 		String visionOid = this.getHttpServletRequest().getParameter("BSC_PROG002D0008Q_visionOid");
 		String organizationOid = this.getHttpServletRequest().getParameter("BSC_PROG002D0008Q_organizationOid");
-		if ( this.isNoSelectId(visionOid) || StringUtils.isBlank(visionOid) ) {
-			this.getFieldsId().add("visionOid");
-			errMsg += this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>";
-		}
-		if ( this.isNoSelectId(organizationOid) || StringUtils.isBlank(organizationOid) ) {
-			this.getFieldsId().add("organizationOid");
-			errMsg += this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>";
-		}
+		errMsg = this.getCheckFieldHandler()
+		.single("visionOid", ( this.isNoSelectId(visionOid) || StringUtils.isBlank(visionOid) ) , this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>")
+		.single("organizationOid", ( this.isNoSelectId(organizationOid) || StringUtils.isBlank(organizationOid) ), this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>").getMessage();
+		
 		if ( !StringUtils.isBlank(errMsg) ) {
 			errMsg += this.getText("MESSAGE.BSC_PROG002D0008Q_msg1") + "<BR/>";
 			throw new ControllerException( errMsg );

@@ -85,16 +85,17 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
 		.process().throwMode();
 		
-		if (this.getFields().get("expression").length() > 4000 ) {
-			this.getFieldsId().add("expression");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_msg1") + "<BR/>");			
-		}
-		if (FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) 
-				&& StringUtils.isBlank(this.getFields().get("returnVar")) ) {
-			this.getFieldsId().add("returnVar");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>");
-		}
-	}			
+		this.getCheckFieldHandler()
+		.single(
+				"expression", 
+				( this.getFields().get("expression").length() > 4000 ), 
+				this.getText("MESSAGE.BSC_PROG001D0003A_msg1") + "<BR/>")
+		.single(
+				"returnVar", 
+				( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), 
+				this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
+		.throwMode();
+	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
@@ -133,27 +134,14 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 	}
 	
 	private Object testFormula() throws ControllerException, AuthorityException, ServiceException, Exception {
-		if (this.isNoSelectId(this.getFields().get("type")) ) {
-			this.getFieldsId().add("type");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>");
-		}
-		if (this.isNoSelectId(this.getFields().get("trendsFlag"))) {
-			this.getFieldsId().add("trendsFlag");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>");
-		}
-		if (this.isNoSelectId(this.getFields().get("returnMode")) ) {
-			this.getFieldsId().add("returnMode");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>");
-		}
-		if (FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) 
-				&& StringUtils.isBlank(this.getFields().get("returnVar")) ) {
-			this.getFieldsId().add("returnVar");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>");
-		}		
-		if (StringUtils.isBlank(this.getFields().get("expression")) ) {
-			this.getFieldsId().add("expression");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>");			
-		}
+		this.getCheckFieldHandler()
+		.single("type", ( this.isNoSelectId(this.getFields().get("type")) ), this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>")
+		.single("trendsFlag", ( this.isNoSelectId(this.getFields().get("trendsFlag")) ), this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>")
+		.single("returnMode", ( this.isNoSelectId(this.getFields().get("returnMode")) ), this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
+		.single("returnVar", ( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
+		.single("expression", ( StringUtils.isBlank(this.getFields().get("expression")) ), this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
+		.throwMode();
+		
 		String actual = this.getFields().get("actual");
 		String target = this.getFields().get("target");
 		String cv = this.getFields().get("cv");

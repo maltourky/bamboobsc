@@ -88,16 +88,13 @@ public class DepartmentReportContentQueryAction extends BaseJsonAction {
 		
 		String frequency = this.getFields().get("frequency");
 		String dateType = this.getFields().get("dateType");
-		if ( "3".equals(dateType) && !"6".equals(frequency) ) { // year
-			this.getFieldsId().add("frequency");
-			this.getFieldsId().add("dateType");
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>" );
-		}
-		if ( !"3".equals(dateType) && !"5".equals(frequency) ) { // half-year
-			this.getFieldsId().add("frequency");
-			this.getFieldsId().add("dateType");
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>" );			
-		}		
+		
+		// year
+		this.getCheckFieldHandler().single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMode();
+		
+		// half-year
+		this.getCheckFieldHandler().single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMode();
+		
 		if ( !SimpleUtils.isDate( this.getFields().get("year")+"/01/01" ) ) {
 			throw new ControllerException( this.getText("MESSAGE.BSC_PROG003D0003Q_msg2") + "<BR/>" );
 		}
