@@ -66,23 +66,12 @@ public class MeasureDataCalendarQueryAction extends BaseJsonAction {
 		if (StringUtils.isBlank(oid) || oid.startsWith(BscConstants.KPI_TREE_NOT_ITEM)) {
 			throw new ControllerException("Please select KPI!");
 		}
-		if (BscConstants.MEASURE_DATA_FOR_EMPLOYEE.equals(dataFor) && this.isNoSelectId(employeeOid) ) {
-			this.getFieldsId().add("employeeOid");
-			throw new ControllerException(this.getText("BSC_PROG002D0005Q_msg1") + "<BR/>");
-		}
-		if (this.isNoSelectId(frequency)) {
-			this.getFieldsId().add("frequency");
-			throw new ControllerException(this.getText("BSC_PROG002D0005Q_msg2") + "<BR/>");							
-		}		
-		if (BscConstants.MEASURE_DATA_FOR_ORGANIZATION.equals(dataFor) && this.isNoSelectId(organizationOid) ) {
-			this.getFieldsId().add("organizationOid");
-			throw new ControllerException(this.getText("BSC_PROG002D0005Q_msg3") + "<BR/>");			
-		}
-		if (BscConstants.MEASURE_DATA_FOR_ALL.equals(dataFor) 
-				&& !this.isNoSelectId(employeeOid) && !this.isNoSelectId(organizationOid) ) {
-			this.getFieldsId().add("dataFor");
-			throw new ControllerException(this.getText("BSC_PROG002D0005Q_msg4") + "<BR/>");				
-		}
+		this.getCheckFieldHandler()
+		.single("employeeOid", ( BscConstants.MEASURE_DATA_FOR_EMPLOYEE.equals(dataFor) && this.isNoSelectId(employeeOid) ), this.getText("BSC_PROG002D0005Q_msg1") + "<BR/>")
+		.single("frequency", (this.isNoSelectId(frequency)), this.getText("BSC_PROG002D0005Q_msg2") + "<BR/>")
+		.single("organizationOid", ( BscConstants.MEASURE_DATA_FOR_ORGANIZATION.equals(dataFor) && this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg3") + "<BR/>")
+		.single("dataFor", ( BscConstants.MEASURE_DATA_FOR_ALL.equals(dataFor) && !this.isNoSelectId(employeeOid) && !this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg4") + "<BR/>")
+		.throwMode();
 	}
 	
 	private String handlerDate() throws Exception {

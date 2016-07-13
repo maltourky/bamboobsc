@@ -83,10 +83,7 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 		.process().throwMode();
 		
 		String classNote = this.getFields().get("classNote");
-		if (classNote.length()>100) {
-			this.getFieldsId().add("classNote");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") + "<BR/>");
-		}
+		this.getCheckFieldHandler().single("classNote", (classNote.length()>100), this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") + "<BR/>").throwMode();
 	}		
 	
 	private void updateSysCode(String code, String value) throws ServiceException, Exception {

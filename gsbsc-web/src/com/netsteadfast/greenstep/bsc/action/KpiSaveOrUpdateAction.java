@@ -116,19 +116,11 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		.process().throwMode();
 		
 		String dataType = this.getFields().get("dataType");
-		if (BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ) {
-			this.getFieldsId().add("dataType");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg1") + "<BR/>");
-		}
-		if (BscKpiCode.DATA_TYPE_PERSONAL.equals(dataType) && StringUtils.isBlank(this.getFields().get("emplOids")) ) {
-			this.getFieldsId().add("dataType");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg2") + "<BR/>");
-		}
-		if (BscKpiCode.DATA_TYPE_BOTH.equals(dataType) 
-				&& ( StringUtils.isBlank(this.getFields().get("orgaOids")) || StringUtils.isBlank(this.getFields().get("emplOids")) ) ) {
-			this.getFieldsId().add("dataType");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg3") + "<BR/>");			
-		}
+		this.getCheckFieldHandler()
+		.single("dataType", ( BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg1") + "<BR/>")
+		.single("dataType", ( BscKpiCode.DATA_TYPE_PERSONAL.equals(dataType) && StringUtils.isBlank(this.getFields().get("emplOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg2") + "<BR/>")
+		.single("dataType", ( BscKpiCode.DATA_TYPE_BOTH.equals(dataType) && ( StringUtils.isBlank(this.getFields().get("orgaOids")) || StringUtils.isBlank(this.getFields().get("emplOids")) ) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg3") + "<BR/>")
+		.throwMode();
 	}	
 	
 	private void checkMaxTargetMinCriteria(KpiVO kpi) throws ServiceException, ControllerException, Exception {	
