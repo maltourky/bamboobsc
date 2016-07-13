@@ -84,7 +84,7 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_name") + "<BR/>")
 		.add("year", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_year") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		if (!SimpleUtils.isDate(this.getFields().get("year")+"/01/01")) {
 			this.fieldsId.add("year");

@@ -89,7 +89,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		.add("startDate", DateDisplayFieldCheckUtils.class, "Start-date is required!<BR/>")
 		.add("endDate", DateDisplayFieldCheckUtils.class, "End-date is required!<BR/>")
 		.add("measureFreq_frequency", SelectItemFieldCheckUtils.class, "Measure settings, Please select frequency!<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String startDate = this.getFields().get("startDate");
 		String endDate = this.getFields().get("endDate");

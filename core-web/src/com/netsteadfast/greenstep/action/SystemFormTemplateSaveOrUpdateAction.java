@@ -95,7 +95,7 @@ public class SystemFormTemplateSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("tplId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_tplId") + "<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_name") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

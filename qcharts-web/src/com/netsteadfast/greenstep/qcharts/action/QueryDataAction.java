@@ -86,7 +86,7 @@ public class QueryDataAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>")
 		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}		
 	
 	private void checkFieldsForCreate() throws ControllerException {
@@ -95,7 +95,7 @@ public class QueryDataAction extends BaseJsonAction {
 		.add("dataQueryMapperOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>")
 		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}		
 	
 	private void query() throws ControllerException, AuthorityException, ServiceException, Exception {
@@ -120,7 +120,7 @@ public class QueryDataAction extends BaseJsonAction {
 				"dataQueryMapperOid", 
 				( ("3".equals(queryType) || "4".equals(queryType)) && this.isNoSelectId(dataQueryMapperOid) ), 
 				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 		
 		this.searchDatas = QueryDataUtils.query(dataSourceConfOid, queryExpression);
 		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg2") + "<BR/>";

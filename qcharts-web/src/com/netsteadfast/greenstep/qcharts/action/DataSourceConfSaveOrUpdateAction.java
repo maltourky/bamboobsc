@@ -78,7 +78,7 @@ public class DataSourceConfSaveOrUpdateAction extends BaseJsonAction {
 		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_jdbcUrl") + "<BR/>")
 		.add("dbAccount", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbAccount") + "<BR/>")
 		.add("dbPassword", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbPassword") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}		
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

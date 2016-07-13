@@ -75,7 +75,7 @@ public class SystemFormSaveOrUpdateAction extends BaseJsonAction {
 		.add("formId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_formId") + "<BR/>")
 		.add("templateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_templateOid") + "<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_name") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

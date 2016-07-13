@@ -82,24 +82,24 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 		.add("CORE_PROG001D0002"+workType+"_progId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progId") + "<BR/>")
 		.add("CORE_PROG001D0002"+workType+"_name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_name") + "<BR/>")
 		.add("CORE_PROG001D0002"+workType+"_url", SysProgUrlFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_url") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String url = this.getFields().get("CORE_PROG001D0002"+workType+"_url");
 		String type = this.getFields().get("CORE_PROG001D0002"+workType+"_itemType");
 		
-		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_url", (MenuItemType.ITEM.equals(type) && StringUtils.isBlank(url) ), "ITEM type item need input URL!").throwMode();;
+		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_url", (MenuItemType.ITEM.equals(type) && StringUtils.isBlank(url) ), "ITEM type item need input URL!").throwMessage();;
 		
-		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_itemType", (MenuItemType.FOLDER.equals(type) && "true".equals(this.getFields().get("CORE_PROG001D0002"+workType+"_editMode")) ), "ITEM type folder not allowed edit mode!").throwMode();
+		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_itemType", (MenuItemType.FOLDER.equals(type) && "true".equals(this.getFields().get("CORE_PROG001D0002"+workType+"_editMode")) ), "ITEM type folder not allowed edit mode!").throwMessage();
 		
 		// id cannot equals all
-		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_progId", (Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("CORE_PROG001D0002"+workType+"_progId")) ), "ID is incorrect, please change another!").throwMode();
+		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_progId", (Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("CORE_PROG001D0002"+workType+"_progId")) ), "ID is incorrect, please change another!").throwMessage();
 		
 		// dialog-mode check
-		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_itemType", (MenuItemType.FOLDER.equals(type) && "true".equals(this.getFields().get("CORE_PROG001D0002"+workType+"_isDialog")) ), "ITEM type folder not allowed dialog mode!").throwMode();
+		this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_itemType", (MenuItemType.FOLDER.equals(type) && "true".equals(this.getFields().get("CORE_PROG001D0002"+workType+"_isDialog")) ), "ITEM type folder not allowed dialog mode!").throwMessage();
 		if ("true".equals(this.getFields().get("CORE_PROG001D0002"+workType+"_isDialog"))) {
 			int w = SimpleUtils.getInt(this.getFields().get("CORE_PROG001D0002"+workType+"_dialogW"), -1);
 			int h = SimpleUtils.getInt(this.getFields().get("CORE_PROG001D0002"+workType+"_dialogH"), -1);
-			this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_dialogW|"+"CORE_PROG001D0002"+workType+"_dialogH", (w<50 || h<25), "Dialog width must be greater than 50. height must be greater than 25 !").throwMode();
+			this.getCheckFieldHandler().single("CORE_PROG001D0002"+workType+"_dialogW|"+"CORE_PROG001D0002"+workType+"_dialogH", (w<50 || h<25), "Dialog width must be greater than 50. height must be greater than 25 !").throwMessage();
 		}
 		
 	}

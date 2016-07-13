@@ -78,12 +78,12 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0002A_name") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"labelField|valueField", 
 				(StringUtils.isBlank(this.getFields().get("appendFields"))), 
-				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMode();
+				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMessage();
 	}
 
 	private List<Map<String, String>> fillFieldsMapperData() throws Exception {
@@ -117,7 +117,7 @@ public class DataQueryMapperSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"labelField|valueField", 
 				(null == datas || datas.size()<1), 
-				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMode();
+				this.getText("MESSAGE.QCHARTS_PROG001D0002A_appendFields") + "<BR/>").throwMessage();
 		return datas;
 	}
 	

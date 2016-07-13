@@ -152,7 +152,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		.add("configOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") + "<BR/>")
 		.add("catalogOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") + "<BR/>")
 		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}		
 	
 	private void rendererHtml(File catalogFile) throws ControllerException, AuthorityException, ServiceException, Exception {

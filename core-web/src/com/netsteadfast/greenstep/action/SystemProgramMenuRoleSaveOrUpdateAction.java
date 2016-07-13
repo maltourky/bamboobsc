@@ -69,7 +69,7 @@ public class SystemProgramMenuRoleSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"CORE_PROG002D0003Q_sysProg", 
 				( super.isNoSelectId(this.getFields().get("sysProgOid")) ), 
-				this.getText("MESSAGE.CORE_PROG002D0003Q_sysProg") + "<BR/>").throwMode();
+				this.getText("MESSAGE.CORE_PROG002D0003Q_sysProg") + "<BR/>").throwMessage();
 	}
 	
 	/**

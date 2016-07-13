@@ -84,16 +84,16 @@ public class DepartmentReportContentQueryAction extends BaseJsonAction {
 		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0003Q_frequency") + "<BR/>")
 		.add("organizationOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0003Q_organizationOid") + "<BR/>")
 		.add("dateType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0003Q_dateType") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency");
 		String dateType = this.getFields().get("dateType");
 		
 		// year
-		this.getCheckFieldHandler().single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMode();
+		this.getCheckFieldHandler().single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMessage();
 		
 		// half-year
-		this.getCheckFieldHandler().single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMode();
+		this.getCheckFieldHandler().single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0003Q_msg1") + "<BR/>").throwMessage();
 		
 		if ( !SimpleUtils.isDate( this.getFields().get("year")+"/01/01" ) ) {
 			throw new ControllerException( this.getText("MESSAGE.BSC_PROG003D0003Q_msg2") + "<BR/>" );

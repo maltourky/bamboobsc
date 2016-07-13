@@ -76,14 +76,14 @@ public class SystemTemplateSaveOrUpdateAction extends BaseJsonAction {
 		.add("templateId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_templateId") + "<BR/>")
 		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_title") + "<BR/>")
 		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_message") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void checkFieldsForParamEdit() throws ControllerException {
 		this.getCheckFieldHandler()
 		.add("templateVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_templateVar") + "<BR/>")
 		.add("objectVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_objectVar") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

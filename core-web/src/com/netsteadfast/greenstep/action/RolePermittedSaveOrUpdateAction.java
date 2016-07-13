@@ -73,7 +73,7 @@ public class RolePermittedSaveOrUpdateAction extends BaseJsonAction {
 		.add("permission", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permission") + "<BR/>")
 		.add("permType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permType") + "<BR/>")
 		.process()
-		.throwMode();
+		.throwMessage();
 	}
 	
 	/**

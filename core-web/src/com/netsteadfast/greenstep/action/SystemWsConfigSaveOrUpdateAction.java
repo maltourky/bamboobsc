@@ -77,13 +77,13 @@ public class SystemWsConfigSaveOrUpdateAction extends BaseJsonAction {
 		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_systemOid") + "<BR/>")
 		.add("wsId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_wsId") + "<BR/>")
 		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_beanId") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"publishAddress", 
 				( WSConfig.TYPE_SOAP.equals(this.getFields().get("type")) && StringUtils.isBlank(this.getFields().get("publishAddress")) ), 
 				this.getText("MESSAGE.CORE_PROG003D0001A_publishAddress") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

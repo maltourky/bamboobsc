@@ -84,7 +84,7 @@ public class PersonalReportContentQueryAction extends BaseJsonAction {
 		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_frequency") + "<BR/>")
 		.add("employeeOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_employeeOid") + "<BR/>")
 		.add("dateType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_dateType") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency");
 		String dateType = this.getFields().get("dateType");
@@ -92,7 +92,7 @@ public class PersonalReportContentQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") + "<BR/>") // year
 		.single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") + "<BR/>") // half-year
-		.throwMode();
+		.throwMessage();
 		
 		if ( !SimpleUtils.isDate( this.getFields().get("year")+"/01/01" ) ) {
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg2") + "<BR/>");

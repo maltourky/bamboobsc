@@ -80,10 +80,10 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 		.add("objectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") + "<BR/>")
 		.add("kpiTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") + "<BR/>")
 		.add("classNote", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String classNote = this.getFields().get("classNote");
-		this.getCheckFieldHandler().single("classNote", (classNote.length()>100), this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") + "<BR/>").throwMode();
+		this.getCheckFieldHandler().single("classNote", (classNote.length()>100), this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") + "<BR/>").throwMessage();
 	}		
 	
 	private void updateSysCode(String code, String value) throws ServiceException, Exception {

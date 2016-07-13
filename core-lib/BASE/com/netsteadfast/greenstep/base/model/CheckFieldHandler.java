@@ -121,7 +121,7 @@ public class CheckFieldHandler {
 	 * 
 	 * @throws ControllerException
 	 */
-	public void throwMode() throws ControllerException {
+	public void throwMessage() throws ControllerException {
 		if (this.msg == null || this.msg.length() < 1) {
 			return;
 		}

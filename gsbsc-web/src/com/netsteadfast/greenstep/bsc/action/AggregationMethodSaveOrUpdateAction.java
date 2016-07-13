@@ -77,12 +77,12 @@ public class AggregationMethodSaveOrUpdateAction extends BaseJsonAction {
 		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_type") + "<BR/>")
 		.add("expression1", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe1") + "<BR/>")
 		.add("expression2", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe2") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		this.getCheckFieldHandler()
 		.single("expression1", ( this.getFields().get("expression1").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe1_msg1") + "<BR/>")
 		.single("expression2", ( this.getFields().get("expression2").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe2_msg1") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

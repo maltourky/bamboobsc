@@ -75,7 +75,7 @@ public class AnalyticsConfigSaveOrUpdateAction extends BaseJsonAction {
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_name") + "<BR/>")
 		.add("jdbcDrivers", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcDrivers") + "<BR/>")
 		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcUrl") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

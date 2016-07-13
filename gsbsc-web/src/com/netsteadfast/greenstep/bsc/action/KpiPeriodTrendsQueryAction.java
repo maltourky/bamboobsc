@@ -67,7 +67,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("visionOid"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_visionOid") + "<BR/>")
 		.add("frequency"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_frequency") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency"+p);
 		String startDate = this.getFields().get("startDate"+p);

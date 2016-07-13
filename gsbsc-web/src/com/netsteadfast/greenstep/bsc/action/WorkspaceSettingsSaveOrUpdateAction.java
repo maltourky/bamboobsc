@@ -80,7 +80,7 @@ public class WorkspaceSettingsSaveOrUpdateAction extends BaseJsonAction {
 		.add("workspaceId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceId") + "<BR/>")
 		.add("workspaceName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceName") + "<BR/>")
 		.add("workspaceTemplateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceTemplateOid") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	@SuppressWarnings("unchecked")

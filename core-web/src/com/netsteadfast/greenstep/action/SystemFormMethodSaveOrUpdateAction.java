@@ -99,7 +99,7 @@ public class SystemFormMethodSaveOrUpdateAction extends BaseJsonAction {
 		.add("resultType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_resultType") + "<BR/>")
 		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_type") + "<BR/>")
 		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_iframe1") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

@@ -70,7 +70,7 @@ public class ReportRoleViewSaveOrUpdateAction extends BaseJsonAction {
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
 		.add("roleOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0003Q_roleOid") + "<BR/>")
-		.process().throwMode();		
+		.process().throwMessage();		
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

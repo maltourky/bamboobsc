@@ -78,7 +78,7 @@ public class ObjectiveSaveOrUpdateAction extends BaseJsonAction {
 		.add("weight", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_weight") + "<BR/>")
 		.add("target", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_target") + "<BR/>")
 		.add("min", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_min") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}		
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

@@ -60,7 +60,7 @@ public class SwotContentQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>")
 		.add("organizationOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>")
-		.process().throwMode();	
+		.process().throwMessage();	
 	}
 	
 	@SuppressWarnings("unchecked")

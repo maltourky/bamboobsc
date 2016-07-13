@@ -114,7 +114,7 @@ public class WeightSaveOrUpdateAction extends BaseJsonAction {
 				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_label") + ":<BR/>" 
 				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_01") + "<BR/>" 
 				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_02") + "<BR/>" 
-				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_03") + "<BR/>").throwMode();
+				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_03") + "<BR/>").throwMessage();
 		DefaultResult<Boolean> result = this.weightLogicService.update(
 				this.getPerspectives(), 
 				this.getObjectives(), 

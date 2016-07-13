@@ -81,7 +81,7 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 		.add("date1", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date1") + "<BR/>")
 		.add("date2", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date2") + "<BR/>")
 		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_message") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String date1 = this.getFields().get("date1").replaceAll("/", "").replaceAll("-", "");
 		String date2 = this.getFields().get("date2").replaceAll("/", "").replaceAll("-", "");	
@@ -89,19 +89,19 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 				"date1|date2", 
 				(Integer.parseInt(date1) > Integer.parseInt(date2)), 
 				this.getText("MESSAGE.CORE_PROG001D0006A_dateRange") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"startHour|startMinutes|endHour|endMinutes", 
 				( Integer.parseInt( this.getFields().get("startHour")+this.getFields().get("startMinutes") ) > Integer.parseInt( this.getFields().get("endHour")+this.getFields().get("endMinutes") ) ), 
 				this.getText("MESSAGE.CORE_PROG001D0006A_timeRange") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"toAccountOid", 
 				(!"true".equals(this.getFields().get("isGlobal")) && this.isNoSelectId(this.getFields().get("toAccountOid"))), 
 				this.getText("MESSAGE.CORE_PROG001D0006A_toAccountOid") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 		
 	}	
 	

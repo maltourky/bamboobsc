@@ -71,7 +71,7 @@ public class VisionSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_title") + "<BR/>")
 		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_content") + "<BR/>")
-		.process().throwMode();	
+		.process().throwMessage();	
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

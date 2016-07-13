@@ -79,14 +79,14 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
 		.add("reportId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008A_reportId") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void checkParamFields() throws ControllerException {
 		this.getCheckFieldHandler()
 		.add("rptParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_rptParam") + "<BR/>")
 		.add("urlParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_urlParam") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void selfTestUploadReportData() throws ControllerException, AuthorityException, ServiceException, Exception {

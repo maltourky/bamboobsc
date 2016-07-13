@@ -134,7 +134,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	private void checkFields() throws ControllerException, Exception {
 		this.getCheckFieldHandler()
 		.add("pdcaOid", SelectItemFieldCheckUtils.class, "Please select PDCA project!<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	@SuppressWarnings("unchecked")

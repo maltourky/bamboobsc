@@ -75,7 +75,7 @@ public class SystemContextBeanSaveOrUpdateAction extends BaseJsonAction {
 		.add("className", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0009A_className") + "<BR/>")
 		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0009A_type") + "<BR/>")
 		.process()
-		.throwMode();
+		.throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

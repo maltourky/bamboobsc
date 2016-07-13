@@ -75,7 +75,7 @@ public class SystemMessageNoticeConfigSaveOrUpdateAction extends BaseJsonAction 
 		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_system") + "<BR/>")
 		.add("msgId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_msgId") + "<BR/>")
 		.add("className", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0005A_className") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

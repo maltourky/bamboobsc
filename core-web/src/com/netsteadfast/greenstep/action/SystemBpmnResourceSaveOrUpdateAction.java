@@ -114,7 +114,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("id", NotBlankFieldCheckUtils.class, "Id is required!<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, "Name is required!<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void checkFields2() throws ControllerException {
@@ -122,7 +122,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		.add("resourceOid", SelectItemFieldCheckUtils.class, "Please select resource!<BR/>")
 		.add("roleOid", SelectItemFieldCheckUtils.class, "Please select role!<BR/>")
 		.add("taskName", NotBlankFieldCheckUtils.class, "Task-name is required!<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void selfTestUploadResourceData() throws ControllerException, AuthorityException, ServiceException, Exception {

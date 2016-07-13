@@ -71,7 +71,7 @@ public class RoleSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("role", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001A_role") + "<BR/>")
 		.process()
-		.throwMode();
+		.throwMessage();
 	}		
 	
 	/**

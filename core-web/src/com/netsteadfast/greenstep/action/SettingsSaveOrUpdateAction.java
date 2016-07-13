@@ -59,7 +59,7 @@ public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 		.add("mailFrom", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg1") + "<BR/>")
 		.add("mailFrom", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg2") + "<BR/>")
 		.process()
-		.throwMode();
+		.throwMessage();
 	}		
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {

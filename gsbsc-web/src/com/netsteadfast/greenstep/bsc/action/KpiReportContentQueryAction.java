@@ -126,7 +126,7 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_visionOid") + "<BR/>")
 		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_frequency") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency");
 		String startDate = this.getFields().get("startDate");

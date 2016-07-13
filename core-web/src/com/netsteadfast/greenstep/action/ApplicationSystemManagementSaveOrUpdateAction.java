@@ -78,7 +78,7 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		.add("host", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_host") + "<BR/>")
 		.add("contextPath", NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_contextPath") + "<BR/>")
 		.process()
-		.throwMode();
+		.throwMessage();
 		
 		// id cann't euqals all
 		super.getCheckFieldHandler()
@@ -86,7 +86,7 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 				"sysId", 
 				( Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ), 
 				"ID is incorrect, please change another!<BR/>"
-		).throwMode();
+		).throwMessage();
 	}
 	
 	/**

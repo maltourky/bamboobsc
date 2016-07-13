@@ -95,14 +95,14 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 		.add("date", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_date") + "<BR/>")
 		.add("contact", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_contact") + "<BR/>")
 		.add("accountOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_accountOid") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		// date check
 		this.getCheckFieldHandler().single(
 				"date", 
 				( !SimpleUtils.isDate(this.getFields().get("date")) ), 
 				this.getText("MESSAGE.CORE_PROG001D0004A_date")
-		).throwMode();
+		).throwMessage();
 		
 		// time check
 		String time = super.defaultString( this.getFields().get("time") );

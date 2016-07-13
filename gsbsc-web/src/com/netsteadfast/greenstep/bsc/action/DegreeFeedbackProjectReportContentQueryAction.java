@@ -57,7 +57,7 @@ public class DegreeFeedbackProjectReportContentQueryAction extends BaseJsonActio
 		this.getCheckFieldHandler()
 		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!<BR/>")
 		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0004Q_ownerOid") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void queryProjectScore() throws ControllerException, AuthorityException, ServiceException, Exception {

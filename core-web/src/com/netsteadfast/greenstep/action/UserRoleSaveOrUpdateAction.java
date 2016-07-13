@@ -69,7 +69,7 @@ public class UserRoleSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"accountOid", 
 				( super.isNoSelectId(this.getFields().get("accountOid")) ), 
-				this.getText("MESSAGE.CORE_PROG002D0002Q_account") + "</BR>").throwMode();
+				this.getText("MESSAGE.CORE_PROG002D0002Q_account") + "</BR>").throwMessage();
 	}
 	
 	/**

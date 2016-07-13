@@ -83,7 +83,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		.add("trendsFlag", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>")
 		.add("returnMode", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
 		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		this.getCheckFieldHandler()
 		.single(
@@ -94,7 +94,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 				"returnVar", 
 				( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), 
 				this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
@@ -140,7 +140,7 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 		.single("returnMode", ( this.isNoSelectId(this.getFields().get("returnMode")) ), this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
 		.single("returnVar", ( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
 		.single("expression", ( StringUtils.isBlank(this.getFields().get("expression")) ), this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 		
 		String actual = this.getFields().get("actual");
 		String target = this.getFields().get("target");

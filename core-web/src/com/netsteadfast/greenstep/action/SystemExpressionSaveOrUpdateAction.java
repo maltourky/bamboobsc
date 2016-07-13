@@ -98,13 +98,13 @@ public class SystemExpressionSaveOrUpdateAction extends BaseJsonAction {
 		.add("exprId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_exprId") + "<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_name") + "<BR/>")
 		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_iframe1") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"exprId", 
 				(Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("exprId"))), 
 				this.getText("MESSAGE.CORE_PROG003D0002A_exprId_msg1") + "<BR/>"
-		).throwMode();
+		).throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

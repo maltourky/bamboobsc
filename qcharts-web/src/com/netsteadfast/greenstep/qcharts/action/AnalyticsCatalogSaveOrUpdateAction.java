@@ -76,7 +76,7 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler()
 		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_id") + "<BR/>")
 		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_name") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void checkUploadCatalog() throws ControllerException, AuthorityException, ServiceException, Exception {

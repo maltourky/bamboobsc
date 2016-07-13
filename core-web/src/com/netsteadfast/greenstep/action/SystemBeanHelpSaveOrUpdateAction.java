@@ -79,7 +79,7 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_systemOid") + "<BR/>")
 		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_beanId") + "<BR/>")
 		.add("method", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003A_method") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void checkExprFields() throws ControllerException {
@@ -87,7 +87,7 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 		.add("exprOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprOid") + "<BR/>")
 		.add("exprSeq", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_exprSeq") + "<BR/>")
 		.add("runType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S00_runType") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}
 	
 	private void checkExprMapFields() throws ControllerException {
@@ -97,14 +97,14 @@ public class SystemBeanHelpSaveOrUpdateAction extends BaseJsonAction {
 					"varName", 
 					( StringUtils.isBlank(this.getFields().get("varName")) ), 
 					"Variable is required!<BR/>"
-			).throwMode();
+			).throwMessage();
 			return;
 		}
 		this.getCheckFieldHandler()
 		.add("varName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_varName") + "<BR/>")
 		.add("methodParamClass", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamClass") + "<BR/>")
 		.add("methodParamIndex", PositiveIntegerFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0003E_S01_methodParamIndex") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {

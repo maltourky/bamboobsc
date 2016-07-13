@@ -59,7 +59,7 @@ public class WeightContentQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"visionOid", 
 				( super.isNoSelectId(this.getFields().get("visionOid")) ), 
-				this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") + "<BR/>").throwMode();
+				this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") + "<BR/>").throwMessage();
 		SimpleChain simpleChanin = new SimpleChain();
 		Context context = new ContextBase();
 		context.put("visionOid", this.getFields().get("visionOid") );

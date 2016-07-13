@@ -71,7 +71,7 @@ public class MeasureDataCalendarQueryAction extends BaseJsonAction {
 		.single("frequency", (this.isNoSelectId(frequency)), this.getText("BSC_PROG002D0005Q_msg2") + "<BR/>")
 		.single("organizationOid", ( BscConstants.MEASURE_DATA_FOR_ORGANIZATION.equals(dataFor) && this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg3") + "<BR/>")
 		.single("dataFor", ( BscConstants.MEASURE_DATA_FOR_ALL.equals(dataFor) && !this.isNoSelectId(employeeOid) && !this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg4") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 	}
 	
 	private String handlerDate() throws Exception {

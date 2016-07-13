@@ -113,14 +113,14 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		.add("management", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_management") + "<BR/>")
 		.add("cal", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_cal") + "<BR/>")
 		.add("dataType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0004A_dataType") + "<BR/>")
-		.process().throwMode();
+		.process().throwMessage();
 		
 		String dataType = this.getFields().get("dataType");
 		this.getCheckFieldHandler()
 		.single("dataType", ( BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg1") + "<BR/>")
 		.single("dataType", ( BscKpiCode.DATA_TYPE_PERSONAL.equals(dataType) && StringUtils.isBlank(this.getFields().get("emplOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg2") + "<BR/>")
 		.single("dataType", ( BscKpiCode.DATA_TYPE_BOTH.equals(dataType) && ( StringUtils.isBlank(this.getFields().get("orgaOids")) || StringUtils.isBlank(this.getFields().get("emplOids")) ) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg3") + "<BR/>")
-		.throwMode();
+		.throwMessage();
 	}	
 	
 	private void checkMaxTargetMinCriteria(KpiVO kpi) throws ServiceException, ControllerException, Exception {	
