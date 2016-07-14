@@ -108,7 +108,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg5") + "<BR/>");			
 			}			
 		}
-		if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
+		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
 				this.getFieldsId().add("startYearDate"+p);
 				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg6") + "<BR/>");				

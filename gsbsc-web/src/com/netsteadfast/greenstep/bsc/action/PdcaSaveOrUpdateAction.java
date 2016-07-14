@@ -156,7 +156,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 				throw new ControllerException("Measure settings, Start-date / end-date incorrect!<BR/>");			
 			}			
 		}
-		if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
+		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
 				this.getFieldsId().add("measureFreq_startYearDate");
 				throw new ControllerException("Measure settings, Start-year format is incorrect!<BR/>");				

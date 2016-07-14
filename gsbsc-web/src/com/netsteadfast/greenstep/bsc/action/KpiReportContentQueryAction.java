@@ -167,7 +167,7 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg5") + "<BR/>");			
 			}			
 		}
-		if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
+		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
 				this.getFieldsId().add("startYearDate");
 				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg6") + "<BR/>");				
