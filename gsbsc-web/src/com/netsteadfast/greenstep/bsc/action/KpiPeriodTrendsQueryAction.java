@@ -124,14 +124,14 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg8") + "<BR/>");			
 			}					
 		}
-		String dataFor = this.getFields().get("dataFor");
+		String dataFor = this.getFields().get("dataFor"+p);
 		if ("organization".equals(dataFor) 
-				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid")) ) {
+				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid"+p)) ) {
 			this.getFieldsId().add("measureDataOrganizationOid"+p);
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg9") + "<BR/>");
 		}
 		if ("employee".equals(dataFor)
-				&& this.isNoSelectId(this.getFields().get("measureDataEmployeeOid")) ) {
+				&& this.isNoSelectId(this.getFields().get("measureDataEmployeeOid"+p)) ) {
 			this.getFieldsId().add("measureDataEmployeeOid"+p);
 			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg10") + "<BR/>");
 		}
