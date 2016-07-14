@@ -258,7 +258,7 @@ function pageMessage() {
 			
 				<label for="frequency"><s:property value="getText('INDEX_frequency')"/>:</label>				    
 				<select name="frequency" id="frequency" data-mini="true">
-					<s:iterator value="frequencyMap" status="st" id="cols">
+					<s:iterator value="frequencyMap" status="st" var="cols">
 						<option value="<s:property value="#cols.key"/>" <s:if test=" \"6\" == #cols.key "> SELECTED </s:if> ><s:property value="#cols.value"/></option>	
 					</s:iterator>			    	
 				</select>

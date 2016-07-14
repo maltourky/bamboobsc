@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 
@@ -42,6 +43,7 @@ public class VisionVO extends BaseValueObj implements java.io.Serializable {
 	
 	private List<PerspectiveVO> perspectives = new LinkedList<PerspectiveVO>(); // 給 StructTreeObj 用的
 	
+	@JsonIgnore // ObjectMapper writeValueAsString 不要輸出這個欄位, 因為造成 mobile 版報表顯示 出錯
 	public String getContentString() {
 		if (null == this.content) {
 			return "";
