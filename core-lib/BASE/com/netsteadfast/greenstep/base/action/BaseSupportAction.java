@@ -93,6 +93,7 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 	private String verMsg=SimpleUtils.getStr((String)settingsMap.get("baseSupperAction.verMsg"), "");
 	private String jsVerBuild=SimpleUtils.getStr((String)settingsMap.get("baseSupperAction.jsVerBuild"), "");
 	private String googleMapEnable = SimpleUtils.getStr((String)settingsMap.get("googleMap.enable"), YesNo.NO).toUpperCase();
+	private String googleMapUrl = SimpleUtils.getStr((String)settingsMap.get("googleMap.url"), "http://maps.google.com/maps/api/js");
 	private String googleMapKey = SimpleUtils.getStr((String)settingsMap.get("googleMap.key"), "AIzaSyAoenmn_-u4AKu-ETSDD00TNeX0ZW4Zcyo");
 	private String googleMapDefaultLat = SimpleUtils.getStr((String)settingsMap.get("googleMap.defaultLat"), "25.047795");
 	private String googleMapDefaultLng = SimpleUtils.getStr((String)settingsMap.get("googleMap.defaultLng"), "121.516900");
@@ -309,6 +310,10 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 	
 	public String getGoogleMapEnable() {
 		return googleMapEnable;
+	}
+
+	public String getGoogleMapUrl() {
+		return googleMapUrl;
 	}
 
 	public String getGoogleMapKey() {
