@@ -134,14 +134,25 @@ https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-standard/resource/
 
 #Logic service AOP scan package config
 ```JAVA
-package com.netsteadfast.greenstep.service.aspect;
+package com.netsteadfast.greenstep.aspect;
 
-public class ServiceAspectConstants {
+
+public class AspectConstants {
 	
-	public static final String AROUND_VALUE = " execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
+	// for DAO config
+	public static final String DATA_ACCESS_OBJECT_PACKAGE = " execution(* com.netsteadfast.greenstep.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.dao..*.*(..) ) ";
 	
-}
+	// for Base Service config
+	public static final String BASE_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.*.*(..) ) ";
+	
+	// for Logic Service config
+	public static final String LOGIC_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
+	
+}	
+	
 ```
+
+
 
 #Add Logic service authority
 Please use: 
