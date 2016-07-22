@@ -202,7 +202,7 @@ function redirectLogin(sel) {
 	  </td>
     </tr>
     <tr>
-      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.6.4</span> </span></td>
+      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.7.0</span> </span></td>
     </tr>
   </table>
 </s:form>
