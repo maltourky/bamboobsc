@@ -354,7 +354,7 @@ jackson-annotations-2.6.1.jar
 
 Apache Shiro
 -------------------------
-shiro-all-1.2.4.jar
+shiro-all-1.2.6.jar
 
 
 https://code.google.com/p/kaptcha/
