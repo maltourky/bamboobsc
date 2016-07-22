@@ -19,7 +19,7 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.service.aspect;
+package com.netsteadfast.greenstep.aspect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -32,7 +32,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
@@ -42,22 +41,41 @@ import com.netsteadfast.greenstep.util.ServiceScriptExpressionUtils;
 @Order(10)
 @Aspect
 @Component
-public class ServiceScriptExpressionProcessAspect {
+public class ServiceScriptExpressionProcessAspect implements IBaseAspectService {
 	protected Logger logger=Logger.getLogger(ServiceScriptExpressionProcessAspect.class);
 	
-	@Around( ServiceAspectConstants.AROUND_VALUE )
-	public Object aroundMethod(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
+	/**
+	 * no enable for scan DAO package
+	 */
+	//@Around( AspectConstants.DATA_ACCESS_OBJECT_PACKAGE )
+	@Override
+	public Object dataAccessObjectProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
+		/**
+		 * do something...
+		 */
+		return pjp.proceed();
+	}
+	
+	/**
+	 * no enable for scan Base service package
+	 */
+	//@Around( AspectConstants.BASE_SERVICE_PACKAGE )
+	@Override
+	public Object baseServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
+		/**
+		 * do something...
+		 */
+		return pjp.proceed();
+	}
+	
+	@Around( AspectConstants.LOGIC_SERVICE_PACKAGE )
+	public Object logicServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
 		Annotation[] annotations=pjp.getTarget().getClass().getAnnotations();
 		MethodSignature signature=(MethodSignature)pjp.getSignature();
 		if (annotations==null || annotations.length<1) { 
 			return pjp.proceed();
 		}		
-		String beanId = "";
-		for (int i=0; i<annotations.length; i++) {
-			if (annotations[i] instanceof Service) {
-				beanId = ((Service)annotations[i]).value();
-			}
-		}
+		String beanId = AspectConstants.getServiceId(annotations);
 		if (StringUtils.isBlank(beanId)) {
 			return pjp.proceed();
 		}

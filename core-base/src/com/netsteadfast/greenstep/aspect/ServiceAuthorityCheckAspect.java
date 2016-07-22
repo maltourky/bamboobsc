@@ -19,7 +19,7 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.service.aspect;
+package com.netsteadfast.greenstep.aspect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -34,7 +34,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
@@ -49,15 +48,38 @@ import com.netsteadfast.greenstep.sys.SysEventLogSupport;
 @Order(0)
 @Aspect
 @Component
-public class ServiceAuthorityCheckAspect {
+public class ServiceAuthorityCheckAspect implements IBaseAspectService {
 	protected Logger logger=Logger.getLogger(ServiceAuthorityCheckAspect.class);
 
-	@Around( ServiceAspectConstants.AROUND_VALUE )
-	public Object aroundMethod(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
-		
+	/**
+	 * no enable for scan DAO package
+	 */
+	//@Around( AspectConstants.DATA_ACCESS_OBJECT_PACKAGE )
+	@Override
+	public Object dataAccessObjectProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
+		/**
+		 * do something...
+		 */
+		return pjp.proceed();
+	}
+	
+	/**
+	 * no enable for scan Base service package
+	 */
+	//@Around( AspectConstants.BASE_SERVICE_PACKAGE )
+	@Override
+	public Object baseServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
+		/**
+		 * do something...
+		 */
+		return pjp.proceed();
+	}
+	
+	@Around( AspectConstants.LOGIC_SERVICE_PACKAGE )
+	public Object logicServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable {
 		MethodSignature signature=(MethodSignature)pjp.getSignature();
 		Annotation[] annotations=pjp.getTarget().getClass().getAnnotations();
-		String serviceId = this.getServiceId(annotations);		
+		String serviceId = AspectConstants.getServiceId(annotations);
 		Subject subject = SecurityUtils.getSubject();
 		Method method = signature.getMethod();
 		if (subject.hasRole(Constants.SUPER_ROLE_ALL) || subject.hasRole(Constants.SUPER_ROLE_ADMIN)) {
@@ -89,16 +111,6 @@ public class ServiceAuthorityCheckAspect {
 		SysEventLogSupport.log( 
 				(String)subject.getPrincipal(), Constants.getSystem(), this.getEventId(serviceId, method.getName()), false );
 		throw new AuthorityException(SysMessageUtil.get(GreenStepSysMsgConstants.NO_PERMISSION));
-	}
-	
-	private String getServiceId(Annotation[] annotations) {
-		String serviceId = "";
-		for (Annotation anno : annotations) {
-			if (anno instanceof Service) {
-				serviceId = ((Service)anno).value();
-			}
-		}
-		return serviceId;
 	}
 	
 	private boolean isServiceAuthorityCheck(Annotation[] annotations) { // 沒有 ServiceAuthority 或 check=false 就不用檢查了 

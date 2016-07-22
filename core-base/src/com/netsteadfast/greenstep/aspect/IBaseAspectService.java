@@ -19,10 +19,19 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package com.netsteadfast.greenstep.service.aspect;
+package com.netsteadfast.greenstep.aspect;
 
-public class ServiceAspectConstants {
+import org.aspectj.lang.ProceedingJoinPoint;
+
+import com.netsteadfast.greenstep.base.exception.AuthorityException;
+import com.netsteadfast.greenstep.base.exception.ServiceException;
+
+public interface IBaseAspectService {
 	
-	public static final String AROUND_VALUE = " execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
+	public Object logicServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable;
+	
+	public Object baseServiceProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable;
+	
+	public Object dataAccessObjectProcess(ProceedingJoinPoint pjp) throws AuthorityException, ServiceException, Throwable;
 	
 }
