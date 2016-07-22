@@ -700,7 +700,7 @@ function setPageOfOrderBy(_id, queryFieldName) {
  * @param _setAddressFn	處理地址資料json-data的function
  */
 function getGoogleMapAddressName(lat, lng, _setAddressFn) {
-	var queryUrl="http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false&language=" + _gscore_googleMapLanguage;
+	var queryUrl = _gscore_googleMapUrl + "/maps/api/geocode/json?latlng=" + lat + "," + lng + "&sensor=false&language=" + _gscore_googleMapLanguage;
 	showPleaseWait();
     var xhrArgs={
     		url			: 	queryUrl,

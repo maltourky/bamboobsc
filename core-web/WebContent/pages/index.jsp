@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- 
     <script type="text/javascript" src="http://www.google.com/jsapi?key=${googleMapKey}"></script>
     -->
-    <script type="text/javascript" src="${googleMapUrl}?key=${googleMapKey}&sensor=false&language=${googleMapLanguage}"></script>       
+    <script type="text/javascript" src="${googleMapUrl}/maps/api/js?key=${googleMapKey}&sensor=false&language=${googleMapLanguage}"></script>       
     </s:if>
     <s:else>
     <!-- modify applicationContext-appSettings.properties settings googleMap.enable=Y -->

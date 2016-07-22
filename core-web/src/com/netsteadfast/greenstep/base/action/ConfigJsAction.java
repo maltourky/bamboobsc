@@ -80,6 +80,7 @@ public class ConfigJsAction extends BaseSupportAction {
 		sb.append("var _gscore_datetime_delimiter='").append(Constants.DATETIME_DELIMITER).append("';\n");
 		sb.append("var _gscore_success_flag='").append(YesNo.YES).append("';\n");
 		sb.append("var _gscore_is_super_role='").append(super.getIsSuperRole()).append("';\n");		
+		sb.append("var _gscore_googleMapUrl='").append(super.getGoogleMapUrl()).append("';\n");
 		sb.append("var _gscore_googleMapDefaultLat=").append(super.getGoogleMapDefaultLat()).append(";\n");
 		sb.append("var _gscore_googleMapDefaultLng=").append(super.getGoogleMapDefaultLng()).append(";\n");
 		sb.append("var _gscore_googleMapLanguage='").append(super.getGoogleMapLanguage()).append("';\n");	

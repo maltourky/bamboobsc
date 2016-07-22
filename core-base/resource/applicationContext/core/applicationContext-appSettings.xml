@@ -25,7 +25,8 @@
 				<entry key="base.uploadDir"								value="${base.uploadDir}" />
 				<entry key="base.deployJasperReportDir"					value="${base.deployJasperReportDir}" />
 				<entry key="cxf.JAXRSServerFactoryBean.address"			value="${cxf.JAXRSServerFactoryBean.address}" />
-				<entry key="googleMap.enable" 							value="${googleMap.enable}" />				
+				<entry key="googleMap.enable" 							value="${googleMap.enable}" />
+				<entry key="googleMap.url" 								value="${googleMap.url}" />
 				<entry key="googleMap.key" 								value="${googleMap.key}" />
 				<entry key="googleMap.defaultLat" 						value="${googleMap.defaultLat}" />
 				<entry key="googleMap.defaultLng" 						value="${googleMap.defaultLng}" />
