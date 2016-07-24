@@ -38,6 +38,7 @@
     <import resource="classpath*:applicationContext/core/applicationContext-mail.xml" />     
     <import resource="classpath*:applicationContext/core/applicationContext-shiro.xml" />
     <import resource="classpath*:applicationContext/core/applicationContext-activiti.xml" /> 
+    <import resource="classpath*:applicationContext/core/applicationContext-hessian.xml" />
     
         
     <!-- BEANS -->

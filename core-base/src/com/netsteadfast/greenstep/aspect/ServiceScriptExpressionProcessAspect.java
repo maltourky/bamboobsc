@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.sys.GreenStepHessianUtils;
 import com.netsteadfast.greenstep.util.ServiceScriptExpressionUtils;
 
 @Order(10)
@@ -76,6 +77,14 @@ public class ServiceScriptExpressionProcessAspect implements IBaseAspectService 
 			return pjp.proceed();
 		}		
 		String beanId = AspectConstants.getServiceId(annotations);
+		
+		/**
+		 * 如果是Hession proxy 代理, 讓 remote-server 端處理, 這裡如果是client端就不需要, 要不然會倍加工兩次, remote-server一次, client端一次
+		 */
+		if (GreenStepHessianUtils.isEnableCallRemote() && GreenStepHessianUtils.isProxyServiceId(beanId)) {
+			return pjp.proceed();
+		}		
+		
 		if (StringUtils.isBlank(beanId)) {
 			return pjp.proceed();
 		}
