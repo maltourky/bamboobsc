@@ -101,7 +101,7 @@
          		/css/**=anon
          		/js/**=anon         
          		/camel/**=anon
-         		
+         		/hessian/**=anon
          		
 			</value> 
    		</property> 
