@@ -417,6 +417,11 @@ preflight-1.8.9.jar
 xmpbox-1.8.9.jar
 
 
+Hessian
+http://hessian.caucho.com/
+-------------------------
+hessian-4.0.37.jar
+
 
 ---------------------------------------------------------------------------------------
 REMOVE, REMOVE, REMOVE
