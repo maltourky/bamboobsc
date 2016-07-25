@@ -123,10 +123,9 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 			throw new Exception( "error no find proxy method: " + serviceId );
 		}
 		for (Method m : proxyObjectMethods) {
-			if (m.getName().equals(signature.getMethod().getName())) {
-				if (Arrays.equals(m.getParameterTypes(), signature.getMethod().getParameterTypes())) {
-					proxyObjectMethod = m;
-				}
+			if ( m.getName().equals(signature.getMethod().getName()) 
+					&& Arrays.equals(m.getParameterTypes(), signature.getMethod().getParameterTypes()) ) {
+				proxyObjectMethod = m;
 			}
 		}
 		
