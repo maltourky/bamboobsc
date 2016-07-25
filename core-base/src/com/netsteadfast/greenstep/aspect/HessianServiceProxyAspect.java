@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.aspect;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -126,7 +127,7 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		}
 		for (Method m : proxyObjectMethods) {
 			if (m.getName().equals(signature.getMethod().getName())) {
-				if (m.getParameters().length == signature.getMethod().getParameters().length) {
+				if (Arrays.equals(m.getParameterTypes(), signature.getMethod().getParameterTypes())) {
 					proxyObjectMethod = m;
 				}
 			}
