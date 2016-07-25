@@ -14,8 +14,12 @@
 	<bean id="hessian.config" class="java.util.HashMap" scope="singleton" >
 		<constructor-arg>
 			<map>
+				<!-- 預設的 hession 服務子位址, 必須與 web.xml 設定一致 -->
+				<entry key="configHessianUrlPattern"	value="/hessian/" />
+				<!-- 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致 -->
+				<entry key="configHessianExtensionName"	value=".hessian" />
 				<entry key="enable" 					value="${hessian.enable}" />
-				<entry key="serverUrl" 				value="${hessian.serverUrl}" />
+				<entry key="serverUrl" 					value="${hessian.serverUrl}" />
 				<entry key="checkValue" 				value="${hessian.checkValue}" />
 				<!-- now this only put test beanId!!! -->
 			    <entry key="proxyServiceId">

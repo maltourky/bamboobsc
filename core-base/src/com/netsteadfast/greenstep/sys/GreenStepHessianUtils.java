@@ -31,6 +31,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.model.YesNo;
+import com.netsteadfast.greenstep.util.ApplicationSiteUtils;
 import com.netsteadfast.greenstep.util.EncryptorUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 
@@ -38,6 +39,8 @@ import com.netsteadfast.greenstep.util.SimpleUtils;
 public class GreenStepHessianUtils {
 	
 	public static final String HEADER_CHECK_VALUE_PARAM_NAME = "greenstep_hessian_auth_check_value";
+	private static String configHessianUrlPattern = "/hessian/"; // 預設的 hession 服務子位址, 必須與 web.xml 設定一致
+	private static String configHessianExtensionName = ".hessian"; // 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致	
 	private static Map<String, Object> configMap = null;
 	private static String checkValue = "W$oTj09!Rq@N30l$";
 	private static List<String> proxyServiceId = new ArrayList<String>();
@@ -57,6 +60,24 @@ public class GreenStepHessianUtils {
 			}
 			proxyServiceId.add(serviceId);
 		}
+		if (!StringUtils.isBlank((String)configMap.get("configHessianUrlPattern"))) {
+			configHessianUrlPattern = String.valueOf(configMap.get("configHessianUrlPattern")).trim();
+		}
+		if (!StringUtils.isBlank((String)configMap.get("configHessianExtensionName"))) {
+			configHessianExtensionName = String.valueOf(configMap.get("configHessianExtensionName")).trim();
+		}		
+	}
+	
+	public static Map<String, Object> getConfigMap() {
+		return configMap;
+	}
+	
+	public static String getConfigHessianUrlPattern() {
+		return configHessianUrlPattern;
+	}
+	
+	public static String getConfigHessianExtensionName() {
+		return configHessianExtensionName;
 	}
 	
 	public static boolean isEnableCallRemote() {
@@ -67,7 +88,7 @@ public class GreenStepHessianUtils {
 	}
 	
 	public static String getServerUrl() {
-		return String.valueOf( configMap.get("serverUrl") );
+		return String.valueOf( configMap.get("serverUrl") ).trim();
 	}
 	
 	public static boolean isCheckValue(String encValue) throws Exception {
@@ -96,6 +117,12 @@ public class GreenStepHessianUtils {
 			return null;
 		}
 		return val[0].trim();
+	}
+	
+	public static String getServiceUrl(String serviceBeanId) throws Exception {
+		String contextPath = ApplicationSiteUtils.getContextPath( Constants.getSystem() ) + getConfigHessianUrlPattern();
+		String url = GreenStepHessianUtils.getServerUrl() + contextPath + serviceBeanId + getConfigHessianExtensionName();
+		return url;
 	}
 	
 }

@@ -47,8 +47,6 @@ import com.netsteadfast.greenstep.util.ApplicationSiteUtils;
 @Component
 public class HessianServiceProxyAspect implements IBaseAspectService {
 	protected Logger logger = Logger.getLogger(HessianServiceProxyAspect.class);
-	private static final String DEFAULT_HESSIAN_URL_PATTERN = "/hessian/"; // 預設的 hession 服務子位址, 必須與 web.xml 設定一致
-	private static final String DEFAULT_HESSIAN_EXTENSION_NAME = ".hessian"; // 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致
 	
 	@Around( AspectConstants.LOGIC_SERVICE_PACKAGE )
 	@Override
@@ -99,9 +97,8 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 			logger.error( "error no service interface: " + serviceId );
 			throw new Exception( "error no service interface: " + serviceId );			
 		}
-		String contextPath = ApplicationSiteUtils.getContextPath( Constants.getSystem() ) + DEFAULT_HESSIAN_URL_PATTERN;
-		String url = GreenStepHessianUtils.getServerUrl() + contextPath + serviceId + DEFAULT_HESSIAN_EXTENSION_NAME;
 		
+		String url = GreenStepHessianUtils.getServiceUrl(serviceId);
 		String theSystemPath = ApplicationSiteUtils.getHost( Constants.getSystem() ) + "/" + ApplicationSiteUtils.getContextPath( Constants.getSystem() );
 		
 		/**
