@@ -29,14 +29,21 @@ import org.springframework.stereotype.Service;
 
 public class AspectConstants {
 	
-	public static final String DATA_ACCESS_OBJECT_PACKAGE = " execution(* com.netsteadfast.greenstep.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.dao..*.*(..) ) ";
+	/**
+	 * 注意 base.dao.*.* 不是 base.dao..*.*
+	 */
+	public static final String DATA_ACCESS_OBJECT_PACKAGE = " execution(* com.netsteadfast.greenstep.base.dao.*.*(..) ) || execution(* com.netsteadfast.greenstep.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.dao..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.dao..*.*(..) ) ";
 	
 	/**
 	 * 注意 service.*.*   不是 service..*.* , 如果兩個點..*.* 就會包含 service.logic.
+	 * 注意 base.service.*.* 不是 base.service..*.*
 	 */
-	public static final String BASE_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.*.*(..) ) ";
+	public static final String BASE_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.base.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.*.*(..) ) ";
 	
-	public static final String LOGIC_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
+	/**
+	 * 注意 base.service.logic.*.* 不是 base.service.logic..*.*
+	 */
+	public static final String LOGIC_SERVICE_PACKAGE = " execution(* com.netsteadfast.greenstep.base.service.logic.*.*(..) ) || execution(* com.netsteadfast.greenstep.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.bsc.service.logic..*.*(..) ) || execution(* com.netsteadfast.greenstep.qcharts.service.logic..*.*(..) ) ";
 	
 	public static boolean isLogicService(String serviceId) {
 		if (StringUtils.defaultString(serviceId).indexOf(".service.logic.") > -1) {
