@@ -55,7 +55,8 @@ public class GreenStepHessianUtils {
 		if (checkValue.trim().length()<1) {
 			checkValue = "W$oTj09!Rq@N30l$";
 		}
-		String proxyServiceIdStr = StringUtils.defaultString( String.valueOf( configMap.get("proxyServiceId") ) ).replaceAll(" ", "").trim();
+		String proxyServiceIdStr = StringUtils.defaultString( String.valueOf( configMap.get("proxyServiceId") ) )
+				.replaceAll("\t", "").replaceAll("\n", "").replaceAll(" ", "").trim();
 		String serviceIdTmp[] = proxyServiceIdStr.split(",");
 		for (int i=0; serviceIdTmp!=null && i<serviceIdTmp.length; i++) {
 			String serviceId = serviceIdTmp[i].replaceAll(" ", "").trim();
@@ -64,7 +65,8 @@ public class GreenStepHessianUtils {
 			}
 			proxyServiceId.add(serviceId);
 		}
-		String proxyBlockedAccountIdStr = StringUtils.defaultString( String.valueOf( configMap.get("proxyBlockedAccountId") ) ).replaceAll(" ", "").trim();
+		String proxyBlockedAccountIdStr = StringUtils.defaultString( String.valueOf( configMap.get("proxyBlockedAccountId") ) )
+				.replaceAll("\t", "").replaceAll("\n", "").replaceAll(" ", "").trim();
 		String blockedAccountIdTmp[] = proxyBlockedAccountIdStr.split(",");
 		for (int i=0; blockedAccountIdTmp!=null && i<blockedAccountIdTmp.length; i++) {
 			String accountId = blockedAccountIdTmp[i].replaceAll(" ", "").trim();

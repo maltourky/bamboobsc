@@ -88,7 +88,7 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 			return pjp.proceed();
 		}
 		
-		String userId = String.valueOf(SecurityUtils.getSubject().getPrincipal());
+		String userId = StringUtils.defaultString((String)SecurityUtils.getSubject().getPrincipal());
 		
 		/**
 		 * 沒使用者資訊不能處理遠端代理的 service-bean
