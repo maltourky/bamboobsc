@@ -47,6 +47,7 @@ public class GreenStepHessianUtils {
 	private static Map<String, Object> configMap = null;
 	private static String checkValue = "W$oTj09!Rq@N30l$";
 	private static List<String> proxyServiceId = new ArrayList<String>();
+	private static List<String> proxyBlockedAccountId = new ArrayList<String>();
 	
 	static {
 		configMap = (Map<String, Object>)AppContext.getBean("hessian.config");
@@ -62,6 +63,15 @@ public class GreenStepHessianUtils {
 				continue;
 			}
 			proxyServiceId.add(serviceId);
+		}
+		String proxyBlockedAccountIdStr = StringUtils.defaultString( String.valueOf( configMap.get("proxyBlockedAccountId") ) ).replaceAll(" ", "").trim();
+		String blockedAccountIdTmp[] = proxyBlockedAccountIdStr.split(",");
+		for (int i=0; blockedAccountIdTmp!=null && i<blockedAccountIdTmp.length; i++) {
+			String accountId = blockedAccountIdTmp[i].replaceAll(" ", "").trim();
+			if (StringUtils.isBlank(accountId)) {
+				continue;
+			}
+			proxyBlockedAccountId.add(accountId);
 		}
 		if (!StringUtils.isBlank((String)configMap.get("configHessianUrlPattern"))) {
 			configHessianUrlPattern = String.valueOf(configMap.get("configHessianUrlPattern")).trim();
@@ -116,6 +126,10 @@ public class GreenStepHessianUtils {
 	public static boolean isProxyServiceId(String serviceId) {
 		return proxyServiceId.contains(serviceId);
 	}	
+	
+	public static boolean isProxyBlockedAccountId(String accountId) {
+		return proxyBlockedAccountId.contains(accountId);
+	}
 	
 	public static String getEncAuthValue(String accountId) throws Exception {
 		if (StringUtils.isBlank(accountId)) {

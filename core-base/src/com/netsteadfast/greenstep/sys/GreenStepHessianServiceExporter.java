@@ -69,8 +69,17 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		Map<String, String> dataMap = null;
 		try {			
 			dataMap = GreenStepHessianUtils.getDecAuthValue(checkValue);
-			if (!GreenStepHessianUtils.isCheckValue(dataMap)) {
-				logger.warn( "fail check value for hessian webService!" );
+			if (null == dataMap || !GreenStepHessianUtils.isCheckValue(dataMap)) {
+				logger.warn( "fail check value hessian webService" );
+				return;
+			}
+			String userId = GreenStepHessianUtils.getUserId(dataMap);
+			if (StringUtils.isBlank(userId)) {
+				logger.warn( "no userId cannot access hessian webService" );
+				return;
+			}
+			if (GreenStepHessianUtils.isProxyBlockedAccountId(userId)) {
+				logger.warn( "blocked userId: " + userId + " cannot access hessian webService" );
 				return;
 			}
 		} catch (Exception e) {
@@ -97,7 +106,7 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	private Subject forceLoginForHessianByUserId(HttpServletRequest request, HttpServletResponse response, String userId) throws Exception {
 		AccountVO account = this.queryUser( userId );
 		if ( account == null ) {
-			throw new Exception( "login userId: " + userId + " for hessian webService fail!" );
+			throw new Exception( "login userId: " + userId + " for hessian webService fail" );
 		}
 		String captchaStr = "0123"; 
 		request.getSession().setAttribute(GreenStepBaseFormAuthenticationFilter.DEFAULT_CAPTCHA_PARAM, captchaStr);

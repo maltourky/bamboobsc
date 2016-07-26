@@ -30,6 +30,15 @@
 			        
 			        </value>
 			    </entry>
+			    <!-- This is a Example , cannot use Hessian remote service proxy user account -->
+			    <entry key="proxyBlockedAccountId">
+			    	<value>
+			    	
+			    	admin,
+			    	system
+			    	
+			    	</value>
+			    </entry>
 			</map>
 		</constructor-arg>
     </bean>

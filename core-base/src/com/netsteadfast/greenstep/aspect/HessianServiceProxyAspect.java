@@ -87,6 +87,25 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 			logger.info( "reject proxy service: " + serviceId );
 			return pjp.proceed();
 		}
+		
+		String userId = String.valueOf(SecurityUtils.getSubject().getPrincipal());
+		
+		/**
+		 * 沒使用者資訊不能處理遠端代理的 service-bean
+		 */
+		if (StringUtils.isBlank(userId)) {
+			logger.warn( "no userId" );
+			pjp.proceed();
+		}
+		
+		/**
+		 * 此使用者不能存取遠端代理的 service-bean
+		 */
+		if (GreenStepHessianUtils.isProxyBlockedAccountId(userId)) {
+			logger.warn( "reject proxy service: " + serviceId + " , blocked userId: " + userId );
+			return pjp.proceed();
+		}
+		
 		String serviceInterfacesName = "";
 		Class<?> serviceInterfaces[] = pjp.getTarget().getClass().getInterfaces();
 		for (Class<?> clazz : serviceInterfaces) {
@@ -114,9 +133,8 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		}
 		
 		logger.info( "proxy url = " + url );
-		String headerValue = GreenStepHessianUtils.getEncAuthValue( String.valueOf(SecurityUtils.getSubject().getPrincipal()) );
 		GreenStepHessianProxyFactory factory = new GreenStepHessianProxyFactory();
-		factory.addHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, headerValue);
+		factory.addHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, GreenStepHessianUtils.getEncAuthValue( userId ));
 		Object proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);
 		Method[] proxyObjectMethods = proxyServiceObject.getClass().getMethods();
 		Method proxyObjectMethod = null;
