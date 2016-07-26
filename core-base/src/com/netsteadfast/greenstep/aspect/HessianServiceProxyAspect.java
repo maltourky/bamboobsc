@@ -28,6 +28,7 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -113,8 +114,9 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		}
 		
 		logger.info( "proxy url = " + url );
+		String headerValue = GreenStepHessianUtils.getEncAuthValue( String.valueOf(SecurityUtils.getSubject().getPrincipal()) );
 		GreenStepHessianProxyFactory factory = new GreenStepHessianProxyFactory();
-		factory.addHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, GreenStepHessianUtils.getEncAuthValue());
+		factory.addHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, headerValue);
 		Object proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);
 		Method[] proxyObjectMethods = proxyServiceObject.getClass().getMethods();
 		Method proxyObjectMethod = null;

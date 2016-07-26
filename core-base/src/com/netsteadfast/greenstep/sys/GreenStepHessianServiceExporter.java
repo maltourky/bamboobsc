@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.sys;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -65,8 +66,10 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkValue = request.getHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME);
-		try {
-			if (!GreenStepHessianUtils.isCheckValue(checkValue)) {
+		Map<String, String> dataMap = null;
+		try {			
+			dataMap = GreenStepHessianUtils.getDecAuthValue(checkValue);
+			if (!GreenStepHessianUtils.isCheckValue(dataMap)) {
 				logger.warn( "fail check value for hessian webService!" );
 				return;
 			}
@@ -78,7 +81,7 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		Subject subject = null;
 		try {
 			if (!SecurityUtils.getSubject().isAuthenticated()) {
-				subject = this.forceLoginAdminForHessian(request, response);
+				subject = this.forceLoginForHessianByUserId(request, response, GreenStepHessianUtils.getUserId(dataMap));
 			}
 			super.handleRequest(request, response);				
 		} catch (Exception e) {
@@ -91,10 +94,10 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		}
 	}
 	
-	private Subject forceLoginAdminForHessian(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		AccountVO account = this.queryUser( "admin" );
+	private Subject forceLoginForHessianByUserId(HttpServletRequest request, HttpServletResponse response, String userId) throws Exception {
+		AccountVO account = this.queryUser( userId );
 		if ( account == null ) {
-			throw new Exception( "login admin for hessian webService fail!" );
+			throw new Exception( "login userId: " + userId + " for hessian webService fail!" );
 		}
 		String captchaStr = "0123"; 
 		request.getSession().setAttribute(GreenStepBaseFormAuthenticationFilter.DEFAULT_CAPTCHA_PARAM, captchaStr);

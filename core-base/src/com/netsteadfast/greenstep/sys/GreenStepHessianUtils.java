@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.sys;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,8 @@ import com.netsteadfast.greenstep.util.SimpleUtils;
 public class GreenStepHessianUtils {
 	
 	public static final String HEADER_CHECK_VALUE_PARAM_NAME = "greenstep_hessian_auth_check_value";
+	public static final String CHECK_VALUE_PARAM_NAME = "checkValue";
+	public static final String USER_ID_PARAM_NAME = "accountId";
 	private static String configHessianUrlPattern = "/hessian/"; // 預設的 hession 服務子位址, 必須與 web.xml 設定一致
 	private static String configHessianExtensionName = ".hessian"; // 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致	
 	private static Map<String, Object> configMap = null;
@@ -91,8 +94,20 @@ public class GreenStepHessianUtils {
 		return String.valueOf( configMap.get("serverUrl") ).trim();
 	}
 	
-	public static boolean isCheckValue(String encValue) throws Exception {
-		if (!checkValue.equals( getDecAuthValue(encValue) )) {
+	public static String getUserId(Map<String, String> dataMap) {
+		return dataMap.get(USER_ID_PARAM_NAME);
+	}
+	
+	public static String getCheckValue(Map<String, String> dataMap) {
+		return dataMap.get(CHECK_VALUE_PARAM_NAME);
+	}
+	
+	public static boolean isCheckValue(Map<String, String> dataMap) throws Exception {
+		return isCheckValue( dataMap.get(CHECK_VALUE_PARAM_NAME) );
+	}
+	
+	public static boolean isCheckValue(String decCheckValue) throws Exception {		
+		if (!checkValue.equals( decCheckValue )) {
 			return false;
 		}
 		return true;
@@ -100,23 +115,31 @@ public class GreenStepHessianUtils {
 	
 	public static boolean isProxyServiceId(String serviceId) {
 		return proxyServiceId.contains(serviceId);
-	}
+	}	
 	
-	public static String getEncAuthValue() throws Exception {
-		String value = checkValue + Constants.ID_DELIMITER + SimpleUtils.createRandomString(8) + Constants.ID_DELIMITER + System.currentTimeMillis();
+	public static String getEncAuthValue(String accountId) throws Exception {
+		if (StringUtils.isBlank(accountId)) {
+			throw new Exception( "accountId is required!" );
+		}
+		String value = checkValue + Constants.ID_DELIMITER + SimpleUtils.createRandomString(8) 
+			+ Constants.ID_DELIMITER + System.currentTimeMillis() + Constants.ID_DELIMITER + accountId;
 		return EncryptorUtils.encrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), value);
 	}
 	
-	public static String getDecAuthValue(String encValue) throws Exception {
+	public static Map<String, String> getDecAuthValue(String encValue) throws Exception {
 		String value = EncryptorUtils.decrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), encValue);
 		String val[] = StringUtils.defaultString(value).trim().split(Constants.ID_DELIMITER);
-		if (val.length!=3) {
+		if (val.length!=4) {
 			return null;
 		}
-		if (val[0].trim().length()<1 || val[1].trim().length()!=8 || !NumberUtils.isNumber(val[2])) {
+		if (val[0].trim().length()<1 || val[1].trim().length()!=8 || !NumberUtils.isNumber(val[2]) 
+				|| !SimpleUtils.checkBeTrueOf_azAZ09(val[3])) {
 			return null;
 		}
-		return val[0].trim();
+		Map<String, String> data = new HashMap<String, String>();
+		data.put(CHECK_VALUE_PARAM_NAME, val[0].trim());
+		data.put(USER_ID_PARAM_NAME, val[3].trim());
+		return data;
 	}
 	
 	public static String getServiceUrl(String serviceBeanId) throws Exception {
