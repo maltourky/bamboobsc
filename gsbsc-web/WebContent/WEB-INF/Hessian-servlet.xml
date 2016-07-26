@@ -6,10 +6,12 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
     
-    <!-- now this only put for TEST! -->
-     <bean name="/core.service.AccountService.hessian" class="com.netsteadfast.greenstep.sys.GreenStepHessianServiceExporter">
-     	<property name="service" ref="core.service.AccountService"/>
-     	<property name="serviceInterface" value="com.netsteadfast.greenstep.service.IAccountService"/>
-     </bean>
+    <!-- This is a Example, The SYSTEM no bean named TestHelloWorldService -->
+    <!--  
+	<bean name="/core.service.TestHelloWorldService.hessian" class="com.netsteadfast.greenstep.sys.GreenStepHessianServiceExporter">
+		<property name="service" ref="core.service.TestHelloWorldService"/>
+		<property name="serviceInterface" value="com.netsteadfast.greenstep.service.ITestHelloWorldService"/>
+	</bean>
+    -->
     
 </beans>

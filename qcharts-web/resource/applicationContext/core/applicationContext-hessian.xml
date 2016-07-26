@@ -21,17 +21,17 @@
 				<entry key="enable" 					value="${hessian.enable}" />
 				<entry key="serverUrl" 					value="${hessian.serverUrl}" />
 				<entry key="checkValue" 				value="${hessian.checkValue}" />
-				<!-- now this only put test beanId!!! -->
+				<!-- This is a Example , The SYSTEM no bean named PlayHelloWorldService and TestHelloWorldService -->
 			    <entry key="proxyServiceId">
 			        <value>
 			        
-			        core.service.AccountService, 
-			        test.service.testService
+			        core.service.PlayHelloWorldService, 
+			        core.service.TestHelloWorldService
 			        
 			        </value>
 			    </entry>
 			</map>
-		</constructor-arg>			    
+		</constructor-arg>
     </bean>
     
-</beans>    
+</beans>
