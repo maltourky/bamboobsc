@@ -1,65 +1,9 @@
-#bambooBSC demo video
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=N5BsWZL8bxQ" target="_blank">bambooBSC demo video</a>
-
-
-#bambooBSC development manual
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">01 - Entitiy</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">02 - DAO and Service</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">03 - Logic service</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/04-ControllerAction.md">04 - Controller</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/05-ProgramRegistrationAndMenuSettings.md">05 - Program registration and Menu settings</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/06-RoleAndAuthoritySettings.md">06 - Role and authority settings</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/07-ExpressionSupportLogicService.md">07 - Expression support Logic Service</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/08-WebService.md">08 - WebService</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/09-JasperReport.md">09 - JasperReport</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/10-BPMN.md">10 - BPMN resource</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md">11 - Mail</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/12-Job.md">12 - Job Scheduler</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/13-Template.md">13 - Template</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/14-WebContextBean.md">14 - Web Context bean</a>
-<br/>
-
-<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/15-Formula.md">15 - Formula</a>
-<br/>
-
-<br>
-<br>
-<br>
-
-<h1><a href="https://en.wikipedia.org/wiki/Balanced_scorecard">What is the Balanced Scorecard?</a></h1>
-<br/>
-
-[![Join the chat at https://gitter.im/billchen198318/bamboobsc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/billchen198318/bamboobsc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 <h2>bambooBSC is an opensource Balanced Scorecard (BSC) Business Intelligence</h2>
 <br/>
+[![Codewake](https://www.codewake.com/badges/codewake.svg)](https://www.codewake.com/p/bamboobsc-opensource-balanced-scorecard)
+[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/bamboobsc-opensource-balanced-scorecard)
+
+[![Join the chat at https://gitter.im/billchen198318/bamboobsc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/billchen198318/bamboobsc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <br/>
 Features:<br/>
 1. BSC's Vision, Perspectives, Objectives of strategy, Key Performance Indicators (KPIs). and Maintain measure-data.<br/>
@@ -70,6 +14,10 @@ Features:<br/>
 6. Provides Sourcecard query for mobile-device browser.<br/>
 7. PDCA & PDCA report.
 <br/><br/>
+
+#bambooBSC demo video
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=N5BsWZL8bxQ" target="_blank">bambooBSC demo video</a>
+
 
 <h2>bambooBSC architecture</h2>
 <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/bamboobsc_05_web_arch.png"/><br/>
@@ -333,3 +281,56 @@ settings Text file encoding to UTF-8<br/>
 
    no found Java Problem, Environment Setup Complete<br/>
    <img src="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/BUILD_DEV_ENV/012.png"></img>
+
+
+
+#bambooBSC development manual
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/01-Entity.md">01 - Entitiy</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/02-DaoAndService.md">02 - DAO and Service</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/03-LogicService.md">03 - Logic service</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/04-ControllerAction.md">04 - Controller</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/05-ProgramRegistrationAndMenuSettings.md">05 - Program registration and Menu settings</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/06-RoleAndAuthoritySettings.md">06 - Role and authority settings</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/07-ExpressionSupportLogicService.md">07 - Expression support Logic Service</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/08-WebService.md">08 - WebService</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/09-JasperReport.md">09 - JasperReport</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/10-BPMN.md">10 - BPMN resource</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/11-Mail.md">11 - Mail</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/12-Job.md">12 - Job Scheduler</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/13-Template.md">13 - Template</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/14-WebContextBean.md">14 - Web Context bean</a>
+<br/>
+
+<a href="https://github.com/billchen198318/bamboobsc/blob/master/core-doc/dev-docs/15-Formula.md">15 - Formula</a>
+<br/>
+
+<br>
+<br>
+<br>
