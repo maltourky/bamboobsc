@@ -97,6 +97,13 @@ public class GreenStepHessianUtils {
 		return configHessianExtensionName;
 	}
 	
+	public static boolean getConfigHessianHeaderCheckValueModeEnable() {
+		if (YesNo.YES.equals(configMap.get("configHessianHeaderCheckValueModeEnable"))) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean isEnableCallRemote() {
 		if (YesNo.YES.equals(configMap.get("enable"))) {
 			return true;

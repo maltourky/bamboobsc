@@ -90,20 +90,22 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		
 		String userId = StringUtils.defaultString((String)SecurityUtils.getSubject().getPrincipal());
 		
-		/**
-		 * 沒使用者資訊不能處理遠端代理的 service-bean
-		 */
-		if (StringUtils.isBlank(userId)) {
-			logger.warn( "no userId" );
-			pjp.proceed();
-		}
-		
-		/**
-		 * 此使用者不能存取遠端代理的 service-bean
-		 */
-		if (GreenStepHessianUtils.isProxyBlockedAccountId(userId)) {
-			logger.warn( "reject proxy service: " + serviceId + " , blocked userId: " + userId );
-			return pjp.proceed();
+		if (GreenStepHessianUtils.getConfigHessianHeaderCheckValueModeEnable()) {
+			/**
+			 * 沒使用者資訊不能處理遠端代理的 service-bean
+			 */
+			if (StringUtils.isBlank(userId)) {
+				logger.warn( "no userId" );
+				pjp.proceed();
+			}
+			
+			/**
+			 * 此使用者不能存取遠端代理的 service-bean
+			 */
+			if (GreenStepHessianUtils.isProxyBlockedAccountId(userId)) {
+				logger.warn( "reject proxy service: " + serviceId + " , blocked userId: " + userId );
+				return pjp.proceed();
+			}			
 		}
 		
 		String serviceInterfacesName = "";
@@ -134,8 +136,13 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		
 		logger.info( "proxy url = " + url );
 		GreenStepHessianProxyFactory factory = new GreenStepHessianProxyFactory();
-		factory.setHeaderCheckValue(GreenStepHessianUtils.getEncAuthValue( userId ));
-		Object proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);
+		Object proxyServiceObject = null;
+		if (GreenStepHessianUtils.getConfigHessianHeaderCheckValueModeEnable()) { // 一般要checkValue模式
+			factory.setHeaderCheckValue(GreenStepHessianUtils.getEncAuthValue( userId ));
+			proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);			
+		} else { // 不使用checkValue模式
+			proxyServiceObject = factory.create(Class.forName(serviceInterfacesName), url);
+		}
 		Method[] proxyObjectMethods = proxyServiceObject.getClass().getMethods();
 		Method proxyObjectMethod = null;
 		if (null == proxyObjectMethods) {

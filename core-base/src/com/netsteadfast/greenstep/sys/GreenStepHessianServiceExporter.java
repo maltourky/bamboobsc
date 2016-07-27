@@ -65,6 +65,18 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		/**
+		 * 不用檢查checkValue模式
+		 */
+		if (!GreenStepHessianUtils.getConfigHessianHeaderCheckValueModeEnable()) {
+			super.handleRequest(request, response);
+			return;
+		}
+		
+		/**
+		 * 一般要檢查checkValue模式
+		 */
 		String checkValue = GreenStepHessianUtils.getHttpRequestHeaderCheckValue(request);
 		Map<String, String> dataMap = null;
 		try {			

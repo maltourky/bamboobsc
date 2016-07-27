@@ -14,6 +14,8 @@
 	<bean id="hessian.config" class="java.util.HashMap" scope="singleton" >
 		<constructor-arg>
 			<map>
+				<!-- 預設要檢查http request header 中的 check value 資料 -->
+				<entry key="configHessianHeaderCheckValueModeEnable"		value="Y" />
 				<!-- 預設的 hession 服務子位址, 必須與 web.xml 設定一致 -->
 				<entry key="configHessianUrlPattern"	value="/hessian/" />
 				<!-- 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致 -->
