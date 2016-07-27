@@ -139,11 +139,11 @@ public class GreenStepHessianUtils {
 		}
 		String value = checkValue + Constants.ID_DELIMITER + SimpleUtils.createRandomString(8) 
 			+ Constants.ID_DELIMITER + System.currentTimeMillis() + Constants.ID_DELIMITER + accountId;
-		return EncryptorUtils.encrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), value);
+		return SimpleUtils.toHex( EncryptorUtils.encrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), value) );
 	}
 	
 	public static Map<String, String> getDecAuthValue(String encValue) throws Exception {
-		String value = EncryptorUtils.decrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), encValue);
+		String value = EncryptorUtils.decrypt(Constants.getEncryptorKey1(), Constants.getEncryptorKey2(), SimpleUtils.deHex(encValue));
 		String val[] = StringUtils.defaultString(value).trim().split(Constants.ID_DELIMITER);
 		if (val.length!=4) {
 			return null;
