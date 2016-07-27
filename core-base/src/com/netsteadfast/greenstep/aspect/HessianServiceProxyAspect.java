@@ -85,7 +85,7 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		 * 不需要被遠端代理的 service-bean
 		 */
 		if (!GreenStepHessianUtils.isProxyServiceId(serviceId)) {
-			logger.info( "reject proxy service: " + serviceId );
+			//logger.info( "reject proxy service: " + serviceId );
 			return pjp.proceed();
 		}
 		
