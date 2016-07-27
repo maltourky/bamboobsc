@@ -46,6 +46,10 @@ public class GreenStepHessianProxyFactory extends HessianProxyFactory {
 		this.context.put(key, value);
 	}	
 	
+	public void setHeaderCheckValue(String value) {
+		this.context.put(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, value);
+	}
+	
 	public Object createForHeaderMode(Class<?> api, String url) throws MalformedURLException {
 		if (api == null) {
 			throw new NullPointerException("api must not be null for HessianProxyFactory.create()");

@@ -65,7 +65,7 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String checkValue = request.getHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME);
+		String checkValue = GreenStepHessianUtils.getHttpRequestHeaderCheckValue(request);
 		Map<String, String> dataMap = null;
 		try {			
 			dataMap = GreenStepHessianUtils.getDecAuthValue(checkValue);

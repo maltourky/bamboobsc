@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -112,6 +114,10 @@ public class GreenStepHessianUtils {
 	
 	public static String getCheckValue(Map<String, String> dataMap) {
 		return dataMap.get(CHECK_VALUE_PARAM_NAME);
+	}
+	
+	public static String getHttpRequestHeaderCheckValue(HttpServletRequest request) {
+		return request.getHeader(HEADER_CHECK_VALUE_PARAM_NAME);
 	}
 	
 	public static boolean isCheckValue(Map<String, String> dataMap) throws Exception {

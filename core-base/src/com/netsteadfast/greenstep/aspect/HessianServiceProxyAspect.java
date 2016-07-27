@@ -134,7 +134,7 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		
 		logger.info( "proxy url = " + url );
 		GreenStepHessianProxyFactory factory = new GreenStepHessianProxyFactory();
-		factory.addHeader(GreenStepHessianUtils.HEADER_CHECK_VALUE_PARAM_NAME, GreenStepHessianUtils.getEncAuthValue( userId ));
+		factory.setHeaderCheckValue(GreenStepHessianUtils.getEncAuthValue( userId ));
 		Object proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);
 		Method[] proxyObjectMethods = proxyServiceObject.getClass().getMethods();
 		Method proxyObjectMethod = null;
