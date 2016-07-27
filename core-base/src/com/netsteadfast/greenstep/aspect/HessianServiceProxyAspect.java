@@ -36,6 +36,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import com.caucho.hessian.client.HessianProxyFactory;
 import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -135,12 +136,14 @@ public class HessianServiceProxyAspect implements IBaseAspectService {
 		}
 		
 		logger.info( "proxy url = " + url );
-		GreenStepHessianProxyFactory factory = new GreenStepHessianProxyFactory();
+		HessianProxyFactory factory = null;
 		Object proxyServiceObject = null;
 		if (GreenStepHessianUtils.getConfigHessianHeaderCheckValueModeEnable()) { // 一般要checkValue模式
-			factory.setHeaderCheckValue(GreenStepHessianUtils.getEncAuthValue( userId ));
-			proxyServiceObject = factory.createForHeaderMode(Class.forName(serviceInterfacesName), url);			
+			factory = new GreenStepHessianProxyFactory();
+			((GreenStepHessianProxyFactory)factory).setHeaderCheckValue(GreenStepHessianUtils.getEncAuthValue( userId ));
+			proxyServiceObject = ((GreenStepHessianProxyFactory)factory).createForHeaderMode(Class.forName(serviceInterfacesName), url);			
 		} else { // 不使用checkValue模式
+			factory = new HessianProxyFactory();
 			proxyServiceObject = factory.create(Class.forName(serviceInterfacesName), url);
 		}
 		Method[] proxyObjectMethods = proxyServiceObject.getClass().getMethods();
