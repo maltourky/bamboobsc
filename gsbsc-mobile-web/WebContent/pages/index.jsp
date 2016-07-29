@@ -205,7 +205,7 @@ function query_kpiByObjective(uploadOid, objectiveOid) {
 
 function getTitleContent(backgroundColor, fontColor, title, fnname) {	
 	var titleContent = '';
-	titleContent += '<table width="100%" border="0" cellspacing="2" cellpadding="0" bgcolor="' + backgroundColor + '">';
+	titleContent += '<table width="100%" border="0" cellspacing="2" cellpadding="0" bgcolor="' + backgroundColor + '" style="border-radius: 5px;" >';
 	titleContent += '<tr valign="top">';
 	titleContent += '<td width="100%" align="center" bgcolor="' + backgroundColor + '" onclick="' + fnname + '">';
 	titleContent += '<img src="./images/go-previous.png" border="0" alt="previous" onclick="' + onclick + '"/>';
