@@ -5,7 +5,7 @@
 <#if ( hrWidth < 0 ) >
 	<#assign hrWidth=0 >
 </#if>
-<table width="100%" border="0" cellspacing="2" cellpadding="0" bgcolor="${backgroundColor}" style="border-radius: 5px;" >
+<table width="100%" cellspacing="2" cellpadding="0" bgcolor="${backgroundColor}" style="border:1px ${backgroundColor} solid; border-radius: 5px;" >
 	<tr valign="top">
 		<td width="100%" align="left" bgcolor="${backgroundColor}" onclick="query_objectiveByPerspective('${uploadOid}', '${perspective.oid}');">
 		<img src="./images/go-next.png" border="0" alt="next" onclick="query_objectiveByPerspective('${uploadOid}', '${perspective.oid}');"/>
@@ -39,8 +39,10 @@
 	</tr>	
 	<tr valign="top">
 		<td width="100%" align="left" bgcolor="#ffffff">
-		description:<BR/>
+		<font size="2" color="#333333"><b>Description:</b></font><BR/>
+		<font size="2" color="#333333">
 		${perspective.description}
+		</font>
 		</td>
 	</tr>
 </table>

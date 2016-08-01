@@ -5,7 +5,7 @@
 <#if ( hrWidth < 0 ) >
 	<#assign hrWidth=0 >
 </#if>
-<table width="100%" border="0" cellspacing="2" cellpadding="0" bgcolor="${backgroundColor}" style="border-radius: 5px;" >
+<table width="100%" cellspacing="2" cellpadding="0" bgcolor="${backgroundColor}" style="border:1px ${backgroundColor} solid; border-radius: 5px;" >
 	<tr valign="top">
 		<td width="100%" align="center" bgcolor="${backgroundColor}" onclick="query_perspective('${uploadOid}');">
 		<img src="./images/go-next.png" border="0" alt="next" onclick="query_perspective('${uploadOid}');"/>
