@@ -198,7 +198,7 @@ function BSC_PROG002D0005Q_renderBodySuccess(data) {
 		return;
 	}	
 	//dojo.byId("BSC_PROG002D0005Q_content").innerHTML = data.body;
-	dojo.html.set(dojo.byId("BSC_PROG002D0005Q_content"), data.body, {extractContent: true, parseContent: true});
+	dojo.html.set(dojo.byId("BSC_PROG002D0005Q_content"), '<br/>' + data.body, {extractContent: true, parseContent: true});
 	dojo.byId("BSC_PROG002D0005Q_date").value = data.dateValue; // 日期
 }
 
