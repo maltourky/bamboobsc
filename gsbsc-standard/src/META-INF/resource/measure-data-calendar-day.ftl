@@ -6,7 +6,7 @@
 <input type="hidden" name="BSC_PROG002D0005Q_queryCalendar" id="BSC_PROG002D0005Q_queryCalendar" value="Y" />
 <table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#E9E9E9" style="border:1px #E9E9E9 solid; border-radius: 5px;">		
 	<tr>
-		<td colspan="7" bgcolor="#F6F6F6" align="center">
+		<td colspan="7" bgcolor="#E9E9E9" align="center">
 			<b><font color="#333333" size="+1">${kpi.name}</font></b>
 		</td>
 	</tr>	
@@ -127,7 +127,7 @@
 </#list>  	
 
 	<tr>
-		<td bgcolor="#F6F6F6" colspan="7"><b><font color="#333333">T (${targetValueName}) , A (${actualValueName})</font></b></td>
+		<td bgcolor="#E9E9E9" colspan="7"><b><font color="#333333">T (${targetValueName}) , A (${actualValueName})</font></b></td>
 	</tr>		
 </table>
 
