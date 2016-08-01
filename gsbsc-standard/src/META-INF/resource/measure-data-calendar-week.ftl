@@ -22,11 +22,11 @@
 	</tr>		
 	<tr>
 		<td colspan="4" bgcolor="#F6F6F6" align="center">
-			<img src="./images/go-previous.png" alt="prev" border="0" onclick="BSC_PROG002D0005Q_prevCalendar();" />
+			<img src="./images/go-previous.png" alt="prev" border="0" onclick="BSC_PROG002D0005Q_prevCalendar();" title="click to query The previous period" />
 			&nbsp;
 			<b><font color="#333333" size="+3">${yyyy}/${mm}</font></b>
 			&nbsp;
-			<img src="./images/go-next.png" alt="next" border="0" onclick="BSC_PROG002D0005Q_nextCalendar();" />
+			<img src="./images/go-next.png" alt="next" border="0" onclick="BSC_PROG002D0005Q_nextCalendar();" title="click to query Next period" />
 		</td>
 	</tr>	
 	<tr>
