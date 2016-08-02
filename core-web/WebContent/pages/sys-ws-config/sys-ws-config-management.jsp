@@ -114,15 +114,21 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="100%" height="55px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="30px" width="10%"  align="right"><s:property value="getText('CORE_PROG003D0001Q_systemOid')"/>:</td>
-    		<td height="30px" width="40%"  align="left"><gs:select name="CORE_PROG003D0001Q_systemOid" dataSource="sysMap" id="CORE_PROG003D0001Q_systemOid"></gs:select></td>
-    		<td height="30px" width="10%"  align="right"><s:property value="getText('CORE_PROG003D0001Q_wsId')"/>:</td>
-    		<td height="30px" width="40%"  align="left"><gs:textBox name="CORE_PROG003D0001Q_wsId" id="CORE_PROG003D0001Q_wsId" value="" width="200" maxlength="10"></gs:textBox></td>    		  					
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0001Q_systemOid')"/>:</b></font>
+    			<br/>
+    			<gs:select name="CORE_PROG003D0001Q_systemOid" dataSource="sysMap" id="CORE_PROG003D0001Q_systemOid"></gs:select>
+    		</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0001Q_wsId')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG003D0001Q_wsId" id="CORE_PROG003D0001Q_wsId" value="" width="200" maxlength="10"></gs:textBox>
+    		</td>		  					
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="CORE_PROG003D0001Q_query" id="CORE_PROG003D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

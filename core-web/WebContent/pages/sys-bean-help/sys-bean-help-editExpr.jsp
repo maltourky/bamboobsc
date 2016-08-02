@@ -133,22 +133,37 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="225px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG003D0003E_S00_exprOid')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:select name="CORE_PROG003D0003E_S00_exprOid" dataSource="expressionMap" id="CORE_PROG003D0003E_S00_exprOid" ></gs:select></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b>SYSTEM&nbsp;/&nbsp;Bean-Id&nbsp;/&nbsp;Method:</b></font>
+    			<br/>
+    			<s:property value="sysBeanHelp.system"/>&nbsp;/&nbsp;<s:property value="sysBeanHelp.beanId"/>&nbsp;/&nbsp;<s:property value="sysBeanHelp.method"/>
+    		</td>
+    	</tr>		
+		<tr>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprOid')"/>:</b></font>
+    			<br/>
+    			<gs:select name="CORE_PROG003D0003E_S00_exprOid" dataSource="expressionMap" id="CORE_PROG003D0003E_S00_exprOid" ></gs:select>
+    		</td>
     	</tr>	
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG003D0003E_S00_exprSeq')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:textBox name="CORE_PROG003D0003E_S00_exprSeq" id="CORE_PROG003D0003E_S00_exprSeq" value="" width="200" maxlength="10" ></gs:textBox></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprSeq')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG003D0003E_S00_exprSeq" id="CORE_PROG003D0003E_S00_exprSeq" value="" width="200" maxlength="10" ></gs:textBox>
+    		</td>
     	</tr>	
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG003D0003E_S00_runType')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:select name="CORE_PROG003D0003E_S00_runType" dataSource="runTypeMap" id="CORE_PROG003D0003E_S00_runType"></gs:select></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_runType')"/>:</b></font>
+    			<br/>
+    			<gs:select name="CORE_PROG003D0003E_S00_runType" dataSource="runTypeMap" id="CORE_PROG003D0003E_S00_runType"></gs:select>
+    		</td>
     	</tr>      	   	
     	<tr>
-    		<td height="25px" width="20%"  align="right">&nbsp;</td>
-    		<td height="25px" align="left">
+    		<td height="25px" width="100%" align="left">
     			<gs:button name="CORE_PROG003D0003E_S00_update" id="CORE_PROG003D0003E_S00_update" onClick="CORE_PROG003D0003E_S00_update();"
     				handleAs="json"
     				sync="N"
@@ -171,16 +186,10 @@ function ${programId}_page_message() {
     			<gs:button name="CORE_PROG003D0003E_S00_clear" id="CORE_PROG003D0003E_S00_clear" onClick="CORE_PROG003D0003E_S00_clear();" 
     				label="${action.getText('CORE_PROG003D0003E_S00_clear')}" 
     				iconClass="dijitIconClear"
-    				cssClass="alt-primary"></gs:button>    			
-    		</td>
-    	</tr>     	 	  	    	
-	</table>	
-	
-	<hr width="95%" align="center" size="2" color="#CFECEC">
-	
-	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >
-		<tr>
-    		<td height="25px" width="100%"  align="center">
+    				cssClass="alt-primary"></gs:button>    
+    				
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    				
 			    <gs:button name="CORE_PROG003D0003E_S00_query" id="CORE_PROG003D0003E_S00_query" onClick="getQueryGrid_${programId}_grid();"
 			    	handleAs="json"
 			    	sync="N"
@@ -199,10 +208,12 @@ function ${programId}_page_message() {
 			    	programId="${programId}"
 			    	label="${action.getText('CORE_PROG003D0003E_S00_query')}" 
 			    	iconClass="dijitIconSearch"
-			    	cssClass="alt-primary"></gs:button>
-    		</td>    		  				
-    	</tr>   		
-	</table>
+			    	cssClass="alt-primary"></gs:button>    				
+    				
+    							
+    		</td>
+    	</tr>     	 	  	    	
+	</table>	
 		
 	<gs:grid gridFieldStructure="CORE_PROG003D0003E_S00_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>
 	
