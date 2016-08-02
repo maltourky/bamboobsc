@@ -165,16 +165,18 @@ function ${programId}_page_message() {
 	<jsp:include page="../header.jsp"></jsp:include>	
 
 <form action="" name="CORE_PROG002D0003Q_form" id="CORE_PROG002D0003Q_form">	
-	<table border="0" width="100%" height="60px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="750px" height="100px" cellpadding="1" cellspacing="0" >
 		<tr>
-			<td height="30px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0003Q_system')"/>:</td>
-			<td height="30px" width="80%"  align="left">
+			<td height="50px" width="100%"  align="center">
+				<font size='2'><b><s:property value="getText('CORE_PROG002D0003Q_system')"/>:</b></font>
+				<br/>
 				<gs:select name="CORE_PROG002D0003Q_system" dataSource="sysMap" id="CORE_PROG002D0003Q_system" onChange="CORE_PROG002D0003Q_system_change()"></gs:select>
 			</td>
 		</tr>
 		<tr>
-			<td height="30px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0003Q_sysProg')"/>:</td>
-			<td height="30px" width="80%"  align="left">
+			<td height="50px" width="100%"  align="center">
+				<font size='2'><b><s:property value="getText('CORE_PROG002D0003Q_sysProg')"/>:</b></font>
+				<br/>
 				<gs:select name="CORE_PROG002D0003Q_sysProg" dataSource="sysProgMap" id="CORE_PROG002D0003Q_sysProg" onChange="CORE_PROG002D0003Q_sysProg_change()"></gs:select>
 			</td>
 		</tr>		
@@ -182,7 +184,7 @@ function ${programId}_page_message() {
 	<table width="750px" height="160px" border="0" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td align="center" width="350px" height="200px">
-				<center><b><s:property value="getText('CORE_PROG002D0003Q_enable')"/>:</b></center>
+				<b><s:property value="getText('CORE_PROG002D0003Q_enable')"/>:</b>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0003Q_enable" name="CORE_PROG002D0003Q_enable" size="10" style="width:320px;height:300px" >			    
 				</select>					
 			</td>
@@ -209,7 +211,7 @@ function ${programId}_page_message() {
 					class="alt-info">→</button>					
 			</td>
 			<td align="center" width="350px" height="200px">
-				<center><b><s:property value="getText('CORE_PROG002D0003Q_disable')"/>:</b></center>
+				<b><s:property value="getText('CORE_PROG002D0003Q_disable')"/>:</b>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0003Q_disable" name="CORE_PROG002D0003Q_disable" size="10" style="width:320px;height:300px" >
 				</select>					
 			</td>

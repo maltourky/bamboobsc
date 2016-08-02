@@ -171,7 +171,12 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="50px" width="100%"  align="left">
+    		
+    			<font size='2'><b>Form:</b></font>&nbsp;<s:property value="form.formId"/>&nbsp;-&nbsp;<s:property value="form.name"/>
+    			
+    			<br/>
+    			
     			<gs:button name="CORE_PROG001D0014Q_query" id="CORE_PROG001D0014Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

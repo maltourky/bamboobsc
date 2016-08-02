@@ -67,6 +67,9 @@ function CORE_PROG002D0001E_S00_clear() {
 	dijit.byId("CORE_PROG002D0001E_S00_permType").set("value", _gscore_please_select_id);
 	dijit.byId("CORE_PROG002D0001E_S00_permission").set("value", "");
 	dijit.byId("CORE_PROG002D0001E_S00_description").set("value", "");
+	
+	clearQuery_${programId}_grid();
+	
 }
 
 function CORE_PROG002D0001E_S00_confirmDelete(oid) {
@@ -126,28 +129,37 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="100%" height="275px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0001E_S00_role')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><s:property value="role.role"/></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_role')"/>:</b></font>
+    			<br/>
+    			<s:property value="role.role"/>
+    		</td>
     	</tr>
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0001E_S00_permType')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:select name="CORE_PROG002D0001E_S00_permType" dataSource="permTypeMap" id="CORE_PROG002D0001E_S00_permType"></gs:select></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permType')"/>:</b></font>
+    			<br/>
+    			<gs:select name="CORE_PROG002D0001E_S00_permType" dataSource="permTypeMap" id="CORE_PROG002D0001E_S00_permType"></gs:select>
+    		</td>
     	</tr>    	
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0001E_S00_permission')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:textBox name="CORE_PROG002D0001E_S00_permission" id="CORE_PROG002D0001E_S00_permission" value="" width="400" maxlength="255"></gs:textBox></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permission')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG002D0001E_S00_permission" id="CORE_PROG002D0001E_S00_permission" value="" width="400" maxlength="255"></gs:textBox>
+    		</td>
     	</tr>	
 		<tr>
-    		<td height="200px" width="20%"  align="right"><s:property value="getText('CORE_PROG002D0001E_S00_description')"/>:</td>
-    		<td height="200px" width="80%"  align="left">
-    			<textarea id="CORE_PROG002D0001E_S00_description" name="CORE_PROG002D0001E_S00_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px"></textarea>	
+    		<td height="150px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_description')"/>:</b></font>
+    			<br/>
+    			<textarea id="CORE_PROG002D0001E_S00_description" name="CORE_PROG002D0001E_S00_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>
     	</tr>
     	<tr>
-    		<td height="25px" width="20%"  align="right">&nbsp;</td>
-    		<td height="25px" align="left">
+    		<td height="25px" width="100%" align="left">
     			<gs:button name="CORE_PROG002D0001E_S00_save" id="CORE_PROG002D0001E_S00_save" onClick="CORE_PROG002D0001E_S00_save();"
     				handleAs="json"
     				sync="N"
@@ -171,15 +183,10 @@ function ${programId}_page_message() {
     				label="${action.getText('CORE_PROG002D0001E_S00_clear')}" 
     				iconClass="dijitIconClear"
     				cssClass="alt-primary"></gs:button>    			
-    		</td>
-    	</tr>      	    	
-    </table>			
-	
-	<hr width="95%" align="center" size="2" color="#CFECEC">
-	
-	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >
-		<tr>
-    		<td height="25px" width="100%"  align="center">
+    				
+    				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 			    <gs:button name="CORE_PROG002D0001E_S00_query" id="CORE_PROG002D0001E_S00_query" onClick="getQueryGrid_${programId}_grid();"
 			    	handleAs="json"
 			    	sync="N"
@@ -199,9 +206,10 @@ function ${programId}_page_message() {
 			    	label="${action.getText('CORE_PROG002D0001E_S00_query')}" 
 			    	iconClass="dijitIconSearch"
 			    	cssClass="alt-primary"></gs:button>
-    		</td>    		  				
-    	</tr>   		
-	</table>
+			    	    				
+    		</td>
+    	</tr>      	    	
+    </table>			
 	
 	<gs:grid gridFieldStructure="CORE_PROG002D0001E_S00_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>	
 	

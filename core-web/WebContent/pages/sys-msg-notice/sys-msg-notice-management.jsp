@@ -116,19 +116,28 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('CORE_PROG001D0006Q_msgOid')"/>:</td>
-    		<td height="25px" width="40%"  align="left"><gs:select name="CORE_PROG001D0006Q_msgOid" dataSource="msgDataMap" id="CORE_PROG001D0006Q_msgOid"></gs:select></td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('CORE_PROG001D0006Q_noticeId')"/>:</td>
-    		<td height="25px" width="40%"  align="left"><gs:textBox name="CORE_PROG001D0006Q_noticeId" id="CORE_PROG001D0006Q_noticeId" value="" width="200" maxlength="10"></gs:textBox></td>  					
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_msgOid')"/>:</b></font>
+    			<br/>
+    			<gs:select name="CORE_PROG001D0006Q_msgOid" dataSource="msgDataMap" id="CORE_PROG001D0006Q_msgOid"></gs:select>
+    		</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_noticeId')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0006Q_noticeId" id="CORE_PROG001D0006Q_noticeId" value="" width="200" maxlength="10"></gs:textBox>
+    		</td>
     	</tr>
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('CORE_PROG001D0006Q_title')"/>:</td>
-    		<td height="25px" width="90%"  align="left" colspan="3"><gs:textBox name="CORE_PROG001D0006Q_title" id="CORE_PROG001D0006Q_title" value="" width="400" maxlength="100"></gs:textBox></td>					
-    	</tr>    	
+    		<td height="50px" width="100%"  align="left" colspan="2">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_title')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0006Q_title" id="CORE_PROG001D0006Q_title" value="" width="400" maxlength="100"></gs:textBox>
+    		</td>
+    	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="CORE_PROG001D0006Q_query" id="CORE_PROG001D0006Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

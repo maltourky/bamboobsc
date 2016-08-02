@@ -124,18 +124,23 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG001D0008E_S00_rptParam')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:textBox name="CORE_PROG001D0008E_S00_rptParam" id="CORE_PROG001D0008E_S00_rptParam" value="" width="200" maxlength="100" ></gs:textBox></td>
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_rptParam')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0008E_S00_rptParam" id="CORE_PROG001D0008E_S00_rptParam" value="" width="200" maxlength="100" ></gs:textBox>
+    		</td>
     	</tr>	
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG001D0008E_S00_urlParam')"/>:</td>
-    		<td height="25px" width="80%"  align="left"><gs:textBox name="CORE_PROG001D0008E_S00_urlParam" id="CORE_PROG001D0008E_S00_urlParam" value="" width="200" maxlength="100" ></gs:textBox></td>
-    	</tr>	    	
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_urlParam')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0008E_S00_urlParam" id="CORE_PROG001D0008E_S00_urlParam" value="" width="200" maxlength="100" ></gs:textBox>
+    		</td>
+    	</tr>
     	<tr>
-    		<td height="25px" width="20%"  align="right">&nbsp;</td>
-    		<td height="25px" align="left">
+    		<td height="25px" width="100%" align="left">
     			<gs:button name="CORE_PROG001D0008E_S00_update" id="CORE_PROG001D0008E_S00_update" onClick="CORE_PROG001D0008E_S00_update();"
     				handleAs="json"
     				sync="N"
@@ -157,16 +162,11 @@ function ${programId}_page_message() {
     			<gs:button name="CORE_PROG001D0008E_S00_clear" id="CORE_PROG001D0008E_S00_clear" onClick="CORE_PROG001D0008E_S00_clear();" 
     				label="${action.getText('CORE_PROG001D0008E_S00_clear')}" 
     				iconClass="dijitIconClear"
-    				cssClass="alt-primary"></gs:button>    			
-    		</td>
-    	</tr>     	 	  	    	
-	</table>	
-	
-	<hr width="95%" align="center" size="2" color="#CFECEC">
-	
-	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >
-		<tr>
-    		<td height="25px" width="100%"  align="center">
+    				cssClass="alt-primary"></gs:button>
+    				
+    				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 			    <gs:button name="CORE_PROG001D0008E_S00_query" id="CORE_PROG001D0008E_S00_query" onClick="getQueryGrid_${programId}_grid();"
 			    	handleAs="json"
 			    	sync="N"
@@ -185,10 +185,11 @@ function ${programId}_page_message() {
 			    	programId="${programId}"
 			    	label="${action.getText('CORE_PROG001D0008E_S00_query')}" 
 			    	iconClass="dijitIconSearch"
-			    	cssClass="alt-primary"></gs:button>
-    		</td>    		  				
-    	</tr>   		
-	</table>
+			    	cssClass="alt-primary"></gs:button>				
+				
+    		</td>
+    	</tr>     	 	  	    	
+	</table>	
 		
 	<gs:grid gridFieldStructure="CORE_PROG001D0008E_S00_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>
 	

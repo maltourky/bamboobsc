@@ -67,6 +67,9 @@ function CORE_PROG001D0007E_S00_clear() {
 	dijit.byId('CORE_PROG001D0007E_S00_templateVar').set("value", "");
 	dijit.byId('CORE_PROG001D0007E_S00_objectVar').set("value", "");
 	dijit.byId('CORE_PROG001D0007E_S00_isTitle').set("checked", false);
+	
+	clearQuery_${programId}_grid();
+	
 }
 
 function CORE_PROG001D0007E_S00_confirmDelete(oid) {
@@ -126,22 +129,33 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG001D0007E_S00_templateVar')"/>:</td>    		
-    		<td height="25px" width="30%"  align="left"><gs:textBox name="CORE_PROG001D0007E_S00_templateVar" id="CORE_PROG001D0007E_S00_templateVar" value="" width="200" maxlength="100" ></gs:textBox></td>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG001D0007E_S00_objectVar')"/>:</td>    		
-    		<td height="25px" width="30%"  align="left"><gs:textBox name="CORE_PROG001D0007E_S00_objectVar" id="CORE_PROG001D0007E_S00_objectVar" value="" width="200" maxlength="100" ></gs:textBox></td>
-    	</tr>	
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_templateVar')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0007E_S00_templateVar" id="CORE_PROG001D0007E_S00_templateVar" value="" width="200" maxlength="100" ></gs:textBox>
+    		</td>
+    		<td height="50px" width="50%"  align="left">&nbsp;</td>
+    	</tr>
 		<tr>
-    		<td height="25px" width="20%"  align="right"><s:property value="getText('CORE_PROG001D0007E_S00_isTitle')"/>:</td>    		
-    		<td height="25px" width="30%"  align="left"><input id="CORE_PROG001D0007E_S00_isTitle" name="CORE_PROG001D0007E_S00_isTitle" data-dojo-type="dijit/form/CheckBox" value="true" /></td>
-    		<td height="25px" width="20%"  align="right">&nbsp;</td>
-    		<td height="25px" width="30%"  align="left">&nbsp;</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_objectVar')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0007E_S00_objectVar" id="CORE_PROG001D0007E_S00_objectVar" value="" width="200" maxlength="100" ></gs:textBox>
+    		</td>
+    		<td height="50px" width="50%"  align="left">&nbsp;</td>
+    	</tr>	    		
+		<tr>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_isTitle')"/>:</b></font>
+    			<br/>
+    			<input id="CORE_PROG001D0007E_S00_isTitle" name="CORE_PROG001D0007E_S00_isTitle" data-dojo-type="dijit/form/CheckBox" value="true" />
+    		</td>
+    		<td height="50px" width="50%"  align="left">&nbsp;</td>
     	</tr>	    	
     	<tr>
-    		<td height="25px" width="20%"  align="right">&nbsp;</td>
-    		<td height="25px" align="left">
+    		<td height="25px" width="100%" align="left" colspan="2">
     			<gs:button name="CORE_PROG001D0007E_S00_update" id="CORE_PROG001D0007E_S00_update" onClick="CORE_PROG001D0007E_S00_update();"
     				handleAs="json"
     				sync="N"
@@ -164,16 +178,11 @@ function ${programId}_page_message() {
     			<gs:button name="CORE_PROG001D0007E_S00_clear" id="CORE_PROG001D0007E_S00_clear" onClick="CORE_PROG001D0007E_S00_clear();" 
     				label="${action.getText('CORE_PROG001D0007E_S00_clear')}" 
     				iconClass="dijitIconClear"
-    				cssClass="alt-primary"></gs:button>    			
-    		</td>
-    	</tr>     	 	  	    	
-	</table>	
-	
-	<hr width="95%" align="center" size="2" color="#CFECEC">
-	
-	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >
-		<tr>
-    		<td height="25px" width="100%"  align="center">
+    				cssClass="alt-primary"></gs:button>
+    			
+    				
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 			    <gs:button name="CORE_PROG001D0007E_S00_query" id="CORE_PROG001D0007E_S00_query" onClick="getQueryGrid_${programId}_grid();"
 			    	handleAs="json"
 			    	sync="N"
@@ -193,10 +202,12 @@ function ${programId}_page_message() {
 			    	label="${action.getText('CORE_PROG001D0007E_S00_query')}" 
 			    	iconClass="dijitIconSearch"
 			    	cssClass="alt-primary"></gs:button>
-    		</td>    		  				
-    	</tr>   		
-	</table>
-	
+			    	
+			    	
+    		</td>
+    	</tr>     	 	  	    	
+	</table>	
+
 	<gs:grid gridFieldStructure="CORE_PROG001D0007E_S00_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>		
 	
 <script type="text/javascript">${programId}_page_message();</script>

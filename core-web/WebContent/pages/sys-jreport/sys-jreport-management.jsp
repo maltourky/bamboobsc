@@ -133,11 +133,13 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('CORE_PROG001D0008Q_reportId')"/>:</td>
-    		<td height="25px" width="90%"  align="left"><gs:textBox name="CORE_PROG001D0008Q_reportId" id="CORE_PROG001D0008Q_reportId" value="" width="200" maxlength="10"></gs:textBox></td>    		  					
-    	</tr>
-    	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="2">
+    		<td height="50px" width="100%"  align="left">
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008Q_reportId')"/>:</b></font>
+    			<br/>
+    			<gs:textBox name="CORE_PROG001D0008Q_reportId" id="CORE_PROG001D0008Q_reportId" value="" width="200" maxlength="10"></gs:textBox>
+    			
+    			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    			
     			<gs:button name="CORE_PROG001D0008Q_query" id="CORE_PROG001D0008Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"
@@ -160,9 +162,10 @@ function ${programId}_page_message() {
     			<gs:button name="CORE_PROG001D0008Q_clear" id="CORE_PROG001D0008Q_clear" onClick="CORE_PROG001D0008Q_clear();" 
     				label="${action.getText('CORE_PROG001D0008Q_clear')}" 
     				iconClass="dijitIconClear"
-    				cssClass="alt-primary"></gs:button>
+    				cssClass="alt-primary"></gs:button>    			
+    			
     		</td>
-    	</tr> 	
+    	</tr>
 	</table>
 	
 	<gs:grid gridFieldStructure="CORE_PROG001D0008Q_GridFieldStructure()" clearQueryFn="" id="_${programId}_grid" programId="${programId}"></gs:grid>
