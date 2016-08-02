@@ -646,7 +646,7 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="125px">
 								
-									<s:property value="getText('QCHARTS_PROG002D0001Q_queryExpression')"/>:<br/>
+									<font size='2'><b><s:property value="getText('QCHARTS_PROG002D0001Q_queryExpression')"/>:</b></font><br/>
 									<textarea id="QCHARTS_PROG002D0001Q_queryExpression" name="QCHARTS_PROG002D0001Q_queryExpression" data-dojo-type="dijit/form/Textarea" rows="6" cols="120" style="width:960px;height:90px;max-height:100px"></textarea>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_queryExpression'">
     									SQL expression.<BR/>

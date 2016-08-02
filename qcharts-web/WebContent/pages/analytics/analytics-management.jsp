@@ -407,7 +407,7 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="125px">
 								
-									<s:property value="getText('QCHARTS_PROG002D0002Q_expression')"/>:<br/>
+									<font size='2'><b><s:property value="getText('QCHARTS_PROG002D0002Q_expression')"/>:</b></font><br/>
 									<textarea id="QCHARTS_PROG002D0002Q_expression" name="QCHARTS_PROG002D0002Q_expression" data-dojo-type="dijit/form/Textarea" rows="6" cols="120" style="width:960px;height:90px;max-height:100px"></textarea>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_expression'">
     									MultiDimensional eXpressions.<BR/>

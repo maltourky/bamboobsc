@@ -112,25 +112,27 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('QCHARTS_PROG001D0003Q_id')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('QCHARTS_PROG001D0003Q_id')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003Q_id" id="QCHARTS_PROG001D0003Q_id" value="" width="200" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003Q_id'">
     				Input Id.
-				</div>       			
+				</div>
     		</td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('QCHARTS_PROG001D0003Q_name')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('QCHARTS_PROG001D0003Q_name')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003Q_name" id="QCHARTS_PROG001D0003Q_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003Q_name'">
     				Input name.
-				</div>      			
+				</div>
     		</td>
     	</tr>	
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="QCHARTS_PROG001D0003Q_query" id="QCHARTS_PROG001D0003Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"
