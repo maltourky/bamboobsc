@@ -186,41 +186,45 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG002D0003Q_uploadCsvOid" id="BSC_PROG002D0003Q_uploadCsvOid" value=""/>
 	
-	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0003Q_visionOid')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_visionOid')"/>:</b></font>
+    			<br/>
     			<gs:select name="BSC_PROG002D0003Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0003Q_visionOid" onChange="BSC_PROG002D0003Q_triggerChangePerspectiveItems();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_visionOid'">
     				Select vision.
-				</div>     			
+				</div>
     		</td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0003Q_perspectiveOid')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
-    			<gs:select name="BSC_PROG002D0003Q_perspectiveOid" dataSource="perspectiveMap" id="BSC_PROG002D0003Q_perspectiveOid"></gs:select>
-				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_perspectiveOid'">
-    				Select perspectives.
-				</div>     			
-    		</td>
-    	</tr>	
-		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0003Q_objId')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_objId')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG002D0003Q_objId" id="BSC_PROG002D0003Q_objId" value="" width="200" maxlength="14"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_objId'">
     				Input Id. example: OBJ20141115001
-				</div>    			
-    		</td>  					
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0003Q_name')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+				</div>
+    		</td>
+    	</tr>	
+		<tr>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_perspectiveOid')"/>:</b></font>
+    			<br/>
+    			<gs:select name="BSC_PROG002D0003Q_perspectiveOid" dataSource="perspectiveMap" id="BSC_PROG002D0003Q_perspectiveOid"></gs:select>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_perspectiveOid'">
+    				Select perspectives.
+				</div>    		
+    		</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_name')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG002D0003Q_name" id="BSC_PROG002D0003Q_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_name'">
     				Input name.
-				</div>    			
-    		</td>  					
+				</div>
+    		</td>
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG002D0003Q_query" id="BSC_PROG002D0003Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

@@ -102,25 +102,28 @@ function ${programId}_page_message() {
 	-->	
 	<jsp:include page="../header.jsp"></jsp:include>		
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="25%"  align="right"><s:property value="getText('BSC_PROG001D0001Q_S00_empId')"/>:</td>
-    		<td height="25px" width="25%"  align="left">
+    		<td height="25px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG001D0001Q_S00_empId')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG001D0001Q_S00_empId" id="BSC_PROG001D0001Q_S00_empId" value="" width="100" maxlength="10"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001Q_S00_empId'">
     				Input employee Id.
-				</div> 	    			
+				</div>
     		</td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG001D0001Q_S00_fullName')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		
+    		<td height="25px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG001D0001Q_S00_fullName')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG001D0001Q_S00_fullName" id="BSC_PROG001D0001Q_S00_fullName" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001Q_S00_fullName'">
     				Input full name.
-				</div> 	    			
-    		</td>  					
+				</div>
+    		</td>
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG001D0001Q_S00_query" id="BSC_PROG001D0001Q_S00_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

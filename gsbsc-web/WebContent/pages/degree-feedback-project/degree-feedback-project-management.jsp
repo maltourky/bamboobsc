@@ -118,26 +118,28 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG005D0001Q_uploadCsvOid" id="BSC_PROG005D0001Q_uploadCsvOid" value=""/>
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG005D0001Q_name')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG005D0001Q_name')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG005D0001Q_name" id="BSC_PROG005D0001Q_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001Q_name'">
 					Input name.
-				</div>	    			
+				</div>
     		</td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG005D0001Q_year')"/>:</td>
-    		<td height="25px" width="40%"  align="left">	
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG005D0001Q_year')"/>:</b></font>
+    			<br/>
 				<input id="BSC_PROG005D0001Q_year" name="BSC_PROG005D0001Q_year" data-dojo-type="dojox.form.YearTextBox" 
 					maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001Q_year'">
 					Select year.
-				</div>								    		    			
+				</div>
     		</td>
     	</tr>	
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG005D0001Q_query" id="BSC_PROG005D0001Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

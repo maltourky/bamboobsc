@@ -83,39 +83,41 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG001D0001E_S00_appendOrganizationOid" id="BSC_PROG001D0001E_S00_appendOrganizationOid" value="${appendId}" />
 	
-	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="30%"  align="right"><font color='RED'>*</font><s:property value="getText('BSC_PROG001D0001E_S00_password1')"/>:</td>
-    		<td height="25px" width="70%"  align="left">
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password1')"/>:</b></font>
+    			<br/>
 				<input name="BSC_PROG001D0001E_S00_password1" id="BSC_PROG001D0001E_S00_password1" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_S00_password1'">
     				Input old password.
-				</div> 					    			
+				</div>
     		</td>
     	</tr>  	
 		<tr>
-    		<td height="25px" width="30%"  align="right"><font color='RED'>*</font><s:property value="getText('BSC_PROG001D0001E_S00_password2')"/>:</td>
-    		<td height="25px" width="70%"  align="left">
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password2')"/>:</b></font>
+    			<br/>
 				<input name="BSC_PROG001D0001E_S00_password2" id="BSC_PROG001D0001E_S00_password2" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_S00_password2'">
     				Input new password.
-				</div> 					    			
+				</div>
     		</td>
     	</tr>  	 
 		<tr>
-    		<td height="25px" width="30%"  align="right"><font color='RED'>*</font><s:property value="getText('BSC_PROG001D0001E_S00_password3')"/>:</td>
-    		<td height="25px" width="70%"  align="left">
+    		<td height="50px" width="100%"  align="left">
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password3')"/>:</b></font>
+    			<br/>
 				<input name="BSC_PROG001D0001E_S00_password3" id="BSC_PROG001D0001E_S00_password3" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_S00_password3'">
     				Input new password. ( confirm )
-				</div> 					    			
+				</div>
     		</td>
-    	</tr>  	     	    	 	  	    	
+    	</tr>
     	<tr>
-    		<td height="25px" width="30%"  align="right">&nbsp;</td>
     		<td height="25px" align="left">
     			<gs:button name="BSC_PROG001D0001E_S00_update" id="BSC_PROG001D0001E_S00_update" onClick="BSC_PROG001D0001E_S00_update();"
     				handleAs="json"

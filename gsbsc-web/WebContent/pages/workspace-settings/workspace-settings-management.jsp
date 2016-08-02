@@ -113,25 +113,27 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG004D0002Q_spaceId')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG004D0002Q_spaceId')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG004D0002Q_spaceId" id="BSC_PROG004D0002Q_spaceId" value="" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0002Q_spaceId'">
     				Input Id.
-				</div>      			
+				</div>
     		</td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG004D0002Q_name')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG004D0002Q_name')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG004D0002Q_name" id="BSC_PROG004D0002Q_name" value="" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0002Q_name'">
     				Input name.
-				</div>      			
+				</div>
     		</td>
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG004D0002Q_query" id="BSC_PROG004D0002Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"
@@ -150,10 +152,12 @@ function ${programId}_page_message() {
     				loadFn="dataGrid_${programId}_grid(data);" 
     				programId="${programId}"
     				label="${action.getText('BSC_PROG004D0002Q_query')}" 
-    				iconClass="dijitIconSearch"></gs:button>
+    				iconClass="dijitIconSearch"
+    				cssClass="alt-primary"></gs:button>
     			<gs:button name="BSC_PROG004D0002Q_clear" id="BSC_PROG004D0002Q_clear" onClick="BSC_PROG004D0002Q_clear();" 
     				label="${action.getText('BSC_PROG004D0002Q_clear')}" 
-    				iconClass="dijitIconClear"></gs:button>
+    				iconClass="dijitIconClear"
+    				cssClass="alt-primary"></gs:button>
     		</td>
     	</tr>    	
     </table>		

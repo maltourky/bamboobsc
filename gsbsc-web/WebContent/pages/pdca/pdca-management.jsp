@@ -117,7 +117,7 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>		
 
-	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%" align="left"><font size='2'><b>Title:</b></font><br/>    		
     			<gs:textBox name="BSC_PROG006D0001Q_title" id="BSC_PROG006D0001Q_title" value="" width="300" maxlength="100"></gs:textBox>

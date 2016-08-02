@@ -172,31 +172,35 @@ function ${programId}_page_message() {
 	
 	<input type="hidden" name="BSC_PROG002D0002Q_uploadCsvOid" id="BSC_PROG002D0002Q_uploadCsvOid" value=""/>
 	
-	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0002Q_visionOid')"/>:</td>
-    		<td height="25px" width="40%"  align="left"><gs:select name="BSC_PROG002D0002Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0002Q_visionOid"></gs:select></td>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0002Q_perId')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0002Q_visionOid')"/>:</b></font>
+    			<br/>
+    			<gs:select name="BSC_PROG002D0002Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0002Q_visionOid"></gs:select>
+    		</td>
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0002Q_perId')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG002D0002Q_perId" id="BSC_PROG002D0002Q_perId" value="" width="200" maxlength="14"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0002Q_perId'">
     				Input Id. example: PER20141115001
-				</div>      			
+				</div>
     		</td>
-    	</tr>	
+    	</tr>
 		<tr>
-    		<td height="25px" width="10%"  align="right"><s:property value="getText('BSC_PROG002D0002Q_name')"/>:</td>
-    		<td height="25px" width="40%"  align="left">
+    		<td height="50px" width="50%"  align="left">
+    			<font size='2'><b><s:property value="getText('BSC_PROG002D0002Q_name')"/>:</b></font>
+    			<br/>
     			<gs:textBox name="BSC_PROG002D0002Q_name" id="BSC_PROG002D0002Q_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0002Q_name'">
     				Input name.
-				</div>      			
-    		</td>  					
-    		<td height="25px" width="10%"  align="right">&nbsp;</td>
-    		<td height="25px" width="40%"  align="left">&nbsp;</td>  					
+				</div>
+    		</td>
+    		<td height="50px" width="50%"  align="left">&nbsp;</td>
     	</tr>
     	<tr>
-    		<td  height="25px" width="100%"  align="center" colspan="4">
+    		<td  height="25px" width="100%"  align="center" colspan="2">
     			<gs:button name="BSC_PROG002D0002Q_query" id="BSC_PROG002D0002Q_query" onClick="getQueryGrid_${programId}_grid();"
     				handleAs="json"
     				sync="N"

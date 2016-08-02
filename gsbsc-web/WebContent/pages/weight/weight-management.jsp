@@ -89,7 +89,7 @@ function ${programId}_page_message() {
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG002D0006Q_options')" escapeJavaScript="true"/>' " >						
 					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:35px">
 					
-					<s:property value="getText('BSC_PROG002D0006Q_visionOid')"/>:&nbsp;
+					<font size='2'><b><s:property value="getText('BSC_PROG002D0006Q_visionOid')"/>:</b></font>&nbsp;
 					<gs:select name="BSC_PROG002D0006Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0006Q_visionOid"></gs:select>
 					<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0006Q_visionOid'">
 						Select vision.
