@@ -91,11 +91,11 @@ function ${programId}_page_message() {
 			    <table border="0" width="800px" height="150px">
 					<tr valign="top">
 						<td width="400px" align="left">
-							<h3><s:property value="getText('BSC_PROG004D0001Q_colorPicker1')"/></h3>
+							<font size='2'><b><s:property value="getText('BSC_PROG004D0001Q_colorPicker1')"/></b></font>
 							<div data-dojo-type="dojox.widget.ColorPicker" value="${fields.fontColor}" id="BSC_PROG004D0001Q_colorPicker1"></div>		
 						</td>
 						<td width="400px" align="left">
-							<h3><s:property value="getText('BSC_PROG004D0001Q_colorPicker2')"/></h3>
+							<font size='2'><b><s:property value="getText('BSC_PROG004D0001Q_colorPicker2')"/></b></font>
 							<div data-dojo-type="dojox.widget.ColorPicker" value="${fields.backgroundColor}" id="BSC_PROG004D0001Q_colorPicker2"></div>	
 						</td>
 					</tr>		    		

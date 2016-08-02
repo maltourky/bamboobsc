@@ -1,10 +1,10 @@
 <input type="hidden" id="BSC_PROG001D0004Q_queryScoreColor" name="BSC_PROG001D0004Q_queryScoreColor" value="Y" />
 
 
-<table width="800px" border="0" cellspacing="1" cellpadding="1" bgcolor="#d8d8d8">
+<table width="800px" border="0" cellspacing="1" cellpadding="1" bgcolor="#E9E9E9" style="border:1px #E9E9E9 solid; border-radius: 5px;">
 	<tr>
-		<td width="400px" align="center" bgcolor="#F2F2F2"><b><font color='#000000' size="+1">${scoreRange}</font></b></td>
-		<td width="400px" align="center" bgcolor="#F2F2F2"><b><font color='#000000' size="+1">${scoreColor}</font></b></td>
+		<td width="400px" align="center" bgcolor="#E9E9E9"><b><font color='#333333' size="3">${scoreRange}</font></b></td>
+		<td width="400px" align="center" bgcolor="#E9E9E9"><b><font color='#333333' size="3">${scoreColor}</font></b></td>
 	</tr>
 
 <#assign c=0 >

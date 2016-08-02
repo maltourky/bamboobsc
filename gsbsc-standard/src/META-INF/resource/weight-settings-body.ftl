@@ -2,16 +2,16 @@
 
 <#list treeObj.visions as vision >
 	
-	<table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#d8d8d8">
+	<table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#E9E9E9" style="border:1px #E9E9E9 solid; border-radius: 5px;">
 		<tr>
-			<td colspan="3" bgcolor="#d8d8d8" align="center">
-				<b><font color="#000000" size="+2">${vision.title}</font></b>
+			<td colspan="3" bgcolor="#E9E9E9" align="center">
+				<b><font color="#333333" size="+2">${vision.title}</font></b>
 			</td>
 		</tr>
 		<tr>
-			<td width="33%" align="left" bgcolor="#F2F2F2"><b><font color='#000000' size="+1">Perspectives</font></b></td>
-			<td width="33%" align="left" bgcolor="#F2F2F2"><b><font color='#000000' size="+1">Objectives</font></b></td>
-			<td width="33%" align="left" bgcolor="#F2F2F2"><b><font color='#000000' size="+1">KPI</font></b></td>
+			<td width="33%" align="left" bgcolor="#F6F6F6"><b><font color='#333333' size="3">Perspectives</font></b></td>
+			<td width="33%" align="left" bgcolor="#F6F6F6"><b><font color='#333333' size="3">Objectives</font></b></td>
+			<td width="33%" align="left" bgcolor="#F6F6F6"><b><font color='#333333' size="3">KPI</font></b></td>
 		</tr>
 		
 	<#list vision.perspectives as perspective >
