@@ -89,7 +89,7 @@ public class DynamicHqlQueryParamHandler implements java.io.Serializable {
 	
 	public DynamicHqlQueryParamHandler fullEquals4Select(String field) {
 		String value = this.sourceSearchParameter.get(field);
-		if (this.defaultCheckWthSelectId(value)) {
+		if (this.defaultCheckWithSelectId(value)) {
 			this.putValue(FULL_EQUALS, field, value);
 		}
 		return this;
@@ -182,7 +182,7 @@ public class DynamicHqlQueryParamHandler implements java.io.Serializable {
 		return this;
 	}
 	
-	private boolean defaultCheckWthSelectId(String value) {
+	private boolean defaultCheckWithSelectId(String value) {
 		if (StringUtils.isBlank(value)) {
 			return false;
 		}
