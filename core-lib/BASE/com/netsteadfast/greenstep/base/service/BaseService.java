@@ -55,7 +55,9 @@ import com.netsteadfast.greenstep.base.model.BaseEntityUtil;
 import com.netsteadfast.greenstep.base.model.BaseValueObj;
 import com.netsteadfast.greenstep.base.model.CustomeOperational;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.model.DynamicHqlQueryParamHandler;
 import com.netsteadfast.greenstep.base.model.GreenStepSysMsgConstants;
+import com.netsteadfast.greenstep.base.model.SearchValue;
 import com.netsteadfast.greenstep.base.model.ServiceMethodAuthority;
 import com.netsteadfast.greenstep.base.model.ServiceMethodType;
 import com.netsteadfast.greenstep.base.model.SystemMessage;
@@ -911,6 +913,12 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 			return true;
 		}
 		return false;
+	}
+	
+	protected DynamicHqlQueryParamHandler getQueryParamHandler(SearchValue searchValue) {
+		DynamicHqlQueryParamHandler queryParamHandler = new DynamicHqlQueryParamHandler();
+		queryParamHandler.setSourceSearchParameterAndRoot(searchValue.getParameter());
+		return queryParamHandler;
 	}
 	
 	// ------------------------------------------------------------------------------------

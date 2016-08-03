@@ -29,7 +29,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 
-public class CheckFieldHandler {
+public class CheckFieldHandler implements java.io.Serializable {
+	private static final long serialVersionUID = -8080347109488249788L;
 	private Map<String, String> actionFields = null;
 	private List<String> actionFieldsId = null;
 	private List<String> fieldsNames = new LinkedList<String>();
