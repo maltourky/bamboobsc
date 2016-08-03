@@ -22,13 +22,11 @@
 package com.netsteadfast.greenstep.bsc.service.impl;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -89,16 +87,10 @@ public class WorkspaceServiceImpl extends BaseService<WorkspaceVO, BbWorkspace, 
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String spaceId = searchValue.getParameter().get("spaceId");
-		String name = searchValue.getParameter().get("name");
-		if (!StringUtils.isBlank(spaceId)) {
-			params.put("spaceId", spaceId);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("spaceId")
+				.containingLike("name")
+				.getValue();
 	}	
 	
 	@Override

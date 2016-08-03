@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -86,16 +84,10 @@ public class SysTemplateServiceImpl extends BaseService<SysTemplateVO, TbSysTemp
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String templateId = searchValue.getParameter().get("templateId");
-		String title = searchValue.getParameter().get("title");		
-		if (!StringUtils.isBlank(templateId)) {
-			params.put("templateId", templateId);
-		}
-		if (!StringUtils.isBlank(title)) {
-			params.put("title", "%"+title+"%");
-		}			
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("templateId")
+				.containingLike("title")
+				.getValue();
 	}	
 	
 	@Override

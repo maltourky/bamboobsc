@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -143,16 +142,10 @@ public class AggregationMethodServiceImpl extends BaseService<AggregationMethodV
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String aggrId = searchValue.getParameter().get("aggrId");
-		String name = searchValue.getParameter().get("name");
-		if (!StringUtils.isBlank(aggrId)) {
-			params.put("aggrId", aggrId);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("aggrId")
+				.containingLike("name")
+				.getValue();
 	}	
 
 	@Override

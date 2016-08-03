@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +34,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.SysMessageUtil;
 import com.netsteadfast.greenstep.base.dao.IBaseDAO;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
@@ -88,15 +86,11 @@ public class SysCalendarNoteServiceImpl extends BaseService<SysCalendarNoteVO, T
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String accountOid = searchValue.getParameter().get("accountOid");
 		String date = searchValue.getParameter().get("date");
-		if (!StringUtils.isBlank(accountOid) && !Constants.HTML_SELECT_NO_SELECT_ID.equals(accountOid) ) {
-			params.put("accountOid", accountOid);
-		}		
+		Map<String, Object> params = super.getQueryParamHandler(searchValue).fullEquals4Select("accountOid").getValue();
 		if (!StringUtils.isBlank(date) && SimpleUtils.isDate(date) ) {
 			params.put("date", date.replaceAll("-", "").replaceAll("/", ""));
-		}			
+		}
 		return params;
 	}
 	

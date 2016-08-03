@@ -22,7 +22,6 @@
 package com.netsteadfast.greenstep.service.impl;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,16 +99,10 @@ public class SysProgServiceImpl extends BaseService<SysProgVO, TbSysProg, String
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String name = searchValue.getParameter().get("name");
-		String progId = searchValue.getParameter().get("progId");
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		if (!StringUtils.isBlank(progId)) {
-			params.put("progId", progId);
-		}		
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.containingLike("name")
+				.fullEquals4TextField("progId")
+				.getValue();
 	}			
 
 	/**

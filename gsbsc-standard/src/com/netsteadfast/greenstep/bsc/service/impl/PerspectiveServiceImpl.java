@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,20 +96,11 @@ public class PerspectiveServiceImpl extends BaseService<PerspectiveVO, BbPerspec
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String visionOid = searchValue.getParameter().get("visionOid");
-		String perId = searchValue.getParameter().get("perId");
-		String name = searchValue.getParameter().get("name");
-		if (!this.isNoSelectId(visionOid)) {
-			params.put("visionOid", visionOid);
-		}
-		if (!StringUtils.isBlank(perId)) {
-			params.put("perId", perId);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4Select("visionOid")
+				.fullEquals4TextField("perId")
+				.containingLike("name")
+				.getValue();
 	}	
 
 	@Override

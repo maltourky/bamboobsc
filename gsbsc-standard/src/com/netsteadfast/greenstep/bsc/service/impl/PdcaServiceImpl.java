@@ -22,13 +22,11 @@
 package com.netsteadfast.greenstep.bsc.service.impl;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -90,13 +88,9 @@ public class PdcaServiceImpl extends BaseService<PdcaVO, BbPdca, String> impleme
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String title = searchValue.getParameter().get("title");
+		Map<String, Object> params = super.getQueryParamHandler(searchValue).containingLike("title").getValue();
 		String startDate = super.defaultString(searchValue.getParameter().get("startDate")).trim().replaceAll("/", "");
 		String endDate = super.defaultString(searchValue.getParameter().get("endDate")).trim().replaceAll("/", "");
-		if (!StringUtils.isBlank(title)) {
-			params.put("title", "%"+title+"%");
-		}
 		if (SimpleUtils.isDate(startDate) && SimpleUtils.isDate(endDate)) {
 			params.put("startDate", startDate);
 			params.put("endDate", endDate);

@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -86,16 +84,10 @@ public class SysBeanHelpServiceImpl extends BaseService<SysBeanHelpVO, TbSysBean
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String systemOid = searchValue.getParameter().get("systemOid");
-		String beanId = searchValue.getParameter().get("beanId");
-		if (!StringUtils.isBlank(systemOid) && !super.isNoSelectId(systemOid)) {
-			params.put("systemOid", systemOid);
-		}
-		if (!StringUtils.isBlank(beanId)) {
-			params.put("beanId", beanId);
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4Select("systemOid")
+				.fullEquals4TextField("beanId")
+				.getValue();
 	}	
 
 	@Override

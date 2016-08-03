@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.bsc.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -91,16 +89,10 @@ public class FormulaServiceImpl extends BaseService<FormulaVO, BbFormula, String
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String forId = searchValue.getParameter().get("forId");
-		String name = searchValue.getParameter().get("name");
-		if (!StringUtils.isBlank(forId)) {
-			params.put("forId", forId);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("forId")
+				.containingLike("name")
+				.getValue();
 	}	
 	
 	@Override

@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -87,12 +86,7 @@ public class RoleServiceImpl extends BaseService<RoleVO, TbRole, String> impleme
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String role = searchValue.getParameter().get("role");
-		if (!StringUtils.isBlank(role)) {
-			params.put("role", role);
-		}		
-		return params;
+		return super.getQueryParamHandler(searchValue).fullEquals4TextField("role").getValue();
 	}
 
 	/**

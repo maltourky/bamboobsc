@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -86,20 +84,11 @@ public class SysMsgNoticeServiceImpl extends BaseService<SysMsgNoticeVO, TbSysMs
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String msgOid = searchValue.getParameter().get("msgOid");
-		String title = searchValue.getParameter().get("title");
-		String noticeId = searchValue.getParameter().get("noticeId");
-		if (!StringUtils.isBlank(title)) {
-			params.put("title", "%"+title+"%");
-		}
-		if (!StringUtils.isBlank(noticeId)) {
-			params.put("noticeId", noticeId);
-		}		
-		if (!this.isNoSelectId(msgOid) ) {
-			params.put("msgOid", msgOid);
-		}		
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4Select("msgOid")
+				.containingLike("title")
+				.fullEquals4TextField("noticeId")
+				.getValue();
 	}	
 	
 	@Override

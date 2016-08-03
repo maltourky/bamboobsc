@@ -27,7 +27,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -89,20 +88,11 @@ public class SysExpressionServiceImpl extends BaseService<SysExpressionVO, TbSys
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String exprId = searchValue.getParameter().get("exprId");
-		String name = searchValue.getParameter().get("name");
-		String type = searchValue.getParameter().get("type");
-		if (!StringUtils.isBlank(exprId)) {
-			params.put("exprId", exprId);
-		}
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}		
-		if (!StringUtils.isBlank(type) && !super.isNoSelectId(type) ) {
-			params.put("type", type);
-		}			
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("exprId")
+				.containingLike("name")
+				.fullEquals4Select("type")
+				.getValue();
 	}
 	
 	@Override

@@ -21,7 +21,6 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -88,12 +87,7 @@ public class SysJreportServiceImpl extends BaseService<SysJreportVO, TbSysJrepor
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String reportId = searchValue.getParameter().get("reportId");
-		if (!StringUtils.isBlank(reportId)) {
-			params.put("reportId", reportId);
-		}	
-		return params;
+		return super.getQueryParamHandler(searchValue).fullEquals4TextField("reportId").getValue();
 	}	
 
 	@Override

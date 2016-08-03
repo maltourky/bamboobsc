@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -88,16 +86,10 @@ public class SysBpmnResourceRoleServiceImpl extends BaseService<SysBpmnResourceR
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String resourceOid = searchValue.getParameter().get("resourceOid");
-		String taskName = searchValue.getParameter().get("taskName");
-		if (!this.isNoSelectId(resourceOid)) {
-			params.put("resourceOid", resourceOid);
-		}
-		if (!StringUtils.isBlank(taskName)) {
-			params.put("taskName", "%"+taskName+"%");
-		}		
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4Select("resourceOid")
+				.containingLike("taskName")
+				.getValue();
 	}
 
 	@Override

@@ -23,7 +23,6 @@ package com.netsteadfast.greenstep.bsc.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,28 +93,13 @@ public class KpiServiceImpl extends BaseService<KpiVO, BbKpi, String> implements
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String visionOid = searchValue.getParameter().get("visionOid");
-		String perspectiveOid = searchValue.getParameter().get("perspectiveOid");
-		String objectiveOid = searchValue.getParameter().get("objectiveOid");
-		String id = searchValue.getParameter().get("id");
-		String name = searchValue.getParameter().get("name");
-		if (!this.isNoSelectId(visionOid)) {
-			params.put("visionOid", visionOid);
-		}
-		if (!this.isNoSelectId(perspectiveOid)) {
-			params.put("perspectiveOid", perspectiveOid);
-		}
-		if (!this.isNoSelectId(objectiveOid)) {
-			params.put("objectiveOid", objectiveOid);
-		}		
-		if (!StringUtils.isBlank(id)) {
-			params.put("id", id);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4Select("visionOid")
+				.fullEquals4Select("perspectiveOid")
+				.fullEquals4Select("objectiveOid")
+				.fullEquals4TextField("id")
+				.containingLike("name")
+				.getValue();
 	}
 	
 	private Map<String, Object> getMixDataQueryParam(String visionOid, String orgId, String empId, String nextType, String nextId, List<String> kpiIds) {

@@ -23,7 +23,6 @@ package com.netsteadfast.greenstep.bsc.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,16 +91,10 @@ public class EmployeeServiceImpl extends BaseService<EmployeeVO, BbEmployee, Str
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String empId = searchValue.getParameter().get("empId");
-		String fullName = searchValue.getParameter().get("fullName");
-		if (!StringUtils.isBlank(empId)) {
-			params.put("empId", empId);
-		}		
-		if (!StringUtils.isBlank(fullName)) {
-			params.put("fullName", "%"+fullName+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("empId")
+				.containingLike("fullName")
+				.getValue();
 	}	
 
 	@Override

@@ -22,7 +22,6 @@
 package com.netsteadfast.greenstep.bsc.service.impl;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,16 +91,10 @@ public class DegreeFeedbackProjectServiceImpl extends BaseService<DegreeFeedback
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String year = searchValue.getParameter().get("year");
-		String name = searchValue.getParameter().get("name");
-		if (!StringUtils.isBlank(year)) {
-			params.put("year", year);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("year")
+				.containingLike("name")
+				.getValue();
 	}	
 
 	@Override

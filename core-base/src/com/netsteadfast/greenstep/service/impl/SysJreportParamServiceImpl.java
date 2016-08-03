@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -86,12 +84,7 @@ public class SysJreportParamServiceImpl extends BaseService<SysJreportParamVO, T
 	}
 	
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String sysJreportOid = searchValue.getParameter().get("sysJreportOid");
-		if (!StringUtils.isBlank(sysJreportOid)) {
-			params.put("sysJreportOid", sysJreportOid);
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue).fullEquals4TextField("sysJreportOid").getValue();
 	}	
 
 	@Override

@@ -21,13 +21,11 @@
  */
 package com.netsteadfast.greenstep.qcharts.service.impl;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -88,16 +86,10 @@ public class DataSourceConfServiceImpl extends BaseService<DataSourceConfVO, QcD
 	}
 
 	private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-		Map<String, Object> params=new LinkedHashMap<String, Object>();
-		String id = searchValue.getParameter().get("id");
-		String name = searchValue.getParameter().get("name");
-		if (!StringUtils.isBlank(id)) {
-			params.put("id", id);
-		}		
-		if (!StringUtils.isBlank(name)) {
-			params.put("name", "%"+name+"%");
-		}
-		return params;
+		return super.getQueryParamHandler(searchValue)
+				.fullEquals4TextField("id")
+				.containingLike("name")
+				.getValue();
 	}		
 	
 	@Override
