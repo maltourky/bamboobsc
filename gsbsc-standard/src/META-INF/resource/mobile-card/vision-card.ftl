@@ -43,7 +43,7 @@
 			<BR/>
 			<font color="${vision.fontColor}" size="3"><b>Percentage: ${percentage} %</b></font>			
 			<BR/>
-			<hr align="left" width="${hrWidth}%" size="15" color="${vision.fontColor}">
+			<hr align="left" width="${hrWidth}%" size="15" color="${vision.fontColor}" style="box-shadow: 0 0 15px 1px ${vision.fontColor}; border-radius: 3px;">
 		</td>
 	</tr>
 	<tr valign="top">

@@ -34,7 +34,7 @@
 			<BR/>
 			<font color="${perspective.fontColor}" size="3"><b>Percentage: ${percentage} %</b></font>			
 			<BR/>
-			<hr align="left" width="${hrWidth}%" size="15" color="${perspective.fontColor}">
+			<hr align="left" width="${hrWidth}%" size="15" color="${perspective.fontColor}" style="box-shadow: 0 0 15px 1px ${perspective.fontColor}; border-radius: 3px;">
 		</td>
 	</tr>	
 	<tr valign="top">

@@ -63,7 +63,7 @@
 			<BR/>
 			<font color="${kpi.fontColor}" size="3"><b>Percentage: ${percentage} %</b></font>			
 			<BR/>
-			<hr align="left" width="${hrWidth}%" size="15" color="${kpi.fontColor}">
+			<hr align="left" width="${hrWidth}%" size="15" color="${kpi.fontColor}" style="box-shadow: 0 0 15px 1px ${kpi.fontColor}; border-radius: 3px;">
 		</td>
 	</tr>	
 	<tr valign="top">
