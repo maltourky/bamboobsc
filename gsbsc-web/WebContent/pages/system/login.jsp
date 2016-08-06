@@ -30,14 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	color: #585858;
 	font-weight: bold;
 }
-.style2 {
-	color: #F7982A;
-	font-weight: bold;
-	font-family:sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%
-}
-.style3 {color: #084F01}
-.style4 {color: #000000}
-
 
 input {
     margin: 0px;
@@ -202,7 +194,7 @@ function redirectLogin(sel) {
 	  </td>
     </tr>
     <tr>
-      <td><span class="style2"><span class="style3">bamboo</span>BSC <span class="style4">0.7.0</span> </span></td>
+      <td>&nbsp;<font color="#333333" size="2">0.7.0 version</font></td>
     </tr>
   </table>
 </s:form>
