@@ -188,3 +188,83 @@ public class KPIsRouteBuilder extends RouteBuilder {
     </camel:camelContext>    
     
 ```
+
+#Hessian webService
+client & remote service settings
+
+##1. config "web.xml"
+<br/>
+Enable hessian servlet:
+```XML
+	<servlet>  
+    	<servlet-name>Hessian</servlet-name>  
+    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+		<load-on-startup>1</load-on-startup>  
+	</servlet>      
+	<servlet-mapping>  
+		<servlet-name>Hessian</servlet-name>  
+		<url-pattern>/hessian/*</url-pattern>  
+	</servlet-mapping> 	
+```	
+
+##2. config "Hessian-servlet.xml"
+<br/>
+Example publish a service:
+```XML
+<bean name="/core.service.TestHelloWorldService.hessian" class="com.netsteadfast.greenstep.sys.GreenStepHessianServiceExporter">
+	<property name="service" ref="core.service.TestHelloWorldService"/>
+	<property name="serviceInterface" value="com.netsteadfast.greenstep.service.ITestHelloWorldService"/>
+</bean>
+```
+
+##3. config "applicationContext-hessian.xml"
+```XML
+	<bean id="hessian.config" class="java.util.HashMap" scope="singleton" >
+		<constructor-arg>
+			<map>
+				<!-- 預設要檢查http request header 中的 check value 資料 -->
+				<entry key="configHessianHeaderCheckValueModeEnable"		value="Y" />
+				<!-- 預設的 hession 服務子位址, 必須與 web.xml 設定一致 -->
+				<entry key="configHessianUrlPattern"	value="/hessian/" />
+				<!-- 預設的 hession 服務擴展名, 必須與 Hessian-servlet.xml 設定一致 -->
+				<entry key="configHessianExtensionName"	value=".hessian" />
+				<entry key="enable" 					value="${hessian.enable}" />
+				<entry key="serverUrl" 					value="${hessian.serverUrl}" />
+				<entry key="checkValue" 				value="${hessian.checkValue}" />
+				<!-- This is a Example , The SYSTEM no bean named PlayHelloWorldService and TestHelloWorldService -->
+			    <entry key="proxyServiceId">
+			        <value>
+			        
+			        core.service.PlayHelloWorldService, 
+			        core.service.TestHelloWorldService
+			        
+			        </value>
+			    </entry>
+			    <!-- This is a Example , cannot use Hessian remote service proxy user account -->
+			    <entry key="proxyBlockedAccountId">
+			    	<value>
+			    	
+			    	admin,
+			    	system
+			    	
+			    	</value>
+			    </entry>
+			</map>
+		</constructor-arg>
+    </bean>
+```    
+
+##4. config "applicationContext-appSettings.properties"
+```
+#######################################################
+#	for applicationContext-hessian.xml
+#######################################################
+# =====================================================
+# Hessian for client call remote-server settings
+# Remote-Server settings hessian.enable=N and enable web.xml Hessian servlet
+# Client settings hessian.enable=Y and disable web.xml Hessian servlet
+# =====================================================
+hessian.enable=N
+hessian.serverUrl=http://localhost:8888/
+hessian.checkValue=PUT_HESSIAN_HTTP_CHECK_VALUE
+```
