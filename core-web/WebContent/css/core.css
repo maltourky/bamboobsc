@@ -132,6 +132,11 @@ ul{
 	background-color: #E6E6E6;	
 }
 
+/* 2016-08-10 add button font bold style */
+.dijitButtonText {
+	font-weight: bold;
+}
+
 /*
 .dijitReadOnly * {
 	background-color: #E6E6E6;
