@@ -133,7 +133,7 @@ ul{
 }
 
 /* 2016-08-10 add button font bold style */
-.dijitButtonText {
+.dijitButtonNode {
 	font-weight: bold;
 }
 
