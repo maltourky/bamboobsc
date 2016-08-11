@@ -24,7 +24,6 @@ package com.netsteadfast.greenstep.sys;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -38,16 +37,11 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 
 import com.netsteadfast.greenstep.base.Constants;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.base.sys.UserCurrentCookie;
-import com.netsteadfast.greenstep.po.hbm.TbAccount;
-import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.vo.AccountVO;
 
 /**
@@ -58,22 +52,9 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 	protected static Logger logger = Logger.getLogger(GreenStepBaseFormAuthenticationFilter.class);
 	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
-	private IAccountService<AccountVO, TbAccount, String> accountService;
 	
 	public GreenStepMobileFormAuthenticationFilter() {
 		super();
-	}
-	
-	public IAccountService<AccountVO, TbAccount, String> getAccountService() {
-		return accountService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.AccountService")
-	@Required		
-	public void setAccountService(
-			IAccountService<AccountVO, TbAccount, String> accountService) {
-		this.accountService = accountService;
 	}
 	
 	protected String getCaptcha(ServletRequest request) {		
@@ -97,7 +78,8 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 		String host = StringUtils.defaultString(getHost(request));
 		char pwd[] = null;
 		try {
-			pwd = this.accountService.tranPassword(password).toCharArray();
+			ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+			pwd = loginSupport.getAccountService().tranPassword(password).toCharArray();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,8 +110,10 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 				(GreenStepBaseUsernamePasswordToken) this.createToken(request, response);
 		try {
 			this.doCaptchaValidate((HttpServletRequest)request, token);
-			AccountVO account = this.queryUser(token.getUsername());
-			this.userValidate(account);
+			
+			ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+			AccountVO account = loginSupport.queryUserValidate(token.getUsername());
+			
 			Subject subject = this.getSubject(request, response); 
 			subject.login(token);
 			// set session
@@ -181,30 +165,6 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
 			UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
 		}		
 		
-	}
-	
-	private AccountVO queryUser(String account) throws Exception {
-		
-		if (StringUtils.isBlank(account)) {
-			return null;
-		}
-		AccountVO accountObj = new AccountVO();
-		accountObj.setAccount(account);		
-		DefaultResult<AccountVO> result = accountService.findByUK(accountObj);
-		if (result.getValue()==null) {
-			return null;
-		}
-		accountObj = result.getValue();		
-		return accountObj;
-	}
-	
-	private void userValidate(AccountVO account) throws Exception {
-		if(account == null) {
-			return;
-		}
-		if (!YesNo.YES.equals(account.getOnJob())) {
-			throw new InvalidAccountException("Invalid account!");
-		}
 	}
 	
     protected boolean isAjaxRequest(HttpServletRequest request) {

@@ -24,44 +24,21 @@ package com.netsteadfast.greenstep.sys;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.remoting.caucho.HessianServiceExporter;
-
-import com.netsteadfast.greenstep.base.AppContext;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
-import com.netsteadfast.greenstep.po.hbm.TbAccount;
-import com.netsteadfast.greenstep.service.IAccountService;
-import com.netsteadfast.greenstep.vo.AccountVO;
 
 public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	protected Logger logger = Logger.getLogger(GreenStepHessianServiceExporter.class);
-	private IAccountService<AccountVO, TbAccount, String> accountService;
 	
 	public GreenStepHessianServiceExporter() {
 		super();
 	}
-	
-	public IAccountService<AccountVO, TbAccount, String> getAccountService() {
-		return accountService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.AccountService")
-	@Required		
-	public void setAccountService(
-			IAccountService<AccountVO, TbAccount, String> accountService) {
-		this.accountService = accountService;
-	}	
 	
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -101,9 +78,9 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		}
 		Subject subject = null;
 		try {
-			if (!SecurityUtils.getSubject().isAuthenticated()) {
-				subject = this.forceLoginForHessianByUserId(request, response, GreenStepHessianUtils.getUserId(dataMap));
-			}
+			ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+			loginSupport = new ShiroLoginSupport();
+			subject = loginSupport.forceCreateLoginSubject(request, response, GreenStepHessianUtils.getUserId(dataMap), "0123");
 			super.handleRequest(request, response);				
 		} catch (Exception e) {
 			logger.error( e.getMessage().toString() );
@@ -114,40 +91,5 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 			}
 		}
 	}
-	
-	private Subject forceLoginForHessianByUserId(HttpServletRequest request, HttpServletResponse response, String userId) throws Exception {
-		AccountVO account = this.queryUser( userId );
-		if ( account == null ) {
-			throw new Exception( "login userId: " + userId + " for hessian webService fail" );
-		}
-		String captchaStr = "0123"; 
-		request.getSession().setAttribute(GreenStepBaseFormAuthenticationFilter.DEFAULT_CAPTCHA_PARAM, captchaStr);
-		GreenStepBaseUsernamePasswordToken token = new GreenStepBaseUsernamePasswordToken();
-		token.setCaptcha( captchaStr );
-		token.setUsername( account.getAccount() );
-		token.setPassword( account.getPassword().toCharArray() );
-		Subject subject = SecurityUtils.getSubject();
-		subject.login(token);
-		//logger.info( "force login admin for hessian webService use account-ID: " + account.getAccount() );
-		return subject;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private AccountVO queryUser(String account) throws Exception {
-		if (StringUtils.isBlank(account)) {
-			return null;
-		}
-		if (accountService == null) {
-			accountService = (IAccountService<AccountVO, TbAccount, String>) AppContext.getBean("core.service.AccountService");
-		}
-		AccountVO accountObj = new AccountVO();
-		accountObj.setAccount(account);		
-		DefaultResult<AccountVO> result = accountService.findByUK(accountObj);
-		if (result.getValue()==null) {
-			return null;
-		}
-		accountObj = result.getValue();
-		return accountObj;
-	}	
 	
 }

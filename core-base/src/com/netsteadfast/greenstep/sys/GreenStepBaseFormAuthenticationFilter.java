@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -44,20 +43,15 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.Constants;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.base.sys.IUSessLogHelper;
 import com.netsteadfast.greenstep.base.sys.USessLogHelperImpl;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.base.sys.UserCurrentCookie;
-import com.netsteadfast.greenstep.po.hbm.TbAccount;
-import com.netsteadfast.greenstep.service.IAccountService;
 import com.netsteadfast.greenstep.util.ScriptExpressionUtils;
 import com.netsteadfast.greenstep.util.SimpleUtils;
 import com.netsteadfast.greenstep.vo.AccountVO;
@@ -68,24 +62,11 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 	public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 	private static String createUserDataLdapModeScript = "";
 	private String captchaParam = DEFAULT_CAPTCHA_PARAM;
-	private IAccountService<AccountVO, TbAccount, String> accountService;
 	private IUSessLogHelper uSessLogHelper;
 	
 	public GreenStepBaseFormAuthenticationFilter() {
 		super();
-		uSessLogHelper=new USessLogHelperImpl();
-	}
-	
-	public IAccountService<AccountVO, TbAccount, String> getAccountService() {
-		return accountService;
-	}
-
-	@Autowired
-	@Resource(name="core.service.AccountService")
-	@Required		
-	public void setAccountService(
-			IAccountService<AccountVO, TbAccount, String> accountService) {
-		this.accountService = accountService;
+		uSessLogHelper = new USessLogHelperImpl();
 	}
 	
 	public static String getCreateUserDataLdapModeScript() throws Exception {
@@ -133,7 +114,8 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 			if (this.isLoginLdapMode()) { // login by LDAP.
 				pwd = password.toCharArray();
 			} else { // default by DB
-				pwd = this.accountService.tranPassword(password).toCharArray();
+				ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+				pwd = loginSupport.getAccountService().tranPassword(password).toCharArray();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,10 +147,13 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 				(GreenStepBaseUsernamePasswordToken) this.createToken(request, response);
 		try {
 			this.doCaptchaValidate((HttpServletRequest)request, token);
-			AccountVO account = this.queryUser(token.getUsername());
-			this.userValidate(account);			
+			
+			ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+			AccountVO account = loginSupport.queryUserValidate(token.getUsername());
+			
 			Subject subject = this.getSubject(request, response);
 			subject.login(token);
+			
 			if (this.isLoginLdapMode() && account==null) { // is no account data in DataBase, create it.
 				account = this.createUserDataLdapLoginMode(token.getUsername(), new String(token.getPassword()));
 			}			
@@ -231,30 +216,6 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
 				UserAccountHttpSessionSupport.createSysCurrentId(request, sysCurrentId);
 			}
 			
-		}
-	}
-	
-	private AccountVO queryUser(String account) throws Exception {
-		
-		if (StringUtils.isBlank(account)) {
-			return null;
-		}
-		AccountVO accountObj = new AccountVO();
-		accountObj.setAccount(account);		
-		DefaultResult<AccountVO> result = accountService.findByUK(accountObj);
-		if (result.getValue()==null) {
-			return null;
-		}
-		accountObj = result.getValue();		
-		return accountObj;
-	}
-	
-	private void userValidate(AccountVO account) throws Exception {
-		if(account == null) {
-			return;
-		}
-		if (!YesNo.YES.equals(account.getOnJob())) {
-			throw new InvalidAccountException("Invalid account!");
 		}
 	}
 	
@@ -348,16 +309,12 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     	}    	
     	String captchaStr = "0123"; // 這理的 captcha 不須要比對了 , 因為不是 core-web 的登入畫面    	
     	request.setAttribute(this.captchaParam, captchaStr);
-    	( (HttpServletRequest)request ).getSession().setAttribute(
-    			com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY, captchaStr);
-		AccountVO account = this.queryUser( accountId );
-		this.userValidate(account);
-		Subject subject = this.getSubject(request, response); 
-		GreenStepBaseUsernamePasswordToken token = new GreenStepBaseUsernamePasswordToken();
-		token.setCaptcha(captchaStr);		
-		token.setUsername( accountId );		
-		token.setPassword( account.getPassword().toCharArray() );
-		subject.login(token);
+    	( (HttpServletRequest)request ).getSession().setAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY, captchaStr);
+    	
+    	ShiroLoginSupport loginSupport = new ShiroLoginSupport();
+    	AccountVO account = loginSupport.queryUserValidate(accountId);
+    	loginSupport.forceCreateLoginSubject((HttpServletRequest)request, (HttpServletResponse)response, accountId, captchaStr);
+		
 		// set session
 		this.setUserSession((HttpServletRequest)request, (HttpServletResponse)response, account);    	    	
     	return true;
@@ -392,12 +349,13 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     	if (password.length()>35) {
     		throw new Exception("Create user data fail! password length more then 35.");
     	}
+    	ShiroLoginSupport loginSupport = new ShiroLoginSupport();
     	logger.info("create user data, login by LDAP mode, account: " + account);    	
     	Map<String, Object> paramMap = new HashMap<String, Object>();
     	paramMap.put("account", account);
-    	paramMap.put("transPassword", this.accountService.tranPassword(password));
+    	paramMap.put("transPassword", loginSupport.getAccountService().tranPassword(password));
     	ScriptExpressionUtils.execute(ScriptTypeCode.IS_GROOVY, getCreateUserDataLdapModeScript(), null, paramMap);
-    	return this.queryUser(account);
+    	return loginSupport.queryUser(account);
     }
 	
 }
