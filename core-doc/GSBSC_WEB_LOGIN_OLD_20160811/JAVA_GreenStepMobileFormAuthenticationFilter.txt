@@ -221,11 +221,11 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
     		response.getWriter().write(Constants.NO_LOGIN_JSON_DATA);
     		return;
     	}
-    	if (this.isIframeMode((HttpServletRequest)request)) { // iframe ¤£­n¾É¦V login.action ¦]¬°µe­±·|©Ç©Çªº    		
+    	if (this.isIframeMode((HttpServletRequest)request)) { // iframe ä¸è¦å°å‘ login.action å› ç‚ºç•«é¢æœƒæ€ªæ€ªçš„    		
     		WebUtils.issueRedirect(request, response, "/pages/system/error_static.jsp");
     		return;
     	}    	
-    	if (this.isDojoxContentPane((HttpServletRequest)request)) { // ¦b dojox.layout.ContentPane ¤£­n¥X²{ login.action ­¶­±    		
+    	if (this.isDojoxContentPane((HttpServletRequest)request)) { // åœ¨ dojox.layout.ContentPane ä¸è¦å‡ºç¾ login.action é é¢    		
     		WebUtils.issueRedirect(request, response, Constants.DOJOX_CONTENT_PANE_XHR_RE_LOGIN_PAGE);
     		return;
     	}
@@ -234,7 +234,7 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
     
     private boolean isDojoxContentPane(HttpServletRequest request) {
     	String isDojoxContentPane = request.getParameter(Constants.IS_DOJOX_CONTENT_PANE_XHR_LOAD);
-    	if (YesNo.YES.equals(isDojoxContentPane)) { // dojox.layout.ContentPane ¥¦ªº X-Requested-With ¬O XMLHttpRequest
+    	if (YesNo.YES.equals(isDojoxContentPane)) { // dojox.layout.ContentPane å®ƒçš„ X-Requested-With æ˜¯ XMLHttpRequest
     		return true;
     	}
     	return false;
@@ -249,7 +249,7 @@ public class GreenStepMobileFormAuthenticationFilter extends FormAuthenticationF
     }
     
     private String getLanguage(HttpServletRequest request) {
-		String lang = request.getParameter("lang"); // core-system ¨ú¥Xµn¤J­¶­±±a¤Jªº lang °Ñ¼Æ
+		String lang = request.getParameter("lang"); // core-system å–å‡ºç™»å…¥é é¢å¸¶å…¥çš„ lang åƒæ•¸
 		if ( StringUtils.isBlank(lang) ) {
 			lang = "en";
 		}  	

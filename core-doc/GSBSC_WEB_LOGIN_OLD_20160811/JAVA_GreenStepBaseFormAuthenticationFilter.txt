@@ -277,7 +277,7 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     }
     
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
-    	if ( !Constants.getSystem().equals( Constants.getMainSystem() ) && !isAjaxRequest((HttpServletRequest)request) ) { // «D core-web
+    	if ( !Constants.getSystem().equals( Constants.getMainSystem() ) && !isAjaxRequest((HttpServletRequest)request) ) { // é core-web
     		try {
 				if ( this.loginUseCurrentCookieForGeneralPackage(request, response) ) { // no need to login-page
 					String url = SimpleUtils.getHttpRequestUrl( (HttpServletRequest)request );
@@ -295,11 +295,11 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     		response.getWriter().write(Constants.NO_LOGIN_JSON_DATA);
     		return;
     	}
-    	if (this.isIframeMode((HttpServletRequest)request)) { // iframe ¤£­n¾É¦V login.action ¦]¬°µe­±·|©Ç©Çªº    		
+    	if (this.isIframeMode((HttpServletRequest)request)) { // iframe ä¸è¦å°å‘ login.action å› ç‚ºç•«é¢æœƒæ€ªæ€ªçš„    		
     		WebUtils.issueRedirect(request, response, "/pages/system/error_static.jsp");
     		return;
     	}    	
-    	if (this.isDojoxContentPane((HttpServletRequest)request)) { // ¦b dojox.layout.ContentPane ¤£­n¥X²{ login.action ­¶­±    		
+    	if (this.isDojoxContentPane((HttpServletRequest)request)) { // åœ¨ dojox.layout.ContentPane ä¸è¦å‡ºç¾ login.action é é¢    		
     		WebUtils.issueRedirect(request, response, Constants.DOJOX_CONTENT_PANE_XHR_RE_LOGIN_PAGE);
     		return;
     	}
@@ -308,7 +308,7 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     
     private boolean isDojoxContentPane(HttpServletRequest request) {
     	String isDojoxContentPane = request.getParameter(Constants.IS_DOJOX_CONTENT_PANE_XHR_LOAD);
-    	if (YesNo.YES.equals(isDojoxContentPane)) { // dojox.layout.ContentPane ¥¦ªº X-Requested-With ¬O XMLHttpRequest
+    	if (YesNo.YES.equals(isDojoxContentPane)) { // dojox.layout.ContentPane å®ƒçš„ X-Requested-With æ˜¯ XMLHttpRequest
     		return true;
     	}
     	return false;
@@ -323,7 +323,7 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     }
     
     /**
-     * «D core-web µn¤J¤è¦¡ , µ¹ gsbsc-web, qcharts-web ¥Îªº
+     * é core-web ç™»å…¥æ–¹å¼ , çµ¦ gsbsc-web, qcharts-web ç”¨çš„
      * 
      * @param request
      * @param response
@@ -342,11 +342,11 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     	if ( StringUtils.isBlank(currentId) || StringUtils.isBlank(accountId) ) {
     		return false;
     	}
-		// ¥ı¥h tb_sys_usess ¥Î current_id»P±b¤á ¥h¬d¦³¨S¦³¦s¦b db	
-    	if ( this.uSessLogHelper.countByCurrent(accountId, currentId) < 1 ) { // ¨S¦³¦b core-web µn¤J, ©Ò¥H¨S¦³ TB_SYS_USESS ªº¸ê®Æ
+		// å…ˆå» tb_sys_usess ç”¨ current_idèˆ‡å¸³æˆ¶ å»æŸ¥æœ‰æ²’æœ‰å­˜åœ¨ db	
+    	if ( this.uSessLogHelper.countByCurrent(accountId, currentId) < 1 ) { // æ²’æœ‰åœ¨ core-web ç™»å…¥, æ‰€ä»¥æ²’æœ‰ TB_SYS_USESS çš„è³‡æ–™
     		return false;
     	}    	
-    	String captchaStr = "0123"; // ³o²zªº captcha ¤£¶·­n¤ñ¹ï¤F , ¦]¬°¤£¬O core-web ªºµn¤Jµe­±    	
+    	String captchaStr = "0123"; // é€™ç†çš„ captcha ä¸é ˆè¦æ¯”å°äº† , å› ç‚ºä¸æ˜¯ core-web çš„ç™»å…¥ç•«é¢    	
     	request.setAttribute(this.captchaParam, captchaStr);
     	( (HttpServletRequest)request ).getSession().setAttribute(
     			com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY, captchaStr);
@@ -364,8 +364,8 @@ public class GreenStepBaseFormAuthenticationFilter extends FormAuthenticationFil
     }
     
     private String getLanguage(HttpServletRequest request) {
-		String lang = request.getParameter("lang"); // core-system ¨ú¥Xµn¤J­¶­±±a¤Jªº lang °Ñ¼Æ
-    	if ( !Constants.getSystem().equals( Constants.getMainSystem() ) ) { // «D core-system ©Ò¥H lang °Ñ¼Æ¦b cookie ¤¤¨ú¥X
+		String lang = request.getParameter("lang"); // core-system å–å‡ºç™»å…¥é é¢å¸¶å…¥çš„ lang åƒæ•¸
+    	if ( !Constants.getSystem().equals( Constants.getMainSystem() ) ) { // é core-system æ‰€ä»¥ lang åƒæ•¸åœ¨ cookie ä¸­å–å‡º
         	Map<String, String> dataMap = UserCurrentCookie.getCurrentData( request );
         	if ( dataMap != null ) {
         		//System.out.println(dataMap);

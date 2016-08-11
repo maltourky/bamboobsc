@@ -67,7 +67,7 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		/**
-		 * ¤£¥ÎÀË¬dcheckValue¼Ò¦¡
+		 * ä¸ç”¨æª¢æŸ¥checkValueæ¨¡å¼
 		 */
 		if (!GreenStepHessianUtils.getConfigHessianHeaderCheckValueModeEnable()) {
 			super.handleRequest(request, response);
@@ -75,7 +75,7 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		}
 		
 		/**
-		 * ¤@¯ë­nÀË¬dcheckValue¼Ò¦¡
+		 * ä¸€èˆ¬è¦æª¢æŸ¥checkValueæ¨¡å¼
 		 */
 		String checkValue = GreenStepHessianUtils.getHttpRequestHeaderCheckValue(request);
 		Map<String, String> dataMap = null;
