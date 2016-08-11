@@ -259,6 +259,41 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 | ibatisSelectOneByValue(E valueObj) | DefaultResult`<E>` | find by not hibernate mode entity on MyBatis |
 | getDynamicHqlResource(String resource) | DynamicHql | get /resource/dynamichql/*-dynamic-hql.xml config |
 | getDynamicHql(String queryName, Map`<String, Object>` paramMap)<br/><br/>getDynamicHql(String resource, String queryName, Map`<String, Object>` paramMap) | String | get dynamic hql from /resource/dynamichql/*-dynamic-hql.xml config |
+| getQueryParamHandler(SearchValue searchValue) | DynamicHqlQueryParamHandler | Query page parameter handler |
+
+<br/>
+<br/>
+
+***DynamicHqlQueryParamHandler***
+<br/>
+DynamicHqlQueryParamHandler is a handler for process need parameter util for dynamic Hql query.<br/>
+Example get query parameter on BaseService object:<br/>
+```JAVA
+Map<String, Object> queryParam = super.getQueryParamHandler(searchValue)
+	.fullEquals4TextField("id")
+	.getValue();
+```
+| Name | Return | description |
+| --- | --- | --- |
+| getSourceSearchParameter() | Map`<String, String>` | return SearchValue.parameter |
+| setSourceSearchParameter(Map`<String, String>` sourceSearchParameter) | void | set SearchValue.parameter |
+| setSourceSearchParameterAndRoot(Map`<String, String>` sourceSearchParameter) | void | set SearchValue.parameter and init Ognl need expression variable |
+| getRoot() | Map`<String, Object>` | get Ognl expression need parameter |
+| getValue() | Map`<String, Object>` | get result parameter |
+| addExprVariable(String key, Object value) | DynamicHqlQueryParamHandler | add Ogn expression need variable |
+| fullEquals4TextField(String field) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter |
+| fullEquals4Select(String field) | DynamicHqlQueryParamHandler | if select found value, will put on result parameter |
+| fullEquals(String field, String expression) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter.<br/>The expression is Ognl mode |
+| beginningLike(String field) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> beginning Like: 'TEST%' |
+| beginningLike(String field, String expression) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> beginning Like: 'TEST%'<br/>The expression is Ognl mode |
+| endingLike(String field) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> ending Like: '%TEST' |
+| endingLike(String field, String expression) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> ending Like: '%TEST'<br/>The expression is Ognl mode |
+| containingLike(String field) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> containing Like: '%TEST%' |
+| containingLike(String field, String expression) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> containing Like: '%TEST%'<br/>The expression is Ognl mode |
+| equalsLike(String field) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> equals Like: 'TEST' |
+| equalsLike(String field, String expression) | DynamicHqlQueryParamHandler | if textfield found value, will put on result parameter<br/> equals Like: 'TEST'<br/>The expression is Ognl mode |
+
+<br/>
 
 <br/>
 <br/>
@@ -312,16 +347,10 @@ https://github.com/billchen198318/bamboobsc/blob/master/gsbsc-web/WebContent/pag
 
 ```JAVA
 private Map<String, Object> getQueryGridParameter(SearchValue searchValue) throws Exception {
-	Map<String, Object> params=new LinkedHashMap<String, Object>();
-	String visId = searchValue.getParameter().get("visId");
-	String title = searchValue.getParameter().get("title");
-	if (!StringUtils.isBlank(visId)) {
-		params.put("visId", visId);
-	}		
-	if (!StringUtils.isBlank(title)) {
-		params.put("title", "%"+title+"%");
-	}
-	return params;
+	return super.getQueryParamHandler(searchValue)
+			.fullEquals4TextField("visId")
+			.containingLike("title")
+			.getValue();
 }	
 
 @Override
