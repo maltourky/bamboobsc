@@ -266,7 +266,7 @@ public class TestServiceImpl extends BaseService<TestVO, BbTest, String> impleme
 
 ***DynamicHqlQueryParamHandler***
 <br/>
-DynamicHqlQueryParamHandler is a handler for process need parameter util for dynamic Hql query.<br/>
+DynamicHqlQueryParamHandler is a handler parameter for dynamic Hql query.<br/>
 Example get query parameter on BaseService object:<br/>
 ```JAVA
 Map<String, Object> queryParam = super.getQueryParamHandler(searchValue)
