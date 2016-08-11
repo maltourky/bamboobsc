@@ -73,7 +73,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="flat" bgcolor="#EEEEEE" >
+<body class="flat">
 	
 	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >	
 		<tr>

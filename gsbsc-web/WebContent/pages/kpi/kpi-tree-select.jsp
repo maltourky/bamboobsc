@@ -115,7 +115,7 @@ function BSC_PROG002D0004Q_S00_getKpiData(checkBoxId,oid) {
 
 </head>
 
-<body class="flat" bgcolor="#EEEEEE" >
+<body class="flat">
 	 
 	<table border="0" width="100%" cellpadding="0" cellspacing="0">
 		<tr valign="top">

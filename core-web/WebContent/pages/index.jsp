@@ -187,7 +187,7 @@ var viewPage = new GS.ViewPage('<%=basePath%>');
 
 </head>
 
-<body class="flat" bgcolor="#EEEEEE" >
+<body class="flat">
 <div id="loader"><div id="loaderInner" style="direction:ltr;white-space:nowrap;overflow:visible;">Loading ... </div></div>
 
 <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false, liveSplitters:false" id="borderContainer">

@@ -53,7 +53,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="flat" bgcolor="#EEEEEE" >
+<body class="flat">
 
 	<jsp:include page="../header.jsp"></jsp:include>
 	
