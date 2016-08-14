@@ -275,4 +275,10 @@ public class RegionMapRelationKpisAction extends BaseJsonAction {
 		return pieUploadOids;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

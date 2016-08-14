@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -70,8 +71,8 @@ public class RolePermittedSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		super.getCheckFieldHandler()
-		.add("permission", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permission") + "<BR/>")
-		.add("permType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permType") + "<BR/>")
+		.add("permission", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permission") )
+		.add("permType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG002D0001E_S00_permType") )
 		.process()
 		.throwMessage();
 	}
@@ -203,5 +204,11 @@ public class RolePermittedSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

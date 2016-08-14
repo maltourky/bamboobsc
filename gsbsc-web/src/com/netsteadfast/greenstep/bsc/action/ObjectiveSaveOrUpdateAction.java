@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,12 +73,12 @@ public class ObjectiveSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_visionOid") + "<BR/>")
-		.add("perspectiveOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_perspectiveOid") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_name") + "<BR/>")
-		.add("weight", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_weight") + "<BR/>")
-		.add("target", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_target") + "<BR/>")
-		.add("min", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_min") + "<BR/>")
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_visionOid") )
+		.add("perspectiveOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_perspectiveOid") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_name") )
+		.add("weight", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_weight") )
+		.add("target", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_target") )
+		.add("min", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0003A_min") )
 		.process().throwMessage();
 	}		
 	
@@ -231,5 +232,11 @@ public class ObjectiveSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

@@ -315,4 +315,27 @@
 	</tag>		
 	
 	
+	<!-- Inputfield notice message label -->
+	<tag>
+		<name>inputfieldNoticeMsgLabel</name>
+		<tag-class>org.gsweb.components.tag.InputfieldNoticeMsgLabelTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>message</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	
 </taglib>	

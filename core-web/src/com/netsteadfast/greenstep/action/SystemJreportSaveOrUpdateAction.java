@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.action;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -78,14 +79,14 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("reportId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008A_reportId") + "<BR/>")
+		.add("reportId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008A_reportId") )
 		.process().throwMessage();
 	}	
 	
 	private void checkParamFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("rptParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_rptParam") + "<BR/>")
-		.add("urlParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_urlParam") + "<BR/>")
+		.add("rptParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_rptParam") )
+		.add("urlParam", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0008E_S00_urlParam") )
 		.process().throwMessage();
 	}
 	
@@ -97,14 +98,14 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 		File jrxmlFile = new File(jrxmlFileFullPath);
 		if (!jrxmlFile.exists()) {
 			jrxmlFile = null;
-			throw new ControllerException(reportId + ".jrxml file not exists!");
+			super.throwMessage( reportId + ".jrxml file not exists!" );
 		}		
 		if (!"true".equals(this.getFields().get("isCompile"))) {
 			String jasperFileFullPath = testDir + "/" + reportId + "/" + reportId + ".jasper";
 			File jasperFile = new File(jasperFileFullPath);
 			if (!jasperFile.exists()) {
 				jasperFile = null;
-				throw new ControllerException(reportId + ".jasper file not exists!");
+				super.throwMessage( reportId + ".jasper file not exists!" );
 			}					
 		}
 		jrxmlFile = null;
@@ -129,7 +130,7 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			throw new ControllerException("Please upload Report(zip) file!");
+			super.throwMessage( "Please upload Report(zip) file!" );
 		}
 		this.selfTestUploadReportData();
 		SysJreportVO report = new SysJreportVO();		
@@ -375,5 +376,11 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

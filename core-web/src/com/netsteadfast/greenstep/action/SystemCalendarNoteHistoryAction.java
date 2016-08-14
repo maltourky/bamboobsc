@@ -160,4 +160,10 @@ public class SystemCalendarNoteHistoryAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

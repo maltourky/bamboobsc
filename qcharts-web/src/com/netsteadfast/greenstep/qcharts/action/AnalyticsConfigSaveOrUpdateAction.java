@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.qcharts.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -71,10 +72,10 @@ public class AnalyticsConfigSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_id") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_name") + "<BR/>")
-		.add("jdbcDrivers", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcDrivers") + "<BR/>")
-		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcUrl") + "<BR/>")
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_id") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_name") )
+		.add("jdbcDrivers", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcDrivers") )
+		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0003A_jdbcUrl") )
 		.process().throwMessage();
 	}
 	
@@ -227,4 +228,10 @@ public class AnalyticsConfigSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

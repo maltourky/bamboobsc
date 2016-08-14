@@ -443,13 +443,13 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 		this.checkFields(fieldsName, msg, checkUtilsClass, null);
 	}
 	
-	protected CheckFieldHandler checkFields(Map<String, String> fields, List<String> fieldsId) {
-		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(fields, fieldsId);
+	protected CheckFieldHandler checkFields(Map<String, String> fields, List<String> fieldsId, Map<String, String> fieldsMessage) {
+		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(fields, fieldsId, fieldsMessage);
 		return checkFieldHandler;
 	}	
 	
-	protected CheckFieldHandler checkFields(List<String> fieldsId) {
-		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(this.getFields(), fieldsId);
+	protected CheckFieldHandler checkFields(List<String> fieldsId, Map<String, String> fieldsMessage) {
+		CheckFieldHandler checkFieldHandler = new CheckFieldHandler(this.getFields(), fieldsId, fieldsMessage);
 		return checkFieldHandler;
 	}
 	
@@ -614,6 +614,10 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 			return "";
 		}
 		return StringUtils.join(datas.toArray(), Constants.ID_DELIMITER) + Constants.ID_DELIMITER;
+	}
+	
+	protected String joinPageMessage(String... message) {
+		return StringUtils.join(message, "<BR/>");
 	}
 	
 	protected static Map<String, String> getLoadStrutsConstants() {		

@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.qcharts.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -74,8 +75,8 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_id") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_name") + "<BR/>")
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_id") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0004A_name") )
 		.process().throwMessage();
 	}
 	
@@ -85,18 +86,18 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 		}
 		byte datas[] = UploadSupportUtils.getDataBytes( this.getFields().get("uploadOid") );
 		if ( null == datas ) {
-			throw new Exception( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg1") + "<BR/>" );
+			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg1") );
 		}
 		String xmlContent = new String(datas, Constants.BASE_ENCODING);
 		if ( xmlContent.indexOf("Schema") == -1 ) {
-			throw new Exception( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg2") + "<BR/>" );
+			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg2") );
 		}
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			throw new ControllerException( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg3") + "<BR/>" );
+			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg3") );
 		}
 		this.checkUploadCatalog();
 		OlapCatalogVO olapCatalog = new OlapCatalogVO();
@@ -249,4 +250,10 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

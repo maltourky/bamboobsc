@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.bsc.action;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -75,12 +76,12 @@ public class SwotSaveOrUpdateAction extends BaseJsonAction {
 		String visionOid = this.getHttpServletRequest().getParameter("BSC_PROG002D0008Q_visionOid");
 		String organizationOid = this.getHttpServletRequest().getParameter("BSC_PROG002D0008Q_organizationOid");
 		errMsg = this.getCheckFieldHandler()
-		.single("visionOid", ( this.isNoSelectId(visionOid) || StringUtils.isBlank(visionOid) ) , this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>")
-		.single("organizationOid", ( this.isNoSelectId(organizationOid) || StringUtils.isBlank(organizationOid) ), this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>").getMessage();
+		.single("visionOid", ( this.isNoSelectId(visionOid) || StringUtils.isBlank(visionOid) ) , this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") )
+		.single("organizationOid", ( this.isNoSelectId(organizationOid) || StringUtils.isBlank(organizationOid) ), this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") ).getMessage();
 		
 		if ( !StringUtils.isBlank(errMsg) ) {
-			errMsg += this.getText("MESSAGE.BSC_PROG002D0008Q_msg1") + "<BR/>";
-			throw new ControllerException( errMsg );
+			errMsg += this.getText("MESSAGE.BSC_PROG002D0008Q_msg1");
+			super.throwMessage( errMsg );
 		}	
 	}
 	
@@ -179,5 +180,11 @@ public class SwotSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

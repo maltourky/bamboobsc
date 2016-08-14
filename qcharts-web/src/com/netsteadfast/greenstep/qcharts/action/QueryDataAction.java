@@ -84,17 +84,17 @@ public class QueryDataAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>")
-		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
+		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") )
+		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") )
 		.process().throwMessage();
 	}		
 	
 	private void checkFieldsForCreate() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") + "<BR/>")
-		.add("dataQueryMapperOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>")
-		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") + "<BR/>")
+		.add("dataSourceConfOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataSourceConfOid") )
+		.add("dataQueryMapperOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") )
+		.add("queryExpression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0001Q_queryExpression") )
 		.process().throwMessage();
 	}		
 	
@@ -111,15 +111,15 @@ public class QueryDataAction extends BaseJsonAction {
 		.single(
 				"name", 
 				( ("2".equals(queryType) || "3".equals(queryType)) && StringUtils.isBlank(name) ), 
-				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") + "<BR/>")
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_name") )
 		.single(
 				"dataQueryMapperOid|dataQueryMapperSetOid", 
 				( "2".equals(queryType) && (this.isNoSelectId(dataQueryMapperOid) || this.isNoSelectId(dataQueryMapperSetOid)) ), 
-				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg1") + "<BR/>")
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg1") )
 		.single(
 				"dataQueryMapperOid", 
 				( ("3".equals(queryType) || "4".equals(queryType)) && this.isNoSelectId(dataQueryMapperOid) ), 
-				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") + "<BR/>")
+				this.getText("MESSAGE.QCHARTS_PROG002D0001Q_dataQueryMapperOid") )
 		.throwMessage();
 		
 		this.searchDatas = QueryDataUtils.query(dataSourceConfOid, queryExpression);
@@ -352,5 +352,11 @@ public class QueryDataAction extends BaseJsonAction {
 	public List<Map<String, Object>> getSeriesData() {
 		return seriesData;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

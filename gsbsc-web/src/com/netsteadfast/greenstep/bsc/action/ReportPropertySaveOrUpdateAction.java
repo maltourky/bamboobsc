@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -74,16 +75,16 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("backgroundColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_backgroundColor") + "<BR/>")
-		.add("fontColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_fontColor") + "<BR/>")
-		.add("perspectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_perspectiveTitle") + "<BR/>")
-		.add("objectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") + "<BR/>")
-		.add("kpiTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") + "<BR/>")
-		.add("classNote", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") + "<BR/>")
+		.add("backgroundColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_backgroundColor") )
+		.add("fontColor", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_fontColor") )
+		.add("perspectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_perspectiveTitle") )
+		.add("objectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") )
+		.add("kpiTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") )
+		.add("classNote", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") )
 		.process().throwMessage();
 		
 		String classNote = this.getFields().get("classNote");
-		this.getCheckFieldHandler().single("classNote", (classNote.length()>100), this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") + "<BR/>").throwMessage();
+		this.getCheckFieldHandler().single("classNote", (classNote.length()>100), this.getText("MESSAGE.BSC_PROG004D0001Q_classNote_msg1") ).throwMessage();
 	}		
 	
 	private void updateSysCode(String code, String value) throws ServiceException, Exception {
@@ -168,5 +169,11 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

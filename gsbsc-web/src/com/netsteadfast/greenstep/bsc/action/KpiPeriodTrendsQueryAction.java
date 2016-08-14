@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -65,8 +66,8 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	
 	private void checkFields(String p) throws ControllerException, Exception {
 		this.getCheckFieldHandler()
-		.add("visionOid"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_visionOid") + "<BR/>")
-		.add("frequency"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_frequency") + "<BR/>")
+		.add("visionOid"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_visionOid") )
+		.add("frequency"+p, SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0007Q_frequency") )
 		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency"+p);
@@ -78,62 +79,48 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
 			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
-				this.getFieldsId().add("startDate"+p);
-				this.getFieldsId().add("endDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg1") + "<BR/>");				
+				super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg1"));		
 			}
 		}
 		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency) ) {
 			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
-				this.getFieldsId().add("startYearDate"+p);
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg2") + "<BR/>");				
+				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg2"));		
 			}			
 		}		
 		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
 			if ( !SimpleUtils.isDate( startDate ) ) {
-				this.getFieldsId().add("startDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg3") + "<BR/>");
+				super.throwMessage("startDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg3"));
 			}
 			if ( !SimpleUtils.isDate( endDate ) ) {
-				this.getFieldsId().add("endDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg4") + "<BR/>");			
+				super.throwMessage("endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg4"));		
 			}
 			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("startDate"+p);
-				this.getFieldsId().add("endDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg5") + "<BR/>");			
+				super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg5"));		
 			}			
 		}
 		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("startYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg6") + "<BR/>");				
+				super.throwMessage("startYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg6"));				
 			}
 			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg7") + "<BR/>");						
+				super.throwMessage("endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg7"));					
 			}
 			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("startYearDate"+p);
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg8") + "<BR/>");			
+				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg8"));		
 			}					
 		}
 		String dataFor = this.getFields().get("dataFor"+p);
 		if ("organization".equals(dataFor) 
 				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid"+p)) ) {
-			this.getFieldsId().add("measureDataOrganizationOid"+p);
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg9") + "<BR/>");
+			super.throwMessage("measureDataOrganizationOid"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg9"));
 		}
 		if ("employee".equals(dataFor)
 				&& this.isNoSelectId(this.getFields().get("measureDataEmployeeOid"+p)) ) {
-			this.getFieldsId().add("measureDataEmployeeOid"+p);
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg10") + "<BR/>");
+			super.throwMessage("measureDataEmployeeOid"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg10"));
 		}
 	}		
 	
@@ -208,9 +195,7 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 			DateTime dt2 = new DateTime(endDate);
 			int betweenMonths = Months.monthsBetween(dt1, dt2).getMonths();
 			if ( betweenMonths >= 12 ) {
-				this.getFieldsId().add("startDate"+p);
-				this.getFieldsId().add("endDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg11") + "<BR/>");	
+				super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg11"));
 			}
 			return;
 		}
@@ -219,23 +204,17 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		int betweenYears = Years.yearsBetween(dt1, dt2).getYears();
 		if (BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency)) {
 			if ( betweenYears >= 3 ) {
-				this.getFieldsId().add("startYearDate"+p);
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg12") + "<BR/>");				
+				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg12"));			
 			}
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency)) {
 			if ( betweenYears >= 4 ) {
-				this.getFieldsId().add("startYearDate"+p);
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg13") + "<BR/>");				
+				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg13"));			
 			}			
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency)) {
 			if ( betweenYears >= 6 ) {
-				this.getFieldsId().add("startYearDate"+p);
-				this.getFieldsId().add("endYearDate"+p);
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg14") + "<BR/>");				
+				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg14"));		
 			}			
 		}
 	}	
@@ -281,15 +260,15 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 		this.success = IS_YES;
 		this.message = "success!";
 		if (this.periodData!=null && this.periodData.size()>0) {
-			if (!YesNo.YES.equals(this.periodData.get(0).getCanChart())) {				
-				this.message = 
-						"Please select the same frequency and range. It will display the chart.<BR/>" +
-						"Example:<BR/>" +
-						"Current pereiod: frequency is YEAR, Date is 2013 - 2015<BR/>" +
-						"Previous pereiod: frequency is YEAR, Date is 2012 - 2014<BR/>" +
-						"Or<BR/>" +
-						"Current pereiod: frequency is month, Date is 2015/01/01 - 2015/04/30<BR/>" +
-						"Previous pereiod: frequency is month, Date is 2014/01/01 - 2014/04/30<BR/>";
+			if (!YesNo.YES.equals(this.periodData.get(0).getCanChart())) {		
+				this.message = super.joinPageMessage(
+						"Please select the same frequency and range. It will display the chart.", 
+						"Example:",
+						"Current pereiod: frequency is YEAR, Date is 2013 - 2015",
+						"Previous pereiod: frequency is YEAR, Date is 2012 - 2014",
+						"Or",
+						"Current pereiod: frequency is month, Date is 2015/01/01 - 2015/04/30",
+						"Previous pereiod: frequency is month, Date is 2014/01/01 - 2014/04/30");
 			}
 		}		
 	}
@@ -440,5 +419,11 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 	public List<PeriodTrendsData<KpiVO>> getPeriodData() {
 		return periodData;
 	}	
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

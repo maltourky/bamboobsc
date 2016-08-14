@@ -314,4 +314,10 @@ public class KpisDashboardAction extends BaseJsonAction implements IBaseAddition
 		return measureDataEmployeeMap;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

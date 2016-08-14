@@ -175,5 +175,11 @@ public class AnalyticsCatalogManagementGridQueryAction extends BaseQueryGridJson
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

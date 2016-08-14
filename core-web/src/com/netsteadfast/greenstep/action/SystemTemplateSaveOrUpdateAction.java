@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -73,16 +74,16 @@ public class SystemTemplateSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("templateId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_templateId") + "<BR/>")
-		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_title") + "<BR/>")
-		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_message") + "<BR/>")
+		.add("templateId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_templateId") )
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_title") )
+		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007A_message") )
 		.process().throwMessage();
 	}
 	
 	private void checkFieldsForParamEdit() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("templateVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_templateVar") + "<BR/>")
-		.add("objectVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_objectVar") + "<BR/>")
+		.add("templateVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_templateVar") )
+		.add("objectVar", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0007E_S00_objectVar") )
 		.process().throwMessage();
 	}
 	
@@ -318,5 +319,11 @@ public class SystemTemplateSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

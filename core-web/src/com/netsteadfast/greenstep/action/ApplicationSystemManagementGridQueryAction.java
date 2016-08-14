@@ -181,4 +181,10 @@ public class ApplicationSystemManagementGridQueryAction extends BaseQueryGridJso
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

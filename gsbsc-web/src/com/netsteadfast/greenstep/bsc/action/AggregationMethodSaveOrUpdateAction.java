@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,16 +73,16 @@ public class AggregationMethodSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("aggrId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_aggrId") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_name") + "<BR/>")
-		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_type") + "<BR/>")
-		.add("expression1", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe1") + "<BR/>")
-		.add("expression2", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe2") + "<BR/>")
+		.add("aggrId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_aggrId") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_name") )
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_type") )
+		.add("expression1", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe1") )
+		.add("expression2", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0008A_iframe2") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler()
-		.single("expression1", ( this.getFields().get("expression1").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe1_msg1") + "<BR/>")
-		.single("expression2", ( this.getFields().get("expression2").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe2_msg1") + "<BR/>")
+		.single("expression1", ( this.getFields().get("expression1").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe1_msg1") )
+		.single("expression2", ( this.getFields().get("expression2").length() > 4000 ), this.getText("MESSAGE.BSC_PROG001D0008A_iframe2_msg1") )
 		.throwMessage();
 	}
 	
@@ -245,5 +246,11 @@ public class AggregationMethodSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

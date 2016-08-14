@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -93,15 +94,15 @@ public class SystemFormTemplateSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.getCheckFieldHandler()
-		.add("tplId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_tplId") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_name") + "<BR/>")
+		.add("tplId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_tplId") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0012A_name") )
 		.process().throwMessage();
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0012A_uploadOid") + "<BR/>" );
+			super.throwMessage( this.getText("MESSAGE.CORE_PROG001D0012A_uploadOid") );
 		}
 		SysFormTemplateVO template = new SysFormTemplateVO();
 		this.transformFields2ValueObject(template, new String[]{"tplId", "name", "description"});
@@ -347,5 +348,11 @@ public class SystemFormTemplateSaveOrUpdateAction extends BaseJsonAction {
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

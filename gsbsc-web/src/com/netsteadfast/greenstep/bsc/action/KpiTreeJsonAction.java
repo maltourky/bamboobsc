@@ -203,5 +203,11 @@ public class KpiTreeJsonAction extends BaseJsonAction {
 	public List<Map<String, Object>> getItems() {
 		return items;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

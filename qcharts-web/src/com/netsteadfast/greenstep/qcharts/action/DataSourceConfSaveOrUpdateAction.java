@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.qcharts.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,12 +73,12 @@ public class DataSourceConfSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("driverOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_driverOid") + "<BR/>")
-		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_id") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_name") + "<BR/>")
-		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_jdbcUrl") + "<BR/>")
-		.add("dbAccount", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbAccount") + "<BR/>")
-		.add("dbPassword", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbPassword") + "<BR/>")
+		.add("driverOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_driverOid") )
+		.add("id", IdFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_id") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_name") )
+		.add("jdbcUrl", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_jdbcUrl") )
+		.add("dbAccount", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbAccount") )
+		.add("dbPassword", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG001D0001A_dbPassword") )
 		.process().throwMessage();
 	}		
 	
@@ -229,5 +230,11 @@ public class DataSourceConfSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

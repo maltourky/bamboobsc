@@ -245,5 +245,11 @@ public class CommonLoadFormAction extends BaseQueryGridJsonAction implements IBa
 	public String getRedirectUrl() {
 		return redirectUrl;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

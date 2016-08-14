@@ -133,7 +133,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException, Exception {
 		this.getCheckFieldHandler()
-		.add("pdcaOid", SelectItemFieldCheckUtils.class, "Please select PDCA project!<BR/>")
+		.add("pdcaOid", SelectItemFieldCheckUtils.class, "Please select PDCA project!")
 		.process().throwMessage();
 	}
 	
@@ -417,5 +417,11 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 	public void setProjectRelated(PdcaProjectRelatedVO projectRelated) {
 		this.projectRelated = projectRelated;
 	}	
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

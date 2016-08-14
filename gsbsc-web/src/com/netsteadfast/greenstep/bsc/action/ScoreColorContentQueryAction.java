@@ -165,5 +165,11 @@ public class ScoreColorContentQueryAction extends BaseJsonAction {
 	public String getBody() {
 		return body;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

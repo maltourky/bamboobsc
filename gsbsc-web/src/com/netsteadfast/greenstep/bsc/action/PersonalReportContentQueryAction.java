@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -80,22 +81,22 @@ public class PersonalReportContentQueryAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException, Exception {
 		this.getCheckFieldHandler()
-		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_visionOid") + "<BR/>")
-		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_frequency") + "<BR/>")
-		.add("employeeOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_employeeOid") + "<BR/>")
-		.add("dateType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_dateType") + "<BR/>")
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_visionOid") )
+		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_frequency") )
+		.add("employeeOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_employeeOid") )
+		.add("dateType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0002Q_dateType") )
 		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency");
 		String dateType = this.getFields().get("dateType");
 		
 		this.getCheckFieldHandler()
-		.single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") + "<BR/>") // year
-		.single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") + "<BR/>") // half-year
+		.single("frequency|dateType", ( "3".equals(dateType) && !"6".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") ) // year
+		.single("frequency|dateType", ( !"3".equals(dateType) && !"5".equals(frequency) ), this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg1") ) // half-year
 		.throwMessage();
 		
 		if ( !SimpleUtils.isDate( this.getFields().get("year")+"/01/01" ) ) {
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg2") + "<BR/>");
+			super.throwMessage( this.getText("MESSAGE.BSC_PROG003D0002Q_contentQuery_msg2") );
 		}
 	}
 	
@@ -299,5 +300,11 @@ public class PersonalReportContentQueryAction extends BaseJsonAction {
 	public String getUploadOid() {
 		return uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

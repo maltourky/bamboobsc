@@ -177,5 +177,11 @@ public class SystemFormTemplateManagementGridQueryAction extends BaseQueryGridJs
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

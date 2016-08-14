@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -69,8 +70,8 @@ public class VisionSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_title") + "<BR/>")
-		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_content") + "<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_title") )
+		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0001A_content") )
 		.process().throwMessage();	
 	}
 	
@@ -224,5 +225,11 @@ public class VisionSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

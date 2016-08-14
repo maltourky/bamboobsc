@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,9 +73,9 @@ public class SystemFormSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("formId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_formId") + "<BR/>")
-		.add("templateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_templateOid") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_name") + "<BR/>")
+		.add("formId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_formId") )
+		.add("templateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_templateOid") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0013A_name") )
 		.process().throwMessage();
 	}	
 	
@@ -228,5 +229,11 @@ public class SystemFormSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

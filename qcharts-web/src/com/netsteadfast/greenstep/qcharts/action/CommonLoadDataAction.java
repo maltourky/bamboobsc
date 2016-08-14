@@ -359,4 +359,10 @@ public class CommonLoadDataAction extends BaseJsonAction {
 		return super.getFields();
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

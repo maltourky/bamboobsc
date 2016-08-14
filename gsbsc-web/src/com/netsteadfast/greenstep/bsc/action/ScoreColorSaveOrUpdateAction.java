@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -76,16 +77,16 @@ public class ScoreColorSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("score", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0004Q_score") + "<BR/>")
+		.add("score", BscNumberFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0004Q_score") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler()
-		.single("score", ( NumberUtils.toLong(this.getFields().get("score"), 0) < BscConstants.SCORE_COLOR_MIN_VALUE ), this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg1") + " " + BscConstants.SCORE_COLOR_MIN_VALUE + "<BR/>")
-		.single("score", ( NumberUtils.toLong(this.getFields().get("score"), 0) > BscConstants.SCORE_COLOR_MAX_VALUE ), this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg2") + " " + BscConstants.SCORE_COLOR_MAX_VALUE + "<BR/>")
+		.single("score", ( NumberUtils.toLong(this.getFields().get("score"), 0) < BscConstants.SCORE_COLOR_MIN_VALUE ), this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg1") + " " + BscConstants.SCORE_COLOR_MIN_VALUE )
+		.single("score", ( NumberUtils.toLong(this.getFields().get("score"), 0) > BscConstants.SCORE_COLOR_MAX_VALUE ), this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg2") + " " + BscConstants.SCORE_COLOR_MAX_VALUE )
 		.throwMessage();
 		
 		if ( StringUtils.isBlank(this.getFields().get("bgColor")) || StringUtils.isBlank(this.getFields().get("fontColor")) ) {
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG001D0004Q_bgColorfontColor_msg") + "<BR/>" );
+			super.throwMessage( this.getText("MESSAGE.BSC_PROG001D0004Q_bgColorfontColor_msg") );
 		}
 	}	
 	
@@ -96,7 +97,7 @@ public class ScoreColorSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"score", 
 				( score < nowScoreMaxValue + 1 ), 
-				this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg3") + " " + nowScoreMaxValue + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0004Q_score_msg3") + " " + nowScoreMaxValue ).throwMessage();
 		ScoreColorVO scoreColor = new ScoreColorVO();
 		scoreColor.setScoreMin( nowScoreMaxValue + 1 );
 		scoreColor.setScoreMax( score );
@@ -251,5 +252,11 @@ public class ScoreColorSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

@@ -569,6 +569,37 @@ function setFieldsBackgroundAlert(fieldsId, viewFieldsId) {
 }
 
 /**
+ * 主要是把輸入條件不合的欄位訊息label 顯示訊息
+ * 
+ * @param fieldsId
+ * @param fieldsMessage
+ * @param viewFieldsId
+ */
+function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
+	if (null == fieldsId || null == fieldsMessage || null == viewFieldsId ) {
+		return;
+	}
+	for (var i=0; i<fieldsId.length; i++) {
+		var idName = '';
+		var msg = '';
+		for (var d in viewFieldsId) {		
+			if (fieldsId[i] == d) {
+				idName = viewFieldsId[d];
+				msg = fieldsMessage[d];
+			}
+		}
+		if (idName=='') {
+			continue;
+		}
+		idName = idName + _gscore_inputfieldNoticeMsgLabelIdName;
+		if ( dojo.byId(idName) == null ) {
+			continue;
+		}
+		dojo.byId(idName).innerHTML = "<font color='#B40404'>" + msg + "</font>";
+	}	
+}
+
+/**
  * 把輸入條件不合的欄位背景言色回復成正常
  * 
  * @param viewFieldsId
@@ -585,6 +616,24 @@ function setFieldsBackgroundDefault(viewFieldsId) {
 		var domNode = dijit.byId(idName).domNode;
 		dojo.style(domNode,"background","#FFFFFF"); //set bg to white			
 	}	
+}
+
+/**
+ * 主要是把輸入條件不合的欄位訊息label 顯示訊息清除掉
+ * 
+ * @param viewFieldsId
+ */
+function setFieldsNoticeMessageLabelDefault(viewFieldsId) {
+	if (null == viewFieldsId) {
+		return;
+	}
+	for (var d in viewFieldsId) {			
+		idName = viewFieldsId[d] + _gscore_inputfieldNoticeMsgLabelIdName;
+		if ( dojo.byId(idName) == null ) {
+			continue;
+		}		
+		dojo.byId(idName).innerHTML = "&nbsp;";	
+	}		
 }
 
 /**

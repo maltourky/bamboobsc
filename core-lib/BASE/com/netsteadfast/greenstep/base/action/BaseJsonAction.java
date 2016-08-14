@@ -21,11 +21,15 @@
  */
 package com.netsteadfast.greenstep.base.action;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.json.annotations.JSON;
 
+import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.model.CheckFieldHandler;
 import com.netsteadfast.greenstep.base.model.YesNo;
 
@@ -35,7 +39,8 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	public static final String IS_NO=YesNo.NO;
 	public static final String IS_EXCEPTION = "E"; // exception 狀態
 	private String noAllowMessage = "";
-	protected List<String> fieldsId = new ArrayList<String>(); // 當次 submit 的送出欄位 id 記錄用 , 主要用來記錄輸入條件不合的id 
+	protected List<String> fieldsId = new LinkedList<String>(); // 當次 submit 的送出欄位 id 記錄用 , 主要用來記錄輸入條件不合的id 
+	protected Map<String, String> fieldsMessage = new HashMap<String, String>(); // 主要用來記錄輸入條件不合的id 的訊息
 	
 	public BaseJsonAction() {
 		super();
@@ -64,8 +69,27 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	}
 	
 	protected CheckFieldHandler getCheckFieldHandler() {
-		return super.checkFields(this.fieldsId);
+		return super.checkFields(this.fieldsId, this.fieldsMessage);
 	}
+	
+	protected void throwMessage(String message) throws ControllerException {
+		throw new ControllerException(message + "<BR/>");
+	}
+	
+	protected void throwMessage(String fieldId, String message) throws ControllerException {
+		if (!StringUtils.isBlank(fieldId)) {
+			String name[] = fieldId.replaceAll(" ", "").split("[|]");
+			for (int i=0; i<name.length; i++) {
+				if (StringUtils.isBlank(name[i])) {
+					continue;
+				}
+				String idName = name[i].trim();
+				this.fieldsId.add(idName);
+				this.fieldsMessage.put(idName, message);
+			}			
+		}
+		this.throwMessage(message);
+	}	
 	
 	// -----------------------------------------------------
 	// 最外層的 json action 要曝出method 才可
@@ -84,6 +108,9 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	
 	@JSON
 	public abstract List<String> getFieldsId();
+	
+	@JSON
+	public abstract Map<String, String> getFieldsMessage();
 	
 	// -----------------------------------------------------
 	

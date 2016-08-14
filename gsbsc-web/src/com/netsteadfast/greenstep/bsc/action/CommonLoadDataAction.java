@@ -638,5 +638,11 @@ public class CommonLoadDataAction extends BaseJsonAction {
 	public void setOid(String oid) {
 		this.oid = oid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

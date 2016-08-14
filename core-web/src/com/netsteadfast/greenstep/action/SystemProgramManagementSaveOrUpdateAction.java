@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -78,10 +79,10 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields(String workType) throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("CORE_PROG001D0002"+workType+"_progSystem", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progSystem") + "<BR/>")
-		.add("CORE_PROG001D0002"+workType+"_progId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progId") + "<BR/>")
-		.add("CORE_PROG001D0002"+workType+"_name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_name") + "<BR/>")
-		.add("CORE_PROG001D0002"+workType+"_url", SysProgUrlFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_url") + "<BR/>")
+		.add("CORE_PROG001D0002"+workType+"_progSystem", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progSystem") )
+		.add("CORE_PROG001D0002"+workType+"_progId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_progId") )
+		.add("CORE_PROG001D0002"+workType+"_name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_name") )
+		.add("CORE_PROG001D0002"+workType+"_url", SysProgUrlFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0002A_url") )
 		.process().throwMessage();
 		
 		String url = this.getFields().get("CORE_PROG001D0002"+workType+"_url");
@@ -313,5 +314,11 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

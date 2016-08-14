@@ -74,6 +74,7 @@ public class ConfigJsAction extends BaseSupportAction {
 		sb.append("var _gscore_default_pageRowSize=").append(DefaultPageRowSize).append(";\n");
 		sb.append("var _gscore_basePath='").append( super.getBasePath() ).append("';\n");
 		sb.append("var _gscore_mainTabContainer='").append(super.getDojoMainTabContainer()).append("';\n");
+		sb.append("var _gscore_inputfieldNoticeMsgLabelIdName='").append(Constants.INPUTFIELD_NOTICE_MESSAGE_LABEL).append("';\n");
 		sb.append("var _gscore_please_select_id='").append(Constants.HTML_SELECT_NO_SELECT_ID).append("';\n");
 		sb.append("var _gscore_please_select_name='").append(Constants.HTML_SELECT_NO_SELECT_NAME).append("';\n");
 		sb.append("var _gscore_delimiter='").append(Constants.ID_DELIMITER).append("';\n");

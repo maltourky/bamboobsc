@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -94,16 +95,16 @@ public class SystemExpressionSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_type") + "<BR/>")
-		.add("exprId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_exprId") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_name") + "<BR/>")
-		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_iframe1") + "<BR/>")
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_type") )
+		.add("exprId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_exprId") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_name") )
+		.add("content", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0002A_iframe1") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"exprId", 
 				(Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("exprId"))), 
-				this.getText("MESSAGE.CORE_PROG003D0002A_exprId_msg1") + "<BR/>"
+				this.getText("MESSAGE.CORE_PROG003D0002A_exprId_msg1")
 		).throwMessage();
 	}
 	
@@ -160,10 +161,10 @@ public class SystemExpressionSaveOrUpdateAction extends BaseJsonAction {
 	private void updateContent() throws ControllerException, AuthorityException, ServiceException, Exception {
 		String content = this.getFields().get("content");
 		if ( StringUtils.isBlank(content) ) {
-			throw new ControllerException( this.getText("CORE_PROG003D0002A_exprId_msg2") + "<BR/>" );
+			super.throwMessage( this.getText("CORE_PROG003D0002A_exprId_msg2") );
 		}
 		if ( content.length() > 8000 ) {
-			throw new ControllerException( this.getText("CORE_PROG003D0002A_exprId_msg3") + "<BR/>" );
+			super.throwMessage( this.getText("CORE_PROG003D0002A_exprId_msg3") );
 		}
 		SysExpressionVO expression = new SysExpressionVO();
 		this.transformFields2ValueObject(expression, new String[]{"oid"});
@@ -363,5 +364,11 @@ public class SystemExpressionSaveOrUpdateAction extends BaseJsonAction {
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

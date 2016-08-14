@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -88,14 +89,14 @@ public class OrganizationSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("orgId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_orgId") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_name") + "<BR/>")
+		.add("orgId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_orgId") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0002Q_name") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"address", 
 				( super.defaultString( super.getFields().get("address") ).length() > 500 ), 
-				this.getText("MESSAGE.BSC_PROG001D0002Q_address") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0002Q_address") ).throwMessage();
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
@@ -310,4 +311,10 @@ public class OrganizationSaveOrUpdateAction extends BaseJsonAction {
 		this.organization = organization;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

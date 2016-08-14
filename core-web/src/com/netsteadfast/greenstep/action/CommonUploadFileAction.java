@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.action;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -342,5 +343,11 @@ public class CommonUploadFileAction extends BaseJsonAction {
 	public void setFileExist(String fileExist) {
 		this.fileExist = fileExist;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

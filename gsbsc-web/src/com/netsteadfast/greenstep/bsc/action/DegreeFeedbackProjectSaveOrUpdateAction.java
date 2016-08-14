@@ -82,19 +82,18 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_name") + "<BR/>")
-		.add("year", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_year") + "<BR/>")
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_name") )
+		.add("year", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0001A_year") )
 		.process().throwMessage();
 		
 		if (!SimpleUtils.isDate(this.getFields().get("year")+"/01/01")) {
-			this.fieldsId.add("year");
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg1") + "<BR/>" );
+			super.throwMessage("year", this.getText("MESSAGE.BSC_PROG005D0001A_msg1"));
 		}
 		if (super.defaultString(this.getFields().get("ownerOids")).trim().length()<1) {
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg2") + "<BR/>" );
+			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg2"));
 		}
 		if (super.defaultString(this.getFields().get("raterOids")).trim().length()<1) {
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg3") + "<BR/>" );
+			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg3"));
 		}	
 		Map<String, List<Map<String, Object>>> levelData = null;
 		Map<String, List<Map<String, Object>>> itemData = null;
@@ -105,10 +104,10 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 			e.printStackTrace();
 		}
 		if (levelData == null || levelData.get("data") == null || levelData.get("data").size() < 1 ) {
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg4") + "<BR/>" );
+			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg4"));
 		}
 		if (itemData == null || itemData.get("data") == null || itemData.get("data").size() < 1 ) {
-			throw new ControllerException( this.getText("MESSAGE.BSC_PROG005D0001A_msg5") + "<BR/>" );
+			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg5"));
 		}		
 	}
 	
@@ -422,5 +421,11 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

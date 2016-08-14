@@ -77,9 +77,9 @@ public class WorkspaceSettingsSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {	
 		this.getCheckFieldHandler()
-		.add("workspaceId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceId") + "<BR/>")
-		.add("workspaceName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceName") + "<BR/>")
-		.add("workspaceTemplateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceTemplateOid") + "<BR/>")
+		.add("workspaceId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceId") )
+		.add("workspaceName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceName") )
+		.add("workspaceTemplateOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0002A_workspaceTemplateOid") )
 		.process().throwMessage();
 	}
 	
@@ -199,4 +199,10 @@ public class WorkspaceSettingsSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

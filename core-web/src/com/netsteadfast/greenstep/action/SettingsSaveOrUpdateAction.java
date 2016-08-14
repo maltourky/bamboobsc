@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
@@ -56,8 +57,8 @@ public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("mailFrom", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg1") + "<BR/>")
-		.add("mailFrom", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg2") + "<BR/>")
+		.add("mailFrom", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg1") )
+		.add("mailFrom", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0011Q_mailFrom_msg2") )
 		.process()
 		.throwMessage();
 	}		
@@ -143,5 +144,11 @@ public class SettingsSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

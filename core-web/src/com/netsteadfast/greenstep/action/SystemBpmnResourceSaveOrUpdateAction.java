@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -112,16 +113,16 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("id", NotBlankFieldCheckUtils.class, "Id is required!<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, "Name is required!<BR/>")
+		.add("id", NotBlankFieldCheckUtils.class, "Id is required!")
+		.add("name", NotBlankFieldCheckUtils.class, "Name is required!")
 		.process().throwMessage();
 	}	
 	
 	private void checkFields2() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("resourceOid", SelectItemFieldCheckUtils.class, "Please select resource!<BR/>")
-		.add("roleOid", SelectItemFieldCheckUtils.class, "Please select role!<BR/>")
-		.add("taskName", NotBlankFieldCheckUtils.class, "Task-name is required!<BR/>")
+		.add("resourceOid", SelectItemFieldCheckUtils.class, "Please select resource!")
+		.add("roleOid", SelectItemFieldCheckUtils.class, "Please select role!")
+		.add("taskName", NotBlankFieldCheckUtils.class, "Task-name is required!")
 		.process().throwMessage();
 	}	
 	
@@ -130,8 +131,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		String resourceFileProcessId = BusinessProcessManagementUtils.getResourceProcessId4Upload(
 				(String)this.getFields().get("uploadOid"));
 		if (!id.equals(resourceFileProcessId)) {
-			this.fieldsId.add( "id" );
-			throw new ControllerException("Resource file process-Id not equals Id field!<BR/>");
+			super.throwMessage("id", "Resource file process-Id not equals Id field!");
 		}
 	}
 	
@@ -150,7 +150,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			throw new ControllerException("Please upload BPMN(zip) file!");
+			super.throwMessage( "Please upload BPMN(zip) file!" );
 		}
 		this.selfTestUploadResourceData();
 		SysBpmnResourceVO resource = new SysBpmnResourceVO();
@@ -306,11 +306,11 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 		String roleOid = this.getFields().get("roleOid");
 		TbSysBpmnResource resourceObj = this.sysBpmnResourceService.findByPKng(resourceOid);
 		if (null == resourceObj) {
-			throw new ControllerException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+			super.throwMessage( SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA) );
 		}
 		TbRole roleObj = this.roleService.findByPKng(roleOid);
 		if (null == roleObj) {
-			throw new ControllerException(SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA));
+			super.throwMessage( SysMessageUtil.get(GreenStepSysMsgConstants.SEARCH_NO_DATA) );
 		}
 		this.transformFields2ValueObject(bpmnResourceRole, "taskName");
 		bpmnResourceRole.setId(resourceObj.getId());
@@ -593,5 +593,11 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

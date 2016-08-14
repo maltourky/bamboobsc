@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.base.model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class CheckFieldHandler implements java.io.Serializable {
 	private static final long serialVersionUID = -8080347109488249788L;
 	private Map<String, String> actionFields = null;
 	private List<String> actionFieldsId = null;
+	private Map<String, String> actionFieldsMessage = null;
 	private List<String> fieldsNames = new LinkedList<String>();
 	private List<String> fieldsMessages = new LinkedList<String>();
 	private List<Class<IActionFieldsCheckUtils>> checkUtilsClazzs = new LinkedList<Class<IActionFieldsCheckUtils>>();
@@ -42,9 +44,10 @@ public class CheckFieldHandler implements java.io.Serializable {
 		
 	}
 	
-	public CheckFieldHandler(Map<String, String> actionFields, List<String> actionFieldsId) {
+	public CheckFieldHandler(Map<String, String> actionFields, List<String> actionFieldsId, Map<String, String> actionFieldsMessage) {
 		this.actionFields = actionFields;
 		this.actionFieldsId = actionFieldsId;
+		this.actionFieldsMessage = actionFieldsMessage;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -71,9 +74,20 @@ public class CheckFieldHandler implements java.io.Serializable {
 		this.actionFieldsId = actionFieldsId;
 	}
 
+	public Map<String, String> getActionFieldsMessage() {
+		return actionFieldsMessage;
+	}
+
+	public void setActionFieldsMessage(Map<String, String> actionFieldsMessage) {
+		this.actionFieldsMessage = actionFieldsMessage;
+	}
+
 	public CheckFieldHandler process() {
 		if (this.actionFieldsId == null) {
 			this.actionFieldsId = new LinkedList<String>();
+		}
+		if (this.actionFieldsMessage == null) {
+			this.actionFieldsMessage = new HashMap<String, String>();
 		}
 		if (fieldsNames==null || fieldsMessages==null || checkUtilsClazzs==null 
 				|| (fieldsNames.size()!=fieldsMessages.size()) 
@@ -81,12 +95,13 @@ public class CheckFieldHandler implements java.io.Serializable {
 			throw new java.lang.IllegalArgumentException("check filed args error!");
 		}
 		for (int i=0; i<fieldsNames.size(); i++) {
-			String value = this.getActionFields().get(fieldsNames.get(i));
+			String value = this.actionFields.get(fieldsNames.get(i));
 			try {
 				IActionFieldsCheckUtils checkUtils = checkUtilsClazzs.get(i).newInstance();
 				if (!checkUtils.check(value)) {
 					actionFieldsId.add( fieldsNames.get(i) );
-					msg.append( fieldsMessages.get(i) );
+					actionFieldsMessage.put(fieldsNames.get(i), fieldsMessages.get(i));
+					msg.append( fieldsMessages.get(i) ).append("<BR/>");
 				}				
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -99,6 +114,9 @@ public class CheckFieldHandler implements java.io.Serializable {
 		if (this.actionFieldsId == null) {
 			this.actionFieldsId = new LinkedList<String>();
 		}
+		if (this.actionFieldsMessage == null) {
+			this.actionFieldsMessage = new HashMap<String, String>();
+		}
 		if (!checkResult) {
 			return this;
 		}
@@ -107,9 +125,12 @@ public class CheckFieldHandler implements java.io.Serializable {
 			if (StringUtils.isBlank(name[i])) {
 				continue;
 			}
-			actionFieldsId.add( name[i].trim() );
+			String idName = name[i].trim();
+			actionFieldsId.add(idName);
+			actionFieldsMessage.put(idName, fieldsMessages.get(i));
+			fieldsMessages.add( message );
 		}
-		msg.append( StringUtils.defaultString(message) );
+		msg.append( StringUtils.defaultString(message) ).append("<BR/>");
 		return this;
 	}
 	

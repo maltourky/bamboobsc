@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -90,11 +91,11 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_title") + "<BR/>")
-		.add("note", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_note") + "<BR/>")
-		.add("date", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_date") + "<BR/>")
-		.add("contact", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_contact") + "<BR/>")
-		.add("accountOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_accountOid") + "<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_title") )
+		.add("note", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_note") )
+		.add("date", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_date") )
+		.add("contact", EmailFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_contact") )
+		.add("accountOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0004A_accountOid") )
 		.process().throwMessage();
 		
 		// date check
@@ -108,10 +109,10 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 		String time = super.defaultString( this.getFields().get("time") );
 		String timeStartEnd[] = time.split(Constants.DATETIME_DELIMITER);
 		if (timeStartEnd==null || timeStartEnd.length!=2) {
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0004A_dateTimeStartEnd") );	
+			this.throwMessage( this.getText("MESSAGE.CORE_PROG001D0004A_dateTimeStartEnd") );
 		}
 		if ( SimpleUtils.getInt(timeStartEnd[1], -1)<SimpleUtils.getInt(timeStartEnd[0], 0) ) {
-			throw new ControllerException( this.getText("MESSAGE.CORE_PROG001D0004A_dateTimeStartEnd") );	
+			this.throwMessage( this.getText("MESSAGE.CORE_PROG001D0004A_dateTimeStartEnd") );
 		}
 		
 	}	
@@ -302,4 +303,10 @@ public class SystemCalendarNoteSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

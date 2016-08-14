@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -73,10 +74,10 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 	
 	private void checkFields() throws ControllerException {
 		super.getCheckFieldHandler()
-		.add("sysId", 		NormalFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_sysId") + "<BR/>")
-		.add("name", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_name") + "<BR/>")
-		.add("host", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_host") + "<BR/>")
-		.add("contextPath", NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_contextPath") + "<BR/>")
+		.add("sysId", 		NormalFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_sysId") )
+		.add("name", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_name") )
+		.add("host", 		NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_host") )
+		.add("contextPath", NotBlankFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_contextPath") )
 		.process()
 		.throwMessage();
 		
@@ -85,7 +86,7 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		.single(
 				"sysId", 
 				( Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ), 
-				"ID is incorrect, please change another!<BR/>"
+				"ID is incorrect, please change another!"
 		).throwMessage();
 	}
 	
@@ -275,5 +276,11 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

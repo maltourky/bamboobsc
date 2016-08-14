@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -69,7 +70,7 @@ public class SystemProgramMenuRoleSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"CORE_PROG002D0003Q_sysProg", 
 				( super.isNoSelectId(this.getFields().get("sysProgOid")) ), 
-				this.getText("MESSAGE.CORE_PROG002D0003Q_sysProg") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.CORE_PROG002D0003Q_sysProg") ).throwMessage();
 	}
 	
 	/**
@@ -150,5 +151,11 @@ public class SystemProgramMenuRoleSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

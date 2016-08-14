@@ -64,13 +64,13 @@ public class MeasureDataCalendarQueryAction extends BaseJsonAction {
 		String employeeOid = this.getFields().get("employeeOid");
 		String frequency = this.getFields().get("frequency");
 		if (StringUtils.isBlank(oid) || oid.startsWith(BscConstants.KPI_TREE_NOT_ITEM)) {
-			throw new ControllerException("Please select KPI!");
+			super.throwMessage( "Please select KPI!" );
 		}
 		this.getCheckFieldHandler()
-		.single("employeeOid", ( BscConstants.MEASURE_DATA_FOR_EMPLOYEE.equals(dataFor) && this.isNoSelectId(employeeOid) ), this.getText("BSC_PROG002D0005Q_msg1") + "<BR/>")
-		.single("frequency", (this.isNoSelectId(frequency)), this.getText("BSC_PROG002D0005Q_msg2") + "<BR/>")
-		.single("organizationOid", ( BscConstants.MEASURE_DATA_FOR_ORGANIZATION.equals(dataFor) && this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg3") + "<BR/>")
-		.single("dataFor", ( BscConstants.MEASURE_DATA_FOR_ALL.equals(dataFor) && !this.isNoSelectId(employeeOid) && !this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg4") + "<BR/>")
+		.single("employeeOid", ( BscConstants.MEASURE_DATA_FOR_EMPLOYEE.equals(dataFor) && this.isNoSelectId(employeeOid) ), this.getText("BSC_PROG002D0005Q_msg1") )
+		.single("frequency", (this.isNoSelectId(frequency)), this.getText("BSC_PROG002D0005Q_msg2") )
+		.single("organizationOid", ( BscConstants.MEASURE_DATA_FOR_ORGANIZATION.equals(dataFor) && this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg3") )
+		.single("dataFor", ( BscConstants.MEASURE_DATA_FOR_ALL.equals(dataFor) && !this.isNoSelectId(employeeOid) && !this.isNoSelectId(organizationOid) ), this.getText("BSC_PROG002D0005Q_msg4") )
 		.throwMessage();
 	}
 	
@@ -195,5 +195,11 @@ public class MeasureDataCalendarQueryAction extends BaseJsonAction {
 	public String getDateValue() {
 		return dateValue;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

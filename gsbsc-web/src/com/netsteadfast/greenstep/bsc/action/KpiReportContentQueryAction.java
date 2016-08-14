@@ -124,8 +124,8 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException, Exception {
 		this.getCheckFieldHandler()
-		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_visionOid") + "<BR/>")
-		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_frequency") + "<BR/>")
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_visionOid") )
+		.add("frequency", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG003D0001Q_frequency") )
 		.process().throwMessage();
 		
 		String frequency = this.getFields().get("frequency");
@@ -137,62 +137,48 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
 			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
-				this.getFieldsId().add("startDate");
-				this.getFieldsId().add("endDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg1") + "<BR/>");				
+				super.throwMessage("startDate|endDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg1"));			
 			}
 		}
 		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency) ) {
 			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
-				this.getFieldsId().add("startYearDate");
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg2") + "<BR/>");				
+				super.throwMessage("startYearDate|endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg2"));			
 			}			
 		}		
 		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
 			if ( !SimpleUtils.isDate( startDate ) ) {
-				this.getFieldsId().add("startDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg3") + "<BR/>");
+				super.throwMessage("startDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg3"));
 			}
 			if ( !SimpleUtils.isDate( endDate ) ) {
-				this.getFieldsId().add("endDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg4") + "<BR/>");			
+				super.throwMessage("endDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg4"));		
 			}
 			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("startDate");
-				this.getFieldsId().add("endDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg5") + "<BR/>");			
+				super.throwMessage("startDate|endDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg5"));	
 			}			
 		}
 		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("startYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg6") + "<BR/>");				
+				super.throwMessage("startYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg6"));		
 			}
 			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg7") + "<BR/>");						
+				super.throwMessage("endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg7"));					
 			}
 			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("startYearDate");
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg8") + "<BR/>");			
+				super.throwMessage("startYearDate|endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg8"));	
 			}					
 		}
 		String dataFor = this.getFields().get("dataFor");
 		if ("organization".equals(dataFor) 
 				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid")) ) {
-			this.getFieldsId().add("measureDataOrganizationOid");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg9") + "<BR/>");
+			super.throwMessage("measureDataOrganizationOid", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg9"));
 		}
 		if ("employee".equals(dataFor)
 				&& this.isNoSelectId(this.getFields().get("measureDataEmployeeOid")) ) {
-			this.getFieldsId().add("measureDataEmployeeOid");
-			throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg10") + "<BR/>");
+			super.throwMessage("measureDataEmployeeOid", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg10"));
 		}
 	}		
 	
@@ -267,9 +253,7 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 			DateTime dt2 = new DateTime(endDate);
 			int betweenMonths = Months.monthsBetween(dt1, dt2).getMonths();
 			if ( betweenMonths >= 12 ) {
-				this.getFieldsId().add("startDate");
-				this.getFieldsId().add("endDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg11") + "<BR/>");	
+				super.throwMessage("startDate|endDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg11"));
 			}
 			return;
 		}
@@ -278,23 +262,17 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 		int betweenYears = Years.yearsBetween(dt1, dt2).getYears();
 		if (BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency)) {
 			if ( betweenYears >= 3 ) {
-				this.getFieldsId().add("startYearDate");
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg12") + "<BR/>");				
+				super.throwMessage("startYearDate|endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg12"));			
 			}
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency)) {
 			if ( betweenYears >= 4 ) {
-				this.getFieldsId().add("startYearDate");
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg13") + "<BR/>");				
+				super.throwMessage("startYearDate|endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg13"));		
 			}			
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency)) {
 			if ( betweenYears >= 6 ) {
-				this.getFieldsId().add("startYearDate");
-				this.getFieldsId().add("endYearDate");
-				throw new ControllerException(this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg14") + "<BR/>");				
+				super.throwMessage("startYearDate|endYearDate", this.getText("MESSAGE.BSC_PROG003D0001Q_contentQuery_msg14"));			
 			}			
 		}
 	}
@@ -722,4 +700,10 @@ public class KpiReportContentQueryAction extends BaseJsonAction {
 		return inputStream;
 	}	
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

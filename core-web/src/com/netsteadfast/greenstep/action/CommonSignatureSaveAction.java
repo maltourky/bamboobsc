@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.action;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -91,7 +92,7 @@ public class CommonSignatureSaveAction extends BaseJsonAction {
 		String signatureData = super.defaultString( this.getFields().get("signatureData") );
 		signatureData = SimpleUtils.deHex( signatureData );
 		if (!SimpleUtils.isPNGBase64Content( signatureData )) {
-			throw new ControllerException("Signature data error!");
+			super.throwMessage( "Signature data error!" );
 		}		
 		SysUploadVO upload = new SysUploadVO();
 		upload.setContent( this.getImageBytes(signatureData) );
@@ -173,5 +174,11 @@ public class CommonSignatureSaveAction extends BaseJsonAction {
 	public String getUploadOid() {
 		return uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

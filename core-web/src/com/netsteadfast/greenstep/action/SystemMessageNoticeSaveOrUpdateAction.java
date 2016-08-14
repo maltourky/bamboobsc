@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -75,12 +76,12 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("msgOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_msgOid") + "<BR/>")
-		.add("noticeId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_noticeId") + "<BR/>")
-		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_title") + "<BR/>")
-		.add("date1", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date1") + "<BR/>")
-		.add("date2", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date2") + "<BR/>")
-		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_message") + "<BR/>")
+		.add("msgOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_msgOid") )
+		.add("noticeId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_noticeId") )
+		.add("title", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_title") )
+		.add("date1", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date1") )
+		.add("date2", DateFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_date2") )
+		.add("message", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0006A_message") )
 		.process().throwMessage();
 		
 		String date1 = this.getFields().get("date1").replaceAll("/", "").replaceAll("-", "");
@@ -88,19 +89,19 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"date1|date2", 
 				(Integer.parseInt(date1) > Integer.parseInt(date2)), 
-				this.getText("MESSAGE.CORE_PROG001D0006A_dateRange") + "<BR/>")
+				this.getText("MESSAGE.CORE_PROG001D0006A_dateRange") )
 		.throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"startHour|startMinutes|endHour|endMinutes", 
 				( Integer.parseInt( this.getFields().get("startHour")+this.getFields().get("startMinutes") ) > Integer.parseInt( this.getFields().get("endHour")+this.getFields().get("endMinutes") ) ), 
-				this.getText("MESSAGE.CORE_PROG001D0006A_timeRange") + "<BR/>")
+				this.getText("MESSAGE.CORE_PROG001D0006A_timeRange") )
 		.throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"toAccountOid", 
 				(!"true".equals(this.getFields().get("isGlobal")) && this.isNoSelectId(this.getFields().get("toAccountOid"))), 
-				this.getText("MESSAGE.CORE_PROG001D0006A_toAccountOid") + "<BR/>")
+				this.getText("MESSAGE.CORE_PROG001D0006A_toAccountOid") )
 		.throwMessage();
 		
 	}	
@@ -279,5 +280,11 @@ public class SystemMessageNoticeSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

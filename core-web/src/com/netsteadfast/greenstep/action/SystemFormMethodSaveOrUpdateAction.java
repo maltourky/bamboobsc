@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -94,11 +95,11 @@ public class SystemFormMethodSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("formOid", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_formOid") + "<BR/>")
-		.add("name", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_name") + "<BR/>")
-		.add("resultType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_resultType") + "<BR/>")
-		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_type") + "<BR/>")
-		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_iframe1") + "<BR/>")
+		.add("formOid", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_formOid") )
+		.add("name", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_name") )
+		.add("resultType", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_resultType") )
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_type") )
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG001D0014A_iframe1") )
 		.process().throwMessage();
 	}	
 	
@@ -159,7 +160,7 @@ public class SystemFormMethodSaveOrUpdateAction extends BaseJsonAction {
 	private void updateExpression() throws ControllerException, AuthorityException, ServiceException, Exception {
 		String expression = this.getFields().get("expression");
 		if ( StringUtils.isBlank(expression) ) {
-			throw new ControllerException("Expression is required!");
+			super.throwMessage( "Expression is required!" );
 		}
 		SysFormMethodVO formMethod = new SysFormMethodVO();
 		this.transformFields2ValueObject(formMethod, new String[]{"oid"});
@@ -354,5 +355,11 @@ public class SystemFormMethodSaveOrUpdateAction extends BaseJsonAction {
 	public void setUploadOid(String uploadOid) {
 		this.uploadOid = uploadOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

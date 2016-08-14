@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.qcharts.action;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -149,9 +150,9 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("configOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") + "<BR/>")
-		.add("catalogOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") + "<BR/>")
-		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") + "<BR/>")
+		.add("configOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") )
+		.add("catalogOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") )
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") )
 		.process().throwMessage();
 	}		
 	
@@ -480,5 +481,11 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 	public void setOid(String oid) {
 		this.oid = oid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

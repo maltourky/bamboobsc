@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ContextBase;
@@ -58,8 +59,8 @@ public class SwotContentQueryAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException, Exception {
 		this.getCheckFieldHandler()
-		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") + "<BR/>")
-		.add("organizationOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") + "<BR/>")
+		.add("visionOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_visionOid") )
+		.add("organizationOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG002D0008Q_organizationOid") )
 		.process().throwMessage();	
 	}
 	
@@ -206,5 +207,11 @@ public class SwotContentQueryAction extends BaseJsonAction {
 	public String getReportId() {
 		return reportId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

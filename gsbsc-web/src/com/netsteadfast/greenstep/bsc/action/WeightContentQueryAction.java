@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.chain.Context;
 import org.apache.commons.chain.impl.ContextBase;
@@ -59,7 +60,7 @@ public class WeightContentQueryAction extends BaseJsonAction {
 		this.getCheckFieldHandler().single(
 				"visionOid", 
 				( super.isNoSelectId(this.getFields().get("visionOid")) ), 
-				this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG002D0006Q_visionOid") ).throwMessage();
 		SimpleChain simpleChanin = new SimpleChain();
 		Context context = new ContextBase();
 		context.put("visionOid", this.getFields().get("visionOid") );
@@ -140,5 +141,11 @@ public class WeightContentQueryAction extends BaseJsonAction {
 	public String getBody() {
 		return body;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -74,15 +75,15 @@ public class SystemWsConfigSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_systemOid") + "<BR/>")
-		.add("wsId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_wsId") + "<BR/>")
-		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_beanId") + "<BR/>")
+		.add("systemOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_systemOid") )
+		.add("wsId", IdFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_wsId") )
+		.add("beanId", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.CORE_PROG003D0001A_beanId") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"publishAddress", 
 				( WSConfig.TYPE_SOAP.equals(this.getFields().get("type")) && StringUtils.isBlank(this.getFields().get("publishAddress")) ), 
-				this.getText("MESSAGE.CORE_PROG003D0001A_publishAddress") + "<BR/>")
+				this.getText("MESSAGE.CORE_PROG003D0001A_publishAddress") )
 		.throwMessage();
 	}
 	
@@ -238,5 +239,11 @@ public class SystemWsConfigSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

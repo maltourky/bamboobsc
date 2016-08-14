@@ -36,15 +36,18 @@ CORE_PROG001D0001E_fieldsId['contextPath'] 	= 'CORE_PROG001D0001E_contextPath';
 
 function CORE_PROG001D0001E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0001E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0001E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0001E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0001E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0001E_fieldsId);
 	//dijit.byId('CORE_PROG001D0001E_sysId').set("value", ""); // readonly
 	dijit.byId('CORE_PROG001D0001E_name').set("value", "");
 	dijit.byId('CORE_PROG001D0001E_host').set("value", "");
@@ -84,42 +87,42 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="350px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_sysId')"/></b> <s:property value="getText('CORE_PROG001D0001E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_sysId')"/>:</b> <s:property value="getText('CORE_PROG001D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001E_sysId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001E_sysId" id="CORE_PROG001D0001E_sysId" value="sys.sysId" width="200" maxlength="10" readonly="Y" ></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001E_name" id="CORE_PROG001D0001E_name" value="sys.name" width="200" maxlength="100"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_host')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_host')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001E_host"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001E_host" id="CORE_PROG001D0001E_host" value="sys.host" width="200" maxlength="200"></gs:textBox>
     		</td>
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_contextPath')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001E_contextPath')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001E_contextPath"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001E_contextPath" id="CORE_PROG001D0001E_contextPath" value="sys.contextPath" width="200" maxlength="100"></gs:textBox>
     		</td>
     	</tr>    
  		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0001E_isLocal')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0001E_isLocal')"/>:</b>
     			<br/>   			
 				<input id="CORE_PROG001D0001E_isLocal" name="CORE_PROG001D0001E_isLocal" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sys.isLocal "> checked </s:if> />   		
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0001E_icon')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0001E_icon')"/>:</b>
     			<br/>
     			<gs:select id="CORE_PROG001D0001E_icon" name="CORE_PROG001D0001E_icon" 
     				dataSource="iconDataMap" value="editIconValue" >

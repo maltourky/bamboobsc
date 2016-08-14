@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.bsc.action;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -155,11 +156,12 @@ public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		if ( !YesNo.YES.equals( (String)this.getHttpServletRequest().getParameter("BSC_PROG002D0005Q_queryCalendar") ) ) {
-			throw new ControllerException(
-					this.getText("BSC_PROG002D0005Q_saveStep_label") + ":<BR/>"
-					+ this.getText("BSC_PROG002D0005Q_saveStep_01") + "<BR/>" 
-					+ this.getText("BSC_PROG002D0005Q_saveStep_02") + "<BR/>" 
-					+ this.getText("BSC_PROG002D0005Q_saveStep_03") + "<BR/>");
+			String errMessage = super.joinPageMessage(
+					this.getText("BSC_PROG002D0005Q_saveStep_label")+":",
+					this.getText("BSC_PROG002D0005Q_saveStep_01"),
+					this.getText("BSC_PROG002D0005Q_saveStep_02"),
+					this.getText("BSC_PROG002D0005Q_saveStep_03"));
+			super.throwMessage( errMessage );
 		}
 		String oid = this.defaultString( (String)this.getHttpServletRequest().getParameter("BSC_PROG002D0005Q_kpiOid") );
 		String date = this.defaultString( (String)this.getHttpServletRequest().getParameter("BSC_PROG002D0005Q_date") );
@@ -168,7 +170,7 @@ public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 		date = date.replaceAll("-", "").replaceAll("/", "");
 		if (StringUtils.isBlank(oid) || StringUtils.isBlank(date) || StringUtils.isBlank(frequency)
 				|| StringUtils.isBlank(dataFor) ) {
-			throw new ControllerException( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
+			super.throwMessage( SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK) );
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_DAY.equals(frequency) || BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) ) {
 			date = date.substring(0, 6);
@@ -248,5 +250,11 @@ public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

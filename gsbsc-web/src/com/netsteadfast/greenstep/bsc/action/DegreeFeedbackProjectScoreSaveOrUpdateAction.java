@@ -146,8 +146,8 @@ public class DegreeFeedbackProjectScoreSaveOrUpdateAction extends BaseJsonAction
 	
 	private void checkFields(String type) throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!<BR/>")
-		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0003Q_ownerOid") + "<BR/>")
+		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!")
+		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0003Q_ownerOid") )
 		.process().throwMessage();
 		
 		if (!"update".equals(type)) {
@@ -160,7 +160,7 @@ public class DegreeFeedbackProjectScoreSaveOrUpdateAction extends BaseJsonAction
 			e.printStackTrace();
 		} 
 		if (scores == null || scores.get("data") == null || scores.get("data").size() < 1 ) {
-			throw new ControllerException( "Please choice item's score!<BR/>" );
+			super.throwMessage("Please choice item's score!");
 		}
 	}
 	
@@ -357,5 +357,11 @@ public class DegreeFeedbackProjectScoreSaveOrUpdateAction extends BaseJsonAction
 	public void setMinLevelOid(String minLevelOid) {
 		this.minLevelOid = minLevelOid;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

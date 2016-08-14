@@ -85,18 +85,16 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("title", NotBlankFieldCheckUtils.class, "Title is required!<BR/>")
-		.add("startDate", DateDisplayFieldCheckUtils.class, "Start-date is required!<BR/>")
-		.add("endDate", DateDisplayFieldCheckUtils.class, "End-date is required!<BR/>")
-		.add("measureFreq_frequency", SelectItemFieldCheckUtils.class, "Measure settings, Please select frequency!<BR/>")
+		.add("title", NotBlankFieldCheckUtils.class, "Title is required!")
+		.add("startDate", DateDisplayFieldCheckUtils.class, "Start-date is required!")
+		.add("endDate", DateDisplayFieldCheckUtils.class, "End-date is required!")
+		.add("measureFreq_frequency", SelectItemFieldCheckUtils.class, "Measure settings, Please select frequency!")
 		.process().throwMessage();
 		
 		String startDate = this.getFields().get("startDate");
 		String endDate = this.getFields().get("endDate");
 		if (SimpleUtils.getDaysBetween(startDate, endDate)<0) {
-			this.getFieldsId().add( "startDate" );
-			this.getFieldsId().add( "endDate" );
-			throw new ControllerException("Date range error, start-date and end-date!<BR/>");
+			super.throwMessage("startDate|endDate", "Date range error, start-date and end-date!");
 		}
 		
 		
@@ -104,13 +102,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		this.checkMeasureFrequencyDateRange();
 		
 		if (super.defaultString(super.getFields().get("orgaOids")).trim().length() == 0) {
-			throw new ControllerException("Please select organization/department!<BR/>");
+			super.throwMessage("Please select organization/department!");
 		}
 		if (super.defaultString(super.getFields().get("emplOids")).trim().length() == 0) {
-			throw new ControllerException("Please select responsibility(Employee) !<BR/>");
+			super.throwMessage("Please select responsibility(Employee) !");
 		}
 		if (super.defaultString(super.getFields().get("kpiOids")).trim().length() == 0) {
-			throw new ControllerException("Please select KPIs!<BR/>");
+			super.throwMessage("Please select KPIs!");
 		}
 		
 	}
@@ -126,62 +124,48 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 				|| BscMeasureDataFrequency.FREQUENCY_WEEK.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
 			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
-				this.getFieldsId().add("measureFreq_startDate");
-				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Measure settings, Start-date and end-date is required!<BR/>");				
+				super.throwMessage("measureFreq_startDate|measureFreq_endDate", "Measure settings, Start-date and end-date is required!");		
 			}
 		}
 		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency) ) {
 			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Measure settings, Start-year and end-year is required!<BR/>");				
+				super.throwMessage("measureFreq_startYearDate|measureFreq_endYearDate", "Measure settings, Start-year and end-year is required!");			
 			}			
 		}		
 		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
 			if ( !SimpleUtils.isDate( startDate ) ) {
-				this.getFieldsId().add("measureFreq_startDate");
-				throw new ControllerException("Measure settings, Start-date format is incorrect!<BR/>");
+				super.throwMessage("measureFreq_startDate", "Measure settings, Start-date format is incorrect!");
 			}
 			if ( !SimpleUtils.isDate( endDate ) ) {
-				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Measure settings, End-date format is incorrect!<BR/>");			
+				super.throwMessage("measureFreq_endDate", "Measure settings, End-date format is incorrect!");		
 			}
 			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("measureFreq_startDate");
-				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Measure settings, Start-date / end-date incorrect!<BR/>");			
+				super.throwMessage("measureFreq_startDate|measureFreq_endDate", "Measure settings, Start-date / end-date incorrect!");
 			}			
 		}
 		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
 			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				throw new ControllerException("Measure settings, Start-year format is incorrect!<BR/>");				
+				super.throwMessage("measureFreq_startYearDate", "Measure settings, Start-year format is incorrect!");			
 			}
 			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Measure settings, End-year format is incorrect!<BR/>");						
+				super.throwMessage("measureFreq_endYearDate", "Measure settings, End-year format is incorrect!");				
 			}
 			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
 					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Measure settings, Start-year / end-year incorrect!<BR/>");			
+				super.throwMessage("measureFreq_startYearDate|measureFreq_endYearDate", "Measure settings, Start-year / end-year incorrect!");	
 			}					
 		}
 		String dataFor = this.getFields().get("measureFreq_dataFor");
 		if ("organization".equals(dataFor) 
 				&& this.isNoSelectId(this.getFields().get("measureFreq_measureDataOrganizationOid")) ) {
-			this.getFieldsId().add("measureFreq_measureDataOrganizationOid");
-			throw new ControllerException("Measure settings, Please select measure-data organization!<BR/>");
+			super.throwMessage("measureFreq_measureDataOrganizationOid", "Measure settings, Please select measure-data organization!");
 		}
 		if ("employee".equals(dataFor)
 				&& this.isNoSelectId(this.getFields().get("measureFreq_measureDataEmployeeOid")) ) {
-			this.getFieldsId().add("measureFreq_measureDataEmployeeOid");
-			throw new ControllerException("Measure settings, Please select measure-data employee!<BR/>");
+			super.throwMessage("measureFreq_measureDataEmployeeOid", "Measure settings, Please select measure-data employee!");
 		}		
 	}
 	
@@ -196,32 +180,24 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 				|| BscMeasureDataFrequency.FREQUENCY_MONTH.equals(frequency) ) {
 			int betweenMonths = SimpleUtils.getMonthsBetween(startDate, endDate);
 			if ( betweenMonths >= 12 ) {
-				this.getFieldsId().add("measureFreq_startDate");
-				this.getFieldsId().add("measureFreq_endDate");
-				throw new ControllerException("Date range can not be more than 12 months!<BR/>");	
+				super.throwMessage("measureFreq_startDate|measureFreq_endDate", "Date range can not be more than 12 months!");
 			}
 			return;
 		}
 		int betweenYears = SimpleUtils.getYearsBetween(startYearDate, endYearDate);
 		if (BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency)) {
 			if ( betweenYears >= 3 ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Date range can not be more than 3 years!<BR/>");				
+				super.throwMessage("measureFreq_startYearDate|measureFreq_endYearDate", "Date range can not be more than 3 years!");	
 			}
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency)) {
 			if ( betweenYears >= 4 ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Date range can not be more than 4 years!<BR/>");				
+				super.throwMessage("measureFreq_startYearDate|measureFreq_endYearDate", "Date range can not be more than 4 years!");			
 			}			
 		}
 		if (BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency)) {
 			if ( betweenYears >= 6 ) {
-				this.getFieldsId().add("measureFreq_startYearDate");
-				this.getFieldsId().add("measureFreq_endYearDate");
-				throw new ControllerException("Date range can not be more than 6 years!<BR/>");				
+				super.throwMessage("measureFreq_startYearDate|measureFreq_endYearDate", "Date range can not be more than 6 years!");
 			}			
 		}
 	}	
@@ -240,7 +216,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 			errMsg.append( errMsg2 );
 		}		
 		if (errMsg.length()>0) {
-			throw new ControllerException( errMsg.toString() );
+			super.throwMessage( errMsg.toString() );
 		}
 	}
 	
@@ -689,4 +665,10 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		this.uploadOid = uploadOid;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

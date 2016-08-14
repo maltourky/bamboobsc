@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.mobile.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -449,4 +450,10 @@ public class ScorecardQueryContentAction extends BaseJsonAction {
 		return rootObjective;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }

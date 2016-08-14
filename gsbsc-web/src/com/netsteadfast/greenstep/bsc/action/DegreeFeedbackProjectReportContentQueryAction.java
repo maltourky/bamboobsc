@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.json.annotations.JSON;
@@ -55,8 +56,8 @@ public class DegreeFeedbackProjectReportContentQueryAction extends BaseJsonActio
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!<BR/>")
-		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0004Q_ownerOid") + "<BR/>")
+		.add("projectOid", NotBlankFieldCheckUtils.class, "Data error no project, please close the page!")
+		.add("ownerOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG005D0004Q_ownerOid") )
 		.process().throwMessage();
 	}
 	
@@ -135,5 +136,11 @@ public class DegreeFeedbackProjectReportContentQueryAction extends BaseJsonActio
 	public void setProject(DegreeFeedbackProjectVO project) {
 		this.project = project;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

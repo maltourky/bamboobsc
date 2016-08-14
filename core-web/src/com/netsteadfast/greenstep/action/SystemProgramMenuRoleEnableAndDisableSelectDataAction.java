@@ -153,5 +153,11 @@ public class SystemProgramMenuRoleEnableAndDisableSelectDataAction extends BaseJ
 	public List<Map<String, String>> getEnableItems() {
 		return enableItems;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

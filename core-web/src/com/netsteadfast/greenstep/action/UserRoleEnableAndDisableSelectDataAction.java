@@ -157,5 +157,11 @@ public class UserRoleEnableAndDisableSelectDataAction extends BaseJsonAction {
 	public List<Map<String, String>> getEnableItems() {
 		return enableItems;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -77,23 +78,23 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("forId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_forId") + "<BR/>")
-		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_name") + "<BR/>")
-		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>")
-		.add("trendsFlag", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>")
-		.add("returnMode", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
-		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
+		.add("forId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_forId") )
+		.add("name", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_name") )
+		.add("type", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_type") )
+		.add("trendsFlag", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") )
+		.add("returnMode", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") )
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0003A_expression") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler()
 		.single(
 				"expression", 
 				( this.getFields().get("expression").length() > 4000 ), 
-				this.getText("MESSAGE.BSC_PROG001D0003A_msg1") + "<BR/>")
+				this.getText("MESSAGE.BSC_PROG001D0003A_msg1") )
 		.single(
 				"returnVar", 
 				( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), 
-				this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
+				this.getText("MESSAGE.BSC_PROG001D0003A_msg2") )
 		.throwMessage();
 	}
 	
@@ -135,11 +136,11 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 	
 	private Object testFormula() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.getCheckFieldHandler()
-		.single("type", ( this.isNoSelectId(this.getFields().get("type")) ), this.getText("MESSAGE.BSC_PROG001D0003A_type") + "<BR/>")
-		.single("trendsFlag", ( this.isNoSelectId(this.getFields().get("trendsFlag")) ), this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") + "<BR/>")
-		.single("returnMode", ( this.isNoSelectId(this.getFields().get("returnMode")) ), this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") + "<BR/>")
-		.single("returnVar", ( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), this.getText("MESSAGE.BSC_PROG001D0003A_msg2") + "<BR/>")
-		.single("expression", ( StringUtils.isBlank(this.getFields().get("expression")) ), this.getText("MESSAGE.BSC_PROG001D0003A_expression") + "<BR/>")
+		.single("type", ( this.isNoSelectId(this.getFields().get("type")) ), this.getText("MESSAGE.BSC_PROG001D0003A_type") )
+		.single("trendsFlag", ( this.isNoSelectId(this.getFields().get("trendsFlag")) ), this.getText("MESSAGE.BSC_PROG001D0003A_trendsFlag") )
+		.single("returnMode", ( this.isNoSelectId(this.getFields().get("returnMode")) ), this.getText("MESSAGE.BSC_PROG001D0003A_returnMode") )
+		.single("returnVar", ( FormulaMode.MODE_CUSTOM.equals(this.getFields().get("returnMode")) && StringUtils.isBlank(this.getFields().get("returnVar")) ), this.getText("MESSAGE.BSC_PROG001D0003A_msg2") )
+		.single("expression", ( StringUtils.isBlank(this.getFields().get("expression")) ), this.getText("MESSAGE.BSC_PROG001D0003A_expression") )
 		.throwMessage();
 		
 		String actual = this.getFields().get("actual");
@@ -331,5 +332,11 @@ public class FormulaSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

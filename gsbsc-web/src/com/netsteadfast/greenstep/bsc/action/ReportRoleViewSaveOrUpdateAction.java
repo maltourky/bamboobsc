@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -69,7 +70,7 @@ public class ReportRoleViewSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("roleOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0003Q_roleOid") + "<BR/>")
+		.add("roleOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0003Q_roleOid") )
 		.process().throwMessage();		
 	}	
 	
@@ -143,5 +144,11 @@ public class ReportRoleViewSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

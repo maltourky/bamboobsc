@@ -22,6 +22,7 @@
 package com.netsteadfast.greenstep.bsc.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -71,46 +72,46 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 	
 	private void checkFields() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("account", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_account") + "<BR/>")
-		.add("empId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_empId") + "<BR/>")
-		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password1") + "<BR/>")
-		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password2") + "<BR/>")
-		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>")
+		.add("account", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_account") )
+		.add("empId", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_empId") )
+		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password1") )
+		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_password2") )
+		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"password1|password2", 
 				( !this.getFields().get("password1").equals( this.getFields().get("password2") ) ), 
-				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg1") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg1") ).throwMessage();
 		this.getCheckFieldHandler().single(
 				"password1|password2", 
 				( this.getFields().get("password1").length() < 4 || this.getFields().get("password1").length() > 14 ), 
-				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg2") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0001A_password12_msg2") ).throwMessage();
 		
 		this.getFields().put("password", this.getFields().get("password1"));
 	}	
 	
 	private void checkFieldsForUpdate() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") + "<BR/>")
+		.add("fullName", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001A_fullName") )
 		.process().throwMessage();
 	}		
 	
 	private void checkFieldsForUpdatePassword() throws ControllerException {
 		this.getCheckFieldHandler()
-		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password1") + "<BR/>")
-		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password2") + "<BR/>")
-		.add("password3", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password3") + "<BR/>")
+		.add("password1", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password1") )
+		.add("password2", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password2") )
+		.add("password3", IdFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG001D0001E_S00_password3") )
 		.process().throwMessage();
 		
 		this.getCheckFieldHandler().single(
 				"password2|password3", 
 				( !this.getFields().get("password2").equals( this.getFields().get("password3") ) ), 
-				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg1") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg1") ).throwMessage();
 		this.getCheckFieldHandler().single(
 				"password2|password3", 
 				( this.getFields().get("password2").length() < 4 || this.getFields().get("password2").length() > 14 ), 
-				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg2") + "<BR/>").throwMessage();
+				this.getText("MESSAGE.BSC_PROG001D0001E_S00_password23_msg2") ).throwMessage();
 		
 		this.getFields().put("password", this.getFields().get("password1"));		
 	}
@@ -306,5 +307,11 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 	public List<String> getFieldsId() {
 		return this.fieldsId;
 	}
-
+	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+	
 }

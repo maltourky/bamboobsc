@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -108,13 +109,15 @@ public class WeightSaveOrUpdateAction extends BaseJsonAction {
 	}
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
+		String errMessage = super.joinPageMessage(
+				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_label")+":",
+				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_01"),
+				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_02"),
+				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_03"));
 		this.getCheckFieldHandler().single(
 				"visionOid", 
 				( !YesNo.YES.equals(this.getHttpServletRequest().getParameter("BSC_PROG002D0006Q_queryWeight")) ), 
-				this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_label") + ":<BR/>" 
-				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_01") + "<BR/>" 
-				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_02") + "<BR/>" 
-				+ this.getText("MESSAGE.BSC_PROG002D0006Q_saveStep_03") + "<BR/>").throwMessage();
+				errMessage ).throwMessage();
 		DefaultResult<Boolean> result = this.weightLogicService.update(
 				this.getPerspectives(), 
 				this.getObjectives(), 
@@ -184,4 +187,10 @@ public class WeightSaveOrUpdateAction extends BaseJsonAction {
 		return this.fieldsId;
 	}
 	
+	@JSON
+	@Override
+	public Map<String, String> getFieldsMessage() {
+		return this.fieldsMessage;
+	}
+		
 }
