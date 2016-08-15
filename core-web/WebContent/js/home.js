@@ -564,7 +564,7 @@ function setFieldsBackgroundAlert(fieldsId, viewFieldsId) {
 			continue;
 		}
 		var domNode = dijit.byId(idName).domNode;
-		dojo.style(domNode,"background","#F5DA81"); // OLD-ver: set bg to like red #F8E0E0
+		dojo.style(domNode,"background","#F3E2A9"); // OLD-ver: set bg to like red #F8E0E0
 	}
 }
 
@@ -595,7 +595,8 @@ function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
 		if ( dojo.byId(idName) == null ) {
 			continue;
 		}
-		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #BDE5F8;' color='#B40404'>&nbsp;" + msg + "&nbsp;</font>";
+		//dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #BDE5F8;' color='#B40404'>&nbsp;" + msg + "&nbsp;</font>";
+		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#ffffff'>&nbsp;" + msg + "&nbsp;</font>";
 	}	
 }
 
