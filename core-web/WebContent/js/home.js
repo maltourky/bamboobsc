@@ -564,7 +564,7 @@ function setFieldsBackgroundAlert(fieldsId, viewFieldsId) {
 			continue;
 		}
 		var domNode = dijit.byId(idName).domNode;
-		dojo.style(domNode,"background","#F8E0E0"); //set bg to like red		
+		dojo.style(domNode,"background","#F5DA81"); // OLD-ver: set bg to like red #F8E0E0
 	}
 }
 
