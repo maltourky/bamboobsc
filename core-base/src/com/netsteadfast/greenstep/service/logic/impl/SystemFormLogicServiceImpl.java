@@ -296,6 +296,9 @@ public class SystemFormLogicServiceImpl extends BaseLogicService implements ISys
 			throw new ServiceException( oldResult.getSystemMessage().getValue() );
 		}
 		
+		SysFormVO form = this.findForm(formOid);
+		formMethod.setFormId( form.getFormId() );
+		
 		// check UK(same "name" and "formId" ) is found. because can update formMethod's UK , so need to check it.
 		DefaultResult<SysFormMethodVO> ukResult = this.sysFormMethodService.findByUK(formMethod);
 		if (ukResult.getValue()!=null) {
@@ -306,10 +309,7 @@ public class SystemFormLogicServiceImpl extends BaseLogicService implements ISys
 		
 		oldResult.getValue().setExpression( null ); // clear blob expression
 		this.sysFormMethodService.updateObject( oldResult.getValue() );
-		
-		SysFormVO form = this.findForm(formOid);
 		super.setStringValueMaxLength(formMethod, "description", MAX_DESCRIPTION_LENGTH);
-		formMethod.setFormId( form.getFormId() );
 		return this.sysFormMethodService.updateObject(formMethod);
 	}
 	
