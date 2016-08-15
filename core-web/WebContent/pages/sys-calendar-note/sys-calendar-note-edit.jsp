@@ -36,15 +36,18 @@ CORE_PROG001D0004E_fieldsId['date'] 							= 'CORE_PROG001D0004E_date';
 
 function CORE_PROG001D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0004E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0004E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0004E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0004E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0004E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0004E_fieldsId);		
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0004E_fieldsId);
 	dijit.byId('CORE_PROG001D0004E_title').set("value", "");
 	dijit.byId('CORE_PROG001D0004E_note').set("value", "");	
 	dijit.byId('CORE_PROG001D0004E_date').set("value", "");
@@ -96,7 +99,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="575px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_accountOid')"/></b> <s:property value="getText('CORE_PROG001D0004E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_accountOid')"/>:</b> <s:property value="getText('CORE_PROG001D0004E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0004E_accountOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0004E_accountOid" dataSource="accountMap" id="CORE_PROG001D0004E_accountOid" readonly="Y" value="accountOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_accountOid'">
@@ -106,7 +109,7 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_title')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0004E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0004E_title" id="CORE_PROG001D0004E_title" value="sysCalendarNote.title" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_title'">
@@ -116,7 +119,7 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="225px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_note')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_note')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0004E_note"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="CORE_PROG001D0004E_note" name="CORE_PROG001D0004E_note" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px">${sysCalendarNote.note}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_note'">
@@ -126,7 +129,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_date')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0004E_date')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0004E_date"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="CORE_PROG001D0004E_date" type="text" name="CORE_PROG001D0004E_date" data-dojo-type="dijit.form.DateTextBox" maxlength="10" constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" required="true" style="width:120px;" value="${calendarNoteDate}" />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_date'">
@@ -136,7 +139,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0004E_time')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0004E_time')"/>:</b>
     			<br/>
     			<b><s:property value="getText('CORE_PROG001D0004E_time_start')"/></b>&nbsp;
     			<s:property value="getText('CORE_PROG001D0004E_time_startHour')"/><gs:select name="CORE_PROG001D0004E_time_startHour" dataSource="hourMap" id="CORE_PROG001D0004E_time_startHour" width="60" value="startHour"></gs:select>
@@ -167,7 +170,7 @@ function ${programId}_page_message() {
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0004E_alert')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0004E_alert')"/>:</b>
     			<br/>
     			<input id="CORE_PROG001D0004E_alert" name="CORE_PROG001D0004E_alert" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysCalendarNote.alert "> checked </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_alert'">
@@ -178,7 +181,7 @@ function ${programId}_page_message() {
     	</tr>    	    	        		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0004E_contact')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0004E_contact')"/>:</b>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0004E_contact" id="CORE_PROG001D0004E_contact" value="sysCalendarNote.contact" width="400" maxlength="500"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004E_contact'">

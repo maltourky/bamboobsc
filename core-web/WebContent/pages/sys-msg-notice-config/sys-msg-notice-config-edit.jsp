@@ -35,15 +35,18 @@ CORE_PROG001D0005E_fieldsId['className'] 	= 'CORE_PROG001D0005E_className';
 
 function CORE_PROG001D0005E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0005E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0005E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0005E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0005E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0005E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0005E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0005E_fieldsId);
 	//dijit.byId('CORE_PROG001D0005E_system').set("value", _gscore_please_select_id); // readOnly
 	//dijit.byId('CORE_PROG001D0005E_msgId').set("value", ""); // readOnly
 	dijit.byId('CORE_PROG001D0005E_className').set("value", "");
@@ -80,21 +83,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_system')"/></b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_system')"/>:</b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_system"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0005E_system" dataSource="systemDataMap" id="CORE_PROG001D0005E_system" value="selectValue" readonly="Y"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_msgId')"/></b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_msgId')"/>:</b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_msgId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005E_msgId" id="CORE_PROG001D0005E_msgId" value="sysMsgNoticeConfig.msgId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_className')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005E_className" id="CORE_PROG001D0005E_className" value="sysMsgNoticeConfig.className" width="400" maxlength="255"></gs:textBox>
     		</td>
