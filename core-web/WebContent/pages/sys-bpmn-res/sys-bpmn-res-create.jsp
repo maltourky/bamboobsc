@@ -29,15 +29,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG003D0004A_fieldsId = new Object();
-CORE_PROG003D0004A_fieldsId['uploadOid'] 	= 'CORE_PROG003D0004A_id';
+CORE_PROG003D0004A_fieldsId['uploadOid'] 	= 'CORE_PROG003D0004A_uploadOid_noticeMsgLabel';
 CORE_PROG003D0004A_fieldsId['id'] 			= 'CORE_PROG003D0004A_id';
 CORE_PROG003D0004A_fieldsId['name'] 		= 'CORE_PROG003D0004A_name';
 
 function CORE_PROG003D0004A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG003D0004A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0004A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0004A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0004A_fieldsId);
 		return;
 	}	
 	CORE_PROG003D0004A_clear();
@@ -45,6 +47,7 @@ function CORE_PROG003D0004A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG003D0004A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0004A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0004A_fieldsId);
 	CORE_PROG003D0004A_uploadFail();
 	dijit.byId('CORE_PROG003D0004A_id').set("value", "");
 	dijit.byId('CORE_PROG003D0004A_name').set("value", "");
@@ -93,7 +96,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Activiti BPMN(zip) file</b>:
+    			<font color='RED'>*</font><b>Activiti BPMN(zip) file:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004A_uploadOid_noticeMsgLabel"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG003D0004A_uploadBtn" label="Upload" value="Upload" 
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -104,21 +107,21 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Id</b>:
+    			<font color='RED'>*</font><b>Id:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004A_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004A_id" id="CORE_PROG003D0004A_id" value="" width="400" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Name</b>:
+    			<font color='RED'>*</font><b>Name:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004A_name" id="CORE_PROG003D0004A_name" value="" width="400" maxlength="255"></gs:textBox>
     		</td>    		
     	</tr>    	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b>Description</b>:
+    			<b>Description:</b>
     			<br/>
     			<textarea id="CORE_PROG003D0004A_description" name="CORE_PROG003D0004A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

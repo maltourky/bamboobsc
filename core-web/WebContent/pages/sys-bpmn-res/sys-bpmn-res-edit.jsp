@@ -29,14 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG003D0004E_fieldsId = new Object();
-CORE_PROG003D0004E_fieldsId['uploadOid'] 	= 'CORE_PROG003D0004E_id';
+CORE_PROG003D0004E_fieldsId['uploadOid'] 	= 'CORE_PROG003D0004E_uploadOid_noticeMsgLabel';
 CORE_PROG003D0004E_fieldsId['name'] 		= 'CORE_PROG003D0004E_name';
 
 function CORE_PROG003D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG003D0004E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0004E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0004E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0004E_fieldsId);
 		return;
 	}		
 	CORE_PROG003D0004E_TabRefresh();
@@ -44,6 +46,7 @@ function CORE_PROG003D0004E_updateSuccess(data) {
 
 function CORE_PROG003D0004E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0004E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0004E_fieldsId);
 	dijit.byId('CORE_PROG003D0004E_name').set("value", "");
 	dijit.byId('CORE_PROG003D0004E_description').set("value", "");
 	dojo.byId('CORE_PROG003D0004E_uploadOid').value = "";
@@ -89,7 +92,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b>Activiti BPMN(zip) file</b>:
+    			<b>Activiti BPMN(zip) file:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_uploadOid_noticeMsgLabel"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG003D0004E_uploadBtn" label="Upload" value="Upload" 
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -100,21 +103,21 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Id (Read only)</b>:
+    			<font color='RED'>*</font><b>Id:</b> (Read only)<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004E_id" id="CORE_PROG003D0004E_id" value="bpmnResource.id" width="400" maxlength="100" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Name</b>:
+    			<font color='RED'>*</font><b>Name:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004E_name" id="CORE_PROG003D0004E_name" value="bpmnResource.name" width="400" maxlength="255"></gs:textBox>
     		</td>    		
     	</tr>    	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b>Description</b>:
+    			<b>Description:</b>
     			<br/>
     			<textarea id="CORE_PROG003D0004E_description" name="CORE_PROG003D0004E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"><s:property value="bpmnResource.description"/></textarea>
     		</td>    		

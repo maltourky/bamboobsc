@@ -35,9 +35,11 @@ CORE_PROG003D0005A_fieldsId['taskName'] 	= 'CORE_PROG003D0005A_taskName';
 
 function CORE_PROG003D0005A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG003D0005A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0005A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0005A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0005A_fieldsId);
 		return;
 	}	
 	CORE_PROG003D0005A_clear();
@@ -45,6 +47,7 @@ function CORE_PROG003D0005A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG003D0005A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0005A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0005A_fieldsId);
 	dijit.byId('CORE_PROG003D0005A_resourceOid').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG003D0005A_roleOid').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG003D0005A_taskName').set("value", "");
@@ -81,21 +84,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Resource</b>:
+    			<font color='RED'>*</font><b>Resource:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_resourceOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0005A_resourceOid" dataSource="resourceMap" id="CORE_PROG003D0005A_resourceOid" width="250"></gs:select>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Role</b>:
+    			<font color='RED'>*</font><b>Role:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_roleOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0005A_roleOid" dataSource="roleMap" id="CORE_PROG003D0005A_roleOid"></gs:select>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Task name</b>:
+    			<font color='RED'>*</font><b>Task name:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_taskName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0005A_taskName" id="CORE_PROG003D0005A_taskName" maxlength="100" width="200"></gs:textBox>
     		</td>    		

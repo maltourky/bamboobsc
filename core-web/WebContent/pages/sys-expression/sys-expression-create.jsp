@@ -32,13 +32,15 @@ var CORE_PROG003D0002A_fieldsId = new Object();
 CORE_PROG003D0002A_fieldsId['exprId'] 			= 'CORE_PROG003D0002A_exprId';
 CORE_PROG003D0002A_fieldsId['type'] 			= 'CORE_PROG003D0002A_type';
 CORE_PROG003D0002A_fieldsId['name'] 			= 'CORE_PROG003D0002A_name';
-//CORE_PROG003D0002A_fieldsId['content'] 			= 'CORE_PROG003D0002A_content';
+CORE_PROG003D0002A_fieldsId['content'] 			= 'CORE_PROG003D0002A_content_noticeMsgLabelOnly';
 
 function CORE_PROG003D0002A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG003D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0002A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0002A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0002A_fieldsId);
 		return;
 	}	
 	CORE_PROG003D0002A_clear();
@@ -46,6 +48,7 @@ function CORE_PROG003D0002A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG003D0002A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0002A_fieldsId);
 	dijit.byId('CORE_PROG003D0002A_exprId').set("value", "");
 	dijit.byId('CORE_PROG003D0002A_type').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG003D0002A_name').set("value", "");
@@ -85,28 +88,28 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="275px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_exprId')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_exprId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_exprId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002A_exprId" id="CORE_PROG003D0002A_exprId" value="" width="200" maxlength="20"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="20%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_type')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0002A_type" dataSource="typeMap" id="CORE_PROG003D0002A_type"></gs:select>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002A_name" id="CORE_PROG003D0002A_name" value="" width="400" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0002A_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG003D0002A_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG003D0002A_description" name="CORE_PROG003D0002A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		
@@ -119,7 +122,7 @@ function ${programId}_page_message() {
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
 					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 						
-    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_iframe1')"/></b>:
+    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_iframe1')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_content_noticeMsgLabelOnly"></gs:inputfieldNoticeMsgLabel>
     					<br/>
     					<iframe name="CORE_PROG003D0002A_iframe1" id="CORE_PROG003D0002A_iframe1" style='width:100%;height:300px;border:0px' border='0' scrolling='no' src='<%=basePath%>/core.commonCodeEditorAction.action'></iframe>
 					

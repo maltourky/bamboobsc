@@ -89,9 +89,11 @@ CORE_PROG003D0003E_S00_fieldsId['runType'] 		= 'CORE_PROG003D0003E_S00_runType';
 
 function CORE_PROG003D0003E_S00_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG003D0003E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0003E_S00_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0003E_S00_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0003E_S00_fieldsId);
 		return;
 	}		
 	getQueryGrid_${programId}_grid();
@@ -99,6 +101,7 @@ function CORE_PROG003D0003E_S00_saveSuccess(data) {
 
 function CORE_PROG003D0003E_S00_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0003E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0003E_S00_fieldsId);
 	dijit.byId('CORE_PROG003D0003E_S00_exprOid').set("value", _gscore_please_select_id); 		
 	dijit.byId('CORE_PROG003D0003E_S00_exprSeq').set("value", "");
 	dijit.byId('CORE_PROG003D0003E_S00_runType').set("value", _gscore_please_select_id); 
@@ -143,21 +146,21 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprOid')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprOid')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0003E_S00_exprOid" dataSource="expressionMap" id="CORE_PROG003D0003E_S00_exprOid" ></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprSeq')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprSeq')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprSeq"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S00_exprSeq" id="CORE_PROG003D0003E_S00_exprSeq" value="" width="200" maxlength="10" ></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_runType')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_runType')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_runType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0003E_S00_runType" dataSource="runTypeMap" id="CORE_PROG003D0003E_S00_runType"></gs:select>
     		</td>

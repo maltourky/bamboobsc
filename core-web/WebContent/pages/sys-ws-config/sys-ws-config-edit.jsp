@@ -36,15 +36,18 @@ CORE_PROG003D0001E_fieldsId['publishAddress'] 	= 'CORE_PROG003D0001E_publishAddr
 
 function CORE_PROG003D0001E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG003D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0001E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0001E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0001E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG003D0001E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0001E_fieldsId);
 	dijit.byId('CORE_PROG003D0001E_systemOid').set("value", _gscore_please_select_id);
 	//dijit.byId('CORE_PROG003D0001E_wsId').set("value", ""); // readOnly
 	dijit.byId('CORE_PROG003D0001E_beanId').set("value", "");
@@ -84,42 +87,42 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_systemOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0001E_systemOid" dataSource="sysMap" id="CORE_PROG003D0001E_systemOid" value="selectValue"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_wsId')"/></b> <s:property value="getText('CORE_PROG003D0001E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_wsId')"/>:</b> <s:property value="getText('CORE_PROG003D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_wsId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_wsId" id="CORE_PROG003D0001E_wsId" value="sysWsConfig.wsId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_beanId')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_beanId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_beanId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_beanId" id="CORE_PROG003D0001E_beanId" value="sysWsConfig.beanId" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_type')"/></b>:
+    			<b><s:property value="getText('CORE_PROG003D0001E_type')"/>:</b>
     			<br/>
     			<gs:select name="CORE_PROG003D0001E_type" dataSource="{ \"SOAP\":\"SOAP\", \"REST\":\"REST\" }" id="CORE_PROG003D0001E_type" value="sysWsConfig.type"></gs:select>
     		</td>
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_publishAddress')"/></b>:
+    			<b><s:property value="getText('CORE_PROG003D0001E_publishAddress')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_publishAddress"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_publishAddress" id="CORE_PROG003D0001E_publishAddress" value="sysWsConfig.publishAddress" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>      	    
 		<tr>
     		<td height="225px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG003D0001E_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG003D0001E_description" name="CORE_PROG003D0001E_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px">${sysWsConfig.description}</textarea>	
     		</td>

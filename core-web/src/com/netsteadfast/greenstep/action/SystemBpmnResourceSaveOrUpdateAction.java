@@ -150,7 +150,7 @@ public class SystemBpmnResourceSaveOrUpdateAction extends BaseJsonAction {
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			super.throwMessage( "Please upload BPMN(zip) file!" );
+			super.throwMessage( "uploadOid", "Please upload BPMN(zip) file!" );
 		}
 		this.selfTestUploadResourceData();
 		SysBpmnResourceVO resource = new SysBpmnResourceVO();

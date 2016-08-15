@@ -53,9 +53,11 @@ function CORE_PROG002D0001E_S00_GridButtonClick(itemOid) {
 
 function CORE_PROG002D0001E_S00_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG002D0001E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0001E_S00_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG002D0001E_S00_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG002D0001E_S00_fieldsId);
 		return;
 	}	
 	CORE_PROG002D0001E_S00_clear();	
@@ -64,6 +66,7 @@ function CORE_PROG002D0001E_S00_saveSuccess(data) {
 
 function CORE_PROG002D0001E_S00_clear() {
 	setFieldsBackgroundDefault(CORE_PROG002D0001E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0001E_S00_fieldsId);
 	dijit.byId("CORE_PROG002D0001E_S00_permType").set("value", _gscore_please_select_id);
 	dijit.byId("CORE_PROG002D0001E_S00_permission").set("value", "");
 	dijit.byId("CORE_PROG002D0001E_S00_description").set("value", "");
@@ -139,14 +142,14 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permType')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permType')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG002D0001E_S00_permType" dataSource="permTypeMap" id="CORE_PROG002D0001E_S00_permType"></gs:select>
     		</td>
     	</tr>    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permission')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permission')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permission"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG002D0001E_S00_permission" id="CORE_PROG002D0001E_S00_permission" value="" width="400" maxlength="255"></gs:textBox>
     		</td>

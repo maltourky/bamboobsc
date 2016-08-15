@@ -84,9 +84,11 @@ CORE_PROG003D0003E_S01_fieldsId['methodParamIndex'] = 'CORE_PROG003D0003E_S01_me
 
 function CORE_PROG003D0003E_S01_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG003D0003E_S01_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0003E_S01_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG003D0003E_S01_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG003D0003E_S01_fieldsId);
 		return;
 	}		
 	getQueryGrid_${programId}_grid();
@@ -94,6 +96,7 @@ function CORE_PROG003D0003E_S01_saveSuccess(data) {
 
 function CORE_PROG003D0003E_S01_clear() {
 	setFieldsBackgroundDefault(CORE_PROG003D0003E_S01_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG003D0003E_S01_fieldsId);
 	dijit.byId('CORE_PROG003D0003E_S01_varName').set("value", "");
 	dijit.byId('CORE_PROG003D0003E_S01_methodResultFlag').set("checked", false);
 	dijit.byId('CORE_PROG003D0003E_S01_methodParamClass').set("value", "");
@@ -139,7 +142,7 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_varName')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_varName')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_varName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_varName" id="CORE_PROG003D0003E_S01_varName" value="" width="400" maxlength="255" ></gs:textBox>
     		</td>
@@ -153,14 +156,14 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamClass')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamClass')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamClass"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_methodParamClass" id="CORE_PROG003D0003E_S01_methodParamClass" value="" width="400" maxlength="255" ></gs:textBox>
     		</td>
     	</tr>      	   
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamIndex')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamIndex')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamIndex"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_methodParamIndex" id="CORE_PROG003D0003E_S01_methodParamIndex" value="" width="50" maxlength="3" ></gs:textBox>
     		</td>
