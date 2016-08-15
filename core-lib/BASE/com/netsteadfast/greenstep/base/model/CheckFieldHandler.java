@@ -127,7 +127,7 @@ public class CheckFieldHandler implements java.io.Serializable {
 			}
 			String idName = name[i].trim();
 			actionFieldsId.add(idName);
-			actionFieldsMessage.put(idName, fieldsMessages.get(i));
+			actionFieldsMessage.put(idName, message);
 			fieldsMessages.add( message );
 		}
 		msg.append( StringUtils.defaultString(message) ).append("<BR/>");
