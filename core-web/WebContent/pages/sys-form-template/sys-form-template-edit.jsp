@@ -29,14 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG001D0012E_fieldsId = new Object();
-CORE_PROG001D0012E_fieldsId['uploadOid'] 	= 'CORE_PROG001D0012E_reportId';
+CORE_PROG001D0012E_fieldsId['uploadOid'] 	= 'CORE_PROG001D0012E_uploadOidNoticeLabelOnly';
 CORE_PROG001D0012E_fieldsId['name'] 		= 'CORE_PROG001D0012E_name';
 
 function CORE_PROG001D0012E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0012E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0012E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0012E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0012E_fieldsId);
 		return;
 	}		
 	CORE_PROG001D0012E_TabRefresh();
@@ -44,6 +46,7 @@ function CORE_PROG001D0012E_updateSuccess(data) {
 
 function CORE_PROG001D0012E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0012E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0012E_fieldsId);
 	dijit.byId('CORE_PROG001D0012E_name').set("value", "");	
 	dijit.byId('CORE_PROG001D0012E_description').set("value", "");	
 	CORE_PROG001D0012E_uploadFail();
@@ -89,21 +92,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0012E_tplId')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0012E_tplId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012E_tplId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012E_tplId" id="CORE_PROG001D0012E_tplId" value="sysFormTemplate.tplId" width="200" maxlength="50" readonly="Y"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0012E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0012E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012E_name" id="CORE_PROG001D0012E_name" value="sysFormTemplate.name" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b>JSP <s:property value="getText('CORE_PROG001D0012E_uploadOid')"/></b>:
+    			<b>JSP <s:property value="getText('CORE_PROG001D0012E_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012E_uploadOidNoticeLabelOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG001D0012E_uploadBtn" label="Upload" value="Upload" 
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -114,7 +117,7 @@ function ${programId}_page_message() {
     	</tr>	      	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0012E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0012E_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0012E_description" name="CORE_PROG001D0012E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${sysFormTemplate.description}</textarea>	
     		</td>

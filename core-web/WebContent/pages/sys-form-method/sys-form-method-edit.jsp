@@ -32,18 +32,22 @@ var CORE_PROG001D0014E_fieldsId = new Object();
 CORE_PROG001D0014E_fieldsId['name'] 		= 'CORE_PROG001D0014E_name';
 CORE_PROG001D0014E_fieldsId['resultType'] 	= 'CORE_PROG001D0014E_resultType';
 CORE_PROG001D0014E_fieldsId['type'] 		= 'CORE_PROG001D0014E_type';
+CORE_PROG001D0014E_fieldsId['expression'] 	= 'CORE_PROG001D0014E_expressionNoticeMsgLabelOnly';
 
 function CORE_PROG001D0014E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0014E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0014E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0014E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0014E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0014E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0014E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0014E_fieldsId);
 	dijit.byId('CORE_PROG001D0014E_name').set("value", "");
 	dijit.byId('CORE_PROG001D0014E_resultType').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG001D0014E_type').set("value", _gscore_please_select_id);
@@ -82,21 +86,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="675px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0014E_name" id="CORE_PROG001D0014E_name" value="formMethod.name" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	   	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_resultType')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_resultType')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014E_resultType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0014E_resultType" dataSource="resultTypeMap" id="CORE_PROG001D0014E_resultType" value="formMethod.resultType"></gs:select>
     		</td>    		
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_type')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014E_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0014E_type" dataSource="typeMap" id="CORE_PROG001D0014E_type" value="formMethod.type"></gs:select>
     		</td>    		
@@ -110,7 +114,7 @@ function ${programId}_page_message() {
 					<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
 						<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 							
-	    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_iframe1')"/></b>:
+	    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014E_iframe1')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014E_expressionNoticeMsgLabelOnly"></gs:inputfieldNoticeMsgLabel>
 	    					<br/>
 	    					<iframe name="CORE_PROG001D0014E_iframe1" id="CORE_PROG001D0014E_iframe1" style='width:100%;height:300px;border:0px' border='0' scrolling='no' src='<%=basePath%>/core.commonCodeEditorAction.action?oid=${exprOid}'></iframe>
 						
@@ -124,7 +128,7 @@ function ${programId}_page_message() {
 	    </tr>	   	    		
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0014E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0014E_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0014E_description" name="CORE_PROG001D0014E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${formMethod.description}</textarea>
     		</td>    		

@@ -81,9 +81,11 @@ CORE_PROG001D0008E_S00_fieldsId['rptParam'] 	= 'CORE_PROG001D0008E_S00_rptParam'
 
 function CORE_PROG001D0008E_S00_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0008E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008E_S00_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0008E_S00_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0008E_S00_fieldsId);
 		return;
 	}		
 	getQueryGrid_${programId}_grid();
@@ -91,6 +93,7 @@ function CORE_PROG001D0008E_S00_saveSuccess(data) {
 
 function CORE_PROG001D0008E_S00_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0008E_S00_fieldsId);		
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008E_S00_fieldsId);
 	dijit.byId('CORE_PROG001D0008E_S00_urlParam').set("value", "");
 	dijit.byId('CORE_PROG001D0008E_S00_rptParam').set("value", "");
 	clearQuery_${programId}_grid();
@@ -127,14 +130,14 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_rptParam')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_rptParam')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_rptParam"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008E_S00_rptParam" id="CORE_PROG001D0008E_S00_rptParam" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_urlParam')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_urlParam')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_urlParam"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008E_S00_urlParam" id="CORE_PROG001D0008E_S00_urlParam" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>

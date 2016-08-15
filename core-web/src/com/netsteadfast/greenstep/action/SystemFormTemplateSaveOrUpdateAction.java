@@ -102,7 +102,7 @@ public class SystemFormTemplateSaveOrUpdateAction extends BaseJsonAction {
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			super.throwMessage( this.getText("MESSAGE.CORE_PROG001D0012A_uploadOid") );
+			super.throwMessage( "uploadOid", this.getText("MESSAGE.CORE_PROG001D0012A_uploadOid") );
 		}
 		SysFormTemplateVO template = new SysFormTemplateVO();
 		this.transformFields2ValueObject(template, new String[]{"tplId", "name", "description"});

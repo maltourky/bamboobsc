@@ -32,12 +32,15 @@ var CORE_PROG001D0014A_fieldsId = new Object();
 CORE_PROG001D0014A_fieldsId['name'] 		= 'CORE_PROG001D0014A_name';
 CORE_PROG001D0014A_fieldsId['resultType'] 	= 'CORE_PROG001D0014A_resultType';
 CORE_PROG001D0014A_fieldsId['type'] 		= 'CORE_PROG001D0014A_type';
+CORE_PROG001D0014A_fieldsId['expression'] 	= 'CORE_PROG001D0014A_expressionNoticeMsgLabelOnly';
 
 function CORE_PROG001D0014A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG001D0014A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0014A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0014A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0014A_fieldsId);
 		return;
 	}	
 	CORE_PROG001D0014A_clear();
@@ -45,6 +48,7 @@ function CORE_PROG001D0014A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG001D0014A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0014A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0014A_fieldsId);
 	dijit.byId('CORE_PROG001D0014A_name').set("value", "");
 	dijit.byId('CORE_PROG001D0014A_resultType').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG001D0014A_type').set("value", _gscore_please_select_id);
@@ -83,21 +87,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="675px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0014A_name" id="CORE_PROG001D0014A_name" value="" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	   	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_resultType')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_resultType')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014A_resultType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0014A_resultType" dataSource="resultTypeMap" id="CORE_PROG001D0014A_resultType"></gs:select>
     		</td>    		
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_type')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014A_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0014A_type" dataSource="typeMap" id="CORE_PROG001D0014A_type"></gs:select>
     		</td>    		
@@ -111,7 +115,7 @@ function ${programId}_page_message() {
 					<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
 						<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 							
-	    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_iframe1')"/></b>:
+	    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0014A_iframe1')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0014A_expressionNoticeMsgLabelOnly"></gs:inputfieldNoticeMsgLabel>
 	    					<br/>
 	    					<iframe name="CORE_PROG001D0014A_iframe1" id="CORE_PROG001D0014A_iframe1" style='width:100%;height:300px;border:0px' border='0' scrolling='no' src='<%=basePath%>/core.commonCodeEditorAction.action'></iframe>
 						
@@ -125,7 +129,7 @@ function ${programId}_page_message() {
 	    </tr>	   	    		
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0014A_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0014A_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0014A_description" name="CORE_PROG001D0014A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

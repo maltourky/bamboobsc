@@ -35,9 +35,11 @@ CORE_PROG001D0009A_fieldsId['type'] 		= 'CORE_PROG001D0009A_type';
 
 function CORE_PROG001D0009A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG001D0009A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0009A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0009A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0009A_fieldsId);
 		return;
 	}	
 	CORE_PROG001D0009A_clear();
@@ -45,6 +47,7 @@ function CORE_PROG001D0009A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG001D0009A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0009A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0009A_fieldsId);
 	dijit.byId('CORE_PROG001D0009A_systemOid').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG001D0009A_className').set("value", "");
 	dijit.byId('CORE_PROG001D0009A_type').set("value", _gscore_please_select_id);
@@ -82,21 +85,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_systemOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009A_systemOid" dataSource="sysMap" id="CORE_PROG001D0009A_systemOid"></gs:select>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_className')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0009A_className" id="CORE_PROG001D0009A_className" value="" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_type')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009A_type" dataSource="typeMap" id="CORE_PROG001D0009A_type"></gs:select>
     		</td>

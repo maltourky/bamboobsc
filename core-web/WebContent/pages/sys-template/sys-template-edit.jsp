@@ -35,15 +35,18 @@ CORE_PROG001D0007E_fieldsId['message'] 		= 'CORE_PROG001D0007E_message';
 
 function CORE_PROG001D0007E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0007E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0007E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0007E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0007E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0007E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007E_fieldsId);
 	//dijit.byId('CORE_PROG001D0007E_templateId').set("value", ""); // readOnly
 	dijit.byId('CORE_PROG001D0007E_title').set("value", "");
 	dijit.byId('CORE_PROG001D0007E_message').set("value", "");
@@ -81,28 +84,28 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_templateId')"/></b> <s:property value="getText('CORE_PROG001D0007E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_templateId')"/>:</b> <s:property value="getText('CORE_PROG001D0007E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_templateId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_templateId" id="CORE_PROG001D0007E_templateId" value="sysTemplate.templateId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>    		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_title')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_title" id="CORE_PROG001D0007E_title" value="sysTemplate.title" width="400" maxlength="200"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="325px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_message')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_message')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_message"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<div data-dojo-type="dijit/Editor" id="CORE_PROG001D0007E_message" data-dojo-props="onChange:function(){ }">${sysTemplate.message}</div>    			
     		</td>
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0007E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0007E_description')"/>:</b>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_description" id="CORE_PROG001D0007E_description" value="sysTemplate.description" width="400" maxlength="200"></gs:textBox>
     		</td>

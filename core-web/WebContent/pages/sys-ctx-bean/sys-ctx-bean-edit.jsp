@@ -35,15 +35,18 @@ CORE_PROG001D0009E_fieldsId['type'] 		= 'CORE_PROG001D0009E_type';
 
 function CORE_PROG001D0009E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0009E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0009E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0009E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0009E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0009E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0009E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0009E_fieldsId);
 	dijit.byId('CORE_PROG001D0009E_systemOid').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG001D0009E_className').set("value", "");
 	dijit.byId('CORE_PROG001D0009E_type').set("value", _gscore_please_select_id);
@@ -81,21 +84,21 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_systemOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009E_systemOid" dataSource="sysMap" id="CORE_PROG001D0009E_systemOid" value="selectValue"></gs:select>
     		</td>    		
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_className')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0009E_className" id="CORE_PROG001D0009E_className" value="sysCtxBean.className" width="400" maxlength="255"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_type')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009E_type" dataSource="typeMap" id="CORE_PROG001D0009E_type" value="sysCtxBean.type"></gs:select>
     		</td>    		

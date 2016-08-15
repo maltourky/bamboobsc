@@ -43,15 +43,18 @@ CORE_PROG001D0006E_fieldsId['toAccountOid'] 	= 'CORE_PROG001D0006E_toAccountOid'
 
 function CORE_PROG001D0006E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0006E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0006E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0006E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0006E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0006E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0006E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0006E_fieldsId);
 	//dijit.byId('CORE_PROG001D0006E_msgOid').set("value", _gscore_please_select_id);	// readOnly
 	//dijit.byId('CORE_PROG001D0006E_noticeId').set("value", "");						// readOnly
 	dijit.byId('CORE_PROG001D0006E_title').set("value", "");
@@ -97,49 +100,49 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="625px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_msgOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_msgOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_msgOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0006E_msgOid" dataSource="msgDataMap" id="CORE_PROG001D0006E_msgOid" value="selectConfigOid" readonly="Y"></gs:select>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_noticeId')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_noticeId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_noticeId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0006E_noticeId" id="CORE_PROG001D0006E_noticeId" value="sysMsgNotice.noticeId" width="200" maxlength="13" readonly="Y"></gs:textBox>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_title')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0006E_title" id="CORE_PROG001D0006E_title" value="sysMsgNotice.title" width="400" maxlength="100"></gs:textBox>
     		</td>
     	</tr> 	
 		<tr>
     		<td height="225px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_message')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_message')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_message"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="CORE_PROG001D0006E_message" name="CORE_PROG001D0006E_message" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px">${sysMsgNotice.message}</textarea>	
     		</td>
     	</tr>	 	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_date')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0006E_date')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_date1"></gs:inputfieldNoticeMsgLabel><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_date2"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			
-    			<b><s:property value="getText('CORE_PROG001D0006E_date1')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0006E_date1')"/>:</b>
     			<input id="CORE_PROG001D0006E_date1" type="text" name="CORE_PROG001D0006E_date1" data-dojo-type="dijit.form.DateTextBox" maxlength="10" constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" required="true" style="width:120px;" value="${date1}"/>
     			&nbsp;
     			~
     			&nbsp;
-    			<b><s:property value="getText('CORE_PROG001D0006E_date2')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0006E_date2')"/>:</b>
     			<input id="CORE_PROG001D0006E_date2" type="text" name="CORE_PROG001D0006E_date2" data-dojo-type="dijit.form.DateTextBox" maxlength="10" constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" required="true" style="width:120px;" value="${date2}"/>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0006E_time')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0006E_time')"/>:</b>
     			<br/>
     			<b><s:property value="getText('CORE_PROG001D0006E_timeStart')"/></b>&nbsp;
     			<s:property value="getText('CORE_PROG001D0006E_time_startHour')"/><gs:select name="CORE_PROG001D0006E_time_startHour" dataSource="hourMap" id="CORE_PROG001D0006E_time_startHour" value="startHour" width="60"></gs:select>
@@ -155,14 +158,14 @@ function ${programId}_page_message() {
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0006E_isGlobal')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0006E_isGlobal')"/>:</b>
     			<br/>
     			<input id="CORE_PROG001D0006E_isGlobal" name="CORE_PROG001D0006E_isGlobal" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysMsgNotice.isGlobal "> checked</s:if> /> 
     		</td>
     	</tr> 
 		<tr>
 			<td height="50px" width="100%"  align="left">
-				<b><s:property value="getText('CORE_PROG001D0006E_toAccountOid')"/></b>:
+				<b><s:property value="getText('CORE_PROG001D0006E_toAccountOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0006E_toAccountOid"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:select name="CORE_PROG001D0006E_toAccountOid" dataSource="accountMap" id="CORE_PROG001D0006E_toAccountOid" value="selectAccountOid"></gs:select>
 			</td>

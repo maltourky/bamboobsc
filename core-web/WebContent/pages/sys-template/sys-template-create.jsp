@@ -35,9 +35,11 @@ CORE_PROG001D0007A_fieldsId['message'] 		= 'CORE_PROG001D0007A_message';
 
 function CORE_PROG001D0007A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG001D0007A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0007A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0007A_fieldsId);
 		return;
 	}	
 	CORE_PROG001D0007A_clear();
@@ -45,6 +47,7 @@ function CORE_PROG001D0007A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG001D0007A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0007A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007A_fieldsId);
 	dijit.byId('CORE_PROG001D0007A_templateId').set("value", "");
 	dijit.byId('CORE_PROG001D0007A_title').set("value", "");
 	dijit.byId('CORE_PROG001D0007A_message').set("value", "");
@@ -82,28 +85,28 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_templateId')"/></b>:    			
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_templateId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_templateId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_templateId" id="CORE_PROG001D0007A_templateId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_title')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_title" id="CORE_PROG001D0007A_title" value="" width="400" maxlength="200"></gs:textBox>
     		</td>    		    	
     	</tr>	
 		<tr>
     		<td height="325px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_message')"/></b>:    			
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_message')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_message"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<div data-dojo-type="dijit/Editor" id="CORE_PROG001D0007A_message" data-dojo-props="onChange:function(){ }"></div>
     		</td>    		
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0007A_description')"/></b>:    			
+    			<b><s:property value="getText('CORE_PROG001D0007A_description')"/>:</b>    			
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_description" id="CORE_PROG001D0007A_description" value="" width="400" maxlength="200"></gs:textBox>
     		</td>    		

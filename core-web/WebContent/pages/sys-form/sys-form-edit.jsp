@@ -34,15 +34,18 @@ CORE_PROG001D0013E_fieldsId['name'] 		= 'CORE_PROG001D0013E_name';
 
 function CORE_PROG001D0013E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0013E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0013E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0013E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0013E_fieldsId);
 		return;
 	}		
 }
 
 function CORE_PROG001D0013E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0013E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0013E_fieldsId);
 	dijit.byId('CORE_PROG001D0013E_templateOid').set("value", _gscore_please_select_id);
 	dijit.byId('CORE_PROG001D0013E_name').set("value", "");
 	dijit.byId('CORE_PROG001D0013E_description').set("value", "");	
@@ -79,28 +82,28 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_formId')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_formId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013E_formId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0013E_formId" id="CORE_PROG001D0013E_formId" value="form.formId" width="200" maxlength="50" readonly="Y"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_templateOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_templateOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013E_templateOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0013E_templateOid" dataSource="templateMap" id="CORE_PROG001D0013E_templateOid" value="fields.templateOid"></gs:select>
     		</td>    		
     	</tr>    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0013E_name" id="CORE_PROG001D0013E_name" value="form.name" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	    	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0013E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0013E_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0013E_description" name="CORE_PROG001D0013E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${form.description}</textarea>
     		</td>    		

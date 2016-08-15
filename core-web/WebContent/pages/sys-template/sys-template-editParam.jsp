@@ -53,9 +53,11 @@ function CORE_PROG001D0007E_S00_GridButtonClick(itemOid) {
 
 function CORE_PROG001D0007E_S00_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0007E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007E_S00_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0007E_S00_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0007E_S00_fieldsId);
 		return;
 	}		
 	CORE_PROG001D0007E_S00_clear();
@@ -64,6 +66,7 @@ function CORE_PROG001D0007E_S00_saveSuccess(data) {
 
 function CORE_PROG001D0007E_S00_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0007E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0007E_S00_fieldsId);
 	dijit.byId('CORE_PROG001D0007E_S00_templateVar').set("value", "");
 	dijit.byId('CORE_PROG001D0007E_S00_objectVar').set("value", "");
 	dijit.byId('CORE_PROG001D0007E_S00_isTitle').set("checked", false);
@@ -132,7 +135,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_templateVar')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_templateVar')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_templateVar"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_S00_templateVar" id="CORE_PROG001D0007E_S00_templateVar" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
@@ -140,7 +143,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_objectVar')"/>:</b></font>
+    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_objectVar')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_objectVar"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_S00_objectVar" id="CORE_PROG001D0007E_S00_objectVar" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
