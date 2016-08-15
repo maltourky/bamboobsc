@@ -48,15 +48,18 @@ BSC_PROG002D0004E_fieldsId['dataType'] 			= 'BSC_PROG002D0004E_dataType';
 
 function BSC_PROG002D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG002D0004E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0004E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
-		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0004E_fieldsId);		
+		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0004E_fieldsId);	
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0004E_fieldsId);
 		return;
 	}		
 }
 
 function BSC_PROG002D0004E_clear() {
 	setFieldsBackgroundDefault(BSC_PROG002D0004E_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0004E_fieldsId);
 	clearSelectItems(true, 'BSC_PROG002D0004E_objectiveOid'); // 當 vision 改變後要將 Objective 清掉, 因為只會觸發 perspective 項目的改變
 	dijit.byId('BSC_PROG002D0004E_visionOid').set("value", _gscore_please_select_id);
 	//dijit.byId('BSC_PROG002D0004E_perspectiveOid').set("value", _gscore_please_select_id); // vision下拉會觸發perspective下拉更新項目
@@ -272,11 +275,11 @@ function ${programId}_page_message() {
 	<input type="hidden" name="BSC_PROG002D0004E_appendEmployeeOid" id="BSC_PROG002D0004E_appendEmployeeOid" value="${fields.appendEmplOids}" />	
 	<input type="hidden" name="BSC_PROG002D0004E_uploadDocumentOid" id="BSC_PROG002D0004E_uploadDocumentOid" value="" /><!-- 這個upload放oid的欄位只是當temp用 -->
 	
-	<table border="0" width="850" height="1000px" cellpadding="1" cellspacing="0" >
+	<table border="0" width="970" height="1000px" cellpadding="1" cellspacing="0" >
 		<tr>
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_visionOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_visionOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_visionOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>    		
     			<gs:select name="BSC_PROG002D0004E_visionOid" dataSource="visionMap" id="BSC_PROG002D0004E_visionOid" onChange="BSC_PROG002D0004E_triggerChangePerspectiveItems();" value="fields.visionOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_visionOid'">
@@ -284,7 +287,7 @@ function ${programId}_page_message() {
 				</div>     			
     		</td> 
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_id')"/></b> <s:property value="getText('BSC_PROG002D0004E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_id')"/>:</b> <s:property value="getText('BSC_PROG002D0004E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0004E_id" id="BSC_PROG002D0004E_id" value="kpi.id" width="200" maxlength="14" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_id'">
@@ -294,7 +297,7 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_perspectiveOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_perspectiveOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_perspectiveOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_perspectiveOid" dataSource="perspectiveMap" id="BSC_PROG002D0004E_perspectiveOid" onChange="BSC_PROG002D0004E_triggerChangeObjectiveItems();" value="fields.perspectiveOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_perspectiveOid'">
@@ -302,7 +305,7 @@ function ${programId}_page_message() {
 				</div>        			
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<gs:textBox name="BSC_PROG002D0004E_name" id="BSC_PROG002D0004E_name" value="kpi.name" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_name'">
@@ -312,7 +315,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_objectiveOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_objectiveOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_objectiveOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_objectiveOid" dataSource="objectiveMap" id="BSC_PROG002D0004E_objectiveOid" value="fields.objectiveOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_objectiveOid'">
@@ -320,7 +323,7 @@ function ${programId}_page_message() {
 				</div>       			
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_formulaOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_formulaOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_formulaOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_formulaOid" dataSource="formulaMap" id="BSC_PROG002D0004E_formulaOid" value="fields.formulaOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_formulaOid'">
@@ -330,7 +333,7 @@ function ${programId}_page_message() {
     	</tr>		    		
 		<tr>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_weight')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_weight')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_weight"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0004E_weight" name="BSC_PROG002D0004E_weight" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="${kpi.weight}" data-dojo-props="smallDelta:10, constraints:{min:0.00,max:999.00, pattern: '+000.00;-0.00' }" />
@@ -339,7 +342,7 @@ function ${programId}_page_message() {
 				</div>      				        			
     		</td>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_management')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_management')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_management"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_management" dataSource="managementMap" id="BSC_PROG002D0004E_management" value="kpi.management"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_management'">
@@ -350,7 +353,7 @@ function ${programId}_page_message() {
     				the options will effect KPI Report result date-range item UP / DOWN status icon.
 				</div>      			
     			&nbsp;&nbsp;
-    			<b><s:property value="getText('BSC_PROG002D0004E_quasiRange')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_quasiRange')"/>:</b>
     			<gs:select name="BSC_PROG002D0004E_quasiRange" dataSource="quasiRangeMap" id="BSC_PROG002D0004E_quasiRange" value="kpi.quasiRange" width="70"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_quasiRange'">
     				Select quasi-range %. <BR/>
@@ -367,7 +370,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_max')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_max')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_max"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 	   			<input id="BSC_PROG002D0004E_max" name="BSC_PROG002D0004E_max" type="text" data-dojo-type="dijit/form/NumberSpinner" 
 	    				value="${kpi.max}" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -376,7 +379,7 @@ function ${programId}_page_message() {
 				</div>  	    				      			
     		</td>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_cal')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_cal')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_cal"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<gs:select name="BSC_PROG002D0004E_cal" dataSource="calculationMap" id="BSC_PROG002D0004E_cal" value="fields.aggrMethodOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_cal'">
@@ -386,7 +389,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_target')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_target')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_target"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 	   			<input id="BSC_PROG002D0004E_target" name="BSC_PROG002D0004E_target" type="text" data-dojo-type="dijit/form/NumberSpinner" 
 	    				value="${kpi.target}" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -395,7 +398,7 @@ function ${programId}_page_message() {
 				</div>  	    				      			
     		</td>		
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_min')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_min')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_min"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0004E_min" name="BSC_PROG002D0004E_min" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="${kpi.min}" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -406,7 +409,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_compareType')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_compareType')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_compareType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_compareType" dataSource="compareTypeMap" id="BSC_PROG002D0004E_compareType" value="kpi.compareType"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_compareType'">
@@ -418,7 +421,7 @@ function ${programId}_page_message() {
 				</div>       			
     		</td>
     		<td height="50px" width="50%"  align="left" >
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_unit')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_unit')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_unit"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0004E_unit" id="BSC_PROG002D0004E_unit" value="kpi.unit" width="150" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_unit'">
@@ -428,7 +431,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_dataType')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_dataType')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_dataType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_dataType" dataSource="dataTypeMap" id="BSC_PROG002D0004E_dataType" value="kpi.dataType"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_dataType'">
@@ -443,7 +446,7 @@ function ${programId}_page_message() {
 				</div>     			
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_trendsFormulaOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0004E_trendsFormulaOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004E_trendsFormulaOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0004E_trendsFormulaOid" dataSource="trendsFormulaMap" id="BSC_PROG002D0004E_trendsFormulaOid" value="fields.trendsFormulaOid"></gs:select>
     			<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_trendsFormulaOid'">
@@ -453,7 +456,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b><s:property value="getText('BSC_PROG002D0004E_deptSelect')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_deptSelect')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG002D0004E_deptSelect" id="BSC_PROG002D0004E_deptSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -483,7 +486,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b><s:property value="getText('BSC_PROG002D0004E_emplSelect')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_emplSelect')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG002D0004E_emplSelect" id="BSC_PROG002D0004E_emplSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -513,7 +516,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b><s:property value="getText('BSC_PROG002D0004E_orgaMeasureSeparate')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_orgaMeasureSeparate')"/>:</b>
     			<br/>
     			<input id="BSC_PROG002D0004E_orgaMeasureSeparate" name="BSC_PROG002D0004E_orgaMeasureSeparate" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == kpi.orgaMeasureSeparate "> checked="checked" </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_orgaMeasureSeparate'">
@@ -523,7 +526,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b><s:property value="getText('BSC_PROG002D0004E_userMeasureSeparate')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_userMeasureSeparate')"/>:</b>
     			<br/>
     			<input id="BSC_PROG002D0004E_userMeasureSeparate" name="BSC_PROG002D0004E_userMeasureSeparate" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == kpi.userMeasureSeparate "> checked="checked" </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_userMeasureSeparate'">
@@ -533,7 +536,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<b><s:property value="getText('BSC_PROG002D0004E_activate')"/></b>:
+    			<b><s:property value="getText('BSC_PROG002D0004E_activate')"/>:</b>
     			<br/>
 				<input id="BSC_PROG002D0004E_activate" name="BSC_PROG002D0004E_activate" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == kpi.activate "> checked="checked" </s:if> />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_activate'">
@@ -544,7 +547,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left" colspan="2">
-		    	<b><s:property value="getText('BSC_PROG002D0004E_description')"/></b>:
+		    	<b><s:property value="getText('BSC_PROG002D0004E_description')"/>:</b>
 		    	<br/>
 		    	<textarea id="BSC_PROG002D0004E_description" name="BSC_PROG002D0004E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${kpi.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004E_description'">
@@ -554,7 +557,7 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>
 		    <td height="150px" width="100%" align="left" colspan="2">
-		    	<b><s:property value="getText('BSC_PROG002D0004E_attachment')"/></b>:
+		    	<b><s:property value="getText('BSC_PROG002D0004E_attachment')"/>:</b>
 		    	<br/>
 				<button name="BSC_PROG002D0004E_uploadDocumentBtn" id="BSC_PROG002D0004E_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
 					data-dojo-props="

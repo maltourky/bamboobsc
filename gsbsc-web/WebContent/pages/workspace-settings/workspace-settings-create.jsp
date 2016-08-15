@@ -34,7 +34,8 @@ BSC_PROG004D0002A_fieldsId['workspaceName'] 		= 'BSC_PROG004D0002A_C00_workspace
 BSC_PROG004D0002A_fieldsId['workspaceTemplateOid'] 	= 'BSC_PROG004D0002A_C01_workspaceTemplateOid';
 
 function BSC_PROG004D0002A_save() {	
-	
+	setFieldsBackgroundDefault(BSC_PROG004D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0002A_fieldsId);	
 	if (dojo.byId("BSC_PROG004D0002A_C01_table") == null) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), "<s:property value="getText('MESSAGE.BSC_PROG004D0002A_C01_table')" escapeJavaScript="true"/>", function(){}, "Y");
 		return;
@@ -79,7 +80,8 @@ function BSC_PROG004D0002A_save() {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
-					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG004D0002A_fieldsId);					
+					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG004D0002A_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG004D0002A_fieldsId);							
 					return;
 				}
 				BSC_PROG004D0002A_TabClose();
