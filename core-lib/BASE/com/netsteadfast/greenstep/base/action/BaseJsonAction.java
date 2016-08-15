@@ -91,6 +91,11 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 		this.throwMessage(message);
 	}	
 	
+	protected void addFieldsNoticeMessage(String fieldId, String message) {
+		this.fieldsId.add(fieldId);
+		this.fieldsMessage.put(fieldId, message);
+	}
+	
 	// -----------------------------------------------------
 	// 最外層的 json action 要曝出method 才可
 	// -----------------------------------------------------

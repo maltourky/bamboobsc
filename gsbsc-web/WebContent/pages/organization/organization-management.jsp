@@ -46,9 +46,11 @@ BSC_PROG001D0002Q_fieldsId['address'] 	= 'BSC_PROG001D0002Q_address';
 
 function BSC_PROG001D0002Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG001D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0002Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG001D0002Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG001D0002Q_fieldsId);
 		return;
 	}	
 	BSC_PROG001D0002Q_clear(true);
@@ -56,6 +58,7 @@ function BSC_PROG001D0002Q_saveSuccess(data) { // data 是 json 資料
 
 function BSC_PROG001D0002Q_clear(reloadTree) {
 	setFieldsBackgroundDefault(BSC_PROG001D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0002Q_fieldsId);
 	dijit.byId('BSC_PROG001D0002Q_orgId').set("value", "");
 	dijit.byId("BSC_PROG001D0002Q_orgId").setAttribute('readOnly', false);
 	dijit.byId('BSC_PROG001D0002Q_name').set("value", "");
@@ -335,7 +338,8 @@ function ${programId}_page_message() {
 		<td width="75%" valign="top">
 			<table border="0" width="100%" height="625px" cellpadding="1" cellspacing="0" >
 				<tr>
-		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_orgId')"/></b>:<br/>
+		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_orgId')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_orgId"></gs:inputfieldNoticeMsgLabel>
+		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_orgId" id="BSC_PROG001D0002Q_orgId" value="" width="200" maxlength="10"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_orgId'">
 		    				Input Id, only allow normal characters.
@@ -343,7 +347,8 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>	
 				<tr>
-		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_name')"/></b>:<br/>
+		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_name"></gs:inputfieldNoticeMsgLabel>
+		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_name" id="BSC_PROG001D0002Q_name" value="" width="400" maxlength="200"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_name'">
 		    				Input name.
@@ -351,7 +356,7 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>    
 				<tr>
-		    		<td height="325px" width="100%" align="left" ><b><s:property value="getText('BSC_PROG001D0002Q_location')"/></b> <s:property value="getText('BSC_PROG001D0002Q_locationMemo')"/>:
+		    		<td height="325px" width="100%" align="left" ><b><s:property value="getText('BSC_PROG001D0002Q_location')"/>:</b> <s:property value="getText('BSC_PROG001D0002Q_locationMemo')"/>
 						<div dojoType="dijit.layout.BorderContainer" style="height:290px">
 							<div dojoType="dijit.layout.ContentPane" region="center" style="overflow:hidden">
 								<div id="${programId}_map_canvas" style="height:100%; width:100%"></div>
@@ -360,7 +365,8 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>       
 				<tr>
-		    		<td height="50px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_address')"/></b>:<br/>
+		    		<td height="50px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_address')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_address"></gs:inputfieldNoticeMsgLabel>
+		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_address" id="BSC_PROG001D0002Q_address" value="" width="600" maxlength="500"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_address'">
 		    				Input address.
@@ -368,7 +374,7 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>  		    			
 				<tr>
-		    		<td height="125px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_description')"/></b>:<br/>
+		    		<td height="125px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_description')"/>:</b><br/>
 		    			<textarea id="BSC_PROG001D0002Q_description" name="BSC_PROG001D0002Q_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_description'">
 		    				Input description, the maximum allowed 500 characters.

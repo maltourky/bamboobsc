@@ -269,6 +269,7 @@ public class EmployeeSaveOrUpdateAction extends BaseJsonAction {
 			this.message=ae.getMessage().toString();
 		} catch (ServiceException se) {
 			this.message=se.getMessage().toString();
+			super.addFieldsNoticeMessage("password1", this.message); // 2016-08-15 add
 		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
 			e.printStackTrace();
 			this.message=e.getMessage().toString();

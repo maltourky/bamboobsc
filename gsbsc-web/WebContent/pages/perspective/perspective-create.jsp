@@ -38,9 +38,11 @@ BSC_PROG002D0002A_fieldsId['description']	= 'BSC_PROG002D0002A_description';
 
 function BSC_PROG002D0002A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG002D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0002A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
-		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0002A_fieldsId);		
+		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0002A_fieldsId);	
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0002A_fieldsId);
 		return;
 	}	
 	BSC_PROG002D0002A_clear();
@@ -48,6 +50,7 @@ function BSC_PROG002D0002A_saveSuccess(data) { // data 是 json 資料
 
 function BSC_PROG002D0002A_clear() {
 	setFieldsBackgroundDefault(BSC_PROG002D0002A_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0002A_fieldsId);
 	dijit.byId('BSC_PROG002D0002A_visionOid').set("value", _gscore_please_select_id);	
 	dijit.byId('BSC_PROG002D0002A_name').set("value", "");		
 	dijit.byId('BSC_PROG002D0002A_weight').set("value", "+000.00");
@@ -87,7 +90,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="450px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_visionOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_visionOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_visionOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0002A_visionOid" dataSource="visionMap" id="BSC_PROG002D0002A_visionOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0002A_visionOid'">
@@ -97,7 +100,7 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0002A_name" id="BSC_PROG002D0002A_name" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0002A_name'">
@@ -107,7 +110,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_weight')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_weight')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_weight"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0002A_weight" name= "BSC_PROG002D0002A_weight" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0.0" data-dojo-props="smallDelta:10, constraints:{min:0.00,max:999.00, pattern: '+000.00;-0.00' }" />  
@@ -118,7 +121,7 @@ function ${programId}_page_message() {
     	</tr>        	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_target')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_target')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_target"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0002A_target" name= "BSC_PROG002D0002A_target" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0.0" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -129,7 +132,7 @@ function ${programId}_page_message() {
     	</tr>   
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_min')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0002A_min')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_min"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0002A_min" name= "BSC_PROG002D0002A_min" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0.0" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -140,7 +143,7 @@ function ${programId}_page_message() {
     	</tr>   
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('BSC_PROG002D0002A_description')"/></b>:
+		    	<b><s:property value="getText('BSC_PROG002D0002A_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0002A_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG002D0002A_description" name="BSC_PROG002D0002A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0002A_description'">

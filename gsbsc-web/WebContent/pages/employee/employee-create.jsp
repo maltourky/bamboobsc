@@ -37,9 +37,11 @@ BSC_PROG001D0001A_fieldsId['fullName'] 	= 'BSC_PROG001D0001A_fullName';
 
 function BSC_PROG001D0001A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG001D0001A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG001D0001A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG001D0001A_fieldsId);
 		return;
 	}	
 	BSC_PROG001D0001A_clear();
@@ -47,6 +49,7 @@ function BSC_PROG001D0001A_saveSuccess(data) { // data 是 json 資料
 
 function BSC_PROG001D0001A_clear() {
 	setFieldsBackgroundDefault(BSC_PROG001D0001A_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001A_fieldsId);
 	dijit.byId('BSC_PROG001D0001A_account').set("value", "");	
 	dijit.byId('BSC_PROG001D0001A_empId').set("value", "");		
 	dijit.byId('BSC_PROG001D0001A_password1').set("value", "");
@@ -119,7 +122,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="400px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_account')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_account')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001A_account"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001A_account" id="BSC_PROG001D0001A_account" value="" width="200" maxlength="24"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001A_account'">
@@ -129,7 +132,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_empId')"/></b> <s:property value="getText('BSC_PROG001D0001A_empIdno')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_empId')"/>:</b> <s:property value="getText('BSC_PROG001D0001A_empIdno')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001A_empId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001A_empId" id="BSC_PROG001D0001A_empId" value="" width="200" maxlength="10"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001A_empId'">
@@ -139,7 +142,7 @@ function ${programId}_page_message() {
     	</tr>      	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_password1')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_password1')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001A_password1"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001A_password1" id="BSC_PROG001D0001A_password1" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -150,7 +153,7 @@ function ${programId}_page_message() {
     	</tr> 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_password1')"/></b> <s:property value="getText('BSC_PROG001D0001A_password2')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_password1')"/>:</b> <s:property value="getText('BSC_PROG001D0001A_password2')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001A_password2"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001A_password2" id="BSC_PROG001D0001A_password2" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -161,7 +164,7 @@ function ${programId}_page_message() {
     	</tr> 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_fullName')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001A_fullName')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001A_fullName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001A_fullName" id="BSC_PROG001D0001A_fullName" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001A_fullName'">
@@ -171,7 +174,7 @@ function ${programId}_page_message() {
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG001D0001A_jobTitle')"/></b>:
+    			<b><s:property value="getText('BSC_PROG001D0001A_jobTitle')"/>:</b>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001A_jobTitle" id="BSC_PROG001D0001A_jobTitle" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001A_jobTitle'">
@@ -181,7 +184,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="20%"  align="left">
-    			<b><s:property value="getText('BSC_PROG001D0001A_deptSelect')"/></b>:&nbsp;&nbsp;
+    			<b><s:property value="getText('BSC_PROG001D0001A_deptSelect')"/>:</b>&nbsp;&nbsp;
 				<button name="BSC_PROG001D0001A_deptSelect" id="BSC_PROG001D0001A_deptSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,

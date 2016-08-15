@@ -35,9 +35,11 @@ BSC_PROG001D0001E_S00_fieldsId['password3'] 	= 'BSC_PROG001D0001E_S00_password3'
 
 function BSC_PROG001D0001E_S00_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG001D0001E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001E_S00_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG001D0001E_S00_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG001D0001E_S00_fieldsId);
 		return;
 	}	
 	BSC_PROG001D0001E_S00_clear();
@@ -46,6 +48,7 @@ function BSC_PROG001D0001E_S00_updateSuccess(data) {
 
 function BSC_PROG001D0001E_S00_clear() {
 	setFieldsBackgroundDefault(BSC_PROG001D0001E_S00_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001E_S00_fieldsId);
 	dijit.byId('BSC_PROG001D0001E_S00_password1').set("value", "");
 	dijit.byId('BSC_PROG001D0001E_S00_password2').set("value", "");	
 	dijit.byId('BSC_PROG001D0001E_S00_password3').set("value", "");	
@@ -86,7 +89,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password1')"/>:</b></font>
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password1')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password1"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password1" id="BSC_PROG001D0001E_S00_password1" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -97,7 +100,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password2')"/>:</b></font>
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password2')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password2"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password2" id="BSC_PROG001D0001E_S00_password2" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -108,7 +111,7 @@ function ${programId}_page_message() {
     	</tr>  	 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password3')"/>:</b></font>
+    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password3')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password3"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password3" id="BSC_PROG001D0001E_S00_password3" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />

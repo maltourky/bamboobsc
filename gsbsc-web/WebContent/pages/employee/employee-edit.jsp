@@ -33,15 +33,18 @@ BSC_PROG001D0001E_fieldsId['fullName'] 	= 'BSC_PROG001D0001E_fullName';
 
 function BSC_PROG001D0001E_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG001D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG001D0001E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG001D0001E_fieldsId);
 		return;
 	}		
 }
 
 function BSC_PROG001D0001E_clear() {
 	setFieldsBackgroundDefault(BSC_PROG001D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0001E_fieldsId);
 	dijit.byId('BSC_PROG001D0001E_fullName').set("value", "");
 	dijit.byId('BSC_PROG001D0001E_jobTitle').set("value", "");	
 	BSC_PROG001D0001E_clearAppendId();
@@ -110,7 +113,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="300px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_account')"/></b> <s:property value="getText('BSC_PROG001D0001E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_account')"/>:</b> <s:property value="getText('BSC_PROG001D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_account"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001E_account" id="BSC_PROG001D0001E_account" value="employee.account" width="200" maxlength="24" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_account'">
@@ -119,7 +122,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_empId')"/></b> <s:property value="getText('BSC_PROG001D0001E_empIdno')"/> / <s:property value="getText('BSC_PROG001D0001E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_empId')"/>:</b> <s:property value="getText('BSC_PROG001D0001E_empIdno')"/> / <s:property value="getText('BSC_PROG001D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_empId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001E_empId" id="BSC_PROG001D0001E_empId" value="employee.empId" width="200" maxlength="10" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_empId'">
@@ -129,7 +132,7 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_fullName')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0001E_fullName')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_fullName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001E_fullName" id="BSC_PROG001D0001E_fullName" value="employee.fullName" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_fullName'">
@@ -139,7 +142,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG001D0001E_jobTitle')"/></b>:
+    			<b><s:property value="getText('BSC_PROG001D0001E_jobTitle')"/>:</b>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0001E_jobTitle" id="BSC_PROG001D0001E_jobTitle" value="employee.jobTitle" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0001E_jobTitle'">
@@ -149,7 +152,7 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG001D0001E_deptSelect')"/></b>:&nbsp;&nbsp;
+    			<b><s:property value="getText('BSC_PROG001D0001E_deptSelect')"/>:</b>&nbsp;&nbsp;
 				<button name="BSC_PROG001D0001E_deptSelect" id="BSC_PROG001D0001E_deptSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
 						showLabel:false,
