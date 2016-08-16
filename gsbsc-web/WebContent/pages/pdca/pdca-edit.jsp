@@ -32,6 +32,9 @@ var BSC_PROG006D0001E_fieldsId = new Object();
 BSC_PROG006D0001E_fieldsId["title"] 									= "BSC_PROG006D0001E_title";
 BSC_PROG006D0001E_fieldsId["startDate"] 								= "BSC_PROG006D0001E_contentTab_startDate";
 BSC_PROG006D0001E_fieldsId["endDate"] 									= "BSC_PROG006D0001E_contentTab_endDate";
+BSC_PROG006D0001E_fieldsId["orgaOids"] 									= "BSC_PROG006D0001E_contentTab_orgaOids_noticeMessageOnly";
+BSC_PROG006D0001E_fieldsId["emplOids"] 									= "BSC_PROG006D0001E_contentTab_emplOids_noticeMessageOnly";
+BSC_PROG006D0001E_fieldsId["kpiOids"] 									= "BSC_PROG006D0001E_contentTab_kpiOids_noticeMessageOnly";
 BSC_PROG006D0001E_fieldsId["measureFreq_frequency"] 					= "BSC_PROG006D0001E_contentTab_measureFreq_frequency";
 BSC_PROG006D0001E_fieldsId["measureFreq_startYearDate"] 				= "BSC_PROG006D0001E_contentTab_measureFreq_startYearDate";
 BSC_PROG006D0001E_fieldsId["measureFreq_endYearDate"] 					= "BSC_PROG006D0001E_contentTab_measureFreq_endYearDate";
@@ -44,9 +47,11 @@ BSC_PROG006D0001E_fieldsId["measureFreq_measureDataEmployeeOid"] 		= "BSC_PROG00
 
 function BSC_PROG006D0001E_updateSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG006D0001E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG006D0001E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG006D0001E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG006D0001E_fieldsId);
 		return;
 	}	
 	//BSC_PROG006D0001E_clear();
@@ -395,7 +400,7 @@ function BSC_PROG006D0001E_pdcaTab_itemTableTdContentData(node) {
 	
 	
 	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
-	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee)</b>:&nbsp;&nbsp;';
+	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee):</b>&nbsp;&nbsp;';
 	str += '<button name="' + idHead + '_emplSelect" id="' + idHead + '_emplSelect" data-dojo-type="dijit.form.Button" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
@@ -420,7 +425,7 @@ function BSC_PROG006D0001E_pdcaTab_itemTableTdContentData(node) {
 	str += '<br/>';
 	
 	str += '<input type="hidden" name="' + idHead +'_uploadDocumentOid" id="' + idHead +'_uploadDocumentOid" value="' + node.ownerOids + '" />';
-	str += '<b>Document / attachment</b>:&nbsp;&nbsp;';
+	str += '<b>Document / attachment:</b>&nbsp;&nbsp;';
 	str += '<button name="' + idHead + '_uploadDocumentBtn" id="' + idHead + '_uploadDocumentBtn" data-dojo-type="dijit.form.Button" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
@@ -663,7 +668,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Title</b>:
+    			<font color='RED'>*</font><b>Title:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG006D0001E_title" id="BSC_PROG006D0001E_title" value="pdca.title" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_title'">
@@ -792,7 +797,7 @@ function ${programId}_page_message() {
 			<table border="0" width="100%" height="600px" cellpadding="1" cellspacing="0" >
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Date range</b>:
+		    			<font color='RED'>*</font><b>Date range:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_contentTab_startDate"></gs:inputfieldNoticeMsgLabel><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_contentTab_endDate"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			Start
 		    			<input id="BSC_PROG006D0001E_contentTab_startDate" type="text" name="BSC_PROG006D0001E_contentTab_startDate" data-dojo-type="dijit.form.DateTextBox"
@@ -896,7 +901,7 @@ function ${programId}_page_message() {
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left" colspan="2">
-		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Organization / Department)</b>:
+		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Organization / Department):</b>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001E_contentTab_deptSelect" id="BSC_PROG006D0001E_contentTab_deptSelect" data-dojo-type="dijit.form.Button"
 							data-dojo-props="
@@ -919,14 +924,15 @@ function ${programId}_page_message() {
 							"></button>	
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_contentTab_deptClear'">
 		    				Clear responsibility&nbsp;(Organization / Department).
-						</div>					
+						</div>
+						<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_contentTab_orgaOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 						<br/>	    			    			
 		    			<span id="BSC_PROG006D0001E_contentTab_organizationAppendName"><s:property value="fields.appendOrgaNamesForPdcaOrga"/></span>    			
 		    		</td>
 		    	</tr>     		    	
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Employee)</b>:
+		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Employee):</b>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001E_contentTab_emplSelect" id="BSC_PROG006D0001E_contentTab_emplSelect" data-dojo-type="dijit.form.Button"
 							data-dojo-props="
@@ -949,14 +955,15 @@ function ${programId}_page_message() {
 							"></button>		
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_contentTab_emplClear'">
 		    				Clear responsibility (Employee). 
-						</div>											
+						</div>
+						<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_contentTab_emplOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 						<br/>
 						<span id="BSC_PROG006D0001E_contentTab_employeeAppendName"><s:property value="fields.appendOwnerNamesForPdcaOwner"/></span>	 		    			
 		    		</td>
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>KPIs</b>:
+		    			<font color='RED'>*</font><b>KPIs:</b>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001E_contentTab_kpiSelect" id="BSC_PROG006D0001E_contentTab_kpiSelect" data-dojo-type="dijit.form.Button"
 							data-dojo-props="
@@ -979,14 +986,15 @@ function ${programId}_page_message() {
 							"></button>		
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_contentTab_kpiClear'">
 		    				Clear KPIs. 
-						</div>											
+						</div>
+						<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001E_contentTab_kpiOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 						<br/>
 						<span id="BSC_PROG006D0001E_contentTab_kpisAppendName"><s:property value="fields.appendKpiNamesForPdcaKpis"/></span>	 		    			
 		    		</td>
 		    	</tr>		    			    	
 				<tr>
 		    		<td height="125px" width="100%"  align="left">
-				    	<b>Description</b>:
+				    	<b>Description:</b>
 				    	<br/>
 				    	<textarea id="BSC_PROG006D0001E_contentTab_description" name="BSC_PROG006D0001E_contentTab_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${pdca.description}</textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_contentTab_description'">
@@ -996,7 +1004,7 @@ function ${programId}_page_message() {
 		    	</tr>		    	
 				<tr>
 				    <td height="150px" width="100%" align="left" colspan="2">
-				    	<b>Document / attachment</b>:
+				    	<b>Document / attachment:</b>
 				    	<br/>
 						<button name="BSC_PROG006D0001E_contentTab_uploadDocumentBtn" id="BSC_PROG006D0001E_contentTab_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
 							data-dojo-props="
@@ -1035,14 +1043,14 @@ function ${programId}_page_message() {
         	<table border="0" width="100%" cellpadding="1" cellspacing="0" >
         		<tr>
         			<td height="50px" width="100%"  align="left">
-        				<font color='RED'>*</font><b>Type</b>:
+        				<font color='RED'>*</font><b>Type:</b>
         				<br/>
         				<gs:select name="BSC_PROG006D0001E_pdcaTab_type" dataSource="pdcaTypeMap" id="BSC_PROG006D0001E_pdcaTab_type"  width="140"></gs:select>
         			</td>
         		</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Title</b>:
+		    			<font color='RED'>*</font><b>Title:</b>
 		    			<br/>
 		    			<gs:textBox name="BSC_PROG006D0001E_pdcaTab_title" id="BSC_PROG006D0001E_pdcaTab_title" value="" width="400" maxlength="100"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_pdcaTab_title'">
@@ -1052,7 +1060,7 @@ function ${programId}_page_message() {
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Date range</b>:
+		    			<font color='RED'>*</font><b>Date range:</b>
 		    			<br/>
 		    			Start
 		    			<input id="BSC_PROG006D0001E_pdcaTab_startDate" type="text" name="BSC_PROG006D0001E_pdcaTab_startDate" data-dojo-type="dijit.form.DateTextBox"
@@ -1073,7 +1081,7 @@ function ${programId}_page_message() {
 		    	</tr>	
 				<tr>
 		    		<td height="125px" width="100%"  align="left">
-				    	<b>Description</b>:
+				    	<b>Description:</b>
 				    	<br/>
 				    	<textarea id="BSC_PROG006D0001E_pdcaTab_description" name="BSC_PROG006D0001E_pdcaTab_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_pdcaTab_description'">

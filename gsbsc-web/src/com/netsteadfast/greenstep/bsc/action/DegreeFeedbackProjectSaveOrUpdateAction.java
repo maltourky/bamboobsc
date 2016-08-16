@@ -90,10 +90,10 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 			super.throwMessage("year", this.getText("MESSAGE.BSC_PROG005D0001A_msg1"));
 		}
 		if (super.defaultString(this.getFields().get("ownerOids")).trim().length()<1) {
-			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg2"));
+			super.throwMessage("ownerOids", this.getText("MESSAGE.BSC_PROG005D0001A_msg2"));
 		}
 		if (super.defaultString(this.getFields().get("raterOids")).trim().length()<1) {
-			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg3"));
+			super.throwMessage("raterOids", this.getText("MESSAGE.BSC_PROG005D0001A_msg3"));
 		}	
 		Map<String, List<Map<String, Object>>> levelData = null;
 		Map<String, List<Map<String, Object>>> itemData = null;
@@ -104,10 +104,10 @@ public class DegreeFeedbackProjectSaveOrUpdateAction extends BaseJsonAction {
 			e.printStackTrace();
 		}
 		if (levelData == null || levelData.get("data") == null || levelData.get("data").size() < 1 ) {
-			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg4"));
+			super.throwMessage("levelData", this.getText("MESSAGE.BSC_PROG005D0001A_msg4"));
 		}
 		if (itemData == null || itemData.get("data") == null || itemData.get("data").size() < 1 ) {
-			super.throwMessage(this.getText("MESSAGE.BSC_PROG005D0001A_msg5"));
+			super.throwMessage("itemData", this.getText("MESSAGE.BSC_PROG005D0001A_msg5"));
 		}		
 	}
 	

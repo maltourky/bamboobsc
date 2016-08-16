@@ -37,9 +37,11 @@ BSC_PROG004D0003Q_fieldsId['roleOid'] 		= 'BSC_PROG004D0003Q_roleOid';
 
 function BSC_PROG004D0003Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG004D0003Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0003Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG004D0003Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG004D0003Q_fieldsId);
 		return;
 	}	
 	//BSC_PROG004D0003Q_clear();
@@ -108,6 +110,8 @@ function BSC_PROG004D0003Q_reloadEmployeeAppendName() {
 }
 
 function BSC_PROG004D0003Q_clear() {
+	setFieldsBackgroundDefault(BSC_PROG004D0003Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0003Q_fieldsId);	
 	BSC_PROG004D0003Q_clearOrgaAppendId();
 	BSC_PROG004D0003Q_clearEmplAppendId();
 	dijit.byId("BSC_PROG004D0003Q_roleOid").set("value", _gscore_please_select_id );
@@ -157,7 +161,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG004D0003Q_roleOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG004D0003Q_roleOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0003Q_roleOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG004D0003Q_roleOid" dataSource="roleMap" id="BSC_PROG004D0003Q_roleOid" onChange="BSC_PROG004D0003Q_roleChange();" value="fields.oid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0003Q_roleOid'">
@@ -167,7 +171,7 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG004D0003Q_deptSelect')"/></b>:
+    			<b><s:property value="getText('BSC_PROG004D0003Q_deptSelect')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG004D0003Q_deptSelect" id="BSC_PROG004D0003Q_deptSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -191,7 +195,7 @@ function ${programId}_page_message() {
     	</tr>     
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG004D0003Q_emplSelect')"/></b>:
+    			<b><s:property value="getText('BSC_PROG004D0003Q_emplSelect')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG004D0003Q_emplSelect" id="BSC_PROG004D0003Q_emplSelect" data-dojo-type="dijit.form.Button"
 					data-dojo-props="

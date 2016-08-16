@@ -89,6 +89,8 @@ function BSC_PROG002D0005Q_getKpiTree() {
 	</s:if>
 	*/
 	
+	alertDialog(_getApplicationProgramNameById('${programId}'), 'First select a KPI-item on tree menu.', function(){}, 'Y');
+	
 }
 
 function BSC_PROG002D0005Q_getKpiData(oid) {

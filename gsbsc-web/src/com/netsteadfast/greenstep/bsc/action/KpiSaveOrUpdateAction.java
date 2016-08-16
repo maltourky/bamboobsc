@@ -149,6 +149,7 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		paramMap.put("kpi", kpi);
 		paramMap.put("fieldsId", this.getFieldsId());
 		paramMap.put("fields", this.getFields());
+		paramMap.put("fieldsMessage", this.getFieldsMessage());
 		paramMap.put("msg1", this.getText("MESSAGE.BSC_PROG002D0004A_maxTargetMinCriteria_msg1"));
 		paramMap.put("msg2", this.getText("MESSAGE.BSC_PROG002D0004A_maxTargetMinCriteria_msg2"));
 		ScriptExpressionUtils.execute(expressionObj.getType(), expressionObj.getContent(), null, paramMap);		

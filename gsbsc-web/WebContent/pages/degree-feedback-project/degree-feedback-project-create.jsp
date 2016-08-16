@@ -32,12 +32,18 @@ var BSC_PROG005D0001A_fieldsId = new Object();
 BSC_PROG005D0001A_fieldsId['name'] 			= 'BSC_PROG005D0001A_name';
 BSC_PROG005D0001A_fieldsId['year'] 			= 'BSC_PROG005D0001A_year';
 BSC_PROG005D0001A_fieldsId['description']	= 'BSC_PROG005D0001A_description';
+BSC_PROG005D0001A_fieldsId['ownerOids']		= 'BSC_PROG005D0001A_ownerOids_noticeMessageOnly';
+BSC_PROG005D0001A_fieldsId['raterOids']		= 'BSC_PROG005D0001A_raterOids_noticeMessageOnly';
+BSC_PROG005D0001A_fieldsId['levelData']		= 'BSC_PROG005D0001A_levelData_noticeMessageOnly';
+BSC_PROG005D0001A_fieldsId['itemData']		= 'BSC_PROG005D0001A_itemData_noticeMessageOnly';
 
 function BSC_PROG005D0001A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG005D0001A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG005D0001A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG005D0001A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG005D0001A_fieldsId);
 		return;
 	}	
 	BSC_PROG005D0001A_clear();
@@ -78,6 +84,7 @@ function BSC_PROG005D0001A_reloadEmployeeAppendName(keyFieldId, nameFieldId) {
 
 function BSC_PROG005D0001A_clear() {
 	setFieldsBackgroundDefault(BSC_PROG005D0001A_fieldsId);		
+	setFieldsNoticeMessageLabelDefault(BSC_PROG005D0001A_fieldsId);
 	dijit.byId('BSC_PROG005D0001A_name').set("value", "");
 	dijit.byId('BSC_PROG005D0001A_year').set("value", "");
 	dijit.byId('BSC_PROG005D0001A_description').set("value", "");	
@@ -137,7 +144,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="500px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001A_name" id="BSC_PROG005D0001A_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_name'">
@@ -147,7 +154,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_year')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_year')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_year"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input id="BSC_PROG005D0001A_year" name="BSC_PROG005D0001A_year" data-dojo-type="dojox.form.YearTextBox" 
 					maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
@@ -158,7 +165,7 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('BSC_PROG005D0001A_description')"/></b>:
+		    	<b><s:property value="getText('BSC_PROG005D0001A_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG005D0001A_description" name="BSC_PROG005D0001A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_description'">
@@ -168,7 +175,7 @@ function ${programId}_page_message() {
 		</tr>      	  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_1')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_1')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001A_emplSelect_1" id="BSC_PROG005D0001A_emplSelect_1" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -185,14 +192,15 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_clearOwner();
 						}
-					"></button>		
+					"></button>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_ownerOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<span id="BSC_PROG005D0001A_ownerName"></span>	    			
     		</td>    
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_2')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_2')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001A_emplSelect_2" id="BSC_PROG005D0001A_emplSelect_2" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -209,14 +217,15 @@ function ${programId}_page_message() {
 						onClick:function(){ 
 							BSC_PROG005D0001A_clearRater();
 						}
-					"></button>		
+					"></button>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_raterOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<span id="BSC_PROG005D0001A_raterName"></span>	    			
     		</td>    
     	</tr>     			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_levelSettings')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_levelSettings')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001A_levelSettings" id="BSC_PROG005D0001A_levelSettings" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -234,7 +243,8 @@ function ${programId}_page_message() {
 							BSC_PROG005D0001A_levelData = [];
 							dojo.byId('BSC_PROG005D0001A_levelData').innerHTML = '';
 						}
-					"></button>					
+					"></button>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_levelData_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<span id="BSC_PROG005D0001A_levelData"></span>		   			
     		</td>    
@@ -242,7 +252,7 @@ function ${programId}_page_message() {
 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_itemSettings')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_itemSettings')"/>:</b>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001A_itemSettings" id="BSC_PROG005D0001A_itemSettings" data-dojo-type="dijit.form.Button"
 					data-dojo-props="
@@ -261,6 +271,7 @@ function ${programId}_page_message() {
 							dojo.byId('BSC_PROG005D0001A_itemData').innerHTML = '';
 						}
 					"></button>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001A_itemData_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<span id="BSC_PROG005D0001A_itemData"></span>							   			
     		</td>    

@@ -40,15 +40,19 @@ BSC_PROG004D0001Q_fieldsId['classNote'] 			= 'BSC_PROG004D0001Q_classNote';
 
 function BSC_PROG004D0001Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG004D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0001Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG004D0001Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG004D0001Q_fieldsId);
 		return;
 	}	
 	${programId}_TabRefresh();
 }
 
 function BSC_PROG004D0001Q_clear() {
+	setFieldsBackgroundDefault(BSC_PROG004D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0001Q_fieldsId);	
 	dijit.byId('BSC_PROG004D0001Q_perspectiveTitle').set("value", "");	
 	dijit.byId('BSC_PROG004D0001Q_objectiveTitle').set("value", "");
 	dijit.byId('BSC_PROG004D0001Q_kpiTitle').set("value", "");
@@ -104,7 +108,7 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>			
 			<td width="100%" height="50px" align="left">
-				<b><s:property value="getText('BSC_PROG004D0001Q_perspectiveTitle')"/>:</b>
+				<b><s:property value="getText('BSC_PROG004D0001Q_perspectiveTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_perspectiveTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_perspectiveTitle" id="BSC_PROG004D0001Q_perspectiveTitle" value="fields.perspectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_perspectiveTitle'">
@@ -114,7 +118,7 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>			
 			<td width="100%" height="50px" align="left" >
-				<b><s:property value="getText('BSC_PROG004D0001Q_objectiveTitle')"/>:</b>
+				<b><s:property value="getText('BSC_PROG004D0001Q_objectiveTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_objectiveTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_objectiveTitle" id="BSC_PROG004D0001Q_objectiveTitle" value="fields.objectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_objectiveTitle'">
@@ -124,7 +128,7 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>			
 			<td width="100%" height="50px" align="left" >
-				<b><s:property value="getText('BSC_PROG004D0001Q_kpiTitle')"/>:</b>
+				<b><s:property value="getText('BSC_PROG004D0001Q_kpiTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_kpiTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_kpiTitle" id="BSC_PROG004D0001Q_kpiTitle" value="fields.kpiTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_kpiTitle'">
@@ -134,7 +138,7 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>		    
 		    <td height="125px" width="100%"  align="left">
-		    	<b><s:property value="getText('BSC_PROG004D0001Q_classNote')"/>:</b>
+		    	<b><s:property value="getText('BSC_PROG004D0001Q_classNote')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_classNote"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG004D0001Q_classNote" name="BSC_PROG004D0001Q_classNote" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${fields.classNote}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_classNote'">

@@ -102,13 +102,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		this.checkMeasureFrequencyDateRange();
 		
 		if (super.defaultString(super.getFields().get("orgaOids")).trim().length() == 0) {
-			super.throwMessage("Please select organization/department!");
+			super.throwMessage("orgaOids", "Please select organization/department!");
 		}
 		if (super.defaultString(super.getFields().get("emplOids")).trim().length() == 0) {
-			super.throwMessage("Please select responsibility(Employee) !");
+			super.throwMessage("emplOids", "Please select responsibility(Employee) !");
 		}
 		if (super.defaultString(super.getFields().get("kpiOids")).trim().length() == 0) {
-			super.throwMessage("Please select KPIs!");
+			super.throwMessage("kpiOids", "Please select KPIs!");
 		}
 		
 	}
