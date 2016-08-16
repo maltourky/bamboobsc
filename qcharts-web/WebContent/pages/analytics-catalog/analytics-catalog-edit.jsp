@@ -31,18 +31,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 var QCHARTS_PROG001D0004E_fieldsId = new Object();
 //QCHARTS_PROG001D0004E_fieldsId['id'] 			= 'QCHARTS_PROG001D0004E_id';
 QCHARTS_PROG001D0004E_fieldsId['name'] 			= 'QCHARTS_PROG001D0004E_name';
+QCHARTS_PROG001D0004E_fieldsId['uploadOid'] 	= 'QCHARTS_PROG001D0004E_uploadOid_noticeMessageOnly';
 
 function QCHARTS_PROG001D0004E_updateSuccess(data) {
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0004E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0004E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG001D0004E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG001D0004E_fieldsId);
 		return;
 	}		
 }
 
 function QCHARTS_PROG001D0004E_clear() {
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0004E_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0004E_fieldsId);
 	//dijit.byId('QCHARTS_PROG001D0004E_id').set("value", "");	
 	dijit.byId('QCHARTS_PROG001D0004E_name').set("value", "");
 	dijit.byId('QCHARTS_PROG001D0004E_description').set("value", "");
@@ -89,7 +93,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="350px" cellpadding="1" cellspacing="0" >			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_id')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_id')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004E_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004E_id" id="QCHARTS_PROG001D0004E_id" value="olapCatalog.id" width="200" maxlength="20" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004E_id'">
@@ -99,7 +103,7 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004E_name" id="QCHARTS_PROG001D0004E_name" value="olapCatalog.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004E_name'">
@@ -109,7 +113,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_uploadOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004E_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004E_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="QCHARTS_PROG001D0004E_uploadBtn" label="Upload" value="Upload" 
 			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false, iconClass:'dijitIconFolderOpen' "
@@ -120,7 +124,7 @@ function ${programId}_page_message() {
     	</tr>   	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0004E_description')"/></b>:
+		    	<b><s:property value="getText('QCHARTS_PROG001D0004E_description')"/>:</b>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0004E_description" name="QCHARTS_PROG001D0004E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${olapCatalog.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004E_description'">

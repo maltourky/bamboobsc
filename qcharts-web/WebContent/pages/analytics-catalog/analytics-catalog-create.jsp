@@ -31,12 +31,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 var QCHARTS_PROG001D0004A_fieldsId = new Object();
 QCHARTS_PROG001D0004A_fieldsId['id'] 			= 'QCHARTS_PROG001D0004A_id';
 QCHARTS_PROG001D0004A_fieldsId['name'] 			= 'QCHARTS_PROG001D0004A_name';
+QCHARTS_PROG001D0004A_fieldsId['uploadOid'] 	= 'QCHARTS_PROG001D0004A_uploadOid_noticeMessageOnly';
 
 function QCHARTS_PROG001D0004A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0004A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0004A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG001D0004A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG001D0004A_fieldsId);
 		return;
 	}	
 	QCHARTS_PROG001D0004A_clear();
@@ -44,6 +47,7 @@ function QCHARTS_PROG001D0004A_saveSuccess(data) { // data 是 json 資料
 
 function QCHARTS_PROG001D0004A_clear() {
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0004A_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0004A_fieldsId);
 	dijit.byId('QCHARTS_PROG001D0004A_id').set("value", "");	
 	dijit.byId('QCHARTS_PROG001D0004A_name').set("value", "");
 	dijit.byId('QCHARTS_PROG001D0004A_description').set("value", "");
@@ -91,7 +95,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="350px" cellpadding="1" cellspacing="0" >			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_id')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_id')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004A_id" id="QCHARTS_PROG001D0004A_id" value="" width="200" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_id'">
@@ -101,7 +105,7 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004A_name" id="QCHARTS_PROG001D0004A_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_name'">
@@ -111,7 +115,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_uploadOid')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="QCHARTS_PROG001D0004A_uploadBtn" label="Upload" value="Upload" 
 			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false, iconClass:'dijitIconFolderOpen' "
@@ -122,7 +126,7 @@ function ${programId}_page_message() {
     	</tr>     
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0004A_description')"/></b>:
+		    	<b><s:property value="getText('QCHARTS_PROG001D0004A_description')"/>:</b>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0004A_description" name="QCHARTS_PROG001D0004A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_description'">

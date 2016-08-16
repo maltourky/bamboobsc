@@ -86,18 +86,18 @@ public class AnalyticsCatalogSaveOrUpdateAction extends BaseJsonAction {
 		}
 		byte datas[] = UploadSupportUtils.getDataBytes( this.getFields().get("uploadOid") );
 		if ( null == datas ) {
-			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg1") );
+			super.throwMessage("uploadOid", this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg1") );
 		}
 		String xmlContent = new String(datas, Constants.BASE_ENCODING);
 		if ( xmlContent.indexOf("Schema") == -1 ) {
-			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg2") );
+			super.throwMessage("uploadOid", this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg2") );
 		}
 	}	
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.checkFields();
 		if ( StringUtils.isBlank(this.getFields().get("uploadOid")) ) {
-			super.throwMessage( this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg3") );
+			super.throwMessage("uploadOid", this.getText("MESSAGE.QCHARTS_PROG001D0004A_uploadOid_msg3") );
 		}
 		this.checkUploadCatalog();
 		OlapCatalogVO olapCatalog = new OlapCatalogVO();

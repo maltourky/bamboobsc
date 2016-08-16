@@ -35,15 +35,19 @@ QCHARTS_PROG001D0002A_fieldsId['valueField'] 	= 'QCHARTS_PROG001D0002A_valueFiel
 
 function QCHARTS_PROG001D0002A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0002A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG001D0002A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG001D0002A_fieldsId);
 		return;
 	}	
 	QCHARTS_PROG001D0002A_clear();
 }
 
 function QCHARTS_PROG001D0002A_clear() {
+	setFieldsBackgroundDefault(QCHARTS_PROG001D0002A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0002A_fieldsId);	
 	dijit.byId("QCHARTS_PROG001D0002A_name").set("value", "");
 	dijit.byId("QCHARTS_PROG001D0002A_description").set("value", "");
 	dijit.byId("QCHARTS_PROG001D0002A_labelField").set("value", "");
@@ -95,7 +99,7 @@ function QCHARTS_PROG001D0002A_addField() {
 
 function QCHARTS_PROG001D0002A_removeField(labelFieldValue, valueFieldValue) {
     var table = document.getElementById('QCHARTS_PROG001D0002A_mapperTable');    
-	for (var r=1; r<table.rows.length; r++) { // 第一列是Title , 所以 r=1
+	for (var r=0; r<table.rows.length; r++) {
 		var content1 = table.rows[r].cells[1].innerHTML;
 		var content2 = table.rows[r].cells[2].innerHTML;
 		if (content1 == labelFieldValue && content2 == valueFieldValue) {
@@ -135,7 +139,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0002A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0002A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0002A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0002A_name" id="QCHARTS_PROG001D0002A_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002A_name'">
@@ -145,7 +149,7 @@ function ${programId}_page_message() {
     	</tr>  
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0002A_description')"/></b>:
+		    	<b><s:property value="getText('QCHARTS_PROG001D0002A_description')"/>:</b>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0002A_description" name="QCHARTS_PROG001D0002A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002A_description'">
@@ -156,14 +160,19 @@ function ${programId}_page_message() {
 	</table>	
 	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >
 		<tr>
+    		<td height="25px" width="100%"  align="left" colspan="2">
+    		<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0002A_labelField"></gs:inputfieldNoticeMsgLabel><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0002A_valueField"></gs:inputfieldNoticeMsgLabel>
+    		</td>
+    	</tr>		
+		<tr>
     		<td height="25px" width="90%"  align="left">
-    			<b><s:property value="getText('QCHARTS_PROG001D0002A_labelField')"/></b>:
+    			<b><s:property value="getText('QCHARTS_PROG001D0002A_labelField')"/>:</b>
     				<gs:textBox name="QCHARTS_PROG001D0002A_labelField" id="QCHARTS_PROG001D0002A_labelField" value="" width="200" maxlength="50"></gs:textBox>
 					<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002A_labelField'">
     					Input label field name.
 					</div> 		    				
     			&nbsp;
-    			<b><s:property value="getText('QCHARTS_PROG001D0002A_valueField')"/></b>:
+    			<b><s:property value="getText('QCHARTS_PROG001D0002A_valueField')"/>:</b>
     				<gs:textBox name="QCHARTS_PROG001D0002A_valueField" id="QCHARTS_PROG001D0002A_valueField" value="" width="200" maxlength="50"></gs:textBox>
 					<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002A_valueField'">
     					Input value field name.

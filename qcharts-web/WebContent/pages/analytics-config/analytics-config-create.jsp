@@ -37,9 +37,11 @@ QCHARTS_PROG001D0003A_fieldsId['description']	= 'QCHARTS_PROG001D0003A_descripti
 
 function QCHARTS_PROG001D0003A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0003A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0003A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG001D0003A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG001D0003A_fieldsId);
 		return;
 	}	
 	QCHARTS_PROG001D0003A_clear();
@@ -47,6 +49,7 @@ function QCHARTS_PROG001D0003A_saveSuccess(data) { // data 是 json 資料
 
 function QCHARTS_PROG001D0003A_clear() {
 	setFieldsBackgroundDefault(QCHARTS_PROG001D0003A_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG001D0003A_fieldsId);
 	dijit.byId('QCHARTS_PROG001D0003A_id').set("value", "");	
 	dijit.byId('QCHARTS_PROG001D0003A_name').set("value", "");
 	dijit.byId('QCHARTS_PROG001D0003A_jdbcDrivers').set("value", "");
@@ -85,7 +88,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="400px" cellpadding="1" cellspacing="0" >			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_id')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_id')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003A_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003A_id" id="QCHARTS_PROG001D0003A_id" value="" width="200" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003A_id'">
@@ -95,7 +98,7 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_name')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003A_name" id="QCHARTS_PROG001D0003A_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003A_name'">
@@ -105,7 +108,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_jdbcDrivers')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_jdbcDrivers')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003A_jdbcDrivers"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003A_jdbcDrivers" id="QCHARTS_PROG001D0003A_jdbcDrivers" value="" width="200" maxlength="50"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003A_jdbcDrivers'">
@@ -123,7 +126,7 @@ function ${programId}_page_message() {
     	</tr>     	    	
    		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_jdbcUrl')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003A_jdbcUrl')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003A_jdbcUrl"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="QCHARTS_PROG001D0003A_jdbcUrl" name="QCHARTS_PROG001D0003A_jdbcUrl" data-dojo-type="dijit/form/Textarea" rows="2" cols="75" style="width:600px;height:50px;max-height:50px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003A_jdbcUrl'">
@@ -138,7 +141,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0003A_description')"/></b>:
+		    	<b><s:property value="getText('QCHARTS_PROG001D0003A_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003A_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0003A_description" name="QCHARTS_PROG001D0003A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003A_description'">
