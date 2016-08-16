@@ -1,3 +1,10 @@
+0.6.5.1
+-----------------------------------------------------------
+1. Add input-field notice message label for Create/Edit page.
+2. Some modifications
+3. If have previous data in MYSQL(bbcore) E.g: 0.6.5 old version, please update sql command file patch_0650_up_0651.sql
+
+
 0.6.5
 -----------------------------------------------------------
 1. Some modifications
