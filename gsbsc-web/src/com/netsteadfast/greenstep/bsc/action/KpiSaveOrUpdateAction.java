@@ -117,9 +117,9 @@ public class KpiSaveOrUpdateAction extends BaseJsonAction {
 		
 		String dataType = this.getFields().get("dataType");
 		this.getCheckFieldHandler()
-		.single("dataType", ( BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg1") )
-		.single("dataType", ( BscKpiCode.DATA_TYPE_PERSONAL.equals(dataType) && StringUtils.isBlank(this.getFields().get("emplOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg2") )
-		.single("dataType", ( BscKpiCode.DATA_TYPE_BOTH.equals(dataType) && ( StringUtils.isBlank(this.getFields().get("orgaOids")) || StringUtils.isBlank(this.getFields().get("emplOids")) ) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg3") )
+		.single("dataType|orgaOids", ( BscKpiCode.DATA_TYPE_DEPARTMENT.equals(dataType) && StringUtils.isBlank(this.getFields().get("orgaOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg1") )
+		.single("dataType|emplOids", ( BscKpiCode.DATA_TYPE_PERSONAL.equals(dataType) && StringUtils.isBlank(this.getFields().get("emplOids")) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg2") )
+		.single("dataType|orgaOids|emplOids", ( BscKpiCode.DATA_TYPE_BOTH.equals(dataType) && ( StringUtils.isBlank(this.getFields().get("orgaOids")) || StringUtils.isBlank(this.getFields().get("emplOids")) ) ), this.getText("MESSAGE.BSC_PROG002D0004A_dataType_msg3") )
 		.throwMessage();
 	}	
 	

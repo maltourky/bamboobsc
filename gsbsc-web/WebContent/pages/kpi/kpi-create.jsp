@@ -45,6 +45,8 @@ BSC_PROG002D0004A_fieldsId['unit'] 				= 'BSC_PROG002D0004A_unit';
 BSC_PROG002D0004A_fieldsId['management'] 		= 'BSC_PROG002D0004A_management';
 BSC_PROG002D0004A_fieldsId['cal'] 				= 'BSC_PROG002D0004A_cal';
 BSC_PROG002D0004A_fieldsId['dataType'] 			= 'BSC_PROG002D0004A_dataType';
+BSC_PROG002D0004A_fieldsId['orgaOids'] 			= 'BSC_PROG002D0004A_orgaOids_noticeMessageOnly';
+BSC_PROG002D0004A_fieldsId['emplOids'] 			= 'BSC_PROG002D0004A_emplOids_noticeMessageOnly';
 
 function BSC_PROG002D0004A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG002D0004A_fieldsId);
@@ -479,7 +481,8 @@ function ${programId}_page_message() {
 					"></button>	
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_deptClear'">
     				Clear KPI's organization/department. 
-				</div>					
+				</div>		
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004A_orgaOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>			
 				<br/>	    			    			
     			<span id="BSC_PROG002D0004A_organizationAppendName"></span>    			
     		</td>
@@ -509,7 +512,8 @@ function ${programId}_page_message() {
 					"></button>		
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0004A_emplClear'">
     				Clear KPI's owner(Employee). 
-				</div>											
+				</div>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0004A_emplOids_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>											
 				<br/>
 				<span id="BSC_PROG002D0004A_employeeAppendName"></span>	    			
     		</td>    
