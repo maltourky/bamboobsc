@@ -596,7 +596,7 @@ function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
 			continue;
 		}
 		//dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #BDE5F8;' color='#B40404'>&nbsp;" + msg + "&nbsp;</font>";
-		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#ffffff'>&nbsp;" + msg + "&nbsp;</font>";
+		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + msg + "&nbsp;</font>";
 	}	
 }
 
