@@ -395,7 +395,7 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	
 	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
 	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee):</b>&nbsp;&nbsp;';
-	str += '<button name="' + idHead + '_emplSelect" id="' + idHead + '_emplSelect" data-dojo-type="dijit.form.Button" ';
+	str += '<button name="' + idHead + '_emplSelect" id="' + idHead + '_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
 	str += '		iconClass:\'dijitIconFolderOpen\', ';
@@ -420,7 +420,7 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	
 	str += '<input type="hidden" name="' + idHead +'_uploadDocumentOid" id="' + idHead +'_uploadDocumentOid" value="' + node.ownerOids + '" />';
 	str += '<b>Document / attachment:</b>&nbsp;&nbsp;';
-	str += '<button name="' + idHead + '_uploadDocumentBtn" id="' + idHead + '_uploadDocumentBtn" data-dojo-type="dijit.form.Button" ';
+	str += '<button name="' + idHead + '_uploadDocumentBtn" id="' + idHead + '_uploadDocumentBtn" data-dojo-type="dijit.form.Button" class="alt-info" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
 	str += '		iconClass:\'dijitIconFolderOpen\', ';
@@ -791,7 +791,7 @@ function ${programId}_page_message() {
 		    		<td height="50px" width="100%"  align="left" colspan="2">
 		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Organization / Department):</b>
 		    			&nbsp;&nbsp;
-						<button name="BSC_PROG006D0001A_contentTab_deptSelect" id="BSC_PROG006D0001A_contentTab_deptSelect" data-dojo-type="dijit.form.Button"
+						<button name="BSC_PROG006D0001A_contentTab_deptSelect" id="BSC_PROG006D0001A_contentTab_deptSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
 								showLabel:false,
 								iconClass:'dijitIconFolderOpen',
@@ -822,7 +822,7 @@ function ${programId}_page_message() {
 		    		<td height="50px" width="100%"  align="left">
 		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Employee):</b>
 		    			&nbsp;&nbsp;
-						<button name="BSC_PROG006D0001A_contentTab_emplSelect" id="BSC_PROG006D0001A_contentTab_emplSelect" data-dojo-type="dijit.form.Button"
+						<button name="BSC_PROG006D0001A_contentTab_emplSelect" id="BSC_PROG006D0001A_contentTab_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
 								showLabel:false,
 								iconClass:'dijitIconFolderOpen',
@@ -853,7 +853,7 @@ function ${programId}_page_message() {
 		    		<td height="50px" width="100%"  align="left">
 		    			<font color='RED'>*</font><b>KPIs:</b>
 		    			&nbsp;&nbsp;
-						<button name="BSC_PROG006D0001A_contentTab_kpiSelect" id="BSC_PROG006D0001A_contentTab_kpiSelect" data-dojo-type="dijit.form.Button"
+						<button name="BSC_PROG006D0001A_contentTab_kpiSelect" id="BSC_PROG006D0001A_contentTab_kpiSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
 								showLabel:false,
 								iconClass:'dijitIconFolderOpen',
@@ -894,7 +894,7 @@ function ${programId}_page_message() {
 				    <td height="150px" width="100%" align="left" colspan="2">
 				    	<b>Document / attachment:</b>
 				    	<br/>
-						<button name="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" id="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
+						<button name="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" id="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
 								showLabel:false,
 								iconClass:'dijitIconFolderOpen',

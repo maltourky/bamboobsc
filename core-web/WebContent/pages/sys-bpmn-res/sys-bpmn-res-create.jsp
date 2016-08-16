@@ -98,7 +98,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b>Activiti BPMN(zip) file:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004A_uploadOid_noticeMsgLabel"></gs:inputfieldNoticeMsgLabel>
     			<br/>
-    			<input type="button" id="CORE_PROG003D0004A_uploadBtn" label="Upload" value="Upload" 
+    			<input type="button" id="CORE_PROG003D0004A_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'Y', 'CORE_PROG003D0004A_uploadOid', 'CORE_PROG003D0004A_uploadSuccess', 'CORE_PROG003D0004A_uploadFail');" />
     			<span id="CORE_PROG003D0004A_uploadShow"><font color='#6E6E6E'>not Yet upload files!</font></span>

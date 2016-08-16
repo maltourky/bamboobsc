@@ -153,7 +153,7 @@ function ${programId}_page_message() {
 		<tr>
     		<td height="50px" width="100%"  align="left">
     			<b><s:property value="getText('BSC_PROG001D0001E_deptSelect')"/>:</b>&nbsp;&nbsp;
-				<button name="BSC_PROG001D0001E_deptSelect" id="BSC_PROG001D0001E_deptSelect" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG001D0001E_deptSelect" id="BSC_PROG001D0001E_deptSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',

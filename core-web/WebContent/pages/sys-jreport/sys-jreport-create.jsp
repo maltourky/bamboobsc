@@ -29,14 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG001D0008A_fieldsId = new Object();
-CORE_PROG001D0008A_fieldsId['uploadOid'] 	= 'CORE_PROG001D0008A_reportId';
+CORE_PROG001D0008A_fieldsId['uploadOid'] 	= 'CORE_PROG001D0008A_uploadOid_noticeMessageOnly';
 CORE_PROG001D0008A_fieldsId['reportId'] 	= 'CORE_PROG001D0008A_reportId';
 
 function CORE_PROG001D0008A_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(CORE_PROG001D0008A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008A_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0008A_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0008A_fieldsId);
 		return;
 	}	
 	CORE_PROG001D0008A_clear();
@@ -44,6 +46,7 @@ function CORE_PROG001D0008A_saveSuccess(data) { // data 是 json 資料
 
 function CORE_PROG001D0008A_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0008A_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008A_fieldsId);
 	CORE_PROG001D0008A_uploadFail();
 	dijit.byId('CORE_PROG001D0008A_reportId').set("value", "");
 	dijit.byId('CORE_PROG001D0008A_description').set("value", "");
@@ -92,9 +95,9 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_upload_label')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_upload_label')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
-    			<input type="button" id="CORE_PROG001D0008A_uploadBtn" label="Upload" value="Upload" 
+    			<input type="button" id="CORE_PROG001D0008A_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'Y', 'CORE_PROG001D0008A_uploadOid', 'CORE_PROG001D0008A_uploadSuccess', 'CORE_PROG001D0008A_uploadFail');" />
     			<span id="CORE_PROG001D0008A_uploadShow"><font color='#6E6E6E'><s:property value="getText('CORE_PROG001D0008A_uploadShow')"/></font></span>
@@ -103,21 +106,21 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_reportId')"/></b>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_reportId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_reportId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008A_reportId" id="CORE_PROG001D0008A_reportId" value="" width="200" maxlength="50"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008A_isCompile')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0008A_isCompile')"/>:</b>
     			<br/>
     			<input id="CORE_PROG001D0008A_isCompile" name="CORE_PROG001D0008A_isCompile" data-dojo-type="dijit/form/CheckBox" value="true" />
     		</td>    		
     	</tr>
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008A_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0008A_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0008A_description" name="CORE_PROG001D0008A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

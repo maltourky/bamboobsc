@@ -108,7 +108,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<b>JSP <s:property value="getText('CORE_PROG001D0012E_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012E_uploadOidNoticeLabelOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
-    			<input type="button" id="CORE_PROG001D0012E_uploadBtn" label="Upload" value="Upload" 
+    			<input type="button" id="CORE_PROG001D0012E_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'N', 'CORE_PROG001D0012E_uploadOid', 'CORE_PROG001D0012E_uploadSuccess', 'CORE_PROG001D0012E_uploadFail');" />
     			<span id="CORE_PROG001D0012E_uploadShow"><font color='#6E6E6E'><s:property value="sysFormTemplate.fileName"/></font></span>

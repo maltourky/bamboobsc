@@ -173,7 +173,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<b><s:property value="getText('BSC_PROG004D0003Q_deptSelect')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG004D0003Q_deptSelect" id="BSC_PROG004D0003Q_deptSelect" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG004D0003Q_deptSelect" id="BSC_PROG004D0003Q_deptSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -197,7 +197,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<b><s:property value="getText('BSC_PROG004D0003Q_emplSelect')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG004D0003Q_emplSelect" id="BSC_PROG004D0003Q_emplSelect" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG004D0003Q_emplSelect" id="BSC_PROG004D0003Q_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',

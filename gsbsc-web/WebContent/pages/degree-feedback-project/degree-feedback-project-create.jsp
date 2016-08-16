@@ -177,7 +177,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_1')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG005D0001A_emplSelect_1" id="BSC_PROG005D0001A_emplSelect_1" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_emplSelect_1" id="BSC_PROG005D0001A_emplSelect_1" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -202,7 +202,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_emplSelect_2')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG005D0001A_emplSelect_2" id="BSC_PROG005D0001A_emplSelect_2" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_emplSelect_2" id="BSC_PROG005D0001A_emplSelect_2" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -227,7 +227,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_levelSettings')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG005D0001A_levelSettings" id="BSC_PROG005D0001A_levelSettings" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_levelSettings" id="BSC_PROG005D0001A_levelSettings" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -254,7 +254,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left">
     			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_itemSettings')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG005D0001A_itemSettings" id="BSC_PROG005D0001A_itemSettings" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG005D0001A_itemSettings" id="BSC_PROG005D0001A_itemSettings" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',

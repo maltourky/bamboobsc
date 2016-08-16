@@ -51,6 +51,8 @@ import com.netsteadfast.greenstep.util.UploadSupportUtils;
 import com.netsteadfast.greenstep.vo.SysJreportParamVO;
 import com.netsteadfast.greenstep.vo.SysJreportVO;
 
+import net.lingala.zip4j.exception.ZipException;
+
 @ControllerAuthority(check=true)
 @Controller("core.web.controller.SystemJreportSaveOrUpdateAction")
 @Scope
@@ -98,14 +100,14 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 		File jrxmlFile = new File(jrxmlFileFullPath);
 		if (!jrxmlFile.exists()) {
 			jrxmlFile = null;
-			super.throwMessage( reportId + ".jrxml file not exists!" );
+			super.throwMessage( "uploadOid", reportId + ".jrxml file not exists!" );
 		}		
 		if (!"true".equals(this.getFields().get("isCompile"))) {
 			String jasperFileFullPath = testDir + "/" + reportId + "/" + reportId + ".jasper";
 			File jasperFile = new File(jasperFileFullPath);
 			if (!jasperFile.exists()) {
 				jasperFile = null;
-				super.throwMessage( reportId + ".jasper file not exists!" );
+				super.throwMessage( "uploadOid", reportId + ".jasper file not exists!" );
 			}					
 		}
 		jrxmlFile = null;
@@ -222,6 +224,9 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 			this.message=ae.getMessage().toString();
 		} catch (ServiceException se) {
 			this.message=se.getMessage().toString();
+		} catch (ZipException e) {
+			this.message = e.getMessage().toString();
+			super.addFieldsNoticeMessage("uploadOid", e.getMessage().toString());
 		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
 			e.printStackTrace();
 			this.message=e.getMessage().toString();
@@ -251,6 +256,9 @@ public class SystemJreportSaveOrUpdateAction extends BaseJsonAction {
 			this.message=ae.getMessage().toString();
 		} catch (ServiceException se) {
 			this.message=se.getMessage().toString();
+		} catch (ZipException e) {
+			this.message = e.getMessage().toString();
+			super.addFieldsNoticeMessage("uploadOid", e.getMessage().toString());
 		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
 			e.printStackTrace();
 			this.message=e.getMessage().toString();

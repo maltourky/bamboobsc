@@ -458,7 +458,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left" colspan="2">
     			<b><s:property value="getText('BSC_PROG002D0004E_deptSelect')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG002D0004E_deptSelect" id="BSC_PROG002D0004E_deptSelect" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG002D0004E_deptSelect" id="BSC_PROG002D0004E_deptSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -488,7 +488,7 @@ function ${programId}_page_message() {
     		<td height="50px" width="100%"  align="left" colspan="2">
     			<b><s:property value="getText('BSC_PROG002D0004E_emplSelect')"/>:</b>
     			&nbsp;&nbsp;
-				<button name="BSC_PROG002D0004E_emplSelect" id="BSC_PROG002D0004E_emplSelect" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG002D0004E_emplSelect" id="BSC_PROG002D0004E_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',
@@ -559,7 +559,7 @@ function ${programId}_page_message() {
 		    <td height="150px" width="100%" align="left" colspan="2">
 		    	<b><s:property value="getText('BSC_PROG002D0004E_attachment')"/>:</b>
 		    	<br/>
-				<button name="BSC_PROG002D0004E_uploadDocumentBtn" id="BSC_PROG002D0004E_uploadDocumentBtn" data-dojo-type="dijit.form.Button"
+				<button name="BSC_PROG002D0004E_uploadDocumentBtn" id="BSC_PROG002D0004E_uploadDocumentBtn" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
 						showLabel:false,
 						iconClass:'dijitIconFolderOpen',

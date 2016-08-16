@@ -29,14 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG001D0008E_fieldsId = new Object();
-CORE_PROG001D0008E_fieldsId['uploadOid'] 	= 'CORE_PROG001D0008E_reportId';
+CORE_PROG001D0008E_fieldsId['uploadOid'] 	= 'CORE_PROG001D0008E_uploadOid_noticeMessageOnly';
 CORE_PROG001D0008E_fieldsId['reportId'] 	= 'CORE_PROG001D0008E_reportId';
 
 function CORE_PROG001D0008E_updateSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG001D0008E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008E_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG001D0008E_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG001D0008E_fieldsId);
 		return;
 	}		
 	CORE_PROG001D0008E_TabRefresh();
@@ -44,6 +46,7 @@ function CORE_PROG001D0008E_updateSuccess(data) {
 
 function CORE_PROG001D0008E_clear() {
 	setFieldsBackgroundDefault(CORE_PROG001D0008E_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG001D0008E_fieldsId);
 	dijit.byId('CORE_PROG001D0008E_isCompile').set("checked", false);		
 	dijit.byId('CORE_PROG001D0008E_description').set("value", "");	
 }
@@ -88,9 +91,9 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008E_upload_label')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0008E_upload_label')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
-    			<input type="button" id="CORE_PROG001D0008E_uploadBtn" label="Upload" value="Upload" 
+    			<input type="button" id="CORE_PROG001D0008E_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
 			   		data-dojo-type="dijit.form.Button" onClick="openCommonUploadDialog('CORE', 'tmp', 'Y', 'CORE_PROG001D0008E_uploadOid', 'CORE_PROG001D0008E_uploadSuccess', 'CORE_PROG001D0008E_uploadFail');" />
     			<span id="CORE_PROG001D0008E_uploadShow"><font color='#6E6E6E'><s:property value="sysJreport.file"/></font></span>
@@ -99,21 +102,21 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008E_reportId')"/></b> <s:property value="getText('CORE_PROG001D0008E_readOnly')"/>:
+    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008E_reportId')"/>:</b> <s:property value="getText('CORE_PROG001D0008E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_reportId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008E_reportId" id="CORE_PROG001D0008E_reportId" value="sysJreport.reportId" width="200" maxlength="50" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008E_isCompile')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0008E_isCompile')"/>:</b>
     			<br/>
     			<input id="CORE_PROG001D0008E_isCompile" name="CORE_PROG001D0008E_isCompile" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysJreport.isCompile "> checked </s:if> /> 
     		</td>
     	</tr>        	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008E_description')"/></b>:
+    			<b><s:property value="getText('CORE_PROG001D0008E_description')"/>:</b>
     			<br/>
     			<textarea id="CORE_PROG001D0008E_description" name="CORE_PROG001D0008E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${sysJreport.description}</textarea>	
     		</td>
