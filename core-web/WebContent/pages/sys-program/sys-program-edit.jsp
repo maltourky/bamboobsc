@@ -97,70 +97,77 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="550px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0002E_progSystem')"/>:</b> <s:property value="getText('CORE_PROG001D0002E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_progSystem"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_progSystem')}" id="CORE_PROG001D0002E_progSystem" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG001D0002E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_progSystem"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="fields.CORE_PROG001D0002E_progSystem" dataSource="progSystemDataMap" id="CORE_PROG001D0002E_progSystem" value="editProgSystemValue" readonly="Y"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0002E_progId')"/>:</b> <s:property value="getText('CORE_PROG001D0002E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_progId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_progId')}" id="CORE_PROG001D0002E_progId" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG001D0002E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_progId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="fields.CORE_PROG001D0002E_progId" id="CORE_PROG001D0002E_progId" value="sysProg.progId" width="200" maxlength="50" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0002E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_name')}" id="CORE_PROG001D0002E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="fields.CORE_PROG001D0002E_name" id="CORE_PROG001D0002E_name" value="sysProg.name" width="300" maxlength="100"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_url')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_url"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_url')}" id="CORE_PROG001D0002E_url"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_url"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="fields.CORE_PROG001D0002E_url" id="CORE_PROG001D0002E_url" value="sysProg.url" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_editMode')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_editMode')}" id="CORE_PROG001D0002E_editMode"></gs:label>
     			<br/>
 				<input id="CORE_PROG001D0002E_editMode" name="fields.CORE_PROG001D0002E_editMode" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysProg.editMode "> checked </s:if> />   		
     		</td>
     	</tr>    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_isDialog')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_isDialog')}" id="CORE_PROG001D0002E_isDialog"></gs:label>
     			<br/>
 				<input id="CORE_PROG001D0002E_isDialog" name="fields.CORE_PROG001D0002E_isDialog" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysProg.isDialog "> checked </s:if> />   		
     		</td>
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_dialogW')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_dialogW"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_dialogW')}" id="CORE_PROG001D0002E_dialogW"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_dialogW"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="fields.CORE_PROG001D0002E_dialogW" id="CORE_PROG001D0002E_dialogW" value="sysProg.dialogW" width="50" maxlength="4"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_dialogH')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_dialogH"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_dialogH')}" id="CORE_PROG001D0002E_dialogH"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_dialogH"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="fields.CORE_PROG001D0002E_dialogH" id="CORE_PROG001D0002E_dialogH" value="sysProg.dialogH" width="50" maxlength="4"></gs:textBox>
     		</td>
     	</tr>        	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_itemType')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_itemType"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_itemType')}" id="CORE_PROG001D0002E_itemType"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0002E_itemType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="fields.CORE_PROG001D0002E_itemType" dataSource="{ \"FOLDER\":\"FOLDER\", \"ITEM\":\"ITEM\" }" id="CORE_PROG001D0002E_itemType" value="sysProg.itemType"></gs:select>
     		</td>
     	</tr>    	    	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0002E_icon')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0002E_icon')}" id="CORE_PROG001D0002E_icon"></gs:label>
     			<br/>
     			<gs:select id="CORE_PROG001D0002E_icon" name="fields.CORE_PROG001D0002E_icon" dataSource="iconDataMap" value="editIconValue"></gs:select>	
     		</td>

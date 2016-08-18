@@ -88,42 +88,46 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="350px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001A_sysId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_sysId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_sysId')}" id="CORE_PROG001D0001A_sysId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_sysId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001A_sysId" id="CORE_PROG001D0001A_sysId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_name')}" id="CORE_PROG001D0001A_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001A_name" id="CORE_PROG001D0001A_name" value="" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001A_host')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_host"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_host')}" id="CORE_PROG001D0001A_host" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_host"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001A_host" id="CORE_PROG001D0001A_host" value="" width="200" maxlength="200"></gs:textBox>
     		</td>    		
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0001A_contextPath')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_contextPath"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_contextPath')}" id="CORE_PROG001D0001A_contextPath" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0001A_contextPath"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0001A_contextPath" id="CORE_PROG001D0001A_contextPath" value="" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0001A_isLocal')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_isLocal')}" id="CORE_PROG001D0001A_isLocal"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0001A_isLocal" name="CORE_PROG001D0001A_isLocal" data-dojo-type="dijit/form/CheckBox" value="true" />
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0001A_icon')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0001A_icon')}" id="CORE_PROG001D0001A_icon"></gs:label>
     			<br/>
     			<gs:select id="CORE_PROG001D0001A_icon" name="CORE_PROG001D0001A_icon" 
     				dataSource="iconDataMap" >
