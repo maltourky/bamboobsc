@@ -175,19 +175,19 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0002Q_type')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0002Q_type')}" id="CORE_PROG003D0002Q_type"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG003D0002Q_type" dataSource="typeMap" id="CORE_PROG003D0002Q_type"></gs:select>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0002Q_exprId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0002Q_exprId')}" id="CORE_PROG003D0002Q_exprId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002Q_exprId" id="CORE_PROG003D0002Q_exprId" value="" width="200" maxlength="20"></gs:textBox>
     		</td>		  					
     	</tr>
     	<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0002Q_name')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0002Q_name')}" id="CORE_PROG003D0002Q_name"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002Q_name" id="CORE_PROG003D0002Q_name" value="" width="400" maxlength="100"></gs:textBox>
     		</td>

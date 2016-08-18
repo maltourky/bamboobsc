@@ -173,8 +173,18 @@ function ${programId}_page_message() {
     	<tr>
     		<td  height="50px" width="100%"  align="left">
     		
-    			<font size='2'><b>Form:</b></font>&nbsp;<s:property value="form.formId"/>&nbsp;-&nbsp;<s:property value="form.name"/>
+    			<gs:label text="Form Id" id="CORE_PROG001D0014Q_query_FormIdTmpLabel"></gs:label>
+    			<br/>
+    			<s:property value="form.formId"/>
     			
+    			<br/>
+    			<br/>
+    			
+    			<gs:label text="Form name" id="CORE_PROG001D0014Q_query_FormNameTmpLabel"></gs:label>
+    			<br/>
+    			<s:property value="form.name"/>
+    			
+    			<br/>
     			<br/>
     			
     			<gs:button name="CORE_PROG001D0014Q_query" id="CORE_PROG001D0014Q_query" onClick="getQueryGrid_${programId}_grid();"

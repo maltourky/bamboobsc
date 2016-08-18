@@ -197,12 +197,12 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0012Q_tplId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0012Q_tplId')}" id="CORE_PROG001D0012Q_tplId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012Q_tplId" id="CORE_PROG001D0012Q_tplId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0012Q_name')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0012Q_name')}" id="CORE_PROG001D0012Q_name"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012Q_name" id="CORE_PROG001D0012Q_name" value="" width="200" maxlength="200"></gs:textBox>
     		</td>

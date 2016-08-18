@@ -85,28 +85,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="405px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010A_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_systemOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010A_systemOid')}" id="CORE_PROG001D0010A_systemOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0010A_systemOid" dataSource="sysMap" id="CORE_PROG001D0010A_systemOid"></gs:select>
     		</td>    		
     	</tr>	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010A_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_title"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010A_title')}" id="CORE_PROG001D0010A_title" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0010A_title" id="CORE_PROG001D0010A_title" value="" width="400" maxlength="200"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0010A_enableFlag')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0010A_enableFlag')}" id="CORE_PROG001D0010A_enableFlag"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0010A_enableFlag" name="CORE_PROG001D0010A_enableFlag" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
     		</td>    		
     	</tr>
 		<tr>
     		<td height="205px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010A_content')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_content"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010A_content')}" id="CORE_PROG001D0010A_content" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010A_content"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="CORE_PROG001D0010A_content" name="CORE_PROG001D0010A_content" data-dojo-type="dijit/form/Textarea" rows="8" cols="200" style="width:600px;height:170px;max-height:180px"></textarea>
     		</td>    		

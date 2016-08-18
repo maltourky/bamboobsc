@@ -85,28 +85,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_systemOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009A_systemOid')}" id="CORE_PROG001D0009A_systemOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009A_systemOid" dataSource="sysMap" id="CORE_PROG001D0009A_systemOid"></gs:select>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_className"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009A_className')}" id="CORE_PROG001D0009A_className" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0009A_className" id="CORE_PROG001D0009A_className" value="" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009A_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_type"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009A_type')}" id="CORE_PROG001D0009A_type" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009A_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009A_type" dataSource="typeMap" id="CORE_PROG001D0009A_type"></gs:select>
     		</td>
     	</tr>    		  	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0009A_description')"/></b>:
+    			<gs:label text="${action.getText('CORE_PROG001D0009A_description')}" id="CORE_PROG001D0009A_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG001D0009A_description" name="CORE_PROG001D0009A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>	
     		</td>

@@ -119,19 +119,19 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_msgOid')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0006Q_msgOid')}" id="CORE_PROG001D0006Q_msgOid"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG001D0006Q_msgOid" dataSource="msgDataMap" id="CORE_PROG001D0006Q_msgOid"></gs:select>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_noticeId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0006Q_noticeId')}" id="CORE_PROG001D0006Q_noticeId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0006Q_noticeId" id="CORE_PROG001D0006Q_noticeId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left" colspan="2">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0006Q_title')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0006Q_title')}" id="CORE_PROG001D0006Q_title"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0006Q_title" id="CORE_PROG001D0006Q_title" value="" width="400" maxlength="100"></gs:textBox>
     		</td>

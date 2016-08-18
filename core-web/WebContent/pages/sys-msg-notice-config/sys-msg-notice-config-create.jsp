@@ -84,21 +84,24 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005A_system')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_system"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005A_system')}" id="CORE_PROG001D0005A_system" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_system"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0005A_system" dataSource="systemDataMap" id="CORE_PROG001D0005A_system"></gs:select>	
     		</td>    		
     	</tr>	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005A_msgId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_msgId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005A_msgId')}" id="CORE_PROG001D0005A_msgId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_msgId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005A_msgId" id="CORE_PROG001D0005A_msgId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005A_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_className"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005A_className')}" id="CORE_PROG001D0005A_className" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005A_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005A_className" id="CORE_PROG001D0005A_className" value="" width="400" maxlength="255"></gs:textBox>
     		</td>

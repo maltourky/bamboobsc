@@ -84,28 +84,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_systemOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009E_systemOid')}" id="CORE_PROG001D0009E_systemOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009E_systemOid" dataSource="sysMap" id="CORE_PROG001D0009E_systemOid" value="selectValue"></gs:select>
     		</td>    		
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_className"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009E_className')}" id="CORE_PROG001D0009E_className" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0009E_className" id="CORE_PROG001D0009E_className" value="sysCtxBean.className" width="400" maxlength="255"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0009E_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_type"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0009E_type')}" id="CORE_PROG001D0009E_type" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0009E_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0009E_type" dataSource="typeMap" id="CORE_PROG001D0009E_type" value="sysCtxBean.type"></gs:select>
     		</td>    		
     	</tr>    		  	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0009E_description')"/></b>:
+    			<gs:label text="${action.getText('CORE_PROG001D0009E_description')}" id="CORE_PROG001D0009E_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG001D0009E_description" name="CORE_PROG001D0009E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${sysCtxBean.description}</textarea>
     		</td>    		

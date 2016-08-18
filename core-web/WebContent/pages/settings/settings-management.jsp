@@ -49,6 +49,7 @@ function CORE_PROG001D0011Q_clear() {
 	dijit.byId('CORE_PROG001D0011Q_mailFrom').set("value", "");	
 	dijit.byId('CORE_PROG001D0011Q_mailEnable').set("checked", false);
 	dijit.byId('CORE_PROG001D0011Q_sysTemplateReWrite').set("checked", false);
+	dijit.byId('CORE_PROG001D0011Q_leftAccordionContainerEnable').set("checked", false);
 }
 
 //------------------------------------------------------------------------------
@@ -82,31 +83,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="250px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0011Q_mailFrom')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0011Q_mailFrom"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0011Q_mailFrom')}" id="CORE_PROG001D0011Q_mailFrom" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0011Q_mailFrom"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0011Q_mailFrom" id="CORE_PROG001D0011Q_mailFrom" value="fields.mailFrom" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0011Q_mailEnable')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0011Q_mailEnable')}" id="CORE_PROG001D0011Q_mailEnable"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0011Q_mailEnable" name="CORE_PROG001D0011Q_mailEnable" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == fields.mailEnable "> checked="checked" </s:if> />
     		</td>    			
     	</tr>   
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0011Q_sysTemplateReWrite')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0011Q_sysTemplateReWrite')}" id="CORE_PROG001D0011Q_sysTemplateReWrite"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0011Q_sysTemplateReWrite" name="CORE_PROG001D0011Q_sysTemplateReWrite" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == fields.sysTemplateReWrite "> checked="checked" </s:if> />
     		</td>    			
     	</tr>       
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b>Left AccordionContainer (left tree menu) enable:</b>
+    			<gs:label text="Left AccordionContainer (left tree menu) enable" id="CORE_PROG001D0011Q_leftAccordionContainerEnable"></gs:label>&nbsp;(need re-login to change)
     			<br/>
     			<input id="CORE_PROG001D0011Q_leftAccordionContainerEnable" name="CORE_PROG001D0011Q_leftAccordionContainerEnable" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == fields.leftAccordionContainerEnable "> checked="checked" </s:if> />
-    			&nbsp;(need re-login or refresh page to change)
     		</td>    			
     	</tr>        		
     	<tr>

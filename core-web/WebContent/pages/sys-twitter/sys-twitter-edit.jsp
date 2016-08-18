@@ -84,28 +84,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="405px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010E_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_systemOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010E_systemOid')}" id="CORE_PROG001D0010E_systemOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0010E_systemOid" dataSource="sysMap" id="CORE_PROG001D0010E_systemOid" readonly="Y" value="fields.systemOid"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_title"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010E_title')}" id="CORE_PROG001D0010E_title" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0010E_title" id="CORE_PROG001D0010E_title" value="sysTwitter.title" width="400" maxlength="200"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0010E_enableFlag')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0010E_enableFlag')}" id="CORE_PROG001D0010E_enableFlag"></gs:label>
     			<br/>
 				<input id="CORE_PROG001D0010E_enableFlag" name="CORE_PROG001D0010E_enableFlag" data-dojo-type="dijit/form/CheckBox" value="true" <s:if test=" \"Y\" == sysTwitter.enableFlag "> checked="checked" </s:if> />   		
     		</td>
     	</tr>      	
 		<tr>
     		<td height="205px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0010E_content')"/>:</b> (escape script mode)<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_content"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0010E_content')}" id="CORE_PROG001D0010E_content" requiredFlag="Y"></gs:label>
+    			&nbsp;(escape script mode)<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0010E_content"></gs:inputfieldNoticeMsgLabel>
     			<br/>    	
     			<textarea id="CORE_PROG001D0010E_content" name="CORE_PROG001D0010E_content" data-dojo-type="dijit/form/Textarea" rows="8" cols="60" style="width:600px;height:170px;max-height:180px"><s:property value="fields.content" escapeJavaScript="true"/></textarea>	
     		</td>

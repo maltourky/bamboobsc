@@ -83,21 +83,24 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_system')"/>:</b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_system"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005E_system')}" id="CORE_PROG001D0005E_system" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_system"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0005E_system" dataSource="systemDataMap" id="CORE_PROG001D0005E_system" value="selectValue" readonly="Y"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_msgId')"/>:</b> <s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_msgId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005E_msgId')}" id="CORE_PROG001D0005E_msgId" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG001D0005E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_msgId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005E_msgId" id="CORE_PROG001D0005E_msgId" value="sysMsgNoticeConfig.msgId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0005E_className')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_className"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0005E_className')}" id="CORE_PROG001D0005E_className" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0005E_className"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0005E_className" id="CORE_PROG001D0005E_className" value="sysMsgNoticeConfig.className" width="400" maxlength="255"></gs:textBox>
     		</td>

@@ -135,7 +135,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_templateVar')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_templateVar"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_S00_templateVar')}" id="CORE_PROG001D0007E_S00_templateVar" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_templateVar"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_S00_templateVar" id="CORE_PROG001D0007E_S00_templateVar" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
@@ -143,7 +144,8 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_objectVar')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_objectVar"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_S00_objectVar')}" id="CORE_PROG001D0007E_S00_objectVar" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_S00_objectVar"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_S00_objectVar" id="CORE_PROG001D0007E_S00_objectVar" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
@@ -151,7 +153,7 @@ function ${programId}_page_message() {
     	</tr>	    		
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007E_S00_isTitle')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_S00_isTitle')}" id="CORE_PROG001D0007E_S00_isTitle"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0007E_S00_isTitle" name="CORE_PROG001D0007E_S00_isTitle" data-dojo-type="dijit/form/CheckBox" value="true" />
     		</td>

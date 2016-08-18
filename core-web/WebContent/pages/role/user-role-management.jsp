@@ -75,9 +75,11 @@ function CORE_PROG002D0002Q_account_change() {
 
 function CORE_PROG002D0002Q_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG002D0002Q_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0002Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG002D0002Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG002D0002Q_fieldsId);
 	}	
 }
 
@@ -110,6 +112,7 @@ function CORE_PROG002D0002Q_clearOptions() {
 
 function CORE_PROG002D0002Q_clear() {
 	setFieldsBackgroundDefault(CORE_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0002Q_fieldsId);
 	dijit.byId("CORE_PROG002D0002Q_account").set("value", _gscore_please_select_id);
 }
 
@@ -149,7 +152,8 @@ function ${programId}_page_message() {
 	<table border="0" width="750px" height="60px" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td height="60px" width="100%"  align="center">
-				<font size='2'><b><s:property value="getText('CORE_PROG002D0002Q_account')"/>:</b></font>
+				<gs:label text="${action.getText('CORE_PROG002D0002Q_account')}" id="CORE_PROG002D0002Q_account" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0002Q_account"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:select name="CORE_PROG002D0002Q_account" dataSource="accountMap" id="CORE_PROG002D0002Q_account" onChange="CORE_PROG002D0002Q_account_change()"></gs:select>
 			</td>
@@ -158,7 +162,7 @@ function ${programId}_page_message() {
 	<table width="750px" height="160px" border="0" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td align="center" width="350px" height="200px">
-				<b><s:property value="getText('CORE_PROG002D0002Q_enable')"/>:</b>
+				<gs:label text="${action.getText('CORE_PROG002D0002Q_enable')}" id="CORE_PROG002D0002Q_enable"></gs:label>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0002Q_enable" name="CORE_PROG002D0002Q_enable" size="10" style="width:320px;height:300px" >			    
 				</select>					
 			</td>
@@ -185,7 +189,7 @@ function ${programId}_page_message() {
 					class="alt-info">→</button>					
 			</td>
 			<td align="center" width="350px" height="200px">
-				<b><s:property value="getText('CORE_PROG002D0002Q_disable')"/>:</b>
+				<gs:label text="${action.getText('CORE_PROG002D0002Q_disable')}" id="CORE_PROG002D0002Q_disable"></gs:label>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0002Q_disable" name="CORE_PROG002D0002Q_disable" size="10" style="width:320px;height:300px" >
 				</select>					
 			</td>

@@ -130,14 +130,16 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_rptParam')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_rptParam"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0008E_S00_rptParam')}" id="CORE_PROG001D0008E_S00_rptParam" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_rptParam"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008E_S00_rptParam" id="CORE_PROG001D0008E_S00_rptParam" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008E_S00_urlParam')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_urlParam"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0008E_S00_urlParam')}" id="CORE_PROG001D0008E_S00_urlParam" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008E_S00_urlParam"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008E_S00_urlParam" id="CORE_PROG001D0008E_S00_urlParam" value="" width="200" maxlength="100" ></gs:textBox>
     		</td>

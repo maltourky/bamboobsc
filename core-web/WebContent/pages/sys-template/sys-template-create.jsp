@@ -85,28 +85,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_templateId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_templateId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007A_templateId')}" id="CORE_PROG001D0007A_templateId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_templateId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_templateId" id="CORE_PROG001D0007A_templateId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_title"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007A_title')}" id="CORE_PROG001D0007A_title" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_title" id="CORE_PROG001D0007A_title" value="" width="400" maxlength="200"></gs:textBox>
     		</td>    		    	
     	</tr>	
 		<tr>
     		<td height="325px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007A_message')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_message"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007A_message')}" id="CORE_PROG001D0007A_message" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007A_message"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<div data-dojo-type="dijit/Editor" id="CORE_PROG001D0007A_message" data-dojo-props="onChange:function(){ }"></div>
     		</td>    		
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0007A_description')"/>:</b>    			
+    			<gs:label text="${action.getText('CORE_PROG001D0007A_description')}" id="CORE_PROG001D0007A_description"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007A_description" id="CORE_PROG001D0007A_description" value="" width="400" maxlength="200"></gs:textBox>
     		</td>    		

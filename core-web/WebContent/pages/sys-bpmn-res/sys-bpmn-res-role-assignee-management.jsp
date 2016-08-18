@@ -110,13 +110,13 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<b>Resource:</b>
+    			<gs:label text="Resource" id="CORE_PROG003D0005Q_resourceOid"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG003D0005Q_resourceOid" dataSource="resourceMap" id="CORE_PROG003D0005Q_resourceOid" width="250px"></gs:select>
     		</td>
     		
     		<td height="50px" width="50%"  align="left">
-    			<b>Task name:</b>
+    			<gs:label text="Task name" id="CORE_PROG003D0005Q_taskName"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0005Q_taskName" id="CORE_PROG003D0005Q_taskName" value="" width="200" maxlength="100"></gs:textBox>
     		</td>

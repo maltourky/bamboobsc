@@ -84,28 +84,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_templateId')"/>:</b> <s:property value="getText('CORE_PROG001D0007E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_templateId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_templateId')}" id="CORE_PROG001D0007E_templateId" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG001D0007E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_templateId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_templateId" id="CORE_PROG001D0007E_templateId" value="sysTemplate.templateId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>    		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_title"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_title')}" id="CORE_PROG001D0007E_title" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_title" id="CORE_PROG001D0007E_title" value="sysTemplate.title" width="400" maxlength="200"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="325px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0007E_message')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_message"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_message')}" id="CORE_PROG001D0007E_message" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0007E_message"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<div data-dojo-type="dijit/Editor" id="CORE_PROG001D0007E_message" data-dojo-props="onChange:function(){ }">${sysTemplate.message}</div>    			
     		</td>
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0007E_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0007E_description')}" id="CORE_PROG001D0007E_description"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007E_description" id="CORE_PROG001D0007E_description" value="sysTemplate.description" width="400" maxlength="200"></gs:textBox>
     		</td>

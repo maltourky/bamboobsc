@@ -139,28 +139,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="225px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b>SYSTEM&nbsp;/&nbsp;Bean-Id&nbsp;/&nbsp;Method:</b></font>
+    			<gs:label text="SYSTEM / Bean-Id / Method" id="CORE_PROG003D0003E_S00_update_mainInfoTempLabel"></gs:label>
     			<br/>
     			<s:property value="sysBeanHelp.system"/>&nbsp;/&nbsp;<s:property value="sysBeanHelp.beanId"/>&nbsp;/&nbsp;<s:property value="sysBeanHelp.method"/>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprOid')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S00_exprOid')}" id="CORE_PROG003D0003E_S00_exprOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0003E_S00_exprOid" dataSource="expressionMap" id="CORE_PROG003D0003E_S00_exprOid" ></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_exprSeq')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprSeq"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S00_exprSeq')}" id="CORE_PROG003D0003E_S00_exprSeq" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_exprSeq"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S00_exprSeq" id="CORE_PROG003D0003E_S00_exprSeq" value="" width="200" maxlength="10" ></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S00_runType')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_runType"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S00_runType')}" id="CORE_PROG003D0003E_S00_runType" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S00_runType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0003E_S00_runType" dataSource="runTypeMap" id="CORE_PROG003D0003E_S00_runType"></gs:select>
     		</td>

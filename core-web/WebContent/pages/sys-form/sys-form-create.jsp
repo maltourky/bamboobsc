@@ -86,28 +86,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013A_formId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_formId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0013A_formId')}" id="CORE_PROG001D0013A_formId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_formId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0013A_formId" id="CORE_PROG001D0013A_formId" value="" width="200" maxlength="50"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013A_templateOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_templateOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0013A_templateOid')}" id="CORE_PROG001D0013A_templateOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_templateOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG001D0013A_templateOid" dataSource="templateMap" id="CORE_PROG001D0013A_templateOid"></gs:select>
     		</td>    		
     	</tr>    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0013A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0013A_name')}" id="CORE_PROG001D0013A_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0013A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0013A_name" id="CORE_PROG001D0013A_name" value="" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	    	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0013A_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0013A_description')}" id="CORE_PROG001D0013A_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG001D0013A_description" name="CORE_PROG001D0013A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

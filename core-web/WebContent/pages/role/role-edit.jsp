@@ -78,14 +78,15 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG002D0001E_role')"/>:</b> <s:property value="getText('CORE_PROG002D0001E_readOnly')"/>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_role')}" id="CORE_PROG002D0001E_role" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG002D0001E_readOnly')"/>
     			<br/>
     			<gs:textBox name="CORE_PROG002D0001E_role" id="CORE_PROG002D0001E_role" value="role.role" width="200" maxlength="50" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="225px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG002D0001E_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_description')}" id="CORE_PROG002D0001E_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG002D0001E_description" name="CORE_PROG002D0001E_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px"><s:property value="role.description"/></textarea>	
     		</td>

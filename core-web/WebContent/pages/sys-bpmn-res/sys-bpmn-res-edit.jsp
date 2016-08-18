@@ -92,7 +92,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b>Activiti BPMN(zip) file:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_uploadOid_noticeMsgLabel"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Activiti BPMN(zip) file" id="CORE_PROG003D0004E_uploadOid"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_uploadOid_noticeMsgLabel"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG003D0004E_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -103,21 +104,23 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Id:</b> (Read only)<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_id"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Id" id="CORE_PROG003D0004E_id" requiredFlag="Y"></gs:label>
+    			&nbsp;(Read only)<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004E_id" id="CORE_PROG003D0004E_id" value="bpmnResource.id" width="400" maxlength="100" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Name:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Name" id="CORE_PROG003D0004E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0004E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0004E_name" id="CORE_PROG003D0004E_name" value="bpmnResource.name" width="400" maxlength="255"></gs:textBox>
     		</td>    		
     	</tr>    	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b>Description:</b>
+    			<gs:label text="Description" id="CORE_PROG003D0004E_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG003D0004E_description" name="CORE_PROG003D0004E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"><s:property value="bpmnResource.description"/></textarea>
     		</td>    		

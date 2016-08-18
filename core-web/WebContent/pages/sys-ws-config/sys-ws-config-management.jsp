@@ -117,12 +117,12 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0001Q_systemOid')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0001Q_systemOid')}" id="CORE_PROG003D0001Q_systemOid"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG003D0001Q_systemOid" dataSource="sysMap" id="CORE_PROG003D0001Q_systemOid"></gs:select>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0001Q_wsId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0001Q_wsId')}" id="CORE_PROG003D0001Q_wsId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001Q_wsId" id="CORE_PROG003D0001Q_wsId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>		  					

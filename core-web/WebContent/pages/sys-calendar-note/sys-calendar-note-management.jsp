@@ -118,7 +118,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0004Q_accountOid')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0004Q_accountOid')}" id="CORE_PROG001D0004Q_accountOid"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG001D0004Q_accountOid" dataSource="accountMap" id="CORE_PROG001D0004Q_accountOid" readonly="${selectReadonly}" value="${selectValue}"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004Q_accountOid'">
@@ -126,7 +126,7 @@ function ${programId}_page_message() {
 				</div>
     		</td>		
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0004Q_date')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0004Q_date')}" id="CORE_PROG001D0004Q_date"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0004Q_date" type="text" name="CORE_PROG001D0004Q_date" data-dojo-type="dijit.form.DateTextBox" maxlength="10" constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" required="true" style="width:120px;" />
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'CORE_PROG001D0004Q_date'">

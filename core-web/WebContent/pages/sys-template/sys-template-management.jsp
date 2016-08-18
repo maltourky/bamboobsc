@@ -121,12 +121,12 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007Q_templateId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0007Q_templateId')}" id="CORE_PROG001D0007Q_templateId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007Q_templateId" id="CORE_PROG001D0007Q_templateId" value="" width="200" maxlength="10"></gs:textBox>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0007Q_title')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0007Q_title')}" id="CORE_PROG001D0007Q_title"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0007Q_title" id="CORE_PROG001D0007Q_title" value="" width="200" maxlength="200"></gs:textBox>
     		</td>

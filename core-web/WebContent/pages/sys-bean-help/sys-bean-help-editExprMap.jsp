@@ -135,35 +135,38 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="275px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b>Expression-Id&nbsp;/&nbsp;SEQ&nbsp;/&nbsp;Type:</b></font>
+    			<gs:label text="Expression Id / SEQ / Type" id="CORE_PROG003D0003E_S01_update_mainInfoTempLabel"></gs:label>
     			<br/>
     			<s:property value="sysBeanHelpExpr.exprId"/>&nbsp;/&nbsp;<s:property value="sysBeanHelpExpr.exprSeq"/>&nbsp;/&nbsp;<s:property value="sysBeanHelpExpr.runType"/>
     		</td>
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_varName')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_varName"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S01_varName')}" id="CORE_PROG003D0003E_S01_varName" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_varName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_varName" id="CORE_PROG003D0003E_S01_varName" value="" width="400" maxlength="255" ></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodResultFlag')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S01_methodResultFlag')}" id="CORE_PROG003D0003E_S01_methodResultFlag"></gs:label>
     			<br/>
     			<input id="CORE_PROG003D0003E_S01_methodResultFlag" name="CORE_PROG003D0003E_S01_methodResultFlag" data-dojo-type="dijit/form/CheckBox" value="true" />
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamClass')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamClass"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S01_methodParamClass')}" id="CORE_PROG003D0003E_S01_methodParamClass" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamClass"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_methodParamClass" id="CORE_PROG003D0003E_S01_methodParamClass" value="" width="400" maxlength="255" ></gs:textBox>
     		</td>
     	</tr>      	   
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG003D0003E_S01_methodParamIndex')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamIndex"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0003E_S01_methodParamIndex')}" id="CORE_PROG003D0003E_S01_methodParamIndex" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0003E_S01_methodParamIndex"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0003E_S01_methodParamIndex" id="CORE_PROG003D0003E_S01_methodParamIndex" value="" width="50" maxlength="3" ></gs:textBox>
     		</td>

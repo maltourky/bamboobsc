@@ -96,21 +96,24 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0012A_tplId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_tplId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0012A_tplId')}" id="CORE_PROG001D0012A_tplId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_tplId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012A_tplId" id="CORE_PROG001D0012A_tplId" value="" width="200" maxlength="50"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0012A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0012A_name')}" id="CORE_PROG001D0012A_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0012A_name" id="CORE_PROG001D0012A_name" value="" width="200" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>JSP <s:property value="getText('CORE_PROG001D0012A_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_uploadOidNoticeLabelOnly"></gs:inputfieldNoticeMsgLabel>
+    			<b>JSP</b>&nbsp;<gs:label text="${action.getText('CORE_PROG001D0012A_uploadOid')}" id="CORE_PROG001D0012A_uploadOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0012A_uploadOidNoticeLabelOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG001D0012A_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -121,7 +124,7 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0012A_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0012A_description')}" id="CORE_PROG001D0012A_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG001D0012A_description" name="CORE_PROG001D0012A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

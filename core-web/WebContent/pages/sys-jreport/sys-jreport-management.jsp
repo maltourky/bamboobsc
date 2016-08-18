@@ -134,7 +134,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG001D0008Q_reportId')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG001D0008Q_reportId')}" id="CORE_PROG001D0008Q_reportId"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008Q_reportId" id="CORE_PROG001D0008Q_reportId" value="" width="200" maxlength="10"></gs:textBox>
     			

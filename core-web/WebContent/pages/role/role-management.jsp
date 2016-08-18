@@ -121,7 +121,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="50px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001Q_role')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG002D0001Q_role')}" id="CORE_PROG002D0001Q_role"></gs:label>
     			<br/>
     			<gs:textBox name="CORE_PROG002D0001Q_role" id="CORE_PROG002D0001Q_role" value="" width="200" maxlength="50"></gs:textBox>
     			

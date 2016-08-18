@@ -135,28 +135,30 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_role')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_S00_role')}" id="CORE_PROG002D0001E_S00_role"></gs:label>
     			<br/>
     			<s:property value="role.role"/>
     		</td>
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permType')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permType"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_S00_permType')}" id="CORE_PROG002D0001E_S00_permType" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permType"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG002D0001E_S00_permType" dataSource="permTypeMap" id="CORE_PROG002D0001E_S00_permType"></gs:select>
     		</td>
     	</tr>    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_permission')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permission"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_S00_permission')}" id="CORE_PROG002D0001E_S00_permission" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0001E_S00_permission"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG002D0001E_S00_permission" id="CORE_PROG002D0001E_S00_permission" value="" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="150px" width="100%"  align="left">
-    			<font size='2'><b><s:property value="getText('CORE_PROG002D0001E_S00_description')"/>:</b></font>
+    			<gs:label text="${action.getText('CORE_PROG002D0001E_S00_description')}" id="CORE_PROG002D0001E_S00_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG002D0001E_S00_description" name="CORE_PROG002D0001E_S00_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>

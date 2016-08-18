@@ -87,42 +87,46 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="525px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_systemOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_systemOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_systemOid')}" id="CORE_PROG003D0001E_systemOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_systemOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0001E_systemOid" dataSource="sysMap" id="CORE_PROG003D0001E_systemOid" value="selectValue"></gs:select>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_wsId')"/>:</b> <s:property value="getText('CORE_PROG003D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_wsId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_wsId')}" id="CORE_PROG003D0001E_wsId" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('CORE_PROG003D0001E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_wsId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_wsId" id="CORE_PROG003D0001E_wsId" value="sysWsConfig.wsId" width="200" maxlength="10" readonly="Y"></gs:textBox>
     		</td>
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0001E_beanId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_beanId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_beanId')}" id="CORE_PROG003D0001E_beanId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_beanId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_beanId" id="CORE_PROG003D0001E_beanId" value="sysWsConfig.beanId" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_type')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_type')}" id="CORE_PROG003D0001E_type"></gs:label>
     			<br/>
     			<gs:select name="CORE_PROG003D0001E_type" dataSource="{ \"SOAP\":\"SOAP\", \"REST\":\"REST\" }" id="CORE_PROG003D0001E_type" value="sysWsConfig.type"></gs:select>
     		</td>
     	</tr>    
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_publishAddress')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_publishAddress"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_publishAddress')}" id="CORE_PROG003D0001E_publishAddress"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0001E_publishAddress"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0001E_publishAddress" id="CORE_PROG003D0001E_publishAddress" value="sysWsConfig.publishAddress" width="400" maxlength="255"></gs:textBox>
     		</td>
     	</tr>      	    
 		<tr>
     		<td height="225px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0001E_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG003D0001E_description')}" id="CORE_PROG003D0001E_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG003D0001E_description" name="CORE_PROG003D0001E_description" data-dojo-type="dijit/form/Textarea" rows="9" cols="50" style="width:300px;height:190px;max-height:200px">${sysWsConfig.description}</textarea>	
     		</td>

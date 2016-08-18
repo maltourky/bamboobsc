@@ -84,21 +84,24 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Resource:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_resourceOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Resource" id="CORE_PROG003D0005A_resourceOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_resourceOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0005A_resourceOid" dataSource="resourceMap" id="CORE_PROG003D0005A_resourceOid" width="250"></gs:select>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Role:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_roleOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Role" id="CORE_PROG003D0005A_roleOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_roleOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0005A_roleOid" dataSource="roleMap" id="CORE_PROG003D0005A_roleOid"></gs:select>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Task name:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_taskName"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Task name" id="CORE_PROG003D0005A_taskName" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0005A_taskName"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0005A_taskName" id="CORE_PROG003D0005A_taskName" maxlength="100" width="200"></gs:textBox>
     		</td>    		

@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 var CORE_PROG002D0003Q_fieldsId = new Object();
+CORE_PROG002D0003Q_fieldsId['CORE_PROG002D0003Q_system']		= 'CORE_PROG002D0003Q_system';
 CORE_PROG002D0003Q_fieldsId['CORE_PROG002D0003Q_sysProg']	= 'CORE_PROG002D0003Q_sysProg';
 
 function CORE_PROG002D0003Q_system_change() {
@@ -94,9 +95,11 @@ function CORE_PROG002D0003Q_sysProg_change() {
 
 function CORE_PROG002D0003Q_saveSuccess(data) {
 	setFieldsBackgroundDefault(CORE_PROG002D0003Q_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0003Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {
 		setFieldsBackgroundAlert(data.fieldsId, CORE_PROG002D0003Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, CORE_PROG002D0003Q_fieldsId);
 	}
 }
 
@@ -129,6 +132,7 @@ function CORE_PROG002D0003Q_clearOptions() {
 
 function CORE_PROG002D0003Q_clear() {
 	setFieldsBackgroundDefault(CORE_PROG002D0003Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(CORE_PROG002D0003Q_fieldsId);
 	dijit.byId("CORE_PROG002D0003Q_system").set("value", _gscore_please_select_id);
 }
 
@@ -168,14 +172,16 @@ function ${programId}_page_message() {
 	<table border="0" width="750px" height="100px" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td height="50px" width="100%"  align="center">
-				<font size='2'><b><s:property value="getText('CORE_PROG002D0003Q_system')"/>:</b></font>
+				<gs:label text="${action.getText('CORE_PROG002D0003Q_system')}" id="CORE_PROG002D0003Q_system" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0003Q_system"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:select name="CORE_PROG002D0003Q_system" dataSource="sysMap" id="CORE_PROG002D0003Q_system" onChange="CORE_PROG002D0003Q_system_change()"></gs:select>
 			</td>
 		</tr>
 		<tr>
 			<td height="50px" width="100%"  align="center">
-				<font size='2'><b><s:property value="getText('CORE_PROG002D0003Q_sysProg')"/>:</b></font>
+				<gs:label text="${action.getText('CORE_PROG002D0003Q_sysProg')}" id="CORE_PROG002D0003Q_sysProg" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="CORE_PROG002D0003Q_sysProg"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:select name="CORE_PROG002D0003Q_sysProg" dataSource="sysProgMap" id="CORE_PROG002D0003Q_sysProg" onChange="CORE_PROG002D0003Q_sysProg_change()"></gs:select>
 			</td>
@@ -184,7 +190,7 @@ function ${programId}_page_message() {
 	<table width="750px" height="160px" border="0" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td align="center" width="350px" height="200px">
-				<b><s:property value="getText('CORE_PROG002D0003Q_enable')"/>:</b>
+				<gs:label text="${action.getText('CORE_PROG002D0003Q_enable')}" id="CORE_PROG002D0003Q_enable"></gs:label>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0003Q_enable" name="CORE_PROG002D0003Q_enable" size="10" style="width:320px;height:300px" >			    
 				</select>					
 			</td>
@@ -211,7 +217,7 @@ function ${programId}_page_message() {
 					class="alt-info">→</button>					
 			</td>
 			<td align="center" width="350px" height="200px">
-				<b><s:property value="getText('CORE_PROG002D0003Q_disable')"/>:</b>
+				<gs:label text="${action.getText('CORE_PROG002D0003Q_disable')}" id="CORE_PROG002D0003Q_disable"></gs:label>
 				<select data-dojo-type="dijit/form/MultiSelect" id="CORE_PROG002D0003Q_disable" name="CORE_PROG002D0003Q_disable" size="10" style="width:320px;height:300px" >
 				</select>					
 			</td>

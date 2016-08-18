@@ -95,7 +95,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="325px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_upload_label')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0008A_upload_label')}" id="CORE_PROG001D0008A_upload_label" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="CORE_PROG001D0008A_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitIconFolderOpen', showLabel:false "
@@ -106,21 +107,22 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG001D0008A_reportId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_reportId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG001D0008A_reportId')}" id="CORE_PROG001D0008A_reportId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG001D0008A_reportId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG001D0008A_reportId" id="CORE_PROG001D0008A_reportId" value="" width="200" maxlength="50"></gs:textBox>
     		</td>    		
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008A_isCompile')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0008A_isCompile')}" id="CORE_PROG001D0008A_isCompile"></gs:label>
     			<br/>
     			<input id="CORE_PROG001D0008A_isCompile" name="CORE_PROG001D0008A_isCompile" data-dojo-type="dijit/form/CheckBox" value="true" />
     		</td>    		
     	</tr>
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG001D0008A_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG001D0008A_description')}" id="CORE_PROG001D0008A_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG001D0008A_description" name="CORE_PROG001D0008A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		

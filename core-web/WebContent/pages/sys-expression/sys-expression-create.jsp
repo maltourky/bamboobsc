@@ -88,28 +88,31 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="275px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_exprId')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_exprId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0002A_exprId')}" id="CORE_PROG003D0002A_exprId" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_exprId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002A_exprId" id="CORE_PROG003D0002A_exprId" value="" width="200" maxlength="20"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="20%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_type"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0002A_type')}" id="CORE_PROG003D0002A_type" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="CORE_PROG003D0002A_type" dataSource="typeMap" id="CORE_PROG003D0002A_type"></gs:select>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('CORE_PROG003D0002A_name')}" id="CORE_PROG003D0002A_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="CORE_PROG003D0002A_name" id="CORE_PROG003D0002A_name" value="" width="400" maxlength="100"></gs:textBox>
     		</td>    		
     	</tr>	
 		<tr>
     		<td height="125px" width="100%"  align="left">
-    			<b><s:property value="getText('CORE_PROG003D0002A_description')"/>:</b>
+    			<gs:label text="${action.getText('CORE_PROG003D0002A_description')}" id="CORE_PROG003D0002A_description"></gs:label>
     			<br/>
     			<textarea id="CORE_PROG003D0002A_description" name="CORE_PROG003D0002A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
     		</td>    		
@@ -122,7 +125,8 @@ function ${programId}_page_message() {
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Expression' " >						
 					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:350px">
 						
-    					<font color='RED'>*</font><b><s:property value="getText('CORE_PROG003D0002A_iframe1')"/>:</b><gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_content_noticeMsgLabelOnly"></gs:inputfieldNoticeMsgLabel>
+    					<gs:label text="${action.getText('CORE_PROG003D0002A_iframe1')}" id="CORE_PROG003D0002A_iframe1" requiredFlag="Y"></gs:label>
+    					<gs:inputfieldNoticeMsgLabel id="CORE_PROG003D0002A_content_noticeMsgLabelOnly"></gs:inputfieldNoticeMsgLabel>
     					<br/>
     					<iframe name="CORE_PROG003D0002A_iframe1" id="CORE_PROG003D0002A_iframe1" style='width:100%;height:300px;border:0px' border='0' scrolling='no' src='<%=basePath%>/core.commonCodeEditorAction.action'></iframe>
 					
