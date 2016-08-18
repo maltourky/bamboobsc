@@ -53,6 +53,7 @@ public class Constants {
 	public static final String GS_GET_APPLICATION_NAME_SCRIPT_OBJ = "_applicationProgramNameData"; //  放程式名稱script變數名 for MenuSupportUtils 與 core.js 用的 
 	
 	public static final String INPUTFIELD_NOTICE_MESSAGE_LABEL = "_noticeMsgLabel"; // 輸入欄位標籤旁邊放置 顯示訊息用的 label , 如 CORE_PROG001D0001A_name_noticeMsgLabel
+	public static final String INPUTFIELD_LABEL = "_Label"; // 輸入欄位標籤 label , 如 CORE_PROG001D0001A_name_Label
 	
 	/**
 	 * 選單 js function 打開新的 ContentPane 時 程式 url 要代入的參數 , 用來分別 ajax json xhr 與 ContentPane xhr 判定用 
