@@ -38,6 +38,8 @@ public class Constants {
 	 */
 	public static final String BASE_ENCODING = "utf-8";
 	
+	public static final String HTML_BR = "<BR/>";
+	
 	/**
 	 * EncryptorUtils 要用的 key1
 	 */

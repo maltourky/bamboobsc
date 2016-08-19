@@ -110,7 +110,7 @@ public class PersonalReportBodyCommand extends BaseChainCommandSupport implement
 		parameter.put("kpiTitle", BscReportPropertyUtils.getKpiTitle() );
 		String classLevel = BscReportPropertyUtils.getPersonalReportClassLevel();
 		classLevel = StringUtils.defaultString(classLevel);
-		classLevel = classLevel.replaceAll("\n", "<BR/>");	
+		classLevel = classLevel.replaceAll("\n", Constants.HTML_BR);	
 		parameter.put("classLevel", classLevel );
 	}	
 	

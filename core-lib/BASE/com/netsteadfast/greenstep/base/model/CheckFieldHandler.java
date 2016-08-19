@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 
 public class CheckFieldHandler implements java.io.Serializable {
@@ -100,8 +101,12 @@ public class CheckFieldHandler implements java.io.Serializable {
 				IActionFieldsCheckUtils checkUtils = checkUtilsClazzs.get(i).newInstance();
 				if (!checkUtils.check(value)) {
 					actionFieldsId.add( fieldsNames.get(i) );
-					actionFieldsMessage.put(fieldsNames.get(i), fieldsMessages.get(i));
-					msg.append( fieldsMessages.get(i) ).append("<BR/>");
+					/**
+					 * 因為 inputfieldNoticeMsgLabel 不需要斷行效果
+					 * 這裡的 <BR/> 必須與 BaseSupportAction 的 joinPageMessage 所加上的<BR/> 一樣字串
+					 */					
+					actionFieldsMessage.put(fieldsNames.get(i), fieldsMessages.get(i).replaceAll(Constants.HTML_BR, " ") );
+					msg.append( fieldsMessages.get(i) ).append(Constants.HTML_BR);
 				}				
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -127,10 +132,14 @@ public class CheckFieldHandler implements java.io.Serializable {
 			}
 			String idName = name[i].trim();
 			actionFieldsId.add(idName);
-			actionFieldsMessage.put(idName, message);
+			/**
+			 * 因為 inputfieldNoticeMsgLabel 不需要斷行效果
+			 * 這裡的 <BR/> 必須與 BaseSupportAction 的 joinPageMessage 所加上的<BR/> 一樣字串
+			 */
+			actionFieldsMessage.put(idName, message.replaceAll(Constants.HTML_BR, " "));
 			fieldsMessages.add( message );
 		}
-		msg.append( StringUtils.defaultString(message) ).append("<BR/>");
+		msg.append( StringUtils.defaultString(message) ).append(Constants.HTML_BR);
 		return this;
 	}
 	

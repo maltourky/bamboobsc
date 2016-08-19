@@ -132,7 +132,7 @@ public class PeriodTrendsCalUtils {
 			}	
 			if (periodData.getPrevious() == null) { // 沒有對應的 KPI
 				//throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
-				throw new ServiceException( "No found previous period data can do calculate change score!<BR/>KPI: " + periodData.getCurrent().getName() );
+				throw new ServiceException( "No found previous period data can do calculate change score!" + Constants.HTML_BR + "KPI: " + periodData.getCurrent().getName() );
 			}
 			
 			/**

@@ -123,7 +123,7 @@ public class QueryDataAction extends BaseJsonAction {
 		.throwMessage();
 		
 		this.searchDatas = QueryDataUtils.query(dataSourceConfOid, queryExpression);
-		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg2") + "<BR/>";
+		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg2") + super.getHtmlBr();
 		if (this.searchDatas!=null) {
 			this.renderGridContent();
 			if ("2".equals(queryType)) {
@@ -135,7 +135,7 @@ public class QueryDataAction extends BaseJsonAction {
 						dataQueryMapperOid, this.seriesCategories, this.searchDatas);
 			}
 			this.success = IS_YES;
-			this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg3") + "<BR/>";			
+			this.message = this.getText("MESSAGE.QCHARTS_PROG002D0001Q_msg3") + super.getHtmlBr();			
 		} 
 	}
 	

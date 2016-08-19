@@ -54,6 +54,7 @@ BSC_PROG002D0008Q_fieldsId['organizationOid'] 	= 'BSC_PROG002D0008Q_organization
 function BSC_PROG002D0008Q_query() {
 	BSC_PROG002D0008Q_clearContent();
 	setFieldsBackgroundDefault(BSC_PROG002D0008Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0008Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/bsc.swotContentQueryAction.action', 
 			{ 
@@ -67,6 +68,7 @@ function BSC_PROG002D0008Q_query() {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0008Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0008Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -80,6 +82,7 @@ function BSC_PROG002D0008Q_query() {
 
 function BSC_PROG002D0008Q_pdf() {
 	setFieldsBackgroundDefault(BSC_PROG002D0008Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0008Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/bsc.swotPdfDataAction.action', 
 			{ 
@@ -93,6 +96,7 @@ function BSC_PROG002D0008Q_pdf() {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0008Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0008Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -106,9 +110,11 @@ function BSC_PROG002D0008Q_pdf() {
 
 function BSC_PROG002D0008Q_saveSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG002D0008Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0008Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0008Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0008Q_fieldsId);
 		return;
 	}	
 }
@@ -204,20 +210,24 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG002D0008Q_pdf();
 											}"><s:property value="getText('BSC_PROG002D0008Q_btnPdf')"/></button>	
+									
+									&nbsp;
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0008Q_visionOid"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0008Q_organizationOid"></gs:inputfieldNoticeMsgLabel>
 											
 								</td>											
 							</tr>
 							
 							<tr valign="top">
 								<td width="100%" align="left" height="25px">	
-									<font size='2'><b><s:property value="getText('BSC_PROG002D0008Q_visionOid')"/>:</b></font>
+									<gs:label text="${action.getText('BSC_PROG002D0008Q_visionOid')}" id="BSC_PROG002D0008Q_visionOid"></gs:label>
 									<gs:select name="BSC_PROG002D0008Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0008Q_visionOid" onChange="BSC_PROG002D0008Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0008Q_visionOid'">
 										Select vision.
 									</div> 									
 						    		&nbsp;		    			
 					    																	
-									<font size='2'><b><s:property value="getText('BSC_PROG002D0008Q_organizationOid')"/>:</b></font>
+									<gs:label text="${action.getText('BSC_PROG002D0008Q_organizationOid')}" id="BSC_PROG002D0008Q_organizationOid"></gs:label>
 									<gs:select name="BSC_PROG002D0008Q_organizationOid" dataSource="organizationMap" id="BSC_PROG002D0008Q_organizationOid" onChange="BSC_PROG002D0008Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0008Q_organizationOid'">
 										Select organization/department.

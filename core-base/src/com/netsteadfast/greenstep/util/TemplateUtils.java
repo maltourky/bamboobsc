@@ -145,7 +145,7 @@ public class TemplateUtils {
 		if (StringUtils.isBlank(strContent)) {
 			return "";
 		}
-		return StringEscapeUtils.escapeHtml4(strContent).replaceAll("\n", "<br/>");
+		return StringEscapeUtils.escapeHtml4(strContent).replaceAll("\n", Constants.HTML_BR);
 	}
 	
 	/**

@@ -73,7 +73,7 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	}
 	
 	protected void throwMessage(String message) throws ControllerException {
-		throw new ControllerException(message + "<BR/>");
+		throw new ControllerException(message + super.getHtmlBr());
 	}
 	
 	protected void throwMessage(String fieldId, String message) throws ControllerException {
@@ -85,7 +85,11 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 				}
 				String idName = name[i].trim();
 				this.fieldsId.add(idName);
-				this.fieldsMessage.put(idName, message);
+				/**
+				 * 因為 inputfieldNoticeMsgLabel 不需要斷行效果
+				 * 這裡的 <BR/> 必須與 BaseSupportAction 的 joinPageMessage 所加上的<BR/> 一樣字串
+				 */				
+				this.fieldsMessage.put(idName, message.replaceAll(super.getHtmlBr(), " "));
 			}			
 		}
 		this.throwMessage(message);
@@ -93,7 +97,11 @@ public abstract class BaseJsonAction extends BaseSupportAction {
 	
 	protected void addFieldsNoticeMessage(String fieldId, String message) {
 		this.fieldsId.add(fieldId);
-		this.fieldsMessage.put(fieldId, message);
+		/**
+		 * 因為 inputfieldNoticeMsgLabel 不需要斷行效果
+		 * 這裡的 <BR/> 必須與 BaseSupportAction 的 joinPageMessage 所加上的<BR/> 一樣字串
+		 */				
+		this.fieldsMessage.put(fieldId, message.replaceAll(super.getHtmlBr(), " "));
 	}
 	
 	// -----------------------------------------------------

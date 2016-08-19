@@ -32,6 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.netsteadfast.greenstep.BscConstants;
 import com.netsteadfast.greenstep.base.AppContext;
 import com.netsteadfast.greenstep.base.BaseChainCommandSupport;
+import com.netsteadfast.greenstep.base.Constants;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
@@ -213,7 +214,7 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 			DefaultResult<OrganizationVO> result = this.organizationService.findByUK(organization);
 			if (result.getValue()!=null) {
 				organization = result.getValue();
-				headContent += "<BR/>Measure data for:&nbsp;" 
+				headContent += Constants.HTML_BR + "Measure data for:&nbsp;" 
 						+ organization.getOrgId() + "&nbsp;-&nbsp;" + organization.getName();
 			}
 		}
@@ -225,7 +226,7 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 			DefaultResult<EmployeeVO> result = this.employeeService.findByUK(employee);
 			if (result.getValue()!=null) {
 				employee = result.getValue();
-				headContent += "<BR/>Measure data for:&nbsp;" 
+				headContent += Constants.HTML_BR + "Measure data for:&nbsp;" 
 						+ employee.getEmpId() + "&nbsp;-&nbsp;" + employee.getFullName();
 				if (!StringUtils.isBlank(employee.getJobTitle())) {
 					headContent += "&nbsp;(&nbsp;" + employee.getJobTitle() + "&nbsp;)&nbsp;";

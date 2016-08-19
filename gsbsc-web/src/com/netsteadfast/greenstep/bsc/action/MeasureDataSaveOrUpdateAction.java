@@ -161,18 +161,7 @@ public class MeasureDataSaveOrUpdateAction extends BaseJsonAction {
 					this.getText("BSC_PROG002D0005Q_saveStep_01"),
 					this.getText("BSC_PROG002D0005Q_saveStep_02"),
 					this.getText("BSC_PROG002D0005Q_saveStep_03"));
-			String noticeLabelStr = 
-					StringUtils.join(
-							this.getText("BSC_PROG002D0005Q_saveStep_label"), 
-							":", 
-							" ",
-							this.getText("BSC_PROG002D0005Q_saveStep_01"),
-							" ",
-							this.getText("BSC_PROG002D0005Q_saveStep_02"),
-							" ",
-							this.getText("BSC_PROG002D0005Q_saveStep_03"));
-			super.addFieldsNoticeMessage("dataFor", noticeLabelStr);
-			super.throwMessage( errMessage );
+			super.throwMessage( "mainInfoTemp", errMessage );
 		}
 		String oid = this.defaultString( (String)this.getHttpServletRequest().getParameter("BSC_PROG002D0005Q_kpiOid") );
 		String date = this.defaultString( (String)this.getHttpServletRequest().getParameter("BSC_PROG002D0005Q_date") );

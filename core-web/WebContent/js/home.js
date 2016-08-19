@@ -601,6 +601,19 @@ function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
 }
 
 /**
+ * 顯示notice message label
+ * 
+ * @param noticeLabelId	要自己組出正確的 id, 要自己組成  'label的id' + _gscore_inputfieldNoticeMsgLabelIdName
+ * @param message
+ */
+function showFieldsNoticeMessageLabel(noticeLabelId, message) {
+	if (dojo.byId(noticeLabelId) == null) {
+		return;
+	}
+	dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + message + "&nbsp;</font>";
+}
+
+/**
  * 把輸入條件不合的欄位背景言色回復成正常
  * 
  * @param viewFieldsId

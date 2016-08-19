@@ -174,7 +174,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		String mondrianUrl = OlapUtils.getMondrianUrl(config.getJdbcUrl(), config.getJdbcDrivers(), catalogFile.getPath());
 		this.content = Pivot4JUtils.rendererHtml(
 				mondrianUrl, this.getFields().get("expression"), showDimensionTitle, showParentMembers);	
-		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0002Q_msg1") + "<BR/>";			
+		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0002Q_msg1") + super.getHtmlBr();			
 		this.success = IS_YES;
 	}
 	
@@ -219,7 +219,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		} finally {
 			file = null;
 		}
-		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0002Q_msg1") + "<BR/>";			
+		this.message = this.getText("MESSAGE.QCHARTS_PROG002D0002Q_msg1") + super.getHtmlBr();			
 		this.success = IS_YES;		
 	}
 	

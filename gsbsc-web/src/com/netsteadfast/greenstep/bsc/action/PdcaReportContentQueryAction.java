@@ -162,7 +162,7 @@ public class PdcaReportContentQueryAction extends BaseJsonAction {
 			}
 			if (!this.message.equals(bscReportObj.getMessage())) {
 				if (!"".equals(this.message)) {
-					this.message += "<BR/>";
+					this.message += super.getHtmlBr();
 				}
 				this.message += bscReportObj.getMessage();
 			}			

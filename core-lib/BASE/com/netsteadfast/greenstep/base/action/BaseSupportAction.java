@@ -617,7 +617,11 @@ public class BaseSupportAction extends BaseAction implements ServletRequestAware
 	}
 	
 	protected String joinPageMessage(String... message) {
-		return StringUtils.join(message, "<BR/>");
+		return StringUtils.join(message, this.getHtmlBr());
+	}
+	
+	protected String getHtmlBr() {
+		return Constants.HTML_BR;
 	}
 	
 	protected static Map<String, String> getLoadStrutsConstants() {		

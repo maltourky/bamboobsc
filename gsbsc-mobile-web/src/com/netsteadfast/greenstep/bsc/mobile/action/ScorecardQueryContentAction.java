@@ -194,7 +194,7 @@ public class ScorecardQueryContentAction extends BaseJsonAction {
 		for (VisionVO vision : visionScores) {			
 			outContent.append( BscMobileCardUtils.getVisionCardContent(
 					vision, BscMeasureDataFrequency.getFrequencyMap(false).get(frequency), dateStr1, dateStr2) );
-			outContent.append("<BR/>");
+			outContent.append(super.getHtmlBr());
 		}
 		this.content = outContent.toString();		
 		if (!StringUtils.isBlank(content)) {
@@ -220,7 +220,7 @@ public class ScorecardQueryContentAction extends BaseJsonAction {
 		List<PerspectiveVO> perspectives = vision.getPerspectives();
 		for (PerspectiveVO perspective : perspectives) {
 			outContent.append( BscMobileCardUtils.getPerspectivesCardContent(uploadOid, perspective) );
-			outContent.append("<BR/>");
+			outContent.append(super.getHtmlBr());
 		}
 		this.content = outContent.toString();
 		if (!StringUtils.isBlank(content)) {
@@ -243,7 +243,7 @@ public class ScorecardQueryContentAction extends BaseJsonAction {
 				List<ObjectiveVO> objectives = perspective.getObjectives();
 				for (ObjectiveVO objective : objectives) {
 					outContent.append( BscMobileCardUtils.getObjectivesCardContent(uploadOid, objective) );
-					outContent.append("<BR/>");
+					outContent.append(super.getHtmlBr());
 				}
 			}
 		}
@@ -271,7 +271,7 @@ public class ScorecardQueryContentAction extends BaseJsonAction {
 					List<KpiVO> kpis = objective.getKpis();
 					for (KpiVO kpi : kpis) {
 						outContent.append( BscMobileCardUtils.getKPIsCardContent(uploadOid, kpi) );
-						outContent.append("<BR/>");						
+						outContent.append(super.getHtmlBr());						
 					}
 				}
 			}

@@ -287,15 +287,15 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String title = data.get("TITLE");
 			String content = data.get("CONTENT");
 			if ( super.isBlank(visId) ) {
-				msg.append("row: " + row + " id is blank.<br/>");
+				msg.append("row: " + row + " id is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(title) ) {
-				msg.append("row: " + row + " title is blank.<br/>");
+				msg.append("row: " + row + " title is blank." + Constants.HTML_BR);
 				continue;
 			}			
 			if ( super.isBlank(content) ) {
-				msg.append("row: " + row + " content is blank.<br/>");
+				msg.append("row: " + row + " content is blank." + Constants.HTML_BR);
 				continue;
 			}
 			VisionVO vision = new VisionVO();
@@ -347,39 +347,39 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String min = data.get("MIN");
 			String description = data.get("DESCRIPTION");	
 			if ( super.isBlank(perId) ) {
-				msg.append("row: " + row + " perspective-id is blank.<br/>");
+				msg.append("row: " + row + " perspective-id is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(visId) ) {
-				msg.append("row: " + row + " vision-id is blank.<br/>");
+				msg.append("row: " + row + " vision-id is blank." + Constants.HTML_BR);
 				continue;
 			}		
 			if ( super.isBlank(name) ) {
-				msg.append("row: " + row + " name is blank.<br/>");
+				msg.append("row: " + row + " name is blank." + Constants.HTML_BR);
 				continue;
 			}			
 			if ( super.isBlank(weight) ) {
-				msg.append("row: " + row + " weight is blank.<br/>");
+				msg.append("row: " + row + " weight is blank." + Constants.HTML_BR);
 				continue;				
 			}
 			if ( super.isBlank(target) ) {
-				msg.append("row: " + row + " target is blank.<br/>");
+				msg.append("row: " + row + " target is blank." + Constants.HTML_BR);
 				continue;				
 			}
 			if ( super.isBlank(min) ) {
-				msg.append("row: " + row + " min is blank.<br/>");
+				msg.append("row: " + row + " min is blank." + Constants.HTML_BR);
 				continue;				
 			}			
 			if ( !NumberUtils.isNumber(weight) ) {
-				msg.append("row: " + row + " weight is not number.<br/>");
+				msg.append("row: " + row + " weight is not number." + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !NumberUtils.isNumber(target) ) {
-				msg.append("row: " + row + " target is not number.<br/>");
+				msg.append("row: " + row + " target is not number." + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !NumberUtils.isNumber(min) ) {
-				msg.append("row: " + row + " min is not number.<br/>");
+				msg.append("row: " + row + " min is not number." + Constants.HTML_BR);
 				continue;					
 			}		
 			paramMap.clear();
@@ -444,39 +444,39 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String min = data.get("MIN");
 			String description = data.get("DESCRIPTION");
 			if ( super.isBlank(objId) ) {
-				msg.append("row: " + row + " objective-id is blank.<br/>");
+				msg.append("row: " + row + " objective-id is blank." + Constants.HTML_BR);
 				continue;
 			}					
 			if ( super.isBlank(perId) ) {
-				msg.append("row: " + row + " perspective-id is blank.<br/>");
+				msg.append("row: " + row + " perspective-id is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(name) ) {
-				msg.append("row: " + row + " name is blank.<br/>");
+				msg.append("row: " + row + " name is blank." + Constants.HTML_BR);
 				continue;
 			}			
 			if ( super.isBlank(weight) ) {
-				msg.append("row: " + row + " weight is blank.<br/>");
+				msg.append("row: " + row + " weight is blank." + Constants.HTML_BR);
 				continue;				
 			}
 			if ( super.isBlank(target) ) {
-				msg.append("row: " + row + " target is blank.<br/>");
+				msg.append("row: " + row + " target is blank." + Constants.HTML_BR);
 				continue;				
 			}
 			if ( super.isBlank(min) ) {
-				msg.append("row: " + row + " min is blank.<br/>");
+				msg.append("row: " + row + " min is blank." + Constants.HTML_BR);
 				continue;				
 			}
 			if ( !NumberUtils.isNumber(weight) ) {
-				msg.append("row: " + row + " weight is not number.<br/>");
+				msg.append("row: " + row + " weight is not number." + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !NumberUtils.isNumber(target) ) {
-				msg.append("row: " + row + " target is not number.<br/>");
+				msg.append("row: " + row + " target is not number." + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !NumberUtils.isNumber(min) ) {
-				msg.append("row: " + row + " min is not number.<br/>");
+				msg.append("row: " + row + " min is not number." + Constants.HTML_BR);
 				continue;					
 			}		
 			PerspectiveVO perspective = new PerspectiveVO();
@@ -521,84 +521,84 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String dataType, String orgaMeasureSeparate, String userMeasureSeparate, String quasiRange,
 			String description, String max) throws Exception {
 		if ( super.isBlank(id) ) {
-			return "row: " + row + " id is blank.<br/>";
+			return "row: " + row + " id is blank." + Constants.HTML_BR;
 		}						
 		if ( super.isBlank(objId) ) {
-			return "row: " + row + " objective-id is blank.<br/>";
+			return "row: " + row + " objective-id is blank." + Constants.HTML_BR;
 		}					
 		if ( super.isBlank(name) ) {
-			return "row: " + row + " name is blank.<br/>";
+			return "row: " + row + " name is blank." + Constants.HTML_BR;
 		}			
 		if ( super.isBlank(weight) ) {
-			return "row: " + row + " weight is blank.<br/>";				
+			return "row: " + row + " weight is blank." + Constants.HTML_BR;				
 		}
 		if ( super.isBlank(max) ) {
-			return "row: " + row + " max is blank.<br/>";			
+			return "row: " + row + " max is blank." + Constants.HTML_BR;			
 		}		
 		if ( super.isBlank(target) ) {
-			return "row: " + row + " target is blank.<br/>";			
+			return "row: " + row + " target is blank." + Constants.HTML_BR;			
 		}
 		if ( super.isBlank(min) ) {
-			return "row: " + row + " min is blank.<br/>";			
+			return "row: " + row + " min is blank." + Constants.HTML_BR;			
 		}
 		if ( super.isBlank(unit) ) {
-			return "row: " + row + " unit is blank.<br/>";			
+			return "row: " + row + " unit is blank." + Constants.HTML_BR;			
 		}			
 		if ( super.isBlank(forId) ) {
-			return "row: " + row + " formula-id is blank.<br/>";			
+			return "row: " + row + " formula-id is blank." + Constants.HTML_BR;			
 		}			
 		if ( super.isBlank(management) ) {
-			return "row: " + row + " management method is blank.<br/>";			
+			return "row: " + row + " management method is blank." + Constants.HTML_BR;			
 		}
 		if ( super.isBlank(compareType) ) {
-			return "row: " + row + " compare type is blank.<br/>";			
+			return "row: " + row + " compare type is blank." + Constants.HTML_BR;			
 		}
 		if ( super.isBlank(cal) ) {
-			return "row: " + row + " Calculation( aggregation method ) is blank.<br/>";			
+			return "row: " + row + " Calculation( aggregation method ) is blank." + Constants.HTML_BR;			
 		}
 		if ( super.isBlank(dataType) ) {
-			return "row: " + row + " belong type is blank.<br/>";			
+			return "row: " + row + " belong type is blank." + Constants.HTML_BR;			
 		}			
 		if ( super.isBlank(orgaMeasureSeparate) ) {
-			return "row: " + row + " Organization measure-data separate flag is blank.<br/>";		
+			return "row: " + row + " Organization measure-data separate flag is blank." + Constants.HTML_BR;		
 		}	
 		if ( super.isBlank(userMeasureSeparate) ) {
-			return "row: " + row + " Personal measure-data separate flag is blank.<br/>";			
+			return "row: " + row + " Personal measure-data separate flag is blank." + Constants.HTML_BR;			
 		}			
 		if ( super.isBlank(quasiRange) ) {
-			return "row: " + row + " quasi range is blank.<br/>";
+			return "row: " + row + " quasi range is blank." + Constants.HTML_BR;
 		}				
 		if ( !NumberUtils.isNumber(weight) ) {
-			return "row: " + row + " weight is not number.<br/>";		
+			return "row: " + row + " weight is not number." + Constants.HTML_BR;		
 		}
 		if ( !NumberUtils.isNumber(max) ) {
-			return "row: " + row + " max is not number.<br/>";				
+			return "row: " + row + " max is not number." + Constants.HTML_BR;				
 		}		
 		if ( !NumberUtils.isNumber(target) ) {
-			return "row: " + row + " target is not number.<br/>";				
+			return "row: " + row + " target is not number." + Constants.HTML_BR;				
 		}
 		if ( !NumberUtils.isNumber(min) ) {
-			return "row: " + row + " min is not number.<br/>";			
+			return "row: " + row + " min is not number." + Constants.HTML_BR;			
 		}		
 		if ( !NumberUtils.isNumber(quasiRange) ) {
-			return "row: " + row + " quasi range is not number.<br/>";			
+			return "row: " + row + " quasi range is not number." + Constants.HTML_BR;			
 		}		
 		if ( BscKpiCode.getCompareTypeMap(false).get(compareType) == null ) {
-			return "row: " + row + " compare type is not accept.<br/>";
+			return "row: " + row + " compare type is not accept." + Constants.HTML_BR;
 		}
 		if ( BscKpiCode.getDataTypeMap(false).get(dataType) == null ) {
-			return "row: " + row + " belong type is not accept.<br/>";
+			return "row: " + row + " belong type is not accept." + Constants.HTML_BR;
 		}
 		if ( BscKpiCode.getManagementMap(false).get(management) == null ) {
-			return "row: " + row + " management method is not accept.<br/>";				
+			return "row: " + row + " management method is not accept." + Constants.HTML_BR;				
 		}			
 		if ( BscKpiCode.getQuasiRangeMap().get(quasiRange) == null ) {
-			return "row: " + row + " quasi range is not accept.<br/>";		
+			return "row: " + row + " quasi range is not accept." + Constants.HTML_BR;		
 		}		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("aggrId", cal);
 		if (this.aggregationMethodService.countByParams(paramMap) < 1) {
-			return "row: " + row + " Calculation( aggregation method ) is not accept.<br/>";
+			return "row: " + row + " Calculation( aggregation method ) is not accept." + Constants.HTML_BR;
 		}
 		return "";
 	}
@@ -688,7 +688,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			kpi.setUserMeasureSeparate(YesNo.NO);
 			kpi.setActivate(YesNo.NO);
 			if ( YesNo.YES.equals(orgaMeasureSeparate) || YesNo.YES.equals(userMeasureSeparate) ) {
-				msg.append("row: " + row + " import mode no support organization/personal measure separate data. please manual settings.<br/>");
+				msg.append("row: " + row + " import mode no support organization/personal measure separate data. please manual settings." + Constants.HTML_BR);
 			}
 			if (YesNo.YES.equals(activate)) {
 				kpi.setActivate(YesNo.YES);
@@ -753,60 +753,60 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 			String orgId = data.get("ORG_ID");
 			String empId = data.get("EMP_ID");
 			if ( super.isBlank(kpiId) ) {
-				msg.append("row: " + row + " kpi id is blank.<br/>");
+				msg.append("row: " + row + " kpi id is blank." + Constants.HTML_BR);
 				continue;
 			}				
 			if ( super.isBlank(date) ) {
-				msg.append("row: " + row + " date is blank.<br/>");
+				msg.append("row: " + row + " date is blank." + Constants.HTML_BR);
 				continue;
 			}							
 			if ( super.isBlank(target) ) {
-				msg.append("row: " + row + " target is blank.<br/>");
+				msg.append("row: " + row + " target is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(actual) ) {
-				msg.append("row: " + row + " actual is blank.<br/>");
+				msg.append("row: " + row + " actual is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(frequency) ) {
-				msg.append("row: " + row + " frequency is blank.<br/>");
+				msg.append("row: " + row + " frequency is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(orgId) ) {
-				msg.append("row: " + row + " organization-id is blank.<br/>");
+				msg.append("row: " + row + " organization-id is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( super.isBlank(empId) ) {
-				msg.append("row: " + row + " employee-no is blank.<br/>");
+				msg.append("row: " + row + " employee-no is blank." + Constants.HTML_BR);
 				continue;
 			}
 			if ( !SimpleUtils.isDate(date) ) {
-				msg.append("row: " + row + " is not date " + date + "<br/>");
+				msg.append("row: " + row + " is not date " + date + Constants.HTML_BR);
 				continue;					
 			}			
 			if ( !NumberUtils.isNumber(target) ) {
-				msg.append("row: " + row + " target is not number.<br/>");
+				msg.append("row: " + row + " target is not number." + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !NumberUtils.isNumber(actual) ) {
-				msg.append("row: " + row + " actual is not number.<br/>");
+				msg.append("row: " + row + " actual is not number." + Constants.HTML_BR);
 				continue;					
 			}		
 			if ( BscMeasureDataFrequency.getFrequencyMap(false).get(frequency) == null ) {
-				msg.append("row: " + row + " frequency is not found.<br/>");
+				msg.append("row: " + row + " frequency is not found." + Constants.HTML_BR);
 				continue;			
 			}
 			paramMap.clear();
 			paramMap.put("id", kpiId);
 			if ( this.kpiService.countByParams(paramMap) < 1 ) {
-				msg.append("row: " + row + " KPI is not found " + kpiId + "<br/>");
+				msg.append("row: " + row + " KPI is not found " + kpiId + Constants.HTML_BR);
 				continue;					
 			}
 			if ( !BscConstants.MEASURE_DATA_ORGANIZATION_FULL.equals(orgId) ) {
 				paramMap.clear();
 				paramMap.put("orgId", orgId);
 				if ( this.organizationService.countByParams(paramMap) < 1 ) {
-					msg.append("row: " + row + " organization-id is not found " + orgId + "<br/>");
+					msg.append("row: " + row + " organization-id is not found " + orgId + Constants.HTML_BR);
 					continue;					
 				}				
 			}
@@ -814,7 +814,7 @@ public class ImportDataLogicServiceImpl extends BaseLogicService implements IImp
 				paramMap.clear();
 				paramMap.put("empId", empId);
 				if ( this.employeeService.countByParams(paramMap) < 1 ) {
-					msg.append("row: " + row + " employee-no is not found " + empId + "<br/>");
+					msg.append("row: " + row + " employee-no is not found " + empId + Constants.HTML_BR);
 					continue;					
 				}				
 			}

@@ -64,7 +64,7 @@ public class MeasureDataCalendarQueryAction extends BaseJsonAction {
 		String employeeOid = this.getFields().get("employeeOid");
 		String frequency = this.getFields().get("frequency");
 		if (StringUtils.isBlank(oid) || oid.startsWith(BscConstants.KPI_TREE_NOT_ITEM)) {
-			super.throwMessage( "Please select KPI!" );
+			super.throwMessage( "mainInfoTemp", "Please select KPI!" );
 		}
 		this.getCheckFieldHandler()
 		.single("employeeOid", ( BscConstants.MEASURE_DATA_FOR_EMPLOYEE.equals(dataFor) && this.isNoSelectId(employeeOid) ), this.getText("BSC_PROG002D0005Q_msg1") )

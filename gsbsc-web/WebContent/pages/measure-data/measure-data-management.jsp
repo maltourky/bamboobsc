@@ -42,6 +42,7 @@ BSC_PROG002D0005Q_fieldsId['dataFor'] 			= 'BSC_PROG002D0005Q_dataForOpt';
 BSC_PROG002D0005Q_fieldsId['frequency'] 		= 'BSC_PROG002D0005Q_frequencyOpt';
 BSC_PROG002D0005Q_fieldsId['organizationOid'] 	= 'BSC_PROG002D0005Q_organizationOid';
 BSC_PROG002D0005Q_fieldsId['employeeOid'] 		= 'BSC_PROG002D0005Q_employeeOid';
+BSC_PROG002D0005Q_fieldsId['mainInfoTemp'] 		= 'BSC_PROG002D0005Q_mainInfoTemp';
 
 
 /* 產生KPI-TREE */
@@ -88,8 +89,9 @@ function BSC_PROG002D0005Q_getKpiTree() {
 	getHtmlContentData('${kpiOid}');
 	</s:if>
 	*/
-	
-	alertDialog(_getApplicationProgramNameById('${programId}'), 'First select a KPI-item on tree menu.', function(){}, 'Y');
+	var firstMessage = 'First select a KPI-item on tree menu.';
+	alertDialog(_getApplicationProgramNameById('${programId}'), firstMessage, function(){}, 'Y');
+	showFieldsNoticeMessageLabel('BSC_PROG002D0005Q_mainInfoTemp'+_gscore_inputfieldNoticeMsgLabelIdName, firstMessage);
 	
 }
 
@@ -230,6 +232,8 @@ function BSC_PROG002D0005Q_nextCalendar() {
 }
 
 function BSC_PROG002D0005Q_clear() {
+	setFieldsBackgroundDefault(BSC_PROG002D0005Q_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0005Q_fieldsId);
 	dojo.byId("BSC_PROG002D0005Q_date").value = "${nowDate2}";
 	dijit.byId("BSC_PROG002D0005Q_dataForOpt").set("value", "all");
 	dijit.byId("BSC_PROG002D0005Q_frequencyOpt").set("value", "day");
@@ -345,17 +349,25 @@ function ${programId}_page_message() {
 			</td>
 			<td valign="top" align="center" >
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG002D0005Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:110px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:115px">
    						<table border="0" width="100%" height="100%">
    							<tr>							
-   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_dataForOpt')}" id="BSC_PROG002D0005Q_dataForOpt"></gs:label></td>
+   								<td width="20%" align="right">
+   									<gs:label text="${action.getText('BSC_PROG002D0005Q_dataForOpt')}" id="BSC_PROG002D0005Q_dataForOpt"></gs:label>
+   									<br/>
+   									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_dataForOpt"></gs:inputfieldNoticeMsgLabel>
+   								</td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_dataForOpt" dataSource="{ \"all\":\"All\", \"organization\":\"Organization\", \"employee\":\"Employee\" }" id="BSC_PROG002D0005Q_dataForOpt" onChange="BSC_PROG002D0005Q_setDataForValue();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_dataForOpt'">
 					    				Select data type.
 									</div>    									
    								</td>
-   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_frequencyOpt')}" id="BSC_PROG002D0005Q_frequencyOpt"></gs:label></td>
+   								<td width="20%" align="right">
+   									<gs:label text="${action.getText('BSC_PROG002D0005Q_frequencyOpt')}" id="BSC_PROG002D0005Q_frequencyOpt"></gs:label>
+   									<br/>
+   									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_frequencyOpt"></gs:inputfieldNoticeMsgLabel>
+   								</td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_frequencyOpt" dataSource="frequencyMap" id="BSC_PROG002D0005Q_frequencyOpt" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_frequencyOpt'">
@@ -364,14 +376,22 @@ function ${programId}_page_message() {
    								</td>   								
    							</tr>   						
    							<tr>							
-   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_organizationOid')}" id="BSC_PROG002D0005Q_organizationOid"></gs:label></td>
+   								<td width="20%" align="right">
+   									<gs:label text="${action.getText('BSC_PROG002D0005Q_organizationOid')}" id="BSC_PROG002D0005Q_organizationOid"></gs:label>
+   									<br/>
+   									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_organizationOid"></gs:inputfieldNoticeMsgLabel>
+   								</td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_organizationOid" dataSource="organizationMap" id="BSC_PROG002D0005Q_organizationOid" readonly="Y" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_organizationOid'">
 					    				Select organization/department.
 									</div>    									
    								</td>
-   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_employeeOid')}" id="BSC_PROG002D0005Q_employeeOid"></gs:label></td>
+   								<td width="20%" align="right">
+   									<gs:label text="${action.getText('BSC_PROG002D0005Q_employeeOid')}" id="BSC_PROG002D0005Q_employeeOid"></gs:label>
+   									<br/>
+   									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_employeeOid"></gs:inputfieldNoticeMsgLabel>
+   								</td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_employeeOid" dataSource="employeeMap" id="BSC_PROG002D0005Q_employeeOid" readonly="Y" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_employeeOid'">
@@ -380,7 +400,7 @@ function ${programId}_page_message() {
    								</td>   								
    							</tr>
    							<tr>
-   								<td colspan="6" align="center">
+   								<td colspan="4" align="center">
 					    			<gs:button name="BSC_PROG002D0005Q_query" id="BSC_PROG002D0005Q_query" onClick="BSC_PROG002D0005Q_renderBody();"
 					    				handleAs="json"
 					    				sync="N"
@@ -418,17 +438,16 @@ function ${programId}_page_message() {
 					    				programId="${programId}"
 					    				label="${action.getText('BSC_PROG002D0005Q_save')}" 
 					    				iconClass="dijitIconSave"
-					    				cssClass="alt-primary"></gs:button>    						    				 								
+					    				cssClass="alt-primary"></gs:button>    					
+					    			
+					    			<br/>									
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_mainInfoTemp"></gs:inputfieldNoticeMsgLabel>
+									
    								</td>
    							</tr>
    						</table>
    					</div>		    						       								    					
 		  		</div>				
-				
-				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_dataForOpt"></gs:inputfieldNoticeMsgLabel>
-				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_frequencyOpt"></gs:inputfieldNoticeMsgLabel>
-				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_organizationOid"></gs:inputfieldNoticeMsgLabel>
-				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_employeeOid"></gs:inputfieldNoticeMsgLabel>
 				
 				<form name="BSC_PROG002D0005Q_measureDataForm" id="BSC_PROG002D0005Q_measureDataForm" method="post" action=".">
 					<input type="hidden" name="BSC_PROG002D0005Q_kpiOid" id="BSC_PROG002D0005Q_kpiOid" value="" />

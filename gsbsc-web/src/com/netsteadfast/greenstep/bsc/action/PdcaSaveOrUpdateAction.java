@@ -205,7 +205,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 	private void checkItems(List<PdcaItemVO> pdcaItems) throws ControllerException, Exception {
 		StringBuilder errMsg = new StringBuilder();
 		if (!this.checkPdcaItemsType(pdcaItems)) {
-			errMsg.append( "Items type must found P,D,C,A!<BR/>" );
+			errMsg.append( "Items type must found P,D,C,A!" + super.getHtmlBr() );
 		}
 		String errMsg1 = this.checkPdcaItemOwner(pdcaItems);
 		if (!"".equals(errMsg1)) {
@@ -246,7 +246,7 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		StringBuilder errMsg = new StringBuilder();
 		for (PdcaItemVO item : items) {
 			if (item.getEmployeeOids() == null || item.getEmployeeOids().size()<1) {
-				errMsg.append( "Item " + item.getTitle() + " no select responsibility(Employee)!<BR/>" );
+				errMsg.append( "Item " + item.getTitle() + " no select responsibility(Employee)!" + super.getHtmlBr() );
 			}
 		}
 		return errMsg.toString();
@@ -258,13 +258,13 @@ public class PdcaSaveOrUpdateAction extends BaseJsonAction {
 		String projectEndDate = this.getFields().get("endDate");		
 		for (PdcaItemVO item : items) {
 			if (SimpleUtils.getDaysBetween(item.getStartDate(), item.getEndDate())<0) {
-				errMsg.append( "Item " + item.getTitle() + " date range error!<BR/>" );
+				errMsg.append( "Item " + item.getTitle() + " date range error!" + super.getHtmlBr() );
 			}
 			if (SimpleUtils.getDaysBetween(projectStartDate, item.getStartDate())<0) {
-				errMsg.append( "Item " + item.getTitle() + " start-date cannot over then project start-date!<BR/>" );
+				errMsg.append( "Item " + item.getTitle() + " start-date cannot over then project start-date!" + super.getHtmlBr() );
 			}
 			if (SimpleUtils.getDaysBetween(projectEndDate, item.getEndDate())>0) {
-				errMsg.append( "Item " + item.getTitle() + " end-date cannot over then project end-date!<BR/>" );
+				errMsg.append( "Item " + item.getTitle() + " end-date cannot over then project end-date!" + super.getHtmlBr() );
 			}
 		}
 		return errMsg.toString();		
