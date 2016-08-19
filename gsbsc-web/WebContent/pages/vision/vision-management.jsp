@@ -181,7 +181,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0001Q_visId')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0001Q_visId')}" id="BSC_PROG002D0001Q_visId"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0001Q_visId" id="BSC_PROG002D0001Q_visId" value="" width="200" maxlength="14"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001Q_visId'">
@@ -189,7 +189,7 @@ function ${programId}_page_message() {
 				</div>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0001Q_title')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0001Q_title')}" id="BSC_PROG002D0001Q_title"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0001Q_title" id="BSC_PROG002D0001Q_title" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001Q_title'">

@@ -103,7 +103,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="500px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG002D0003E_objId')"/>:</b> <s:property value="getText('BSC_PROG002D0003E_readOnly')"/>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_objId')}" id="BSC_PROG002D0003E_objId"></gs:label>
+    			&nbsp;<s:property value="getText('BSC_PROG002D0003E_readOnly')"/>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0003E_objId" id="BSC_PROG002D0003E_objId" value="objective.objId" width="200" maxlength="14" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003E_objId'">
@@ -113,7 +114,8 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_visionOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_visionOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_visionOid')}" id="BSC_PROG002D0003E_visionOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_visionOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0003E_visionOid" dataSource="visionMap" id="BSC_PROG002D0003E_visionOid" value="fields.visionOid" onChange="BSC_PROG002D0003E_triggerChangePerspectiveItems();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003E_visionOid'">
@@ -123,7 +125,8 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_perspectiveOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_perspectiveOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_perspectiveOid')}" id="BSC_PROG002D0003E_perspectiveOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_perspectiveOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG002D0003E_perspectiveOid" dataSource="perspectiveMap" id="BSC_PROG002D0003E_perspectiveOid" value="fields.perspectiveOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003E_perspectiveOid'">
@@ -133,7 +136,8 @@ function ${programId}_page_message() {
     	</tr>	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_name')}" id="BSC_PROG002D0003E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0003E_name" id="BSC_PROG002D0003E_name" value="objective.name" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003E_name'">
@@ -143,7 +147,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_weight')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_weight"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_weight')}" id="BSC_PROG002D0003E_weight" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_weight"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0003E_weight" name="BSC_PROG002D0003E_weight" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="${objective.weight}" data-dojo-props="smallDelta:10, constraints:{min:0.00,max:999.00, pattern: '+000.00;-0.00' }" />
@@ -154,7 +159,8 @@ function ${programId}_page_message() {
     	</tr>        	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_target')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_target"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_target')}" id="BSC_PROG002D0003E_target" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_target"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0003E_target" name="BSC_PROG002D0003E_target" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="${objective.target}" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -165,7 +171,8 @@ function ${programId}_page_message() {
     	</tr>   
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0003E_min')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_min"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG002D0003E_min')}" id="BSC_PROG002D0003E_min" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_min"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input id="BSC_PROG002D0003E_min" name="BSC_PROG002D0003E_min" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="${objective.min}" data-dojo-props="smallDelta:10, constraints:{min:-9999999999.99,max:9999999999.99, pattern: '+000.00;-0.00' }" />
@@ -176,7 +183,8 @@ function ${programId}_page_message() {
     	</tr>   
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('BSC_PROG002D0003E_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_description"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('BSC_PROG002D0003E_description')}" id="BSC_PROG002D0003E_description"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0003E_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG002D0003E_description" name="BSC_PROG002D0003E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${objective.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003E_description'">

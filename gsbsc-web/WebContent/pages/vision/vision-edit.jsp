@@ -81,7 +81,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="475px" cellpadding="1" cellspacing="0" >
 		<tr>
 			<td height="50px" width="100%"  align="left">
-				<b><s:property value="getText('BSC_PROG002D0001E_visId')"/>:</b> <s:property value="getText('BSC_PROG002D0001E_readOnly')"/>
+				<gs:label text="${action.getText('BSC_PROG002D0001E_visId')}" id="BSC_PROG002D0001E_visId"></gs:label>
+				&nbsp;<s:property value="getText('BSC_PROG002D0001E_readOnly')"/>
 				<br/>
 				<gs:textBox name="BSC_PROG002D0001E_visId" id="BSC_PROG002D0001E_visId" value="vision.visId" width="200" maxlength="14" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001E_visId'">
@@ -91,7 +92,8 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>
 			<td height="50px" width="100%"  align="left">
-				<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0001E_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001E_title"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG002D0001E_title')}" id="BSC_PROG002D0001E_title" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001E_title"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG002D0001E_title" id="BSC_PROG002D0001E_title" value="vision.title" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001E_title'">
@@ -101,7 +103,8 @@ function ${programId}_page_message() {
 		</tr>	    	
 		<tr>
 			<td height="375px" width="100%"  align="left">
-				<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0001E_content')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001E_content"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG002D0001E_content')}" id="BSC_PROG002D0001E_content" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001E_content"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<div data-dojo-type="dijit/Editor" id="BSC_PROG002D0001E_content" data-dojo-props="onChange:function(){ }">${vision.contentString}</div>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001E_content'">

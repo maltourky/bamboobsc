@@ -57,7 +57,7 @@ function BSC_PROG002D0005Q_getKpiTree() {
 		store: store,
 		query: {"type": "parent"},
 		rootId: "root",
-		rootLabel: "KPIs",
+		rootLabel: "<b>KPIs</b>",
 		childrenAttrs: ["children"]
 	});
 	
@@ -194,8 +194,10 @@ function BSC_PROG002D0005Q_setDataForValue() {
 function BSC_PROG002D0005Q_renderBodySuccess(data) {
 	dojo.byId("BSC_PROG002D0005Q_dateStatus").value = "0";
 	setFieldsBackgroundDefault(BSC_PROG002D0005Q_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0005Q_fieldsId);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0005Q_fieldsId);
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0005Q_fieldsId);
 		alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 		return;
 	}	
@@ -207,9 +209,11 @@ function BSC_PROG002D0005Q_renderBodySuccess(data) {
 function BSC_PROG002D0005Q_saveSuccess(data) {
 	dojo.byId("BSC_PROG002D0005Q_dateStatus").value = "0";
 	setFieldsBackgroundDefault(BSC_PROG002D0005Q_fieldsId);	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG002D0005Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG002D0005Q_fieldsId);
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG002D0005Q_fieldsId);
 		return;
 	}	
 	BSC_PROG002D0005Q_renderBody(); // 2015-04-20 add reload input measure-data!
@@ -344,14 +348,14 @@ function ${programId}_page_message() {
 					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:110px">
    						<table border="0" width="100%" height="100%">
    							<tr>							
-   								<td width="20%" align="right"><font size='2'><b><s:property value="getText('BSC_PROG002D0005Q_dataForOpt')"/>:</b></font></td>
+   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_dataForOpt')}" id="BSC_PROG002D0005Q_dataForOpt"></gs:label></td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_dataForOpt" dataSource="{ \"all\":\"All\", \"organization\":\"Organization\", \"employee\":\"Employee\" }" id="BSC_PROG002D0005Q_dataForOpt" onChange="BSC_PROG002D0005Q_setDataForValue();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_dataForOpt'">
 					    				Select data type.
 									</div>    									
    								</td>
-   								<td width="20%" align="right"><font size='2'><b><s:property value="getText('BSC_PROG002D0005Q_frequencyOpt')"/>:</b></font></td>
+   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_frequencyOpt')}" id="BSC_PROG002D0005Q_frequencyOpt"></gs:label></td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_frequencyOpt" dataSource="frequencyMap" id="BSC_PROG002D0005Q_frequencyOpt" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_frequencyOpt'">
@@ -360,14 +364,14 @@ function ${programId}_page_message() {
    								</td>   								
    							</tr>   						
    							<tr>							
-   								<td width="20%" align="right"><font size='2'><b><s:property value="getText('BSC_PROG002D0005Q_organizationOid')"/>:</b></font></td>
+   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_organizationOid')}" id="BSC_PROG002D0005Q_organizationOid"></gs:label></td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_organizationOid" dataSource="organizationMap" id="BSC_PROG002D0005Q_organizationOid" readonly="Y" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_organizationOid'">
 					    				Select organization/department.
 									</div>    									
    								</td>
-   								<td width="20%" align="right"><font size='2'><b><s:property value="getText('BSC_PROG002D0005Q_employeeOid')"/>:</b></font></td>
+   								<td width="20%" align="right"><gs:label text="${action.getText('BSC_PROG002D0005Q_employeeOid')}" id="BSC_PROG002D0005Q_employeeOid"></gs:label></td>
    								<td width="30%" align="left">
    									<gs:select name="BSC_PROG002D0005Q_employeeOid" dataSource="employeeMap" id="BSC_PROG002D0005Q_employeeOid" readonly="Y" onChange="BSC_PROG002D0005Q_clearContent();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0005Q_employeeOid'">
@@ -420,6 +424,11 @@ function ${programId}_page_message() {
    						</table>
    					</div>		    						       								    					
 		  		</div>				
+				
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_dataForOpt"></gs:inputfieldNoticeMsgLabel>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_frequencyOpt"></gs:inputfieldNoticeMsgLabel>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_organizationOid"></gs:inputfieldNoticeMsgLabel>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0005Q_employeeOid"></gs:inputfieldNoticeMsgLabel>
 				
 				<form name="BSC_PROG002D0005Q_measureDataForm" id="BSC_PROG002D0005Q_measureDataForm" method="post" action=".">
 					<input type="hidden" name="BSC_PROG002D0005Q_kpiOid" id="BSC_PROG002D0005Q_kpiOid" value="" />

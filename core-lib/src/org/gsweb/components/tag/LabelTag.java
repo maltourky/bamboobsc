@@ -27,10 +27,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
+import org.apache.commons.lang3.StringUtils;
 import org.gsweb.components.base.GSTag;
 import org.gsweb.components.ui.Label;
 
 import com.netsteadfast.greenstep.base.Constants;
+import com.netsteadfast.greenstep.util.SimpleUtils;
 
 public class LabelTag implements GSTag {
 	private PageContext pageContext=null;
@@ -42,6 +44,9 @@ public class LabelTag implements GSTag {
 	
 	private Label handler() {
 		Label label = new Label();
+		if (StringUtils.isBlank(this.id)) {
+			this.id = SimpleUtils.getUUIDStr();
+		}
 		label.setId(this.id + Constants.INPUTFIELD_LABEL);
 		label.setName(this.name);
 		label.setText(this.text);

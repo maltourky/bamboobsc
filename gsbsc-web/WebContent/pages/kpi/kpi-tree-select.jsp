@@ -54,7 +54,7 @@ function BSC_PROG002D0004Q_S00_getKpiTree() {
 		store: store,
 		query: {"type": "parent"},
 		rootId: "root",
-		rootLabel: "KPIs",
+		rootLabel: "<b>KPIs</b>",
 		childrenAttrs: ["children"]
 	});
 	

@@ -82,7 +82,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="450px" cellpadding="1" cellspacing="0" >	
 		<tr>
 			<td height="50px" width="100%"  align="left">
-				<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0001A_title')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001A_title"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG002D0001A_title')}" id="BSC_PROG002D0001A_title" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001A_title"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG002D0001A_title" id="BSC_PROG002D0001A_title" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001A_title'">
@@ -92,7 +93,8 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>
 			<td height="375px" width="100%"  align="left">
-				<font color='RED'>*</font><b><s:property value="getText('BSC_PROG002D0001A_content')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001A_content"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG002D0001A_content')}" id="BSC_PROG002D0001A_content" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG002D0001A_content"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<div data-dojo-type="dijit/Editor" id="BSC_PROG002D0001A_content" data-dojo-props="onChange:function(){ }"></div>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0001A_content'">

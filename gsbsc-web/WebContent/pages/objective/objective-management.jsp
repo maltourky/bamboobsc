@@ -189,7 +189,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="125px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_visionOid')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0003Q_visionOid')}" id="BSC_PROG002D0003Q_visionOid"></gs:label>
     			<br/>
     			<gs:select name="BSC_PROG002D0003Q_visionOid" dataSource="visionMap" id="BSC_PROG002D0003Q_visionOid" onChange="BSC_PROG002D0003Q_triggerChangePerspectiveItems();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_visionOid'">
@@ -197,7 +197,7 @@ function ${programId}_page_message() {
 				</div>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_objId')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0003Q_objId')}" id="BSC_PROG002D0003Q_objId"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0003Q_objId" id="BSC_PROG002D0003Q_objId" value="" width="200" maxlength="14"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_objId'">
@@ -207,7 +207,7 @@ function ${programId}_page_message() {
     	</tr>	
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_perspectiveOid')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0003Q_perspectiveOid')}" id="BSC_PROG002D0003Q_perspectiveOid"></gs:label>
     			<br/>
     			<gs:select name="BSC_PROG002D0003Q_perspectiveOid" dataSource="perspectiveMap" id="BSC_PROG002D0003Q_perspectiveOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_perspectiveOid'">
@@ -215,7 +215,7 @@ function ${programId}_page_message() {
 				</div>    		
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG002D0003Q_name')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG002D0003Q_name')}" id="BSC_PROG002D0003Q_name"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG002D0003Q_name" id="BSC_PROG002D0003Q_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG002D0003Q_name'">
