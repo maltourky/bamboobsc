@@ -89,7 +89,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="175px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password1')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password1"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0001E_S00_password1')}" id="BSC_PROG001D0001E_S00_password1"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password1"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password1" id="BSC_PROG001D0001E_S00_password1" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -100,7 +101,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password2')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password2"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0001E_S00_password2')}" id="BSC_PROG001D0001E_S00_password2"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password2"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password2" id="BSC_PROG001D0001E_S00_password2" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />
@@ -111,7 +113,8 @@ function ${programId}_page_message() {
     	</tr>  	 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><font size='2'><b><s:property value="getText('BSC_PROG001D0001E_S00_password3')"/>:</b></font><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password3"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0001E_S00_password3')}" id="BSC_PROG001D0001E_S00_password3"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0001E_S00_password3"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input name="BSC_PROG001D0001E_S00_password3" id="BSC_PROG001D0001E_S00_password3" type="password" trim="true" maxlength="14" 
 					data-dojo-type="dijit.form.TextBox" data-dojo-props='style:"width: 200px;" ' />

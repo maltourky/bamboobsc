@@ -190,22 +190,22 @@ function BSC_PROG001D0006Q_showOrganizationInfo(organization) {
 	content += '<td colspan="2" bgcolor="#f1eee5" align="center" ><b><s:property value="getText('BSC_PROG001D0006Q_orga_label')" escapeJavaScript="true"/></b></td>';
 	content += '</tr>';	
 	content += '<tr>';
-	content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_id')" escapeJavaScript="true"/>:</td>';
+	content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_id')" escapeJavaScript="true"/></td>';
 	content += '<td bgcolor="#ffffff" align="left" ><font size="2">' + organization.orgId + '</font></td>';
 	content += '</tr>';
 	content += '<tr>';
-	content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_name')" escapeJavaScript="true"/>:</td>';
+	content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_name')" escapeJavaScript="true"/></td>';
 	content += '<td bgcolor="#ffffff" align="left" ><font size="2">' + organization.name + '</font></td>';
 	content += '</tr>';	
 	if (organization.address!=null && ""!=organization.address) {
 		content += '<tr>';
-		content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_addr')" escapeJavaScript="true"/>:</td>';
+		content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_addr')" escapeJavaScript="true"/></td>';
 		content += '<td bgcolor="#ffffff" align="left" ><font size="2">' + organization.address + '</font></td>';
 		content += '</tr>';		
 	}	
 	if (organization.description!=null && ""!=organization.description) {
 		content += '<tr>';
-		content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_desc')" escapeJavaScript="true"/>:</td>';
+		content += '<td bgcolor="#f5f5f5" align="right" ><s:property value="getText('BSC_PROG001D0006Q_orga_desc')" escapeJavaScript="true"/></td>';
 		content += '<td bgcolor="#ffffff" align="left" ><font size="2">' + organization.description + '</font></td>';
 		content += '</tr>';							
 	}

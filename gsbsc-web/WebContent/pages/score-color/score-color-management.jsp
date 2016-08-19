@@ -46,9 +46,11 @@ function BSC_PROG001D0004Q_querySuccess(data) {
 
 function BSC_PROG001D0004Q_saveSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG001D0004Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG001D0004Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, BSC_PROG001D0004Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG001D0004Q_fieldsId);
 		//return;
 	}	
 	BSC_PROG001D0004Q_query();
@@ -162,7 +164,7 @@ function ${programId}_page_message() {
     					&nbsp;
     					&nbsp;
     					
-						<s:property value="getText('BSC_PROG001D0004Q_score')"/>:
+						<gs:label text="${action.getText('BSC_PROG001D0004Q_score')}" id="BSC_PROG001D0004Q_score"></gs:label>
 			    		<gs:textBox name="BSC_PROG001D0004Q_score" id="BSC_PROG001D0004Q_score" value="0" width="100" maxlength="9" />
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0004Q_score'">
     						Input range score value, only allow numbers.<BR/>
@@ -191,6 +193,8 @@ function ${programId}_page_message() {
 			    			label="${action.getText('BSC_PROG001D0004Q_save')}" 
 			    			iconClass="dijitIconSave"
 			    			cssClass="alt-primary"></gs:button> 	
+			    			
+			    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0004Q_score"></gs:inputfieldNoticeMsgLabel>
 			    		
 			    		<br/>
 			    		<br/>
@@ -198,11 +202,11 @@ function ${programId}_page_message() {
 			    		<table border="0" width="800px" height="150px">
 							<tr valign="top">
 								<td width="400px" align="left">
-									<font size='2'><b><s:property value="getText('BSC_PROG001D0004Q_colorPicker1')"/></b></font>
+									<gs:label text="${action.getText('BSC_PROG001D0004Q_colorPicker1')}" id="BSC_PROG001D0004Q_colorPicker1"></gs:label>
 									<div data-dojo-type="dojox.widget.ColorPicker" value="#000000" id="BSC_PROG001D0004Q_colorPicker1"></div>		
 								</td>
 								<td width="400px" align="left">
-									<font size='2'><b><s:property value="getText('BSC_PROG001D0004Q_colorPicker2')"/></b></font>
+									<gs:label text="${action.getText('BSC_PROG001D0004Q_colorPicker2')}" id="BSC_PROG001D0004Q_colorPicker2"></gs:label>
 									<div data-dojo-type="dojox.widget.ColorPicker" value="#ffffff" id="BSC_PROG001D0004Q_colorPicker2"></div>	
 								</td>
 							</tr>		    		

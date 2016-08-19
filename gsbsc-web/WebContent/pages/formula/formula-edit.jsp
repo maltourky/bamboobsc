@@ -107,7 +107,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="800px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_forId')"/>:</b> <s:property value="getText('BSC_PROG001D0003E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_forId"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_forId')}" id="BSC_PROG001D0003E_forId" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('BSC_PROG001D0003E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_forId"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0003E_forId" id="BSC_PROG001D0003E_forId" value="formula.forId" width="200" maxlength="14" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_forId'">
@@ -117,7 +118,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_name')}" id="BSC_PROG001D0003E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0003E_name" id="BSC_PROG001D0003E_name" value="formula.name" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_name'">
@@ -127,7 +129,8 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_type')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_type"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_type')}" id="BSC_PROG001D0003E_type" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_type"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG001D0003E_type" dataSource="typeMap" id="BSC_PROG001D0003E_type" value="formula.type"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_type'">
@@ -137,7 +140,8 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_trendsFlag')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_trendsFlag"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_trendsFlag')}" id="BSC_PROG001D0003E_trendsFlag" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_trendsFlag"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG001D0003E_trendsFlag" dataSource="trendsFlagMap" id="BSC_PROG001D0003E_trendsFlag" value="formula.trendsFlag"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_trendsFlag'">
@@ -147,7 +151,8 @@ function ${programId}_page_message() {
     	</tr>    			    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_returnMode')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_returnMode"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_returnMode')}" id="BSC_PROG001D0003E_returnMode" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_returnMode"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="BSC_PROG001D0003E_returnMode" dataSource="modeMap" id="BSC_PROG001D0003E_returnMode" value="formula.returnMode"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_returnMode'">
@@ -157,7 +162,8 @@ function ${programId}_page_message() {
     	</tr>		    	
  		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<b><s:property value="getText('BSC_PROG001D0003E_returnVar')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_returnVar"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG001D0003E_returnVar')}" id="BSC_PROG001D0003E_returnVar"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_returnVar"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG001D0003E_returnVar" id="BSC_PROG001D0003E_returnVar" value="formula.returnVar" width="100" maxlength="50"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_returnVar'">
@@ -167,7 +173,8 @@ function ${programId}_page_message() {
     	</tr>		    	
 		<tr>
 		    <td height="250px" width="100%" align="left">
-		    	<font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0003E_expression')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_expression"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('BSC_PROG001D0003E_expression')}" id="BSC_PROG001D0003E_expression"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0003E_expression"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG001D0003E_expression" name="BSC_PROG001D0003E_expression" data-dojo-type="dijit/form/Textarea" rows="4" cols="65" style="width:650px;height:210px;max-height:220px">${formula.expression}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_expression'">
@@ -543,7 +550,7 @@ function ${programId}_page_message() {
 		</tr>        	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('BSC_PROG001D0003E_description')"/>:</b>
+		    	<gs:label text="${action.getText('BSC_PROG001D0003E_description')}" id="BSC_PROG001D0003E_description"></gs:label>
 		    	<br/>
 		    	<textarea id="BSC_PROG001D0003E_description" name="BSC_PROG001D0003E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${formula.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0003E_description'">

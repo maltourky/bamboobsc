@@ -99,7 +99,7 @@ function ${programId}_page_message() {
 							<tr valign="top">
 								<td width="65%" align="left" height="50px" >	
 									
-									<s:property value="getText('BSC_PROG001D0005Q_workspaceOid')"/>:
+									<gs:label text="${action.getText('BSC_PROG001D0005Q_workspaceOid')}" id="BSC_PROG001D0005Q_workspaceOid"></gs:label>
 									<gs:select name="BSC_PROG001D0005Q_workspaceOid" dataSource="workspaceMap" id="BSC_PROG001D0005Q_workspaceOid" value="fields.workspaceOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0005Q_workspaceOid'">
 					    				Select workspace.
@@ -107,7 +107,7 @@ function ${programId}_page_message() {
 						    		&nbsp;		    
 						    							
 						    																
-									<s:property value="getText('BSC_PROG001D0005Q_visionOid')"/>: 
+									<gs:label text="${action.getText('BSC_PROG001D0005Q_visionOid')}" id="BSC_PROG001D0005Q_visionOid"></gs:label> 
 									<gs:select name="BSC_PROG001D0005Q_visionOid" dataSource="visionMap" id="BSC_PROG001D0005Q_visionOid" value="fields.visionOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0005Q_visionOid'">
 					    				Select vision.

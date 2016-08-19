@@ -338,7 +338,9 @@ function ${programId}_page_message() {
 		<td width="75%" valign="top">
 			<table border="0" width="100%" height="625px" cellpadding="1" cellspacing="0" >
 				<tr>
-		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_orgId')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_orgId"></gs:inputfieldNoticeMsgLabel>
+		    		<td height="50px" width="100%" align="left">
+		    			<gs:label text="${action.getText('BSC_PROG001D0002Q_orgId')}" id="BSC_PROG001D0002Q_orgId" requiredFlag="Y"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_orgId"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_orgId" id="BSC_PROG001D0002Q_orgId" value="" width="200" maxlength="10"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_orgId'">
@@ -347,7 +349,9 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>	
 				<tr>
-		    		<td height="50px" width="100%" align="left"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG001D0002Q_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_name"></gs:inputfieldNoticeMsgLabel>
+		    		<td height="50px" width="100%" align="left">
+		    			<gs:label text="${action.getText('BSC_PROG001D0002Q_name')}" id="BSC_PROG001D0002Q_name" requiredFlag="Y"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_name"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_name" id="BSC_PROG001D0002Q_name" value="" width="400" maxlength="200"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_name'">
@@ -356,7 +360,9 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>    
 				<tr>
-		    		<td height="325px" width="100%" align="left" ><b><s:property value="getText('BSC_PROG001D0002Q_location')"/>:</b> <s:property value="getText('BSC_PROG001D0002Q_locationMemo')"/>
+		    		<td height="325px" width="100%" align="left" >
+		    			<gs:label text="${action.getText('BSC_PROG001D0002Q_location')}" id="BSC_PROG001D0002Q_location"></gs:label>
+		    			&nbsp;<s:property value="getText('BSC_PROG001D0002Q_locationMemo')"/>
 						<div dojoType="dijit.layout.BorderContainer" style="height:290px">
 							<div dojoType="dijit.layout.ContentPane" region="center" style="overflow:hidden">
 								<div id="${programId}_map_canvas" style="height:100%; width:100%"></div>
@@ -365,7 +371,9 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>       
 				<tr>
-		    		<td height="50px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_address')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_address"></gs:inputfieldNoticeMsgLabel>
+		    		<td height="50px" width="100%" align="left">
+		    			<gs:label text="${action.getText('BSC_PROG001D0002Q_address')}" id="BSC_PROG001D0002Q_address"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG001D0002Q_address"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			<gs:textBox name="BSC_PROG001D0002Q_address" id="BSC_PROG001D0002Q_address" value="" width="600" maxlength="500"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_address'">
@@ -374,7 +382,9 @@ function ${programId}_page_message() {
 		    		</td>
 		    	</tr>  		    			
 				<tr>
-		    		<td height="125px" width="100%" align="left"><b><s:property value="getText('BSC_PROG001D0002Q_description')"/>:</b><br/>
+		    		<td height="125px" width="100%" align="left">
+		    			<gs:label text="${action.getText('BSC_PROG001D0002Q_description')}" id="BSC_PROG001D0002Q_description"></gs:label>
+		    			<br/>
 		    			<textarea id="BSC_PROG001D0002Q_description" name="BSC_PROG001D0002Q_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG001D0002Q_description'">
 		    				Input description, the maximum allowed 500 characters.
