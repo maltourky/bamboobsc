@@ -77,12 +77,15 @@ function ${programId}_page_message() {
 	
 	<table border="0" width="100%" height="25px" cellpadding="1" cellspacing="0" >	
 		<tr>
-    		<td height="25px" width="10%"  align="right"><font color='RED'>*</font><b><s:property value="getText('BSC_PROG004D0002A_C01_workspaceTemplateOid')"/>:</b></td>
+    		<td height="25px" width="10%"  align="right">
+    			<gs:label text="${action.getText('BSC_PROG004D0002A_C01_workspaceTemplateOid')}" id="BSC_PROG004D0002A_C01_workspaceTemplateOid" requiredFlag="Y"></gs:label>
+    		</td>
     		<td height="25px" width="90%"  align="left">
     			<gs:select name="BSC_PROG004D0002A_C01_workspaceTemplateOid" dataSource="workspaceTemplateMap" id="BSC_PROG004D0002A_C01_workspaceTemplateOid" onChange="BSC_PROG004D0002A_C01_onWorkspaceTemplateChange();" value="fields.workspaceTemplateOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0002A_C01_workspaceTemplateOid'">
     				Select layout template.
-				</div>     			
+				</div>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0002A_C01_workspaceTemplateOid"></gs:inputfieldNoticeMsgLabel>     			
     		</td>
     	</tr>	
     </table>		

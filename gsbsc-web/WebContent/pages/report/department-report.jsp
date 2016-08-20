@@ -71,6 +71,7 @@ BSC_PROG003D0003Q_fieldsId['dateType'] 			= 'BSC_PROG003D0003Q_dateType';
 function BSC_PROG003D0003Q_query() {
 	BSC_PROG003D0003Q_clearContent();
 	setFieldsBackgroundDefault(BSC_PROG003D0003Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG003D0003Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/bsc.departmentReportContentQueryAction.action', 
 			{ 
@@ -87,6 +88,7 @@ function BSC_PROG003D0003Q_query() {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG003D0003Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG003D0003Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -104,6 +106,7 @@ function BSC_PROG003D0003Q_generateExport(docType) {
 		url = '${basePath}/bsc.departmentReportPdfQueryAction.action';
 	}
 	setFieldsBackgroundDefault(BSC_PROG003D0003Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG003D0003Q_fieldsId);
 	xhrSendParameter(
 			url, 
 			{ 
@@ -121,6 +124,7 @@ function BSC_PROG003D0003Q_generateExport(docType) {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG003D0003Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG003D0003Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -288,27 +292,32 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG003D0003Q_uploadSignatureClear();
 											}"><s:property value="getText('BSC_PROG003D0003Q_btnSignatureClear')"/></button>										
-								
+									
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0003Q_visionOid"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0003Q_frequency"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0003Q_organizationOid"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0003Q_dateType"></gs:inputfieldNoticeMsgLabel>
+									
 								</td>
 							</tr>
 							<tr valign="top">
 								<td width="100%" align="left" height="25px">	
 								
-									<s:property value="getText('BSC_PROG003D0003Q_visionOid')"/>: 
+									<s:property value="getText('BSC_PROG003D0003Q_visionOid')"/>
 									<gs:select name="BSC_PROG003D0003Q_visionOid" dataSource="visionMap" id="BSC_PROG003D0003Q_visionOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0003Q_visionOid'">
 					    				Select vision.
 									</div>  									
 						    		&nbsp;		    			
 					    																	
-									<s:property value="getText('BSC_PROG003D0003Q_frequency')"/>:
+									<s:property value="getText('BSC_PROG003D0003Q_frequency')"/>
 									<gs:select name="BSC_PROG003D0003Q_frequency" dataSource="frequencyMap" id="BSC_PROG003D0003Q_frequency" value="6" width="140" readonly="Y"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0003Q_frequency'">
 					    				Select frequency.
 									</div> 	
 																		
 									&nbsp;
-									<s:property value="getText('BSC_PROG003D0003Q_organizationOid')"/>:
+									<s:property value="getText('BSC_PROG003D0003Q_organizationOid')"/>
 									<gs:select name="BSC_PROG003D0003Q_organizationOid" dataSource="organizationMap" id="BSC_PROG003D0003Q_organizationOid" ></gs:select>									
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0003Q_organizationOid'">
 					    				Select measure data organization/department.

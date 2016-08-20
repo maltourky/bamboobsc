@@ -81,38 +81,38 @@ public class KpiPeriodTrendsQueryAction extends BaseJsonAction {
 			if ( StringUtils.isBlank( startDate ) || StringUtils.isBlank( endDate ) ) {
 				super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg1"));		
 			}
+			if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
+				if ( !SimpleUtils.isDate( startDate ) ) {
+					super.throwMessage("startDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg3"));
+				}
+				if ( !SimpleUtils.isDate( endDate ) ) {
+					super.throwMessage("endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg4"));		
+				}
+				if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
+						< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
+					super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg5"));		
+				}			
+			}			
 		}
 		if ( BscMeasureDataFrequency.FREQUENCY_QUARTER.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_HALF_OF_YEAR.equals(frequency) 
 				|| BscMeasureDataFrequency.FREQUENCY_YEAR.equals(frequency) ) {
 			if ( StringUtils.isBlank( startYearDate ) || StringUtils.isBlank( endYearDate ) ) {
 				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg2"));		
+			}	
+			if ( !StringUtils.isBlank( startYearDate ) || !StringUtils.isBlank( endYearDate ) ) {
+				if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
+					super.throwMessage("startYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg6"));				
+				}
+				if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
+					super.throwMessage("endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg7"));					
+				}
+				if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
+						< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
+					super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg8"));		
+				}					
 			}			
 		}		
-		if ( !StringUtils.isBlank( startDate ) || !StringUtils.isBlank( endDate ) ) {
-			if ( !SimpleUtils.isDate( startDate ) ) {
-				super.throwMessage("startDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg3"));
-			}
-			if ( !SimpleUtils.isDate( endDate ) ) {
-				super.throwMessage("endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg4"));		
-			}
-			if ( Integer.parseInt( endDate.replaceAll("/", "").replaceAll("-", "") )
-					< Integer.parseInt( startDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				super.throwMessage("startDate"+p+"|"+"endDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg5"));		
-			}			
-		}
-		if ( !StringUtils.isBlank( startYearDate ) && !StringUtils.isBlank( endYearDate ) ) {
-			if ( !SimpleUtils.isDate( startYearDate+"/01/01" ) ) {
-				super.throwMessage("startYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg6"));				
-			}
-			if ( !SimpleUtils.isDate( endYearDate+"/01/01" ) ) {
-				super.throwMessage("endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg7"));					
-			}
-			if ( Integer.parseInt( endYearDate.replaceAll("/", "").replaceAll("-", "") )
-					< Integer.parseInt( startYearDate.replaceAll("/", "").replaceAll("-", "") ) ) {
-				super.throwMessage("startYearDate"+p+"|"+"endYearDate"+p, this.getText("MESSAGE.BSC_PROG003D0007Q_contentQuery_msg8"));		
-			}					
-		}
 		String dataFor = this.getFields().get("dataFor"+p);
 		if ("organization".equals(dataFor) 
 				&& this.isNoSelectId(this.getFields().get("measureDataOrganizationOid"+p)) ) {

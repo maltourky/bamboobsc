@@ -38,6 +38,9 @@ function BSC_PROG004D0002A_save() {
 	setFieldsNoticeMessageLabelDefault(BSC_PROG004D0002A_fieldsId);	
 	if (dojo.byId("BSC_PROG004D0002A_C01_table") == null) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), "<s:property value="getText('MESSAGE.BSC_PROG004D0002A_C01_table')" escapeJavaScript="true"/>", function(){}, "Y");
+		showFieldsNoticeMessageLabel(
+				'BSC_PROG004D0002A_C01_workspaceTemplateOid'+_gscore_inputfieldNoticeMsgLabelIdName, 
+				"<s:property value="getText('MESSAGE.BSC_PROG004D0002A_C01_table')" escapeJavaScript="true"/>");
 		return;
 	}
 	var table = document.getElementById("BSC_PROG004D0002A_C01_table");

@@ -95,11 +95,11 @@ function ${programId}_page_message() {
 			    <table border="0" width="800px" height="150px">
 					<tr valign="top">
 						<td width="400px" align="left">
-							<font size='2'><b><s:property value="getText('BSC_PROG004D0001Q_colorPicker1')"/></b></font>
+							<gs:label text="${action.getText('BSC_PROG004D0001Q_colorPicker1')}" id="BSC_PROG004D0001Q_colorPicker1"></gs:label>
 							<div data-dojo-type="dojox.widget.ColorPicker" value="${fields.fontColor}" id="BSC_PROG004D0001Q_colorPicker1"></div>		
 						</td>
 						<td width="400px" align="left">
-							<font size='2'><b><s:property value="getText('BSC_PROG004D0001Q_colorPicker2')"/></b></font>
+							<gs:label text="${action.getText('BSC_PROG004D0001Q_colorPicker2')}" id="BSC_PROG004D0001Q_colorPicker2"></gs:label>
 							<div data-dojo-type="dojox.widget.ColorPicker" value="${fields.backgroundColor}" id="BSC_PROG004D0001Q_colorPicker2"></div>	
 						</td>
 					</tr>		    		
@@ -108,7 +108,8 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>			
 			<td width="100%" height="50px" align="left">
-				<b><s:property value="getText('BSC_PROG004D0001Q_perspectiveTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_perspectiveTitle"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG004D0001Q_perspectiveTitle')}" id="BSC_PROG004D0001Q_perspectiveTitle" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_perspectiveTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_perspectiveTitle" id="BSC_PROG004D0001Q_perspectiveTitle" value="fields.perspectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_perspectiveTitle'">
@@ -118,7 +119,8 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>			
 			<td width="100%" height="50px" align="left" >
-				<b><s:property value="getText('BSC_PROG004D0001Q_objectiveTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_objectiveTitle"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG004D0001Q_objectiveTitle')}" id="BSC_PROG004D0001Q_objectiveTitle" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_objectiveTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_objectiveTitle" id="BSC_PROG004D0001Q_objectiveTitle" value="fields.objectiveTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_objectiveTitle'">
@@ -128,7 +130,8 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>			
 			<td width="100%" height="50px" align="left" >
-				<b><s:property value="getText('BSC_PROG004D0001Q_kpiTitle')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_kpiTitle"></gs:inputfieldNoticeMsgLabel>
+				<gs:label text="${action.getText('BSC_PROG004D0001Q_kpiTitle')}" id="BSC_PROG004D0001Q_kpiTitle" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_kpiTitle"></gs:inputfieldNoticeMsgLabel>
 				<br/>
 				<gs:textBox name="BSC_PROG004D0001Q_kpiTitle" id="BSC_PROG004D0001Q_kpiTitle" value="fields.kpiTitle" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_kpiTitle'">
@@ -138,7 +141,8 @@ function ${programId}_page_message() {
 		</tr>	
 		<tr>		    
 		    <td height="125px" width="100%"  align="left">
-		    	<b><s:property value="getText('BSC_PROG004D0001Q_classNote')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_classNote"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('BSC_PROG004D0001Q_classNote')}" id="BSC_PROG004D0001Q_classNote" requiredFlag="Y"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_classNote"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG004D0001Q_classNote" name="BSC_PROG004D0001Q_classNote" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${fields.classNote}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_classNote'">

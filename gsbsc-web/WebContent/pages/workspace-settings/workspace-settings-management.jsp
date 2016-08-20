@@ -116,7 +116,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG004D0002Q_spaceId')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG004D0002Q_spaceId')}" id="BSC_PROG004D0002Q_spaceId"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG004D0002Q_spaceId" id="BSC_PROG004D0002Q_spaceId" value="" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0002Q_spaceId'">
@@ -124,7 +124,7 @@ function ${programId}_page_message() {
 				</div>
     		</td>
     		<td height="50px" width="50%"  align="left">
-    			<font size='2'><b><s:property value="getText('BSC_PROG004D0002Q_name')"/>:</b></font>
+    			<gs:label text="${action.getText('BSC_PROG004D0002Q_name')}" id="BSC_PROG004D0002Q_name"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG004D0002Q_name" id="BSC_PROG004D0002Q_name" value="" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0002Q_name'">

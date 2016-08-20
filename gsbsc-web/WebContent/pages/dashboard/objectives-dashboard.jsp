@@ -56,6 +56,7 @@ BSC_PROG003D0005Q_fieldsId['startYearDate'] 				= 'BSC_PROG003D0005Q_startYearDa
 function BSC_PROG003D0005Q_query() {
 	BSC_PROG003D0005Q_clearContent();
 	setFieldsBackgroundDefault(BSC_PROG003D0005Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG003D0005Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/bsc.kpiReportContentQueryAction.action', 
 			{ 
@@ -76,6 +77,7 @@ function BSC_PROG003D0005Q_query() {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG003D0005Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG003D0005Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -301,6 +303,7 @@ function BSC_PROG003D0005Q_generateExport(type) {
 	});
 	if ( chartsCount < 1 ) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('MESSAGE.BSC_PROG003D0005Q_msg1')" escapeJavaScript="ture"/>', function(){}, 'Y');
+		showFieldsNoticeMessageLabel('BSC_PROG003D0005Q_visionOid'+_gscore_inputfieldNoticeMsgLabelIdName, '<s:property value="getText('MESSAGE.BSC_PROG003D0005Q_msg1')" escapeJavaScript="ture"/>');
 		return;
 	}
 	
@@ -314,6 +317,7 @@ function BSC_PROG003D0005Q_generateExport(type) {
 			"BSC_PROG003D0005Q_form"
 	);		
 	setFieldsBackgroundDefault(BSC_PROG003D0005Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG003D0005Q_fieldsId);
 	xhrSendForm(
 			'${basePath}/bsc.objectivesDashboardExcelAction.action', 
 			'BSC_PROG003D0005Q_form', 
@@ -324,6 +328,7 @@ function BSC_PROG003D0005Q_generateExport(type) {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG003D0005Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG003D0005Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -393,27 +398,31 @@ function ${programId}_page_message() {
 											onClick:function(){
 												BSC_PROG003D0005Q_generateExport('EXCEL');																			  
 											}"><s:property value="getText('BSC_PROG003D0005Q_btnXls')"/></button>												
+									
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0005Q_visionOid"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0005Q_frequency"></gs:inputfieldNoticeMsgLabel>
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG003D0005Q_startYearDate"></gs:inputfieldNoticeMsgLabel>
 											
 								</td>
 							</tr>
 							<tr valign="top">
 								<td width="100%" align="left" height="25px">	
 								
-									<s:property value="getText('BSC_PROG003D0005Q_visionOid')"/>: 
+									<s:property value="getText('BSC_PROG003D0005Q_visionOid')"/>
 									<gs:select name="BSC_PROG003D0005Q_visionOid" dataSource="visionMap" id="BSC_PROG003D0005Q_visionOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0005Q_visionOid'">
 					    				Select vision.
 									</div>  										
 						    		&nbsp;		    			
 					    																	
-									<s:property value="getText('BSC_PROG003D0005Q_frequency')"/>:
+									<s:property value="getText('BSC_PROG003D0005Q_frequency')"/>
 									<gs:select name="BSC_PROG003D0005Q_frequency" dataSource="frequencyMap" id="BSC_PROG003D0005Q_frequency" value="6" width="140" readonly="Y"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0005Q_frequency'">
 					    				Select frequency. ( fixed for year )
 									</div> 											
 									&nbsp;
 									
-							    	<s:property value="getText('BSC_PROG003D0005Q_startYearDate')"/>:
+							    	<s:property value="getText('BSC_PROG003D0005Q_startYearDate')"/>
 							    	<input id="BSC_PROG003D0005Q_startYearDate" name="BSC_PROG003D0005Q_startYearDate" data-dojo-type="dojox.form.YearTextBox" 
 							    		maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG003D0005Q_startYearDate'">
