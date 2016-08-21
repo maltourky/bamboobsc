@@ -85,6 +85,7 @@ function getQCHARTS_PROG002D0001Q_Parameter(queryType) {
 
 function QCHARTS_PROG002D0001Q_query() {	
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.queryDataAction.action', 
 			getQCHARTS_PROG002D0001Q_Parameter('1'), 
@@ -95,7 +96,8 @@ function QCHARTS_PROG002D0001Q_query() {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
-					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);					
+					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);				
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 					return;
 				}
 				dojo.byId("QCHARTS_PROG002D0001Q_content").innerHTML = data.gridContent;
@@ -108,6 +110,7 @@ function QCHARTS_PROG002D0001Q_query() {
 
 function QCHARTS_PROG002D0001Q_pie() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.queryDataAction.action', 
 			getQCHARTS_PROG002D0001Q_Parameter('2'), 
@@ -118,7 +121,8 @@ function QCHARTS_PROG002D0001Q_pie() {
 			function(data) {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
-					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);					
+					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);		
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 					return;
 				}
 				
@@ -163,6 +167,7 @@ function QCHARTS_PROG002D0001Q_pie() {
 
 function QCHARTS_PROG002D0001Q_bar() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.queryDataAction.action', 
 			getQCHARTS_PROG002D0001Q_Parameter('3'), 
@@ -174,6 +179,7 @@ function QCHARTS_PROG002D0001Q_bar() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 					return;
 				}
 				
@@ -239,6 +245,7 @@ function QCHARTS_PROG002D0001Q_bar() {
 
 function QCHARTS_PROG002D0001Q_line() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.queryDataAction.action', 
 			getQCHARTS_PROG002D0001Q_Parameter('4'), 
@@ -250,6 +257,7 @@ function QCHARTS_PROG002D0001Q_line() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 					return;
 				}
 				
@@ -296,6 +304,7 @@ function QCHARTS_PROG002D0001Q_line() {
 
 function QCHARTS_PROG002D0001Q_area() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.queryDataAction.action', 
 			getQCHARTS_PROG002D0001Q_Parameter('4'), 
@@ -307,6 +316,7 @@ function QCHARTS_PROG002D0001Q_area() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 					return;
 				}
 				
@@ -376,9 +386,11 @@ function QCHARTS_PROG002D0001Q_triggerChangeMapperSetItems() {
 
 function QCHARTS_PROG002D0001Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0001Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0001Q_fieldsId);
 		return;
 	}	
 	QCHARTS_PROG002D0001Q_clear();
@@ -424,6 +436,7 @@ function QCHARTS_PROG002D0001Q_delete() {
 
 function QCHARTS_PROG002D0001Q_clear() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0001Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0001Q_fieldsId);
 	dijit.byId("QCHARTS_PROG002D0001Q_queryOid").set("value", _gscore_please_select_id);
 	dijit.byId("QCHARTS_PROG002D0001Q_dataSourceConfOid").set("value", _gscore_please_select_id);
 	dijit.byId("QCHARTS_PROG002D0001Q_name").set("value", "");
@@ -597,27 +610,35 @@ function ${programId}_page_message() {
 					    				label="${action.getText('QCHARTS_PROG002D0001Q_delete')}" 
 					    				showLabel="N"
 					    				iconClass="dijitIconDelete"></gs:button>      
+		    						
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0001Q_dataSourceConfOid"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0001Q_dataQueryMapperOid"></gs:inputfieldNoticeMsgLabel>
+		    						<!-- 
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0001Q_dataQueryMapperSetOid"></gs:inputfieldNoticeMsgLabel>
+		    						-->
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0001Q_name"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0001Q_queryExpression"></gs:inputfieldNoticeMsgLabel>
 		    																							
 								</td>
 							</tr>
 							<tr>
 								<td width="100%" align="left" height="25px">
 								
-									<s:property value="getText('QCHARTS_PROG002D0001Q_queryOid')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0001Q_queryOid')"/>
 									<gs:select name="QCHARTS_PROG002D0001Q_queryOid" dataSource="queryHistoryMap" id="QCHARTS_PROG002D0001Q_queryOid" onChange="QCHARTS_PROG002D0001Q_getQueryHistory();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_queryOid'">
     									Select history data.
 									</div>  									
 									&nbsp;		
 								
-									<s:property value="getText('QCHARTS_PROG002D0001Q_dataSourceConfOid')"/>: 
+									<s:property value="getText('QCHARTS_PROG002D0001Q_dataSourceConfOid')"/>
 									<gs:select name="QCHARTS_PROG002D0001Q_dataSourceConfOid" dataSource="confMap" id="QCHARTS_PROG002D0001Q_dataSourceConfOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_dataSourceConfOid'">
     									Select datasource.
 									</div> 									
 						    		&nbsp;		
 						    									
-									<s:property value="getText('QCHARTS_PROG002D0001Q_name')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0001Q_name')"/>
 									<gs:textBox name="QCHARTS_PROG002D0001Q_name" id="QCHARTS_PROG002D0001Q_name" value="" width="200" maxlength="100"></gs:textBox>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_name'">
     									Input name.
@@ -628,14 +649,15 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="25px">
 															
-									<s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperOid')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperOid')"/>
 									<gs:select name="QCHARTS_PROG002D0001Q_dataQueryMapperOid" dataSource="mapperMap" id="QCHARTS_PROG002D0001Q_dataQueryMapperOid" onChange="QCHARTS_PROG002D0001Q_triggerChangeMapperSetItems();"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_dataQueryMapperOid'">
     									Select mapper.
 									</div> 
 																		
 									&nbsp;
-									<s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperSetOid')"/><font size='2'><s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperSetOid_forPieChart')"/></font>:
+									<s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperSetOid')"/>&nbsp;
+									<s:property value="getText('QCHARTS_PROG002D0001Q_dataQueryMapperSetOid_forPieChart')"/>
 									<gs:select name="QCHARTS_PROG002D0001Q_dataQueryMapperSetOid" dataSource="mapperSetMap" id="QCHARTS_PROG002D0001Q_dataQueryMapperSetOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_dataQueryMapperSetOid'">
     									Select mapper item. ( only need when PIE-chart )
@@ -646,7 +668,8 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="125px">
 								
-									<font size='2'><b><s:property value="getText('QCHARTS_PROG002D0001Q_queryExpression')"/>:</b></font><br/>
+									<gs:label text="${action.getText('QCHARTS_PROG002D0001Q_queryExpression')}" id="QCHARTS_PROG002D0001Q_queryExpression"></gs:label>
+									<br/>
 									<textarea id="QCHARTS_PROG002D0001Q_queryExpression" name="QCHARTS_PROG002D0001Q_queryExpression" data-dojo-type="dijit/form/Textarea" rows="6" cols="120" style="width:960px;height:90px;max-height:100px"></textarea>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0001Q_queryExpression'">
     									SQL expression.<BR/>

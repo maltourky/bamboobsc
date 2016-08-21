@@ -292,26 +292,12 @@ function ${programId}_page_message() {
 		<tr valign="top">
 			<td width="100%" align="center" height="35%">
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: 'Options' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:50px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:80px">
 					
 						<table border="0" width="100%" >
 							<tr valign="top">
 								<td width="100%" align="left" height="40px" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">	
 								
-									<gs:label text="PDCA Project" id="BSC_PROG006D0002Q_pdcaOid" requiredFlag="Y"></gs:label>
-									<gs:select name="BSC_PROG006D0002Q_pdcaOid" dataSource="pdcaMap" id="BSC_PROG006D0002Q_pdcaOid"></gs:select>
-									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_pdcaOid'">
-					    				Select PDCA project.
-									</div>  									
-						    		&nbsp;
-						    		
-						    		<gs:label text="BSC Report" id="BSC_PROG006D0002Q_bscReportShow"></gs:label>
-						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
-									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_bscReportShow'">
-					    				Show with BSC report.
-									</div>						   
-						    		&nbsp;
-						    		
 									<button id="BSC_PROG006D0002Q_btnQuery" data-dojo-type="dijit.form.Button"
 										data-dojo-props="
 											iconClass:'dijitIconSearch',
@@ -341,7 +327,24 @@ function ${programId}_page_message() {
 											
 								</td>
 							</tr>																						
-																											
+							<tr>
+								<td valign="top" align="left" height="25px">
+								
+									<gs:label text="PDCA Project" id="BSC_PROG006D0002Q_pdcaOid" ></gs:label>
+									<gs:select name="BSC_PROG006D0002Q_pdcaOid" dataSource="pdcaMap" id="BSC_PROG006D0002Q_pdcaOid"></gs:select>
+									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_pdcaOid'">
+					    				Select PDCA project.
+									</div>  									
+						    		&nbsp;
+						    		
+						    		<gs:label text="BSC Report" id="BSC_PROG006D0002Q_bscReportShow"></gs:label>
+						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
+									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_bscReportShow'">
+					    				Show with BSC report.
+									</div>					
+																	
+								</td>
+							</tr>																				
 						</table>
 			    			
 		    		</div>		    		

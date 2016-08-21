@@ -95,7 +95,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="350px" cellpadding="1" cellspacing="0" >			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_id')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_id"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0004A_id')}" id="QCHARTS_PROG001D0004A_id" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004A_id" id="QCHARTS_PROG001D0004A_id" value="" width="200" maxlength="20"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_id'">
@@ -105,7 +106,8 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0004A_name')}" id="QCHARTS_PROG001D0004A_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0004A_name" id="QCHARTS_PROG001D0004A_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_name'">
@@ -115,7 +117,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0004A_uploadOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0004A_uploadOid')}" id="QCHARTS_PROG001D0004A_uploadOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0004A_uploadOid_noticeMessageOnly"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<input type="button" id="QCHARTS_PROG001D0004A_uploadBtn" label="Upload" value="Upload" class="alt-info"
 			   		data-dojo-props=" iconClass:'dijitFolderOpened', showLabel:false, iconClass:'dijitIconFolderOpen' "
@@ -126,7 +129,7 @@ function ${programId}_page_message() {
     	</tr>     
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0004A_description')"/>:</b>
+		    	<gs:label text="${action.getText('QCHARTS_PROG001D0004A_description')}" id="QCHARTS_PROG001D0004A_description"></gs:label>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0004A_description" name="QCHARTS_PROG001D0004A_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0004A_description'">

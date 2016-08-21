@@ -81,6 +81,7 @@ function getQCHARTS_PROG002D0002Q_Parameter() {
 
 function QCHARTS_PROG002D0002Q_query() {	
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0002Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.analyticsHtmlAction.action', 
 			getQCHARTS_PROG002D0002Q_Parameter(), 
@@ -92,6 +93,7 @@ function QCHARTS_PROG002D0002Q_query() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0002Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0002Q_fieldsId);
 					return;
 				}
 				dojo.byId("QCHARTS_PROG002D0002Q_content").innerHTML = data.content;
@@ -104,6 +106,7 @@ function QCHARTS_PROG002D0002Q_query() {
 
 function QCHARTS_PROG002D0002Q_queryExport() {	
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0002Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.analyticsHtmlExportAction.action', 
 			getQCHARTS_PROG002D0002Q_Parameter(), 
@@ -115,6 +118,7 @@ function QCHARTS_PROG002D0002Q_queryExport() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0002Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0002Q_fieldsId);
 					return;
 				}
 				dojo.byId("QCHARTS_PROG002D0002Q_content").innerHTML = data.content;
@@ -128,6 +132,7 @@ function QCHARTS_PROG002D0002Q_queryExport() {
 
 function QCHARTS_PROG002D0002Q_excel() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0002Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/qcharts.analyticsExcelAction.action', 
 			getQCHARTS_PROG002D0002Q_Parameter(), 
@@ -139,6 +144,7 @@ function QCHARTS_PROG002D0002Q_excel() {
 				alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0002Q_fieldsId);					
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0002Q_fieldsId);
 					return;
 				}
 				openCommonLoadUpload( 'download', data.oid, { } );				 				
@@ -151,9 +157,11 @@ function QCHARTS_PROG002D0002Q_excel() {
 
 function QCHARTS_PROG002D0002Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0002Q_fieldsId);
 	alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);	
 	if ('Y' != data.success) {						
 		setFieldsBackgroundAlert(data.fieldsId, QCHARTS_PROG002D0002Q_fieldsId);		
+		setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, QCHARTS_PROG002D0002Q_fieldsId);
 		return;
 	}	
 	QCHARTS_PROG002D0002Q_clear();
@@ -199,6 +207,7 @@ function QCHARTS_PROG002D0002Q_delete() {
 
 function QCHARTS_PROG002D0002Q_clear() {
 	setFieldsBackgroundDefault(QCHARTS_PROG002D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(QCHARTS_PROG002D0002Q_fieldsId);
 	dijit.byId("QCHARTS_PROG002D0002Q_mdxOid").set("value", _gscore_please_select_id);
 	dijit.byId("QCHARTS_PROG002D0002Q_name").set("value", "");	
 	dijit.byId("QCHARTS_PROG002D0002Q_olapConfigOid").set("value", _gscore_please_select_id);	
@@ -354,32 +363,40 @@ function ${programId}_page_message() {
 					    				label="${action.getText('QCHARTS_PROG002D0002Q_delete')}" 
 					    				showLabel="N"
 					    				iconClass="dijitIconDelete"></gs:button>      
+		    						
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0002Q_mdxOid"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0002Q_name"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0002Q_olapConfigOid"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0002Q_olapCatalogOid"></gs:inputfieldNoticeMsgLabel>
+		    						<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG002D0002Q_expression"></gs:inputfieldNoticeMsgLabel>
 		    																							
 								</td>
 							</tr>
 							<tr>
 								<td width="100%" align="left" height="25px">
 								
-									<s:property value="getText('QCHARTS_PROG002D0002Q_mdxOid')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0002Q_mdxOid')"/>
 									<gs:select name="QCHARTS_PROG002D0002Q_mdxOid" dataSource="mdxMap" id="QCHARTS_PROG002D0002Q_mdxOid" onChange="QCHARTS_PROG002D0002Q_getMdxHistory();" ></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_mdxOid'">
     									Select history data.
 									</div>   									 
 									&nbsp;		
 						    									
-									<s:property value="getText('QCHARTS_PROG002D0002Q_name')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0002Q_name')"/>
 									<gs:textBox name="QCHARTS_PROG002D0002Q_name" id="QCHARTS_PROG002D0002Q_name" value="" width="200" maxlength="100"></gs:textBox>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_name'">
     									Input name.
 									</div> 
 																		
 									&nbsp;
-									<s:property value="getText('QCHARTS_PROG002D0002Q_showDimensionTitle')"/>:<input id="QCHARTS_PROG002D0002Q_showDimensionTitle" name="QCHARTS_PROG002D0002Q_showDimensionTitle" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
+									<s:property value="getText('QCHARTS_PROG002D0002Q_showDimensionTitle')"/>
+									<input id="QCHARTS_PROG002D0002Q_showDimensionTitle" name="QCHARTS_PROG002D0002Q_showDimensionTitle" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_showDimensionTitle'">
     									enable show Dimension-Title on report.
 									</div> 									
 									&nbsp;
-									<s:property value="getText('QCHARTS_PROG002D0002Q_showParentMembers')"/>:<input id="QCHARTS_PROG002D0002Q_showParentMembers" name="QCHARTS_PROG002D0002Q_showParentMembers" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
+									<s:property value="getText('QCHARTS_PROG002D0002Q_showParentMembers')"/>
+									<input id="QCHARTS_PROG002D0002Q_showParentMembers" name="QCHARTS_PROG002D0002Q_showParentMembers" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_showParentMembers'">
     									enable show Parent-Members on report.
 									</div>
@@ -389,14 +406,14 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="25px">
 								
-									<s:property value="getText('QCHARTS_PROG002D0002Q_olapConfigOid')"/>: 
+									<s:property value="getText('QCHARTS_PROG002D0002Q_olapConfigOid')"/>
 									<gs:select name="QCHARTS_PROG002D0002Q_olapConfigOid" dataSource="configMap" id="QCHARTS_PROG002D0002Q_olapConfigOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_olapConfigOid'">
     									Select datasource config.
 									</div> 									
 						    		&nbsp;		
 						    																	
-									<s:property value="getText('QCHARTS_PROG002D0002Q_olapCatalogOid')"/>:
+									<s:property value="getText('QCHARTS_PROG002D0002Q_olapCatalogOid')"/>
 									<gs:select name="QCHARTS_PROG002D0002Q_olapCatalogOid" dataSource="catalogMap" id="QCHARTS_PROG002D0002Q_olapCatalogOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_olapCatalogOid'">
     									Select Mondrian-Catalog.<BR/>the catalog file need work with success datasource config.
@@ -407,7 +424,8 @@ function ${programId}_page_message() {
 							<tr>
 								<td width="100%" align="left" height="125px">
 								
-									<font size='2'><b><s:property value="getText('QCHARTS_PROG002D0002Q_expression')"/>:</b></font><br/>
+									<gs:label text="${action.getText('QCHARTS_PROG002D0002Q_expression')}" id="QCHARTS_PROG002D0002Q_expression"></gs:label>
+									<br/>
 									<textarea id="QCHARTS_PROG002D0002Q_expression" name="QCHARTS_PROG002D0002Q_expression" data-dojo-type="dijit/form/Textarea" rows="6" cols="120" style="width:960px;height:90px;max-height:100px"></textarea>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG002D0002Q_expression'">
     									MultiDimensional eXpressions.<BR/>

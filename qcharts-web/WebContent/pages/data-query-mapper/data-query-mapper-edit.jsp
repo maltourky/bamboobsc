@@ -70,14 +70,27 @@ function QCHARTS_PROG001D0002E_addField() {
 	var labelField = dijit.byId("QCHARTS_PROG001D0002E_labelField").get("value");
 	var valueField = dijit.byId("QCHARTS_PROG001D0002E_valueField").get("value");	
 	if ('' == labelField || '' == valueField) {
+		showFieldsNoticeMessageLabel('QCHARTS_PROG001D0002E_labelField'+_gscore_inputfieldNoticeMsgLabelIdName, '<s:property value="getText('QCHARTS_PROG001D0002E_addField_msg1')" escapeJavaScript="true"/>');
 		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('QCHARTS_PROG001D0002E_addField_msg1')" escapeJavaScript="true"/>', function(){}, 'N');
 		return;
 	} 
 	
 	if (labelField.indexOf(':')>-1 || labelField.indexOf(_gscore_delimiter)>-1 || valueField.indexOf(':')>-1 || valueField.indexOf(_gscore_delimiter)>-1) {
+		showFieldsNoticeMessageLabel('QCHARTS_PROG001D0002E_labelField'+_gscore_inputfieldNoticeMsgLabelIdName, '<s:property value="getText('QCHARTS_PROG001D0002E_addField_msg2')" escapeJavaScript="true"/>');
 		alertDialog(_getApplicationProgramNameById('${programId}'), '<s:property value="getText('QCHARTS_PROG001D0002E_addField_msg2')" escapeJavaScript="true"/>', function(){}, 'N');
 		return;		
 	}
+	
+    var nowMapTable = document.getElementById('QCHARTS_PROG001D0002E_mapperTable');    
+	for (var r=0; r<nowMapTable.rows.length; r++) {
+		var content1 = nowMapTable.rows[r].cells[1].innerHTML;
+		var content2 = nowMapTable.rows[r].cells[2].innerHTML;
+		if (content1 == labelField && content2 == valueField) {
+			showFieldsNoticeMessageLabel('QCHARTS_PROG001D0002E_labelField'+_gscore_inputfieldNoticeMsgLabelIdName, 'Item is found!');
+			alertDialog(_getApplicationProgramNameById('${programId}'), 'Item is found!', function(){}, 'N');
+			return;					
+		}
+	}	
 	
     var table = document.getElementById('QCHARTS_PROG001D0002E_mapperTable');    
     var rowCount = table.rows.length;
@@ -138,7 +151,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="200px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0002E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0002E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0002E_name')}" id="QCHARTS_PROG001D0002E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0002E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0002E_name" id="QCHARTS_PROG001D0002E_name" value="dataQueryMapper.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002E_name'">
@@ -148,7 +162,7 @@ function ${programId}_page_message() {
     	</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0002E_description')"/>:</b>
+		    	<gs:label text="${action.getText('QCHARTS_PROG001D0002E_description')}" id="QCHARTS_PROG001D0002E_description"></gs:label>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0002E_description" name="QCHARTS_PROG001D0002E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${dataQueryMapper.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002E_description'">
@@ -165,13 +179,14 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="25px" width="90%"  align="left">
-    			<b><s:property value="getText('QCHARTS_PROG001D0002E_labelField')"/>:</b>
+    		
+    				<gs:label text="${action.getText('QCHARTS_PROG001D0002E_labelField')}" id="QCHARTS_PROG001D0002E_labelField" requiredFlag="Y"></gs:label>
     				<gs:textBox name="QCHARTS_PROG001D0002E_labelField" id="QCHARTS_PROG001D0002E_labelField" value="" width="200" maxlength="50"></gs:textBox>
 					<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002E_labelField'">
     					Input label field name.
 					</div> 	    				
     			&nbsp;
-    			<b><s:property value="getText('QCHARTS_PROG001D0002E_valueField')"/>:</b>
+    				<gs:label text="${action.getText('QCHARTS_PROG001D0002E_valueField')}" id="QCHARTS_PROG001D0002E_valueField" requiredFlag="Y"></gs:label>
     				<gs:textBox name="QCHARTS_PROG001D0002E_valueField" id="QCHARTS_PROG001D0002E_valueField" value="" width="200" maxlength="50"></gs:textBox>
 					<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0002E_valueField'">
     					Input value field name.

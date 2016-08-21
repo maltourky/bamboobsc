@@ -91,7 +91,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="530px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_driverOid')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_driverOid"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_driverOid')}" id="QCHARTS_PROG001D0001E_driverOid" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_driverOid"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:select name="QCHARTS_PROG001D0001E_driverOid" dataSource="driverMap" id="QCHARTS_PROG001D0001E_driverOid" value="fields.driverOid"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_driverOid'">
@@ -110,7 +111,8 @@ function ${programId}_page_message() {
     	</tr>		
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_id')"/>:</b> <s:property value="getText('QCHARTS_PROG001D0001E_readOnly')"/>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_id')}" id="QCHARTS_PROG001D0001E_id" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('QCHARTS_PROG001D0001E_readOnly')"/>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0001E_id" id="QCHARTS_PROG001D0001E_id" value="dataSourceConf.id" width="200" maxlength="20" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_id'">
@@ -120,7 +122,8 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_name')}" id="QCHARTS_PROG001D0001E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0001E_name" id="QCHARTS_PROG001D0001E_name" value="dataSourceConf.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_name'">
@@ -130,7 +133,8 @@ function ${programId}_page_message() {
     	</tr>  	
    		<tr>
     		<td height="80px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_jdbcUrl')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_jdbcUrl"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_jdbcUrl')}" id="QCHARTS_PROG001D0001E_jdbcUrl" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_jdbcUrl"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="QCHARTS_PROG001D0001E_jdbcUrl" name="QCHARTS_PROG001D0001E_jdbcUrl" data-dojo-type="dijit/form/Textarea" rows="2" cols="75" style="width:600px;height:50px;max-height:50px">${dataSourceConf.jdbcUrl}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_jdbcUrl'">
@@ -145,7 +149,8 @@ function ${programId}_page_message() {
     	</tr>  	
  		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_dbAccount')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_dbAccount"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_dbAccount')}" id="QCHARTS_PROG001D0001E_dbAccount" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_dbAccount"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0001E_dbAccount" id="QCHARTS_PROG001D0001E_dbAccount" value="dataSourceConf.dbAccount" width="200" maxlength="50"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_dbAccount'">
@@ -155,7 +160,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0001E_dbPassword')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_dbPassword"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0001E_dbPassword')}" id="QCHARTS_PROG001D0001E_dbPassword" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_dbPassword"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0001E_dbPassword" id="QCHARTS_PROG001D0001E_dbPassword" value="dataSourceConf.dbPassword" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_dbPassword'">
@@ -165,7 +171,8 @@ function ${programId}_page_message() {
     	</tr>  	    	   	 	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0001E_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_description"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('QCHARTS_PROG001D0001E_description')}" id="QCHARTS_PROG001D0001E_description"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0001E_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0001E_description" name="QCHARTS_PROG001D0001E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${dataSourceConf.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0001E_description'">

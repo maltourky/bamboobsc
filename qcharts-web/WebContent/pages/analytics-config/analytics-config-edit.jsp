@@ -87,7 +87,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="400px" cellpadding="1" cellspacing="0" >			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003E_id')"/>:</b> <s:property value="getText('QCHARTS_PROG001D0003E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_id"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0003E_id')}" id="QCHARTS_PROG001D0003E_id" requiredFlag="Y"></gs:label>
+    			&nbsp;<s:property value="getText('QCHARTS_PROG001D0003E_readOnly')"/><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_id"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003E_id" id="QCHARTS_PROG001D0003E_id" value="olapConf.id" width="200" maxlength="20" readonly="Y"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003E_id'">
@@ -97,7 +98,8 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0003E_name')}" id="QCHARTS_PROG001D0003E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003E_name" id="QCHARTS_PROG001D0003E_name" value="olapConf.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003E_name'">
@@ -107,7 +109,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003E_jdbcDrivers')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_jdbcDrivers"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0003E_jdbcDrivers')}" id="QCHARTS_PROG001D0003E_jdbcDrivers" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_jdbcDrivers"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="QCHARTS_PROG001D0003E_jdbcDrivers" id="QCHARTS_PROG001D0003E_jdbcDrivers" value="olapConf.jdbcDrivers" width="200" maxlength="50"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003E_jdbcDrivers'">
@@ -125,7 +128,8 @@ function ${programId}_page_message() {
     	</tr>      	
    		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('QCHARTS_PROG001D0003E_jdbcUrl')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_jdbcUrl"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('QCHARTS_PROG001D0003E_jdbcUrl')}" id="QCHARTS_PROG001D0003E_jdbcUrl" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_jdbcUrl"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<textarea id="QCHARTS_PROG001D0003E_jdbcUrl" name="QCHARTS_PROG001D0003E_jdbcUrl" data-dojo-type="dijit/form/Textarea" rows="2" cols="75" style="width:600px;height:50px;max-height:50px">${olapConf.jdbcUrl}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003E_jdbcUrl'">
@@ -140,7 +144,8 @@ function ${programId}_page_message() {
     	</tr>  	 	 	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('QCHARTS_PROG001D0003E_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_description"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('QCHARTS_PROG001D0003E_description')}" id="QCHARTS_PROG001D0003E_description"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="QCHARTS_PROG001D0003E_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="QCHARTS_PROG001D0003E_description" name="QCHARTS_PROG001D0003E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px">${olapConf.description}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'QCHARTS_PROG001D0003E_description'">

@@ -39,6 +39,7 @@ import com.netsteadfast.greenstep.base.action.BaseJsonAction;
 import com.netsteadfast.greenstep.base.exception.AuthorityException;
 import com.netsteadfast.greenstep.base.exception.ControllerException;
 import com.netsteadfast.greenstep.base.exception.ServiceException;
+import com.netsteadfast.greenstep.base.model.CheckFieldHandler;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
@@ -148,17 +149,20 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 		return catalog;
 	}
 	
-	private void checkFields() throws ControllerException {
-		this.getCheckFieldHandler()
+	private void checkFields(String type) throws ControllerException {
+		CheckFieldHandler fieldHandler = this.getCheckFieldHandler()
 		.add("configOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapConfigOid") )
 		.add("catalogOid", SelectItemFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_olapCatalogOid") )
-		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") )
-		.process().throwMessage();
+		.add("expression", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.QCHARTS_PROG002D0002Q_expression") );
+		if ("save".equals(type) || "update".equals(type)) {
+			fieldHandler.add("name", NotBlankFieldCheckUtils.class, "Name is required!");
+		}
+		fieldHandler.process().throwMessage();
 	}		
 	
 	private void rendererHtml(File catalogFile) throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.content = "";
-		this.checkFields();
+		this.checkFields("query");
 		boolean showDimensionTitle = true;
 		boolean showParentMembers = true;
 		if ( !"true".equals( this.getFields().get("showDimensionTitle") ) ) {
@@ -195,7 +199,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 	
 	private void exportExcel(File catalogFile) throws ControllerException, AuthorityException, ServiceException, Exception {
 		this.oid = "";
-		this.checkFields();
+		this.checkFields("query");
 		boolean showDimensionTitle = true;
 		boolean showParentMembers = true;
 		if ( !"true".equals( this.getFields().get("showDimensionTitle") ) ) {
@@ -224,7 +228,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 	}
 	
 	private void save() throws ControllerException, AuthorityException, ServiceException, Exception {
-		this.checkFields();
+		this.checkFields("save");
 		OlapMdxVO olapMdx = new OlapMdxVO();
 		this.transformFields2ValueObject(olapMdx, new String[]{"name"});
 		olapMdx.setExpression( this.getFields().get("expression").getBytes() );
@@ -237,7 +241,7 @@ public class AnalyticsProcessAction extends BaseJsonAction {
 	}
 	
 	private void update() throws ControllerException, AuthorityException, ServiceException, Exception {
-		this.checkFields();
+		this.checkFields("update");
 		OlapMdxVO olapMdx = new OlapMdxVO();
 		this.transformFields2ValueObject(olapMdx, new String[]{"oid", "name"});
 		olapMdx.setExpression( this.getFields().get("expression").getBytes() );
