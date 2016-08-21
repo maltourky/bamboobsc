@@ -25,10 +25,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
+import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.model.MenuResultObj;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 
@@ -58,7 +60,8 @@ public class MenuGenerateAction extends BaseSupportAction {
 		try {
 			MenuResultObj menuData = MenuSupportUtils.getMenuData(
 					super.getBasePath(),
-					super.getHttpServletRequest().getSession().getId());
+					super.getHttpServletRequest().getSession().getId(),
+					UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext()));
 			this.inputStream=new ByteArrayInputStream( menuData.getHtmlData().getBytes() );			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +79,8 @@ public class MenuGenerateAction extends BaseSupportAction {
 		try {
 			MenuResultObj menuData = MenuSupportUtils.getMenuData(
 					super.getBasePath(),
-					super.getHttpServletRequest().getSession().getId());
+					super.getHttpServletRequest().getSession().getId(),
+					UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext()));
 			this.inputStream=new ByteArrayInputStream( menuData.getJavascriptData().getBytes() );			
 		} catch (Exception e) {
 			e.printStackTrace();

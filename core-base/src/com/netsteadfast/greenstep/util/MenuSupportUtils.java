@@ -45,13 +45,19 @@ import com.netsteadfast.greenstep.model.MenuItemType;
 import com.netsteadfast.greenstep.model.MenuResultObj;
 import com.netsteadfast.greenstep.po.hbm.TbSys;
 import com.netsteadfast.greenstep.po.hbm.TbSysMenu;
+import com.netsteadfast.greenstep.po.hbm.TbSysMultiName;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
+import com.netsteadfast.greenstep.po.hbm.TbSysProgMultiName;
 import com.netsteadfast.greenstep.po.hbm.TbSysTwitter;
 import com.netsteadfast.greenstep.service.ISysMenuService;
+import com.netsteadfast.greenstep.service.ISysMultiNameService;
+import com.netsteadfast.greenstep.service.ISysProgMultiNameService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.ISysTwitterService;
 import com.netsteadfast.greenstep.vo.SysMenuVO;
+import com.netsteadfast.greenstep.vo.SysMultiNameVO;
+import com.netsteadfast.greenstep.vo.SysProgMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 import com.netsteadfast.greenstep.vo.SysTwitterVO;
 import com.netsteadfast.greenstep.vo.SysVO;
@@ -70,6 +76,8 @@ public class MenuSupportUtils {
 	private static ISysMenuService<SysMenuVO, TbSysMenu, String> sysMenuService;
 	private static ISysProgService<SysProgVO, TbSysProg, String> sysProgService;
 	private static ISysTwitterService<SysTwitterVO, TbSysTwitter, String> sysTwitterService;
+	private static ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService;
+	private static ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService;
 	
 	static {		
 		sysService = (ISysService<SysVO, TbSys, String>)AppContext.getBean("core.service.SysService");		
@@ -77,6 +85,10 @@ public class MenuSupportUtils {
 		sysProgService = (ISysProgService<SysProgVO, TbSysProg, String>)AppContext.getBean("core.service.SysProgService");
 		sysTwitterService = (ISysTwitterService<SysTwitterVO, TbSysTwitter, String>)
 				AppContext.getBean("core.service.SysTwitterService");
+		sysMultiNameService = (ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String>)
+				AppContext.getBean("core.service.SysMultiNameService");
+		sysProgMultiNameService = (ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String>)
+				AppContext.getBean("core.service.SysProgMultiNameService");
 	}
 	
 	public MenuSupportUtils() {
@@ -223,8 +235,11 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static MenuResultObj getMenuData(String basePath, String jsessionId) throws ServiceException, Exception {
+	public static MenuResultObj getMenuData(String basePath, String jsessionId, String localeCode) throws ServiceException, Exception {
 		
+		if (LocaleLanguageUtils.getMap().get(localeCode) == null) {
+			localeCode = LocaleLanguageUtils.getDefault();
+		}
 		Map<String, String> orderParams = new HashMap<String, String>();
 		orderParams.put("name", "asc");
 		List<TbSys> sysList = sysService.findListByParams(null, null, orderParams);
@@ -244,7 +259,7 @@ public class MenuSupportUtils {
 		jsSb.append("	return name;																		").append("\n");
 		jsSb.append("}																						").append("\n");
 		for (TbSys sys : sysList) {
-			Map<String, String> menuData = getMenuData(basePath, sys, jsessionId);
+			Map<String, String> menuData = getMenuData(basePath, sys, jsessionId, localeCode);
 			jsSb.append(StringUtils.defaultString(menuData.get(MENU_ITEM_JAVASCRIPT)) );
 			htmlSb.append(StringUtils.defaultString(menuData.get(MENU_ITEM_HTML)) );
 			dlgSb.append(StringUtils.defaultString(menuData.get(MENU_ITEM_DIALOG)) );
@@ -295,7 +310,7 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static Map<String, String> getMenuData(String basePath, TbSys sys, String jsessionId) throws ServiceException, Exception {
+	public static Map<String, String> getMenuData(String basePath, TbSys sys, String jsessionId, String localeCode) throws ServiceException, Exception {
 		Map<String, String> menuData = new HashMap<String, String>();			
 		List<SysMenuVO> menuList = loadSysMenuData(sys.getSysId());
 		if (menuList==null || menuList.size()<1) {

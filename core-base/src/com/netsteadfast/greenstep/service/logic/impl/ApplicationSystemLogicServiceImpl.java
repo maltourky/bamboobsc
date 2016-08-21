@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.service.logic.impl;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -48,6 +49,7 @@ import com.netsteadfast.greenstep.po.hbm.TbSysBeanHelp;
 import com.netsteadfast.greenstep.po.hbm.TbSysCtxBean;
 import com.netsteadfast.greenstep.po.hbm.TbSysIcon;
 import com.netsteadfast.greenstep.po.hbm.TbSysMsgNoticeConfig;
+import com.netsteadfast.greenstep.po.hbm.TbSysMultiName;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
 import com.netsteadfast.greenstep.po.hbm.TbSysTwitter;
 import com.netsteadfast.greenstep.po.hbm.TbSysWsConfig;
@@ -55,6 +57,7 @@ import com.netsteadfast.greenstep.service.ISysBeanHelpService;
 import com.netsteadfast.greenstep.service.ISysCtxBeanService;
 import com.netsteadfast.greenstep.service.ISysIconService;
 import com.netsteadfast.greenstep.service.ISysMsgNoticeConfigService;
+import com.netsteadfast.greenstep.service.ISysMultiNameService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.ISysTwitterService;
@@ -64,6 +67,7 @@ import com.netsteadfast.greenstep.vo.SysBeanHelpVO;
 import com.netsteadfast.greenstep.vo.SysCtxBeanVO;
 import com.netsteadfast.greenstep.vo.SysIconVO;
 import com.netsteadfast.greenstep.vo.SysMsgNoticeConfigVO;
+import com.netsteadfast.greenstep.vo.SysMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 import com.netsteadfast.greenstep.vo.SysTwitterVO;
 import com.netsteadfast.greenstep.vo.SysVO;
@@ -82,6 +86,7 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 	private ISysBeanHelpService<SysBeanHelpVO, TbSysBeanHelp, String> sysBeanHelpService; 
 	private ISysCtxBeanService<SysCtxBeanVO, TbSysCtxBean, String> sysCtxBeanService;
 	private ISysTwitterService<SysTwitterVO, TbSysTwitter, String> sysTwitterService;
+	private ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService;
 	
 	public ApplicationSystemLogicServiceImpl() {
 		super();
@@ -182,6 +187,17 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 		this.sysTwitterService = sysTwitterService;
 	}
 	
+	public ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> getSysMultiNameService() {
+		return sysMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysMultiNameService")
+	@Required		
+	public void setSysMultiNameService(ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService) {
+		this.sysMultiNameService = sysMultiNameService;
+	}
+	
 	/**
 	 * 建立 TB_SYS 資料
 	 * 
@@ -255,6 +271,15 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 		if (this.sysTwitterService.countByParams(params)>0) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_CANNOT_DELETE));
 		}
+		
+		// 刪除名稱語言資料 tb_sys_multi_name
+		params.clear();
+		params.put("sysId", sys.getSysId());
+		List<TbSysMultiName> sysMultiNames = this.sysMultiNameService.findListByParams(params);
+		for (int i=0; sysMultiNames != null && i < sysMultiNames.size(); i++) {
+			this.sysMultiNameService.delete( sysMultiNames.get(i) );
+		}
+		
 		return this.sysService.deleteObject(sys);		
 	}
 

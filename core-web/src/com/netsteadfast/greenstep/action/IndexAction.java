@@ -22,12 +22,14 @@
 package com.netsteadfast.greenstep.action;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.base.action.BaseSupportAction;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
+import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.model.MenuResultObj;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.util.SystemSettingConfigureUtils;
@@ -51,7 +53,8 @@ public class IndexAction extends BaseSupportAction {
 		try {
 			MenuResultObj menuData = MenuSupportUtils.getMenuData(
 					super.getBasePath(), 
-					super.getHttpServletRequest().getSession().getId());
+					super.getHttpServletRequest().getSession().getId(),
+					UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext()));
 			comboButtonMenuData = menuData.getHtmlData();
 			dialogData = menuData.getDialogHtmlData();
 			treeJsonData = MenuSupportUtils.getMenuTreeJsonDataStr(super.getBasePath());

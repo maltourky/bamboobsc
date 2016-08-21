@@ -49,15 +49,18 @@ import com.netsteadfast.greenstep.po.hbm.TbSysIcon;
 import com.netsteadfast.greenstep.po.hbm.TbSysMenu;
 import com.netsteadfast.greenstep.po.hbm.TbSysMenuRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
+import com.netsteadfast.greenstep.po.hbm.TbSysProgMultiName;
 import com.netsteadfast.greenstep.service.ISysIconService;
 import com.netsteadfast.greenstep.service.ISysMenuRoleService;
 import com.netsteadfast.greenstep.service.ISysMenuService;
+import com.netsteadfast.greenstep.service.ISysProgMultiNameService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.logic.ISystemProgramLogicService;
 import com.netsteadfast.greenstep.vo.SysIconVO;
 import com.netsteadfast.greenstep.vo.SysMenuRoleVO;
 import com.netsteadfast.greenstep.vo.SysMenuVO;
+import com.netsteadfast.greenstep.vo.SysProgMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 import com.netsteadfast.greenstep.vo.SysVO;
 
@@ -71,6 +74,7 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 	private ISysProgService<SysProgVO, TbSysProg, String> sysProgService;
 	private ISysMenuService<SysMenuVO, TbSysMenu, String> sysMenuService;
 	private ISysMenuRoleService<SysMenuRoleVO, TbSysMenuRole, String> sysMenuRoleService;
+	private ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService;
 	
 	public SystemProgramLogicServiceImpl() {
 		super();
@@ -133,6 +137,18 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 	public void setSysMenuRoleService(
 			ISysMenuRoleService<SysMenuRoleVO, TbSysMenuRole, String> sysMenuRoleService) {
 		this.sysMenuRoleService = sysMenuRoleService;
+	}
+
+	public ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> getSysProgMultiNameService() {
+		return sysProgMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysProgMultiNameService")
+	@Required		
+	public void setSysProgMultiNameService(
+			ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService) {
+		this.sysProgMultiNameService = sysProgMultiNameService;
 	}
 
 	/**
@@ -246,6 +262,13 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 			TbSysMenuRole sysMenuRole = sysMenuRoleList.get(i);
 			this.sysMenuRoleService.delete(sysMenuRole);
 		}
+		
+		// 刪除名稱語言資料 tb_sys_prog_multi_name
+		List<TbSysProgMultiName> progMultiNames = this.sysProgMultiNameService.findListByParams(params);
+		for (int i=0; progMultiNames != null && i < progMultiNames.size(); i++) {
+			this.sysProgMultiNameService.delete( progMultiNames.get(i) );
+		}
+		
 		return this.sysProgService.deleteObject(sysProg);
 	}
 	
