@@ -124,7 +124,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S01_name')"/></b>:
+    			<gs:label text="${action.getText('BSC_PROG005D0001A_S01_name')}" id="BSC_PROG005D0001A_S01_name" requiredFlag="Y"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001A_S01_name" id="BSC_PROG005D0001A_S01_name" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_S01_name'">

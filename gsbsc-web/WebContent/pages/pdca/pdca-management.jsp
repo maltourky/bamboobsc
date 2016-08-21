@@ -119,13 +119,17 @@ function ${programId}_page_message() {
 
 	<table border="0" width="100%" height="75px" cellpadding="1" cellspacing="0" >
 		<tr>
-    		<td height="50px" width="50%" align="left"><font size='2'><b>Title:</b></font><br/>    		
+    		<td height="50px" width="50%" align="left">
+    			<gs:label text="Title" id="BSC_PROG006D0001Q_title"></gs:label>
+    			<br/>    		
     			<gs:textBox name="BSC_PROG006D0001Q_title" id="BSC_PROG006D0001Q_title" value="" width="300" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001Q_title'">
     				Input title.
 				</div>
     		</td>
-    		<td height="50px" width="50%" align="left"><font size='2'><b>Date range:</b></font><br/>
+    		<td height="50px" width="50%" align="left">
+    			<gs:label text="Date range" id="BSC_PROG006D0001Q_dateRangeLabel"></gs:label>
+    			<br/>
     			Start
     			<input id="BSC_PROG006D0001Q_startDate" type="text" name="BSC_PROG006D0001Q_startDate" data-dojo-type="dijit.form.DateTextBox"
     				maxlength="10" 

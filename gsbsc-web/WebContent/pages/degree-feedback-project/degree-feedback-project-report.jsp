@@ -241,7 +241,7 @@ function ${programId}_page_message() {
 		</tr>		
 		<tr>
 			<td align="left" bgcolor="#ffffff">
-				<b><s:property value="getText('BSC_PROG005D0004Q_owner')"/>:</b>
+				<gs:label text="${action.getText('BSC_PROG005D0004Q_owner')}" id="BSC_PROG005D0004Q_owner" requiredFlag="Y"></gs:label>
 				&nbsp;
 				<gs:select name="BSC_PROG005D0004Q_owner" dataSource="ownerMap" id="BSC_PROG005D0004Q_owner" value="fields.employeeOid" onChange="BSC_PROG005D0004Q_ownerChange();"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0004Q_owner'">

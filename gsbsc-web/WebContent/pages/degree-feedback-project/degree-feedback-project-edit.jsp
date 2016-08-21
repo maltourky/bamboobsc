@@ -194,7 +194,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="650px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_name')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_name"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_name')}" id="BSC_PROG005D0001E_name" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_name"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001E_name" id="BSC_PROG005D0001E_name" value="degreeFeedbackProject.name" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001E_name'">
@@ -204,7 +205,8 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_year')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_year"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_year')}" id="BSC_PROG005D0001E_year" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_year"></gs:inputfieldNoticeMsgLabel>
     			<br/>
 				<input id="BSC_PROG005D0001E_year" name="BSC_PROG005D0001E_year" data-dojo-type="dojox.form.YearTextBox" 
 					maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' value="${degreeFeedbackProject.year}"/>
@@ -215,7 +217,8 @@ function ${programId}_page_message() {
     	</tr>  	    	
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b><s:property value="getText('BSC_PROG005D0001E_description')"/>:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_description"></gs:inputfieldNoticeMsgLabel>
+		    	<gs:label text="${action.getText('BSC_PROG005D0001E_description')}" id="BSC_PROG005D0001E_description"></gs:label>
+		    	<gs:inputfieldNoticeMsgLabel id="BSC_PROG005D0001E_description"></gs:inputfieldNoticeMsgLabel>
 		    	<br/>
 		    	<textarea id="BSC_PROG005D0001E_description" name="BSC_PROG005D0001E_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"><s:property value="degreeFeedbackProject.description"/></textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001E_description'">
@@ -225,7 +228,7 @@ function ${programId}_page_message() {
 		</tr>      	  
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_emplSelect_1')"/>:</b>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_emplSelect_1')}" id="BSC_PROG005D0001E_emplSelect_1" requiredFlag="Y"></gs:label>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_emplSelect_1" id="BSC_PROG005D0001E_emplSelect_1" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
@@ -250,7 +253,7 @@ function ${programId}_page_message() {
     	</tr>  	
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_emplSelect_2')"/>:</b>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_emplSelect_2')}" id="BSC_PROG005D0001E_emplSelect_2" requiredFlag="Y"></gs:label>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_emplSelect_2" id="BSC_PROG005D0001E_emplSelect_2" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
@@ -275,7 +278,7 @@ function ${programId}_page_message() {
     	</tr>     			
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_levelSettings')"/>:</b>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_levelSettings')}" id="BSC_PROG005D0001E_levelSettings" requiredFlag="Y"></gs:label>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_levelSettings" id="BSC_PROG005D0001E_levelSettings" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
@@ -302,7 +305,7 @@ function ${programId}_page_message() {
 
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001E_itemSettings')"/>:</b>
+    			<gs:label text="${action.getText('BSC_PROG005D0001E_itemSettings')}" id="BSC_PROG005D0001E_itemSettings" requiredFlag="Y"></gs:label>
     			&nbsp;&nbsp;
 				<button name="BSC_PROG005D0001E_itemSettings" id="BSC_PROG005D0001E_itemSettings" data-dojo-type="dijit.form.Button" class="alt-info"
 					data-dojo-props="
@@ -335,12 +338,14 @@ function ${programId}_page_message() {
 						<div class="isa_info">
 							<b>Now task:</b>&nbsp;<s:property value="bpmTaskObj.task.name" />
 							<br/>
-							<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}									
-							<br/>									
-							<b>Assignee:</b>&nbsp;<s:property value="bpmTaskObj.task.assignee" />
+							<b>Before audit</b>
 							<br/>
-							<b>Reason:</b><br/>
-							<s:property value="bpmTaskObj.variables.reason" />
+							&nbsp;&nbsp;&nbsp;<b>Confirm:</b>&nbsp;${bpmTaskObj.variables.confirm}									
+							<br/>									
+							&nbsp;&nbsp;&nbsp;<b>Assignee:</b>&nbsp;<s:property value="bpmTaskObj.task.assignee" />
+							<br/>
+							&nbsp;&nbsp;&nbsp;<b>Reason:</b><br/>
+							&nbsp;&nbsp;&nbsp;<s:property value="bpmTaskObj.variables.reason" escapeHtml="true"/>
 						</div>
 					</div>
 				</div>

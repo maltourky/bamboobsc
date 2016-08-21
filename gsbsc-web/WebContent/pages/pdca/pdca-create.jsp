@@ -44,6 +44,10 @@ BSC_PROG006D0001A_fieldsId["measureFreq_dataFor"] 						= "BSC_PROG006D0001A_con
 BSC_PROG006D0001A_fieldsId["measureFreq_measureDataOrganizationOid"] 	= "BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid";
 BSC_PROG006D0001A_fieldsId["measureFreq_measureDataEmployeeOid"] 		= "BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid";
 
+/* show inputfield notice message only */
+BSC_PROG006D0001A_fieldsId["BSC_PROG006D0001A_pdcaTab_type"] 		= "BSC_PROG006D0001A_pdcaTab_type";
+BSC_PROG006D0001A_fieldsId["BSC_PROG006D0001A_pdcaTab_title"] 		= "BSC_PROG006D0001A_pdcaTab_title";
+BSC_PROG006D0001A_fieldsId["BSC_PROG006D0001A_pdcaTab_startDate"] 		= "BSC_PROG006D0001A_pdcaTab_startDate";
 
 function BSC_PROG006D0001A_saveSuccess(data) {
 	setFieldsBackgroundDefault(BSC_PROG006D0001A_fieldsId);
@@ -284,25 +288,32 @@ function BSC_PROG006D0001A_pdcaTab_add() {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Max only 40 items!', function(){}, 'N');
 		return;
 	}
+	
+	setFieldsNoticeMessageLabelDefault(BSC_PROG006D0001A_fieldsId);
+	
 	var type = dijit.byId("BSC_PROG006D0001A_pdcaTab_type").get("value");
 	var title = dijit.byId("BSC_PROG006D0001A_pdcaTab_title").get("value").trim();
 	var startDate = dijit.byId("BSC_PROG006D0001A_pdcaTab_startDate").get('displayedValue');
 	var endDate = dijit.byId("BSC_PROG006D0001A_pdcaTab_endDate").get('displayedValue');
 	if (_gscore_please_select_id == type) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please select item type!', function(){}, 'N');
+		showFieldsNoticeMessageLabel('BSC_PROG006D0001A_pdcaTab_type'+_gscore_inputfieldNoticeMsgLabelIdName, 'Please select item type!');
 		return;
 	}
 	if ('' == title) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please input item title!', function(){}, 'N');
+		showFieldsNoticeMessageLabel('BSC_PROG006D0001A_pdcaTab_title'+_gscore_inputfieldNoticeMsgLabelIdName, 'Please input item title!');
 		return;
 	}
 	if ('' == startDate || '' == endDate) {
 		alertDialog(_getApplicationProgramNameById('${programId}'), 'Please select start-date and end-date!', function(){}, 'N');
+		showFieldsNoticeMessageLabel('BSC_PROG006D0001A_pdcaTab_startDate'+_gscore_inputfieldNoticeMsgLabelIdName, 'Please select start-date and end-date!');
 		return;
 	}
 	for (var i=0; i<BSC_PROG006D0001A_pdcaTab_item_node.length; i++) {
 		if (BSC_PROG006D0001A_pdcaTab_item_node[i].type == type && BSC_PROG006D0001A_pdcaTab_item_node[i].title == title) {
 			alertDialog(_getApplicationProgramNameById('${programId}'), 'Same item title is found!', function(){}, 'N');
+			showFieldsNoticeMessageLabel('BSC_PROG006D0001A_pdcaTab_title'+_gscore_inputfieldNoticeMsgLabelIdName, 'Same item title is found!');
 			return;
 		}
 	}
@@ -390,11 +401,11 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 		str += '<br/>' + node.description;
 	}	
 	str += '</div>';
-	str += '<b>Date range:</b>&nbsp;' + node.startDate + ' - ' + node.endDate + '<br/>';
+	str += '<b>Date range</b>&nbsp;' + node.startDate + ' - ' + node.endDate + '<br/>';
 	
 	
 	str += '<input type="hidden" name="' + idHead +'_appendEmployeeOid" id="' + idHead +'_appendEmployeeOid" value="' + node.ownerOids + '" />';
-	str += '<font color="RED">*</font><b>Responsibility&nbsp;(Employee):</b>&nbsp;&nbsp;';
+	str += '<b>Responsibility&nbsp;(Employee)</b>&nbsp;<font color="RED">*</font>&nbsp;&nbsp;';
 	str += '<button name="' + idHead + '_emplSelect" id="' + idHead + '_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
@@ -419,7 +430,7 @@ function BSC_PROG006D0001A_pdcaTab_itemTableTdContentData(node) {
 	str += '<br/>';
 	
 	str += '<input type="hidden" name="' + idHead +'_uploadDocumentOid" id="' + idHead +'_uploadDocumentOid" value="' + node.ownerOids + '" />';
-	str += '<b>Document / attachment:</b>&nbsp;&nbsp;';
+	str += '<b>Document / attachment</b>&nbsp;&nbsp;';
 	str += '<button name="' + idHead + '_uploadDocumentBtn" id="' + idHead + '_uploadDocumentBtn" data-dojo-type="dijit.form.Button" class="alt-info" ';
 	str += '	data-dojo-props=" ';
 	str += '		showLabel:false, ';
@@ -627,7 +638,8 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Title:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_title"></gs:inputfieldNoticeMsgLabel>
+    			<gs:label text="Title" id="BSC_PROG006D0001A_title" requiredFlag="Y"></gs:label>
+    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_title"></gs:inputfieldNoticeMsgLabel>
     			<br/>
     			<gs:textBox name="BSC_PROG006D0001A_title" id="BSC_PROG006D0001A_title" value="" width="400" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_title'">
@@ -687,7 +699,9 @@ function ${programId}_page_message() {
 			<table border="0" width="100%" height="600px" cellpadding="1" cellspacing="0" >
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Date range:</b><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_startDate"></gs:inputfieldNoticeMsgLabel><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_endDate"></gs:inputfieldNoticeMsgLabel>
+		    			<gs:label text="Date range" id="BSC_PROG006D0001A_contentTab_dateRangeLabel" requiredFlag="Y"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_startDate">
+		    			</gs:inputfieldNoticeMsgLabel><gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_endDate"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			Start
 		    			<input id="BSC_PROG006D0001A_contentTab_startDate" type="text" name="BSC_PROG006D0001A_contentTab_startDate" data-dojo-type="dijit.form.DateTextBox"
@@ -716,7 +730,7 @@ function ${programId}_page_message() {
 							
 								<tr valign="top">
 									<td width="100%" align="left" height="25px">														
-										Frequency:
+										Frequency
 										<gs:select name="BSC_PROG006D0001A_contentTab_measureFreq_frequency" dataSource="frequencyMap" id="BSC_PROG006D0001A_contentTab_measureFreq_frequency" value="6" onChange="BSC_PROG006D0001A_contentTab_measureFreq_setFrequencyValue();" width="140"></gs:select>
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_frequency'">
 						    				Select frequency.
@@ -727,21 +741,21 @@ function ${programId}_page_message() {
 								<tr valign="top">
 									<td width="100%" align="left" height="25px">
 									
-								    	Start year:
+								    	Start year
 								    	<input id="BSC_PROG006D0001A_contentTab_measureFreq_startYearDate" name="BSC_PROG006D0001A_contentTab_measureFreq_startYearDate" data-dojo-type="dojox.form.YearTextBox" 
 								    		maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_startYearDate'">
 						    				Select start year.
 										</div>							    		
 								    	&nbsp;	
-								    	End year:
+								    	End year
 								    	<input id="BSC_PROG006D0001A_contentTab_measureFreq_endYearDate" name="BSC_PROG006D0001A_contentTab_measureFreq_endYearDate" data-dojo-type="dojox.form.YearTextBox" 
 								    		maxlength="4"  type="text" data-dojo-props='style:"width: 80px;" ' />
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_endYearDate'">
 						    				Select end year.
 										</div>							    									    	
 								    	&nbsp;&nbsp;		
-										Start date:
+										Start date
 										<input id="BSC_PROG006D0001A_contentTab_measureFreq_startDate" type="text" name="BSC_PROG006D0001A_contentTab_measureFreq_startDate" data-dojo-type="dijit.form.DateTextBox"
 											maxlength="10" 
 											constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" readonly />
@@ -749,7 +763,7 @@ function ${programId}_page_message() {
 						    				Select start date.
 										</div>											
 										&nbsp;						
-										End date:
+										End date
 										<input id="BSC_PROG006D0001A_contentTab_measureFreq_endDate" type="text" name="BSC_PROG006D0001A_contentTab_measureFreq_endDate" data-dojo-type="dijit.form.DateTextBox"
 											maxlength="10" 
 											constraints="{datePattern:'yyyy/MM/dd', selector:'date' }" style="width:120px;" readonly />																	    									    	
@@ -760,19 +774,19 @@ function ${programId}_page_message() {
 								</tr>
 								<tr valign="top">
 									<td width="100%" align="left" height="25px">							
-										Data type:
+										Data type
 										<gs:select name="BSC_PROG006D0001A_contentTab_measureFreq_dataFor" dataSource="{ \"all\":\"All\", \"organization\":\"Organization / department\", \"employee\":\"Personal / employee\" }" id="BSC_PROG006D0001A_contentTab_measureFreq_dataFor" onChange="BSC_PROG006D0001A_contentTab_measureFreq_setDataForValue();" width="140"></gs:select>
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_dataFor'">
 						    				Select measure data type.
 										</div>										
 										&nbsp;&nbsp;
-										Organization / department:
+										Organization / department
 										<gs:select name="BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid" dataSource="measureDataOrganizationMap" id="BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid" onChange="BSC_PROG006D0001A_contentTab_measureFreq_setMeasureDataOrgaValue();" readonly="Y"></gs:select>
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid'">
 						    				Select measure data organization/department.
 										</div>									
 										&nbsp;&nbsp;
-										Personal / employee:
+										Personal / employee
 										<gs:select name="BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid" dataSource="measureDataEmployeeMap" id="BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid" onChange="BSC_PROG006D0001A_contentTab_measureFreq_setMeasureDataEmplValue();" readonly="Y"></gs:select>
 										<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid'">
 						    				Select measure data personal/Employee.
@@ -781,6 +795,19 @@ function ${programId}_page_message() {
 								</tr>																						
 																												
 							</table>
+				    		
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_frequency"></gs:inputfieldNoticeMsgLabel>
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_startYearDate"></gs:inputfieldNoticeMsgLabel>
+				    		<!-- 
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_endYearDate"></gs:inputfieldNoticeMsgLabel>
+				    		-->
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_startDate"></gs:inputfieldNoticeMsgLabel>
+				    		<!-- 
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_endDate"></gs:inputfieldNoticeMsgLabel>
+				    		-->
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_dataFor"></gs:inputfieldNoticeMsgLabel>
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_measureDataOrganizationOid"></gs:inputfieldNoticeMsgLabel>
+				    		<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_contentTab_measureFreq_measureDataEmployeeOid"></gs:inputfieldNoticeMsgLabel>
 				    			
 			    		</div>	
 			    		</div>	 
@@ -789,7 +816,7 @@ function ${programId}_page_message() {
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left" colspan="2">
-		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Organization / Department):</b>
+		    			<gs:label text="Responsibility (Organization / Department)" id="BSC_PROG006D0001A_contentTab_deptSelect" requiredFlag="Y"></gs:label>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001A_contentTab_deptSelect" id="BSC_PROG006D0001A_contentTab_deptSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
@@ -820,7 +847,7 @@ function ${programId}_page_message() {
 		    	</tr>     		    	
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Responsibility&nbsp;(Employee):</b>
+		    			<gs:label text="Responsibility (Employee)" id="BSC_PROG006D0001A_contentTab_emplSelect" requiredFlag="Y"></gs:label>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001A_contentTab_emplSelect" id="BSC_PROG006D0001A_contentTab_emplSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
@@ -851,7 +878,7 @@ function ${programId}_page_message() {
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>KPIs:</b>
+		    			<gs:label text="KPIs" id="BSC_PROG006D0001A_contentTab_kpiSelect" requiredFlag="Y"></gs:label>
 		    			&nbsp;&nbsp;
 						<button name="BSC_PROG006D0001A_contentTab_kpiSelect" id="BSC_PROG006D0001A_contentTab_kpiSelect" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
@@ -882,7 +909,7 @@ function ${programId}_page_message() {
 		    	</tr>		    			    	
 				<tr>
 		    		<td height="125px" width="100%"  align="left">
-				    	<b>Description:</b>
+				    	<gs:label text="Description" id="BSC_PROG006D0001A_contentTab_description"></gs:label>
 				    	<br/>
 				    	<textarea id="BSC_PROG006D0001A_contentTab_description" name="BSC_PROG006D0001A_contentTab_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_contentTab_description'">
@@ -892,7 +919,7 @@ function ${programId}_page_message() {
 		    	</tr>		    	
 				<tr>
 				    <td height="150px" width="100%" align="left" colspan="2">
-				    	<b>Document / attachment:</b>
+				    	<gs:label text="Document / attachment" id="BSC_PROG006D0001A_contentTab_uploadDocument"></gs:label>
 				    	<br/>
 						<button name="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" id="BSC_PROG006D0001A_contentTab_uploadDocumentBtn" data-dojo-type="dijit.form.Button" class="alt-info"
 							data-dojo-props="
@@ -931,14 +958,16 @@ function ${programId}_page_message() {
         	<table border="0" width="100%" cellpadding="1" cellspacing="0" >
         		<tr>
         			<td height="50px" width="100%"  align="left">
-        				<font color='RED'>*</font><b>Type:</b>
+        				<gs:label text="Type" id="BSC_PROG006D0001A_pdcaTab_type" requiredFlag="Y"></gs:label>
+        				<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_pdcaTab_type"></gs:inputfieldNoticeMsgLabel>
         				<br/>
         				<gs:select name="BSC_PROG006D0001A_pdcaTab_type" dataSource="pdcaTypeMap" id="BSC_PROG006D0001A_pdcaTab_type"  width="140"></gs:select>
         			</td>
         		</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Title:</b>
+		    			<gs:label text="Title" id="BSC_PROG006D0001A_pdcaTab_title" requiredFlag="Y"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_pdcaTab_title"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			<gs:textBox name="BSC_PROG006D0001A_pdcaTab_title" id="BSC_PROG006D0001A_pdcaTab_title" value="" width="400" maxlength="100"></gs:textBox>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_pdcaTab_title'">
@@ -948,7 +977,9 @@ function ${programId}_page_message() {
 		    	</tr>
 				<tr>
 		    		<td height="50px" width="100%"  align="left">
-		    			<font color='RED'>*</font><b>Date range:</b>
+		    			<gs:label text="Date range" id="BSC_PROG006D0001A_pdcaTab_dateRangeLabel" requiredFlag="Y"></gs:label>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_pdcaTab_startDate"></gs:inputfieldNoticeMsgLabel>
+		    			<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0001A_pdcaTab_endDate"></gs:inputfieldNoticeMsgLabel>
 		    			<br/>
 		    			Start
 		    			<input id="BSC_PROG006D0001A_pdcaTab_startDate" type="text" name="BSC_PROG006D0001A_pdcaTab_startDate" data-dojo-type="dijit.form.DateTextBox"
@@ -969,7 +1000,7 @@ function ${programId}_page_message() {
 		    	</tr>	
 				<tr>
 		    		<td height="125px" width="100%"  align="left">
-				    	<b>Description:</b>
+				    	<gs:label text="Description" id="BSC_PROG006D0001A_pdcaTab_description"></gs:label>
 				    	<br/>
 				    	<textarea id="BSC_PROG006D0001A_pdcaTab_description" name="BSC_PROG006D0001A_pdcaTab_description" data-dojo-type="dijit/form/Textarea" rows="4" cols="50" style="width:300px;height:90px;max-height:100px"></textarea>
 						<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001A_pdcaTab_description'">

@@ -70,6 +70,7 @@ function BSC_PROG006D0002Q_query(type) {
 		actionUrl = 'bsc.pdcaProjectRelatedQuery.action';
 	}
 	setFieldsBackgroundDefault(BSC_PROG006D0002Q_fieldsId);
+	setFieldsNoticeMessageLabelDefault(BSC_PROG006D0002Q_fieldsId);
 	xhrSendParameter(
 			'${basePath}/' + actionUrl, 
 			{ 
@@ -83,6 +84,7 @@ function BSC_PROG006D0002Q_query(type) {
 			function(data) {
 				if ('Y' != data.success) {
 					setFieldsBackgroundAlert(data.fieldsId, BSC_PROG006D0002Q_fieldsId);
+					setFieldsNoticeMessageLabel(data.fieldsId, data.fieldsMessage, BSC_PROG006D0002Q_fieldsId);
 					alertDialog(_getApplicationProgramNameById('${programId}'), data.message, function(){}, data.success);
 					return;
 				}
@@ -296,14 +298,14 @@ function ${programId}_page_message() {
 							<tr valign="top">
 								<td width="100%" align="left" height="40px" style="border:1px #ebeadb solid; border-radius: 5px; background: linear-gradient(to top, #f1eee5 , #fafafa);">	
 								
-									<b>PDCA Project:</b> &nbsp;
+									<gs:label text="PDCA Project" id="BSC_PROG006D0002Q_pdcaOid" requiredFlag="Y"></gs:label>
 									<gs:select name="BSC_PROG006D0002Q_pdcaOid" dataSource="pdcaMap" id="BSC_PROG006D0002Q_pdcaOid"></gs:select>
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_pdcaOid'">
 					    				Select PDCA project.
 									</div>  									
 						    		&nbsp;
 						    		
-						    		<b>BSC Report:</b>
+						    		<gs:label text="BSC Report" id="BSC_PROG006D0002Q_bscReportShow"></gs:label>
 						    		<input id="BSC_PROG006D0002Q_bscReportShow" name="BSC_PROG006D0002Q_bscReportShow" data-dojo-type="dijit/form/CheckBox" value="true" checked="checked" />
 									<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0002Q_bscReportShow'">
 					    				Show with BSC report.
@@ -332,7 +334,10 @@ function ${programId}_page_message() {
 											showLabel:false,
 											onClick:function(){  
 												BSC_PROG006D0002Q_query('PROJECT_RELATED');
-											}">Query project related diagram only</button>									
+											}">Query project related diagram only</button>	
+											
+									<gs:inputfieldNoticeMsgLabel id="BSC_PROG006D0002Q_pdcaOid"></gs:inputfieldNoticeMsgLabel>
+																			
 											
 								</td>
 							</tr>																						

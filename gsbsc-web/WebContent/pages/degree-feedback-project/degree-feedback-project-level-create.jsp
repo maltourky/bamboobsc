@@ -141,7 +141,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" height="100px" cellpadding="1" cellspacing="0" >	
 		<tr>
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S00_name')"/></b>:
+    			<gs:label text="${action.getText('BSC_PROG005D0001A_S00_name')}" id="BSC_PROG005D0001A_S00_name" requiredFlag="Y"></gs:label>
     			<br/>
     			<gs:textBox name="BSC_PROG005D0001A_S00_name" id="BSC_PROG005D0001A_S00_name" value="" width="200" maxlength="100"></gs:textBox>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG005D0001A_S00_name'">
@@ -149,7 +149,7 @@ function ${programId}_page_message() {
 				</div>       			
     		</td>  
     		<td height="50px" width="50%"  align="left">
-    			<font color='RED'>*</font><b><s:property value="getText('BSC_PROG005D0001A_S00_value')"/></b>:
+    			<gs:label text="${action.getText('BSC_PROG005D0001A_S00_value')}" id="BSC_PROG005D0001A_S00_value" requiredFlag="Y"></gs:label>
     			<br/>    			
     			<input id="BSC_PROG005D0001A_S00_value" name="BSC_PROG005D0001A_S00_value" type="text" data-dojo-type="dijit/form/NumberSpinner" 
     				value="0" data-dojo-props="smallDelta:1, constraints:{min:-999,max:999, pattern: '+000;-0' }" />

@@ -72,7 +72,7 @@ function ${programId}_page_message() {
 	<table border="0" width="100%" bgcolor="#ffffff">
 		<tr>
     		<td height="50px" width="100%"  align="left">
-    			<font color='RED'>*</font><b>Confirm:</b>
+    			<gs:label text="Confirm" id="BSC_PROG006D0001E_S00_confirm" requiredFlag="Y"></gs:label>
     			<br/>
     			<gs:select name="BSC_PROG006D0001E_S00_confirm" dataSource="{\"Y\" : \"Yes\", \"N\" : \"Reject\"}" id="BSC_PROG006D0001E_S00_confirm" value="Y"></gs:select>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_S00_confirm'">
@@ -82,7 +82,7 @@ function ${programId}_page_message() {
 		</tr>
 		<tr>
 		    <td height="150px" width="100%" align="left">
-		    	<b>Reason:</b>
+		    	<gs:label text="Reason" id="BSC_PROG006D0001E_S00_reason"></gs:label>
 		    	<br/>
 		    	<textarea id="BSC_PROG006D0001E_S00_reason" name="BSC_PROG006D0001E_S00_reason" data-dojo-type="dijit/form/Textarea" rows="4" cols="20" style="width:300px;height:90px;max-height:100px">Please allow: ${bpmTaskObj.task.name}</textarea>
 				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG006D0001E_S00_reason'">
