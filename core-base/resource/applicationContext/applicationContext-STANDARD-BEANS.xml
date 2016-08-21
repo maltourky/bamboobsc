@@ -48,7 +48,9 @@
     <import resource="classpath*:applicationContext/standard/applicationContext-sysUploadTranSegm.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysBpmnResource.xml" />
     <import resource="classpath*:applicationContext/standard/applicationContext-sysBpmnResourceRole.xml" />
-    <import resource="classpath*:applicationContext/standard/applicationContext-sysQfieldLog.xml" />    
+    <import resource="classpath*:applicationContext/standard/applicationContext-sysQfieldLog.xml" />
+    <import resource="classpath*:applicationContext/standard/applicationContext-sysMultiName.xml" />
+    <import resource="classpath*:applicationContext/standard/applicationContext-sysProgMultiName.xml" />    
     
     
     <!-- common util -->

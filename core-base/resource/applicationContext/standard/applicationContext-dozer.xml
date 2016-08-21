@@ -58,6 +58,8 @@
 				<value>classpath*:dozer/dozerBeanMapping-sysBpmnResource.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysBpmnResourceRole.xml</value>				
 				<value>classpath*:dozer/dozerBeanMapping-sysQfieldLog.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-sysMultiName.xml</value>
+				<value>classpath*:dozer/dozerBeanMapping-sysProgMultiName.xml</value>
 				
                 <!-- #################################################### -->
                 <!-- GSBSC -->

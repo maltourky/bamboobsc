@@ -71,6 +71,8 @@
                 <value>classpath*:mappers/TbSysBpmnResource.xml</value>                
                 <value>classpath*:mappers/TbSysBpmnResourceRole.xml</value>                
                 <value>classpath*:mappers/TbSysQfieldLog.xml</value>
+                <value>classpath*:mappers/TbSysMultiName.xml</value>
+                <value>classpath*:mappers/TbSysProgMultiName.xml</value>
                 
                 <!-- #################################################### -->
                 <!-- GSBSC -->
