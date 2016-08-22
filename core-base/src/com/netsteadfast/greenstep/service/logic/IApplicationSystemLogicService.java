@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.service.logic;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.vo.SysMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysVO;
 
 public interface IApplicationSystemLogicService {
@@ -58,5 +59,15 @@ public interface IApplicationSystemLogicService {
 	 * @throws Exception
 	 */
 	public DefaultResult<SysVO> update(SysVO sys, String iconOid) throws ServiceException, Exception;
+	
+	/**
+	 * 產生 tb_sys_multi_name 資料
+	 * 
+	 * @param multiName
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public DefaultResult<SysMultiNameVO> createMultiName(SysMultiNameVO multiName) throws ServiceException, Exception;
 	
 }

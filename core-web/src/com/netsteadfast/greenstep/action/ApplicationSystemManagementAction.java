@@ -47,6 +47,7 @@ import com.netsteadfast.greenstep.po.hbm.TbSysIcon;
 import com.netsteadfast.greenstep.service.ISysIconService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.util.IconUtils;
+import com.netsteadfast.greenstep.util.LocaleLanguageUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.SysIconVO;
 import com.netsteadfast.greenstep.vo.SysVO;
@@ -63,6 +64,8 @@ public class ApplicationSystemManagementAction extends BaseSupportAction impleme
 	private String firstIconValue = "";
 	private String editIconValue = "";
 	private SysVO sys = new SysVO();
+	private Map<String, Object> langDataMap = LocaleLanguageUtils.getMap();
+	private String pageLocaleCode = UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() );
 	
 	public ApplicationSystemManagementAction() {
 		super();
@@ -178,6 +181,30 @@ public class ApplicationSystemManagementAction extends BaseSupportAction impleme
 		}
 		return forward;		
 	}
+	
+	/**
+	 * 編輯多語言名稱設定檔的頁面, 幹突然不是很想寫這些程式, 幹人生好魯蛇(Loser), 魯蛇(Loser)努力也沒用, 哭 Orz...
+	 * core.applicationSystemCreateMultiNameAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0001E_S00")
+	public String createMultiName() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.loadSysData();
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;
+	}
 
 	@Override
 	public String getProgramName() {
@@ -226,6 +253,17 @@ public class ApplicationSystemManagementAction extends BaseSupportAction impleme
 
 	public void setSys(SysVO sys) {
 		this.sys = sys;
+	}
+
+	public Map<String, Object> getLangDataMap() {
+		return langDataMap;
+	}
+
+	public String getPageLocaleCode() {
+		if (StringUtils.isBlank(this.pageLocaleCode)) {
+			return LocaleLanguageUtils.getDefault();
+		}
+		return pageLocaleCode;
 	}
 
 }

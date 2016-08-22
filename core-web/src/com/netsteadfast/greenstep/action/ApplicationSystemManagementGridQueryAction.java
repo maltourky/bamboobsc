@@ -42,7 +42,10 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.po.hbm.TbSys;
+import com.netsteadfast.greenstep.po.hbm.TbSysMultiName;
+import com.netsteadfast.greenstep.service.ISysMultiNameService;
 import com.netsteadfast.greenstep.service.ISysService;
+import com.netsteadfast.greenstep.vo.SysMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysVO;
 
 @ControllerAuthority(check=true)
@@ -52,6 +55,7 @@ public class ApplicationSystemManagementGridQueryAction extends BaseQueryGridJso
 	private static final long serialVersionUID = 7314633894110604259L;
 	protected Logger logger=Logger.getLogger(ApplicationSystemManagementGridQueryAction.class);
 	private ISysService<SysVO, TbSys, String> sysService;
+	private ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService;
 	private String message = "";
 	private String success = IS_NO;
 	private List<Map<String, String>> items=new ArrayList<Map<String, String>>();
@@ -72,6 +76,18 @@ public class ApplicationSystemManagementGridQueryAction extends BaseQueryGridJso
 		this.sysService = sysService;
 	}
 	
+	@JSON(serialize=false)
+	public ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> getSysMultiNameService() {
+		return sysMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysMultiNameService")
+	@Required
+	public void setSysMultiNameService(ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService) {
+		this.sysMultiNameService = sysMultiNameService;
+	}
+
 	private void query() throws ControllerException, AuthorityException, ServiceException, Exception {
 		
 		QueryResult<List<SysVO>> queryResult = this.sysService.findGridResult(
@@ -93,6 +109,27 @@ public class ApplicationSystemManagementGridQueryAction extends BaseQueryGridJso
 		this.items = super.transformSearchGridList2JsonDataMapList(
 				searchList, 
 				new String[]{"oid", "sysId", "name", "host", "contextPath", "isLocal", "icon"});		
+	}
+	
+	private void queryMultiName() throws ControllerException, AuthorityException, ServiceException, Exception {
+		QueryResult<List<SysMultiNameVO>> queryResult = this.sysMultiNameService.findGridResult(
+				super.getSearchValue(), 
+				super.getPageOf());
+		this.success = IS_YES;
+		if (queryResult.getValue()==null) {
+			this.message=super.defaultString(queryResult.getSystemMessage().getValue());
+			return;
+		}
+		this.setGridData2(queryResult.getValue());
+	}
+	
+	private void setGridData2(List<SysMultiNameVO> searchList) throws Exception {
+		if (searchList==null || searchList.size()<1) {
+			return;
+		}
+		this.items = super.transformSearchGridList2JsonDataMapList(
+				searchList, 
+				new String[]{"oid", "sysId", "localeCode", "name", "enableFlag", "defaultName"});
 	}
 	
 	/**
@@ -120,6 +157,32 @@ public class ApplicationSystemManagementGridQueryAction extends BaseQueryGridJso
 		}
 		return SUCCESS;
 	}
+	
+	/**
+	 * core.applicationSystemMultiNameGridQueryAction.action
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0001E_S00")
+	public String doQueryMultiName() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.queryMultiName();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}	
 
 	@JSON
 	@Override

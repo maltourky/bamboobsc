@@ -63,6 +63,7 @@ import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.ISysTwitterService;
 import com.netsteadfast.greenstep.service.ISysWsConfigService;
 import com.netsteadfast.greenstep.service.logic.IApplicationSystemLogicService;
+import com.netsteadfast.greenstep.util.LocaleLanguageUtils;
 import com.netsteadfast.greenstep.vo.SysBeanHelpVO;
 import com.netsteadfast.greenstep.vo.SysCtxBeanVO;
 import com.netsteadfast.greenstep.vo.SysIconVO;
@@ -311,6 +312,38 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 		}		
 		sys.setIcon(iconResult.getValue().getIconId());
 		return this.sysService.updateObject(sys);
+	}
+
+	/**
+	 * 產生 tb_sys_multi_name 資料
+	 * 
+	 * @param multiName
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */	
+	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )
+	@Override
+	public DefaultResult<SysMultiNameVO> createMultiName(SysMultiNameVO multiName) throws ServiceException, Exception {
+		if (null == multiName || super.isBlank(multiName.getSysId()) || super.isBlank(multiName.getName())
+				|| super.isBlank(multiName.getLocaleCode())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		if (LocaleLanguageUtils.getMap().get(multiName.getLocaleCode()) == null) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		SysVO sys = new SysVO();
+		sys.setSysId(multiName.getSysId());
+		DefaultResult<SysVO> sysResult = this.sysService.findByUK(sys);
+		if (sysResult.getValue() == null) {
+			throw new ServiceException(sysResult.getSystemMessage().getValue());
+		}
+		super.setStringValueMaxLength(multiName, "name", 100);
+		return this.sysMultiNameService.saveObject(multiName);
 	}
 
 }

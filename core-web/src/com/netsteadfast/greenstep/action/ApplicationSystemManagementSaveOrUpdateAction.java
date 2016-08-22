@@ -43,7 +43,10 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
+import com.netsteadfast.greenstep.po.hbm.TbSysMultiName;
+import com.netsteadfast.greenstep.service.ISysMultiNameService;
 import com.netsteadfast.greenstep.service.logic.IApplicationSystemLogicService;
+import com.netsteadfast.greenstep.vo.SysMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysVO;
 
 @ControllerAuthority(check=true)
@@ -52,7 +55,8 @@ import com.netsteadfast.greenstep.vo.SysVO;
 public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonAction {
 	private static final long serialVersionUID = -3768902191174494661L;
 	protected Logger logger=Logger.getLogger(ApplicationSystemManagementSaveOrUpdateAction.class);
-	private IApplicationSystemLogicService applicationSystemLogicService; 
+	private IApplicationSystemLogicService applicationSystemLogicService;
+	private ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService;
 	private String message = "";
 	private String success = IS_NO;
 	
@@ -72,6 +76,17 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		this.applicationSystemLogicService = applicationSystemLogicService;
 	}
 	
+	@JSON(serialize=false)
+	public ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> getSysMultiNameService() {
+		return sysMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysMultiNameService")
+	public void setSysMultiNameService(ISysMultiNameService<SysMultiNameVO, TbSysMultiName, String> sysMultiNameService) {
+		this.sysMultiNameService = sysMultiNameService;
+	}
+
 	private void checkFields() throws ControllerException {
 		super.getCheckFieldHandler()
 		.add("sysId", 		NormalFieldCheckUtils.class, 	this.getText("MESSAGE.CORE_PROG001D0001A_sysId") )
@@ -88,6 +103,13 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 				( Constants.HTML_SELECT_NO_SELECT_ID.equals(this.getFields().get("sysId")) ), 
 				"ID is incorrect, please change another!"
 		).throwMessage();
+	}
+	
+	private void checkFieldsForMultiName() throws ControllerException {
+		super.getCheckFieldHandler()
+		.add("name", 		NotBlankFieldCheckUtils.class, "Name is required!")
+		.add("localeCode", 	NormalFieldCheckUtils.class, "Locale is required!")
+		.process().throwMessage();
 	}
 	
 	/**
@@ -159,6 +181,50 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		}
 		this.success = IS_YES;
 	}
+	
+	/**
+	 * 產生多語名稱資料 tb_sys_multi_name
+	 * 
+	 * @throws ControllerException
+	 * @throws AuthorityException
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	private void multiNameSave() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFieldsForMultiName();
+		SysMultiNameVO multiName = new SysMultiNameVO();
+		this.transformFields2ValueObject(multiName, new String[]{"sysId", "name", "localeCode"});
+		if ("true".equals(super.getFields().get("enableFlag"))) {
+			multiName.setEnableFlag(YesNo.YES);
+		} else {
+			multiName.setEnableFlag(YesNo.NO);
+		}
+		DefaultResult<SysMultiNameVO> result = this.applicationSystemLogicService.createMultiName(multiName);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()==null) {
+			return;
+		}
+		this.success = IS_YES;
+	}
+	
+	/**
+	 * 刪除多語名稱資料 tb_sys_multi_name
+	 * 
+	 * @throws ControllerException
+	 * @throws AuthorityException
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	private void multiNameDelete() throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysMultiNameVO multiName = new SysMultiNameVO();
+		this.transformFields2ValueObject(multiName, new String[]{"oid"});
+		DefaultResult<Boolean> result = this.sysMultiNameService.deleteObject(multiName);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()==null || !result.getValue()) {
+			return;
+		}
+		this.success = IS_YES;
+	}	
 	
 	/**
 	 * core.applicationSystemSaveAction.action
@@ -246,6 +312,64 @@ public class ApplicationSystemManagementSaveOrUpdateAction extends BaseJsonActio
 		}
 		return SUCCESS;
 	}
+	
+	/**
+	 * core.applicationSystemMultiNameSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0001E_S00")
+	public String doMultiNameSave() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.multiNameSave();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}	
+	
+	/**
+	 * core.applicationSystemMultiNameDeleteAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0001E_S00")
+	public String doMultiNameDelete() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.multiNameDelete();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}	
 
 	@JSON
 	@Override

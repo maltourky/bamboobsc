@@ -42,6 +42,8 @@ function CORE_PROG001D0001Q_GridButtonClick(itemOid) {
 	var rd="";
 	rd += "<img src=\"" + _getSystemIconUrl('PROPERTIES') + "\" border=\"0\" alt=\"edit\" onclick=\"CORE_PROG001D0001Q_edit('" + itemOid + "');\" />";
 	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
+	rd += "<img src=\"" + _getSystemIconUrl('SYSTEM') + "\" border=\"0\" alt=\"edit multi name\" onclick=\"CORE_PROG001D0001E_editMultiName('" + itemOid + "');\" />";
+	rd += "&nbsp;&nbsp;&nbsp;&nbsp;";
 	rd += "<img src=\"" + _getSystemIconUrl('REMOVE') + "\" border=\"0\" alt=\"delete\" onclick=\"CORE_PROG001D0001Q_confirmDelete('" + itemOid + "');\" />";
 	return rd;	
 }
@@ -54,6 +56,10 @@ function CORE_PROG001D0001Q_clear() {
 
 function CORE_PROG001D0001Q_edit(oid) {
 	CORE_PROG001D0001E_TabShow(oid);
+}
+
+function CORE_PROG001D0001E_editMultiName(oid) {
+	CORE_PROG001D0001E_S00_TabShow(oid);
 }
 
 function CORE_PROG001D0001Q_confirmDelete(oid) {
