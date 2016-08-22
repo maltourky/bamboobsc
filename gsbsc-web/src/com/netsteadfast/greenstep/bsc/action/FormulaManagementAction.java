@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -38,6 +39,7 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.ScriptTypeCode;
+import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.bsc.model.FormulaMode;
 import com.netsteadfast.greenstep.bsc.service.IFormulaService;
 import com.netsteadfast.greenstep.bsc.util.BscFormulaUtils;
@@ -147,7 +149,7 @@ public class FormulaManagementAction extends BaseSupportAction implements IBaseA
 	@Override
 	public String getProgramName() {
 		try {
-			return MenuSupportUtils.getProgramName(this.getProgramId());
+			return MenuSupportUtils.getProgramName(this.getProgramId(), UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() ));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

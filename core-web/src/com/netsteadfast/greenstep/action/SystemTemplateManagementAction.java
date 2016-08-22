@@ -24,6 +24,7 @@ package com.netsteadfast.greenstep.action;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +37,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.po.hbm.TbSysTemplate;
 import com.netsteadfast.greenstep.service.ISysTemplateService;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
@@ -166,7 +168,7 @@ public class SystemTemplateManagementAction extends BaseSupportAction implements
 	@Override
 	public String getProgramName() {
 		try {
-			return MenuSupportUtils.getProgramName(this.getProgramId());
+			return MenuSupportUtils.getProgramName(this.getProgramId(), UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() ));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

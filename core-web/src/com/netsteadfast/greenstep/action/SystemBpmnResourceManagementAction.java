@@ -30,6 +30,7 @@ import javax.annotation.Resource;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Scope;
@@ -42,6 +43,7 @@ import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.po.hbm.TbRole;
 import com.netsteadfast.greenstep.po.hbm.TbSysBpmnResource;
 import com.netsteadfast.greenstep.service.IRoleService;
@@ -258,7 +260,7 @@ public class SystemBpmnResourceManagementAction extends BaseSupportAction implem
 	@Override
 	public String getProgramName() {
 		try {
-			return MenuSupportUtils.getProgramName(this.getProgramId());
+			return MenuSupportUtils.getProgramName(this.getProgramId(), UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() ));
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

@@ -278,14 +278,14 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static List<Map<String, Object>> getMenuTreeJsonData(String basePath) throws ServiceException, Exception {
+	public static List<Map<String, Object>> getMenuTreeJsonData(String basePath, String localeCode) throws ServiceException, Exception {
 		Map<String, String> orderParams = new HashMap<String, String>();
 		orderParams.put("name", "asc");
 		List<TbSys> sysList = sysService.findListByParams(null, null, orderParams);
 		if (sysList==null || sysList.size()<1) { // 必需要有 TB_SYS 資料
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
 		}
-		return getMenuTreeJsonData(basePath, sysList);
+		return getMenuTreeJsonData(basePath, sysList, localeCode);
 	}
 	
 	/**
@@ -296,8 +296,8 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static String getMenuTreeJsonDataStr(String basePath) throws ServiceException, Exception {
-		List<Map<String, Object>> menuJsonList = getMenuTreeJsonData(basePath);
+	public static String getMenuTreeJsonDataStr(String basePath, String localeCode) throws ServiceException, Exception {
+		List<Map<String, Object>> menuJsonList = getMenuTreeJsonData(basePath, localeCode);
 		return JSONArray.fromObject(menuJsonList).toString();
 	}
 	
@@ -374,11 +374,13 @@ public class MenuSupportUtils {
 			if ( YesNo.YES.equals(sysProg.getIsWindow()) ) {
 				iframeMode = true;
 			}			
+			String progMultiName = getProgramMultiName(sysProg, localeCode);
 			jsSb.append("function ").append( openTabFn ).append(" { ");
 			jsSb.append("	viewPage.addOrUpdateContentPane(	");
 			jsSb.append("		'").append(Constants.MAIN_TabContainer_ID).append("',	");
 			jsSb.append("		'").append(tabId).append("',	");
-			jsSb.append("		'").append( StringEscapeUtils.escapeEcmaScript(IconUtils.getMenuIcon(basePath, sysProg.getIcon()) ) ).append(StringEscapeUtils.escapeEcmaScript(sysProg.getName())).append("',	");
+			//jsSb.append("		'").append( StringEscapeUtils.escapeEcmaScript(IconUtils.getMenuIcon(basePath, sysProg.getIcon()) ) ).append(StringEscapeUtils.escapeEcmaScript(sysProg.getName())).append("',	");
+			jsSb.append("		'").append( StringEscapeUtils.escapeEcmaScript(IconUtils.getMenuIcon(basePath, sysProg.getIcon()) ) ).append(StringEscapeUtils.escapeEcmaScript(progMultiName)).append("',	"); // 改用讀取多語系名稱
 			if ( YesNo.YES.equals( sysProg.getEditMode()) ) { // 編輯資料Edit 模式
 				jsSb.append("		'").append( getUrl(basePath, sys, sysProg, jsessionId) ).append("&fields.oid=' + oid,	");
 			} else { // 查詢Query 或 新增Create 模式
@@ -398,7 +400,8 @@ public class MenuSupportUtils {
 			jsSb.append("	viewPage.closeContentPane('").append(Constants.MAIN_TabContainer_ID).append("', '").append(tabId).append("'); ");
 			jsSb.append("}	");
 			jsSb.append("\n");			
-			jsSb.append(Constants.GS_GET_APPLICATION_NAME_SCRIPT_OBJ).append("['").append( sysProg.getProgId() ).append("'] = '").append( StringEscapeUtils.escapeEcmaScript( sysProg.getName() ) ).append("';");
+			//jsSb.append(Constants.GS_GET_APPLICATION_NAME_SCRIPT_OBJ).append("['").append( sysProg.getProgId() ).append("'] = '").append( StringEscapeUtils.escapeEcmaScript( sysProg.getName() ) ).append("';");
+			jsSb.append(Constants.GS_GET_APPLICATION_NAME_SCRIPT_OBJ).append("['").append( sysProg.getProgId() ).append("'] = '").append( StringEscapeUtils.escapeEcmaScript( progMultiName ) ).append("';"); // 改用讀取多語系名稱
 			jsSb.append("\n");
 			jsFunctionMap.put(sysProg.getProgId(), openTabFn );	
 			
@@ -411,7 +414,8 @@ public class MenuSupportUtils {
 					.append("<div id=\"" + dlgId + "\" data-dojo-type=\"dojox.widget.DialogSimple\" ")
 					.append("data-dojo-props='href:\"").append( getUrl(basePath, sys, sysProg, jsessionId) ).append("\",")
 					.append("	style:\"width: ").append(sysProg.getDialogW()).append("px; height: ").append(sysProg.getDialogH()).append("px\",")
-					.append("	title:\"").append( IconUtils.getMenuIcon(basePath, sysProg.getIcon()).replaceAll("'", "\\\\\"") ).append( StringEscapeUtils.escapeEcmaScript(sysProg.getName()) ).append("\",")
+					//.append("	title:\"").append( IconUtils.getMenuIcon(basePath, sysProg.getIcon()).replaceAll("'", "\\\\\"") ).append( StringEscapeUtils.escapeEcmaScript(sysProg.getName()) ).append("\",")
+					.append("	title:\"").append( IconUtils.getMenuIcon(basePath, sysProg.getIcon()).replaceAll("'", "\\\\\"") ).append( StringEscapeUtils.escapeEcmaScript(progMultiName) ).append("\",") // 改用讀取多語系名稱
 					.append("	refreshOnShow:\"true\", executeScripts:\"true\" ")
 					.append(" '></div>")
 					.append("\n");
@@ -440,7 +444,8 @@ public class MenuSupportUtils {
 		
 		// create combobox menu html
 		htmlSb.append("<div data-dojo-type='dijit.PopupMenuItem' >");
-		htmlSb.append("	<span>").append( IconUtils.getMenuIcon(basePath, sys.getIcon()) ).append(sys.getName()).append("</span>");		
+		//htmlSb.append("	<span>").append( IconUtils.getMenuIcon(basePath, sys.getIcon()) ).append(sys.getName()).append("</span>");		
+		htmlSb.append("	<span>").append( IconUtils.getMenuIcon(basePath, sys.getIcon()) ).append( getSystemMultiName(sys, localeCode) ).append("</span>"); // 改用找多語言設定
 		List<SysMenuVO> parentSysMenuList = searchFolder(menuList);
 		htmlSb.append("<div dojoType='dijit.Menu' >");
 		for (SysMenuVO sysMenu : parentSysMenuList) {			
@@ -448,15 +453,19 @@ public class MenuSupportUtils {
 			if (itemSysMenuList==null || itemSysMenuList.size()<1) {
 				continue;
 			}			
+			String multiProgName = getProgramMultiName(sysMenu, localeCode);
 			htmlSb.append("<div data-dojo-type='dijit.PopupMenuItem' >");
-			htmlSb.append("<span>").append( IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) ).append(sysMenu.getName()).append("</span>");
+			//htmlSb.append("<span>").append( IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) ).append(sysMenu.getName()).append("</span>");
+			htmlSb.append("<span>").append( IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) ).append(multiProgName).append("</span>"); // 改用找多語言設定
 			htmlSb.append("<div data-dojo-type='dijit.Menu' >");
 			for (SysMenuVO itemMenu : itemSysMenuList) {
+				String itemMultiProgName = getProgramMultiName(itemMenu, localeCode);
 				htmlSb.append("<div data-dojo-type='dijit.MenuItem' data-dojo-props='onClick:function(){ ")
 				.append( StringUtils.defaultString( jsFunctionMap.get(itemMenu.getProgId()) ) )				
 				.append(" }'>")
 				.append( IconUtils.getMenuIcon(basePath, itemMenu.getIcon()) )
-				.append(itemMenu.getName())
+				//.append(itemMenu.getName())
+				.append( itemMultiProgName ) // 改用找多語言設定
 				.append("</div>");
 			}
 			htmlSb.append("</div>");
@@ -480,22 +489,28 @@ public class MenuSupportUtils {
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public static List<Map<String, Object>> getMenuTreeJsonData(String basePath, List<TbSys> sysList) throws ServiceException, Exception {
+	public static List<Map<String, Object>> getMenuTreeJsonData(String basePath, List<TbSys> sysList, String localeCode) throws ServiceException, Exception {
 		
+		if (LocaleLanguageUtils.getMap().get(localeCode) == null) {
+			localeCode = LocaleLanguageUtils.getDefault();
+		}
 		List<Map<String, Object>> treeMenuList = new LinkedList<Map<String, Object>>();
 		for (TbSys sys : sysList) {
 			List<SysMenuVO> sysMenuList = loadSysMenuData(sys.getSysId());
 			if (sysMenuList==null || sysMenuList.size()<1) {
 				continue;
 			}			
+			String multiSysName = getSystemMultiName(sys,localeCode); // 改用去找多語言設定檔
 			Map<String, Object> systemMap = new HashMap<String, Object>();
 			systemMap.put("id", sys.getSysId());
 			systemMap.put("progId", sys.getSysId());
-			systemMap.put("name", sys.getName());
+			//systemMap.put("name", sys.getName());
+			systemMap.put("name", multiSysName ); // 改用去找多語言設定檔
 			systemMap.put("type", MenuItemType.FOLDER);
 			//systemMap.put("url", " ");
 			systemMap.put("onclick", " ");
-			systemMap.put("label", IconUtils.getMenuIcon(basePath, sys.getIcon()) + StringEscapeUtils.escapeHtml4(sys.getName()) );
+			//systemMap.put("label", IconUtils.getMenuIcon(basePath, sys.getIcon()) + StringEscapeUtils.escapeHtml4(sys.getName()) );
+			systemMap.put("label", IconUtils.getMenuIcon(basePath, sys.getIcon()) + StringEscapeUtils.escapeHtml4(multiSysName) ); // 改用去找多語言設定檔
 			List<Map<String, Object>> sysItemList = new LinkedList<Map<String, Object>>();
 			List<SysMenuVO> folderList = searchFolder(sysMenuList);
 			for (SysMenuVO sysMenu : folderList) {
@@ -503,25 +518,30 @@ public class MenuSupportUtils {
 				if (menuItemList==null || menuItemList.size()<1) {
 					continue;
 				}
+				String menuProgMultiName = getProgramMultiName(sysMenu, localeCode);
 				Map<String, Object> sysMenuMap = new HashMap<String, Object>();
 				sysMenuMap.put("id", sysMenu.getOid());
 				sysMenuMap.put("progId", sysMenu.getProgId());
-				sysMenuMap.put("name", sysMenu.getName());
+				//sysMenuMap.put("name", sysMenu.getName());
+				sysMenuMap.put("name", menuProgMultiName); // 改用去找多語言設定檔
 				sysMenuMap.put("type", sysMenu.getItemType());
 				//sysMenuMap.put("url", " ");
 				sysMenuMap.put("onclick", " ");
 				sysMenuMap.put("label", IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) + StringEscapeUtils.escapeHtml4(sysMenu.getName()) );
 				List<Map<String, Object>> childItemList = new LinkedList<Map<String, Object>>();
 				for (SysMenuVO menuItem : menuItemList) {					
+					String menuItemProgMultiName = getProgramMultiName(menuItem, localeCode);
 					Map<String, Object> itemMap = new HashMap<String, Object>();
 					itemMap.put("id", menuItem.getOid());
 					itemMap.put("progId", menuItem.getProgId());
-					itemMap.put("name", menuItem.getName());
+					//itemMap.put("name", menuItem.getName());
+					itemMap.put("name", menuItemProgMultiName); // 改用去找多語言設定檔
 					itemMap.put("type", menuItem.getItemType());
 					itemMap.put("parent", menuItem.getParentOid());
 					//itemMap.put("url", getUrl(basePath, sys, menuItem) );			
 					itemMap.put("onclick", menuItem.getProgId()+"_TabShow()");
-					itemMap.put("label", IconUtils.getMenuIcon(basePath, menuItem.getIcon()) + StringEscapeUtils.escapeHtml4(menuItem.getName()) );
+					//itemMap.put("label", IconUtils.getMenuIcon(basePath, menuItem.getIcon()) + StringEscapeUtils.escapeHtml4(menuItem.getName()) );
+					itemMap.put("label", IconUtils.getMenuIcon(basePath, menuItem.getIcon()) + StringEscapeUtils.escapeHtml4(menuItemProgMultiName) ); // 改用去找多語言設定檔
 					childItemList.add(itemMap);
 				}
 				sysMenuMap.put("children", childItemList);
@@ -537,10 +557,28 @@ public class MenuSupportUtils {
 	
 	public static String getProgramName(String progId) throws ServiceException, Exception {
 		if (StringUtils.isBlank(progId)) {
-			return "";
+			return "unknown-program";
 		}
 		return sysProgService.findNameForProgId(progId);
 	}
+	
+	public static String getProgramName(String progId, String localeCode) throws ServiceException, Exception {
+		if (StringUtils.isBlank(progId)) {
+			return "unknown-program";
+		}
+		String defaultName = getProgramName(progId);
+		if (LocaleLanguageUtils.getMap().get(localeCode) == null) {
+			return defaultName;
+		}
+		TbSysProg sysProg = new TbSysProg();
+		sysProg.setName(defaultName);
+		sysProg.setProgId(progId);
+		String multiName = getProgramMultiName(sysProg, localeCode);
+		if (!StringUtils.isBlank(multiName)) {
+			return multiName;
+		}
+		return defaultName;
+	}	
 	
 	public static String getTwitterAccordionPane() throws ServiceException, Exception {
 		Map<String, Object> settingsMap = Constants.getSettingsMap();
@@ -595,6 +633,49 @@ public class MenuSupportUtils {
 	 */
 	public static String getFirstLoadJavascript() throws ServiceException, Exception {		
 		return SystemSettingConfigureUtils.getFirstLoadJavascriptValue();
+	}
+	
+	public static String getSystemMultiName(TbSys system, String localeCode) throws ServiceException, Exception {
+		if (null == system) {
+			return "unknown-system";
+		}
+		if (LocaleLanguageUtils.getMap().get(localeCode) == null) {
+			return system.getName();
+		}
+		TbSysMultiName multiName = new TbSysMultiName();
+		multiName.setSysId(system.getSysId());
+		multiName.setLocaleCode(localeCode);
+		multiName = sysMultiNameService.findByEntityUK(multiName);
+		if (multiName != null && !StringUtils.isBlank(multiName.getName()) 
+				&& YesNo.YES.equals(multiName.getEnableFlag())) {
+			return multiName.getName();
+		}
+		return system.getName();
+	}
+	
+	public static String getProgramMultiName(TbSysProg sysProg, String localeCode) throws ServiceException, Exception {
+		if (null == sysProg) {
+			return "unknown-program";
+		}
+		if (LocaleLanguageUtils.getMap().get(localeCode) == null) {
+			return sysProg.getName();
+		}
+		TbSysProgMultiName multiName = new TbSysProgMultiName();
+		multiName.setProgId(sysProg.getProgId());
+		multiName.setLocaleCode(localeCode);
+		multiName = sysProgMultiNameService.findByEntityUK(multiName);
+		if (multiName != null && !StringUtils.isBlank(multiName.getName())
+				&& YesNo.YES.equals(multiName.getEnableFlag())) {
+			return multiName.getName();
+		}
+		return sysProg.getName();
+	}
+	
+	public static String getProgramMultiName(SysMenuVO menu, String localeCode) throws ServiceException, Exception {
+		TbSysProg sysProg = new  TbSysProg();
+		sysProg.setProgId(menu.getProgId());
+		sysProg.setName(menu.getName());
+		return getProgramMultiName(sysProg, localeCode);
 	}
 
 }

@@ -35,8 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<link rel="stylesheet" href="<%=basePath%>/d3/nv.d3.css">
 	
-    <script type="text/javascript" src="<%=basePath%>core.configJsAction.action?ver=${jsVerBuild}"></script>
-    <script type="text/javascript" src="<%=basePath%>core.generateMenuJs.action?ver=${jsVerBuild}"></script>
+    <script type="text/javascript" src="<%=basePath%>core.configJsAction.action?ver=${jsVerBuild}&lc=${LocaleCode}"></script>
+    <script type="text/javascript" src="<%=basePath%>core.generateMenuJs.action?ver=${jsVerBuild}&lc=${LocaleCode}"></script>
     
 	<script>
 		var dojoConfig = {

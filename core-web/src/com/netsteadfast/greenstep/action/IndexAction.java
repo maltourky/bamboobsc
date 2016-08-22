@@ -21,6 +21,7 @@
  */
 package com.netsteadfast.greenstep.action;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -31,6 +32,7 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.sys.UserAccountHttpSessionSupport;
 import com.netsteadfast.greenstep.model.MenuResultObj;
+import com.netsteadfast.greenstep.util.LocaleLanguageUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.util.SystemSettingConfigureUtils;
 
@@ -57,7 +59,9 @@ public class IndexAction extends BaseSupportAction {
 					UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext()));
 			comboButtonMenuData = menuData.getHtmlData();
 			dialogData = menuData.getDialogHtmlData();
-			treeJsonData = MenuSupportUtils.getMenuTreeJsonDataStr(super.getBasePath());
+			treeJsonData = MenuSupportUtils.getMenuTreeJsonDataStr(
+					super.getBasePath(),
+					UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -90,6 +94,14 @@ public class IndexAction extends BaseSupportAction {
 	
 	public String getLeftAccordionContainerEnable() {
 		return SystemSettingConfigureUtils.getLeftAccordionContainerEnableValue();
+	}
+	
+	public String getLocaleCode() {
+		String locale = UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() );
+		if (StringUtils.isBlank(locale)) {
+			locale = LocaleLanguageUtils.getDefault();
+		}
+		return locale;
 	}
 	
 }
