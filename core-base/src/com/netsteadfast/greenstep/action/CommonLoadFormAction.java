@@ -69,7 +69,7 @@ public class CommonLoadFormAction extends BaseQueryGridJsonAction implements IBa
 		Map<String, String> resultMap = SystemFormUtils.processExpression(
 				formMethod, 
 				this, this.datas, this.getPageOf(), this.getSearchValue(), this.items, 
-				this.getFields(), this.getFieldsId(),
+				this.getFields(), this.getFieldsId(), this.getFieldsMessage(),
 				super.getHttpServletRequest());	
 		if (FormResultType.DEFAULT.equals(formMethod.getResultType())) {
 			this.viewPage = SystemFormUtils.getViewPage(resultMap);

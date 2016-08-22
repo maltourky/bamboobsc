@@ -115,7 +115,7 @@ public class SystemFormUtils {
 	
 	private static Map<String, Object> getParameters(SysFormMethodVO formMethod, Object actionObj,
 			Map<String, Object> actionDatas, PageOf pageOf, SearchValue searchValue, List<Map<String, String>> items, 
-			Map<String, String> fields, List<String> fieldsId) throws Exception {
+			Map<String, String> fields, List<String> fieldsId, Map<String, String> fieldsMessage) throws Exception {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("formMethodObj", formMethod);
@@ -128,6 +128,7 @@ public class SystemFormUtils {
 		paramMap.put("items", items);
 		paramMap.put("fields", fields);
 		paramMap.put("fieldsId", fieldsId);
+		paramMap.put("fieldsMessage", fieldsMessage);
 		return paramMap;
 	}	
 	
@@ -151,14 +152,14 @@ public class SystemFormUtils {
 	
 	public static Map<String, String> processExpression(SysFormMethodVO formMethod, Object actionObj,
 			Map<String, Object> actionDatas, PageOf pageOf, SearchValue searchValue, List<Map<String, String>> items, 
-			Map<String, String> fields, List<String> fieldsId,
+			Map<String, String> fields, List<String> fieldsId, Map<String, String> fieldsMessage,
 			HttpServletRequest request) throws ControllerException, ServiceException, Exception {		
 		
 		Map<String, String> resultMap = new HashMap<String, String>();
 		SysFormVO form = findForm( formMethod.getFormId() );
 		String expression = new String(formMethod.getExpression(), Constants.BASE_ENCODING);
 		Map<String, Object> paramMap = getParameters(
-				formMethod, actionObj, actionDatas, pageOf, searchValue, items, fields, fieldsId);
+				formMethod, actionObj, actionDatas, pageOf, searchValue, items, fields, fieldsId, fieldsMessage);
 		ScriptExpressionUtils.execute(
 				formMethod.getType(), 
 				expression, 
