@@ -23,7 +23,7 @@
 		</action>	
 		
 		<!-- multi name -->
-		<action name="core.systemProgramMultiNameCreateAction" class="core.web.controller.SystemProgramManagementAction" method="edit">
+		<action name="core.systemProgramMultiNameCreateAction" class="core.web.controller.SystemProgramManagementAction" method="createMultiName">
 			<result name="input">/pages/sys-program/sys-prog-multi-name-create.jsp</result>		
 			<result name="success">/pages/sys-program/sys-prog-multi-name-create.jsp</result>
 		</action>
