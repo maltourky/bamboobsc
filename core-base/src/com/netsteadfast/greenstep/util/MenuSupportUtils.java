@@ -527,7 +527,8 @@ public class MenuSupportUtils {
 				sysMenuMap.put("type", sysMenu.getItemType());
 				//sysMenuMap.put("url", " ");
 				sysMenuMap.put("onclick", " ");
-				sysMenuMap.put("label", IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) + StringEscapeUtils.escapeHtml4(sysMenu.getName()) );
+				//sysMenuMap.put("label", IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) + StringEscapeUtils.escapeHtml4(sysMenu.getName()) );
+				sysMenuMap.put("label", IconUtils.getMenuIcon(basePath, sysMenu.getIcon()) + StringEscapeUtils.escapeHtml4(menuProgMultiName) ); // 改用去找多語言設定檔
 				List<Map<String, Object>> childItemList = new LinkedList<Map<String, Object>>();
 				for (SysMenuVO menuItem : menuItemList) {					
 					String menuItemProgMultiName = getProgramMultiName(menuItem, localeCode);
