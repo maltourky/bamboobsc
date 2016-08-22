@@ -49,6 +49,7 @@ import com.netsteadfast.greenstep.service.ISysIconService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.util.IconUtils;
+import com.netsteadfast.greenstep.util.LocaleLanguageUtils;
 import com.netsteadfast.greenstep.util.MenuSupportUtils;
 import com.netsteadfast.greenstep.vo.SysIconVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
@@ -70,6 +71,8 @@ public class SystemProgramManagementAction extends BaseSupportAction implements 
 	private String firstIconValue = "";	
 	private String editIconValue = "";
 	private SysProgVO sysProg = new SysProgVO();
+	private Map<String, Object> langDataMap = LocaleLanguageUtils.getMap();
+	private String pageLocaleCode = UserAccountHttpSessionSupport.getLang( ServletActionContext.getContext() );
 	
 	public SystemProgramManagementAction() {
 		super();
@@ -245,6 +248,29 @@ public class SystemProgramManagementAction extends BaseSupportAction implements 
 		}
 		return forward;		
 	}
+	
+	/**
+	 * core.systemProgramMultiNameCreateAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0002E_S00")
+	public String createMultiName() throws Exception {
+		String forward = RESULT_SEARCH_NO_DATA;
+		try {
+			this.loadSysProgData();
+			forward = SUCCESS;
+		} catch (ControllerException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (ServiceException e) {
+			this.setPageMessage(e.getMessage().toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.setPageMessage(e.getMessage().toString());
+		}
+		return forward;
+	}	
 
 	public Map<String, String> getIconDataMap() {
 		return iconDataMap;
@@ -292,6 +318,14 @@ public class SystemProgramManagementAction extends BaseSupportAction implements 
 
 	public void setSysProg(SysProgVO sysProg) {
 		this.sysProg = sysProg;
+	}
+
+	public Map<String, Object> getLangDataMap() {
+		return langDataMap;
+	}
+
+	public String getPageLocaleCode() {
+		return pageLocaleCode;
 	}
 
 }

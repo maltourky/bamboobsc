@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.netsteadfast.greenstep.action.utils.IdFieldCheckUtils;
+import com.netsteadfast.greenstep.action.utils.NormalFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.NotBlankFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.SelectItemFieldCheckUtils;
 import com.netsteadfast.greenstep.action.utils.SysProgUrlFieldCheckUtils;
@@ -47,8 +48,11 @@ import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
 import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.model.MenuItemType;
+import com.netsteadfast.greenstep.po.hbm.TbSysProgMultiName;
+import com.netsteadfast.greenstep.service.ISysProgMultiNameService;
 import com.netsteadfast.greenstep.service.logic.ISystemProgramLogicService;
 import com.netsteadfast.greenstep.util.SimpleUtils;
+import com.netsteadfast.greenstep.vo.SysProgMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 
 @ControllerAuthority(check=true)
@@ -58,6 +62,7 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 	private static final long serialVersionUID = 6286854555166585626L;
 	protected Logger logger=Logger.getLogger(SystemProgramManagementSaveOrUpdateAction.class);
 	private ISystemProgramLogicService systemProgramLogicService; 
+	private ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService;
 	private String message = "";
 	private String success = IS_NO;	
 	
@@ -76,6 +81,18 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 			ISystemProgramLogicService systemProgramLogicService) {
 		this.systemProgramLogicService = systemProgramLogicService;
 	}
+	
+	@JSON(serialize=false)
+	public ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> getSysProgMultiNameService() {
+		return sysProgMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysProgMultiNameService")
+	public void setSysProgMultiNameService(
+			ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService) {
+		this.sysProgMultiNameService = sysProgMultiNameService;
+	}	
 	
 	private void checkFields(String workType) throws ControllerException {
 		this.getCheckFieldHandler()
@@ -104,6 +121,13 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 		}
 		
 	}
+	
+	private void checkFieldsForMultiName() throws ControllerException {
+		super.getCheckFieldHandler()
+		.add("name", 		NotBlankFieldCheckUtils.class, "Name is required!")
+		.add("localeCode", 	NormalFieldCheckUtils.class, "Locale is required!")
+		.process().throwMessage();
+	}	
 
 	/**
 	 * 產生 TB_SYS_PROG 資料
@@ -199,6 +223,50 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 	}	
 	
 	/**
+	 * 產生多語名稱資料 tb_sys_prog_multi_name
+	 * 
+	 * @throws ControllerException
+	 * @throws AuthorityException
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	private void multiNameSave() throws ControllerException, AuthorityException, ServiceException, Exception {
+		this.checkFieldsForMultiName();
+		SysProgMultiNameVO multiName = new SysProgMultiNameVO();
+		this.transformFields2ValueObject(multiName, new String[]{"progId", "name", "localeCode"});
+		if ("true".equals(super.getFields().get("enableFlag"))) {
+			multiName.setEnableFlag(YesNo.YES);
+		} else {
+			multiName.setEnableFlag(YesNo.NO);
+		}
+		DefaultResult<SysProgMultiNameVO> result = this.systemProgramLogicService.createMultiName(multiName);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()==null) {
+			return;
+		}
+		this.success = IS_YES;
+	}
+	
+	/**
+	 * 刪除多語名稱資料 tb_sys_prog_multi_name
+	 * 
+	 * @throws ControllerException
+	 * @throws AuthorityException
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	private void multiNameDelete() throws ControllerException, AuthorityException, ServiceException, Exception {
+		SysProgMultiNameVO multiName = new SysProgMultiNameVO();
+		this.transformFields2ValueObject(multiName, new String[]{"oid"});
+		DefaultResult<Boolean> result = this.sysProgMultiNameService.deleteObject(multiName);
+		this.message = result.getSystemMessage().getValue();
+		if (result.getValue()==null || !result.getValue()) {
+			return;
+		}
+		this.success = IS_YES;
+	}		
+	
+	/**
 	 * core.systemProgramSaveAction.action
 	 * 
 	 * @return
@@ -284,6 +352,64 @@ public class SystemProgramManagementSaveOrUpdateAction extends BaseJsonAction {
 		}
 		return SUCCESS;		
 	}		
+	
+	/**
+	 * core.systemProgramMultiNameSaveAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0002E_S00")
+	public String doMultiNameSave() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.multiNameSave();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}	
+	
+	/**
+	 * core.systemProgramMultiNameDeleteAction.action
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0002E_S00")
+	public String doMultiNameDelete() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.multiNameDelete();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) { // 因為是 JSON 所以不用拋出 throw e 了
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}	
 	
 	@JSON
 	@Override

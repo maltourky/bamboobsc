@@ -41,7 +41,10 @@ import com.netsteadfast.greenstep.base.model.ControllerAuthority;
 import com.netsteadfast.greenstep.base.model.ControllerMethodAuthority;
 import com.netsteadfast.greenstep.base.model.QueryResult;
 import com.netsteadfast.greenstep.po.hbm.TbSysProg;
+import com.netsteadfast.greenstep.po.hbm.TbSysProgMultiName;
+import com.netsteadfast.greenstep.service.ISysProgMultiNameService;
 import com.netsteadfast.greenstep.service.ISysProgService;
+import com.netsteadfast.greenstep.vo.SysProgMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 
 @ControllerAuthority(check=true)
@@ -51,6 +54,7 @@ public class SystemProgramManagementGridQueryAction extends BaseQueryGridJsonAct
 	private static final long serialVersionUID = -986466520750467708L;
 	protected Logger logger=Logger.getLogger(SystemProgramManagementGridQueryAction.class);
 	private ISysProgService<SysProgVO, TbSysProg, String> sysProgService;
+	private ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService;
 	private String message = "";
 	private String success = IS_NO;
 	private List<Map<String, String>> items=new ArrayList<Map<String, String>>();
@@ -70,6 +74,18 @@ public class SystemProgramManagementGridQueryAction extends BaseQueryGridJsonAct
 			ISysProgService<SysProgVO, TbSysProg, String> sysProgService) {
 		this.sysProgService = sysProgService;
 	}
+	
+	@JSON(serialize=false)
+	public ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> getSysProgMultiNameService() {
+		return sysProgMultiNameService;
+	}
+
+	@Autowired
+	@Resource(name="core.service.SysProgMultiNameService")
+	public void setSysProgMultiNameService(
+			ISysProgMultiNameService<SysProgMultiNameVO, TbSysProgMultiName, String> sysProgMultiNameService) {
+		this.sysProgMultiNameService = sysProgMultiNameService;
+	}	
 	
 	private void query() throws ControllerException, AuthorityException, ServiceException, Exception {
 		QueryResult<List<SysProgVO>> queryResult = this.sysProgService.findGridResult(
@@ -92,6 +108,27 @@ public class SystemProgramManagementGridQueryAction extends BaseQueryGridJsonAct
 				searchList, 
 				new String[]{"oid", "progId", "name", "url", "progSystem", "itemType"});		
 	}	
+	
+	private void queryMultiName() throws ControllerException, AuthorityException, ServiceException, Exception {
+		QueryResult<List<SysProgMultiNameVO>> queryResult = this.sysProgMultiNameService.findGridResult(
+				super.getSearchValue(), 
+				super.getPageOf());
+		this.success = IS_YES; 
+		if (queryResult.getValue()==null) {
+			this.message=super.defaultString(queryResult.getSystemMessage().getValue());
+			return;
+		}
+		this.setGridData2(queryResult.getValue());		
+	}	
+	
+	private void setGridData2(List<SysProgMultiNameVO> searchList) throws Exception {
+		if (searchList==null || searchList.size()<1) {
+			return;
+		}
+		this.items = super.transformSearchGridList2JsonDataMapList(
+				searchList, 
+				new String[]{"oid", "progId", "localeCode", "name", "enableFlag", "defaultName"});
+	}
 	
 	/**
 	 * core.systemProgramManagementGridQueryAction.action
@@ -118,6 +155,32 @@ public class SystemProgramManagementGridQueryAction extends BaseQueryGridJsonAct
 		}
 		return SUCCESS;
 	}	
+	
+	/**
+	 * core.systemProgramMultiNameGridQueryAction.action
+	 */
+	@ControllerMethodAuthority(programId="CORE_PROG001D0002E_S00")
+	public String doQueryMultiName() throws Exception {
+		try {
+			if (!this.allowJob()) {
+				this.message = this.getNoAllowMessage();
+				return SUCCESS;
+			}
+			this.queryMultiName();
+		} catch (ControllerException ce) {
+			this.message=ce.getMessage().toString();
+		} catch (AuthorityException ae) {
+			this.message=ae.getMessage().toString();
+		} catch (ServiceException se) {
+			this.message=se.getMessage().toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.message=e.getMessage().toString();
+			this.logger.error(e.getMessage());
+			this.success = IS_EXCEPTION;
+		}
+		return SUCCESS;
+	}		
 
 	@JSON
 	@Override

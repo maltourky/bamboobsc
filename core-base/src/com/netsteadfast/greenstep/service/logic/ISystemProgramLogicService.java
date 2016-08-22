@@ -23,6 +23,7 @@ package com.netsteadfast.greenstep.service.logic;
 
 import com.netsteadfast.greenstep.base.exception.ServiceException;
 import com.netsteadfast.greenstep.base.model.DefaultResult;
+import com.netsteadfast.greenstep.vo.SysProgMultiNameVO;
 import com.netsteadfast.greenstep.vo.SysProgVO;
 
 public interface ISystemProgramLogicService {
@@ -59,5 +60,15 @@ public interface ISystemProgramLogicService {
 	 * @throws Exception
 	 */
 	public DefaultResult<Boolean> delete(SysProgVO sysProg) throws ServiceException, Exception;
+	
+	/**
+	 * 產生 tb_sys_prog_multi_name 資料
+	 * 
+	 * @param multiName
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public DefaultResult<SysProgMultiNameVO> createMultiName(SysProgMultiNameVO multiName) throws ServiceException, Exception;
 	
 }

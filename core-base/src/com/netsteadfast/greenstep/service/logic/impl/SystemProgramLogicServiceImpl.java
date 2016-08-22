@@ -57,6 +57,7 @@ import com.netsteadfast.greenstep.service.ISysProgMultiNameService;
 import com.netsteadfast.greenstep.service.ISysProgService;
 import com.netsteadfast.greenstep.service.ISysService;
 import com.netsteadfast.greenstep.service.logic.ISystemProgramLogicService;
+import com.netsteadfast.greenstep.util.LocaleLanguageUtils;
 import com.netsteadfast.greenstep.vo.SysIconVO;
 import com.netsteadfast.greenstep.vo.SysMenuRoleVO;
 import com.netsteadfast.greenstep.vo.SysMenuVO;
@@ -270,6 +271,38 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 		}
 		
 		return this.sysProgService.deleteObject(sysProg);
+	}
+
+	/**
+	 * 產生 tb_sys_prog_multi_name 資料
+	 * 
+	 * @param multiName
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */	
+	@ServiceMethodAuthority(type={ServiceMethodType.INSERT})
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )	
+	@Override
+	public DefaultResult<SysProgMultiNameVO> createMultiName(SysProgMultiNameVO multiName) throws ServiceException, Exception {
+		if (null == multiName || super.isBlank(multiName.getProgId()) || super.isBlank(multiName.getName())
+				|| super.isBlank(multiName.getLocaleCode())) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.PARAMS_BLANK));
+		}
+		if (LocaleLanguageUtils.getMap().get(multiName.getLocaleCode()) == null) {
+			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.DATA_ERRORS));
+		}
+		SysProgVO sysProg = new SysProgVO();
+		sysProg.setProgId(multiName.getProgId());
+		DefaultResult<SysProgVO> progResult = this.sysProgService.findByUK(sysProg);
+		if (progResult.getValue() == null) {
+			throw new ServiceException(progResult.getSystemMessage().getValue());
+		}		
+		super.setStringValueMaxLength(multiName, "name", 100);
+		return this.sysProgMultiNameService.saveObject(multiName);
 	}
 	
 }
