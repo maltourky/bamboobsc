@@ -2,6 +2,10 @@
 -----------------------------------------------------------
 1. Add system and program item multi name support, need self use
    "01 - Application site multi name (Create)" or "02 - Program registration multi name (Create)" to management name.
+   
+   reference: 
+   https://github.com/billchen198318/bamboobsc/issues/30
+   
 2. Add KPI report some label name modify (01 - Report property).
 3. Fix BUG, KPI report export PNG image file mode cannot show all body.
 4. Some modifications
