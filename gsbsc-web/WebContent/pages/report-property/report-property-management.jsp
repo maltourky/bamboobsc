@@ -37,6 +37,17 @@ BSC_PROG004D0001Q_fieldsId['perspectiveTitle'] 		= 'BSC_PROG004D0001Q_perspectiv
 BSC_PROG004D0001Q_fieldsId['objectiveTitle'] 		= 'BSC_PROG004D0001Q_objectiveTitle';
 BSC_PROG004D0001Q_fieldsId['kpiTitle'] 				= 'BSC_PROG004D0001Q_kpiTitle';
 BSC_PROG004D0001Q_fieldsId['classNote'] 			= 'BSC_PROG004D0001Q_classNote';
+BSC_PROG004D0001Q_fieldsId['scoreLabel'] 			= 'BSC_PROG004D0001Q_scoreLabel';
+BSC_PROG004D0001Q_fieldsId['weightLabel'] 			= 'BSC_PROG004D0001Q_weightLabel';
+BSC_PROG004D0001Q_fieldsId['maxLabel'] 				= 'BSC_PROG004D0001Q_maxLabel';
+BSC_PROG004D0001Q_fieldsId['targetLabel'] 			= 'BSC_PROG004D0001Q_targetLabel';
+BSC_PROG004D0001Q_fieldsId['minLabel'] 				= 'BSC_PROG004D0001Q_minLabel';
+BSC_PROG004D0001Q_fieldsId['managementLabel'] 		= 'BSC_PROG004D0001Q_managementLabel';
+BSC_PROG004D0001Q_fieldsId['calculationLabel'] 		= 'BSC_PROG004D0001Q_calculationLabel';
+BSC_PROG004D0001Q_fieldsId['unitLabel'] 			= 'BSC_PROG004D0001Q_unitLabel';
+BSC_PROG004D0001Q_fieldsId['formulaLabel'] 			= 'BSC_PROG004D0001Q_formulaLabel';
+BSC_PROG004D0001Q_fieldsId['organizationLabel'] 	= 'BSC_PROG004D0001Q_organizationLabel';
+BSC_PROG004D0001Q_fieldsId['employeeLabel'] 		= 'BSC_PROG004D0001Q_employeeLabel';
 
 function BSC_PROG004D0001Q_saveSuccess(data) { // data 是 json 資料
 	setFieldsBackgroundDefault(BSC_PROG004D0001Q_fieldsId);
@@ -59,6 +70,17 @@ function BSC_PROG004D0001Q_clear() {
 	dijit.byId('BSC_PROG004D0001Q_classNote').set("value", "");
 	dijit.byId('BSC_PROG004D0001Q_colorPicker1').set("value", "#000000");
 	dijit.byId('BSC_PROG004D0001Q_colorPicker2').set("value", "#ffffff");
+	dijit.byId('BSC_PROG004D0001Q_scoreLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_weightLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_maxLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_targetLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_minLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_managementLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_calculationLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_unitLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_formulaLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_organizationLabel').set("value", "");
+	dijit.byId('BSC_PROG004D0001Q_employeeLabel').set("value", "");
 }
 
 //------------------------------------------------------------------------------
@@ -89,7 +111,7 @@ function ${programId}_page_message() {
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="800px" >
+	<table border="0" width="1000px" >
 		<tr valign="top">
 			<td width="100%" align="left" height="30%">
 			    <table border="0" width="800px" height="150px">
@@ -150,7 +172,128 @@ function ${programId}_page_message() {
 				</div> 		    		
 		    </td>
 		</tr>     		
-		<tr>			
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Score label" id="BSC_PROG004D0001Q_scoreLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_scoreLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_scoreLabel" id="BSC_PROG004D0001Q_scoreLabel" value="fields.scoreLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_scoreLabel'">
+    				Input Report score label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Weight label" id="BSC_PROG004D0001Q_weightLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_weightLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_weightLabel" id="BSC_PROG004D0001Q_weightLabel" value="fields.weightLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_weightLabel'">
+    				Input Report weight label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Max label" id="BSC_PROG004D0001Q_maxLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_maxLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_maxLabel" id="BSC_PROG004D0001Q_maxLabel" value="fields.maxLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_maxLabel'">
+    				Input Report max label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Target label" id="BSC_PROG004D0001Q_targetLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_targetLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_targetLabel" id="BSC_PROG004D0001Q_targetLabel" value="fields.targetLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_targetLabel'">
+    				Input Report target label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Min label" id="BSC_PROG004D0001Q_minLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_minLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_minLabel" id="BSC_PROG004D0001Q_minLabel" value="fields.minLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_minLabel'">
+    				Input Report min label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Management label" id="BSC_PROG004D0001Q_managementLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_managementLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_managementLabel" id="BSC_PROG004D0001Q_managementLabel" value="fields.managementLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_managementLabel'">
+    				Input Report management label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Calculation label" id="BSC_PROG004D0001Q_calculationLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_calculationLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_calculationLabel" id="BSC_PROG004D0001Q_calculationLabel" value="fields.calculationLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_calculationLabel'">
+    				Input Report calculation label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Unit label" id="BSC_PROG004D0001Q_unitLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_unitLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_unitLabel" id="BSC_PROG004D0001Q_unitLabel" value="fields.unitLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_unitLabel'">
+    				Input Report unit label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Formula label" id="BSC_PROG004D0001Q_formulaLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_formulaLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_formulaLabel" id="BSC_PROG004D0001Q_formulaLabel" value="fields.formulaLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_formulaLabel'">
+    				Input Report formula label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Organization label" id="BSC_PROG004D0001Q_organizationLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_organizationLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_organizationLabel" id="BSC_PROG004D0001Q_organizationLabel" value="fields.organizationLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_organizationLabel'">
+    				Input Report organization label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100%" height="50px" align="left" >
+				<gs:label text="Employee label" id="BSC_PROG004D0001Q_employeeLabel" requiredFlag="Y"></gs:label>
+				<gs:inputfieldNoticeMsgLabel id="BSC_PROG004D0001Q_employeeLabel"></gs:inputfieldNoticeMsgLabel>
+				<br/>
+				<gs:textBox name="BSC_PROG004D0001Q_employeeLabel" id="BSC_PROG004D0001Q_employeeLabel" value="fields.employeeLabel" maxlength="50"></gs:textBox>
+				<div data-dojo-type="dijit/Tooltip" data-dojo-props="connectId:'BSC_PROG004D0001Q_employeeLabel'">
+    				Input Report employee label text.
+				</div> 
+			</td>
+		</tr>
+		<tr>
 			<td width="100%" align="left" >
 			    <gs:button name="BSC_PROG004D0001Q_save" id="BSC_PROG004D0001Q_save" onClick="BSC_PROG004D0001Q_save();"
 	    			handleAs="json"
@@ -164,7 +307,18 @@ function ${programId}_page_message() {
 	   						'fields.kpiTitle'				:	dijit.byId('BSC_PROG004D0001Q_kpiTitle').get('value'),	   						
 	   						'fields.fontColor'				:	dijit.byId('BSC_PROG004D0001Q_colorPicker1').get('value'),
 	   						'fields.backgroundColor'		:	dijit.byId('BSC_PROG004D0001Q_colorPicker2').get('value'),
-	   						'fields.classNote'				:	dijit.byId('BSC_PROG004D0001Q_classNote').get('value')
+	   						'fields.classNote'				:	dijit.byId('BSC_PROG004D0001Q_classNote').get('value'),
+	   						'fields.scoreLabel'				:	dijit.byId('BSC_PROG004D0001Q_scoreLabel').get('value'),
+	   						'fields.weightLabel'			:	dijit.byId('BSC_PROG004D0001Q_weightLabel').get('value'),
+	   						'fields.maxLabel'				:	dijit.byId('BSC_PROG004D0001Q_maxLabel').get('value'),
+	   						'fields.targetLabel'			:	dijit.byId('BSC_PROG004D0001Q_targetLabel').get('value'),
+	   						'fields.minLabel'				:	dijit.byId('BSC_PROG004D0001Q_minLabel').get('value'),
+	   						'fields.managementLabel'		:	dijit.byId('BSC_PROG004D0001Q_managementLabel').get('value'),
+	   						'fields.calculationLabel'		:	dijit.byId('BSC_PROG004D0001Q_calculationLabel').get('value'),
+	   						'fields.unitLabel'				:	dijit.byId('BSC_PROG004D0001Q_unitLabel').get('value'),
+	   						'fields.formulaLabel'			:	dijit.byId('BSC_PROG004D0001Q_formulaLabel').get('value'),
+	   						'fields.organizationLabel'		:	dijit.byId('BSC_PROG004D0001Q_organizationLabel').get('value'),
+	   						'fields.employeeLabel'			:	dijit.byId('BSC_PROG004D0001Q_employeeLabel').get('value')
 	   					}
 					"
 	   				errorFn=""

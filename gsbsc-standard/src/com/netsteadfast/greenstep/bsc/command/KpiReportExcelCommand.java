@@ -588,15 +588,15 @@ public class KpiReportExcelCommand extends BaseChainCommandSupport implements Co
 	
 	private String getItemsContent(String name, float score, BigDecimal weight, float target, float min) {
 		String str = "";
-		str = name + "\n" + "score: " + BscReportSupportUtils.parse2(score) + "\n" + "weight: " + weight.toString() + "%" + "\n" +
-				"Target: " + target + "\n" + "min: " + min;
+		str = name + "\n" + BscReportPropertyUtils.getScoreLabel() + " " + BscReportSupportUtils.parse2(score) + "\n" + BscReportPropertyUtils.getWeightLabel() + " " + weight.toString() + "%" + "\n" +
+				BscReportPropertyUtils.getTargetLabel() + " " + target + "\n" + BscReportPropertyUtils.getMinLabel() + " " + min;
 		return str;
 	}
 	
 	private String getItemsContent(String name, float score, BigDecimal weight, float max, float target, float min) {
 		String str = "";
-		str = name + "\n" + "score: " + BscReportSupportUtils.parse2(score) + "\n" + "weight: " + weight.toString() + "%" + "\n" +
-				"Max:" + max + "\n" + "Target: " + target + "\n" + "min: " + min;
+		str = name + "\n" + BscReportPropertyUtils.getScoreLabel() + " " + BscReportSupportUtils.parse2(score) + "\n" + BscReportPropertyUtils.getWeightLabel() + " " + weight.toString() + "%" + "\n" +
+				BscReportPropertyUtils.getMaxLabel() + " " + max + "\n" + BscReportPropertyUtils.getTargetLabel() + " " + target + "\n" + BscReportPropertyUtils.getMinLabel() + " " + min;
 		return str;
 	}	
 	
@@ -614,10 +614,10 @@ public class KpiReportExcelCommand extends BaseChainCommandSupport implements Co
 
 	private String getKpisContent(KpiVO kpi, Map<String, String> managementMap) throws Exception {
 		String str = this.getItemsContent(kpi.getName(), kpi.getScore(), kpi.getWeight(), kpi.getMax(), kpi.getTarget(), kpi.getMin());
-		str += "\n" + "management: " + managementMap.get(kpi.getManagement()) + "\n" + 
-				"Calculation: " + AggregationMethodUtils.getNameByAggrId(kpi.getCal()) + "\n" + 
-				"Unit: " + kpi.getUnit() + "\n" + 
-				"Formula: " + kpi.getFormula().getName() + "\n" +
+		str += "\n" + BscReportPropertyUtils.getManagementLabel() + " " + managementMap.get(kpi.getManagement()) + "\n" + 
+				BscReportPropertyUtils.getCalculationLabel() + " " + AggregationMethodUtils.getNameByAggrId(kpi.getCal()) + "\n" + 
+				BscReportPropertyUtils.getUnitLabel() + " " + kpi.getUnit() + "\n" + 
+				BscReportPropertyUtils.getFormulaLabel() + " " + kpi.getFormula().getName() + "\n" +
 				StringUtils.defaultString( kpi.getDescription() );
 		return str;
 	}	

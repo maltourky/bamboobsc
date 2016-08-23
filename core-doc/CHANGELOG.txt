@@ -1,3 +1,13 @@
+0.6.6
+-----------------------------------------------------------
+1. Add system and program item multi name support, need self use
+   "01 - Application site multi name (Create)" or "02 - Program registration multi name (Create)" to management name.
+2. Add KPI report some label name modify (01 - Report property).
+3. Fix BUG, KPI report export PNG image file mode cannot show all body.
+4. Some modifications
+5. If have previous data in MYSQL(bbcore) E.g: 0.6.5 or 0.6.4 old version, please update sql command file patch_065_up_066.sql
+
+
 0.6.5.1
 -----------------------------------------------------------
 1. Add input-field notice message label for Create/Edit page.

@@ -53,6 +53,17 @@ public class ReportPropertyManagementAction extends BaseSupportAction implements
 		this.getFields().put("objectiveTitle", BscReportPropertyUtils.getObjectiveTitle() );
 		this.getFields().put("kpiTitle", BscReportPropertyUtils.getKpiTitle() );
 		this.getFields().put("classNote", BscReportPropertyUtils.getPersonalReportClassLevel() );
+		this.getFields().put("scoreLabel", BscReportPropertyUtils.getScoreLabel() );
+		this.getFields().put("weightLabel", BscReportPropertyUtils.getWeightLabel() );
+		this.getFields().put("maxLabel", BscReportPropertyUtils.getMaxLabel() );
+		this.getFields().put("targetLabel", BscReportPropertyUtils.getTargetLabel() );
+		this.getFields().put("minLabel", BscReportPropertyUtils.getMaxLabel() );
+		this.getFields().put("managementLabel", BscReportPropertyUtils.getManagementLabel() );
+		this.getFields().put("calculationLabel", BscReportPropertyUtils.getCalculationLabel() );
+		this.getFields().put("unitLabel", BscReportPropertyUtils.getUnitLabel() );
+		this.getFields().put("formulaLabel", BscReportPropertyUtils.getFormulaLabel() );
+		this.getFields().put("organizationLabel", BscReportPropertyUtils.getOrganizationLabel() );
+		this.getFields().put("employeeLabel", BscReportPropertyUtils.getEmployeeLabel() );
 	}
 	
 	/**

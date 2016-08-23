@@ -201,6 +201,17 @@ public class KpiReportBodyCommand extends BaseChainCommandSupport implements Com
 		parameter.put("perspectiveTitle", BscReportPropertyUtils.getPerspectiveTitle() );
 		parameter.put("objectiveTitle", BscReportPropertyUtils.getObjectiveTitle() );
 		parameter.put("kpiTitle", BscReportPropertyUtils.getKpiTitle() );
+		parameter.put("scoreLabel", BscReportPropertyUtils.getScoreLabel() );
+		parameter.put("weightLabel", BscReportPropertyUtils.getWeightLabel() );
+		parameter.put("maxLabel", BscReportPropertyUtils.getMaxLabel() );
+		parameter.put("targetLabel", BscReportPropertyUtils.getTargetLabel() );
+		parameter.put("minLabel", BscReportPropertyUtils.getMinLabel() );
+		parameter.put("managementLabel", BscReportPropertyUtils.getManagementLabel() );
+		parameter.put("calculationLabel", BscReportPropertyUtils.getCalculationLabel() );
+		parameter.put("unitLabel", BscReportPropertyUtils.getUnitLabel() );
+		parameter.put("formulaLabel", BscReportPropertyUtils.getFormulaLabel() );
+		parameter.put("organizationLabel", BscReportPropertyUtils.getOrganizationLabel() );
+		parameter.put("employeeLabel", BscReportPropertyUtils.getEmployeeLabel() );
 	}
 
 	private void fillHeadContent(Context context, Map<String, Object> parameter) throws ServiceException, Exception {

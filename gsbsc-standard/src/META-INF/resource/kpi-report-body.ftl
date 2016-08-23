@@ -7,7 +7,7 @@
 				<b>
 				<font color="${vision.fontColor}" size="+2">
 					${vision.title}<BR/>
-					score:&nbsp;${vision.score?string(',###.##')}
+					${scoreLabel}&nbsp;${vision.score?string(',###.##')}
 				</font>
 				</b>
 			</td>
@@ -33,7 +33,7 @@
 					<tr>
 						<td align="left" bgcolor="${perspective.bgColor}" width="15%">
 							<font color="${perspective.fontColor}" >
-							score:
+							${scoreLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${perspective.bgColor}" width="85%">
@@ -45,7 +45,7 @@
 					<tr>
 						<td align="left" bgcolor="${perspective.bgColor}" width="15%">
 							<font color="${perspective.fontColor}" >
-							weight:
+							${weightLabel}
 							</font>
 						</td>
 						<td align="left">
@@ -57,7 +57,7 @@
 					<tr>
 						<td align="left" bgcolor="${perspective.bgColor}" width="15%">
 							<font color="${perspective.fontColor}" >
-							Target:
+							${targetLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${perspective.bgColor}" width="85%">
@@ -69,7 +69,7 @@
 					<tr>
 						<td align="left" bgcolor="${perspective.bgColor}" width="15%">
 							<font color="${perspective.fontColor}" >
-							min:
+							${minLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${perspective.bgColor}" width="85%">
@@ -108,7 +108,7 @@
 					<tr>
 						<td align="left" bgcolor="${objective.bgColor}" width="15%">
 							<font color="${objective.fontColor}" >
-							score:
+							${scoreLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${objective.bgColor}" width="85%">
@@ -120,7 +120,7 @@
 					<tr>
 						<td align="left" bgcolor="${objective.bgColor}" width="15%">
 							<font color="${objective.fontColor}" >
-							weight:
+							${weightLabel}
 							</font>
 						</td>
 						<td align="left">
@@ -132,7 +132,7 @@
 					<tr>
 						<td align="left" bgcolor="${objective.bgColor}" width="15%">
 							<font color="${objective.fontColor}" >
-							Target:
+							${targetLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${objective.bgColor}" width="85%">
@@ -144,7 +144,7 @@
 					<tr>
 						<td align="left" bgcolor="${objective.bgColor}" width="15%">
 							<font color="${objective.fontColor}" >
-							min:
+							${minLabel}
 							</font>
 						</td>
 						<td align="left" bgcolor="${objective.bgColor}" width="85%">
@@ -179,7 +179,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									score:
+									${scoreLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -191,7 +191,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									weight:
+									${weightLabel}
 									</font>
 								</td>
 								<td align="left">
@@ -203,7 +203,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Max:
+									${maxLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -215,7 +215,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Target:
+									${targetLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -227,7 +227,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									min:
+									${minLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -239,7 +239,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									management:
+									${managementLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -251,7 +251,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Calculation:
+									${calculationLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -263,7 +263,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Unit:
+									${unitLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -275,7 +275,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Formula:
+									${formulaLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -287,7 +287,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Organizations:
+									${organizationLabel}
 									</font>
 								</td>							
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -301,7 +301,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Employees:
+									${employeeLabel}
 									</font>
 								</td>								
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">

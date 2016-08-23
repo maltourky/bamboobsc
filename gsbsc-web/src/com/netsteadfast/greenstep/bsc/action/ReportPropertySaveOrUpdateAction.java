@@ -81,6 +81,17 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 		.add("objectiveTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_objectiveTitle") )
 		.add("kpiTitle", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_kpiTitle") )
 		.add("classNote", NotBlankFieldCheckUtils.class, this.getText("MESSAGE.BSC_PROG004D0001Q_classNote") )
+		.add("scoreLabel", NotBlankFieldCheckUtils.class, "Score label is required!" )
+		.add("weightLabel", NotBlankFieldCheckUtils.class, "Weight label is required!" )
+		.add("maxLabel", NotBlankFieldCheckUtils.class, "Max label is required!" )
+		.add("targetLabel", NotBlankFieldCheckUtils.class, "Target label is required!" )
+		.add("minLabel", NotBlankFieldCheckUtils.class, "Min label is required!" )
+		.add("managementLabel", NotBlankFieldCheckUtils.class, "Management label is required!" )
+		.add("calculationLabel", NotBlankFieldCheckUtils.class, "Calculation label is required!" )
+		.add("unitLabel", NotBlankFieldCheckUtils.class, "Unit label is required!" )
+		.add("formulaLabel", NotBlankFieldCheckUtils.class, "Formula label is required!" )
+		.add("organizationLabel", NotBlankFieldCheckUtils.class, "Organization label is required!" )
+		.add("employeeLabel", NotBlankFieldCheckUtils.class, "Employee label is required!" )
 		.process().throwMessage();
 		
 		String classNote = this.getFields().get("classNote");
@@ -107,6 +118,17 @@ public class ReportPropertySaveOrUpdateAction extends BaseJsonAction {
 		this.updateSysCode(BscReportCode.OBJECTIVE_TITLE, this.getFields().get("objectiveTitle") );
 		this.updateSysCode(BscReportCode.KPI_TITLE, this.getFields().get("kpiTitle") );
 		this.updateSysCode(BscReportCode.PERSONAL_REPORT_CLASS_LEVEL, this.getFields().get("classNote") );
+		this.updateSysCode(BscReportCode.SCORE_LABEL, this.getFields().get("scoreLabel") );
+		this.updateSysCode(BscReportCode.WEIGHT_LABEL, this.getFields().get("weightLabel") );
+		this.updateSysCode(BscReportCode.MAX_LABEL, this.getFields().get("maxLabel") );
+		this.updateSysCode(BscReportCode.TARGET_LABEL, this.getFields().get("targetLabel") );
+		this.updateSysCode(BscReportCode.MIN_LABEL, this.getFields().get("minLabel") );
+		this.updateSysCode(BscReportCode.MANAGEMENT_LABEL, this.getFields().get("managementLabel") );
+		this.updateSysCode(BscReportCode.CALCULATION_LABEL, this.getFields().get("calculationLabel") );
+		this.updateSysCode(BscReportCode.UNIT_LABEL, this.getFields().get("unitLabel") );
+		this.updateSysCode(BscReportCode.FORMULA_LABEL, this.getFields().get("formulaLabel") );
+		this.updateSysCode(BscReportCode.ORGANIZATION_LABEL, this.getFields().get("organizationLabel") );
+		this.updateSysCode(BscReportCode.EMPLOYEE_LABEL, this.getFields().get("employeeLabel") );
 		this.message = SysMessageUtil.get(GreenStepSysMsgConstants.UPDATE_SUCCESS);
 		this.success = IS_YES;
 	}	

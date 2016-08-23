@@ -30,7 +30,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									score:
+									${scoreLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -42,7 +42,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									weight:
+									${weightLabel}
 									</font>
 								</td>
 								<td align="left">
@@ -54,7 +54,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Max:
+									${maxLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -66,7 +66,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Target:
+									${targetLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -78,7 +78,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									min:
+									${minLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -90,7 +90,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									management:
+									${managementLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -102,7 +102,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Calculation:
+									${calculationLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -114,7 +114,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Unit:
+									${unitLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -126,7 +126,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Formula:
+									${formulaLabel}
 									</font>
 								</td>
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -138,7 +138,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Organizations:
+									${organizationLabel}
 									</font>
 								</td>							
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">
@@ -152,7 +152,7 @@
 							<tr>
 								<td align="left" bgcolor="${kpi.bgColor}" width="15%">
 									<font color="${kpi.fontColor}" >
-									Employees:
+									${employeeLabel}
 									</font>
 								</td>								
 								<td align="left" bgcolor="${kpi.bgColor}" width="85%">

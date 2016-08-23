@@ -54,13 +54,16 @@ public class BscReportPropertyUtils {
 	private static String getParameterValue(String code) {
 		List<TbSysCode> sysCodeList = sysCodeThreadLocal.get();
 		if (sysCodeList==null) {
-			return "";
+			return code;
 		}		
 		String value = "";
 		for (TbSysCode sysCode : sysCodeList) {
 			if (sysCode.getCode().equals(code)) {
 				value = StringUtils.defaultString( sysCode.getParam1() );
 			}
+		}
+		if (StringUtils.isBlank(value)) {
+			return code;
 		}
 		return value;		
 	}
@@ -87,6 +90,50 @@ public class BscReportPropertyUtils {
 	
 	public static String getPersonalReportClassLevel() {
 		return getParameterValue(BscReportCode.PERSONAL_REPORT_CLASS_LEVEL);
+	}
+	
+	public static String getScoreLabel() {
+		return getParameterValue(BscReportCode.SCORE_LABEL);
+	}
+	
+	public static String getWeightLabel() {
+		return getParameterValue(BscReportCode.WEIGHT_LABEL);
+	}
+	
+	public static String getMaxLabel() {
+		return getParameterValue(BscReportCode.MAX_LABEL);
+	}
+	
+	public static String getTargetLabel() {
+		return getParameterValue(BscReportCode.TARGET_LABEL);
+	}
+	
+	public static String getMinLabel() {
+		return getParameterValue(BscReportCode.MIN_LABEL);
+	}
+	
+	public static String getManagementLabel() {
+		return getParameterValue(BscReportCode.MANAGEMENT_LABEL);
+	}
+	
+	public static String getCalculationLabel() {
+		return getParameterValue(BscReportCode.CALCULATION_LABEL);
+	}
+	
+	public static String getUnitLabel() {
+		return getParameterValue(BscReportCode.UNIT_LABEL);
+	}
+	
+	public static String getFormulaLabel() {
+		return getParameterValue(BscReportCode.FORMULA_LABEL);
+	}
+	
+	public static String getOrganizationLabel() {
+		return getParameterValue(BscReportCode.ORGANIZATION_LABEL);
+	}
+	
+	public static String getEmployeeLabel() {
+		return getParameterValue(BscReportCode.EMPLOYEE_LABEL);
 	}
 	
 }
