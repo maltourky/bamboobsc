@@ -349,7 +349,7 @@ function ${programId}_page_message() {
 			</td>
 			<td valign="top" align="center" >
 				<div data-dojo-type="dijit.TitlePane" data-dojo-props="title: '<s:property value="getText('BSC_PROG002D0005Q_options')" escapeJavaScript="true"/>' " >						
-					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:115px">
+					<div dojoType="dijit.layout.ContentPane" region="left" splitter="false" style="width:99%;height:125px">
    						<table border="0" width="100%" height="100%">
    							<tr>							
    								<td width="20%" align="right">
