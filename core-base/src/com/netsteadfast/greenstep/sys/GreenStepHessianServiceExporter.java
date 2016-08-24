@@ -79,7 +79,6 @@ public class GreenStepHessianServiceExporter extends HessianServiceExporter {
 		Subject subject = null;
 		try {
 			ShiroLoginSupport loginSupport = new ShiroLoginSupport();
-			loginSupport = new ShiroLoginSupport();
 			subject = loginSupport.forceCreateLoginSubject(request, response, GreenStepHessianUtils.getUserId(dataMap), "0123");
 			super.handleRequest(request, response);				
 		} catch (Exception e) {
