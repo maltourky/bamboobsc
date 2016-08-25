@@ -21,16 +21,16 @@
  */
 package com.netsteadfast.greenstep.bsc.webservice;
 
-import java.util.List;
+//import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceKpiVO;
-import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceResponseVO;
-import com.netsteadfast.greenstep.vo.MeasureDataVO;
+//import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceKpiVO;
+//import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceResponseVO;
+//import com.netsteadfast.greenstep.vo.MeasureDataVO;
 
 @WebService
 @SOAPBinding

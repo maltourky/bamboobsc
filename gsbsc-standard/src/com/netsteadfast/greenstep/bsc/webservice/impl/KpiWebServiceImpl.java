@@ -21,31 +21,31 @@
  */
 package com.netsteadfast.greenstep.bsc.webservice.impl;
 
-import java.util.List;
+//import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.BeanUtils;
+//import org.apache.commons.lang3.StringUtils;
+//import org.apache.shiro.subject.Subject;
+//import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.netsteadfast.greenstep.base.AppContext;
-import com.netsteadfast.greenstep.base.exception.AuthorityException;
-import com.netsteadfast.greenstep.base.exception.ServiceException;
-import com.netsteadfast.greenstep.base.model.DefaultResult;
-import com.netsteadfast.greenstep.base.model.YesNo;
+//import com.netsteadfast.greenstep.base.exception.AuthorityException;
+//import com.netsteadfast.greenstep.base.exception.ServiceException;
+//import com.netsteadfast.greenstep.base.model.DefaultResult;
+//import com.netsteadfast.greenstep.base.model.YesNo;
 import com.netsteadfast.greenstep.bsc.service.logic.IKpiLogicService;
-import com.netsteadfast.greenstep.bsc.service.logic.IMeasureDataLogicService;
-import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceKpiVO;
-import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceResponseVO;
+//import com.netsteadfast.greenstep.bsc.service.logic.IMeasureDataLogicService;
+//import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceKpiVO;
+//import com.netsteadfast.greenstep.bsc.vo.SimpleWsServiceResponseVO;
 import com.netsteadfast.greenstep.bsc.webservice.KpiWebService;
-import com.netsteadfast.greenstep.sys.ShiroLoginSupport;
-import com.netsteadfast.greenstep.vo.KpiVO;
-import com.netsteadfast.greenstep.vo.MeasureDataVO;
+//import com.netsteadfast.greenstep.sys.ShiroLoginSupport;
+//import com.netsteadfast.greenstep.vo.KpiVO;
+//import com.netsteadfast.greenstep.vo.MeasureDataVO;
 
 @Service("bsc.webservice.KpiWebService")
 @WebService
