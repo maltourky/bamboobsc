@@ -88,6 +88,21 @@ public class ShiroLoginSupport {
 		return subject;
 	}
 	
+	public Subject forceCreateLoginSubject(String accountId) throws Exception {
+		AccountVO account = this.queryUser( accountId );
+		if ( account == null ) {
+			logger.warn( "no accountId: " + accountId );
+			throw new Exception( "no accountId: " + accountId );
+		}
+		Subject subject = SecurityUtils.getSubject();
+		GreenStepBaseUsernamePasswordToken token = new GreenStepBaseUsernamePasswordToken();
+		token.setCaptcha( "0123" );
+		token.setUsername( account.getAccount() );
+		token.setPassword( account.getPassword().toCharArray() );
+		subject.login(token);
+		return subject;
+	}
+	
 	public AccountVO queryUserValidate(String account) throws Exception {
 		AccountVO accountObj = this.queryUser(account);
 		this.userValidate(accountObj);
