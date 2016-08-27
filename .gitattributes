@@ -7,12 +7,14 @@
 *.png linguist-vendored=false
 *.jpg linguist-vendored=false
 *.php linguist-vendored=false
+*.properties linguist-vendored=false
 *.js linguist-language=Java
 *.htm linguist-language=Java
 *.html linguist-language=Java
 *.css linguist-language=Java
 *.txt linguist-language=Java
 *.bak linguist-language=Java
+*.properties linguist-language=Java
 *.js linguist-documentation=false
 *.htm linguist-documentation=false
 *.html linguist-documentation=false
@@ -22,3 +24,4 @@
 *.png linguist-documentation=false
 *.jpg linguist-documentation=false
 *.php linguist-documentation=false
+*.properties linguist-documentation=false
