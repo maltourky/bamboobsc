@@ -13,3 +13,12 @@
 *.css linguist-language=Java
 *.txt linguist-language=Java
 *.bak linguist-language=Java
+*.js linguist-documentation=false
+*.htm linguist-documentation=false
+*.html linguist-documentation=false
+*.css linguist-documentation=false
+*.txt linguist-documentation=false
+*.bak linguist-documentation=false
+*.png linguist-documentation=false
+*.jpg linguist-documentation=false
+*.php linguist-documentation=false
