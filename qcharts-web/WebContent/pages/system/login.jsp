@@ -1,6 +1,8 @@
 <%@page import="com.netsteadfast.greenstep.util.LocaleLanguageUtils"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="gs" uri="http://www.gsweb.org/controller/tag" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -25,11 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <style type="text/css">
 <!--
-
-.style1 {
-	color: #585858;
-	font-weight: bold;
-}
 
 input {
     margin: 0px;
@@ -122,7 +119,7 @@ function redirectLogin(sel) {
 	  
 	  <table id="loginTable" width="640" border="0" cellpadding="2" cellspacing="2">	 
         <tr> 
-          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_language')"/>:</span></td>
+          <td width="160" align="right"><gs:label text="${action.getText('LOGIN_language')}" id="LOGIN_language"></gs:label></td>
           <td width="160" align="left">
           	<select name="lang" id="lang" onchange="redirectLogin(this);">
           	<%
@@ -148,11 +145,11 @@ function redirectLogin(sel) {
 		<!-- ##### -->
 		
         <tr>  
-          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_username')"/>:</span></td>
+          <td width="160" align="right"><gs:label text="${action.getText('LOGIN_username')}" id="LOGIN_username"></gs:label></td>
           <td width="160" align="left"><s:textfield name="username" id="username" maxlength="12" maxSize="12" theme="simple"/></td>
         </tr>
         <tr> 
-          <td width="160" align="right"><span class="style1"><s:property value="getText('LOGIN_password')"/>:</span></td>
+          <td width="160" align="right"><gs:label text="${action.getText('LOGIN_password')}" id="LOGIN_password"></gs:label></td>
           <td width="160" align="left"><s:password name="password" id="password" maxlength="25" maxSize="12" theme="simple"/></td>
         </tr>        
         <tr>         

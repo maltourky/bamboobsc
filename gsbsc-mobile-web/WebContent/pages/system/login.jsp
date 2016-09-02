@@ -1,6 +1,8 @@
 <%@page import="com.netsteadfast.greenstep.util.LocaleLanguageUtils"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="gs" uri="http://www.gsweb.org/controller/tag" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -53,7 +55,7 @@ function pageMessage() {
 	  <table id="loginTable" width="270" border="0" cellpadding="2" cellspacing="2">	 
         <tr>           
           <td width="100%" align="center">     
-          	<label for="lang"><s:property value="getText('LOGIN_language')"/>:</label>     	
+          	<label for="lang"><gs:label text="${action.getText('LOGIN_language')}" id="LOGIN_language"></gs:label></label>     	
           	<select name="lang" id="lang" data-mini="true" onchange="redirectLogin(this);">
           	<%
           	String defaultLang = (String)request.getAttribute("lang");
@@ -82,13 +84,13 @@ function pageMessage() {
 		        
         <tr>  
         	<td width="100%" align="center">
-        		<label for="username"><s:property value="getText('LOGIN_username')"/>:</label>
+        		<label for="username"><gs:label text="${action.getText('LOGIN_username')}" id="LOGIN_username"></gs:label></label>
         		<input name="username" id="username" value="" type="text">
         	</td>
         </tr>
         <tr> 
         	<td width="100%" align="center">
-        		<label for="password"><s:property value="getText('LOGIN_password')"/>:</label>
+        		<label for="password"><gs:label text="${action.getText('LOGIN_password')}" id="LOGIN_password"></gs:label></label>
         		<input name="password" id="password" value="" autocomplete="off" type="password">		
         	</td>
         </tr>        
