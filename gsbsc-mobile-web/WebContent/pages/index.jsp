@@ -1,6 +1,8 @@
 <%@page import="com.netsteadfast.greenstep.util.LocaleLanguageUtils"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="gs" uri="http://www.gsweb.org/controller/tag" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -251,12 +253,16 @@ function pageMessage() {
 <div data-role="panel" id="leftpanel1" data-position="left" data-display="reveal" data-theme="a">
 	<table width="100%">	
 	    <tr valign="top">
-	    	<td bgcolor="#ffffff"><img src="./images/original.jpg" width="220" height="30" /></td>
+	    	<td bgcolor="#ffffff">
+	    	<img src="./images/original.jpg" width="220" height="30" />
+	    	<br/>
+	    	<hr color="#3794E5" size="2"></hr>
+	    	</td>
 	    </tr>		
 		<tr valign="top">
 			<td width="100%">
 			
-				<label for="frequency"><s:property value="getText('INDEX_frequency')"/>:</label>				    
+				<label for="frequency"><gs:label text="${action.getText('INDEX_frequency')}" id="INDEX_frequency"></gs:label></label>				    
 				<select name="frequency" id="frequency" data-mini="true">
 					<s:iterator value="frequencyMap" status="st" var="cols">
 						<option value="<s:property value="#cols.key"/>" <s:if test=" \"6\" == #cols.key "> SELECTED </s:if> ><s:property value="#cols.value"/></option>	
@@ -268,7 +274,7 @@ function pageMessage() {
 		<tr valign="top">
 			
 			<td width="100%">
-				<label for="date1"><s:property value="getText('INDEX_date1')"/>:</label>
+				<label for="date1"><gs:label text="${action.getText('INDEX_date1')}" id="INDEX_date1"></gs:label></label>
 				<input data-role="date" type="text" name="date1" id="date1" value="${measureDataDate1}"/>
 			</td>
 			
@@ -276,7 +282,7 @@ function pageMessage() {
 		<tr valign="top">
 			
 			<td width="100%">
-				<label for="date2"><s:property value="getText('INDEX_date2')"/>:</label>
+				<label for="date2"><gs:label text="${action.getText('INDEX_date2')}" id="INDEX_date2"></gs:label></label>
 				<input data-role="date" type="text" name="date2" id="date2" value="${measureDataDate1}"/>
 			</td>
 			
