@@ -265,8 +265,8 @@ function displayInfo(d) {
 	content+='</tr>';	
 	if (d!=null) {
 		content+='<tr>';
-		content+='<td align="center" width="50%" bgcolor="' + d.colour + '" ><font color="' + d.fontColor + '" >' + d.name + '</font></td>';
-		content+='<td align="center" width="50%" bgcolor="' + d.colour + '" ><font color="' + d.fontColor + '" >score: ' + d.score + '</font></td>';
+		content+='<td align="center" width="50%" bgcolor="' + d.colour + '" style="border-radius: 5px;"><font color="' + d.fontColor + '" >' + d.name + '</font></td>';
+		content+='<td align="center" width="50%" bgcolor="' + d.colour + '" style="border-radius: 5px;"><font color="' + d.fontColor + '" >score: ' + d.score + '</font></td>';
 		content+='</tr>';
 	}
 	content+='</table>';
