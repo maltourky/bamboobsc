@@ -564,7 +564,8 @@ function setFieldsBackgroundAlert(fieldsId, viewFieldsId) {
 			continue;
 		}
 		var domNode = dijit.byId(idName).domNode;
-		dojo.style(domNode,"background","#FFF0BC"); // OLD-ver: set bg to like red #F8E0E0
+		//dojo.style(domNode,"background","#FFF0BC"); // OLD-ver: set bg to like red #F8E0E0
+		dojo.style(domNode,"background","#faffbd");
 	}
 }
 
@@ -595,8 +596,8 @@ function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
 		if ( dojo.byId(idName) == null ) {
 			continue;
 		}
-		//dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #BDE5F8;' color='#B40404'>&nbsp;" + msg + "&nbsp;</font>";
-		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + msg + "&nbsp;</font>";
+		//dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + msg + "&nbsp;</font>";
+		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid;' color='#b11157'>&nbsp;" + msg + "&nbsp;</font>";
 	}	
 }
 
@@ -610,7 +611,8 @@ function showFieldsNoticeMessageLabel(noticeLabelId, message) {
 	if (dojo.byId(noticeLabelId) == null) {
 		return;
 	}
-	dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + message + "&nbsp;</font>";
+	//dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + message + "&nbsp;</font>";
+	dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid;' color='#b11157'>&nbsp;" + message + "&nbsp;</font>";
 }
 
 /**
