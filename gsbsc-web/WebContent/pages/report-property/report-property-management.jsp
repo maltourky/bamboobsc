@@ -96,7 +96,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="tundra" role="main">
+<body class="flat">
 
 	<gs:toolBar
 		id="${programId}" 
@@ -104,14 +104,14 @@ function ${programId}_page_message() {
 		cancelJsMethod="${programId}_TabClose();" 
 		createNewEnable="N"
 		createNewJsMethod=""		 
-		saveEnabel="N" 
-		saveJsMethod=""
+		saveEnabel="Y" 
+		saveJsMethod="BSC_PROG004D0001Q_save();"
 		refreshEnable="Y" 		 
 		refreshJsMethod="${programId}_TabRefresh();" 		
 		></gs:toolBar>
 	<jsp:include page="../header.jsp"></jsp:include>	
 	
-	<table border="0" width="1000px" >
+	<table border="0" height="1050px">
 		<tr valign="top">
 			<td width="100%" align="left" height="30%">
 			    <table border="0" width="800px" height="150px">
@@ -294,7 +294,7 @@ function ${programId}_page_message() {
 			</td>
 		</tr>
 		<tr>
-			<td width="100%" align="left" >
+			<td width="100%" align="left" height="25px">
 			    <gs:button name="BSC_PROG004D0001Q_save" id="BSC_PROG004D0001Q_save" onClick="BSC_PROG004D0001Q_save();"
 	    			handleAs="json"
 	    			sync="N"

@@ -597,7 +597,7 @@ function setFieldsNoticeMessageLabel(fieldsId, fieldsMessage, viewFieldsId) {
 			continue;
 		}
 		//dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + msg + "&nbsp;</font>";
-		dojo.byId(idName).innerHTML = "<font style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid;' color='#b11157'>&nbsp;" + msg + "&nbsp;</font>";
+		dojo.byId(idName).innerHTML = "<span style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid; color: #b11157; height: 12px; display: inline-block; overflow: hidden; margin: 0; vertical-align:top; line-height: 12px;'>&nbsp;" + msg + "&nbsp;</span>";
 	}	
 }
 
@@ -612,7 +612,7 @@ function showFieldsNoticeMessageLabel(noticeLabelId, message) {
 		return;
 	}
 	//dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #B40404;' color='#fafafa'>&nbsp;" + message + "&nbsp;</font>";
-	dojo.byId(noticeLabelId).innerHTML = "<font style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid;' color='#b11157'>&nbsp;" + message + "&nbsp;</font>";
+	dojo.byId(noticeLabelId).innerHTML = "<span style='border-radius: 5px; background-color: #fcdede; border: 1px #d2b2b2 solid; color: #b11157; height: 12px; display: inline-block; overflow: hidden; margin: 0; vertical-align:top; line-height: 12px;'>&nbsp;" + message + "&nbsp;</span>";
 }
 
 /**

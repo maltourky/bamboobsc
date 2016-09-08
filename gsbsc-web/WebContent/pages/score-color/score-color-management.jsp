@@ -118,7 +118,7 @@ function ${programId}_page_message() {
 
 </head>
 
-<body class="tundra" role="main">
+<body class="flat">
 
 	<gs:toolBar
 		id="${programId}" 
