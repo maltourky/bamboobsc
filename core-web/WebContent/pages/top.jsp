@@ -12,8 +12,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table border="0" width="100%" cellspacing="0" cellpadding="0" style="background: linear-gradient(to top, #ffffff, #f3f3f3);" >
 		<tr>
 			<td width="70%" align="left">
-			
-				<div id="comboButtonMenu" data-dojo-type="dijit.form.ComboButton" data-dojo-props=" iconClass:'dijitIconConfigure' " class="alt-success">
+				<!-- 
+				2016-09-14 change dijit/form/ComboButton to dijit/form/DropDownButton
+				-->
+				<div id="comboButtonMenu" data-dojo-type="dijit/form/DropDownButton" data-dojo-props=" iconClass:'dijitIconConfigure' " class="alt-success">
 					<span><s:property value="getText('IndexAction_applicationName')"/></span>				
 					<div dojoType="dijit.Menu" >	
 							
@@ -25,7 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>					
 				</div>			
 				&nbsp;&nbsp;
-				<div id="comboButtonHelp" data-dojo-type="dijit.form.ComboButton">
+				<!-- 
+				2016-09-14 change dijit/form/ComboButton to dijit/form/DropDownButton
+				-->
+				<div id="comboButtonHelp" data-dojo-type="dijit/form/DropDownButton">
 					<span><s:property value="getText('IndexAction_help')"/></span>
 					<div dojoType="dijit.Menu" id="helpMenu">
 						<div dojoType="dijit.MenuItem" data-dojo-props='onClick:function(){ window.open("https://github.com/billchen198318/bamboobsc/raw/master/core-doc/bamboobsc-guide.pdf"); }' ><s:property value="getText('IndexAction_manual')"/></div>
@@ -54,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- dlg -->			
 ${dialogData}
 
-<div id="pleaseWaitDlg" dojoType="dojox.widget.DialogSimple" style="width: 420px; height: 140px" title="Please wait">
+<div id="pleaseWaitDlg" dojoType="dojox/widget/DialogSimple" style="width: 420px; height: 140px" title="Please wait">
 	<table border="0" width="100%">
 		<tr valign="top">
 			<td>
