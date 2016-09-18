@@ -269,7 +269,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public DefaultResult<T> findObjectByOid(T object) throws ServiceException, Exception {		
 		if (object==null || !(object instanceof BaseValueObj) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -468,7 +468,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	
 	@SuppressWarnings("unchecked")
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public E findByOid(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -481,7 +481,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	
 	@SuppressWarnings("unchecked")
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public int countByOid(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -505,7 +505,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public E findByPK(String pk) throws ServiceException, Exception {
 		if (pk==null) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -514,7 +514,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public int countByPK(String pk) throws ServiceException, Exception {
 		if (pk==null) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -541,7 +541,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	
 	@SuppressWarnings("rawtypes")
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public E findByPK(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -555,7 +555,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	
 	@SuppressWarnings("rawtypes")
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public int countByPK(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -580,7 +580,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public E findByPKng(PK pk) throws ServiceException, Exception {
 		if (pk==null) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -589,7 +589,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public int countByPKng(PK pk) throws ServiceException, Exception {
 		if (pk==null) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -611,7 +611,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	 * @throws Exception
 	 */		
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public long countByParams(
 			Map<String, Object> params, 
 			Map<String, String> likeParams) throws ServiceException, Exception {
@@ -620,7 +620,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public long countByParams(Map<String, Object> params) throws ServiceException, Exception {
 		
 		return countByParams(params, null);
@@ -642,7 +642,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public List<E> findListByParams(
 			Map<String, Object> params, 
 			Map<String, String> likeParams) throws ServiceException, Exception {
@@ -668,7 +668,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public List<E> findListByParams(
 			Map<String, Object> params, 
 			Map<String, String> likeParams,
@@ -680,7 +680,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public List<E> findListByParams(Map<String, Object> params) throws ServiceException, Exception {
 		
 		return findListByParams(params, null);
@@ -689,7 +689,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public List<E> findListByParams2(
 			Map<String, CustomeOperational> customOperParams) throws ServiceException, Exception {
 		
@@ -699,7 +699,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public List<E> findListByParams2(
 			Map<String, Object> params,
 			Map<String, CustomeOperational> customOperParams) throws ServiceException, Exception {
@@ -710,7 +710,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)		
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)		
 	public List<E> findListByParams2(
 			Map<String, Object> params,
 			Map<String, String> likeParams,
@@ -722,7 +722,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)		
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)		
 	public List<E> findListByParams2(
 			Map<String, Object> params,
 			Map<String, String> likeParams,
@@ -736,7 +736,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	public List<T> findListVOByParams(Map<String, Object> params) throws ServiceException, Exception {
 		
 		List<T> returnList = null;
@@ -757,7 +757,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
 	@Transactional(
 			propagation=Propagation.REQUIRES_NEW, 
-			isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)	
+			isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)	
 	@SuppressWarnings("unchecked")
 	public DefaultResult<T> findByUK(T object) throws ServiceException, Exception {
 		if (object==null || !(object instanceof BaseValueObj) ) {
@@ -787,7 +787,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	@SuppressWarnings("unchecked")
 	public int countByUK(T object) throws ServiceException, Exception {
 		if (object==null || !(object instanceof BaseValueObj) ) {
@@ -806,7 +806,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}	
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public E findByEntityUK(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -819,7 +819,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	}
 	
 	@ServiceMethodAuthority(type={ServiceMethodType.SELECT})
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public int countByEntityUK(E entityObject) throws ServiceException, Exception {
 		if (entityObject==null || !(entityObject instanceof BaseEntity) ) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -833,7 +833,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 	
 	// ------------------------------------------------------------------------------------
 	
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public DefaultResult<List<E>> ibatisSelectListByParams(Map<String, Object> params) throws ServiceException, Exception {
 		if (params == null) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
@@ -848,7 +848,7 @@ public abstract class BaseService<T extends java.io.Serializable, E extends java
 		return result;
 	}
 	
-	@Transactional(isolation=Isolation.REPEATABLE_READ, timeout=25, readOnly=true)
+	@Transactional(isolation=Isolation.READ_COMMITTED, timeout=25, readOnly=true)
 	public DefaultResult<E> ibatisSelectOneByValue(E valueObj) throws ServiceException, Exception {
 		if (null==valueObj) {
 			throw new ServiceException(SysMessageUtil.get(GreenStepSysMsgConstants.OBJ_NULL));
